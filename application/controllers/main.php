@@ -26,12 +26,6 @@ class Main extends CI_Controller {
         $this->_show('login');
     }
 
-    function signUp($value='')
-    {
-        $email = $this->input->post("email");
-        $pass = $this->input->post("pass");
-    }
-
     function test_email(){
         $to       = 'jauhmerah@gmail.com';
         $subject  = 'Testing sendmail.exe';

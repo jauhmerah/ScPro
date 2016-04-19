@@ -11,34 +11,46 @@
 	        $this->load->view("main/login");
 	    }
 
+	    //sql injection alert ***
 	    function signin(){
-	    	$this->load->library("encrypt");
-	    	$arr = $this->input->post();
-	    	echo "<pre>";
-	    	print_r($this->input->post());
-	    	echo "</pre>";
+	    	//$this->load->library("encrypt");
+	    	$email = $this->input->post('email');
+	    	$pass = $this->input->post('pass');
 
-	    	$this->load->library("my_func");	    	
-	    	foreach ($arr as $key => $value) {
-	    		$arr2[$key] = $this->my_func->scpro_encrypt($value);
+	    	$this->load->model('m_login');
+	    	$data = $this->m_login->login($email,$pass);
+	    	if ($data) {
+	    		echo "login Success";
+	    	}else{
+	    		echo "Login Not Success";
 	    	}
+	    	$temp = $this->m_login->get();
 	    	echo "<pre>";
-	    	print_r($arr2);
-	    	echo "</pre>";
-
-	    	foreach ($arr2 as $key => $value) {
-	    		$arr3[$key] = $this->my_func->scpro_decrypt($value);
-	    	}
-	    	echo "<pre>";
-	    	print_r($arr3);
+	    	print_r($temp);
 	    	echo "</pre>";
 	    }
 
 	    function signup(){
-	    	$arr = $this->input->post();
-	    	echo "<pre>";
-	    	print_r($arr);
-	    	echo "</pre>";
+	    	$email = $this->input->post("email");
+	        $pass = $this->input->post("pass");
+
+	        $this->load->library("my_func");
+	        $pass = $this->my_func->scpro_encrypt($pass);
+
+	        echo $email;
+	        echo $pass;
+
+	        $this->load->model("m_login");
+
+	        $data = array(
+	        	"us_email" => $email , 
+	        	"us_pass" => $pass
+	        );
+	        if (!$this->m_login->insert($data)) {
+	        	echo "Not success";
+	        }else{
+	        	echo "success";
+	        }
 	    }
 	}
 	        

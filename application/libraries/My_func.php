@@ -17,7 +17,7 @@
 			if ($length % 2 == 0) {
 				$arr = str_split($val1 , ($length/2));
 			}else{
-				$val1 .= "_";
+				$val1 .= "{_}";
 				$length ++;
 				$arr = str_split($val1 , ($length/2));
 			}
@@ -29,10 +29,10 @@
 			$ci->load->library("encrypt");			
 			$length = strlen($text);
 			//$this->load->library("encrypt");
-			if (strpos($text, "_") === false) {
+			if (strpos($text, "{_}") === false) {
 				$arr = str_split( $text , ($length/2));
 			}else{
-				$arr = explode('_', $text);
+				$arr = explode('{_}', $text);
 			}
 			$val1 = $arr[1].$arr[0];
 			$ci = $this->obj;

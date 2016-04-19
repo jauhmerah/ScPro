@@ -48,8 +48,7 @@
 </style>
 <script>
     $(document).ready(function() {
-        $("#signin").hide();
-
+        $("#signup").hide();
         $(".btn1").click(function() {
             $.when($("#signin").fadeOut('fast')).then(function(){
                 $("#signup").fadeIn('fast');
