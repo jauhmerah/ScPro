@@ -11,7 +11,8 @@
 	    }
 	
 	    function index() {
-	        $this->_show();
+	    	$code['data'] = $this->load->view($this->parent_page.'/'.'index_exp' , '' , true);
+	        $this->_show( 'index' , $code);
 	    }
 
 	    function _show($page = 'index' , $data = null){
@@ -20,6 +21,11 @@
 	    	$this->load->view($this->parent_page.'/'.'headTitle');
     		$this->load->view($this->parent_page.'/'.$page , $data);
     		$this->load->view($this->parent_page.'/'.'footer');
+    	}
+
+    	function getAjaxWebsiteProfile()
+    	{
+    		
     	}
 	}
 	        

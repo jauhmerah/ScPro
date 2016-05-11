@@ -18,6 +18,12 @@
     <script src="<?= base_url(); ?>asset/js/plugins/morris/morris.min.js"></script>
     <script src="<?= base_url(); ?>asset/js/plugins/morris/morris-data.js"></script>
 
+    <script>
+        $(document).ready(function() {
+            alert("huhuhu");
+        });
+    </script>
+
 </body>
 
 </html>

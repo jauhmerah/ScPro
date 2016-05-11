@@ -12,11 +12,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="<?= site_url('dashboard'); ?>">ScPro Admin</a>
+                <a class="navbar-brand" href="<?= site_url('dashboard'); ?>">SB Admin</a>
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
-                <!--<li class="dropdown">
+                <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
                     <ul class="dropdown-menu message-dropdown">
                         <li class="message-preview">
@@ -26,7 +26,7 @@
                                         <img class="media-object" src="http://placehold.it/50x50" alt="">
                                     </span>
                                     <div class="media-body">
-                                        <h5 class="media-heading"><strong>Admin</strong>
+                                        <h5 class="media-heading"><strong>John Smith</strong>
                                         </h5>
                                         <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
                                         <p>Lorem ipsum dolor sit amet, consectetur...</p>
@@ -95,9 +95,9 @@
                             <a href="#">View All</a>
                         </li>
                     </ul>
-                </li>-->
+                </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Admin <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
                             <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
@@ -120,42 +120,42 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li class="active">
-                        <a class = "menu" id="a1"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
-                    </li>                    
+                        <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                    </li>
+                    
                     <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#home"><i class="fa fa-fw fa-home"></i> Home Page<i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="home" class="collapse">
+                        <a href="charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> Charts</a>
+                    </li>
+                    <li>
+                        <a href="tables.html"><i class="fa fa-fw fa-table"></i> Tables</a>
+                    </li>
+                    <li>
+                        <a href="forms.html"><i class="fa fa-fw fa-edit"></i> Forms</a>
+                    </li>
+                    <li>
+                        <a href="bootstrap-elements.html"><i class="fa fa-fw fa-desktop"></i> Bootstrap Elements</a>
+                    </li>
+                    <li>
+                        <a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Bootstrap Grid</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Dropdown <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="demo" class="collapse">
                             <li>
-                                <a class = "menu" id="b1"><i class="fa fa-fw fa-desktop"></i> Website Profile</a>
+                                <a href="#">Dropdown Item</a>
                             </li>
                             <li>
-                                <a class = "menu" id="b2"><i class="fa fa-fw fa-bookmark-o"></i> Banner</a>
-                            </li>
-                            <li>
-                                <a class = "menu" id="b3"><i class="fa fa-fw fa-list-alt"></i> Header</a>
-                            </li>
-                            <li>
-                                <a class = "menu" id="b4"><i class="fa fa-fw fa-tags"></i> Tag Announcement</a><!-- Announcement -->
+                                <a href="#">Dropdown Item</a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a class = "menu" id="a2"><i class="fa fa-fw fa-edit"></i> News</a>
+                        <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Blank Page</a>
                     </li>
                     <li>
-                        <a class = "menu" id="a3"><i class="fa fa-fw fa-picture-o"></i> Galary</a>
-                    </li>                    
-                    <li>
-                        <a class = "menu" id="a4"><i class="fa fa-fw fa-link"></i> Channel</a>
-                    </li>
-                    <li>
-                        <a class = "menu" id="a5"><i class="fa fa-fw fa-wrench"></i> Setting</a>
-                    </li>
-                    <li>
-                        <a class = "menu" id="a6"><i class="fa fa-fw fa-bullhorn"></i> Feedback</a>
+                        <a href="index-rtl.html"><i class="fa fa-fw fa-dashboard"></i> RTL Dashboard</a>
                     </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
         </nav>
-        
