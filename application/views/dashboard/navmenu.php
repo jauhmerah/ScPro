@@ -119,43 +119,44 @@
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
-                    <li class="active">
-                        <a class = "menu" id="a1"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                    <li class = "menu active">
+                        <a id="a1"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>                    
                     <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#home"><i class="fa fa-fw fa-home"></i> Home Page<i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="home" class="collapse">
-                            <li>
-                                <a class = "menu" id="b1"><i class="fa fa-fw fa-desktop"></i> Website Profile</a>
+                            <li class = "menu">
+                                <a id="b1"><i class="fa fa-fw fa-desktop"></i> Website Profile</a>
                             </li>
-                            <li>
-                                <a class = "menu" id="b2"><i class="fa fa-fw fa-bookmark-o"></i> Banner</a>
+                            <li class = "menu">
+                                <a id="b2"><i class="fa fa-fw fa-bookmark-o"></i> Banner</a>
                             </li>
-                            <li>
-                                <a class = "menu" id="b3"><i class="fa fa-fw fa-list-alt"></i> Header</a>
+                            <li class = "menu">
+                                <a id="b3"><i class="fa fa-fw fa-list-alt"></i> Header</a>
                             </li>
-                            <li>
-                                <a class = "menu" id="b4"><i class="fa fa-fw fa-tags"></i> Tag Announcement</a><!-- Announcement -->
+                            <li class = "menu">
+                                <a id="b4"><i class="fa fa-fw fa-tags"></i> Tag Announcement</a><!-- Announcement -->
                             </li>
                         </ul>
                     </li>
-                    <li>
-                        <a class = "menu" id="a2"><i class="fa fa-fw fa-edit"></i> News</a>
+                    <li class = "menu">
+                        <a id="a2"><i class="fa fa-fw fa-edit"></i> News</a>
                     </li>
-                    <li>
-                        <a class = "menu" id="a3"><i class="fa fa-fw fa-picture-o"></i> Galary</a>
+                    <li class = "menu">
+                        <a id="a3"><i class="fa fa-fw fa-picture-o"></i> Galary</a>
                     </li>                    
-                    <li>
-                        <a class = "menu" id="a4"><i class="fa fa-fw fa-link"></i> Channel</a>
+                    <li class = "menu">
+                        <a id="a4"><i class="fa fa-fw fa-link"></i> Channel</a>
                     </li>
-                    <li>
-                        <a class = "menu" id="a5"><i class="fa fa-fw fa-wrench"></i> Setting</a>
+                    <li class = "menu">
+                        <a id="a5"><i class="fa fa-fw fa-wrench"></i> Setting</a>
                     </li>
-                    <li>
-                        <a class = "menu" id="a6"><i class="fa fa-fw fa-bullhorn"></i> Feedback</a>
+                    <li class = "menu">
+                        <a id="a6"><i class="fa fa-fw fa-bullhorn"></i> Feedback</a>
                     </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
         </nav>
-        
+
+         

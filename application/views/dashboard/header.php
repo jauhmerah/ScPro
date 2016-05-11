@@ -10,7 +10,7 @@
     <meta name="author" content="">
 
     <title>Sc Pro Dashboard</title>
-    
+    <script src="<?= base_url(); ?>asset/js/jquery-1.11.1.js"></script>
     <!-- Bootstrap Core CSS -->
     <link href="<?= base_url(); ?>asset/css/bootstrap.min.css" rel="stylesheet">
     
