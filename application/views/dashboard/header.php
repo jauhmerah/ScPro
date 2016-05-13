@@ -30,4 +30,11 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <style type="text/css">
+        .side-nav>li>ul>.active>a {
+            color: #fff;
+            background-color: #080808;
+        }
+    </style>
+
 </head>

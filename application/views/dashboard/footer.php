@@ -11,8 +11,14 @@
 
     <script>
         $(document).ready(function() {
+            var parent_page = "<?= $this->parent_page; ?>/";
             $('.menu').click(function() {
-                alert($(this).children('a').attr('id'));
+                var menu = $(this).children('a').attr('id');
+                alert(menu);
+                $.when($('.active').attr('class', 'menu')).then($(this).attr('class', 'menu active'));
+                $.post(parent_page + "getAjaxWebsitePage", {menu: menu}, function(data) {
+                    
+                });
             });
         });
     </script>

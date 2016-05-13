@@ -25,15 +25,15 @@
 
     	private function _returnPage($page = 'index_exp')
     	{
-    		$page = $parent_page . '/' . $page;
-    		return $this->load->view($page , '' , false);
+    		$page = $this->parent_page . '/' . $page;
+    		return $this->load->view($page , '' , true);
     	}
 
-    	function getAjaxWebsiteProfile()
+    	function getAjaxWebsitePage()
     	{
     		$arr = $this->input->get();
 
-    		switch ($arr['key']) {
+    		switch ($arr['menu']) {
     			case 'a1':
     				# code...
     				break;
@@ -69,6 +69,28 @@
     				# code...
     				break;
     		}
+    	}
+
+    	private function _loadCrud()
+    	{
+    		
+    	}
+
+    	public function websiteProfile()
+    	{
+    		//$this->_loadCrud();
+    		$this->load->database();
+    		$this->load->library('grocery_CRUD');
+    		$crud = new grocery_CRUD();
+    		
+    		$crud->set_table('table');
+    		$crud->set_subject('subject');
+    		
+    		//$output['display'] = $crud->render();
+			$output = $crud->render();
+    		$data['display'] = $this->load->view('crud' , $output , true);
+    		$this->_show('index' , $data);
+    		
     	}
 	}
 	        
