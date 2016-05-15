@@ -39,6 +39,30 @@
 			$val2 = $ci->encrypt->decode($val1);
 			return $val2;
 		}
+
+		function do_upload($path = './assets/uploads/files/', $config = null , $type = 'gif|jpg|png')
+		{	
+			$ci = $this->obj;	
+			$config['upload_path'] = $path;
+			$config['allowed_types'] = $type;
+			$config['max_size']	= '2000';
+			$config['max_width']  = '0';
+			$config['max_height']  = '0';
+			$config['remove_spaces'] = true;
+			$config['encrypt_name'] = true;
+			$ci->load->library('upload', $config);
+
+			if ( ! $ci->upload->do_upload())
+			{
+				$error = array('error' => $ci->upload->display_errors());
+				return $error;
+			}
+			else
+			{
+				$data = array('success' => $ci->upload->data());
+				return $data;
+			}
+		}
 	
 	}
 	

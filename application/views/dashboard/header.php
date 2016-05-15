@@ -7,8 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="">
-
+    <meta name="JauhMerah" content="">
+    <link rel="icon" href="<?= base_url(); ?>assets/cover/favicon.png">
     <title>Sc Pro Dashboard</title>
     <script src="<?= base_url(); ?>asset/js/jquery-1.11.1.js"></script>
     <!-- Bootstrap Core CSS -->

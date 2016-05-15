@@ -7,7 +7,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <!--<link rel="icon" href="http://getbootstrap.com/favicon.ico">-->
+    <link rel="icon" href="<?= base_url(); ?>assets/cover/favicon.png">
 
     <title>Login</title>
 
@@ -80,7 +80,7 @@
   <body>
   <div class = "container">
      <div class="col-lg-offset-5 col-lg-2" align="center">
-         <img src="<?= base_url(); ?>assets/cover/logo.jpg" class="img-responsive" alt="Image">
+         <img src="<?= base_url(); ?>assets/cover/logo.png" class="img-responsive" alt="Image">
      </div> 
   </div>
     <div class="container" id = "signin">

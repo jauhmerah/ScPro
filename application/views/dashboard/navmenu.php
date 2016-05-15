@@ -120,39 +120,39 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li class = "menu active">
-                        <a id="a1"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                        <a href="<?= site_url('dashboard'); ?>"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>                    
                     <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#home"><i class="fa fa-fw fa-home"></i> Home Page<i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="home" class="collapse">
                             <li class = "menu">
-                                <a id="b1"><i class="fa fa-fw fa-desktop"></i> Website Profile</a>
+                                <a href="<?= site_url('dashboard/page/b1'); ?>"><i class="fa fa-fw fa-desktop"></i> Website Profile</a>
                             </li>
                             <li class = "menu">
-                                <a id="b2"><i class="fa fa-fw fa-bookmark-o"></i> Banner</a>
+                                <a href="<?= site_url('dashboard/page/b2'); ?>"><i class="fa fa-fw fa-bookmark-o"></i> Banner</a>
                             </li>
                             <li class = "menu">
-                                <a id="b3"><i class="fa fa-fw fa-list-alt"></i> Header</a>
+                                <a href="<?= site_url('dashboard/page/b3'); ?>"><i class="fa fa-fw fa-list-alt"></i> Header</a>
                             </li>
                             <li class = "menu">
-                                <a id="b4"><i class="fa fa-fw fa-tags"></i> Tag Announcement</a><!-- Announcement -->
+                                <a href="<?= site_url('dashboard/page/b4'); ?>"><i class="fa fa-fw fa-tags"></i> Tag Announcement</a><!-- Announcement -->
                             </li>
                         </ul>
                     </li>
                     <li class = "menu">
-                        <a id="a2"><i class="fa fa-fw fa-edit"></i> News</a>
+                        <a href="<?= site_url('dashboard/page/a1'); ?>"><i class="fa fa-fw fa-edit"></i> News</a>
                     </li>
                     <li class = "menu">
-                        <a id="a3"><i class="fa fa-fw fa-picture-o"></i> Galary</a>
+                        <a href="<?= site_url('dashboard/page/a2'); ?>"><i class="fa fa-fw fa-picture-o"></i> Galary</a>
                     </li>                    
                     <li class = "menu">
-                        <a id="a4"><i class="fa fa-fw fa-link"></i> Channel</a>
+                        <a href="<?= site_url('dashboard/page/a3'); ?>"><i class="fa fa-fw fa-link"></i> Channel</a>
                     </li>
                     <li class = "menu">
-                        <a id="a5"><i class="fa fa-fw fa-wrench"></i> Setting</a>
+                        <a href="<?= site_url('dashboard/page/a4'); ?>"><i class="fa fa-fw fa-wrench"></i> Setting</a>
                     </li>
                     <li class = "menu">
-                        <a id="a6"><i class="fa fa-fw fa-bullhorn"></i> Feedback</a>
+                        <a href="<?= site_url('dashboard/page/a5'); ?>"><i class="fa fa-fw fa-bullhorn"></i> Feedback</a>
                     </li>
                 </ul>
             </div>

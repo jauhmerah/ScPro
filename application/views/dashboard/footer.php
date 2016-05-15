@@ -9,19 +9,7 @@
 
     <!-- jQuery-->
 
-    <script>
-        $(document).ready(function() {
-            var parent_page = "<?= $this->parent_page; ?>/";
-            $('.menu').click(function() {
-                var menu = $(this).children('a').attr('id');
-                alert(menu);
-                $.when($('.active').attr('class', 'menu')).then($(this).attr('class', 'menu active'));
-                $.post(parent_page + "getAjaxWebsitePage", {menu: menu}, function(data) {
-                    
-                });
-            });
-        });
-    </script>
+   
 
     <!-- Bootstrap Core JavaScript -->
     <script src="<?= base_url(); ?>asset/js/bootstrap.min.js"></script>
