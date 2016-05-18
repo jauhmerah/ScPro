@@ -115,43 +115,45 @@
                     </ul>
                 </li>
             </ul>
-            
+            <?php
+                $active = 'class = " active"';
+            ?>
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
-                    <li class = "menu active">
+                    <li <?php if ($link == 'a') { echo $active;} ?>>
                         <a href="<?= site_url('dashboard'); ?>"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>                    
                     <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#home"><i class="fa fa-fw fa-home"></i> Home Page<i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="home" class="collapse">
-                            <li class = "menu">
+                        <a href="javascript:;" data-toggle="collapse" data-target="#home" <?php if (strpos($link, 'b') !== false) { echo "aria-expanded=\"true\"";  } ?>><i class="fa fa-fw fa-home"></i> Home Page<i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="home" <?php if (strpos($link, 'b') !== false) { echo "aria-expanded=\"true\" class=\"collapse in\"";  }else{ echo 'class="collapse"';} ?> >
+                            <li <?php if ($link == 'b1') { echo $active;} ?>>
                                 <a href="<?= site_url('dashboard/page/b1'); ?>"><i class="fa fa-fw fa-desktop"></i> Website Profile</a>
                             </li>
-                            <li class = "menu">
+                            <li <?php if ($link == 'b2') { echo $active;} ?>>
                                 <a href="<?= site_url('dashboard/page/b2'); ?>"><i class="fa fa-fw fa-bookmark-o"></i> Banner</a>
                             </li>
-                            <li class = "menu">
+                            <li <?php if ($link == 'b3') { echo $active;} ?>>
                                 <a href="<?= site_url('dashboard/page/b3'); ?>"><i class="fa fa-fw fa-list-alt"></i> Header</a>
                             </li>
-                            <li class = "menu">
+                            <li <?php if ($link == 'b4') { echo $active;} ?>>
                                 <a href="<?= site_url('dashboard/page/b4'); ?>"><i class="fa fa-fw fa-tags"></i> Tag Announcement</a><!-- Announcement -->
                             </li>
                         </ul>
                     </li>
-                    <li class = "menu">
+                    <li <?php if ($link == 'a1') { echo $active;} ?>>
                         <a href="<?= site_url('dashboard/page/a1'); ?>"><i class="fa fa-fw fa-edit"></i> News</a>
                     </li>
-                    <li class = "menu">
+                    <li <?php if ($link == 'a2') { echo $active;} ?>>
                         <a href="<?= site_url('dashboard/page/a2'); ?>"><i class="fa fa-fw fa-picture-o"></i> Galary</a>
                     </li>                    
-                    <li class = "menu">
+                    <li <?php if ($link == 'a3') { echo $active;} ?>>
                         <a href="<?= site_url('dashboard/page/a3'); ?>"><i class="fa fa-fw fa-link"></i> Channel</a>
                     </li>
-                    <li class = "menu">
+                    <li <?php if ($link == 'a4') { echo $active;} ?>>
                         <a href="<?= site_url('dashboard/page/a4'); ?>"><i class="fa fa-fw fa-wrench"></i> Setting</a>
                     </li>
-                    <li class = "menu">
+                    <li <?php if ($link == 'a5') { echo $active;} ?>>
                         <a href="<?= site_url('dashboard/page/a5'); ?>"><i class="fa fa-fw fa-bullhorn"></i> Feedback</a>
                     </li>
                 </ul>
