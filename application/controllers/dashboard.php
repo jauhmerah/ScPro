@@ -36,21 +36,30 @@
     		//$arr = $this->input->get();
 
     		switch ($key) {
+    			case 'a11':
+    				if ($this->input->get()) {
+    					$this->load->library('my_func');
+    					if ($this->input->get('success')) {
+    						$info = $this->my_func->scpro_decrypt($this->input->get('success'));    						
+    					}elseif($this->input->get('fail')){
+    						$info = $this->my_func->scpro_decrypt($this->input->get('fail'));
+    					}
+    					switch ($info) {
+    						case '1':
+    							$message = '
+    								
+    							';
+    							break;
+    						
+    						default:
+    							# code...
+    							break;
+    					}
+    				}
     			case 'a1':
     				// News
     				$data['title'] = '<i class="fa fa-fw fa-edit"></i> News</a>';
-    				/*$this->_loadCrud();
-    				$crud = new grocery_CRUD();    				
-    				$crud->set_table('news');
-    				$crud->set_subject('News');
-    				
-    				$output = $crud->render();
-    				$data['display'] = $this->load->view('crud' , $output , true);*/
-
-    				//---------------------------------------
-
     				$data['display'] = $this->load->view($this->parent_page.'/news_menu' , ' ' , true);
-
     				$this->_show('index' , $data , $key);
     				break;
     			case 'a2':
@@ -214,6 +223,51 @@
 			print_r($obj);
 			echo "</pre>";
 
+		}
+
+		public function add_news()
+		{
+			$arr = $this->input->post();		
+			$input = array(
+					'ne_title' => $arr['title'],
+					'ne_msg' => $arr['msg'] 
+				);
+			$this->load->database();
+			$this->load->model('m_news');
+			$this->load->model('m_picture');
+			$ne_id = $this->m_news->insert($input);
+			if ($ne_id !== false) {
+				$this->load->library('my_func');
+				$result = $this->my_func->do_upload('./assets/uploads/img/');
+				$pi_id = null;
+				//$success = array();
+				//$error = array();
+				foreach ($result['success'] as $filename => $detail) {					
+					$id = $this->m_picture->insert(array(
+							'pi_title' => $filename,
+							'img_url' => $detail['file_name'],
+							'ne_id' => $ne_id
+						));
+					if ($pi_id == null) {
+						$pi_id = $id;
+					}
+					$success[] = $filename;
+				}
+				$this->m_news->update(array('pi_id' => $pi_id),$ne_id);
+				//$code = "<pre>";
+				//$code .= print_r($success , true) . print_r($result['error'] , true) . "</pre>";
+				//return $code;
+				$i = sizeof($success);
+				$e = sizeof($result['error']);
+				if ($e == 0) {
+					redirect(site_url('dashboard/page/a11?success='.$this->my_func->scpro_encrypt('1')),'refresh');
+				}elseif ($i == 0) {
+					redirect(site_url('dashboard/page/a11?fail='.$this->my_func->scpro_encrypt('3')),'refresh');
+				}else{
+					redirect(site_url('dashboard/page/a11?success='.$this->my_func->scpro_encrypt('2')),'refresh');
+				}			
+				
+			}			
 		}
 
 	}

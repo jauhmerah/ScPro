@@ -6,6 +6,7 @@
 <pre><?php 
 if (isset($success)) {
 	print_r($success);
+	print_r($error);
 }elseif (isset($error)) {
 	echo $error;
 }

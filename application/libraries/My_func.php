@@ -51,17 +51,31 @@
 			$config['remove_spaces'] = true;
 			$config['encrypt_name'] = true;
 			$ci->load->library('upload', $config);
+			$files = (isset($_FILES['tmp_name'])) ? $_FILES : array_shift($_FILES) ;
+			//$files = array_shift($_FILES);
+			$fileSize = sizeof($files['name']);
+			$error = null;
+			$success = null;
+			for ($i=0; $i < $fileSize; $i++) { 
+				$_FILES['uploadedimage']['name'] = $files['name'][$i];
+		        $_FILES['uploadedimage']['type'] = $files['type'][$i];
+		        $_FILES['uploadedimage']['tmp_name'] = $files['tmp_name'][$i];
+		        $_FILES['uploadedimage']['error'] = $files['error'][$i];
+		        $_FILES['uploadedimage']['size'] = $files['size'][$i];
 
-			if ( ! $ci->upload->do_upload())
-			{
-				$error = array('error' => $ci->upload->display_errors());
-				return $error;
+		        if ( ! $ci->upload->do_upload('uploadedimage'))
+				{
+					$error[$files['name'][$i]] = $ci->upload->display_errors();
+				}
+				else
+				{
+					$success[$files['name'][$i]] =  $ci->upload->data();
+				}
 			}
-			else
-			{
-				$data = array('success' => $ci->upload->data());
-				return $data;
-			}
+			$temp['success'] = $success;
+			$temp['error'] = $error;
+			return $temp;
+			
 		}
 	
 	}

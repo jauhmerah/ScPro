@@ -69,26 +69,64 @@
 		</div>
 	</div></div>
 </div>
+<div class="alert alert-success">
+    <strong>Well done!</strong> You successfully send this important alert message.
+</div>
+<div class="alert alert-warning">
+	<strong>Warning!</strong> Best check yo self, you're not looking too good.
+</div>
+<div class="alert alert-danger">
+    <strong>Oh snap!</strong> Change a few things up and try submitting again.
+</div>
+<script>
+	$(document).ready(function() {
+		$('#submit_btn').click(function() {
+			$("#add_form").submit();
+		});
+		
+</script>
 <div class="row">
 	<div class="col-md-12">
 		<div class="panel panel-green">
 			<!-- Default panel contents -->
+		
 			<div class="panel-heading">News Form</div>
 			<div class="panel-body">
 				<!-- Table -->
+				<form id = "add_form" enctype="multipart/form-data" method="post" action="<?= site_url('dashboard/add_news'); ?>">
 				<table class="table table-hover">
 					<tbody>
-						<tr>
-							<td><span class="pull-left">Title</span><span class="pull-right"> :</span></td>
-							<td><input type="text" name="title" id="title" class="form-control" required="required"></td>
+						<tr class="row">
+							<td class="col-md-4"><span class="pull-left">Title</span><span class="pull-right"> :</span></td>
+							<td class="col-md-8"><input type="text" name="title" id="title" class="form-control" placeholder="Title" required="required"></td>
 						</tr>
-						<tr>
-							<td><span class="pull-left">Message</span><span class="pull-right"> :</span></td>
-							<td><textarea name="msg" id="inputMsg" class="form-control" rows="3" required="required"></textarea></td>
+						<tr class="row">
+							<td class="col-md-4"><span class="pull-left">Message</span><span class="pull-right"> :</span></td>
+							<td class="col-md-8"><textarea name="msg" id="inputMsg" class="form-control" rows="3" placeholder="Message / html / iframe" required="required"></textarea></td>
+						</tr>
+						<tr class="row">
+							<td class="col-md-4"><span class="pull-left">Upload Image</span><span class="pull-right"> :</span></td>
+							<td class="col-md-8">							
+							<div class="input-group">
+									<span class="input-group-btn">
+										<span class="btn btn-info btn-file">Browse <input name="img[]" type="file" multiple data-target = "#upl1" accept=".jpg, .png, .jpeg, .gif, .bmp"></span>
+									</span>
+									<input id="upl1" type="text" class="form-control" readonly="" >									
+								</div>	
+							</td>
 						</tr>
 					</tbody>
 				</table>
-			</div>		
+				</form>
+			</div>
+			<div class="panel-footer">
+				<span class="pull-right"><button type="button" class="btn btn-primary" id="submit_btn">Submit</button></span>
+				<div class="clearfix"></div>
+			</div>
+			
 		</div>
 	</div>
+</div>
+<div class="row" id="output">
+	
 </div>
