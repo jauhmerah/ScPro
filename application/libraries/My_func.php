@@ -15,26 +15,36 @@
 			$val1 = $ci->encrypt->encode($text);
 			$length = strlen($val1);
 			if ($length % 2 == 0) {
-				$arr = str_split($val1 , ($length/2));
+				$arr = str_split($val1 , ($length/4));
+				$text = $arr[3].$arr[1].$arr[0].$arr[2];
 			}else{
 				$val1 .= "{_}";
 				$length ++;
 				$arr = str_split($val1 , ($length/2));
+				$text = $arr[1].$arr[0];
 			}
-			return $arr[1].$arr[0];
+			
+			//$key2 = "6a214fde6c1f8c84902a5576bbe98834623913cc";
+			//$hash = $ci->encrypt->encode($text, $key2);
+			return $text ;
 		}
 
 		public function scpro_decrypt($text){
 			$ci = $this->obj;
-			$ci->load->library("encrypt");			
+			$ci->load->library("encrypt");	
+			//$key2 = "6a214fde6c1f8c84902a5576bbe98834623913cc";
+			//$text = $ci->encrypt->decode($text, $key2);	
+			//return $text;	
 			$length = strlen($text);
 			//$this->load->library("encrypt");
 			if (strpos($text, "{_}") === false) {
-				$arr = str_split( $text , ($length/2));
+				$arr = str_split( $text , ($length/4));
+				$val1 = $arr[2].$arr[1].$arr[3].$arr[0];
 			}else{
 				$arr = explode('{_}', $text);
+				$val1 = $arr[1].$arr[0];
 			}
-			$val1 = $arr[1].$arr[0];
+			
 			$ci = $this->obj;
 			$val2 = $ci->encrypt->decode($val1);
 			return $val2;

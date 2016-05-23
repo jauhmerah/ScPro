@@ -44,6 +44,24 @@
 	            return false;
 	        }
 	    }
+
+	    public function getbyne_id($ne_id = null)
+	    {
+	    	$this->db->select('*');
+	        $this->db->from(self::TABLE_NAME);
+	        if ($ne_id !== null) {
+	        	$this->db->where('ne_id', $ne_id);
+	        } else {
+	        	return false;
+	        }
+	        $result = $this->db->get()->result();
+	        if ($result) {
+	            return $result;
+	        } else {
+	            return false;
+	        }
+	        
+	    }
 	
 	    /**
 	     * Inserts new data into database
@@ -81,7 +99,7 @@
 	     * @return int Number of rows affected by the delete query
 	     */
 	    public function delete($where = array()) {
-	        if (!is_array()) {
+	        if (!is_array($where)) {
 	            $where = array(self::PRI_INDEX => $where);
 	        }
 	        $this->db->delete(self::TABLE_NAME, $where);

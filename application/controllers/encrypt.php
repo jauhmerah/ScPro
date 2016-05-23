@@ -7,7 +7,8 @@
 	        parent::__construct();
 	    }
 	
-	    function test($mode,$code) {
+	    function test($mode) {
+	    	$code = $this->input->get('code');
 	        $this->load->library('my_func');
 	        switch ($mode) {
 	        	case '1': 

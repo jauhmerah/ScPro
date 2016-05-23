@@ -69,21 +69,12 @@
 		</div>
 	</div></div>
 </div>
-<div class="alert alert-success">
-    <strong>Well done!</strong> You successfully send this important alert message.
-</div>
-<div class="alert alert-warning">
-	<strong>Warning!</strong> Best check yo self, you're not looking too good.
-</div>
-<div class="alert alert-danger">
-    <strong>Oh snap!</strong> Change a few things up and try submitting again.
-</div>
 <script>
 	$(document).ready(function() {
 		$('#submit_btn').click(function() {
 			$("#add_form").submit();
 		});
-		
+	});	
 </script>
 <div class="row">
 	<div class="col-md-12">
@@ -122,11 +113,12 @@
 			<div class="panel-footer">
 				<span class="pull-right"><button type="button" class="btn btn-primary" id="submit_btn">Submit</button></span>
 				<div class="clearfix"></div>
-			</div>
-			
+			</div>			
 		</div>
 	</div>
 </div>
-<div class="row" id="output">
-	
+<div class="row">
+	<div class="col-md-12">
+		<?= $display; ?>
+	</div>
 </div>

@@ -145,7 +145,7 @@
                         <a href="<?= site_url('dashboard/page/a1'); ?>"><i class="fa fa-fw fa-edit"></i> News</a>
                     </li>
                     <li <?php if ($link == 'a2') { echo $active;} ?>>
-                        <a href="<?= site_url('dashboard/page/a2'); ?>"><i class="fa fa-fw fa-picture-o"></i> Galary</a>
+                        <a href="<?= site_url('dashboard/page/a2'); ?>"><i class="fa fa-fw fa-picture-o"></i> Gallery</a>
                     </li>                    
                     <li <?php if ($link == 'a3') { echo $active;} ?>>
                         <a href="<?= site_url('dashboard/page/a3'); ?>"><i class="fa fa-fw fa-link"></i> Channel</a>

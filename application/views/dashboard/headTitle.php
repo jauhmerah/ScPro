@@ -20,13 +20,52 @@
                     </div>
                 </div>
                 <!-- /.row -->
-
-                <!--<div class="row">
+                <?php                 
+                    if ($this->session->flashdata('success')) { ?>                
+                <div class="row">
                     <div class="col-lg-12">
-                        <div class="alert alert-info alert-dismissable">
+                        <div class="alert alert-success alert-dismissable">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            <i class="fa fa-info-circle"></i>  <strong>Like SB Admin?</strong> Try out <a href="http://startbootstrap.com/template-overviews/sb-admin-2" class="alert-link">SB Admin 2</a> for additional features!
+                            <i class="fa fa-check"></i>  <?= $this->session->flashdata('success'); ?>
                         </div>
                     </div>
-                </div>-->
+                </div>
                 <!-- /.row -->
+                <?php } ?>
+                <?php 
+                    if ($this->session->flashdata('warning')) { ?>                
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="alert alert-warning alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <i class="fa fa-exclamation-triangle"></i>  <?= $this->session->flashdata('warning'); ?>
+                            </div>
+                        </div>
+                    </div>
+                <!-- /.row -->
+                <?php } ?>
+                <?php 
+                    if ($this->session->flashdata('error')) { ?>                
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="alert alert-danger alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <i class="fa fa-times-circle-o"></i>  <?= $this->session->flashdata('error'); ?>
+                            </div>
+                        </div>
+                    </div>
+                <!-- /.row -->
+                <?php } ?>
+                <?php 
+                    if ($this->session->flashdata('info')) { ?>                
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="alert alert-info alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <i class="fa fa-info-circle"></i>  <?= $this->session->flashdata('info'); ?>
+                            </div>
+                        </div>
+                    </div>
+                <!-- /.row -->
+                <?php } ?>
+                

@@ -9,6 +9,7 @@
 	    function __construct() {
 	        parent::__construct();
 	        $this->load->helper('url');
+	        $this->load->library('session');
 	    }
 	
 	    function index() {
@@ -37,29 +38,55 @@
 
     		switch ($key) {
     			case 'a11':
-    				if ($this->input->get()) {
+    				//view news image;
+    				$key = 'a1';
+    				if ($this->input->get('pk') || $this->session->userdata('pk')) {
+    					if ($this->input->get('pk')) {
+    						$pk = $this->input->get('pk');    									
+    						$this->session->set_userdata( 'pk' , $pk );
+    					} else {
+    						$pk = $this->session->userdata('pk');
+    					}			
+
+    					//$pk = $this->input->get('pk');
     					$this->load->library('my_func');
-    					if ($this->input->get('success')) {
-    						$info = $this->my_func->scpro_decrypt($this->input->get('success'));    						
-    					}elseif($this->input->get('fail')){
-    						$info = $this->my_func->scpro_decrypt($this->input->get('fail'));
-    					}
-    					switch ($info) {
-    						case '1':
-    							$message = '
-    								
-    							';
-    							break;
-    						
-    						default:
-    							# code...
-    							break;
-    					}
+    					$pk = $this->my_func->scpro_decrypt($pk);
+    					$this->load->database();
+						$this->_loadCrud();
+						$crud = new grocery_CRUD();				
+						$crud->set_table('picture');
+						$crud->unset_edit();
+						$crud->unset_read();
+						$crud->unset_print();
+						$crud->unset_export();
+						//$crud->unset_jquery();
+						$crud->set_subject('News Image');
+						$crud->where('ne_id',$pk);
+						$crud->columns('pi_title' ,'img_url', 'pi_timestamp');
+						$crud->fields('pi_title' , 'img_url' , 'ne_id');
+						$crud->field_type('ne_id', 'hidden', $pk);						
+						$crud->display_as('pi_title','Title')
+							->display_as('img_url' , 'Image')
+							->display_as('pi_timestamp' , 'Uploads time');
+						$crud->set_field_upload('img_url','assets/uploads/img');
+						$crud->callback_before_delete(array($this,'callback_delete_image_news'));						
+						$output = $crud->render();
+    					$code = $this->load->view('crud' , $output , true);
+    					$data['title'] = '<a><i class="fa fa-fw fa-edit"></i> News</a>';
+	    				$data['display'] = $this->load->view($this->parent_page.'/newsGallery' , array('output' => $code) , true);
+	    				$this->_show('index' , $data , $key);
+	    				break; 
     				}
+    				
+    				//break;
     			case 'a1':
     				// News
+    				if ($this->session->userdata('pk')) {
+    					$this->session->unset_userdata('pk');
+    				}
     				$data['title'] = '<i class="fa fa-fw fa-edit"></i> News</a>';
-    				$data['display'] = $this->load->view($this->parent_page.'/news_menu' , ' ' , true);
+    				$data ['display'] = $this->load->view('crud' , $this->getAjaxNews() , true);    				
+    				//$data['display'] = $this->load->view($this->parent_page.'/news_menu' , $temp , true);
     				$this->_show('index' , $data , $key);
     				break;
     			case 'a2':
@@ -81,7 +108,7 @@
 		    			->display_as('ch_link' , 'Page Url')
 		    			->display_as('ch_queue' , 'Queue Number');
 		    		$crud->set_field_upload('img_url','assets/uploads/channel');
-		    		$crud->callback_before_delete(array($this,'callback_delete_image'));
+		    		$crud->callback_before_delete(array($this,'callback_delete_image_channel'));
 					$output = $crud->render();
 		    		$data['display'] = $this->load->view('crud' , $output , true);
 		    		$this->_show('index' , $data , $key); 
@@ -115,7 +142,7 @@
     			case 'b2':
     				//Banner edit
     				$data['title'] = '<i class="fa fa-fw fa-bookmark-o"></i> Banner';
-    				$this->path_callback = 'banner';
+    				//$this->path_callback = 'banner';
     				$this->_loadCrud();    		
 		    		$crud = new grocery_CRUD();  		
 		    		$crud->set_table('banner');
@@ -134,7 +161,7 @@
 		    			->display_as('ba_queue' , 'Banner Queue')
 		    			->display_as('ba_active' , 'Active Banner');
 					
-					$crud->callback_before_delete(array($this,'callback_delete_image'));
+					$crud->callback_before_delete(array($this,'callback_delete_image_banner'));
 					$output = $crud->render();
 		    		$data['display'] = $this->load->view('crud' , $output , true);
 		    		$this->_show('index' , $data , $key);
@@ -197,19 +224,43 @@
 			$this->load->view('upload_success', $data);
 		}
 
-		public function callback_delete_image($primary_key)
+		public function callback_delete_image_banner($primary_key)
 		{
 			$this->load->database();
-			$this->load->model('m_'.$this->path_callback);
+			$this->load->model('m_banner');
 			$obj = $this->m_banner->get($primary_key);
-			$img = $obj->img_url;
-			
-			if (unlink('./assets/uploads/'.$this->path_callback.'/'.$img)) {
+			$img = $obj->img_url;			
+			if (unlink('./assets/uploads/banner/'.$img)) {
 				return true;
 			}else{
 				return false;
-			}
-			
+			}			
+		}
+
+		public function callback_delete_image_channel($primary_key)
+		{
+			$this->load->database();
+			$this->load->model('m_channel');
+			$obj = $this->m_channel->get($primary_key);
+			$img = $obj->img_url;			
+			if (unlink('./assets/uploads/channel/'.$img)) {
+				return true;
+			}else{
+				return false;
+			}			
+		}
+
+		public function callback_delete_image_news($primary_key)
+		{
+			$this->load->database();
+			$this->load->model('m_picture');
+			$obj = $this->m_picture->get($primary_key);
+			$img = $obj->img_url;			
+			if (unlink('./assets/uploads/img/'.$img)) {
+				return true;
+			}else{
+				return false;
+			}			
 		}
 
 		public function test()
@@ -240,36 +291,104 @@
 				$this->load->library('my_func');
 				$result = $this->my_func->do_upload('./assets/uploads/img/');
 				$pi_id = null;
-				//$success = array();
+				$success = array();
 				//$error = array();
-				foreach ($result['success'] as $filename => $detail) {					
-					$id = $this->m_picture->insert(array(
-							'pi_title' => $filename,
-							'img_url' => $detail['file_name'],
-							'ne_id' => $ne_id
-						));
-					if ($pi_id == null) {
-						$pi_id = $id;
+				if (sizeof($result['success']) != 0) {
+					foreach ($result['success'] as $filename => $detail) {					
+						$id = $this->m_picture->insert(array(
+								'pi_title' => $filename,
+								'img_url' => $detail['file_name'],
+								'ne_id' => $ne_id
+							));
+						if ($pi_id == null) {
+							$pi_id = $id;
+						}
+						$success[] = $filename;
 					}
-					$success[] = $filename;
+					$this->m_news->update(array('pi_id' => $pi_id),$ne_id);
 				}
-				$this->m_news->update(array('pi_id' => $pi_id),$ne_id);
+				
+				
 				//$code = "<pre>";
 				//$code .= print_r($success , true) . print_r($result['error'] , true) . "</pre>";
 				//return $code;
 				$i = sizeof($success);
 				$e = sizeof($result['error']);
 				if ($e == 0) {
-					redirect(site_url('dashboard/page/a11?success='.$this->my_func->scpro_encrypt('1')),'refresh');
+					$this->session->set_flashdata('success' , '<b>Well done!</b> You successfully send the news.');
+					//redirect(site_url('dashboard/page/a11?success='.$this->my_func->scpro_encrypt('1')),'refresh');
 				}elseif ($i == 0) {
-					redirect(site_url('dashboard/page/a11?fail='.$this->my_func->scpro_encrypt('3')),'refresh');
+					$this->m_news->delete($ne_id);
+					$code = "<ul>";
+					foreach ($result['error'] as $filename => $errormsg) {
+						$code .= "<li> ".$filename." : ".$errormsg."
+						</li>";
+					}
+					$code = "<b>Oh snap!</b> Change a few things up and try submitting again.</br>" . $code;
+					$this->session->set_flashdata('error' , $code);
+
+					//redirect(site_url('dashboard/page/a11?fail='.$this->my_func->scpro_encrypt('3')),'refresh');
 				}else{
-					redirect(site_url('dashboard/page/a11?success='.$this->my_func->scpro_encrypt('2')),'refresh');
-				}			
-				
-			}			
+					$code = "<ul>";
+					foreach ($result['error'] as $filename => $errormsg) {
+						$code .= "<li> ".$filename." : ".$errormsg."
+						</li>";
+					}
+					$code = "<b>Warning!</b> You successfully send the news but <b>some your image not looking too good<b>.</br>".$code;
+					$this->session->set_flashdata('warning' , $code);
+					//redirect(site_url('dashboard/page/a11?success='.$this->my_func->scpro_encrypt('2')),'refresh');
+				}
+						
+			}else{
+				$this->session->set_flashdata('error' , "<b>Oh snap!</b> Unable to send the news, change a few things up and try submitting again.");
+			}
+			redirect('dashboard/page/a1','refresh');			
+		}
+		public function getAjaxNews()
+		{
+			$this->load->database();
+			$this->_loadCrud();
+			$crud = new grocery_CRUD();
+			
+			$crud->set_table('news');
+			$crud->set_subject('News list');
+			$crud->unset_add();
+			$crud->unset_print();
+			$crud->unset_export();
+			$crud->unset_columns('pi_id');
+			$crud->display_as('ne_title','News Title')
+				->display_as('ne_msg' , 'Message')
+				->display_as('ne_timestamp' , 'Time')
+				->display_as('ne_active' , 'Active');
+			$crud->add_action('Photo', '', '', 'fa fa-file-image-o',array($this,'callbackGalary'));
+			$crud->callback_before_delete(array($this,'callback_before_delete_allimg_news'));
+			$output = $crud->render();
+
+			return $output;
 		}
 
+		function callbackGalary($pk , $row)
+		{	
+			$this->load->library('my_func');
+			return site_url('dashboard/page/a11').'?pk='.$this->my_func->scpro_encrypt($pk);
+		}
+
+		function callback_before_delete_allimg_news($pk)
+		{
+			$this->load->database();
+			$this->load->model('m_picture');
+			//$arr = array('ne_id' => $pk );
+			$obj = $this->m_picture->getbyne_id($pk);
+			foreach ($obj as $row) {
+				$img = $row->img_url;
+			}
+			//$img = $obj->img_url;			
+			if (unlink('./assets/uploads/img/'.$img)) {
+				return true;
+			}else{
+				return false;
+			}	
+		}
 	}
 	        
 ?>

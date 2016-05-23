@@ -23,7 +23,11 @@
 	     */
 	    public function get($where = NULL) {
 	        $this->db->select('*');
-	        $this->db->from(self::TABLE_NAME);
+	        if ($table == null) {
+	        	$this->db->from(self::TABLE_NAME);
+	        } else {
+	        	$this->db->from($table);
+	        }        
 	        if ($where !== NULL) {
 	            if (is_array($where)) {
 	                foreach ($where as $field=>$value) {
@@ -81,7 +85,7 @@
 	     * @return int Number of rows affected by the delete query
 	     */
 	    public function delete($where = array()) {
-	        if (!is_array()) {
+	        if (!is_array($where)) {
 	            $where = array(self::PRI_INDEX => $where);
 	        }
 	        $this->db->delete(self::TABLE_NAME, $where);
