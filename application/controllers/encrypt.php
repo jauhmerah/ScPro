@@ -23,6 +23,15 @@
 	        		break;
 	        }
 	    }
+
+	    function sha1crypt($text = null)
+	    {
+	    	$this->load->library('encrypt');
+	    	$key = $this->encrypt->sha1($text);
+	    	echo $key;
+	    	echo "</br>" . $this->encrypt->encode('huhu', $key);
+
+	    }
 	}
 	        
 ?>

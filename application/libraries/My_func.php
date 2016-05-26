@@ -23,7 +23,7 @@
 				$arr = str_split($val1 , ($length/2));
 				$text = $arr[1].$arr[0];
 			}
-			
+			$text = strtr($text,array('+' => '.','=' => '-','/' => '~'));
 			//$key2 = "6a214fde6c1f8c84902a5576bbe98834623913cc";
 			//$hash = $ci->encrypt->encode($text, $key2);
 			return $text ;
@@ -35,6 +35,7 @@
 			//$key2 = "6a214fde6c1f8c84902a5576bbe98834623913cc";
 			//$text = $ci->encrypt->decode($text, $key2);	
 			//return $text;	
+			$text = strtr($text,array('.' => '+','-' => '=','~' => '/'));
 			$length = strlen($text);
 			//$this->load->library("encrypt");
 			if (strpos($text, "{_}") === false) {
@@ -86,6 +87,14 @@
 			$temp['error'] = $error;
 			return $temp;
 			
+		}
+
+		function errorMsgcrypt($text = null)
+		{
+			$ci = $this->obj;
+			$ci->load->library("encrypt");
+			$val1 = $ci->encrypt->encode($text , "6a214fde6c1f8c84902a5576bbe98834623913cc");
+			return $val1;
 		}
 	
 	}

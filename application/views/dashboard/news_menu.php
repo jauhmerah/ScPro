@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row menu">
 	<div class="col-lg-4">
 	<div class="col-lg-10 col-sm-offset-1">
 		<div class="panel panel-green">
@@ -13,7 +13,7 @@
 					</div>
 				</div>
 			</div>
-			<a href="#">
+			<a id="click">
 				<div class="panel-footer">
 					<span class="pull-left">Add News</span>
 					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -36,7 +36,7 @@
 					</div>
 				</div>
 			</div>
-			<a href="#">
+			<a href="<?= site_url('dashboard/page/a12') ?>">
 				<div class="panel-footer">
 					<span class="pull-left">View list</span>
 					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -71,12 +71,20 @@
 </div>
 <script>
 	$(document).ready(function() {
-		$('#submit_btn').click(function() {
-			$("#add_form").submit();
+		$('#submit_btn').click(function() {		
+			if ($('#img').get(0).files.length === 0) {
+				alert('No Image selected!!!');
+			}else{
+				$("#submitform").click();
+			}			
+		});
+		$('#click').click(function() {
+			$.when($('.menu').hide('slow')).then($('.addform').show('slow'));			
 		});
 	});	
 </script>
-<div class="row">
+
+<div class="row addform" style="display: none;">
 	<div class="col-md-12">
 		<div class="panel panel-green">
 			<!-- Default panel contents -->
@@ -100,7 +108,7 @@
 							<td class="col-md-8">							
 							<div class="input-group">
 									<span class="input-group-btn">
-										<span class="btn btn-info btn-file">Browse <input name="img[]" type="file" multiple data-target = "#upl1" accept=".jpg, .png, .jpeg, .gif, .bmp"></span>
+										<span class="btn btn-info btn-file">Browse <input name="img[]" type="file" multiple data-target = "#upl1" id="img" accept=".jpg, .png, .jpeg, .gif, .bmp"></span>
 									</span>
 									<input id="upl1" type="text" class="form-control" readonly="" >									
 								</div>	
@@ -108,6 +116,7 @@
 						</tr>
 					</tbody>
 				</table>
+				<input type="submit" id = "submitform" style="display: none;"></input>
 				</form>
 			</div>
 			<div class="panel-footer">
@@ -115,10 +124,5 @@
 				<div class="clearfix"></div>
 			</div>			
 		</div>
-	</div>
-</div>
-<div class="row">
-	<div class="col-md-12">
-		<?= $display; ?>
 	</div>
 </div>

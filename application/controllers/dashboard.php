@@ -46,11 +46,11 @@
     						$this->session->set_userdata( 'pk' , $pk );
     					} else {
     						$pk = $this->session->userdata('pk');
-    					}			
-
+    					}
     					//$pk = $this->input->get('pk');
     					$this->load->library('my_func');
     					$pk = $this->my_func->scpro_decrypt($pk);
+
     					$this->load->database();
 						$this->_loadCrud();
 						$crud = new grocery_CRUD();				
@@ -72,21 +72,42 @@
 						$crud->callback_before_delete(array($this,'callback_delete_image_news'));						
 						$output = $crud->render();
     					$code = $this->load->view('crud' , $output , true);
+    					$this->load->model("m_news");
+
+    					$temp = $this->m_news->get($pk);
+
+    					
+    					$data2['news_title'] = $temp->ne_title;
+    					$data2['msg'] = $temp->ne_msg;
+    					$this->load->model('m_picture');
+    					unset($temp);
+    					$data2['image'] = $this->m_picture->getbyne_id($pk);
+    					$data2['output'] = $code;
     					$data['title'] = '<a><i class="fa fa-fw fa-edit"></i> News</a>';
-	    				$data['display'] = $this->load->view($this->parent_page.'/newsGallery' , array('output' => $code) , true);
+	    				$data['display'] = $this->load->view($this->parent_page.'/newsGallery' , $data2 , true);
 	    				$this->_show('index' , $data , $key);
+	    				
 	    				break; 
     				}
     				
     				//break;
-    			case 'a1':
-    				// News
+    			case 'a12':
+    				// news crud
+    				$key = 'a1';
     				if ($this->session->userdata('pk')) {
     					$this->session->unset_userdata('pk');
     				}
     				$data['title'] = '<i class="fa fa-fw fa-edit"></i> News</a>';
     				$data ['display'] = $this->load->view('crud' , $this->getAjaxNews() , true);    				
-    				//$data['display'] = $this->load->view($this->parent_page.'/news_menu' , $temp , true);
+    				
+    				$this->_show('index' , $data , $key);
+    				break;
+    			case 'a1':
+    				// News
+    				if ($this->session->userdata('pk')) {
+    					$this->session->unset_userdata('pk');
+    				}
+    				$data['display'] = $this->load->view($this->parent_page.'/news_menu' , '' , true);
     				$this->_show('index' , $data , $key);
     				break;
     			case 'a2':
@@ -255,6 +276,8 @@
 			$this->load->database();
 			$this->load->model('m_picture');
 			$obj = $this->m_picture->get($primary_key);
+			$imgnum = $this->m_picture->getbyne_id($obj->ne_id);
+			//check number of image;
 			$img = $obj->img_url;			
 			if (unlink('./assets/uploads/img/'.$img)) {
 				return true;
@@ -379,15 +402,28 @@
 			$this->load->model('m_picture');
 			//$arr = array('ne_id' => $pk );
 			$obj = $this->m_picture->getbyne_id($pk);
+			if ($obj === false) {
+				$this->load->library('my_func');
+				$msg = "<b>Error!</b> No image was found in database, please contact developer for this situation!<br>
+						<ul><li>Msg Code : ".$this->my_func->erroMsgcrypt('image id'.$pk)."</li></ul>
+				";
+				$this->session->set_flashdata('error', $msg);
+				return false;
+			}
 			foreach ($obj as $row) {
 				$img = $row->img_url;
+				if (unlink('./assets/uploads/img/'.$img)) {
+					$this->m_picture->delete($row->pi_id);
+				}else{
+					$msg = "<b>Warning!</b> System unable to detect the picture location<br>
+						<ul>
+							<li>".$row->pi_title."</li></ul>";
+					$this->session->set_flashdata('warning', 'value');
+					return false;
+				}
 			}
 			//$img = $obj->img_url;			
-			if (unlink('./assets/uploads/img/'.$img)) {
-				return true;
-			}else{
-				return false;
-			}	
+			return true;	
 		}
 	}
 	        
