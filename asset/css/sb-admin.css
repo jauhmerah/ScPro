@@ -62,7 +62,9 @@ body {
 
     #page-wrapper {
         padding: 10px;
-    }
+        height: 100%;
+        overflow: auto;
+}
 }
 
 /* Top Navigation */

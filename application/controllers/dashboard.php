@@ -8,7 +8,7 @@
 
 	    function __construct() {
 	        parent::__construct();
-	        $this->load->helper('url');
+	        //$this->load->helper('url');
 	        $this->load->library('session');
 	    }
 	
@@ -16,6 +16,7 @@
 	    	$code['data'] = $this->load->view($this->parent_page.'/'.'bootstrap-elements' , '' , true);
 	    	$code['data'] .= $this->load->view($this->parent_page.'/'.'index_exp' , '' , true);
 	        $this->_show( 'index' , $code);
+	        
 	    }
 
 	    function _show($page = 'index' , $data = null , $key = 'a'){
