@@ -12,7 +12,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="<?= site_url('dashboard'); ?>">ScPro Admin</a>
+                <a class="navbar-brand" href="<?= site_url('dashboard'); ?>">Production System</a>
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
@@ -124,7 +124,7 @@
                     <li <?php if ($link == 'a') { echo $active;} ?>>
                         <a href="<?= site_url('dashboard'); ?>"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>                    
-                    <li>
+                    <!--<li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#home" <?php if (strpos($link, 'b') !== false) { echo "aria-expanded=\"true\"";  } ?>><i class="fa fa-fw fa-home"></i> Home Page<i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="home" <?php if (strpos($link, 'b') !== false) { echo "aria-expanded=\"true\" class=\"collapse in\"";  }else{ echo 'class="collapse"';} ?> >
                             <li <?php if ($link == 'b1') { echo $active;} ?>>
@@ -137,14 +137,14 @@
                                 <a href="<?= site_url('dashboard/page/b3'); ?>"><i class="fa fa-fw fa-list-alt"></i> Header</a>
                             </li>
                             <li <?php if ($link == 'b4') { echo $active;} ?>>
-                                <a href="<?= site_url('dashboard/page/b4'); ?>"><i class="fa fa-fw fa-tags"></i> Tag Announcement</a><!-- Announcement -->
+                                <a href="<?= site_url('dashboard/page/b4'); ?>"><i class="fa fa-fw fa-tags"></i> Tag Announcement</a><!-s- Announcement -s->
                             </li>
                         </ul>
-                    </li>
+                    </li> -->
                     <li <?php if ($link == 'a1') { echo $active;} ?>>
-                        <a href="<?= site_url('dashboard/page/a1'); ?>"><i class="fa fa-fw fa-edit"></i> News</a>
+                        <a href="<?= site_url('dashboard/page/a1'); ?>"><i class="fa fa-fw fa-edit"></i> Production</a>
                     </li>
-                    <li <?php if ($link == 'a2') { echo $active;} ?>>
+                    <!--<li <?php if ($link == 'a2') { echo $active;} ?>>
                         <a href="<?= site_url('dashboard/page/a2'); ?>"><i class="fa fa-fw fa-picture-o"></i> Gallery</a>
                     </li>                    
                     <li <?php if ($link == 'a3') { echo $active;} ?>>
@@ -155,7 +155,7 @@
                     </li>
                     <li <?php if ($link == 'a5') { echo $active;} ?>>
                         <a href="<?= site_url('dashboard/page/a5'); ?>"><i class="fa fa-fw fa-bullhorn"></i> Feedback</a>
-                    </li>
+                    </li>-->
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

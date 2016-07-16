@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="JauhMerah" content="">
     <link rel="icon" href="<?= base_url(); ?>assets/cover/favicon.png">
-    <title>Sc Pro Dashboard</title>
+    <title>Nasty Process System</title>
     <script src="<?= base_url(); ?>asset/js/jquery-1.11.1.js"></script>
     <!-- Bootstrap Core CSS -->
     <link href="<?= base_url(); ?>asset/css/bootstrap.min.css" rel="stylesheet">

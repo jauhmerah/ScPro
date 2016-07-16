@@ -108,6 +108,7 @@
     				if ($this->session->userdata('pk')) {
     					$this->session->unset_userdata('pk');
     				}
+    				$data['title'] = '<i class="fa fa-fw fa-edit"></i> Production</a>';
     				$data['display'] = $this->load->view($this->parent_page.'/news_menu' , '' , true);
     				$this->_show('index' , $data , $key);
     				break;
