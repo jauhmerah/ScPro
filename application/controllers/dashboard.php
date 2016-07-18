@@ -37,72 +37,7 @@
     	{
     		//$arr = $this->input->get();
 
-    		switch ($key) {
-    			case 'a11':
-    				//view news image;
-    				$key = 'a1';
-    				if ($this->input->get('pk') || $this->session->userdata('pk')) {
-    					if ($this->input->get('pk')) {
-    						$pk = $this->input->get('pk');    									
-    						$this->session->set_userdata( 'pk' , $pk );
-    					} else {
-    						$pk = $this->session->userdata('pk');
-    					}
-    					//$pk = $this->input->get('pk');
-    					$this->load->library('my_func');
-    					$pk = $this->my_func->scpro_decrypt($pk);
-
-    					$this->load->database();
-						$this->_loadCrud();
-						$crud = new grocery_CRUD();				
-						$crud->set_table('picture');
-						$crud->unset_edit();
-						$crud->unset_read();
-						$crud->unset_print();
-						$crud->unset_export();
-						//$crud->unset_jquery();
-						$crud->set_subject('News Image');
-						$crud->where('ne_id',$pk);
-						$crud->columns('pi_title' ,'img_url', 'pi_timestamp');
-						$crud->fields('pi_title' , 'img_url' , 'ne_id');
-						$crud->field_type('ne_id', 'hidden', $pk);						
-						$crud->display_as('pi_title','Title')
-							->display_as('img_url' , 'Image')
-							->display_as('pi_timestamp' , 'Uploads time');
-						$crud->set_field_upload('img_url','assets/uploads/img');
-						$crud->callback_before_delete(array($this,'callback_delete_image_news'));						
-						$output = $crud->render();
-    					$code = $this->load->view('crud' , $output , true);
-    					$this->load->model("m_news");
-
-    					$temp = $this->m_news->get($pk);
-
-    					
-    					$data2['news_title'] = $temp->ne_title;
-    					$data2['msg'] = $temp->ne_msg;
-    					$this->load->model('m_picture');
-    					unset($temp);
-    					$data2['image'] = $this->m_picture->getbyne_id($pk);
-    					$data2['output'] = $code;
-    					$data['title'] = '<a><i class="fa fa-fw fa-edit"></i> News</a>';
-	    				$data['display'] = $this->load->view($this->parent_page.'/newsGallery' , $data2 , true);
-	    				$this->_show('index' , $data , $key);
-	    				
-	    				break; 
-    				}
-    				
-    				//break;
-    			case 'a12':
-    				// news crud
-    				$key = 'a1';
-    				if ($this->session->userdata('pk')) {
-    					$this->session->unset_userdata('pk');
-    				}
-    				$data['title'] = '<i class="fa fa-fw fa-edit"></i> News</a>';
-    				$data ['display'] = $this->load->view('crud' , $this->getAjaxNews() , true);    				
-    				
-    				$this->_show('index' , $data , $key);
-    				break;
+    		switch ($key) {    			
     			case 'a1':
     				// News
     				if ($this->session->userdata('pk')) {

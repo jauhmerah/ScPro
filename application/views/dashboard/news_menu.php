@@ -1,4 +1,4 @@
-<div class="row menu">
+<!--<div class="row menu">
 	<div class="col-lg-4">
 	<div class="col-lg-10 col-sm-offset-1">
 		<div class="panel panel-green">
@@ -68,7 +68,7 @@
 			</a>
 		</div>
 	</div></div>
-</div>
+</div>-->
 <script>
 	$(document).ready(function() {
 		$('#submit_btn').click(function() {		
@@ -84,14 +84,14 @@
 	});	
 </script>
 
-<div class="row addform"><!--style="display: none;-->
+<!--<div class="row addform"><!-d-style="display: none;-d->
 	<div class="col-md-12">
 		<div class="panel panel-green">
-			<!-- Default panel contents -->
+			<!-d- Default panel contents -d->
 		
 			<div class="panel-heading">Add New Order</div>
 			<div class="panel-body">
-				<!-- Table -->
+				<!-d- Table -d->
 				<form id = "add_form" enctype="multipart/form-data" method="post" action="">
 				<table class="table table-hover">
 					<tbody>
@@ -161,10 +161,10 @@
 						<div class="row">
 							<div class="col-md-6">
 								<div class="panel panel-primary">
-									<!-- Default panel contents -->
+									<!-d- Default panel contents -d->
 									<div class="panel-heading" align="center"><h3 class="panel-title">Biru</h3></div>
 									<div class="panel-body">						
-									<!-- Table -->
+									<!-d- Table -d->
 									<table class="table table-hover">
 										<tbody>
 											<tr>
@@ -335,4 +335,50 @@
 		</div>
 
 	</div>
+</div>-->
+<div class="row">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">Order List</h3>
+		</div>
+		<div class="panel-body">
+			<div class="table-responsive">
+				<table class="table table-hover table-striped table-bordered">
+					<thead>
+						<tr>
+							<th>Order No</th>
+							<th>Client Name</th>
+							<th>Contact No</th>
+							<th>Manggo</th>
+							<th>Blackkurant</th>
+							<th>Honey Dew</th>
+							<th>Biru 3mg</th>
+							<th>Biru 6mg</th>
+							<th>Biru 9mg</th>
+							<th>Biru 12mg</th>
+							<th>Pink 3mg</th>
+							<th>Pink 6mg</th>
+							<th>Pink 9mg</th>
+							<th>Pink 12mg</th>
+							<th>Fruity RM</th>
+							<th>Creamy</th>
+							<th>Total Amount</th>
+							<th>Deposit</th>
+							<th>Bank</th>
+							<th>Invoice</th>
+							<th>Send Date</th>
+							<th>Inventory Check</th>
+							<th>Note</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>haha</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
 </div>
