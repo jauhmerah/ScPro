@@ -342,14 +342,65 @@
 			<h3 class="panel-title">Order List</h3>
 		</div>
 		<div class="panel-body">
+		<div class="row">			
+			<div class="col-md-3"><input type="text" name="search" id="inputSearch" class="form-control" placeholder="Search"></div>
+			<div class="col-md-4">				
+				<select name="filter" id="inputFilter" class="form-control">
+					<option value="0" selected>Select Filter</option>
+					<option value="1">Client Name</option>
+					<option value="2">Contact Number</option>
+					<option value="3">Country</option>
+					<option value="4">Total Amount</option>
+					<option value="5">Deposit</option>
+					<option value="6">Send Date</option>
+					<option value="7">Order Status</option>
+				</select>
+				
+			</div>
+
+			
+		</div>
+		<div class="clearfix">
+		&nbsp;
+		</div>
 			<div class="table-responsive">
 				<table class="table table-hover table-striped table-bordered">
 					<thead>
-						<tr>
-							<th>Order No</th>
+						<tr style="background-color: #F5F5F5">
+							<th>Num</th>
 							<th>Client Name</th>
 							<th>Contact No</th>
-							<th>Manggo</th>
+							<th>Country</th>
+							
+							<th>Total Amount</th>
+							<th>Deposit</th>							
+							<th>Send Date</th>
+							<th>Note</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>1</td>
+							<td>Muhammad Farid Husaini</td>
+							<td>0123454555</td>
+							<td>Gomeh</td>
+							<td>Rm 100000</td>
+							<td>Full</td>
+							<td>8/8/2016</td>
+							<td>Budak nie xleh nak cayo.........</td>
+							<td><a href="" title="View Detail"><i class="fa fa-eye"></i></a>&nbsp;&nbsp;<a href="" title="Edit"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;<a href="" title="Delete"><i class="fa fa-trash"></i></a></td>
+
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+</div>
+<!--
+<th>Manggo</th>
 							<th>Blackkurant</th>
 							<th>Honey Dew</th>
 							<th>Biru 3mg</th>
@@ -361,24 +412,7 @@
 							<th>Pink 9mg</th>
 							<th>Pink 12mg</th>
 							<th>Fruity RM</th>
-							<th>Creamy</th>
-							<th>Total Amount</th>
-							<th>Deposit</th>
+							<th>Creamy RM</th>
 							<th>Bank</th>
 							<th>Invoice</th>
-							<th>Send Date</th>
-							<th>Inventory Check</th>
-							<th>Note</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>haha</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>
-
-</div>
+							<th>Inventory Check</th>-->
