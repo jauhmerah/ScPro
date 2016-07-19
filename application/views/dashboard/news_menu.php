@@ -71,27 +71,28 @@
 </div>-->
 <script>
 	$(document).ready(function() {
-		$('#submit_btn').click(function() {		
-			if ($('#img').get(0).files.length === 0) {
-				alert('No Image selected!!!');
-			}else{
-				$("#submitform").click();
+		$(".calc").on( "blur" ,function() {
+			if ($(this).val() == "") {
+				$(this).val(0);
 			}			
 		});
-		$('#click').click(function() {
-			$.when($('.menu').hide('slow')).then($('.addform').show('slow'));			
-		});
-	});	
+		function calculateAll() {
+			var totalF = $(".calc-f").map(function() {
+				return $this.val();
+			}).get();
+		}	
+	});
+	
 </script>
 
-<!--<div class="row addform"><!-d-style="display: none;-d->
+<div class="row addform"><!--style="display: none;-->
 	<div class="col-md-12">
 		<div class="panel panel-green">
-			<!-d- Default panel contents -d->
+			<!-- Default panel contents -->
 		
 			<div class="panel-heading">Add New Order</div>
 			<div class="panel-body">
-				<!-d- Table -d->
+				<!-- Table -->
 				<form id = "add_form" enctype="multipart/form-data" method="post" action="">
 				<table class="table table-hover">
 					<tbody>
@@ -101,185 +102,13 @@
 						</tr>
 						<tr class="row">
 							<td class="col-md-4"><span class="pull-left">Contact Number</span><span class="pull-right"> :</span></td>
-							<td class="col-md-8"><input type="text" name="telnumber" id="inputTelnumber" class="form-control"></td>
+							<td class="col-md-8"><input type="number" name="telnumber" id="inputTelnumber" class="form-control"></td>
 						</tr>
 						<tr class="row">
 							<td class="col-md-4"><span class="pull-left">Country</span><span class="pull-right">* :</span></td>
 							<td class="col-md-8"><input type="text" name="country" id="inputCountry" class="form-control" value="" required="required" pattern="" title="">
 							</td>
 						</tr>
-
-					</tbody>
-				</table>
-				
-				<div class="panel panel-default">
-					<div class="panel-heading" align="center">
-						<h3 class="panel-title">Fruity</h3>
-					</div>
-					<div class="panel-body">
-						<table class="table table-hover">
-							<tbody>
-							<tr class="row">
-								<td class="col-xs-3"><span class="pull-left">Manggo</span><span class="pull-right"> :</span></td>
-								<td class="col-xs-3"><input type="number" name="manggo" id="manggo" class="form-control"></td>
-								<td class="col-xs-1"><span class="pull-right">+ </span></td>
-								<td class="col-xs-1"><input type="number" name="promoM" id="inputPromoM" class="form-control" value="0"></td>
-								<td class="col-xs-4"></td>
-							</tr>
-							<tr class= "row">
-								<td class="col-md-3"><span class="pull-left">Blackkurant</span><span class="pull-right"> :</span></td>
-								<td class="col-md-3"><input type="number" name="blackC" id="blackC" class="form-control"></td>						
-								<td class="col-xs-1"><span class="pull-right">+ </span></td>
-								<td class="col-xs-1"><input type="number" name="promoM" id="inputPromoM" class="form-control" value="0"></td>
-								<td class="col-xs-4"></td>
-							</tr>
-							<tr class= "row ">
-								<td class="col-md-3"><span class="pull-left">Honey Dew</span><span class="pull-right"> :</span></td>
-								<td class="col-md-3"><input type="number" name="honeyD" id="honeyD" class="form-control"></td>						
-								<td class="col-xs-1"><span class="pull-right">+ </span></td>
-								<td class="col-xs-1"><input type="number" name="promoM" id="inputPromoM" class="form-control" value="0"></td>
-								<td class="col-xs-4"></td>
-							</tr>
-							</tbody>
-						</table>
-					</div>
-					<div class="panel-footer">
-						<div class="row">
-						<div class="col-lg-10">
-							<span class="pull-right">Price :</span>
-						</div>
-						<div class = "col-lg-2"><input type="number" name="fruityP" id="inputFruityP" class="form-control" value="0" ></div>
-						</div>
-					</div>
-				</div>
-				
-				<div class="panel panel-default">
-					<div class="panel-heading" align="center">
-						<h3 class="panel-title">Creamy</h3>
-					</div>
-					<div class="panel-body">
-						<div class="row">
-							<div class="col-md-6">
-								<div class="panel panel-primary">
-									<!-d- Default panel contents -d->
-									<div class="panel-heading" align="center"><h3 class="panel-title">Biru</h3></div>
-									<div class="panel-body">						
-									<!-d- Table -d->
-									<table class="table table-hover">
-										<tbody>
-											<tr>
-												<td class="col-md-4">
-														<span class="pull-left">3 mg</span><span class="pull-right">:</span>
-												</td>
-												<td class="col-md-4">
-														<input type="number" name="biru3" id="inputBiru3" class="form-control" value="0">
-												</td>
-												<td class="col-md-1"><span class="pull-right">+</span></td>
-												<td class="col-md-3"><input type="number" name="promoB3" id="inputPromoB3" class="form-control" value="0"></td>
-												
-											</tr>
-											<tr>
-												<td class="col-md-4">
-														<span class="pull-left">6 mg</span><span class="pull-right">:</span>
-												</td>
-												<td class="col-md-4">
-														<input type="number" name="biru6" id="inputBiru6" class="form-control" value="0">
-												</td>
-												<td class="col-md-1"><span class="pull-right">+</span></td>
-												<td class="col-md-3"><input type="number" name="promoB6" id="inputPromoB6" class="form-control" value="0"></td>
-											</tr>
-											<tr>
-												<td class="col-md-4">
-														<span class="pull-left">9 mg</span><span class="pull-right">:</span>
-												</td>
-												<td class="col-md-4">
-														<input type="number" name="biru9" id="inputBiru9" class="form-control" value="0">
-												</td>
-												<td class="col-md-1"><span class="pull-right">+</span></td>
-												<td class="col-md-3"><input type="number" name="promoB9" id="inputPromoB9" class="form-control" value="0"></td>
-											</tr>
-											<tr>
-												<td class="col-md-4">
-														<span class="pull-left">12 mg</span><span class="pull-right">:</span>
-												</td>
-												<td class="col-md-4">
-														<input type="number" name="biru12" id="inputBiru12" class="form-control" value="0">
-												</td>
-												<td class="col-md-1"><span class="pull-right">+</span></td>
-												<td class="col-md-3"><input type="number" name="promoB12" id="inputPromoB12" class="form-control" value="0"></td>
-											</tr>
-										</tbody>
-									</table>
-									</div>							
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="panel panel-danger">
-									<div class="panel-heading" align="center">
-										<h3 class="panel-title">Pink</h3>
-									</div>
-									<div class="panel-body">
-										<table class="table table-hover">
-										<tbody>
-											<tr>
-												<td class="col-md-4">
-														<span class="pull-left">3 mg</span><span class="pull-right">:</span>
-												</td>
-												<td class="col-md-4">
-														<input type="number" name="pink3" id="inputPink3" class="form-control" value="0">
-												</td>
-												<td class="col-md-1"><span class="pull-right">+</span></td>
-												<td class="col-md-3"><input type="number" name="promoP3" id="inputPromoP3" class="form-control" value="0"></td>
-												
-											</tr>
-											<tr>
-												<td class="col-md-4">
-														<span class="pull-left">6 mg</span><span class="pull-right">:</span>
-												</td>
-												<td class="col-md-4">
-														<input type="number" name="pink6" id="inputPink6" class="form-control" value="0">
-												</td>
-												<td class="col-md-1"><span class="pull-right">+</span></td>
-												<td class="col-md-3"><input type="number" name="promoP6" id="inputPromoP6" class="form-control" value="0"></td>
-											</tr>
-											<tr>
-												<td class="col-md-4">
-														<span class="pull-left">9 mg</span><span class="pull-right">:</span>
-												</td>
-												<td class="col-md-4">
-														<input type="number" name="pink9" id="inputPink9" class="form-control" value="0">
-												</td>
-												<td class="col-md-1"><span class="pull-right">+</span></td>
-												<td class="col-md-3"><input type="number" name="promoP9" id="inputPromoP9" class="form-control" value="0"></td>
-											</tr>
-											<tr>
-												<td class="col-md-4">
-														<span class="pull-left">12 mg</span><span class="pull-right">:</span>
-												</td>
-												<td class="col-md-4">
-														<input type="number" name="pink12" id="inputPink12" class="form-control" value="0">
-												</td>
-												<td class="col-md-1"><span class="pull-right">+</span></td>
-												<td class="col-md-3"><input type="number" name="promoP12" id="inputPromoP12" class="form-control" value="0"></td>
-											</tr>
-										</tbody>
-									</table>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="panel-footer">
-						<div class="row">
-							<div class="col-lg-10">
-								<span class="pull-right">Price :</span>
-							</div>
-							<div class = "col-lg-2"><input type="number" name="creamyP" id="inputFruitP" class="form-control" value="0" ></div>
-						</div>
-					</div>
-				</div>
-				<table class="table table-hover">
-					<tbody>
 						<tr class="row">
 							<td class="col-md-4"><span class="pull-left">Send Date</span><span class="pull-right"> :</span></td>
 							<td class="col-md-8"><input type="date" name="sendDate" id="inputSendDate" class="form-control">
@@ -290,17 +119,17 @@
 							<td class="col-md-8"><input type="text" name="bank" id="inputBank" class="form-control" >
 							</td>
 						</tr>
-						<tr class="row">
+						<!--<tr class="row">
 							<td class="col-md-4"><span class="pull-left">Total</span><span class="pull-right">:</span></td>
 							<td class="col-md-8"><input type="number" name="total" id="inputTotal" class="form-control" disabled="disabled" value="0">
 							</td>
-						</tr>
+						</tr>-->
 						<tr class="row">
 							<td class="col-md-4"><span class="pull-left">Deposit</span><span class="pull-right">:</span></td>
 							<td class="col-md-8"><input type="text" name="deposit" id="inputDeposit" class="form-control" >
 							</td>
 						</tr>
-						<tr class="row">
+						<!--<tr class="row">
 							<td class="col-md-4"><span class="pull-left">Invoice</span><span class="pull-right">:</span></td>
 							<td class="col-md-8"><input type="text" name="invoice" id="inputInvoice" class="form-control" >
 							</td>
@@ -309,15 +138,134 @@
 							<td class="col-md-4"><span class="pull-left">Inventory Check</span><span class="pull-right">:</span></td>
 							<td class="col-md-8"><input type="text" name="inventoryC" id="inputInvenCheck" class="form-control" >
 							</td>
-						</tr>
+						</tr>-->
 						<tr class="row">
 							<td class="col-md-4"><span class="pull-left">Note</span><span class="pull-right">:</span></td>
 							<td class="col-md-8"><textarea name="note" id="inputNote" class="form-control" rows="3"></textarea>
 						</tr>
-						<tr class="row">
+					</tbody>
+				</table>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Nasty Product</h3>
+					</div>
+					<div class="panel-body">
+						<div class="col-md-5 col-md-offset-1">
+							<div class="row">
+								<div class="col-md-4">
+									<span class="pull-left">Flavored</span><span class="pull-right">:</span>
+								</div>
+								<div class="col-md-8">
+									<select name="perasa" id="inputPerasa" class="form-control">
+										<option value="-1" selected>-- Select One --</option>
+										<option value="0">Manggo</option>
+										<option value="1">Blackkurant</option>
+										<option value="2">Honey Dew</option>
+										<option value="3">Biru</option>
+										<option value="4">Pink</option>
+									</select>
+								</div>
+							</div>
+							<div class="clearfix">
+							&nbsp;
+							</div>
+							<div class="row">
+								<div class="col-md-4">
+									<span class="pull-left">Nicotine</span><span class="pull-right">:</span>
+								</div>
+								<div class="col-md-8">
+									<select name="nico" id="inputNico" class="form-control">
+										<option value="-1" selected>-- Select One --</option>
+										<option value="0">0 Mg</option>
+										<option value="3">3 Mg</option>
+										<option value="6">6 Mg</option>
+										<option value="9">9 Mg (Creamy Only)</option>
+										<option value="12">12 Mg (Creamy Only)</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-5">
+							<div class="row">
+								<div class="col-md-4">
+									<span class="pull-left">Promo</span><span class="pull-right">:</span>
+								</div>
+								<div class="col-md-8">
+									<input type="number" name="promo" id="inputPromo" class="form-control" value="0">
+								</div>
+							</div>
+							<div class="clearfix">
+								&nbsp;
+							</div>
+							<div class="row">
+								<div class="col-md-4">
+									<span class="pull-left">Quantity</span><span class="pull-right">:</span>
+								</div>
+								<div class="col-md-8">
+									<input type="number" value="0" name="qty" id="inputQty" class="form-control">
+								</div>
+							</div>
+							<div class="clearfix">
+								&nbsp;
+							</div>
+							<div class="row">
+								<button type="button" class="btn btn-success pull-right"><i class="fa fa-plus"></i>&nbsp;Add</button>
+							</div>
+							<div class="clearfix">
+								&nbsp;
+							</div>
+						</div>
+						<div class="clearfix">
+							&nbsp;
+						</div>
+						<div class="row">
+							<div class="col-xs-10 col-xs-offset-1">
+								<div class="well">
+									<ul class="media-list">
+									  <li class="media">
+									    <a class="media-left" href="#">
+									      <img class="media-object" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2264%22%20height%3D%2264%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_156048ffb0e%20text%20%7B%20fill%3A%23FFFFFF%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_156048ffb0e%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%230D8FDB%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2214.5%22%20y%3D%2236.5%22%3E64x64%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" alt="Generic placeholder image">
+									    </a>
+									    <div class="media-body">
+									    	<div class="col-md-4">
+									    		<h3 class="media-heading">Manggo</h3>
+									      		<span class="label label-info">3 Mg</span><span class="pull-right">Qty : 1000 + 20</span>
+									    	</div>
+									    	<div class="col-md-8">
+									    		<h2><span class="pull-right"><button type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button></span></h2>
+									    	</div>
+									      
+									    </div>
+									  </li>
+									  <li class="media">
+									    <a class="media-left" href="#">
+									      <img class="media-object" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2264%22%20height%3D%2264%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_156048ffb0e%20text%20%7B%20fill%3A%23FFFFFF%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_156048ffb0e%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%230D8FDB%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2214.5%22%20y%3D%2236.5%22%3E64x64%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" alt="Generic placeholder image">
+									    </a>
+									    <div class="media-body">
+									    	<div class="col-md-4">
+									    		<h3 class="media-heading">Blackkurant</h3>
+									      		<span class="label label-info">6 Mg</span><span class="pull-right">Qty : 100 + 5</span>
+									    	</div>
+									    	<div class="col-md-8">
+									    		<h2><span class="pull-right"><button type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button></span></h2>
+									    	</div>
+									      
+									    </div>
+									  </li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>				
+			</div>
+				<table class="table table-hover">
+					<tbody>
+						
+						<!--<tr class="row">
 							<td class="col-md-4"><span class="pull-left">Order Status</span><span class="pull-right">:</span></td>
 							<td class="col-md-8"><textarea name="statusO" id="inputStatus" class="form-control" rows="3"></textarea>
-						</tr>
+						</tr> -->
 					</tbody>
 				</table>
 						
@@ -335,7 +283,8 @@
 		</div>
 
 	</div>
-</div>-->
+</div>
+<!--
 <div class="row">
 	<div class="panel panel-primary">
 		<div class="panel-heading">
@@ -375,12 +324,12 @@
 							<th>Total Amount</th>
 							<th>Deposit</th>							
 							<th>Send Date</th>
-							<th>Note</th>
+							<th>Progress</th>
 							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
+						<tr class="listO" id="l1">
 							<td>1</td>
 							<td>Muhammad Farid Husaini</td>
 							<td>0123454555</td>
@@ -388,31 +337,297 @@
 							<td>Rm 100000</td>
 							<td>Full</td>
 							<td>8/8/2016</td>
-							<td>Budak nie xleh nak cayo.........</td>
+							<td>								
+								<progress class="progress progress-success" value="75" max="100" title="75%">75%</progress>
+							</td>
 							<td><a href="" title="View Detail"><i class="fa fa-eye"></i></a>&nbsp;&nbsp;<a href="" title="Edit"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;<a href="" title="Delete"><i class="fa fa-trash"></i></a></td>
-
 						</tr>
+						<tr class = "l1 detail" style="display: none;">
+							<td colspan="9">
+								<div class="well">
+									<div class="row">
+										<div class="col-md-4">
+											<div class="panel panel-default">
+												<div class="panel-heading">
+													<h3 class="panel-title">Manggo</h3>
+												</div>
+												<div class="panel-body">
+													<div class="row">
+														<span class="pull-left col-md-4">Qty :</span>														
+														<span class="col-md-8 pull-right"> 100 + 20</span>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="panel panel-default">
+												<div class="panel-heading">
+													<h3 class="panel-title">Blackkurant</h3>
+												</div>
+												<div class="panel-body">
+													<div class="row">
+														<span class="pull-left col-md-4">Qty :</span>														
+														<span class="col-md-8 pull-right"> 100 + 20</span>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="panel panel-yellow">
+												<div class="panel-heading">
+													<h3 class="panel-title">Honey Dew</h3>
+												</div>
+												<div class="panel-body">
+													<div class="row">
+														<span class="pull-left col-md-4">Qty :</span>														
+														<span class="col-md-8 pull-right"> 100 + 20</span>
+													</div>
+													
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-4 col-md-offset-1">
+											<div class="panel panel-primary">
+												<div class="panel-heading">
+													<h3 class="panel-title">Biru</h3>
+												</div>
+												<div class="panel-body">
+													<div class="row">
+														<span class="pull-left col-md-5">Qty 3mg :</span>														
+														<span class="col-md-7 pull-right"> 100 + 20</span>
+													</div>
+													<div class="row">
+														<span class="pull-left col-md-5">Qty 6mg :</span>														
+														<span class="col-md-7 pull-right"> 100 + 20</span>
+													</div>
+													<div class="row">
+														<span class="pull-left col-md-5">Qty 9mg :</span>														
+														<span class="col-md-7 pull-right"> 100 + 20</span>
+													</div>
+													<div class="row">
+														<span class="pull-left col-md-5">Qty 12mg :</span>														
+														<span class="col-md-7 pull-right"> 100 + 20</span>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-4 col-md-offset-2">
+											<div class="panel panel-warning">
+												<div class="panel-heading">
+													<h3 class="panel-title">Pink</h3>
+												</div>
+												<div class="panel-body">
+													<div class="row">
+														<span class="pull-left col-md-5">Qty 3mg :</span>														
+														<span class="col-md-7 pull-right"> 100 + 20</span>
+													</div>
+													<div class="row">
+														<span class="pull-left col-md-5">Qty 6mg :</span>														
+														<span class="col-md-7 pull-right"> 100 + 20</span>
+													</div>
+													<div class="row">
+														<span class="pull-left col-md-5">Qty 9mg :</span>														
+														<span class="col-md-7 pull-right"> 100 + 20</span>
+													</div>
+													<div class="row">
+														<span class="pull-left col-md-5">Qty 12mg :</span>														
+														<span class="col-md-7 pull-right"> 100 + 20</span>
+													</div>
+												</div>
+											</div>
+										</div>								
+									</div>
+									<div class="row">
+										<div class="col-md-4">
+											Fruity : Rm 27
+										</div>
+										<div class="col-md-4">
+											Creamy : Rm 25
+										</div>
+										<div class="col-md-4">
+											Total Qty : 2000
+										</div>
+									</div>
+									<div class="clearfix">
+									&nbsp;
+									</div>
+									<div class="row">
+										<div class="panel panel-info">
+											<div class="panel-heading">
+												Note
+											</div>
+											<div class="panel-body">
+												Budak nie xleh nak cayo............. <br>
+												Invoice : <br>
+												Inventory Check : <br>
+											</div>
+										</div>
+									</div>
+								</div>
+							</td>
+						</tr>
+						<tr class="listO" id="l2">
+							<td>2</td>
+							<td>Muhammad Farid Husaini</td>
+							<td>0123454555</td>
+							<td>Gomeh</td>
+							<td>Rm 100000</td>
+							<td>Full</td>
+							<td>8/8/2016</td>
+							<td>								
+								<progress class="progress progress-success" value="30" max="100" title="30%">30%</progress>
+							</td>
+							<td><a href="" title="View Detail"><i class="fa fa-eye"></i></a>&nbsp;&nbsp;<a href="" title="Edit"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;<a href="" title="Delete"><i class="fa fa-trash"></i></a></td>
+						</tr>
+						<tr class = "l2 detail" style="display: none;">
+							<td colspan="9">
+								<div class="well">
+									<div class="row">
+										<div class="col-md-4">
+											<div class="panel panel-default">
+												<div class="panel-heading">
+													<h3 class="panel-title">Manggo</h3>
+												</div>
+												<div class="panel-body">
+													<div class="row">
+														<span class="pull-left col-md-4">Qty :</span>														
+														<span class="col-md-8 pull-right"> 100 + 20</span>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="panel panel-default">
+												<div class="panel-heading">
+													<h3 class="panel-title">Blackkurant</h3>
+												</div>
+												<div class="panel-body">
+													<div class="row">
+														<span class="pull-left col-md-4">Qty :</span>														
+														<span class="col-md-8 pull-right"> 100 + 20</span>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="panel panel-yellow">
+												<div class="panel-heading">
+													<h3 class="panel-title">Honey Dew</h3>
+												</div>
+												<div class="panel-body">
+													<div class="row">
+														<span class="pull-left col-md-4">Qty :</span>														
+														<span class="col-md-8 pull-right"> 100 + 20</span>
+													</div>
+													
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-4 col-md-offset-1">
+											<div class="panel panel-primary">
+												<div class="panel-heading">
+													<h3 class="panel-title">Biru</h3>
+												</div>
+												<div class="panel-body">
+													<div class="row">
+														<span class="pull-left col-md-5">Qty 3mg :</span>														
+														<span class="col-md-7 pull-right"> 100 + 20</span>
+													</div>
+													<div class="row">
+														<span class="pull-left col-md-5">Qty 6mg :</span>														
+														<span class="col-md-7 pull-right"> 100 + 20</span>
+													</div>
+													<div class="row">
+														<span class="pull-left col-md-5">Qty 9mg :</span>														
+														<span class="col-md-7 pull-right"> 100 + 20</span>
+													</div>
+													<div class="row">
+														<span class="pull-left col-md-5">Qty 12mg :</span>														
+														<span class="col-md-7 pull-right"> 100 + 20</span>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-4 col-md-offset-2">
+											<div class="panel panel-warning">
+												<div class="panel-heading">
+													<h3 class="panel-title">Pink</h3>
+												</div>
+												<div class="panel-body">
+													<div class="row">
+														<span class="pull-left col-md-5">Qty 3mg :</span>														
+														<span class="col-md-7 pull-right"> 100 + 20</span>
+													</div>
+													<div class="row">
+														<span class="pull-left col-md-5">Qty 6mg :</span>														
+														<span class="col-md-7 pull-right"> 100 + 20</span>
+													</div>
+													<div class="row">
+														<span class="pull-left col-md-5">Qty 9mg :</span>														
+														<span class="col-md-7 pull-right"> 100 + 20</span>
+													</div>
+													<div class="row">
+														<span class="pull-left col-md-5">Qty 12mg :</span>														
+														<span class="col-md-7 pull-right"> 100 + 20</span>
+													</div>
+												</div>
+											</div>
+										</div>								
+									</div>
+									<div class="row">
+										<div class="col-md-4">
+											Fruity : Rm 27
+										</div>
+										<div class="col-md-4">
+											Creamy : Rm 25
+										</div>
+										<div class="col-md-4">
+											Total Qty : 2000
+										</div>
+									</div>
+									<div class="clearfix">
+									&nbsp;
+									</div>
+									<div class="row">
+										<div class="panel panel-info">
+											<div class="panel-heading">
+												Note
+											</div>
+											<div class="panel-body">
+												Budak nie xleh nak cayo............. <br>
+												Invoice : <br>
+												Inventory Check : <br>
+											</div>
+										</div>
+									</div>
+								</div>
+							</td>
+						</tr>
+
+					<!-d- End of table -d->	
 					</tbody>
 				</table>
 			</div>
 		</div>
 	</div>
 
-</div>
-<!--
-<th>Manggo</th>
-							<th>Blackkurant</th>
-							<th>Honey Dew</th>
-							<th>Biru 3mg</th>
-							<th>Biru 6mg</th>
-							<th>Biru 9mg</th>
-							<th>Biru 12mg</th>
-							<th>Pink 3mg</th>
-							<th>Pink 6mg</th>
-							<th>Pink 9mg</th>
-							<th>Pink 12mg</th>
-							<th>Fruity RM</th>
-							<th>Creamy RM</th>
-							<th>Bank</th>
-							<th>Invoice</th>
-							<th>Inventory Check</th>-->
+</div> -->
+
+<script>
+	$(document).ready(function() {
+		$(".listO").click(function() {
+			temp = $(this).prop('id');
+			if ($("."+temp).is(':visible')) {
+				$("."+temp).hide('slow');
+			}else{
+				$("."+temp).show('slow');
+			}			
+			//alert("jadi");
+		});
+	});
+</script>
+

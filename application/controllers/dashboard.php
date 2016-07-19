@@ -38,11 +38,8 @@
     		//$arr = $this->input->get();
 
     		switch ($key) {    			
-    			case 'a1':
-    				// News
-    				if ($this->session->userdata('pk')) {
-    					$this->session->unset_userdata('pk');
-    				}
+    			case 'a1':    				
+    			
     				$data['title'] = '<i class="fa fa-fw fa-edit"></i> Production</a>';
     				$data['display'] = $this->load->view($this->parent_page.'/news_menu' , '' , true);
     				$this->_show('index' , $data , $key);

@@ -1,0 +1,165 @@
+<div class="panel panel-default">
+					<div class="panel-heading" align="center">
+						<h3 class="panel-title">Fruity</h3>
+					</div>
+					<div class="panel-body">
+						<table class="table table-hover">
+							<tbody>
+							<tr class="row">
+								<td class="col-xs-3"><span class="pull-left">Manggo</span><span class="pull-right"> :</span></td>
+								<td class="col-xs-3"><input type="number" name="manggo" id="manggo" value="0" class="form-control calc calc-f"></td>
+								<td class="col-xs-1"><span class="pull-right">+ </span></td>
+								<td class="col-xs-1"><input type="number" name="promoM" id="inputPromoM" class="form-control" value="0"></td>
+								<td class="col-xs-4"></td>
+							</tr>
+							<tr class= "row">
+								<td class="col-md-3"><span class="pull-left">Blackkurant</span><span class="pull-right"> :</span></td>
+								<td class="col-md-3"><input type="number" name="blackC" id="blackC" value="0" class="form-control calc calc-f"></td>						
+								<td class="col-xs-1"><span class="pull-right">+ </span></td>
+								<td class="col-xs-1"><input type="number" name="promoM" id="inputPromoM" class="form-control" value="0"></td>
+								<td class="col-xs-4"></td>
+							</tr>
+							<tr class= "row ">
+								<td class="col-md-3"><span class="pull-left">Honey Dew</span><span class="pull-right"> :</span></td>
+								<td class="col-md-3"><input type="number" name="honeyD" id="honeyD" value="0" class="form-control calc calc-f"></td>						
+								<td class="col-xs-1"><span class="pull-right">+ </span></td>
+								<td class="col-xs-1"><input type="number" name="promoM" id="inputPromoM" class="form-control" value="0"></td>
+								<td class="col-xs-4"></td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="panel-footer">
+						<div class="row">
+						<div class="col-lg-10">
+							<span class="pull-right">Price :</span>
+						</div>
+						<div class = "col-lg-2"><input type="number" name="fruityP" id="inputFruityP" class="form-control" value="0" ></div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="panel panel-default">
+					<div class="panel-heading" align="center">
+						<h3 class="panel-title">Creamy</h3>
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="panel panel-primary">
+									<!-- Default panel contents -->
+									<div class="panel-heading" align="center"><h3 class="panel-title">Biru</h3></div>
+									<div class="panel-body">						
+									<!-- Table -->
+									<table class="table table-hover">
+										<tbody>
+											<tr>
+												<td class="col-md-4">
+														<span class="pull-left">3 mg</span><span class="pull-right">:</span>
+												</td>
+												<td class="col-md-4">
+														<input type="number" name="biru3" id="inputBiru3" class="form-control calc calc-c" value="0">
+												</td>
+												<td class="col-md-1"><span class="pull-right">+</span></td>
+												<td class="col-md-3"><input type="number" name="promoB3" id="inputPromoB3" class="form-control" value="0"></td>
+												
+											</tr>
+											<tr>
+												<td class="col-md-4">
+														<span class="pull-left">6 mg</span><span class="pull-right">:</span>
+												</td>
+												<td class="col-md-4">
+														<input type="number" name="biru6" id="inputBiru6" class="form-control calc calc-c" value="0">
+												</td>
+												<td class="col-md-1"><span class="pull-right">+</span></td>
+												<td class="col-md-3"><input type="number" name="promoB6" id="inputPromoB6" class="form-control" value="0"></td>
+											</tr>
+											<tr>
+												<td class="col-md-4">
+														<span class="pull-left">9 mg</span><span class="pull-right">:</span>
+												</td>
+												<td class="col-md-4">
+														<input type="number" name="biru9" id="inputBiru9" class="form-control calc calc-c" value="0">
+												</td>
+												<td class="col-md-1"><span class="pull-right">+</span></td>
+												<td class="col-md-3"><input type="number" name="promoB9" id="inputPromoB9" class="form-control" value="0"></td>
+											</tr>
+											<tr>
+												<td class="col-md-4">
+														<span class="pull-left">12 mg</span><span class="pull-right">:</span>
+												</td>
+												<td class="col-md-4">
+														<input type="number" name="biru12" id="inputBiru12" class="form-control calc calc-c" value="0">
+												</td>
+												<td class="col-md-1"><span class="pull-right">+</span></td>
+												<td class="col-md-3"><input type="number" name="promoB12" id="inputPromoB12" class="form-control" value="0"></td>
+											</tr>
+										</tbody>
+									</table>
+									</div>							
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="panel panel-danger">
+									<div class="panel-heading" align="center">
+										<h3 class="panel-title">Pink</h3>
+									</div>
+									<div class="panel-body">
+										<table class="table table-hover">
+										<tbody>
+											<tr>
+												<td class="col-md-4">
+														<span class="pull-left">3 mg</span><span class="pull-right">:</span>
+												</td>
+												<td class="col-md-4">
+														<input type="number" name="pink3" id="inputPink3" class="form-control calc calc-c" value="0">
+												</td>
+												<td class="col-md-1"><span class="pull-right">+</span></td>
+												<td class="col-md-3"><input type="number" name="promoP3" id="inputPromoP3" class="form-control" value="0"></td>
+												
+											</tr>
+											<tr>
+												<td class="col-md-4">
+														<span class="pull-left">6 mg</span><span class="pull-right">:</span>
+												</td>
+												<td class="col-md-4">
+														<input type="number" name="pink6" id="inputPink6" class="form-control calc calc-c" value="0">
+												</td>
+												<td class="col-md-1"><span class="pull-right">+</span></td>
+												<td class="col-md-3"><input type="number" name="promoP6" id="inputPromoP6" class="form-control" value="0"></td>
+											</tr>
+											<tr>
+												<td class="col-md-4">
+														<span class="pull-left">9 mg</span><span class="pull-right">:</span>
+												</td>
+												<td class="col-md-4">
+														<input type="number" name="pink9" id="inputPink9" class="form-control calc calc-c" value="0">
+												</td>
+												<td class="col-md-1"><span class="pull-right">+</span></td>
+												<td class="col-md-3"><input type="number" name="promoP9" id="inputPromoP9" class="form-control" value="0"></td>
+											</tr>
+											<tr>
+												<td class="col-md-4">
+														<span class="pull-left">12 mg</span><span class="pull-right">:</span>
+												</td>
+												<td class="col-md-4">
+														<input type="number" name="pink12" id="inputPink12" class="form-control calc calc-c" value="0">
+												</td>
+												<td class="col-md-1"><span class="pull-right">+</span></td>
+												<td class="col-md-3"><input type="number" name="promoP12" id="inputPromoP12" class="form-control" value="0"></td>
+											</tr>
+										</tbody>
+									</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="panel-footer">
+						<div class="row">
+							<div class="col-lg-10">
+								<span class="pull-right">Price :</span>
+							</div>
+							<div class = "col-lg-2"><input type="number" name="creamyP" id="inputFruitP" class="form-control" value="0" ></div>
+						</div>
+					</div>
