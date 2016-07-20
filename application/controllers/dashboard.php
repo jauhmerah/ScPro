@@ -359,6 +359,20 @@
 			//$img = $obj->img_url;			
 			return true;	
 		}
+
+		public function getAjaxOrderBox()
+		{
+			//$arr = $this->input->post();
+			//flav: flav, nic : nic , qty : qty , promo : promo
+			$arr['flav'] = "asdfasd";
+			$arr['nic'] = "asdfasd";
+			$arr['qty'] = "asdfa";
+			$arr['promo'] = "wqtqw";
+			$this->load->view($this->parent_page. "/ajax/getAjaxOrderBox", $arr);
+			//return $this->load->view("dashboard/ajax/getAjaxOrderBox" , $arr , true);
+
+
+		}
 	}
 	        
 ?>

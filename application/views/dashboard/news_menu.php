@@ -73,9 +73,16 @@
 	$(document).ready(function() {
 		$("#addBtn").click(function() {
 			if(checkInput()){
-				flav = perasa($("#inputPerasa").val());
-				nic = nico($("#inputNico").val());
-				alert(flav + " " + nic);
+				flavcode = $("#inputPerasa").val();
+				niccode = $("#inputNico").val();
+				promo = $("#inputPromo").val();
+				qty = $("#inputQty").val();
+				flav = perasa(flavcode);
+				nic = nico(niccode);
+				$.post('<?= site_url("dashboard/getAjaxOrderBox");?>', {flav: flav, nic : nic , qty : qty , promo : promo}, function(data) {
+					$("#orderBox").append(data);
+					//alert(data);
+				});
 			}
 		});
 
@@ -106,22 +113,20 @@
 		}
 
 		function perasa(i) {
-			switch(i){
-				case 1 : return "Manggo";
-				case 2 : return "Blackkurant";
-				case 3 : return "Honey Dew";
-				case 4 : return "Blue";
-				case 5 : return "Pink";
-			}
+			if (i == 0) {return "Manggo";}
+			if (i == 1) {return "Blackkurant";}
+			if (i == 2) {return "Honey Dew";}
+			if (i == 3) {return "Blue";}
+			if (i == 4) {return "Pink";}
+			return false;
 		}
 		function nico(i) {
-			switch(i){
-				case 1 : return "0 Mg";
-				case 2 : return "3 Mg";
-				case 3 : return "6 Mg";
-				case 4 : return "9 Mg";
-				case 5 : return "12 Mg";
-			}
+			if (i == 0) {return "0 Mg";}	
+			if (i == 3) {return "3 Mg";}	
+			if (i == 6) {return "6 Mg";}	
+			if (i == 9) {return "9 Mg";}	
+			if (i == 12) {return "12 Mg";}
+			return false;	
 		}
 	});
 	
