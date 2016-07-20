@@ -71,6 +71,7 @@
 </div>-->
 <script>
 	$(document).ready(function() {
+		var num = 0;
 		$("#addBtn").click(function() {
 			if(checkInput()){
 				flavcode = $("#inputPerasa").val();
@@ -79,14 +80,17 @@
 				qty = $("#inputQty").val();
 				flav = perasa(flavcode);
 				nic = nico(niccode);
-				$.post('<?= site_url("dashboard/getAjaxOrderBox");?>', {flav: flav, nic : nic , qty : qty , promo : promo}, function(data) {
-					$("#orderBox").append(data);
+				num ++;
+				$.post('<?= site_url("dashboard/getAjaxOrderBox");?>', {num : num ,flav: flav, nic : nic , qty : qty , promo : promo}, function(data) {
+					$("#orderBox").html(data);
 					//alert(data);
 				});
 			}
 		});
+		//alert("jd lah");
 
 		function checkInput() {
+			return true;
 			if ($("#inputPerasa").val() == -1) {
 				alert("Please Select Flavored!");
 				$("#inputPerasa").focus();
@@ -108,11 +112,10 @@
 			return true;
 		}
 
-		function addOrder() {
-			
-		}
+		
 
 		function perasa(i) {
+			return "test";
 			if (i == 0) {return "Manggo";}
 			if (i == 1) {return "Blackkurant";}
 			if (i == 2) {return "Honey Dew";}
@@ -121,6 +124,7 @@
 			return false;
 		}
 		function nico(i) {
+			return "test 2";
 			if (i == 0) {return "0 Mg";}	
 			if (i == 3) {return "3 Mg";}	
 			if (i == 6) {return "6 Mg";}	
@@ -128,6 +132,9 @@
 			if (i == 12) {return "12 Mg";}
 			return false;	
 		}
+		$(".delBtn").click(function() {
+				alert("huhu");
+			});
 	});
 	
 </script>
@@ -263,36 +270,20 @@
 							<div class="col-xs-10 col-xs-offset-1">
 								<div class="well">
 									<ul class="media-list" id="orderBox">
-									  <li class="media">
-									    <a class="media-left" href="#">
-									      <img class="media-object" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2264%22%20height%3D%2264%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_156048ffb0e%20text%20%7B%20fill%3A%23FFFFFF%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_156048ffb0e%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%230D8FDB%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2214.5%22%20y%3D%2236.5%22%3E64x64%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" alt="Generic placeholder image">
-									    </a>
-									    <div class="media-body">
-									    	<div class="col-md-4">
-									    		<h3 class="media-heading">Manggo</h3>
-									      		<span class="label label-info">3 Mg</span><span class="pull-right">Qty : 1000 + 20</span>
-									    	</div>
-									    	<div class="col-md-8">
-									    		<h2><span class="pull-right"><button type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button></span></h2>
-									    	</div>
-									      
-									    </div>
-									  </li>
-									  <li class="media">
-									    <a class="media-left" href="#">
-									      <img class="media-object" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2264%22%20height%3D%2264%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_156048ffb0e%20text%20%7B%20fill%3A%23FFFFFF%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_156048ffb0e%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%230D8FDB%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2214.5%22%20y%3D%2236.5%22%3E64x64%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" alt="Generic placeholder image">
-									    </a>
-									    <div class="media-body">
-									    	<div class="col-md-4">
-									    		<h3 class="media-heading">Blackkurant</h3>
-									      		<span class="label label-info">6 Mg</span><span class="pull-right">Qty : 100 + 5</span>
-									    	</div>
-									    	<div class="col-md-8">
-									    		<h2><span class="pull-right"><button type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button></span></h2>
-									    	</div>
-									      
-									    </div>
-									  </li>
+									  	<li class="media">
+											<a class="media-left" href="#">
+											  <img class="media-object" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2264%22%20height%3D%2264%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_156048ffb0e%20text%20%7B%20fill%3A%23FFFFFF%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_156048ffb0e%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%230D8FDB%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2214.5%22%20y%3D%2236.5%22%3E64x64%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" alt="Generic placeholder image">
+											</a>
+											<div class="media-body">
+												<div class="col-md-4">
+													<h3 class="media-heading">asd</h3>
+											  		<span class="label label-info">asdasd</span><span class="pull-right">Qty : s + sd</span>
+												</div>
+												<div class="col-md-8">
+													<h2><span class="pull-right"><button type="button" class="btn btn-danger delBtn"><i class="fa fa-trash" ></i></button></span></h2>
+												</div>	  
+											</div>	
+										</li>
 									</ul>
 								</div>
 							</div>
