@@ -71,16 +71,58 @@
 </div>-->
 <script>
 	$(document).ready(function() {
-		$(".calc").on( "blur" ,function() {
-			if ($(this).val() == "") {
-				$(this).val(0);
-			}			
+		$("#addBtn").click(function() {
+			if(checkInput()){
+				flav = perasa($("#inputPerasa").val());
+				nic = nico($("#inputNico").val());
+				alert(flav + " " + nic);
+			}
 		});
-		function calculateAll() {
-			var totalF = $(".calc-f").map(function() {
-				return $this.val();
-			}).get();
-		}	
+
+		function checkInput() {
+			if ($("#inputPerasa").val() == -1) {
+				alert("Please Select Flavored!");
+				$("#inputPerasa").focus();
+				return false;
+			}
+			if ($("#inputNico").val() == -1) {
+				alert("Please Select Nicotine!");
+				$("#inputNico").focus();
+				return false;
+			}
+			if ($("#inputPromo").val() == "") {
+				$("#inputPromo").val(0);
+			}
+			if ($("#inputQty").val() == '' || $("#inputQty").val() == 0) {
+				alert("Please Enter Quantity!");
+				$("#inputQty").focus();
+				return false;
+			}
+			return true;
+		}
+
+		function addOrder() {
+			
+		}
+
+		function perasa(i) {
+			switch(i){
+				case 1 : return "Manggo";
+				case 2 : return "Blackkurant";
+				case 3 : return "Honey Dew";
+				case 4 : return "Blue";
+				case 5 : return "Pink";
+			}
+		}
+		function nico(i) {
+			switch(i){
+				case 1 : return "0 Mg";
+				case 2 : return "3 Mg";
+				case 3 : return "6 Mg";
+				case 4 : return "9 Mg";
+				case 5 : return "12 Mg";
+			}
+		}
 	});
 	
 </script>
@@ -118,27 +160,12 @@
 							<td class="col-md-4"><span class="pull-left">Bank</span><span class="pull-right">:</span></td>
 							<td class="col-md-8"><input type="text" name="bank" id="inputBank" class="form-control" >
 							</td>
-						</tr>
-						<!--<tr class="row">
-							<td class="col-md-4"><span class="pull-left">Total</span><span class="pull-right">:</span></td>
-							<td class="col-md-8"><input type="number" name="total" id="inputTotal" class="form-control" disabled="disabled" value="0">
-							</td>
-						</tr>-->
+						</tr>						
 						<tr class="row">
 							<td class="col-md-4"><span class="pull-left">Deposit</span><span class="pull-right">:</span></td>
 							<td class="col-md-8"><input type="text" name="deposit" id="inputDeposit" class="form-control" >
 							</td>
-						</tr>
-						<!--<tr class="row">
-							<td class="col-md-4"><span class="pull-left">Invoice</span><span class="pull-right">:</span></td>
-							<td class="col-md-8"><input type="text" name="invoice" id="inputInvoice" class="form-control" >
-							</td>
-						</tr>
-						<tr class="row">
-							<td class="col-md-4"><span class="pull-left">Inventory Check</span><span class="pull-right">:</span></td>
-							<td class="col-md-8"><input type="text" name="inventoryC" id="inputInvenCheck" class="form-control" >
-							</td>
-						</tr>-->
+						</tr>						
 						<tr class="row">
 							<td class="col-md-4"><span class="pull-left">Note</span><span class="pull-right">:</span></td>
 							<td class="col-md-8"><textarea name="note" id="inputNote" class="form-control" rows="3"></textarea>
@@ -150,6 +177,14 @@
 						<h3 class="panel-title">Nasty Product</h3>
 					</div>
 					<div class="panel-body">
+						<div class="row">
+							<div class="col-lg-4 col-lg-offset-4">
+								<img class="img-thumbnail" src="http://placehold.it/400x400" alt="">
+							</div>
+						</div>
+						<div class="clearfix">
+							&nbsp;
+						</div>
 						<div class="col-md-5 col-md-offset-1">
 							<div class="row">
 								<div class="col-md-4">
@@ -209,7 +244,7 @@
 								&nbsp;
 							</div>
 							<div class="row">
-								<button type="button" class="btn btn-success pull-right"><i class="fa fa-plus"></i>&nbsp;Add</button>
+								<button type="button" id="addBtn" class="btn btn-success pull-right"><i class="fa fa-plus"></i>&nbsp;Add</button>
 							</div>
 							<div class="clearfix">
 								&nbsp;
@@ -218,10 +253,11 @@
 						<div class="clearfix">
 							&nbsp;
 						</div>
+						<!-- Order Box -->
 						<div class="row">
 							<div class="col-xs-10 col-xs-offset-1">
 								<div class="well">
-									<ul class="media-list">
+									<ul class="media-list" id="orderBox">
 									  <li class="media">
 									    <a class="media-left" href="#">
 									      <img class="media-object" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2264%22%20height%3D%2264%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_156048ffb0e%20text%20%7B%20fill%3A%23FFFFFF%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_156048ffb0e%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%230D8FDB%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2214.5%22%20y%3D%2236.5%22%3E64x64%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" alt="Generic placeholder image">
@@ -256,6 +292,7 @@
 								</div>
 							</div>
 						</div>
+						<!--End of Order Box -->
 					</div>
 				</div>				
 			</div>
