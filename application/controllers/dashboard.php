@@ -381,11 +381,15 @@
 					break;
 			}
 			$arr['icon'] = $temp;
-			//echo $this->load->view($this->parent_page. "/ajax/getAjaxOrderBox", $arr , true);
-			echo $this->load->view($this->parent_page. "/ajax/testajax", '', TRUE);;
+			echo $this->load->view($this->parent_page. "/ajax/getAjaxOrderBox", $arr , true);
+			//echo $this->load->view($this->parent_page. "/ajax/testajax", '', TRUE);;
 			//return $this->load->view("dashboard/ajax/getAjaxOrderBox" , $arr , true);
 
 
+		}
+		public function testAjax()
+		{
+			echo $this->load->view($this->parent_page."/ajax/testajax","", TRUE);
 		}
 	}
 	        

@@ -1,7 +1,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,7 +8,8 @@
     <meta name="JauhMerah" content="">
     <link rel="icon" href="<?= base_url(); ?>assets/cover/favicon.png">
     <title>Nasty Process System</title>
-    <script src="<?= base_url(); ?>asset/js/jquery-1.11.1.js"></script>
+    <!--<script src="<?= base_url(); ?>asset/js/jquery-1.11.1.js"></script>-->
+    <script src="<?= base_url(); ?>asset/js/jquery-3.1.0.js"></script>
     <!-- Bootstrap Core CSS -->
     <link href="<?= base_url(); ?>asset/css/bootstrap.min.css" rel="stylesheet">
     

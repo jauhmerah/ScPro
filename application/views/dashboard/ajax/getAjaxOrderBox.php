@@ -14,6 +14,9 @@
 </li>
 <script>
 	$(document).ready(function() {
-		alert("haha");
+		$(".delBtn").click(function() {
+			var code = $(this).prop('id');
+			$("."+code).remove();
+		});
 	});
 </script>
