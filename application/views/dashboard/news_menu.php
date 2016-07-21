@@ -81,8 +81,8 @@
 				flav = perasa(flavcode);
 				nic = nico(niccode);
 				num ++;
-				$.post('<?= site_url("dashboard/getAjaxOrderBox");?>', {num : num ,flav: flav, nic : nic , qty : qty , promo : promo}, function(data) {
-					$("#orderBox").html(data);
+				$.post('<?= site_url("dashboard/getAjaxOrderBox");?>', {fcode : flavcode ,num : num ,flav: flav, nic : nic , qty : qty , promo : promo}, function(data) {
+					$("#orderBox").append(data);
 					//alert(data);
 				});
 			}
@@ -112,10 +112,28 @@
 			return true;
 		}
 
+		$("#inputPerasa").change(function() {
+			var i = $(this).val();
+			if (i == 0) {
+				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/img1.jpg');
+			}
+			if (i == 1) {
+				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/img2.jpg');
+			}
+			if (i == 2) {
+				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/img3.jpg');
+			}
+			if (i == 3) {
+				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/img1.jpg');
+			}
+			if (i == 4) {
+				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/img1.jpg');
+			}
+		});
+
 		
 
 		function perasa(i) {
-			return "test";
 			if (i == 0) {return "Manggo";}
 			if (i == 1) {return "Blackkurant";}
 			if (i == 2) {return "Honey Dew";}
@@ -124,7 +142,6 @@
 			return false;
 		}
 		function nico(i) {
-			return "test 2";
 			if (i == 0) {return "0 Mg";}	
 			if (i == 3) {return "3 Mg";}	
 			if (i == 6) {return "6 Mg";}	
@@ -132,7 +149,7 @@
 			if (i == 12) {return "12 Mg";}
 			return false;	
 		}
-		$(".delBtn").click(function() {
+		$("ul li .delBtn").click(function() {
 				alert("huhu");
 			});
 	});
@@ -191,7 +208,7 @@
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-lg-4 col-lg-offset-4">
-								<img class="img-thumbnail" src="http://placehold.it/400x400" alt="">
+								<img id="imgDetail" class="img-thumbnail" src="http://placehold.it/400x400" alt="">
 							</div>
 						</div>
 						<div class="clearfix">
@@ -268,7 +285,7 @@
 						<!-- Order Box -->
 						<div class="row">
 							<div class="col-xs-10 col-xs-offset-1">
-								<div class="well">
+								<div class="panel">
 									<ul class="media-list" id="orderBox">
 									  	<li class="media">
 											<a class="media-left" href="#">
@@ -288,13 +305,13 @@
 								</div>
 							</div>
 						</div>
-						<!--End of Order Box -->
+						<!--End of Order Box --> 
 					</div>
 				</div>				
 			</div>
 				<table class="table table-hover">
-					<tbody>
-						
+										
+	<tbody>
 						<!--<tr class="row">
 							<td class="col-md-4"><span class="pull-left">Order Status</span><span class="pull-right">:</span></td>
 							<td class="col-md-8"><textarea name="statusO" id="inputStatus" class="form-control" rows="3"></textarea>

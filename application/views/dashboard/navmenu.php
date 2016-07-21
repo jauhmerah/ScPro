@@ -144,10 +144,10 @@
                     <li <?php if ($link == 'a1') { echo $active;} ?>>
                         <a href="<?= site_url('dashboard/page/a1'); ?>"><i class="fa fa-fw fa-edit"></i> Production</a>
                     </li>
-                    <!--<li <?php if ($link == 'a2') { echo $active;} ?>>
-                        <a href="<?= site_url('dashboard/page/a2'); ?>"><i class="fa fa-fw fa-picture-o"></i> Gallery</a>
+                    <li <?php if ($link == 'a2') { echo $active;} ?>>
+                        <a href="<?= site_url('dashboard/page/a2'); ?>"><i class="fa fa-fw fa-picture-o"></i> Order List</a>
                     </li>                    
-                    <li <?php if ($link == 'a3') { echo $active;} ?>>
+                    <!--<li <?php if ($link == 'a3') { echo $active;} ?>>
                         <a href="<?= site_url('dashboard/page/a3'); ?>"><i class="fa fa-fw fa-link"></i> Channel</a>
                     </li>
                     <li <?php if ($link == 'a4') { echo $active;} ?>>

@@ -45,7 +45,9 @@
     				$this->_show('index' , $data , $key);
     				break;
     			case 'a2':
-    				# code...
+    				$data['title'] = '<i class="fa fa-fw fa-edit"></i>Order List</a>';
+    				$data['display'] = $this->load->view($this->parent_page.'/productionOrder', '', TRUE);
+    				$this->_show('index' , $data , $key);
     				break;
     			case 'a3':
     				//channel
@@ -363,8 +365,24 @@
 		public function getAjaxOrderBox()
 		{
 			$arr = $this->input->post();
-			
-			echo $this->load->view($this->parent_page. "/ajax/getAjaxOrderBox", $arr , true);
+			switch ($arr['fcode']) {
+				case 0:	$temp = base_url()."/assets/nasty/pro1.jpg";						
+					break;
+				case 1:	$temp = base_url()."/assets/nasty/pro2.jpg";						
+					break;
+				case 2:	$temp = base_url()."/assets/nasty/pro3.jpg";						
+					break;
+				case 3:	$temp = base_url()."/assets/nasty/pro1.jpg";						
+					break;
+				case 4:	$temp = base_url()."/assets/nasty/pro1.jpg";						
+					break;	
+				default:
+					$temp = "";
+					break;
+			}
+			$arr['icon'] = $temp;
+			//echo $this->load->view($this->parent_page. "/ajax/getAjaxOrderBox", $arr , true);
+			echo $this->load->view($this->parent_page. "/ajax/testajax", '', TRUE);;
 			//return $this->load->view("dashboard/ajax/getAjaxOrderBox" , $arr , true);
 
 
