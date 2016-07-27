@@ -96,7 +96,62 @@
 			$val1 = $ci->encrypt->encode($text , "6a214fde6c1f8c84902a5576bbe98834623913cc");
 			return $val1;
 		}
-	
+
+		public function mgLable($mg = 0 ,$media = false)
+		{
+			if ($media) {
+				$objmedia = "media-object";
+			}else{
+				$objmedia = "";
+			}
+			switch ($mg) {
+				case 0:
+					$text = '<span class="label label-default '.$objmedia.'">'.$mg.' Mg</span>';
+					break;
+				case 3:
+					$text = '<span class="label label-primary '.$objmedia.'">'.$mg.' Mg</span>';
+					break;
+				case 6:
+					$text = '<span class="label label-success '.$objmedia.'">'.$mg.' Mg</span>';
+					break;
+				case 9:
+					$text = '<span class="label label-danger '.$objmedia.'">'.$mg.' Mg</span>';
+					break;
+				case 12:
+					$text = '<span class="label label-warning '.$objmedia.'">'.$mg.' Mg</span>';
+					break;
+				
+				default:
+					$text = "error";
+					break;					
+			}
+			return $text;
+		}
+		public function itemIcon($ty_id = 1)
+			{
+				switch ($ty_id) {
+					case 1:
+						$text = base_url().'/assets/nasty/pro1.jpg';
+						break;
+					case 2:
+						$text = base_url().'/assets/nasty/pro2.jpg';
+						break;
+					case 3:
+						$text = base_url().'/assets/nasty/pro3.jpg';
+						break;
+					case 4:
+						$text = base_url().'/assets/nasty/pro4.jpg';
+						break;
+					case 5:
+						$text = base_url().'/assets/nasty/pro5.jpg';
+						break;
+					
+					default:
+						$text = "error";
+						break;
+				}
+				return $text;
+			}	
 	}
 	
 	/* End of file my_func.php */

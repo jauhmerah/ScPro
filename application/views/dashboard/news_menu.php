@@ -1,7 +1,10 @@
-<!--<div class="row menu">
-	<div class="col-lg-4">
+<!--<pre>
+	<?=print_r($arr);?>
+</pre>-->
+<div class="row menu">	
+	<div class="col-lg-6">
 	<div class="col-lg-10 col-sm-offset-1">
-		<div class="panel panel-green">
+		<div class="panel panel-green clickAdd">
 			<div class="panel-heading">
 				<div class="row">
 					<div class="col-xs-3">
@@ -13,18 +16,18 @@
 					</div>
 				</div>
 			</div>
-			<a id="click">
+			<a href="#" id="click">
 				<div class="panel-footer">
-					<span class="pull-left">Add News</span>
+					<span class="pull-left">Add Order</span>
 					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
 					<div class="clearfix"></div>
 				</div>
 			</a>
 		</div>
 	</div></div>
-	<div class="col-lg-4">
+	<div class="col-lg-6">
 	<div class="col-lg-10 col-sm-offset-1">
-		<div class="panel panel-primary">
+		<div class="panel panel-primary clickView">
 			<div class="panel-heading">
 				<div class="row">
 					<div class="col-xs-3">
@@ -36,7 +39,7 @@
 					</div>
 				</div>
 			</div>
-			<a href="<?= site_url('dashboard/page/a12') ?>">
+			<a href="#">
 				<div class="panel-footer">
 					<span class="pull-left">View list</span>
 					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -45,30 +48,7 @@
 			</a>
 		</div>
 	</div></div>
-	<div class="col-lg-4">
-	<div class="col-lg-10 col-sm-offset-1">
-		<div class="panel panel-red">
-			<div class="panel-heading">
-				<div class="row">
-					<div class="col-xs-3">
-						<i class="fa fa-trash fa-5x"></i>
-					</div>
-					<div class="col-xs-9 text-right">
-						<div class="huge">Delete</div>
-						<div><i class="fa fa-exclamation-triangle fa-2x"></i></div>
-					</div>
-				</div>
-			</div>
-			<a href="#">
-				<div class="panel-footer">
-					<span class="pull-left">Delete</span>
-					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-					<div class="clearfix"></div>
-				</div>
-			</a>
-		</div>
-	</div></div>
-</div>-->
+</div>
 <script>
 	$(document).ready(function() {
 		var num = 0;
@@ -81,14 +61,16 @@
 				flav = perasa(flavcode);
 				nic = nico(niccode);
 				num ++;
-				$.post('<?= site_url("dashboard/getAjaxOrderBox");?>', {fcode : flavcode ,num : num ,flav: flav, nic : nic , qty : qty , promo : promo}, function(data) {
+				$.post('<?= site_url("dashboard/getAjaxOrderBox");?>', {fcode : flavcode ,num : num ,flav: flav, nic : nic , qty : qty , promo : promo , niccode : niccode}, function(data) {
 					$("#orderBox").append(data);
 					//alert(data);
 				});
 			}
 		});
 		//alert("jd lah");
-
+		$("#submit_btn").click(function() {
+			$("#add_form").submit();
+		});
 		function checkInput() {
 			//return true;
 			if ($("#inputPerasa").val() == -1) {
@@ -151,15 +133,12 @@
 			if (i == 9) {return "9 Mg";}	
 			if (i == 12) {return "12 Mg";}
 			return false;	
-		}
-		$("ul li .delBtn").click(function() {
-				alert("huhu");
-			});
+		}		
 	});
 	
 </script>
 
-<div class="row addform"><!--style="display: none;-->
+<div class="row addform" style="display: none;"><!--style="display: none;-->
 	<div class="col-md-12">
 		<div class="panel panel-green">
 			<!-- Default panel contents -->
@@ -167,7 +146,7 @@
 			<div class="panel-heading">Add New Order</div>
 			<div class="panel-body">
 				<!-- Table -->
-				<form id = "add_form" enctype="multipart/form-data" method="post" action="">
+				<form id = "add_form" enctype="multipart/form-data" method="post" action="<?= site_url('dashboard/page/a11'); ?>">
 				<table class="table table-hover">
 					<tbody>
 						<tr class="row">
@@ -316,6 +295,7 @@
 			</div>
 
 			<div class="panel-footer">
+				<span class="pull-left"><button type="button" class="btn btn-default" id="backBtn">Back</button></span>
 				<span class="pull-right"><button type="button" class="btn btn-primary" id="submit_btn">Submit</button></span>
 				<div class="clearfix"></div>
 			</div>	
@@ -325,7 +305,7 @@
 	</div>
 </div>
 
-<div class="row">
+<div class="row viewL" style="display: none;">
 	<div class="panel panel-primary">
 		<div class="panel-heading">
 			<h3 class="panel-title">Order List</h3>
@@ -346,6 +326,9 @@
 				</select>
 				
 			</div>
+			<div class="col-md-5">
+				<span class="pull-right"><button type="button" class="btn btn-default" id="backBtn2">Back</button></span>
+			</div>
 
 			
 		</div>
@@ -361,292 +344,75 @@
 							<th>Contact No</th>
 							<th>Country</th>
 							
-							<th>Total Amount</th>
+							<th>Total Quantity</th>
 							<th>Deposit</th>							
 							<th>Send Date</th>
 							<th>Progress</th>
 							<th>Action</th>
 						</tr>
 					</thead>
-					<tbody>
-						<tr class="listO" id="l1">
-							<td>1</td>
-							<td>Muhammad Farid Husaini</td>
-							<td>0123454555</td>
-							<td>Gomeh</td>
-							<td>Rm 100000</td>
-							<td>Full</td>
-							<td>8/8/2016</td>
+					<tbody>					
+						<?php
+						$n = 0; 
+						foreach ($arr as $key) { 
+							$n++;
+						?>
+						<tr class="listO" id="l<?= $n; ?>">
+							<td><?= $n; ?></td>
+							<td><?= $key->cl_name; ?></td>
+							<td><?= $key->cl_tel; ?></td>
+							<td><?= $key->cl_country; ?></td>
+							<td></td>
+							<td><?= $key->or_deposit; ?></td>
+							<td><?= $key->or_sendDate; ?></td>
 							<td>								
 								<progress class="progress progress-success" value="75" max="100" title="75%">75%</progress>
 							</td>
 							<td><a href="" title="View Detail"><i class="fa fa-eye"></i></a>&nbsp;&nbsp;<a href="" title="Edit"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;<a href="" title="Delete"><i class="fa fa-trash"></i></a></td>
-						</tr>
-						<tr class = "l1 detail" style="display: none;">
-							<td colspan="9">
-								<div class="well">
-									<div class="row">
-										<div class="col-md-4">
-											<div class="panel panel-default">
-												<div class="panel-heading">
-													<h3 class="panel-title">Manggo</h3>
-												</div>
-												<div class="panel-body">
-													<div class="row">
-														<span class="pull-left col-md-4">Qty :</span>														
-														<span class="col-md-8 pull-right"> 100 + 20</span>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-4">
-											<div class="panel panel-default">
-												<div class="panel-heading">
-													<h3 class="panel-title">Blackkurant</h3>
-												</div>
-												<div class="panel-body">
-													<div class="row">
-														<span class="pull-left col-md-4">Qty :</span>														
-														<span class="col-md-8 pull-right"> 100 + 20</span>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-4">
-											<div class="panel panel-yellow">
-												<div class="panel-heading">
-													<h3 class="panel-title">Honey Dew</h3>
-												</div>
-												<div class="panel-body">
-													<div class="row">
-														<span class="pull-left col-md-4">Qty :</span>														
-														<span class="col-md-8 pull-right"> 100 + 20</span>
-													</div>
-													
-												</div>
-											</div>
-										</div>
+						</tr>						
+						<tr class = "l<?= $n; ?> detail" style="display: none;">
+							<td colspan="9">								
+								<div class="row col-md-12">
+								<?php 
+									foreach ($key->item as $item) {
+								?>
+									<div class="well col-md-4">										
+									  	<div class="media">
+											<a class="media-left" href="#">
+											  <img class="media-object" src="<?php echo $this->my_func->itemIcon($item->ty_id); ?> " alt="Generic placeholder image">
+											  <?php echo $this->my_func->mgLable($item->it_mg , true); ?>
+											</a>
+											<div class="media-body">												
+												<h3 class="media-heading"><?= $item->ty_desc; ?></h3>
+										  		<span class="pull-left">Qty :</span><span class="pull-right"><?= $item->it_qty; ?></span></br>
+										  		<span class="pull-left">Promo :</span><span class="pull-right">+<?= $item->it_promo; ?></span>
+											</div>	
+										</div>																				
 									</div>
-									<div class="row">
-										<div class="col-md-4 col-md-offset-1">
-											<div class="panel panel-primary">
-												<div class="panel-heading">
-													<h3 class="panel-title">Biru</h3>
-												</div>
-												<div class="panel-body">
-													<div class="row">
-														<span class="pull-left col-md-5">Qty 3mg :</span>														
-														<span class="col-md-7 pull-right"> 100 + 20</span>
-													</div>
-													<div class="row">
-														<span class="pull-left col-md-5">Qty 6mg :</span>														
-														<span class="col-md-7 pull-right"> 100 + 20</span>
-													</div>
-													<div class="row">
-														<span class="pull-left col-md-5">Qty 9mg :</span>														
-														<span class="col-md-7 pull-right"> 100 + 20</span>
-													</div>
-													<div class="row">
-														<span class="pull-left col-md-5">Qty 12mg :</span>														
-														<span class="col-md-7 pull-right"> 100 + 20</span>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-4 col-md-offset-2">
-											<div class="panel panel-warning">
-												<div class="panel-heading">
-													<h3 class="panel-title">Pink</h3>
-												</div>
-												<div class="panel-body">
-													<div class="row">
-														<span class="pull-left col-md-5">Qty 3mg :</span>														
-														<span class="col-md-7 pull-right"> 100 + 20</span>
-													</div>
-													<div class="row">
-														<span class="pull-left col-md-5">Qty 6mg :</span>														
-														<span class="col-md-7 pull-right"> 100 + 20</span>
-													</div>
-													<div class="row">
-														<span class="pull-left col-md-5">Qty 9mg :</span>														
-														<span class="col-md-7 pull-right"> 100 + 20</span>
-													</div>
-													<div class="row">
-														<span class="pull-left col-md-5">Qty 12mg :</span>														
-														<span class="col-md-7 pull-right"> 100 + 20</span>
-													</div>
-												</div>
-											</div>
-										</div>								
-									</div>
-									<div class="row">
-										<div class="col-md-4">
-											Fruity : Rm 27
-										</div>
-										<div class="col-md-4">
-											Creamy : Rm 25
-										</div>
-										<div class="col-md-4">
-											Total Qty : 2000
-										</div>
-									</div>
-									<div class="clearfix">
+								<?php
+									}
+								?>
+																		
+								</div>									
+								<div class="clearfix">
 									&nbsp;
-									</div>
-									<div class="row">
-										<div class="panel panel-info">
-											<div class="panel-heading">
-												Note
-											</div>
-											<div class="panel-body">
-												Budak nie xleh nak cayo............. <br>
-												Invoice : <br>
-												Inventory Check : <br>
-											</div>
-										</div>
-									</div>
 								</div>
+								<div class="row">
+									<div class="panel panel-info">
+										<div class="panel-heading">
+											Note
+										</div>
+										<div class="panel-body">
+											<?= $key->or_note; ?>
+										</div>
+									</div>
+								</div>								
 							</td>
 						</tr>
-						<tr class="listO" id="l2">
-							<td>2</td>
-							<td>Muhammad Farid Husaini</td>
-							<td>0123454555</td>
-							<td>Gomeh</td>
-							<td>Rm 100000</td>
-							<td>Full</td>
-							<td>8/8/2016</td>
-							<td>								
-								<progress class="progress progress-success" value="30" max="100" title="30%">30%</progress>
-							</td>
-							<td><a href="" title="View Detail"><i class="fa fa-eye"></i></a>&nbsp;&nbsp;<a href="" title="Edit"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;<a href="" title="Delete"><i class="fa fa-trash"></i></a></td>
-						</tr>
-						<tr class = "l2 detail" style="display: none;">
-							<td colspan="9">
-								<div class="well">
-									<div class="row">
-										<div class="col-md-4">
-											<div class="panel panel-default">
-												<div class="panel-heading">
-													<h3 class="panel-title">Manggo</h3>
-												</div>
-												<div class="panel-body">
-													<div class="row">
-														<span class="pull-left col-md-4">Qty :</span>														
-														<span class="col-md-8 pull-right"> 100 + 20</span>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-4">
-											<div class="panel panel-default">
-												<div class="panel-heading">
-													<h3 class="panel-title">Blackkurant</h3>
-												</div>
-												<div class="panel-body">
-													<div class="row">
-														<span class="pull-left col-md-4">Qty :</span>														
-														<span class="col-md-8 pull-right"> 100 + 20</span>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-4">
-											<div class="panel panel-yellow">
-												<div class="panel-heading">
-													<h3 class="panel-title">Honey Dew</h3>
-												</div>
-												<div class="panel-body">
-													<div class="row">
-														<span class="pull-left col-md-4">Qty :</span>														
-														<span class="col-md-8 pull-right"> 100 + 20</span>
-													</div>
-													
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-4 col-md-offset-1">
-											<div class="panel panel-primary">
-												<div class="panel-heading">
-													<h3 class="panel-title">Biru</h3>
-												</div>
-												<div class="panel-body">
-													<div class="row">
-														<span class="pull-left col-md-5">Qty 3mg :</span>														
-														<span class="col-md-7 pull-right"> 100 + 20</span>
-													</div>
-													<div class="row">
-														<span class="pull-left col-md-5">Qty 6mg :</span>														
-														<span class="col-md-7 pull-right"> 100 + 20</span>
-													</div>
-													<div class="row">
-														<span class="pull-left col-md-5">Qty 9mg :</span>														
-														<span class="col-md-7 pull-right"> 100 + 20</span>
-													</div>
-													<div class="row">
-														<span class="pull-left col-md-5">Qty 12mg :</span>														
-														<span class="col-md-7 pull-right"> 100 + 20</span>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-4 col-md-offset-2">
-											<div class="panel panel-warning">
-												<div class="panel-heading">
-													<h3 class="panel-title">Pink</h3>
-												</div>
-												<div class="panel-body">
-													<div class="row">
-														<span class="pull-left col-md-5">Qty 3mg :</span>														
-														<span class="col-md-7 pull-right"> 100 + 20</span>
-													</div>
-													<div class="row">
-														<span class="pull-left col-md-5">Qty 6mg :</span>														
-														<span class="col-md-7 pull-right"> 100 + 20</span>
-													</div>
-													<div class="row">
-														<span class="pull-left col-md-5">Qty 9mg :</span>														
-														<span class="col-md-7 pull-right"> 100 + 20</span>
-													</div>
-													<div class="row">
-														<span class="pull-left col-md-5">Qty 12mg :</span>														
-														<span class="col-md-7 pull-right"> 100 + 20</span>
-													</div>
-												</div>
-											</div>
-										</div>								
-									</div>
-									<div class="row">
-										<div class="col-md-4">
-											Fruity : Rm 27
-										</div>
-										<div class="col-md-4">
-											Creamy : Rm 25
-										</div>
-										<div class="col-md-4">
-											Total Qty : 2000
-										</div>
-									</div>
-									<div class="clearfix">
-									&nbsp;
-									</div>
-									<div class="row">
-										<div class="panel panel-info">
-											<div class="panel-heading">
-												Note
-											</div>
-											<div class="panel-body">
-												Budak nie xleh nak cayo............. <br>
-												Invoice : <br>
-												Inventory Check : <br>
-											</div>
-										</div>
-									</div>
-								</div>
-							</td>
-						</tr>
+					<?php		
+						}
+					?>
+						
 
 					<!-- End of table -->	
 					</tbody>
@@ -668,6 +434,29 @@
 			}			
 			//alert("jadi");
 		});
+		$(".clickAdd").click(function() {
+			$.when($(".menu").hide('slow')).then(function(){
+				$(".addform").show('slow');
+			});			
+		});
+		$("#backBtn").click(function() {
+			/* Act on the event */
+			$.when($(".addform").hide('slow')).then(function(){
+				$(".menu").show('slow');
+			});
+		});
+		$(".clickView").click(function() {
+			$.when($(".menu").hide('slow')).then(function(){
+				$(".viewL").show('slow');
+			});			
+		});
+		$("#backBtn2").click(function() {
+			/* Act on the event */
+			$.when($(".viewL").hide('slow')).then(function(){
+				$(".menu").show('slow');
+			});
+		});
+
 	});
 </script>
 

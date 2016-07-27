@@ -37,11 +37,61 @@
     	{
     		//$arr = $this->input->get();
 
-    		switch ($key) {    			
-    			case 'a1':    				
-    			
+    		switch ($key) {
+    			case 'a11':
+    				if ($this->input->post()) {
+    					$this->load->database();
+    					$arr = $this->input->post();
+	    				/*echo("<pre>");
+	    				print_r($arr);
+	    				echo("</pre>");*/
+	    				$temp = array(
+	    					'cl_name' => $arr['name'],
+	    					'cl_tel' => $arr['telnumber'],
+	    					'cl_country' => $arr['country']
+	    				);
+	    				$this->load->model("m_client");
+	    				$cl_id = $this->m_client->insert($temp);    				
+	    				if ($cl_id) {
+	    					unset($temp);
+	    					$temp = array(
+	    						'cl_id' => $cl_id,
+	    						'or_sendDate' => $arr['sendDate'],
+	    						'or_bank' => $arr['bank'],
+	    						'or_deposit' => $arr['deposit'],
+	    						'or_note' => $arr['note']
+	    					);
+
+	    					$this->load->model('m_order');
+	    					$or_id = $this->m_order->insert($temp);
+	    					if ($or_id) {
+	    						$this->load->model('m_item');
+	    						foreach ($arr['proOrder'] as $item) {
+	    							$arrItem = explode('|', $item);
+	    							unset($temp);
+	    							$temp = array(
+	    								'ty_id' => $arrItem[0],
+	    								'it_mg' => $arrItem[1],
+	    								'it_qty' => $arrItem[2],
+	    								'or_id' => $or_id,
+	    								'it_promo' => $arrItem[3]
+	    							);	    							
+	    							$this->m_item->insert($temp);
+	    							$this->session->set_flashdata('success' , '<b>Well done!</b> You successfully add the order.');
+	    							redirect(site_url('dashboard/page/a1'),'refresh');
+	    						}
+	    					}
+	    				}   
+    				}    				
+    				 			
+    			case 'a1':
+    				$this->load->library('my_func');
+    				$this->load->database();
+    				$this->load->model('m_order');
+    				$arr = $this->m_order->getList();
+    				$temp['arr'] = $arr;
     				$data['title'] = '<i class="fa fa-fw fa-edit"></i> Production</a>';
-    				$data['display'] = $this->load->view($this->parent_page.'/news_menu' , '' , true);
+    				$data['display'] = $this->load->view($this->parent_page.'/news_menu' , $temp , true);
     				$this->_show('index' , $data , $key);
     				break;
     			case 'a2':
@@ -381,6 +431,22 @@
 					break;
 			}
 			$arr['icon'] = $temp;
+			switch ($arr['niccode']) {
+				case 0:	$temp = 'default';
+					break;
+				case 3:	$temp = 'primary';					
+					break;
+				case 6: $temp = 'success';
+					break;
+				case 9: $temp = 'danger';
+					break;
+				case 12: $temp = 'warning';
+					break;				
+				default:
+					$temp = 'info';
+					break;
+			}
+			$arr['nicLable'] = $temp;
 			echo $this->load->view($this->parent_page. "/ajax/getAjaxOrderBox", $arr , true);
 			//echo $this->load->view($this->parent_page. "/ajax/testajax", '', TRUE);;
 			//return $this->load->view("dashboard/ajax/getAjaxOrderBox" , $arr , true);

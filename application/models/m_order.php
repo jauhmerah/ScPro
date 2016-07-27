@@ -44,6 +44,22 @@
 	            return false;
 	        }
 	    }
+
+	    public function getList()
+	    {
+	    	$this->db->select('*');
+	    	$this->db->from(self::TABLE_NAME);
+	    	$this->db->join('client', self::TABLE_NAME.'.cl_id = client.cl_id', 'left');
+	    	$result = $this->db->get()->result();
+	    	for ($i=0; $i < sizeof($result); $i++) { 
+	    		$this->db->select("*");
+	    		$this->db->from('item');
+	    		$this->db->where('or_id', $result[$i]->or_id);
+	    		$this->db->join('type' , 'item.ty_id = type.ty_id' , 'left');
+	    		$result[$i]->item = $this->db->get()->result();
+	    	}
+	    	return $result;
+	    }
 	
 	    /**
 	     * Inserts new data into database
