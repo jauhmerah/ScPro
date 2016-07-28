@@ -103,6 +103,19 @@
 	        $this->db->delete(self::TABLE_NAME, $where);
 	        return $this->db->affected_rows();
 	    }
+
+	    public function deleteList($or_id = null)
+	    {
+	    	if ($or_id == null) {
+	    		return false;
+	    	}
+	    	$arr = $this->get($or_id);
+	    	$this->db->delete('item' , array('or_id' => $or_id));
+	    	$this->db->delete('client' , array('cl_id' => $arr->cl_id));
+	    	$where = array(self::PRI_INDEX => $or_id);	    	
+	    	$this->db->delete(self::TABLE_NAME, $where);
+	    	return true;
+	    }
 	}
 	        
 ?>

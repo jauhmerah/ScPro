@@ -1,5 +1,5 @@
 <!--<pre>
-	<?=print_r($arr);?>
+	<print_r($arr);?>
 </pre>-->
 <div class="row menu">	
 	<div class="col-lg-6">
@@ -119,11 +119,11 @@
 		
 
 		function perasa(i) {
-			if (i == 0) {return "Manggo";}
-			if (i == 1) {return "Blackkurant";}
-			if (i == 2) {return "Honey Dew";}
-			if (i == 3) {return "Blue";}
-			if (i == 4) {return "Pink";}
+			if (i == 1) {return "Manggo";}
+			if (i == 2) {return "Blackkurant";}
+			if (i == 3) {return "Honey Dew";}
+			if (i == 4) {return "Blue";}
+			if (i == 5) {return "Pink";}
 			return false;
 		}
 		function nico(i) {
@@ -204,11 +204,11 @@
 								<div class="col-md-8">
 									<select name="perasa" id="inputPerasa" class="form-control">
 										<option value="-1" selected>-- Select One --</option>
-										<option value="0">Manggo</option>
-										<option value="1">Blackkurant</option>
-										<option value="2">Honey Dew</option>
-										<option value="3">Biru</option>
-										<option value="4">Pink</option>
+										<option value="1">Manggo</option>
+										<option value="2">Blackkurant</option>
+										<option value="3">Honey Dew</option>
+										<option value="4">Biru</option>
+										<option value="5">Pink</option>
 									</select>
 								</div>
 							</div>
@@ -344,10 +344,14 @@
 							<th>Contact No</th>
 							<th>Country</th>
 							
-							<th>Total Quantity</th>
+							<th>Total Quantity<br>
+							<h6><span class="label label-info">Quantity under development</span></h6>
+							</th>
 							<th>Deposit</th>							
 							<th>Send Date</th>
-							<th>Progress</th>
+							<th>Progress<br>
+							<h6><span class="label label-info">Progress Bar under development</span></h6>
+							</th>
 							<th>Action</th>
 						</tr>
 					</thead>
@@ -368,7 +372,7 @@
 							<td>								
 								<progress class="progress progress-success" value="75" max="100" title="75%">75%</progress>
 							</td>
-							<td><a href="" title="View Detail"><i class="fa fa-eye"></i></a>&nbsp;&nbsp;<a href="" title="Edit"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;<a href="" title="Delete"><i class="fa fa-trash"></i></a></td>
+							<td><a href="" title="View Detail"><i class="fa fa-eye"></i></a>&nbsp;&nbsp;<a href="" title="Edit"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;<a href="<?= site_url('dashboard/deleteOrder?key='.$this->my_func->scpro_encrypt($key->or_id)); ?>" title="Delete"><i class="fa fa-trash"></i></a></td>
 						</tr>						
 						<tr class = "l<?= $n; ?> detail" style="display: none;">
 							<td colspan="9">								

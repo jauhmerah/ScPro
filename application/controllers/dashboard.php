@@ -95,8 +95,12 @@
     				$this->_show('index' , $data , $key);
     				break;
     			case 'a2':
+    				$this->load->library('my_func');
+    				$this->load->database();
+    				$this->load->model('m_order');
+    				$temp['arr'] = $this->m_order->getList();
     				$data['title'] = '<i class="fa fa-fw fa-edit"></i>Order List</a>';
-    				$data['display'] = $this->load->view($this->parent_page.'/productionOrder', '', TRUE);
+    				$data['display'] = $this->load->view($this->parent_page.'/productionOrder', $temp , TRUE);
     				$this->_show('index' , $data , $key);
     				break;
     			case 'a3':
@@ -456,6 +460,30 @@
 		public function testAjax()
 		{
 			echo $this->load->view($this->parent_page."/ajax/testajax","", TRUE);
+		}
+
+		public function deleteOrder($or_id = null)
+		{	
+			if ($this->input->get('key')) {
+				$key = true;				
+			}		
+			if ($or_id == null && !isset($key)) {
+				return false;
+			}
+			$this->load->library('my_func');
+			if ($or_id == null) {
+				$or_id = $this->input->get('key');
+				$or_id = $this->my_func->scpro_decrypt($or_id);
+			}
+			
+			$this->load->database();
+			$this->load->model('m_order');
+			if ($this->m_order->deleteList($or_id)) {
+				$this->session->set_flashdata('success', 'Success delete the order');
+			}else{
+				$this->session->set_flashdata('danger', 'Unable to delete the order, please contact the webmaster');
+			}
+			redirect(site_url('dashboard/page/a1'),'refresh');
 		}
 	}
 	        

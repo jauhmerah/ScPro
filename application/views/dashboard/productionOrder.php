@@ -1,3 +1,6 @@
+<pre>
+	<?= print_r($arr); ?>
+</pre>
 <div class="row">
 	<div class="col-xs-12">
 		<div class="panel panel-default">
@@ -16,89 +19,45 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr class="Lorder" id="L1">
-								<td>1</td>
-								<td>Farid Husaini</td>
-								<td>016646265</td>
-								<td>Gomes</td>
-								<td>29/7/2017</td>
+						<?php
+						$n=0;
+						foreach ($arr as $key) { 
+							$n++;
+							?>						
+							<tr class="Lorder" id="L<?= $n; ?>">
+								<td><?= $n; ?></td>
+								<td><?= $key->cl_name; ?></td>
+								<td><?= $key->cl_tel; ?></td>
+								<td><?= $key->cl_country; ?></td>
+								<td><?= $key->or_sendDate; ?></td>
 							</tr>
-							<tr class="L1" style="display : none;">
+							<tr class="L<?= $n; ?>" style="display : none;">
 								<td colspan="5" >
 									<div class="row">
 										<div class="col-md-10 col-md-offset-1">
+										<?php
+											foreach ($key->item as $item) { ?>
 											<div class="well col-md-4">										
 											  	<div class="media">
 													<a class="media-left" href="#">
-													  <img class="media-object" src="<?= base_url(); ?>/assets/nasty/pro1.jpg" alt="Generic placeholder image">
-													  <span class="label label-info media-object">3 Mg</span>
+													  <img class="media-object" src="<?= $this->my_func->itemIcon($item->ty_id); ?> " alt="Generic placeholder image">
+													  <?= $this->my_func->mgLabel($item->it_mg); ?>
 													</a>
 													<div class="media-body">												
-														<h3 class="media-heading">Manggo</h3>
-												  		<span class="pull-left">Qty :</span><span class="pull-right">100</span></br>
-												  		<span class="pull-left">Promo :</span><span class="pull-right">+10</span>
+														<h3 class="media-heading"><?= $item->ty_desc; ?></h3>
+												  		<span class="pull-left">Qty :</span><span class="pull-right"><?= $item->it_qty; ?></span></br>
+												  		<span class="pull-left">Promo :</span><span class="pull-right">+<?= $item->it_promo; ?></span>
 													</div>	
 												</div>																				
-											</div>
-											<div class="well col-md-4">										
-											  	<div class="media">
-													<a class="media-left" href="#">
-													  <img class="media-object" src="<?= base_url(); ?>/assets/nasty/pro2.jpg" alt="Generic placeholder image">
-													  <span class="label label-default media-object">0 Mg</span>
-													</a>
-													<div class="media-body">												
-														<h3 class="media-heading">Blackkurant</h3>
-												  		<span class="pull-left">Qty :</span><span class="pull-right">100</span></br>
-												  		<span class="pull-left">Promo :</span><span class="pull-right">+10</span>
-													</div>	
-												</div>																				
-											</div>
-											<div class="well col-md-4">										
-											  	<div class="media">
-													<a class="media-left" href="#">
-													  <img class="media-object" src="<?= base_url(); ?>/assets/nasty/pro3.jpg" alt="Generic placeholder image">
-													  <span class="label label-success media-object">6 Mg</span>
-													</a>
-													<div class="media-body">												
-														<h3 class="media-heading">Honey Dew</h3>
-												  		<span class="pull-left">Qty :</span><span class="pull-right">100</span></br>
-												  		<span class="pull-left">Promo :</span><span class="pull-right">+10</span>
-													</div>	
-												</div>																				
-											</div>
-											<div class="well col-md-4">										
-											  	<div class="media">
-													<a class="media-left" href="#">
-													  <img class="media-object" src="<?= base_url(); ?>/assets/nasty/pro1.jpg" alt="Generic placeholder image">
-													  <span class="label label-warning media-object">9 Mg</span>
-													</a>
-													<div class="media-body">												
-														<h3 class="media-heading">Manggo</h3>
-												  		<span class="pull-left">Qty :</span><span class="pull-right">100</span></br>
-												  		<span class="pull-left">Promo :</span><span class="pull-right">+10</span>
-													</div>	
-												</div>																				
-											</div>
-											<div class="row">
-												<div class="col-md-12">
-													<hr>
-													<div class="col-md-2">
-														<span class="pull-left">Note</span><span class="pull-right">:</span>
-													</div>
-													<div class="col-md-6">
-														<div class="well">
-															Bdk nie xleh nak cayo.........
-														</div>
-													</div>
-													<div class="col-md-4">
-														<button type="button" class="btn btn-lg btn-primary pull-right">Move To Process</button>
-													</div>
-												</div>
-											</div>
+											</div>	
+										<?php	}
+										?>																						
 										</div>
 									</div>		
 								</td>
 							</tr>
+						<?php }
+						?>
 							<tr  class="Lorder" id="L2">
 								<td>2</td>
 								<td>Farid Husaini</td>

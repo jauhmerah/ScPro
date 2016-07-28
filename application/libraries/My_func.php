@@ -140,10 +140,10 @@
 						$text = base_url().'/assets/nasty/pro3.jpg';
 						break;
 					case 4:
-						$text = base_url().'/assets/nasty/pro4.jpg';
+						$text = base_url().'/assets/nasty/pro3.jpg';
 						break;
 					case 5:
-						$text = base_url().'/assets/nasty/pro5.jpg';
+						$text = base_url().'/assets/nasty/pro3.jpg';
 						break;
 					
 					default:
