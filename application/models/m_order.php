@@ -44,12 +44,30 @@
 	            return false;
 	        }
 	    }
-
-	    public function getList()
+	    /* 
+			$process
+			view all = 0
+			view new order = 1
+			view progress order = 2
+			view complete order = 3
+	    */
+	    public function getList($process = 0)
 	    {
 	    	$this->db->select('*');
 	    	$this->db->from(self::TABLE_NAME);
 	    	$this->db->join('client', self::TABLE_NAME.'.cl_id = client.cl_id', 'left');
+	    	switch ($process) {
+	    		case 1:
+	    			$this->db->where('pr_id', 1);
+	    			break;
+	    		case 2:
+	    			$this->db->where('pr_id', 2);
+	    			break;
+	    		case 3:
+	    			$this->db->where('pr_id', 3);
+	    			break;
+	    	}   	
+	    	
 	    	$result = $this->db->get()->result();
 	    	for ($i=0; $i < sizeof($result); $i++) { 
 	    		$this->db->select("*");
@@ -115,6 +133,23 @@
 	    	$where = array(self::PRI_INDEX => $or_id);	    	
 	    	$this->db->delete(self::TABLE_NAME, $where);
 	    	return true;
+	    }
+
+	    public function checkDone($or_id=null)
+	    {
+	    	if ($or_id != null) {
+	    		$this->db->select('*');
+	    		$this->db->from('item');
+	    		$this->db->where('or_id', $or_id);
+	    		$this->db->where('pr_id', 2);
+	    		
+	    		$result = $this->db->get()->result();
+	    		if(sizeof($result) == 0){
+	    			$this->update(array('pr_id'=>3) , $or_id);
+	    		}
+	    	}else{
+	    		return false;
+	    	}
 	    }
 	}
 	        

@@ -10,133 +10,63 @@
 		<!-- Bootstrap CSS -->
 		<link rel="stylesheet" href="<?= base_url().'/asset/js/new/bootstrap.min.css'; ?>">
 
-		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-		<!--[if lt IE 9]>
-			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
-			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-		<![endif]-->
 	</head>
 	<body>
-		<div class="panel panel-info">
+	<!--<pre>
+		<ph print_r($arr); ?>
+	</pre>-->
+		<div class="panel panel-primary">
 			<div class="panel-heading" align="center">
 				<h1 class="panel-title"><h1>Order List</h1></h1>
 			</div>
 			<div class="panel-body">
-				<div class="table-responsive">
-					<table class="table table-hover table-striped">
+				<div class="table">
+					<table class="table table-striped">
 						<thead>
-							<tr>
+							<tr style = "background-color : #F5F5F5">
 								<th>#</th>
 								<th>Detail</th>
 								<th>Order Item</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td class="pull-left">1</td>
+						<?php 
+							$n=0;
+							foreach ($arr as $key) { $n++; ?>
+								
+						
+							<tr <?php if($n%2 == 0){ ?> style = "background-color : #FCF8E3" <?php } ?> >
+								<td class="pull-left"><?= $n; ?></td>
 								<td class="col-md-3">
-									Name : Farid Husaini Bin Abd Razak
-									</br>Contact : 01111011566
-									</br>Country : Gomes<br>
+									Name : <?= $key->cl_name; ?>
+									</br>Contact : <?= $key->cl_tel; ?>
+									</br>Country : <?= $key->cl_country; ?><br>
 									<div class="well well-sm">
-										#note : bdk nie xleh nk cayo
+										#note : <?= $key->or_note; ?>
 									</div>
 								</td>
 								<td class="col-md-8">
-									<div class="well col-md-4">										
+									<?php 
+										foreach ($key->item as $item) { ?>																	
+									<div class="well col-md-4" <?php if($item->pr_id == 3){ ?> style = "background-color : #E6F500;"<?php } ?>>										
 									  	<div class="media">
 											<a class="media-left" href="#">
-											  <img class="media-object" src="<?= base_url(); ?>/assets/nasty/pro1.jpg" alt="Generic placeholder image">
-											  <span class="label label-warning media-object">9 Mg</span>
+											  <img class="media-object" src="<?= $this->my_func->itemIcon($item->ty_id); ?>" alt="Generic placeholder image">
+											  <?= $this->my_func->mgLable($item->it_mg , true); ?>
 											</a>
 											<div class="media-body">												
-												<h3 class="media-heading">Manggo</h3>
-										  		<span class="pull-left">Qty :</span><span class="pull-right">100</span></br>
-										  		<span class="pull-left">Promo :</span><span class="pull-right">+10</span>
+												<h3 class="media-heading"><?= $item->ty_desc; ?></h3>
+										  		<span class="pull-left">Qty :</span><span class="pull-right"><?= $item->it_qty; ?></span></br>
+										  		<span class="pull-left">Promo :</span><span class="pull-right">+<?= $item->it_promo; ?></span>
 											</div>	
 										</div>																				
 									</div>
-									<div class="well col-md-4">										
-									  	<div class="media">
-											<a class="media-left" href="#">
-											  <img class="media-object" src="<?= base_url(); ?>/assets/nasty/pro1.jpg" alt="Generic placeholder image">
-											  <span class="label label-warning media-object">9 Mg</span>
-											</a>
-											<div class="media-body">												
-												<h3 class="media-heading">Manggo</h3>
-										  		<span class="pull-left">Qty :</span><span class="pull-right">100</span></br>
-										  		<span class="pull-left">Promo :</span><span class="pull-right">+10</span>
-											</div>	
-										</div>																				
-									</div>
-									<div class="well col-md-4">										
-									  	<div class="media">
-											<a class="media-left" href="#">
-											  <img class="media-object" src="<?= base_url(); ?>/assets/nasty/pro1.jpg" alt="Generic placeholder image">
-											  <span class="label label-warning media-object">9 Mg</span>
-											</a>
-											<div class="media-body">												
-												<h3 class="media-heading">Manggo</h3>
-										  		<span class="pull-left">Qty :</span><span class="pull-right">100</span></br>
-										  		<span class="pull-left">Promo :</span><span class="pull-right">+10</span>
-											</div>	
-										</div>																				
-									</div>
-									<div class="well col-md-4">										
-									  	<div class="media">
-											<a class="media-left" href="#">
-											  <img class="media-object" src="<?= base_url(); ?>/assets/nasty/pro1.jpg" alt="Generic placeholder image">
-											  <span class="label label-warning media-object">9 Mg</span>
-											</a>
-											<div class="media-body">												
-												<h3 class="media-heading">Manggo</h3>
-										  		<span class="pull-left">Qty :</span><span class="pull-right">100</span></br>
-										  		<span class="pull-left">Promo :</span><span class="pull-right">+10</span>
-											</div>	
-										</div>																				
-									</div>
+									<?php	}
+									?>
 								</td>
 							</tr>
-							<tr>
-								<td class="pull-left">2</td>
-								<td class="col-md-3">
-									Name : Farid Husaini Bin Abd Razak
-									</br>Contact : 01111011566
-									</br>Country : Gomes<br>
-									<div class="well well-sm">
-										#note : bdk nie xleh nk cayo
-									</div>
-								</td>
-								<td class="col-md-8">
-									<div class="well col-md-4">										
-									  	<div class="media">
-											<a class="media-left" href="#">
-											  <img class="media-object" src="<?= base_url(); ?>/assets/nasty/pro1.jpg" alt="Generic placeholder image">
-											  <span class="label label-warning media-object">9 Mg</span>
-											</a>
-											<div class="media-body">												
-												<h3 class="media-heading">Manggo</h3>
-										  		<span class="pull-left">Qty :</span><span class="pull-right">100</span></br>
-										  		<span class="pull-left">Promo :</span><span class="pull-right">+10</span>
-											</div>	
-										</div>																				
-									</div>
-									<div class="well col-md-4">										
-									  	<div class="media">
-											<a class="media-left" href="#">
-											  <img class="media-object" src="<?= base_url(); ?>/assets/nasty/pro1.jpg" alt="Generic placeholder image">
-											  <span class="label label-warning media-object">9 Mg</span>
-											</a>
-											<div class="media-body">												
-												<h3 class="media-heading">Manggo</h3>
-										  		<span class="pull-left">Qty :</span><span class="pull-right">100</span></br>
-										  		<span class="pull-left">Promo :</span><span class="pull-right">+10</span>
-											</div>	
-										</div>																				
-									</div>
-								</td>
-							</tr>
+							<?php	}
+						?>							
 						</tbody>
 					</table>
 				</div>

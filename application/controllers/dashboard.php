@@ -11,6 +11,8 @@
 	        //$this->load->helper('url');
 	        $this->load->library('session');
 	    }
+
+	    
 	
 	    function index() {
 	    	$code['data'] = $this->load->view($this->parent_page.'/'.'bootstrap-elements' , '' , true);
@@ -36,15 +38,12 @@
     	public function page($key)
     	{
     		//$arr = $this->input->get();
-
+    		$this->_checkSession();
     		switch ($key) {
     			case 'a11':
     				if ($this->input->post()) {
     					$this->load->database();
     					$arr = $this->input->post();
-	    				/*echo("<pre>");
-	    				print_r($arr);
-	    				echo("</pre>");*/
 	    				$temp = array(
 	    					'cl_name' => $arr['name'],
 	    					'cl_tel' => $arr['telnumber'],
@@ -76,15 +75,18 @@
 	    								'or_id' => $or_id,
 	    								'it_promo' => $arrItem[3]
 	    							);	    							
-	    							$this->m_item->insert($temp);
-	    							$this->session->set_flashdata('success' , '<b>Well done!</b> You successfully add the order.');
-	    							redirect(site_url('dashboard/page/a1'),'refresh');
+	    							$this->m_item->insert($temp);	    							
 	    						}
+	    						$this->session->set_flashdata('success' , '<b>Well done!</b> You successfully add the order.');
+	    						redirect(site_url('dashboard/page/a1'),'refresh');
 	    					}
 	    				}   
     				}    				
     				 			
     			case 'a1':
+    				if (!$this->_checkLvl()) {
+    					redirect(site_url('dashboard/page/a2'),'refresh');
+    				}
     				$this->load->library('my_func');
     				$this->load->database();
     				$this->load->model('m_order');
@@ -94,14 +96,38 @@
     				$data['display'] = $this->load->view($this->parent_page.'/news_menu' , $temp , true);
     				$this->_show('index' , $data , $key);
     				break;
-    			case 'a2':
+    			case 'a21':    				
+    				if ($this->input->get('key')) {
+    					$this->load->library('my_func');
+	    				$this->load->database();
+	    				$this->load->model('m_order');
+    					$key = $this->input->get('key');    				
+    					$or_id = $this->my_func->scpro_decrypt($key);
+    					$this->m_order->update(array('pr_id' => 2),$or_id);
+    					redirect(site_url('dashboard/page/a2'), 'refresh');
+    				}    				
+    			case 'a2':  
     				$this->load->library('my_func');
-    				$this->load->database();
-    				$this->load->model('m_order');
-    				$temp['arr'] = $this->m_order->getList();
+	    			$this->load->database();
+	    			$this->load->model('m_order');   				
+    				$temp['arr'] = $this->m_order->getList(1);
+    				$temp['arr1'] = $this->m_order->getList(2);
     				$data['title'] = '<i class="fa fa-fw fa-edit"></i>Order List</a>';
     				$data['display'] = $this->load->view($this->parent_page.'/productionOrder', $temp , TRUE);
     				$this->_show('index' , $data , $key);
+    				break;
+    			case 'a22':    				
+    				if ($this->input->get('done') && $this->input->get('key')) {
+    					$this->load->library('my_func');
+	    				$this->load->database();
+	    				$this->load->model('m_item');
+	    				$this->load->model('m_order');
+	    				$it_id = $this->my_func->scpro_decrypt($this->input->get('done'));
+	    				$or_id = $this->my_func->scpro_decrypt($this->input->get('key'));
+	    				$this->m_item->update(array('pr_id' => 3), $it_id);
+	    				$this->m_order->checkDone($or_id);
+	    				redirect(site_url('dashboard/page/a2'), 'refresh');
+    				}
     				break;
     			case 'a3':
     				//channel
@@ -484,6 +510,36 @@
 				$this->session->set_flashdata('danger', 'Unable to delete the order, please contact the webmaster');
 			}
 			redirect(site_url('dashboard/page/a1'),'refresh');
+		}
+
+		public function logout()
+		{
+			session_destroy();
+			redirect(site_url('login'),'refresh');
+		}
+
+		function _checkSession()
+		{
+			$this->load->database();
+			$this->load->model('m_login');
+			if ($this->session->userdata('us_id')) {
+				$id = $this->my_func->scpro_decrypt($this->session->userdata('us_id'));
+				if ($this->m_login->get($id)) {
+					return true;
+				}else{
+					redirect(site_url('login'),'refresh');
+				}
+			}			
+		}
+
+		function _checkLvl()
+		{
+			$lvl =$this->my_func->scpro_decrypt($this->$this->session->userdata('us_lvl'));
+			if ($lvl == 1) {
+				return true;
+			}else{
+				return false;
+			}
 		}
 	}
 	        

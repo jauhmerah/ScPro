@@ -91,9 +91,12 @@
         <label for="inputPassword1" class="sr-only">Password</label>
         <input type="password" id="inputPassword1" name="pass" class="form-control" placeholder="Password" required="">
         <div class="checkbox">
-          <!--<input type="checkbox" value="remember-me"> -->
+          <!--<input type="checkbox" value="remember-me"> 
           <a><label class = "btn1 col-sm-5">Sign Up</label></a>
-          <a href="<?= site_url('main'); ?>"><label class = "btn1 col-sm-offset-2" style="text-align: right;" >Back Home</label></a>
+          <a href="<?= site_url('main'); ?>"><label class = "btn1 col-sm-offset-2" style="text-align: right;" >Back Home</label></a>-->
+        </div>
+        <div class="clearfix">
+        &nbsp;
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
       </form>

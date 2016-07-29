@@ -1,6 +1,4 @@
-<!--<pre>
-	<print_r($arr);?>
-</pre>-->
+
 <div class="row menu">	
 	<div class="col-lg-6">
 	<div class="col-lg-10 col-sm-offset-1">
@@ -96,19 +94,19 @@
 
 		$("#inputPerasa").change(function() {
 			var i = $(this).val();
-			if (i == 0) {
-				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/img1.jpg');
-			}
 			if (i == 1) {
-				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/img2.jpg');
+				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/img1.jpg');
 			}
 			if (i == 2) {
-				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/img3.jpg');
+				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/img2.jpg');
 			}
 			if (i == 3) {
-				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/img1.jpg');
+				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/img3.jpg');
 			}
 			if (i == 4) {
+				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/img1.jpg');
+			}
+			if (i == 5) {
 				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/img1.jpg');
 			}
 			if (i == -1) {
@@ -361,7 +359,7 @@
 						foreach ($arr as $key) { 
 							$n++;
 						?>
-						<tr class="listO" id="l<?= $n; ?>">
+						<tr class="listO" id="l<?= $n; ?>" <?php if($key->pr_id == 3){ echo 'style = "background-color : #E6F500;"'; } ?>>
 							<td><?= $n; ?></td>
 							<td><?= $key->cl_name; ?></td>
 							<td><?= $key->cl_tel; ?></td>
@@ -372,15 +370,15 @@
 							<td>								
 								<progress class="progress progress-success" value="75" max="100" title="75%">75%</progress>
 							</td>
-							<td><a href="" title="View Detail"><i class="fa fa-eye"></i></a>&nbsp;&nbsp;<a href="" title="Edit"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;<a href="<?= site_url('dashboard/deleteOrder?key='.$this->my_func->scpro_encrypt($key->or_id)); ?>" title="Delete"><i class="fa fa-trash"></i></a></td>
+							<td><a href="" title="View Detail"><i class="fa fa-eye"></i></a>&nbsp;&nbsp;<!--<a href="" title="Edit"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;--><a href="<?= site_url('dashboard/deleteOrder?key='.$this->my_func->scpro_encrypt($key->or_id)); ?>" title="Delete"><i class="fa fa-trash"></i></a></td>
 						</tr>						
-						<tr class = "l<?= $n; ?> detail" style="display: none;">
+						<tr class = "l<?= $n; ?> detail" style="display: none; ">
 							<td colspan="9">								
 								<div class="row col-md-12">
 								<?php 
 									foreach ($key->item as $item) {
 								?>
-									<div class="well col-md-4">										
+									<div class="well col-md-4" <?php if($item->pr_id == 3){ ?> style = "background-color : #E6F500;"<?php } ?>>										
 									  	<div class="media">
 											<a class="media-left" href="#">
 											  <img class="media-object" src="<?php echo $this->my_func->itemIcon($item->ty_id); ?> " alt="Generic placeholder image">

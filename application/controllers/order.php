@@ -6,13 +6,17 @@ class Order extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->library('session');
 	}
-
 	public function index()
 	{
-			$this->_show();
-	}
+		$this->load->database();
+		$this->load->model('m_order');
+		$this->load->library('my_func');
+		$arr['arr'] = $this->m_order->getList(2);
 
+		$this->_show("orderList1", $arr);
+	}
 	function _show($page = "orderList1" , $data = null)
 	{
 		$this->load->view($this->parent_page."/". $page, $data);
