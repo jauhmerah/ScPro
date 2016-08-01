@@ -9,19 +9,24 @@
 
 		<!-- Bootstrap CSS -->
 		<link rel="stylesheet" href="<?= base_url().'/asset/js/new/bootstrap.min.css'; ?>">
-
+		<style type="text/css">
+			.full {
+			    background: url('<?= base_url("assets/nasty/nastylogo.png"); ?>') no-repeat center center fixed;			    
+			}
+		</style>
 	</head>
-	<body>
+	<body class ="full">
 	<!--<pre>
 		<ph print_r($arr); ?>
 	</pre>-->
+	<div>
 		<div class="panel panel-primary">
 			<div class="panel-heading" align="center">
 				<h1 class="panel-title"><h1>Order List</h1></h1>
 			</div>
-			<div class="panel-body">
-				<div class="table">
-					<table class="table table-striped">
+			<div class="panel-body full">
+				<div class="">
+					<table class="table">
 						<thead>
 							<tr style = "background-color : #F5F5F5">
 								<th>#</th>
@@ -29,13 +34,11 @@
 								<th>Order Item</th>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody >
 						<?php 
 							$n=0;
-							foreach ($arr as $key) { $n++; ?>
-								
-						
-							<tr <?php if($n%2 == 0){ ?> style = "background-color : #FCF8E3" <?php } ?> >
+							foreach ($arr as $key) { $n++; ?>						
+							<tr <?php if($n%2 == 0){ ?> style = "background-color : #FCF8E3" <?php }else{echo 'background : none;"';} ?> >
 								<td class="pull-left"><?= $n; ?></td>
 								<td class="col-md-3">
 									Name : <?= $key->cl_name; ?>
@@ -48,7 +51,7 @@
 								<td class="col-md-8">
 									<?php 
 										foreach ($key->item as $item) { ?>																	
-									<div class="well col-md-4" <?php if($item->pr_id == 3){ ?> style = "background-color : #E6F500;"<?php } ?>>										
+									<div class="well col-md-4" <?php if($item->pr_id == 3){ ?> style = "background-color : #5BA000;"<?php } ?>>										
 									  	<div class="media">
 											<a class="media-left" href="#">
 											  <img class="media-object" src="<?= $this->my_func->itemIcon($item->ty_id); ?>" alt="Generic placeholder image">
@@ -70,7 +73,7 @@
 						</tbody>
 					</table>
 				</div>
-
+		</div>
 
 				<div class="row">
 					<div class="col-md-4">

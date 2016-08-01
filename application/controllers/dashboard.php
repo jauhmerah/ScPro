@@ -15,14 +15,34 @@
 	    
 	
 	    function index() {
-	    	$code['data'] = $this->load->view($this->parent_page.'/'.'bootstrap-elements' , '' , true);
+	    	/*$code['data'] = $this->load->view($this->parent_page.'/'.'bootstrap-elements' , '' , true);
 	    	$code['data'] .= $this->load->view($this->parent_page.'/'.'index_exp' , '' , true);
-	        $this->_show( 'index' , $code);
+	        $this->_show( 'index' , $code);*/
+	        if ($this->session->userdata('us_id')) {
+	        	if ($this->_checkLvl()) {
+	        		$this->page('a1');
+	        	} else {
+	        		$this->page('a2');
+	        	}	        	
+  	        }else {
+  	        	redirect(site_url('login'),'refresh');
+  	        }        
 	        
 	    }
 
-	    function _show($page = 'index' , $data = null , $key = 'a'){
+	    public function example()
+	    {
+	    	$code['data'] = $this->load->view($this->parent_page.'/'.'bootstrap-elements' , '' , true);
+	    	$code['data'] .= $this->load->view($this->parent_page.'/'.'index_exp' , '' , true);
+	        $this->_show( 'index' , $code);
+	    }
+
+	    function _show($page = 'index' , $data = null , $key = 'a1'){	    	
 	    	$link['link'] = $key;
+	    	$link['admin'] = $this->_checkLvl();
+	    	if (!$link['admin']) {
+	    		$link['link'] = 'a2';
+	    	}
 	    	if (isset($data['title'])) {
 	    		$T['title'] = $data['title'];
 	    	}else{
@@ -446,15 +466,15 @@
 		{
 			$arr = $this->input->post();
 			switch ($arr['fcode']) {
-				case 0:	$temp = base_url()."/assets/nasty/pro1.jpg";						
+				case 1:	$temp = base_url()."/assets/nasty/pro1.jpg";						
 					break;
-				case 1:	$temp = base_url()."/assets/nasty/pro2.jpg";						
+				case 2:	$temp = base_url()."/assets/nasty/pro2.jpg";						
 					break;
-				case 2:	$temp = base_url()."/assets/nasty/pro3.jpg";						
-					break;
-				case 3:	$temp = base_url()."/assets/nasty/pro1.jpg";						
+				case 3:	$temp = base_url()."/assets/nasty/pro3.jpg";						
 					break;
 				case 4:	$temp = base_url()."/assets/nasty/pro1.jpg";						
+					break;
+				case 5:	$temp = base_url()."/assets/nasty/pro1.jpg";						
 					break;	
 				default:
 					$temp = "";
@@ -514,7 +534,9 @@
 
 		public function logout()
 		{
-			session_destroy();
+			$this->session->unset_userdata('us_id');
+			$this->session->unset_userdata('us_lvl');
+			$this->session->sess_destroy();
 			redirect(site_url('login'),'refresh');
 		}
 
@@ -522,6 +544,7 @@
 		{
 			$this->load->database();
 			$this->load->model('m_login');
+			$this->load->library('my_func');
 			if ($this->session->userdata('us_id')) {
 				$id = $this->my_func->scpro_decrypt($this->session->userdata('us_id'));
 				if ($this->m_login->get($id)) {
@@ -529,12 +552,15 @@
 				}else{
 					redirect(site_url('login'),'refresh');
 				}
+			}else{
+				redirect(site_url('login'),'refresh');
 			}			
 		}
 
 		function _checkLvl()
-		{
-			$lvl =$this->my_func->scpro_decrypt($this->$this->session->userdata('us_lvl'));
+		{			
+			$this->load->library('my_func');
+			$lvl =$this->my_func->scpro_decrypt($this->session->userdata('us_lvl'));
 			if ($lvl == 1) {
 				return true;
 			}else{

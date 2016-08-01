@@ -121,9 +121,9 @@
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
-                    <li <?php if ($link == 'a') { echo $active;} ?>>
+                    <!--<li <?php if ($link == 'a') { echo $active;} ?>>
                         <a href="<?= site_url('dashboard'); ?>"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
-                    </li>                    
+                    </li>                    -->
                     <!--<li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#home" <?php if (strpos($link, 'b') !== false) { echo "aria-expanded=\"true\"";  } ?>><i class="fa fa-fw fa-home"></i> Home Page<i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="home" <?php if (strpos($link, 'b') !== false) { echo "aria-expanded=\"true\" class=\"collapse in\"";  }else{ echo 'class="collapse"';} ?> >
@@ -141,9 +141,10 @@
                             </li>
                         </ul>
                     </li> -->
+                    <?php if($admin){?>
                     <li <?php if ($link == 'a1') { echo $active;} ?>>
                         <a href="<?= site_url('dashboard/page/a1'); ?>"><i class="fa fa-fw fa-edit"></i> Production</a>
-                    </li>
+                    </li> <?php } ?>
                     <li <?php if ($link == 'a2') { echo $active;} ?>>
                         <a href="<?= site_url('dashboard/page/a2'); ?>"><i class="fa fa-fw fa-picture-o"></i> Order List</a>
                     </li>                    

@@ -62,7 +62,7 @@
 	    	$result = $this->db->get()->result();
 	    	if ($result) {
 	    		if ($this->my_func->scpro_decrypt($result[0]->us_pass) === $pass) {
-	    			return $result;
+	    			return array_shift($result);
 	    		}	    		
 	    	}
 	    	return false;

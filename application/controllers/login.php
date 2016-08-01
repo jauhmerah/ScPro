@@ -23,8 +23,8 @@
 	    	if ($data) {
 	    		echo "login Success";
 	    		$array = array(
-	    			'us_id' => $this->my_func->scpro_encrypt($data->us_id);
-	    			'us_lvl' => $this->my_func->scpro_encrypt($data->us_lvl);
+	    			'us_id' => $this->my_func->scpro_encrypt($data->us_id),
+	    			'us_lvl' => $this->my_func->scpro_encrypt($data->us_lvl)
 	    		);	    		
 	    		$this->session->set_userdata( $array );
 	    		redirect(site_url('dashboard'),'refresh');
@@ -33,9 +33,9 @@
 	    		redirect(site_url('login'),'refresh');
 	    	}
 	    	//$temp = $this->m_login->get();
-	    	echo "<pre>";
+	    	/*echo "<pre>";
 	    	print_r($data);
-	    	echo "</pre>";
+	    	echo "</pre>";*/
 
 	    }
 
@@ -46,8 +46,8 @@
 	        $this->load->library("my_func");
 	        $pass = $this->my_func->scpro_encrypt($pass);
 
-	        echo $email;
-	        echo $pass;
+	        //echo $email;
+	        //echo $pass;
 
 	        $this->load->model("m_login");
 

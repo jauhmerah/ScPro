@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col-xs-12">
-		<div class="panel panel-default">
+		<div class="panel panel-success">
 			<div class="panel-heading"><h2>New Order List</h2></div>
 			<div class="panel-body" align="center">
 				<!--<h1>No Order ...</h1>-->
@@ -82,7 +82,7 @@
 </div>
 <div class="row">
 	<div class="col-lg-12">
-		<div class="panel panel-default">
+		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h2 class="panel-title">Order In Prosess</h2>
 			</div>

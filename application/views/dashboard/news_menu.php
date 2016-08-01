@@ -306,11 +306,11 @@
 <div class="row viewL" style="display: none;">
 	<div class="panel panel-primary">
 		<div class="panel-heading">
-			<h3 class="panel-title">Order List</h3>
+			<h1 class="panel-title">Order List</h1>
 		</div>
 		<div class="panel-body">
 		<div class="row">			
-			<div class="col-md-3"><input type="text" name="search" id="inputSearch" class="form-control" placeholder="Search"></div>
+			<!--<div class="col-md-3"><input type="text" name="search" id="inputSearch" class="form-control" placeholder="Search"></div>
 			<div class="col-md-4">				
 				<select name="filter" id="inputFilter" class="form-control">
 					<option value="0" selected>Select Filter</option>
@@ -323,8 +323,8 @@
 					<option value="7">Order Status</option>
 				</select>
 				
-			</div>
-			<div class="col-md-5">
+			</div>-->
+			<div class="col-md-12">
 				<span class="pull-right"><button type="button" class="btn btn-default" id="backBtn2">Back</button></span>
 			</div>
 
@@ -359,7 +359,7 @@
 						foreach ($arr as $key) { 
 							$n++;
 						?>
-						<tr class="listO" id="l<?= $n; ?>" <?php if($key->pr_id == 3){ echo 'style = "background-color : #E6F500;"'; } ?>>
+						<tr class="listO" id="l<?= $n; ?>" <?php if($key->pr_id == 3){ echo 'style = "background-color : #73C10B;"'; } ?>>
 							<td><?= $n; ?></td>
 							<td><?= $key->cl_name; ?></td>
 							<td><?= $key->cl_tel; ?></td>
@@ -378,7 +378,7 @@
 								<?php 
 									foreach ($key->item as $item) {
 								?>
-									<div class="well col-md-4" <?php if($item->pr_id == 3){ ?> style = "background-color : #E6F500;"<?php } ?>>										
+									<div class="well col-md-4" <?php if($item->pr_id == 3){ ?> style = "background-color : #73C10B;"<?php } ?>>										
 									  	<div class="media">
 											<a class="media-left" href="#">
 											  <img class="media-object" src="<?php echo $this->my_func->itemIcon($item->ty_id); ?> " alt="Generic placeholder image">
