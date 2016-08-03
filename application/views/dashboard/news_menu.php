@@ -104,9 +104,18 @@
 				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/img3.jpg');
 			}
 			if (i == 4) {
-				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/img1.jpg');
+				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/img4.jpg');
 			}
 			if (i == 5) {
+				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/img5.jpg');
+			}
+			if (i == 6) {
+				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/img1.jpg');
+			}
+			if (i == 7) {
+				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/img1.jpg');
+			}
+			if (i == 8) {
 				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/img1.jpg');
 			}
 			if (i == -1) {
@@ -122,6 +131,9 @@
 			if (i == 3) {return "Honey Dew";}
 			if (i == 4) {return "Blue";}
 			if (i == 5) {return "Pink";}
+			if (i == 6) {return "Blackcurrant Laici";}
+			if (i == 7) {return "Pineapple Lemonade";}
+			if (i == 8) {return "Grape";}
 			return false;
 		}
 		function nico(i) {
@@ -203,10 +215,13 @@
 									<select name="perasa" id="inputPerasa" class="form-control">
 										<option value="-1" selected>-- Select One --</option>
 										<option value="1">Manggo</option>
-										<option value="2">Blackkurant</option>
+										<option value="2">Blackcurrant</option>
 										<option value="3">Honey Dew</option>
 										<option value="4">Biru</option>
 										<option value="5">Pink</option>
+										<option value="6">BC Laici</option>
+										<option value="7">Pineapple Lemonade</option>
+										<option value="8">Grape</option>
 									</select>
 								</div>
 							</div>

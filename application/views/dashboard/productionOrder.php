@@ -135,7 +135,7 @@
 													</div>
 													<div class="row">
 														<a href="<?php if($item->pr_id != 3){ echo site_url('dashboard/page/a22?done='.$this->my_func->scpro_encrypt($item->it_id)."&key=".$this->my_func->scpro_encrypt($key->or_id)); }?>"><button type="button" class="btn btn-success col-xs-12" <?php if($item->pr_id == 3){echo "disabled";} ?>>Done</button></a>
-													</div>																					
+													</div>															
 												</div>
 										<?php	}
 										?>																

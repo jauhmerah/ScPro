@@ -472,10 +472,16 @@
 					break;
 				case 3:	$temp = base_url()."/assets/nasty/pro3.jpg";						
 					break;
-				case 4:	$temp = base_url()."/assets/nasty/pro1.jpg";						
+				case 4:	$temp = base_url()."/assets/nasty/pro4.jpg";						
 					break;
-				case 5:	$temp = base_url()."/assets/nasty/pro1.jpg";						
+				case 5:	$temp = base_url()."/assets/nasty/pro5.jpg";
 					break;	
+				case 6:	$temp = base_url()."/assets/nasty/pro1.jpg";						
+					break;
+				case 7:	$temp = base_url()."/assets/nasty/pro1.jpg";						
+					break;
+				case 8:	$temp = base_url()."/assets/nasty/pro1.jpg";						
+					break;
 				default:
 					$temp = "";
 					break;
