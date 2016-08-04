@@ -151,7 +151,7 @@
     				break;
     			case 'a3':
     				//channel
-    				$data['title'] = '<i class="fa fa-fw fa-link"></i> Channel';
+    				$data['title'] = '<i class="fa fa-fw fa-link"></i> Item List';
     				$this->path_callback = 'channel';
     				$this->_loadCrud();    		
 		    		$crud = new grocery_CRUD();    		

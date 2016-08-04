@@ -9,7 +9,7 @@
     <link rel="icon" href="<?= base_url(); ?>assets/cover/favicon.png">
     <title>Nasty Process System</title>
     <!--<script src="<?= base_url(); ?>asset/js/jquery-1.11.1.js"></script>-->
-    <script src="<?= base_url(); ?>asset/js/jquery-3.1.0.js"></script>
+    <script src="<?= base_url(); ?>asset/js/jquery-1.11.1.js"></script>
     <!-- Bootstrap Core CSS -->
     <link href="<?= base_url(); ?>asset/css/bootstrap.min.css" rel="stylesheet">
     
@@ -21,6 +21,8 @@
 
     <!-- Custom Fonts -->
     <link href="<?= base_url(); ?>asset/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- Bootstrap Core JavaScript -->
+    <script src="<?= base_url(); ?>asset/js/bootstrap.min.js"></script>
     
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

@@ -148,13 +148,13 @@
                     <li <?php if ($link == 'a2') { echo $active;} ?>>
                         <a href="<?= site_url('dashboard/page/a2'); ?>"><i class="fa fa-fw fa-picture-o"></i> Order List</a>
                     </li>                    
-                    <!--<li <?php if ($link == 'a3') { echo $active;} ?>>
-                        <a href="<?= site_url('dashboard/page/a3'); ?>"><i class="fa fa-fw fa-link"></i> Channel</a>
+                    <li <?php if ($link == 'a3') { echo $active;} ?>>
+                        <a href="<?= site_url('dashboard/page/a3'); ?>"><i class="fa fa-fw fa-link"></i> Item List</a>
                     </li>
                     <li <?php if ($link == 'a4') { echo $active;} ?>>
-                        <a href="<?= site_url('dashboard/page/a4'); ?>"><i class="fa fa-fw fa-wrench"></i> Setting</a>
+                        <a href="<?= site_url('dashboard/page/a4'); ?>"><i class="fa fa-fw fa-wrench"></i> Client List</a>
                     </li>
-                    <li <?php if ($link == 'a5') { echo $active;} ?>>
+                    <!--<li <?php if ($link == 'a5') { echo $active;} ?>>
                         <a href="<?= site_url('dashboard/page/a5'); ?>"><i class="fa fa-fw fa-bullhorn"></i> Feedback</a>
                     </li>-->
                 </ul>
