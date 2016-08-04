@@ -149,25 +149,50 @@
 	    				redirect(site_url('dashboard/page/a2'), 'refresh');
     				}
     				break;
-    			case 'a3':
-    				//channel
+    			case 'b1':
+    				//Item
     				$data['title'] = '<i class="fa fa-fw fa-link"></i> Item List';
-    				$this->path_callback = 'channel';
+    				//$this->path_callback = 'channel';
     				$this->_loadCrud();    		
 		    		$crud = new grocery_CRUD();    		
-		    		$crud->set_table('channel');
-		    		$crud->set_subject('Linked Page');
+		    		$crud->set_table('type');
+		    		$crud->set_subject('Item Type');
 		    		$crud->unset_print();
 		    		$crud->unset_export();
-		    		$crud->required_fields('img_url','ch_link');
-		    		$crud->display_as('ch_title' , 'Link Title')
-		    			->display_as('img_url' , 'Page Logo')
-		    			->display_as('ch_link' , 'Page Url')
-		    			->display_as('ch_queue' , 'Queue Number');
-		    		$crud->set_field_upload('img_url','assets/uploads/channel');
-		    		$crud->callback_before_delete(array($this,'callback_delete_image_channel'));
+		    		$crud->required_fields('ty_desc','ty_icon','ty_img');
+		    		$crud->display_as('ty_desc' , 'Item Name')
+		    			->display_as('ty_icon' , 'Item Icon')
+		    			->display_as('ty_img' , 'Item Image')
+		    			->display_as('ty_detail' , 'Item Detail');
+		    		$crud->set_field_upload('ty_icon','assets/uploads/item')
+		    			->set_field_upload('ty_img','assets/uploads/item');
+		    		$crud->callback_before_delete(array($this,'callback_delete_image_item'));
 					$output = $crud->render();
 		    		$data['display'] = $this->load->view('crud' , $output , true);
+		    		$this->_show('index' , $data , $key); 
+    				break;
+    			case 'b2':
+    				//Nico
+    				$data['title'] = '<i class="fa fa-fw fa-link"></i> Nicotine List';
+    				//$this->path_callback = 'channel';
+    				$this->_loadCrud();    		 
+		    		$crud = new grocery_CRUD();    		
+		    		$crud->set_table('nicotine');
+		    		$crud->set_subject('Nicotine');
+		    		$crud->unset_print();
+		    		$crud->unset_export();		    		
+		    		$crud->required_fields('ni_mg','ni_color');
+		    		$crud->display_as('ni_mg' , 'Amount (Mg)')
+		    			->display_as('ni_color' , 'Label Color (hex)');
+
+		    		$crud->callback_add_field('ni_color', function () {
+		    		        return '<input type="color" name="ni_color" id="inputNi_color" value="" title="Pick Color" width = 10px>';
+		    		    });
+		    		$crud->callback_edit_field('ni_color',array($this,'edit_field_callback_nico'));
+		    		$crud->callback_column('ni_color',array($this,'callback_col_nico'));
+					$output = $crud->render();
+		    		$data['display'] = $this->load->view('crud' , $output , true);
+		    		$data['display'] = $data['display'].'<input type="color" name="color" id="inputColor" class="form-control" value="" >';
 		    		$this->_show('index' , $data , $key); 
     				break;
     			case 'a4':
@@ -176,7 +201,7 @@
     			case 'a5':
     				# code...
     				break;
-    			case 'b1':
+    			case '312':
     				//Website Profile
     				$data['title'] = "<i class=\"fa fa-fw fa-desktop\"></i> Website Profile";
     				$this->_loadCrud();    		
@@ -196,7 +221,7 @@
 		    		$data['display'] = $this->load->view('crud' , $output , true);
 		    		$this->_show('index' , $data , $key);    		
     				break;
-    			case 'b2':
+    			case '32':
     				//Banner edit
     				$data['title'] = '<i class="fa fa-fw fa-bookmark-o"></i> Banner';
     				//$this->path_callback = 'banner';
@@ -223,7 +248,7 @@
 		    		$data['display'] = $this->load->view('crud' , $output , true);
 		    		$this->_show('index' , $data , $key);
     				break;
-    			case 'b3':
+    			case '3':
     				//Header
     				$data['title'] = '<i class="fa fa-fw fa-list-alt"></i> Header';
     				$this->path_callback = 'header';
@@ -250,7 +275,7 @@
 		    		$data['display'] = $this->load->view('crud' , $output , true);
 		    		$this->_show('index' , $data , $key); 
     				break;
-    			case 'b4':
+    			case '4':
     				$data['title'] = '<i class="fa fa-fw fa-tags"></i> Tag Announcement';
     				$data['display'] = "This function under development !!!";
     				$this->_show('index' , $data , $key);
@@ -259,6 +284,14 @@
     				$this->_show();
     				break;
     		}
+    	}
+    	public function edit_field_callback_nico($value, $primary_key)
+    	{
+    		return '<input type="color" name="ni_color" id="inputNi_color" value="'.$value.'" title="Pick Color" width = 10px>';
+    	}
+    	public function callback_col_nico($value, $primary_key)
+    	{
+    		return '<input type="color" name="ni_color" id="inputNi_color" value="'.$value.'" title="Pick Color" width = 10px disabled>';
     	}
     	private function _loadCrud()
     	{
@@ -294,13 +327,13 @@
 			}			
 		}
 
-		public function callback_delete_image_channel($primary_key)
+		public function callback_delete_image_item($primary_key)
 		{
 			$this->load->database();
-			$this->load->model('m_channel');
-			$obj = $this->m_channel->get($primary_key);
+			$this->load->model('m_type');
+			$obj = $this->m_type->get($primary_key);
 			$img = $obj->img_url;			
-			if (unlink('./assets/uploads/channel/'.$img)) {
+			if (unlink('./assets/uploads/item/'.$img)) {
 				return true;
 			}else{
 				return false;

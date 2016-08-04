@@ -140,7 +140,7 @@
                                 <a href="<?= site_url('dashboard/page/b4'); ?>"><i class="fa fa-fw fa-tags"></i> Tag Announcement</a><!-s- Announcement -s->
                             </li>
                         </ul>
-                    </li> -->
+                    </li>-->
                     <?php if($admin){?>
                     <li <?php if ($link == 'a1') { echo $active;} ?>>
                         <a href="<?= site_url('dashboard/page/a1'); ?>"><i class="fa fa-fw fa-edit"></i> Production</a>
@@ -148,8 +148,25 @@
                     <li <?php if ($link == 'a2') { echo $active;} ?>>
                         <a href="<?= site_url('dashboard/page/a2'); ?>"><i class="fa fa-fw fa-picture-o"></i> Order List</a>
                     </li>                    
-                    <li <?php if ($link == 'a3') { echo $active;} ?>>
+                    <!--<li <?php if ($link == 'a3') { echo $active;} ?>>
                         <a href="<?= site_url('dashboard/page/a3'); ?>"><i class="fa fa-fw fa-link"></i> Item List</a>
+                    </li>-->
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#home" <?php if (strpos($link, 'b') !== false) { echo "aria-expanded=\"true\"";  } ?>><i class="fa fa-fw fa-home"></i>  Item List<i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="home" <?php if (strpos($link, 'b') !== false) { echo "aria-expanded=\"true\" class=\"collapse in\"";  }else{ echo 'class="collapse"';} ?> >
+                            <li <?php if ($link == 'b1') { echo $active;} ?>>
+                                <a href="<?= site_url('dashboard/page/b1'); ?>"><i class="fa fa-fw fa-desktop"></i> Item Detail</a>
+                            </li>
+                            <li <?php if ($link == 'b2') { echo $active;} ?>>
+                                <a href="<?= site_url('dashboard/page/b2'); ?>"><i class="fa fa-fw fa-bookmark-o"></i> Nicotin</a>
+                            </li>
+                            <li <?php if ($link == 'b3') { echo $active;} ?>>
+                                <a href="<?= site_url('dashboard/page/b3'); ?>"><i class="fa fa-fw fa-list-alt"></i> Header</a>
+                            </li>
+                            <li <?php if ($link == 'b4') { echo $active;} ?>>
+                                <a href="<?= site_url('dashboard/page/b4'); ?>"><i class="fa fa-fw fa-tags"></i> Tag Announcement</a><!-s- Announcement -s->
+                            </li>
+                        </ul>
                     </li>
                     <li <?php if ($link == 'a4') { echo $active;} ?>>
                         <a href="<?= site_url('dashboard/page/a4'); ?>"><i class="fa fa-fw fa-wrench"></i> Client List</a>
