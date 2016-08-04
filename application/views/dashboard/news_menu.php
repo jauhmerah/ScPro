@@ -110,13 +110,13 @@
 				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/img5.jpg');
 			}
 			if (i == 6) {
-				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/img1.jpg');
+				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/img6.jpg');
 			}
 			if (i == 7) {
-				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/img1.jpg');
+				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/img7.jpg');
 			}
 			if (i == 8) {
-				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/img1.jpg');
+				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/img8.jpg');
 			}
 			if (i == -1) {
 				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/400x400.png');

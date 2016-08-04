@@ -22,7 +22,7 @@
 	<div>
 		<div class="panel panel-primary">
 			<div class="panel-heading" align="center">
-				<h1 class="panel-title"><h1>Order List</h1></h1>
+				<h1 class="panel-title"><h1>Order List v1.1</h1></h1>
 			</div>
 			<div class="panel-body full">
 				<div class="">

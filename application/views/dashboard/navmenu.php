@@ -12,7 +12,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="<?= site_url('dashboard'); ?>">Production System</a>
+                <a class="navbar-brand" href="<?= site_url('dashboard'); ?>">Ordering System v1.2</a>
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
