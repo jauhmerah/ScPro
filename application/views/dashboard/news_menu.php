@@ -1,52 +1,3 @@
-
-<div class="row menu">	
-	<div class="col-lg-6">
-	<div class="col-lg-10 col-sm-offset-1">
-		<div class="panel panel-green clickAdd">
-			<div class="panel-heading">
-				<div class="row">
-					<div class="col-xs-3">
-						<i class="fa fa-plus-square fa-5x"></i>
-					</div>
-					<div class="col-xs-9 text-right">
-						<div class="huge">Add</div>
-						<div><i class="fa fa-pencil-square-o fa-2x"></i></div>
-					</div>
-				</div>
-			</div>
-			<a href="#" id="click">
-				<div class="panel-footer">
-					<span class="pull-left">Add Order</span>
-					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-					<div class="clearfix"></div>
-				</div>
-			</a>
-		</div>
-	</div></div>
-	<div class="col-lg-6">
-	<div class="col-lg-10 col-sm-offset-1">
-		<div class="panel panel-primary clickView">
-			<div class="panel-heading">
-				<div class="row">
-					<div class="col-xs-3">
-						<i class="fa fa-th-list fa-5x"></i>
-					</div>
-					<div class="col-xs-9 text-right">
-						<div class="huge">View</div>
-						<div><i class="fa fa-eye fa-2x"></i></div>
-					</div>
-				</div>
-			</div>
-			<a href="#">
-				<div class="panel-footer">
-					<span class="pull-left">View list</span>
-					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-					<div class="clearfix"></div>
-				</div>
-			</a>
-		</div>
-	</div></div>
-</div>
 <script>
 	$(document).ready(function() {
 		var num = 0;
@@ -121,9 +72,7 @@
 			if (i == -1) {
 				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/400x400.png');
 			}
-		});
-
-		
+		});	
 
 		function perasa(i) {
 			if (i == 1) {return "Manggo";}
@@ -148,296 +97,107 @@
 	
 </script>
 
-<div class="row addform" style="display: none;"><!--style="display: none;-->
+<div class="row">
 	<div class="col-md-12">
-		<div class="panel panel-green">
-			<!-- Default panel contents -->
-		
-			<div class="panel-heading">Add New Order</div>
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h1 class="panel-title">Order List</h1>
+			</div>
 			<div class="panel-body">
-				<!-- Table -->
-				<form id = "add_form" enctype="multipart/form-data" method="post" action="<?= site_url('dashboard/page/a11'); ?>">
-				<table class="table table-hover">
-					<tbody>
-						<tr class="row">
-							<td class="col-md-4"><span class="pull-left">Client Name</span><span class="pull-right">* :</span></td>
-							<td class="col-md-8"><input type="text" name="name" id="inputName" class="form-control" value="" required="required" title=""></td>
-						</tr>
-						<tr class="row">
-							<td class="col-md-4"><span class="pull-left">Contact Number</span><span class="pull-right"> :</span></td>
-							<td class="col-md-8"><input type="number" name="telnumber" id="inputTelnumber" class="form-control"></td>
-						</tr>
-						<tr class="row">
-							<td class="col-md-4"><span class="pull-left">Country</span><span class="pull-right">* :</span></td>
-							<td class="col-md-8"><input type="text" name="country" id="inputCountry" class="form-control" value="" required="required" pattern="" title="">
-							</td>
-						</tr>
-						<tr class="row">
-							<td class="col-md-4"><span class="pull-left">Send Date</span><span class="pull-right"> :</span></td>
-							<td class="col-md-8"><input type="date" name="sendDate" id="inputSendDate" class="form-control">
-							</td>
-						</tr>
-						<tr class="row">
-							<td class="col-md-4"><span class="pull-left">Bank</span><span class="pull-right">:</span></td>
-							<td class="col-md-8"><input type="text" name="bank" id="inputBank" class="form-control" >
-							</td>
-						</tr>						
-						<tr class="row">
-							<td class="col-md-4"><span class="pull-left">Deposit</span><span class="pull-right">:</span></td>
-							<td class="col-md-8"><input type="text" name="deposit" id="inputDeposit" class="form-control" >
-							</td>
-						</tr>						
-						<tr class="row">
-							<td class="col-md-4"><span class="pull-left">Note</span><span class="pull-right">:</span></td>
-							<td class="col-md-8"><textarea name="note" id="inputNote" class="form-control" rows="3"></textarea>
-						</tr>
-					</tbody>
-				</table>
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h3 class="panel-title">Nasty Product</h3>
-					</div>
-					<div class="panel-body">
-						<div class="row">
-							<div class="col-lg-4 col-lg-offset-4">
-								<img id="imgDetail" class="img-thumbnail" src="<?= base_url('assets/nasty/400x400.png'); ?>" alt="">
-							</div>
-						</div>
-						<div class="clearfix">
-							&nbsp;
-						</div>
-						<div class="col-md-5 col-md-offset-1">
-							<div class="row">
-								<div class="col-md-4">
-									<span class="pull-left">Flavored</span><span class="pull-right">:</span>
-								</div>
-								<div class="col-md-8">
-									<select name="perasa" id="inputPerasa" class="form-control">
-										<option value="-1" selected>-- Select One --</option>
-										<option value="1">Manggo</option>
-										<option value="2">Blackcurrant</option>
-										<option value="3">Honey Dew</option>
-										<option value="4">Biru</option>
-										<option value="5">Pink</option>
-										<option value="6">BC Laici</option>
-										<option value="7">Pineapple Lemonade</option>
-										<option value="8">Grape</option>
-									</select>
-								</div>
-							</div>
-							<div class="clearfix">
-							&nbsp;
-							</div>
-							<div class="row">
-								<div class="col-md-4">
-									<span class="pull-left">Nicotine</span><span class="pull-right">:</span>
-								</div>
-								<div class="col-md-8">
-									<select name="nico" id="inputNico" class="form-control">
-										<option value="-1" selected>-- Select One --</option>
-										<option value="0">0 Mg</option>
-										<option value="3">3 Mg</option>
-										<option value="6">6 Mg</option>
-										<option value="9">9 Mg (Creamy Only)</option>
-										<option value="12">12 Mg (Creamy Only)</option>
-									</select>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-5">
-							<div class="row">
-								<div class="col-md-4">
-									<span class="pull-left">Promo</span><span class="pull-right">:</span>
-								</div>
-								<div class="col-md-8">
-									<input type="number" name="promo" id="inputPromo" class="form-control" value="0">
-								</div>
-							</div>
-							<div class="clearfix">
-								&nbsp;
-							</div>
-							<div class="row">
-								<div class="col-md-4">
-									<span class="pull-left">Quantity</span><span class="pull-right">:</span>
-								</div>
-								<div class="col-md-8">
-									<input type="number" value="0" name="qty" id="inputQty" class="form-control">
-								</div>
-							</div>
-							<div class="clearfix">
-								&nbsp;
-							</div>
-							<div class="row">
-								<button type="button" id="addBtn" class="btn btn-success pull-right"><i class="fa fa-plus"></i>&nbsp;Add</button>
-							</div>
-							<div class="clearfix">
-								&nbsp;
-							</div>
-						</div>
-						<div class="clearfix">
-							&nbsp;
-						</div>
-						<!-- Order Box -->
-						<div class="row">
-							<div class="col-xs-10 col-xs-offset-1">
-								<div class="well">
-									<ul class="media-list" id="orderBox">
-									  	
-									</ul>
-								</div>
-							</div>
-						</div>
-						<!--End of Order Box --> 
-					</div>
-				</div>				
+			<div class="row">
+				<div class="col-md-12">
+					<span class="pull-left"><a href="<?= site_url('dashboard/page/a12'); ?>"><button type="button" class="btn btn-success">Add Order</button></a></span>
+				</div>	
 			</div>
-				<table class="table table-hover">
-										
-	<tbody>
-						<!--<tr class="row">
-							<td class="col-md-4"><span class="pull-left">Order Status</span><span class="pull-right">:</span></td>
-							<td class="col-md-8"><textarea name="statusO" id="inputStatus" class="form-control" rows="3"></textarea>
-						</tr> -->
-					</tbody>
-				</table>
-						
-				
-				<input type="submit" id = "submitform" style="display: none;"></input>
-				</form>					
-
+			<div class="clearfix">
+			&nbsp;
 			</div>
-
-			<div class="panel-footer">
-				<span class="pull-left"><button type="button" class="btn btn-default" id="backBtn">Back</button></span>
-				<span class="pull-right"><button type="button" class="btn btn-primary" id="submit_btn">Submit</button></span>
-				<div class="clearfix"></div>
-			</div>	
-				
-		</div>
-
-	</div>
-</div>
-
-<div class="row viewL" style="display: none;">
-	<div class="panel panel-primary">
-		<div class="panel-heading">
-			<h1 class="panel-title">Order List</h1>
-		</div>
-		<div class="panel-body">
-		<div class="row">			
-			<!--<div class="col-md-3"><input type="text" name="search" id="inputSearch" class="form-control" placeholder="Search"></div>
-			<div class="col-md-4">				
-				<select name="filter" id="inputFilter" class="form-control">
-					<option value="0" selected>Select Filter</option>
-					<option value="1">Client Name</option>
-					<option value="2">Contact Number</option>
-					<option value="3">Country</option>
-					<option value="4">Total Amount</option>
-					<option value="5">Deposit</option>
-					<option value="6">Send Date</option>
-					<option value="7">Order Status</option>
-				</select>
-				
-			</div>-->
-			<div class="col-md-12">
-				<span class="pull-right"><button type="button" class="btn btn-default" id="backBtn2">Back</button></span>
-			</div>
-
-			
-		</div>
-		<div class="clearfix">
-		&nbsp;
-		</div>
-			<div class="table-responsive">
-				<table class="table table-hover table-striped table-bordered">
-					<thead>
-						<tr style="background-color: #F5F5F5">
-							<th>Num</th>
-							<th>Client Name</th>
-							<th>Contact No</th>
-							<th>Country</th>
-							
-							<th>Total Quantity<br>
-							<h6><span class="label label-info">Quantity under development</span></h6>
-							</th>
-							<th>Deposit</th>							
-							<th>Send Date</th>
-							<th>Progress<br>
-							<h6><span class="label label-info">Progress Bar under development</span></h6>
-							</th>
-							<th>Action</th>
-						</tr>
-					</thead>
-					<tbody>					
-						<?php
-						$n = 0; 
-						foreach ($arr as $key) { 
-							$n++;
-						?>
-						<tr class="listO" id="l<?= $n; ?>" <?php if($key->pr_id == 3){ echo 'style = "background-color : #73C10B;"'; } ?>>
-							<td><?= $n; ?></td>
-							<td><?= $key->cl_name; ?></td>
-							<td><?= $key->cl_tel; ?></td>
-							<td><?= $key->cl_country; ?></td>
-							<td></td>
-							<td><?= $key->or_deposit; ?></td>
-							<td><?= $key->or_sendDate; ?></td>
-							<td>								
-								<progress class="progress progress-success" value="75" max="100" title="75%">75%</progress>
-							</td>
-							<td><a href="" title="View Detail"><i class="fa fa-eye"></i></a>&nbsp;&nbsp;<!--<a href="" title="Edit"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;--><a href="<?= site_url('dashboard/deleteOrder?key='.$this->my_func->scpro_encrypt($key->or_id)); ?>" title="Delete"><i class="fa fa-trash"></i></a></td>
-						</tr>						
-						<tr class = "l<?= $n; ?> detail" style="display: none; ">
-							<td colspan="9">								
-								<div class="row col-md-12">
-								<?php 
-									foreach ($key->item as $item) {
-								?>
-									<div class="well col-md-4" <?php if($item->pr_id == 3){ ?> style = "background-color : #73C10B;"<?php } ?>>										
-									  	<div class="media">
-											<a class="media-left" href="#">
-											  <img class="media-object" src="<?php echo $this->my_func->itemIcon($item->ty_id); ?> " alt="Generic placeholder image">
-											  <?php echo $this->my_func->mgLable($item->it_mg , true); ?>
-											</a>
-											<div class="media-body">												
-												<h3 class="media-heading"><?= $item->ty_desc; ?></h3>
-										  		<span class="pull-left">Qty :</span><span class="pull-right"><?= $item->it_qty; ?></span></br>
-										  		<span class="pull-left">Promo :</span><span class="pull-right">+<?= $item->it_promo; ?></span>
-											</div>	
-										</div>																				
-									</div>
-								<?php
-									}
-								?>
-																		
-								</div>									
-								<div class="clearfix">
-									&nbsp;
-								</div>
-								<div class="row">
-									<div class="panel panel-info">
-										<div class="panel-heading">
-											Note
+				<div class="table-responsive">
+					<table class="table table-hover table-striped table-bordered">
+						<thead>
+							<tr style="background-color: #F5F5F5">
+								<th>Num</th>
+								<th>Client Name</th>
+								<th>Contact No</th>
+								<th>Country</th>	
+								
+								<th>Deposit</th>							
+								<th>Send Date</th>
+								<th>Progress<br>
+								<h6><span class="label label-info">Progress Bar under development</span></h6>
+								</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>					
+							<?php
+							$n = 0; 
+							foreach ($arr as $key) { 
+								$n++;
+							?>
+							<tr <?php if($key->pr_id == 3){ echo 'style = "background-color : #73C10B;"'; } ?>>
+								<td><?= $n; ?></td>
+								<td><?= $key->cl_name; ?></td>
+								<td><?= $key->cl_tel; ?></td>
+								<td><?= $key->cl_country; ?></td>
+								<td><?= $key->or_deposit; ?></td>
+								<td><?= $key->or_sendDate; ?></td>
+								<td>								
+									<progress class="progress progress-success" value="75" max="100" title="75%">75%</progress>
+								</td>
+								<td><a href="#" class="listO" id="l<?= $n; ?>" title="View Detail"><button type="button" class="btn btn-info"><i class="fa fa-eye"></i> View</button></a><!--<a href="" title="Edit"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;--><br/><a onclick = "return confirm('Confirm Delete!');" href="<?= site_url('dashboard/deleteOrder?key='.$this->my_func->scpro_encrypt($key->or_id)); ?>" title="Delete"><button type="button" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</button></a></td>
+							</tr>					
+							<tr class = "l<?= $n; ?> detail" style="display: none; ">
+								<td></td>
+								<td colspan="8">								
+									<div class="row col-md-12">
+									<?php 
+										foreach ($key->item as $item) {
+									?>
+										<div class="well col-md-4" <?php if($item->pr_id == 3){ ?> style = "background-color : #73C10B;"<?php } ?>>										
+										  	<div class="media">
+												<a class="media-left" href="#">
+												  <img class="media-object" src="<?php echo $this->my_func->itemIcon($item->ty_id); ?> " alt="Generic placeholder image">
+												  <?php echo $this->my_func->mgLable($item->it_mg , true); ?>
+												</a>
+												<div class="media-body">												
+													<h3 class="media-heading"><?= $item->ty_desc; ?></h3>
+											  		<span class="pull-left">Qty :</span><span class="pull-right"><?= $item->it_qty; ?></span></br>
+											  		<span class="pull-left">Promo :</span><span class="pull-right">+<?= $item->it_promo; ?></span>
+												</div>	
+											</div>																				
 										</div>
-										<div class="panel-body">
-											<?= $key->or_note; ?>
-										</div>
+									<?php
+										}
+									?>
+																			
+									</div>									
+									<div class="clearfix">
+										&nbsp;
 									</div>
-								</div>								
-							</td>
-						</tr>
-					<?php		
-						}
-					?>
-						
+									<div class="row">
+										<div class="panel panel-info">
+											<div class="panel-heading">
+												Note
+											</div>
+											<div class="panel-body">
+												<?= $key->or_note; ?>
+											</div>
+										</div>
+									</div>								
+								</td>
+							</tr>
+						<?php		
+							}
+						?>	
 
-					<!-- End of table -->	
-					</tbody>
-				</table>
+						<!-- End of table -->	
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>
-
 </div>
 
 <script>

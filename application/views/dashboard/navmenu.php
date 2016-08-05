@@ -142,9 +142,21 @@
                         </ul>
                     </li>-->
                     <?php if($admin){?>
-                    <li <?php if ($link == 'a1') { echo $active;} ?>>
-                        <a href="<?= site_url('dashboard/page/a1'); ?>"><i class="fa fa-fw fa-edit"></i> Production</a>
-                    </li> <?php } ?>
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#production" <?php if (strpos($link, 'b') !== false) { echo "aria-expanded=\"true\"";  } ?>><i class="fa fa-fw fa-home"></i> Production<i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="production" <?php if (strpos($link, 'a1') !== false) { echo "aria-expanded=\"true\" class=\"collapse in\"";  }else{ echo 'class="collapse"';} ?> >
+                            <li <?php if ($link == 'a1') { echo $active;} ?>>
+                                <a href="<?= site_url('dashboard/page/a1'); ?>"><i class="fa fa-fw fa-desktop"></i> View Order</a>
+                            </li>
+                            <li <?php if ($link == 'a12') { echo $active;} ?>>
+                                <a href="<?= site_url('dashboard/page/a12'); ?>"><i class="fa fa-fw fa-bookmark-o"></i> Add Order</a>
+                            </li>
+                            <li <?php if ($link == 'c3') { echo $active;} ?>>
+                                <a href="<?= site_url('dashboard/page/a3'); ?>"><i class="fa fa-fw fa-list-alt"></i> History</a>
+                            </li>                            
+                        </ul>
+                    </li>
+                    <?php } ?>
                     <li <?php if ($link == 'a2') { echo $active;} ?>>
                         <a href="<?= site_url('dashboard/page/a2'); ?>"><i class="fa fa-fw fa-picture-o"></i> Order List</a>
                     </li>                    
@@ -159,13 +171,7 @@
                             </li>
                             <li <?php if ($link == 'b2') { echo $active;} ?>>
                                 <a href="<?= site_url('dashboard/page/b2'); ?>"><i class="fa fa-fw fa-bookmark-o"></i> Nicotin</a>
-                            </li>
-                            <li <?php if ($link == 'b3') { echo $active;} ?>>
-                                <a href="<?= site_url('dashboard/page/b3'); ?>"><i class="fa fa-fw fa-list-alt"></i> Header</a>
-                            </li>
-                            <li <?php if ($link == 'b4') { echo $active;} ?>>
-                                <a href="<?= site_url('dashboard/page/b4'); ?>"><i class="fa fa-fw fa-tags"></i> Tag Announcement</a><!-s- Announcement -s->
-                            </li>
+                            </li>                            
                         </ul>
                     </li>
                     <li <?php if ($link == 'a4') { echo $active;} ?>>

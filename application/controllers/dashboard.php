@@ -116,6 +116,15 @@
     				$data['display'] = $this->load->view($this->parent_page.'/news_menu' , $temp , true);
     				$this->_show('index' , $data , $key);
     				break;
+    			case 'a12':
+    				if (!$this->_checkLvl()) {
+    					redirect(site_url('dashboard/page/a2'),'refresh');
+    				}
+    				$this->load->library('my_func');
+    				$data['title'] = '<i class="fa fa-fw fa-edit"></i> Production</a>';
+    				$data['display'] = $this->load->view($this->parent_page.'/addOrder' , '' , true);
+ 					$this->_show('index' , $data , $key);
+    				break;
     			case 'a21':    				
     				if ($this->input->get('key')) {
     					$this->load->library('my_func');
