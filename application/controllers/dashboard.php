@@ -12,7 +12,12 @@
 	        $this->load->library('session');
 	    }
 
-	    
+	    public function index2()
+	    {
+	    	$code['data'] = $this->load->view($this->parent_page.'/'.'bootstrap-elements' , '' , true);
+	    	$code['data'] .= $this->load->view($this->parent_page.'/'.'index_exp' , '' , true);
+	        $this->_show( 'index' , $code);	    	
+	    }
 	
 	    function index() {
 	    	/*$code['data'] = $this->load->view($this->parent_page.'/'.'bootstrap-elements' , '' , true);
@@ -121,8 +126,14 @@
     					redirect(site_url('dashboard/page/a2'),'refresh');
     				}
     				$this->load->library('my_func');
-    				$data['title'] = '<i class="fa fa-fw fa-edit"></i> Production</a>';
-    				$data['display'] = $this->load->view($this->parent_page.'/addOrder' , '' , true);
+    				$data['title'] = '<i class="fa fa-fw fa-edit"></i> Add Order</a>';
+    				$this->load->library('my_func');
+    				$this->load->database();
+    				$this->load->model('m_type');
+    				$this->load->model('m_nico');
+    				$temp['type'] = $this->m_type->get();
+    				$temp['nico'] = $this->m_nico->get();
+    				$data['display'] = $this->load->view($this->parent_page.'/addOrder' , $temp , true);
  					$this->_show('index' , $data , $key);
     				break;
     			case 'a21':    				
@@ -200,8 +211,7 @@
 		    		$crud->callback_edit_field('ni_color',array($this,'edit_field_callback_nico'));
 		    		$crud->callback_column('ni_color',array($this,'callback_col_nico'));
 					$output = $crud->render();
-		    		$data['display'] = $this->load->view('crud' , $output , true);
-		    		$data['display'] = $data['display'].'<input type="color" name="color" id="inputColor" class="form-control" value="" >';
+		    		$data['display'] = $this->load->view('crud' , $output , true);		    		
 		    		$this->_show('index' , $data , $key); 
     				break;
     			case 'a4':
@@ -505,51 +515,20 @@
 		}
 
 		public function getAjaxOrderBox()
-		{
+		{ 
+			/*
+			flavcode = $("#inputPerasa").val();
+				niccode = $("#inputNico").val();
+				promo = $("#inputPromo").val();
+				qty = $("#inputQty").val();
+				num ++;
+			*/
+			$this->load->database();
+			$this->load->model('m_type');
+			$this->load->model('m_nico');
 			$arr = $this->input->post();
-			switch ($arr['fcode']) {
-				case 1:	$temp = base_url()."/assets/nasty/pro1.jpg";						
-					break;
-				case 2:	$temp = base_url()."/assets/nasty/pro2.jpg";						
-					break;
-				case 3:	$temp = base_url()."/assets/nasty/pro3.jpg";						
-					break;
-				case 4:	$temp = base_url()."/assets/nasty/pro4.jpg";						
-					break;
-				case 5:	$temp = base_url()."/assets/nasty/pro5.jpg";
-					break;	
-				case 6:	$temp = base_url()."/assets/nasty/pro6.jpg";						
-					break;
-				case 7:	$temp = base_url()."/assets/nasty/pro7.jpg";						
-					break;
-				case 8:	$temp = base_url()."/assets/nasty/pro8.jpg";						
-					break;
-				default:
-					$temp = "";
-					break;
-			}
-			$arr['icon'] = $temp;
-			switch ($arr['niccode']) {
-				case 0:	$temp = 'default';
-					break;
-				case 3:	$temp = 'primary';					
-					break;
-				case 6: $temp = 'success';
-					break;
-				case 9: $temp = 'danger';
-					break;
-				case 12: $temp = 'warning';
-					break;				
-				default:
-					$temp = 'info';
-					break;
-			}
-			$arr['nicLable'] = $temp;
+			$arr['icon'] = base_url()."/assets/uploads/item/".$arr['flavcode'];			
 			echo $this->load->view($this->parent_page. "/ajax/getAjaxOrderBox", $arr , true);
-			//echo $this->load->view($this->parent_page. "/ajax/testajax", '', TRUE);;
-			//return $this->load->view("dashboard/ajax/getAjaxOrderBox" , $arr , true);
-
-
 		}
 		public function testAjax()
 		{

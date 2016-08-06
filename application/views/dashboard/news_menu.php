@@ -1,102 +1,3 @@
-<script>
-	$(document).ready(function() {
-		var num = 0;
-		$("#addBtn").click(function() {
-			if(checkInput()){
-				flavcode = $("#inputPerasa").val();
-				niccode = $("#inputNico").val();
-				promo = $("#inputPromo").val();
-				qty = $("#inputQty").val();
-				flav = perasa(flavcode);
-				nic = nico(niccode);
-				num ++;
-				$.post('<?= site_url("dashboard/getAjaxOrderBox");?>', {fcode : flavcode ,num : num ,flav: flav, nic : nic , qty : qty , promo : promo , niccode : niccode}, function(data) {
-					$("#orderBox").append(data);
-					//alert(data);
-				});
-			}
-		});
-		//alert("jd lah");
-		$("#submit_btn").click(function() {
-			$("#add_form").submit();
-		});
-		function checkInput() {
-			//return true;
-			if ($("#inputPerasa").val() == -1) {
-				alert("Please Select Flavored!");
-				$("#inputPerasa").focus();
-				return false;
-			}
-			if ($("#inputNico").val() == -1) {
-				alert("Please Select Nicotine!");
-				$("#inputNico").focus();
-				return false;
-			}
-			if ($("#inputPromo").val() == "") {
-				$("#inputPromo").val(0);
-			}
-			if ($("#inputQty").val() == '' || $("#inputQty").val() == 0) {
-				alert("Please Enter Quantity!");
-				$("#inputQty").focus();
-				return false;
-			}
-			return true;
-		}
-
-		$("#inputPerasa").change(function() {
-			var i = $(this).val();
-			if (i == 1) {
-				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/img1.jpg');
-			}
-			if (i == 2) {
-				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/img2.jpg');
-			}
-			if (i == 3) {
-				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/img3.jpg');
-			}
-			if (i == 4) {
-				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/img4.jpg');
-			}
-			if (i == 5) {
-				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/img5.jpg');
-			}
-			if (i == 6) {
-				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/img6.jpg');
-			}
-			if (i == 7) {
-				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/img7.jpg');
-			}
-			if (i == 8) {
-				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/img8.jpg');
-			}
-			if (i == -1) {
-				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/400x400.png');
-			}
-		});	
-
-		function perasa(i) {
-			if (i == 1) {return "Manggo";}
-			if (i == 2) {return "Blackkurant";}
-			if (i == 3) {return "Honey Dew";}
-			if (i == 4) {return "Blue";}
-			if (i == 5) {return "Pink";}
-			if (i == 6) {return "Blackcurrant Laici";}
-			if (i == 7) {return "Pineapple Lemonade";}
-			if (i == 8) {return "Grape";}
-			return false;
-		}
-		function nico(i) {
-			if (i == 0) {return "0 Mg";}	
-			if (i == 3) {return "3 Mg";}	
-			if (i == 6) {return "6 Mg";}	
-			if (i == 9) {return "9 Mg";}	
-			if (i == 12) {return "12 Mg";}
-			return false;	
-		}		
-	});
-	
-</script>
-
 <div class="row">
 	<div class="col-md-12">
 		<div class="panel panel-primary">
@@ -116,16 +17,12 @@
 					<table class="table table-hover table-striped table-bordered">
 						<thead>
 							<tr style="background-color: #F5F5F5">
-								<th>Num</th>
+								<th>#</th>
 								<th>Client Name</th>
 								<th>Contact No</th>
-								<th>Country</th>	
-								
+								<th>Country</th>
 								<th>Deposit</th>							
 								<th>Send Date</th>
-								<th>Progress<br>
-								<h6><span class="label label-info">Progress Bar under development</span></h6>
-								</th>
 								<th>Action</th>
 							</tr>
 						</thead>
@@ -136,20 +33,39 @@
 								$n++;
 							?>
 							<tr <?php if($key->pr_id == 3){ echo 'style = "background-color : #73C10B;"'; } ?>>
-								<td><?= $n; ?></td>
+								<td rowspan = "2"><?= $n; ?></td>
 								<td><?= $key->cl_name; ?></td>
 								<td><?= $key->cl_tel; ?></td>
 								<td><?= $key->cl_country; ?></td>
 								<td><?= $key->or_deposit; ?></td>
-								<td><?= $key->or_sendDate; ?></td>
-								<td>								
-									<progress class="progress progress-success" value="75" max="100" title="75%">75%</progress>
+								<td><?= $key->or_sendDate; ?></td>								
+								<td>
+								<div class="btn-group">
+									<a href="#" class="listO" id="l<?= $n; ?>" title="View Detail"><button type="button" class="btn btn-info"><i class="fa fa-eye"></i></button></a>																	
+									<a onclick = "return confirm('Confirm Delete!');" href="<?= site_url('dashboard/deleteOrder?key='.$this->my_func->scpro_encrypt($key->or_id)); ?>" title="Delete"><button type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button></a></td>
+									<!--<a href="" title="Edit"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;-->	
+								</div>
+								
+							</tr>
+							<?php 
+								$size = sizeof($key->item);
+								$n2 = 0 ;
+								foreach ($key->item as $item) {
+									if ($item->pr_id == '3') {
+										$n2++;										
+									}
+								}
+								$peratus = ($n2/$size)*100;
+							?>
+							<tr>
+								<td colspan = "6">
+								<div class="progress">
+				                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<?= $peratus; ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?= $peratus; ?>%;"><span class="sr-only"><?= $peratus; ?>% Complete</span></div>
+				                </div>								
 								</td>
-								<td><a href="#" class="listO" id="l<?= $n; ?>" title="View Detail"><button type="button" class="btn btn-info"><i class="fa fa-eye"></i> View</button></a><!--<a href="" title="Edit"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;--><br/><a onclick = "return confirm('Confirm Delete!');" href="<?= site_url('dashboard/deleteOrder?key='.$this->my_func->scpro_encrypt($key->or_id)); ?>" title="Delete"><button type="button" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</button></a></td>
 							</tr>					
-							<tr class = "l<?= $n; ?> detail" style="display: none; ">
-								<td></td>
-								<td colspan="8">								
+							<tr class = "l<?= $n; ?> detail" style="display: none; ">								
+								<td colspan="7">								
 									<div class="row col-md-12">
 									<?php 
 										foreach ($key->item as $item) {
@@ -157,8 +73,8 @@
 										<div class="well col-md-4" <?php if($item->pr_id == 3){ ?> style = "background-color : #73C10B;"<?php } ?>>										
 										  	<div class="media">
 												<a class="media-left" href="#">
-												  <img class="media-object" src="<?php echo $this->my_func->itemIcon($item->ty_id); ?> " alt="Generic placeholder image">
-												  <?php echo $this->my_func->mgLable($item->it_mg , true); ?>
+												  <img class="media-object" src="<?php echo base_url('assets/uploads/item').'/'.$item->ty_icon; ?> " alt="Generic placeholder image">
+												  <span class="label media-object" style = "background-color:<?= $item->ni_color; ?>;color : black;"><?= $item->ni_mg; ?> Mg</span>'
 												</a>
 												<div class="media-body">												
 													<h3 class="media-heading"><?= $item->ty_desc; ?></h3>
@@ -176,6 +92,7 @@
 										&nbsp;
 									</div>
 									<div class="row">
+									<div class = "col-md-12">
 										<div class="panel panel-info">
 											<div class="panel-heading">
 												Note
@@ -184,6 +101,7 @@
 												<?= $key->or_note; ?>
 											</div>
 										</div>
+									</div>
 									</div>								
 								</td>
 							</tr>

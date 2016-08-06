@@ -1,17 +1,17 @@
 <?php
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class M_type extends CI_Model {
+class M_nico extends CI_Model {
 
     /**
      * @name string TABLE_NAME Holds the name of the table in use by this model
      */
-    const TABLE_NAME = 'type';
+    const TABLE_NAME = 'nicotine';
 
     /**
      * @name string PRI_INDEX Holds the name of the tables' primary index used in this model
      */
-    const PRI_INDEX = 'ty_id';
+    const PRI_INDEX = 'ni_id';
 
     /**
      * Retrieves record(s) from the database
@@ -88,5 +88,5 @@ class M_type extends CI_Model {
         return $this->db->affected_rows();
     }
 }
-        
+
 ?>

@@ -51,7 +51,7 @@
 			view progress order = 2
 			view complete order = 3
 	    */
-	    public function getList($process = 0)
+	    public function getList($process = 0 , $del = 0)
 	    {
 	    	$this->db->select('*');
 	    	$this->db->from(self::TABLE_NAME);
@@ -67,13 +67,20 @@
 	    			$this->db->where('pr_id', 3);
 	    			break;
 	    	}   	
-	    	
+	    	switch ($del) {
+	    		case '1':
+	    			$this->db->where('or_del', 1);
+	    			break;
+	    		default : $this->db->where('or_del', 0);
+	    			break;
+	    	}
 	    	$result = $this->db->get()->result();
 	    	for ($i=0; $i < sizeof($result); $i++) { 
 	    		$this->db->select("*");
 	    		$this->db->from('item');
 	    		$this->db->where('or_id', $result[$i]->or_id);
 	    		$this->db->join('type' , 'item.ty_id = type.ty_id' , 'left');
+	    		$this->db->join('nicotine ni' , 'item.it_mg = ni.ni_mg' , 'left');
 	    		$result[$i]->item = $this->db->get()->result();
 	    	}
 	    	return $result;
@@ -101,9 +108,9 @@
 	     * @return int Number of affected rows by the update query
 	     */
 	    public function update(Array $data, $where = array()) {
-	            if (!is_array($where)) {
-	                $where = array(self::PRI_INDEX => $where);
-	            }
+            if (!is_array($where)) {
+                $where = array(self::PRI_INDEX => $where);
+            }
 	        $this->db->update(self::TABLE_NAME, $data, $where);
 	        return $this->db->affected_rows();
 	    }
@@ -122,7 +129,7 @@
 	        return $this->db->affected_rows();
 	    }
 
-	    public function deleteList($or_id = null)
+	    public function deleteList1($or_id = null)
 	    {
 	    	if ($or_id == null) {
 	    		return false;
@@ -132,6 +139,20 @@
 	    	$this->db->delete('client' , array('cl_id' => $arr->cl_id));
 	    	$where = array(self::PRI_INDEX => $or_id);	    	
 	    	$this->db->delete(self::TABLE_NAME, $where);
+	    	return true;
+	    }
+
+	    public function deleteList($or_id = null)
+	    {
+	    	if ($or_id == null) {
+	    		return false;
+	    	}
+	    	$data = array(
+	    		'or_del' => true
+	    	);
+	    	$where = array(self::PRI_INDEX => $or_id);
+	        $this->db->update(self::TABLE_NAME, $data, $where);
+	        //return $this->db->affected_rows();
 	    	return true;
 	    }
 

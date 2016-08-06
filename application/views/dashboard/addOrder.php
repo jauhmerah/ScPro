@@ -1,3 +1,9 @@
+<pre>
+	<?php
+		print_r($type);
+		print_r($nico);
+	?>
+</pre>
 <div class="row addform"><!--style="display: none;-->
 	<div class="col-md-12">
 		<div class="panel panel-green">
@@ -64,14 +70,11 @@
 								<div class="col-md-8">
 									<select name="perasa" id="inputPerasa" class="form-control">
 										<option value="-1" selected>-- Select One --</option>
-										<option value="1">Manggo</option>
-										<option value="2">Blackcurrant</option>
-										<option value="3">Honey Dew</option>
-										<option value="4">Biru</option>
-										<option value="5">Pink</option>
-										<option value="6">BC Laici</option>
-										<option value="7">Pineapple Lemonade</option>
-										<option value="8">Grape</option>
+										<?php
+										foreach ($type as $item) { ?>
+											<option value="<?= $item->ty_id; ?>" ><?= $item->ty_desc; ?></option>
+										<?php }
+										?>										
 									</select>
 								</div>
 							</div>
@@ -85,11 +88,12 @@
 								<div class="col-md-8">
 									<select name="nico" id="inputNico" class="form-control">
 										<option value="-1" selected>-- Select One --</option>
-										<option value="0">0 Mg</option>
-										<option value="3">3 Mg</option>
-										<option value="6">6 Mg</option>
-										<option value="9">9 Mg (Creamy Only)</option>
-										<option value="12">12 Mg (Creamy Only)</option>
+										<?php 
+											foreach ($nico as $mg) {?>
+												<option style = "background-color: <?= $mg->ni_color; ?> ;" value="<?= $mg->ni_mg; ?>"><?= $mg->ni_mg; ?> Mg</option>
+											<?php }
+										?>
+										
 									</select>
 								</div>
 							</div>
@@ -97,7 +101,7 @@
 						<div class="col-md-5">
 							<div class="row">
 								<div class="col-md-4">
-									<span class="pull-left">Promo</span><span class="pull-right">:</span>
+									<span class="pull-left">Tester</span><span class="pull-right">:</span>
 								</div>
 								<div class="col-md-8">
 									<input type="number" name="promo" id="inputPromo" class="form-control" value="0">
@@ -169,40 +173,16 @@
 
 <script>
 	$(document).ready(function() {		
-		$(".clickAdd").click(function() {
-			$.when($(".menu").hide('slow')).then(function(){
-				$(".addform").show('slow');
-			});			
-		});
-		$("#backBtn").click(function() {
-			/* Act on the event */
-			$.when($(".addform").hide('slow')).then(function(){
-				$(".menu").show('slow');
-			});
-		});
-		$(".clickView").click(function() {
-			$.when($(".menu").hide('slow')).then(function(){
-				$(".viewL").show('slow');
-			});			
-		});
-		$("#backBtn2").click(function() {
-			/* Act on the event */
-			$.when($(".viewL").hide('slow')).then(function(){
-				$(".menu").show('slow');
-			});
-		});
-
 		var num = 0;
+		alert( $("#inputPerasa").html());
 		$("#addBtn").click(function() {
 			if(checkInput()){
 				flavcode = $("#inputPerasa").val();
 				niccode = $("#inputNico").val();
 				promo = $("#inputPromo").val();
 				qty = $("#inputQty").val();
-				flav = perasa(flavcode);
-				nic = nico(niccode);
 				num ++;
-				$.post('<?= site_url("dashboard/getAjaxOrderBox");?>', {fcode : flavcode ,num : num ,flav: flav, nic : nic , qty : qty , promo : promo , niccode : niccode}, function(data) {
+				$.post('<?= site_url("dashboard/getAjaxOrderBox");?>', { qty : qty , promo : promo ,flavcode : flavcode , niccode : niccode}, function(data) {
 					$("#orderBox").append(data);
 					//alert(data);
 				});
@@ -237,54 +217,16 @@
 
 		$("#inputPerasa").change(function() {
 			var i = $(this).val();
-			if (i == 1) {
-				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/img1.jpg');
-			}
-			if (i == 2) {
-				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/img2.jpg');
-			}
-			if (i == 3) {
-				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/img3.jpg');
-			}
-			if (i == 4) {
-				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/img4.jpg');
-			}
-			if (i == 5) {
-				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/img5.jpg');
-			}
-			if (i == 6) {
-				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/img6.jpg');
-			}
-			if (i == 7) {
-				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/img7.jpg');
-			}
-			if (i == 8) {
-				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/img8.jpg');
-			}
+			<?php 
+				foreach ($type as $item) { ?>
+			if (i == <?= $item->ty_id; ?>) {
+				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/uploads/item/<?= $item->ty_img; ?>');
+			}		
+				<?php }
+			?>
 			if (i == -1) {
 				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/400x400.png');
 			}
 		});	
-
-		function perasa(i) {
-			if (i == 1) {return "Manggo";}
-			if (i == 2) {return "Blackkurant";}
-			if (i == 3) {return "Honey Dew";}
-			if (i == 4) {return "Blue";}
-			if (i == 5) {return "Pink";}
-			if (i == 6) {return "Blackcurrant Laici";}
-			if (i == 7) {return "Pineapple Lemonade";}
-			if (i == 8) {return "Grape";}
-			return false;
-		}
-		function nico(i) {
-			if (i == 0) {return "0 Mg";}	
-			if (i == 3) {return "3 Mg";}	
-			if (i == 6) {return "6 Mg";}	
-			if (i == 9) {return "9 Mg";}	
-			if (i == 12) {return "12 Mg";}
-			return false;	
-		}		
-
 	});
 </script>
