@@ -151,8 +151,8 @@
                             <li <?php if ($link == 'a12') { echo $active;} ?>>
                                 <a href="<?= site_url('dashboard/page/a12'); ?>"><i class="fa fa-fw fa-bookmark-o"></i> Add Order</a>
                             </li>
-                            <li <?php if ($link == 'c3') { echo $active;} ?>>
-                                <a href="<?= site_url('dashboard/page/a3'); ?>"><i class="fa fa-fw fa-list-alt"></i> History</a>
+                            <li <?php if ($link == 'a13') { echo $active;} ?>>
+                                <a href="<?= site_url('dashboard/page/a13'); ?>"><i class="fa fa-fw fa-list-alt"></i> History</a>
                             </li>                            
                         </ul>
                     </li>

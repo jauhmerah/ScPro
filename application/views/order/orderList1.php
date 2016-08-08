@@ -22,7 +22,7 @@
 	<div>
 		<div class="panel panel-primary">
 			<div class="panel-heading" align="center">
-				<h1 class="panel-title"><h1>Order List v1.1</h1></h1>
+				<h1 class="panel-title"><h1>Order List v1.2</h1></h1>
 			</div>
 			<div class="panel-body full">
 				<div class="">
@@ -37,7 +37,8 @@
 						<tbody >
 						<?php 
 							$n=0;
-							foreach ($arr as $key) { $n++; ?>						
+							foreach ($arr as $key) { 
+								$n++; ?>						
 							<tr <?php if($n%2 == 0){ ?> style = "background-color : #FCF8E3" <?php }else{echo 'background : none;"';} ?> >
 								<td class="pull-left"><?= $n; ?></td>
 								<td class="col-md-3">
@@ -54,8 +55,8 @@
 									<div class="well col-md-4" <?php if($item->pr_id == 3){ ?> style = "background-color : #5BA000;"<?php } ?>>										
 									  	<div class="media">
 											<a class="media-left" href="#">
-											  <img class="media-object" src="<?= $this->my_func->itemIcon($item->ty_id); ?>" alt="Generic placeholder image">
-											  <?= $this->my_func->mgLable($item->it_mg , true); ?>
+											  <img class="media-object" src="<?= base_url()."assets/uploads/item/".$item->ty_icon; ?>" alt="Generic placeholder image">
+											  <span class="label" style="color:black; background-color : <?= $item->ni_color; ?>"><?= $item->it_mg; ?> Mg</span>
 											</a>
 											<div class="media-body">												
 												<h3 class="media-heading"><?= $item->ty_desc; ?></h3>

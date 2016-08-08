@@ -1,9 +1,10 @@
-<pre>
-	<?php
-		print_r($type);
-		print_r($nico);
+<!--<pre>
+	<?pshp
+		//print_r($type);
+		//print_r($nico);
+		print_r($client);
 	?>
-</pre>
+</pre>-->
 <div class="row addform"><!--style="display: none;-->
 	<div class="col-md-12">
 		<div class="panel panel-green">
@@ -17,17 +18,18 @@
 					<tbody>
 						<tr class="row">
 							<td class="col-md-4"><span class="pull-left">Client Name</span><span class="pull-right">* :</span></td>
-							<td class="col-md-8"><input type="text" name="name" id="inputName" class="form-control" value="" required="required" title=""></td>
-						</tr>
-						<tr class="row">
-							<td class="col-md-4"><span class="pull-left">Contact Number</span><span class="pull-right"> :</span></td>
-							<td class="col-md-8"><input type="number" name="telnumber" id="inputTelnumber" class="form-control"></td>
-						</tr>
-						<tr class="row">
-							<td class="col-md-4"><span class="pull-left">Country</span><span class="pull-right">* :</span></td>
-							<td class="col-md-8"><input type="text" name="country" id="inputCountry" class="form-control" value="" required="required" pattern="" title="">
+							<td class="col-md-8">								
+								<select name="name" id="inputName" class="form-control" required>
+										<option value="-1" selected>-- Select One --</option>
+										<?php
+										foreach ($client as $cl) { ?>
+											<option value="<?= $cl->cl_id; ?>" ><?= $cl->cl_name; ?></option>
+										<?php }
+										?>										
+								</select><br/>
+								<a href="<?= site_url('dashboard/page/a4'); ?>"><button type="button" class="btn btn-success"><i class="fa fa-plus"></i> Add Client</button></a>
 							</td>
-						</tr>
+						</tr>						
 						<tr class="row">
 							<td class="col-md-4"><span class="pull-left">Send Date</span><span class="pull-right"> :</span></td>
 							<td class="col-md-8"><input type="date" name="sendDate" id="inputSendDate" class="form-control">
@@ -173,43 +175,76 @@
 
 <script>
 	$(document).ready(function() {		
-		var num = 0;
-		alert( $("#inputPerasa").html());
-		$("#addBtn").click(function() {
+		var num = 0;		
+		$("#addBtn").click(function() {				
 			if(checkInput()){
 				flavcode = $("#inputPerasa").val();
 				niccode = $("#inputNico").val();
 				promo = $("#inputPromo").val();
 				qty = $("#inputQty").val();
+				flavname = $("#inputPerasa option:selected").text();
+				imgIcon = icon(flavcode);
 				num ++;
-				$.post('<?= site_url("dashboard/getAjaxOrderBox");?>', { qty : qty , promo : promo ,flavcode : flavcode , niccode : niccode}, function(data) {
+				lColor = lColorFunc(niccode);
+				$.post('<?= site_url("dashboard/getAjaxOrderBox");?>', {
+					flavname : flavname , 
+					qty : qty , 
+					promo : promo ,
+					flavcode : flavcode , 
+					niccode : niccode,
+					num :num,
+					imgIcon : imgIcon, 
+					lColor : lColor
+				}, function(data) {
 					$("#orderBox").append(data);
 					//alert(data);
-				});
+				});				
 			}
 		});
 		//alert("jd lah");
 		$("#submit_btn").click(function() {
-			$("#add_form").submit();
+			if(checkForm()){
+				$("#add_form").submit();
+			}
+			
 		});
+		function checkForm(){
+			if ($('#inputName').val() == -1) {
+				$('#inputName').focus();
+				alert("Please Select Client");				
+				return false;
+			}
+			if ($('#inputSendDate').val() == '') {
+				$('#inputSendDate').focus();
+				alert("Please Select Send Date");				
+				return false;
+			}
+			if ($("#orderBox li").size() == 0) {				
+				$('#inputPerasa').focus();
+				alert("Please Insert Order");
+				return false;
+			}
+			//alert($("#orderBox li").size());
+			return true;
+		}
 		function checkInput() {
 			//return true;
 			if ($("#inputPerasa").val() == -1) {
-				alert("Please Select Flavored!");
 				$("#inputPerasa").focus();
+				alert("Please Select Flavored!");				
 				return false;
 			}
 			if ($("#inputNico").val() == -1) {
-				alert("Please Select Nicotine!");
 				$("#inputNico").focus();
+				alert("Please Select Nicotine!");				
 				return false;
 			}
 			if ($("#inputPromo").val() == "") {
 				$("#inputPromo").val(0);
 			}
 			if ($("#inputQty").val() == '' || $("#inputQty").val() == 0) {
-				alert("Please Enter Quantity!");
 				$("#inputQty").focus();
+				alert("Please Enter Quantity!");				
 				return false;
 			}
 			return true;
@@ -227,6 +262,26 @@
 			if (i == -1) {
 				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/400x400.png');
 			}
-		});	
+		});
+
+		function icon(code) {
+				<?php 
+					foreach ($type as $key) { ?>
+				if (code == <?= $key->ty_id; ?>) {
+						return "<?= $key->ty_icon; ?>";
+					}	
+				<?php	}
+				?>
+		}
+
+		function lColorFunc(code) {
+			<?php 
+				foreach ($nico as $key) { ?>
+				if (code == <?= $key->ni_mg; ?>) {
+						return "<?= $key->ni_color; ?>";
+					}	
+				<?php	}
+			?>
+		}
 	});
 </script>

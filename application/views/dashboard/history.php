@@ -1,20 +1,6 @@
-<!--<pre><?p-hp print_r($arr); ?></pre>-->
 <div class="row">
 	<div class="col-md-12">
-		<div class="panel panel-primary">
-			<div class="panel-heading">
-				<h1 class="panel-title">Order List</h1>
-			</div>
-			<div class="panel-body">
-			<div class="row">
-				<div class="col-md-12">
-					<span class="pull-left"><a href="<?= site_url('dashboard/page/a12'); ?>"><button type="button" class="btn btn-success">Add Order</button></a></span>
-				</div>	
-			</div>
-			<div class="clearfix">
-			&nbsp;
-			</div>
-				<div class="table-responsive">
+		<div class="table-responsive">
 					<table class="table table-hover table-striped table-bordered">
 						<thead>
 							<tr style="background-color: #F5F5F5">
@@ -29,24 +15,34 @@
 						</thead>
 						<tbody>					
 							<?php
+							if (sizeof($arr) == 0) { ?>
+								<tr>
+									<td colspan = "7">
+										<div align = 'center'>
+											No History...
+										</div>
+									</td>
+								</tr>
+							<?php									
+							}else{							
 							$n = 0; 
 							foreach ($arr as $key) { 
 								$n++;
 							?>
 							<tr <?php if($key->pr_id == 3){ echo 'style = "background-color : #73C10B;"'; } ?>>
 								<td rowspan = "2"><?= $n; ?></td>
-								<td><a href = "<?= site_url('dashboard/page/a4/read').'/'.$key->cl_id; ?>"><?= $key->cl_name; ?></a></td>
+								<td><?= $key->cl_name; ?></td>
 								<td><?= $key->cl_tel; ?></td>
 								<td><?= $key->cl_country; ?></td>
 								<td><?= $key->or_deposit; ?></td>
 								<td><?= $key->or_sendDate; ?></td>								
 								<td>
 								<div class="btn-group">
-									<a href="#" class="listO" id="l<?= $n; ?>" title="View Detail"><button type="button" class="btn btn-info"><i class="fa fa-eye"></i></button></a>																	
-									<a onclick = "return confirm('Confirm Delete!');" href="<?= site_url('dashboard/deleteOrder?key='.$this->my_func->scpro_encrypt($key->or_id)); ?>" title="Delete"><button type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button></a>
+									<a href="#" class="listO" id="l<?= $n; ?>" title="View Detail"><button type="button" class="btn btn-info"><i class="fa fa-eye"></i></button></a>									
 									<!--<a href="" title="Edit"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;-->	
 								</div>
 								</td>
+								
 							</tr>
 							<?php 
 								$size = sizeof($key->item);
@@ -128,52 +124,12 @@
 								</td>
 							</tr>
 						<?php		
-							}
+							}}
 						?>	
 
 						<!-- End of table -->	
 						</tbody>
 					</table>
 				</div>
-			</div>
-		</div>
 	</div>
 </div>
-
-<script>
-	$(document).ready(function() {
-		$(".listO").click(function() {
-			temp = $(this).prop('id');
-			if ($("."+temp).is(':visible')) {
-				$("."+temp).hide('slow');
-			}else{
-				$("."+temp).show('slow');
-			}			
-			//alert("jadi");
-		});
-		$(".clickAdd").click(function() {
-			$.when($(".menu").hide('slow')).then(function(){
-				$(".addform").show('slow');
-			});			
-		});
-		$("#backBtn").click(function() {
-			/* Act on the event */
-			$.when($(".addform").hide('slow')).then(function(){
-				$(".menu").show('slow');
-			});
-		});
-		$(".clickView").click(function() {
-			$.when($(".menu").hide('slow')).then(function(){
-				$(".viewL").show('slow');
-			});			
-		});
-		$("#backBtn2").click(function() {
-			/* Act on the event */
-			$.when($(".viewL").hide('slow')).then(function(){
-				$(".menu").show('slow');
-			});
-		});
-
-	});
-</script>
-

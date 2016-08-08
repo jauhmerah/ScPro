@@ -69,15 +69,16 @@
     				if ($this->input->post()) {
     					$this->load->database();
     					$arr = $this->input->post();
-	    				$temp = array(
+	    				/*$temp = array(
 	    					'cl_name' => $arr['name'],
 	    					'cl_tel' => $arr['telnumber'],
 	    					'cl_country' => $arr['country']
 	    				);
 	    				$this->load->model("m_client");
-	    				$cl_id = $this->m_client->insert($temp);    				
+	    				$cl_id = $this->m_client->insert($temp);  */
+	    				$cl_id = $arr['name'];
 	    				if ($cl_id) {
-	    					unset($temp);
+	    					//unset($temp);
 	    					$temp = array(
 	    						'cl_id' => $cl_id,
 	    						'or_sendDate' => $arr['sendDate'],
@@ -131,9 +132,20 @@
     				$this->load->database();
     				$this->load->model('m_type');
     				$this->load->model('m_nico');
+    				$this->load->model('m_client');
+    				$temp['client'] = $this->m_client->get();
     				$temp['type'] = $this->m_type->get();
     				$temp['nico'] = $this->m_nico->get();
     				$data['display'] = $this->load->view($this->parent_page.'/addOrder' , $temp , true);
+ 					$this->_show('index' , $data , $key);
+    				break;
+    			case 'a13':
+    				$this->load->library('my_func');
+    				$this->load->database();
+    				$this->load->model('m_order');
+    				$data['title'] = '<i class="fa fa-fw fa-edit"></i> Order History</a>';
+    				$temp['arr'] = $this->m_order->getList(0,1);
+    				$data['display'] = $this->load->view($this->parent_page.'/history' , $temp , true);
  					$this->_show('index' , $data , $key);
     				break;
     			case 'a21':    				
@@ -215,10 +227,23 @@
 		    		$this->_show('index' , $data , $key); 
     				break;
     			case 'a4':
-    				# code...
-    				break;
-    			case 'a5':
-    				# code...
+    				$data['title'] = '<i class="fa fa-fw fa-link"></i> Client Detail';
+    				$this->_loadCrud();
+		    		$crud = new grocery_CRUD();    		
+		    		$crud->set_table('client');
+		    		$crud->set_subject('Client Detail');
+		    		$crud->unset_export();
+		    		$crud->unset_print();
+		    		$crud->required_fields('cl_name','cl_tel','cl_country','cl_address');
+		    		$crud->display_as('cl_name','Client Name')
+		    		->display_as('cl_tel','Contact Number')
+		    		->display_as('cl_country','Country')
+		    		->display_as('cl_address','Address')
+		    		->display_as('cl_note','Note');
+		    		$crud->unset_texteditor('cl_address','full_text');
+		    		$output = $crud->render();
+		    		$data['display'] = $this->load->view('crud' , $output , true);
+		    		$this->_show('index' , $data , $key); 
     				break;
     			case '312':
     				//Website Profile
@@ -517,17 +542,18 @@
 		public function getAjaxOrderBox()
 		{ 
 			/*
-			flavcode = $("#inputPerasa").val();
-				niccode = $("#inputNico").val();
-				promo = $("#inputPromo").val();
-				qty = $("#inputQty").val();
-				num ++;
+			flavname : flavname , 
+			qty : qty , 
+			promo : promo ,
+			flavcode : flavcode , 
+			niccode : niccode,
+			num :num
 			*/
 			$this->load->database();
 			$this->load->model('m_type');
 			$this->load->model('m_nico');
 			$arr = $this->input->post();
-			$arr['icon'] = base_url()."/assets/uploads/item/".$arr['flavcode'];			
+			$arr['icon'] = base_url()."assets/uploads/item/".$arr['imgIcon'];			
 			echo $this->load->view($this->parent_page. "/ajax/getAjaxOrderBox", $arr , true);
 		}
 		public function testAjax()

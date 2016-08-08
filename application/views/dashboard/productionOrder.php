@@ -104,14 +104,14 @@
 						foreach ($arr1 as $key) { 
 							$n++;
 							?>						
-							<tr class="Lorder" id="L<?= $n; ?>">
+							<tr class="Lorder" id="P<?= $n; ?>">
 								<td><?= $n; ?></td>
 								<td><?= $key->cl_name; ?></td>
 								<td><?= $key->cl_tel; ?></td>
 								<td><?= $key->cl_country; ?></td>
 								<td><?= $key->or_sendDate; ?></td>
 							</tr>
-							<tr class="L<?= $n; ?>" style="display : none;">
+							<tr class="P<?= $n; ?>" style="display : none;">
 								<td colspan="5" >
 									<div class="row">
 										<div class="col-md-10 col-md-offset-1">

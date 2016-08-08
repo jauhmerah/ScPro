@@ -14,7 +14,6 @@ class Order extends CI_Controller {
 		$this->load->model('m_order');
 		$this->load->library('my_func');
 		$arr['arr'] = $this->m_order->getList(2);
-
 		$this->_show("orderList1", $arr);
 	}
 	function _show($page = "orderList1" , $data = null)
