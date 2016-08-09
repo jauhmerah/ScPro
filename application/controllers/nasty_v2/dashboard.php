@@ -11,12 +11,19 @@
 	    }
 	
 	    function index() {
-	        
+	        $this->_show();
 	    }
 
-	    private function _show($value='')
+	    private function _show()
 	    {
-	    	# code...
+	    	$this->load->view($this->parent_page.'/head', '', FALSE);
+	    	$this->load->view($this->parent_page.'/head2', '', FALSE);
+	    	$this->load->view($this->parent_page.'/navmenu3', '', FALSE);
+	    	$this->load->view($this->parent_page.'/theme4', '', FALSE);
+	    	$this->load->view($this->parent_page.'/title5', '', FALSE);
+	    	$this->load->view($this->parent_page.'/blank', '', FALSE);
+	    	$this->load->view($this->parent_page.'/sidebar7', '', FALSE);
+	    	$this->load->view($this->parent_page.'/footer', '', FALSE);
 	    }
 	}
 	        
