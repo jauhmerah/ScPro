@@ -7,6 +7,173 @@
 </pre>-->
 <div class="row addform"><!--style="display: none;-->
 	<div class="col-md-12">
+	<div class="portlet box green">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-gift"></i>Add Order Form </div>
+            <!--<div class="tools">
+                <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
+                <a href="#portlet-config" data-toggle="modal" class="config" data-original-title="" title=""> </a>
+                <a href="javascript:;" class="reload" data-original-title="" title=""> </a>
+                <a href="javascript:;" class="remove" data-original-title="" title=""> </a>
+            </div>-->
+        </div>
+        <div class="portlet-body form">
+            <!-- BEGIN FORM-->
+            <form action="#" class="form-horizontal">
+                <div class="form-body">
+                	<h3 class="form-section">Client Info</h3>
+                	<div class="form-group">
+                        <label class="col-md-3 control-label">Client Name</label>
+                        <div class="col-md-4">
+                            <select name="name" id="inputName" class="form-control" required>
+										<option value="-1" selected>-- Select One --</option>
+										<?php
+										foreach ($client as $cl) { ?>
+											<option value="<?= $cl->cl_id; ?>" ><?= $cl->cl_name; ?></option>
+										<?php }
+										?>										
+								</select><br/>
+								<a href="<?= site_url('dashboard/page/a4'); ?>"><button type="button" class="btn btn-success"><i class="fa fa-plus"></i> Add Client</button></a>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Send Date</label>
+                        <div class="col-md-4">
+                            <input type="date" name="sendDate" id="inputSendDate" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Bank</label>
+                        <div class="col-md-4">
+                            <input type="text" name="bank" id="inputBank" class="form-control" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Deposit</label>
+                        <div class="col-md-4">
+                            <input type="text" name="deposit" id="inputDeposit" class="form-control" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Note</label>
+                        <div class="col-md-4">
+                            <textarea name="note" id="inputNote" class="form-control" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <h3 class="form-section">Order List</h3> 
+                    <div class="form-group">
+                        <div class="row">
+							<div class="col-lg-4">
+								<img id="imgDetail" class="img-thumbnail" src="<?= base_url('assets/nasty/400x400.png'); ?>" alt="">
+							</div>
+							<div class="col-lg-8">
+								<div class="col-md-5 col-md-offset-1">
+									<div class="row">
+										<div class="col-md-4">
+											<span class="pull-left">Flavored</span><span class="pull-right">:</span>
+										</div>
+										<div class="col-md-8">
+											<select name="perasa" id="inputPerasa" class="form-control">
+												<option value="-1" selected>-- Select One --</option>
+												<?php
+												foreach ($type as $item) { ?>
+													<option value="<?= $item->ty_id; ?>" ><?= $item->ty_desc; ?></option>
+												<?php }
+												?>										
+											</select>
+										</div>
+									</div>
+									<div class="clearfix">
+									&nbsp;
+									</div>
+									<div class="row">
+										<div class="col-md-4">
+											<span class="pull-left">Nicotine</span><span class="pull-right">:</span>
+										</div>
+										<div class="col-md-8">
+											<select name="nico" id="inputNico" class="form-control">
+												<option value="-1" selected>-- Select One --</option>
+												<?php 
+													foreach ($nico as $mg) {?>
+														<option style = "background-color: <?= $mg->ni_color; ?> ;" value="<?= $mg->ni_mg; ?>"><?= $mg->ni_mg; ?> Mg</option>
+													<?php }
+												?>
+												
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-5">
+									<div class="row">
+										<div class="col-md-4">
+											<span class="pull-left">Tester</span><span class="pull-right">:</span>
+										</div>
+										<div class="col-md-8">
+											<input type="number" name="promo" id="inputPromo" class="form-control" value="0">
+										</div>
+									</div>
+									<div class="clearfix">
+										&nbsp;
+									</div>
+									<div class="row">
+										<div class="col-md-4">
+											<span class="pull-left">Quantity</span><span class="pull-right">:</span>
+										</div>
+										<div class="col-md-8">
+											<input type="number" value="0" name="qty" id="inputQty" class="form-control">
+										</div>
+									</div>
+									<div class="clearfix">
+										&nbsp;
+									</div>
+									<div class="row">
+										<button type="button" id="addBtn" class="btn btn-success pull-right"><i class="fa fa-plus"></i>&nbsp;Add</button>
+									</div>
+									<div class="clearfix">
+										&nbsp;
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="clearfix">
+							&nbsp;
+						</div>
+						
+						<div class="clearfix">
+							&nbsp;
+						</div>
+						<!-- Order Box -->
+						<div class="row">
+							<div class="col-xs-10 col-xs-offset-1">
+								<div class="well">
+									<ul class="media-list" id="orderBox">
+									  	
+									</ul>
+								</div>
+							</div>
+						</div>
+						<!--End of Order Box --> 
+                    </div> 
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Note</label>
+                        <div class="col-md-4">
+                            <textarea name="note" id="inputNote" class="form-control" rows="3"></textarea>
+                        </div>
+                    </div>                   
+                </div>
+                <div class="form-actions">
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-9">
+                            <button type="submit" class="btn btn-circle green">Submit</button>
+                            <button type="button" class="btn btn-circle grey-salsa btn-outline">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- END FORM-->
+        </div>
+    </div>
 		<div class="panel panel-green">
 			<!-- Default panel contents -->
 		

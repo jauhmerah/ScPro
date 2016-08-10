@@ -27,7 +27,7 @@
 	    			'us_lvl' => $this->my_func->scpro_encrypt($data->us_lvl)
 	    		);	    		
 	    		$this->session->set_userdata( $array );
-	    		redirect(site_url('dashboard'),'refresh');
+	    		redirect(site_url('nasty_v2/dashboard'),'refresh');
 	    	}else{
 	    		echo "Login Not Success";
 	    		redirect(site_url('login'),'refresh');

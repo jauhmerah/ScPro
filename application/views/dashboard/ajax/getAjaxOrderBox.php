@@ -5,7 +5,7 @@
 	<div class="media-body">
 		<div class="col-md-4">
 			<h3 class="media-heading"><?= $flavname; ?></h3>
-	  		<span class="label" style="background-color : <?= $lColor; ?>"><?= $niccode; ?> Mg</span><span class="pull-right">Qty : <?= $qty; ?> + <?= $promo; ?></span>
+	  		<span class="label" style="color : black; background-color : <?= $lColor; ?>"><?= $niccode; ?> Mg</span><span class="pull-right">Qty : <?= $qty; ?> + <?= $promo; ?></span>
 		</div>
 		<div class="col-md-8">
 			<h2><span class="pull-right"><button type="button" id="list_<?= $num; ?>" class="btn btn-danger delBtn"><i class="fa fa-trash" ></i></button></span></h2>

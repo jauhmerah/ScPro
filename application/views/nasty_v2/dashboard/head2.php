@@ -5,8 +5,9 @@
             <div class="page-header-inner ">
                 <!-- BEGIN LOGO -->
                 <div class="page-logo">
-                    <a href="index.html">
-                        <img src="../asset2/layouts/layout2/img/logo-default.png" alt="logo" class="logo-default" /> </a>
+                    <a href="<?php site_url('nasty_v2/dashboard'); ?>">
+                        <img src="<?= base_url(); ?>asset2/layouts/layout2/img/logo-default.png" alt="logo" class="logo-default" /> </a>
+                        <!--<span style="color:white;">Ordering System v2.0</span>-->
                     <div class="menu-toggler sidebar-toggler">
                         <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
                     </div>
@@ -17,7 +18,7 @@
                 <!-- END RESPONSIVE MENU TOGGLER -->
                 <!-- BEGIN PAGE ACTIONS -->
                 <!-- DOC: Remove "hide" class to enable the page header actions -->
-                <div class="page-actions">
+                <!--<div class="page-actions">
                     <div class="btn-group">
                         <button type="button" class="btn btn-circle btn-outline red dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-plus"></i>&nbsp;
@@ -52,13 +53,13 @@
                             </li>
                         </ul>
                     </div>
-                </div>
+                </div>-->
                 <!-- END PAGE ACTIONS -->
                 <!-- BEGIN PAGE TOP -->
                 <div class="page-top">
                     <!-- BEGIN HEADER SEARCH BOX -->
                     <!-- DOC: Apply "search-form-expanded" right after the "search-form" class to have half expanded search box -->
-                    <form class="search-form search-form-expanded" action="page_general_search_3.html" method="GET">
+                    <!--<form class="search-form search-form-expanded" action="page_general_search_3.html" method="GET">
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Search..." name="query">
                             <span class="input-group-btn">
@@ -67,13 +68,13 @@
                                 </a>
                             </span>
                         </div>
-                    </form>
+                    </form>-->
                     <!-- END HEADER SEARCH BOX -->
                     <!-- BEGIN TOP NAVIGATION MENU -->
                     <div class="top-menu">
                         <ul class="nav navbar-nav pull-right">
-                            <!-- BEGIN NOTIFICATION DROPDOWN -->
-                            <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                            <!--<!- - BEGIN NOTIFICATION DROPDOWN - ->
+                            <!- - DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte - ->
                             <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
                                 <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                     <i class="icon-bell"></i>
@@ -172,9 +173,9 @@
                                     </li>
                                 </ul>
                             </li>
-                            <!-- END NOTIFICATION DROPDOWN -->
-                            <!-- BEGIN INBOX DROPDOWN -->
-                            <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                            <!- - END NOTIFICATION DROPDOWN - ->
+                            <!- - BEGIN INBOX DROPDOWN - ->
+                            <!- - DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte - ->
                             <li class="dropdown dropdown-extended dropdown-inbox" id="header_inbox_bar">
                                 <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                     <i class="icon-envelope-open"></i>
@@ -191,7 +192,7 @@
                                             <li>
                                                 <a href="#">
                                                     <span class="photo">
-                                                        <img src="../asset2/layouts/layout3/img/avatar2.jpg" class="img-circle" alt=""> </span>
+                                                        <img src="<?= base_url(); ?>asset2/layouts/layout3/img/avatar2.jpg" class="img-circle" alt=""> </span>
                                                     <span class="subject">
                                                         <span class="from"> Lisa Wong </span>
                                                         <span class="time">Just Now </span>
@@ -202,7 +203,7 @@
                                             <li>
                                                 <a href="#">
                                                     <span class="photo">
-                                                        <img src="../asset2/layouts/layout3/img/avatar3.jpg" class="img-circle" alt=""> </span>
+                                                        <img src="<?= base_url(); ?>asset2/layouts/layout3/img/avatar3.jpg" class="img-circle" alt=""> </span>
                                                     <span class="subject">
                                                         <span class="from"> Richard Doe </span>
                                                         <span class="time">16 mins </span>
@@ -213,7 +214,7 @@
                                             <li>
                                                 <a href="#">
                                                     <span class="photo">
-                                                        <img src="../asset2/layouts/layout3/img/avatar1.jpg" class="img-circle" alt=""> </span>
+                                                        <img src="<?= base_url(); ?>asset2/layouts/layout3/img/avatar1.jpg" class="img-circle" alt=""> </span>
                                                     <span class="subject">
                                                         <span class="from"> Bob Nilson </span>
                                                         <span class="time">2 hrs </span>
@@ -224,7 +225,7 @@
                                             <li>
                                                 <a href="#">
                                                     <span class="photo">
-                                                        <img src="../asset2/layouts/layout3/img/avatar2.jpg" class="img-circle" alt=""> </span>
+                                                        <img src="<?= base_url(); ?>asset2/layouts/layout3/img/avatar2.jpg" class="img-circle" alt=""> </span>
                                                     <span class="subject">
                                                         <span class="from"> Lisa Wong </span>
                                                         <span class="time">40 mins </span>
@@ -235,7 +236,7 @@
                                             <li>
                                                 <a href="#">
                                                     <span class="photo">
-                                                        <img src="../asset2/layouts/layout3/img/avatar3.jpg" class="img-circle" alt=""> </span>
+                                                        <img src="<?= base_url(); ?>asset2/layouts/layout3/img/avatar3.jpg" class="img-circle" alt=""> </span>
                                                     <span class="subject">
                                                         <span class="from"> Richard Doe </span>
                                                         <span class="time">46 mins </span>
@@ -247,9 +248,9 @@
                                     </li>
                                 </ul>
                             </li>
-                            <!-- END INBOX DROPDOWN -->
-                            <!-- BEGIN TODO DROPDOWN -->
-                            <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                            <!- - END INBOX DROPDOWN - ->
+                            <!- - BEGIN TODO DROPDOWN - ->
+                            <!- - DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte - ->
                             <li class="dropdown dropdown-extended dropdown-tasks" id="header_task_bar">
                                 <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                     <i class="icon-calendar"></i>
@@ -358,16 +359,16 @@
                                     </li>
                                 </ul>
                             </li>
-                            <!-- END TODO DROPDOWN -->
-                            <!-- BEGIN USER LOGIN DROPDOWN -->
-                            <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                            <li class="dropdown dropdown-user">
-                                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                    <img alt="" class="img-circle" src="../asset2/layouts/layout2/img/avatar3_small.jpg" />
-                                    <span class="username username-hide-on-mobile"> Nick </span>
-                                    <i class="fa fa-angle-down"></i>
+                            <!- - END TODO DROPDOWN - ->
+                            <!- - BEGIN USER LOGIN DROPDOWN - ->
+                            <!- - DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte - ->
+                            --><li class="dropdown dropdown-user">
+                                <a href="<?= site_url('dashboard/logout'); ?>" >
+                                    <!--<img alt="" class="img-circle" src="<?= base_url(); ?>asset2/layouts/layout2/img/avatar3_small.jpg" />-->
+                                    <span class="">logout</span>
+                                    <i class="fa fa-sign-out"></i>
                                 </a>
-                                <ul class="dropdown-menu dropdown-menu-default">
+                                <!--<ul class="dropdown-menu dropdown-menu-default">
                                     <li>
                                         <a href="page_user_profile_1.html">
                                             <i class="icon-user"></i> My Profile </a>
@@ -394,18 +395,22 @@
                                             <i class="icon-lock"></i> Lock Screen </a>
                                     </li>
                                     <li>
-                                        <a href="page_user_login_1.html">
+                                        <a href="<?= site_url('dashboard/logout'); ?>">
                                             <i class="icon-key"></i> Log Out </a>
                                     </li>
-                                </ul>
-                            </li>
-                            <!-- END USER LOGIN DROPDOWN -->
-                            <!-- BEGIN QUICK SIDEBAR TOGGLER -->
-                            <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                            <li class="dropdown dropdown-extended quick-sidebar-toggler">
+                                </ul>-->
+                            </li><!--
+                            <!- - END USER LOGIN DROPDOWN - ->
+                            <!- - BEGIN QUICK SIDEBAR TOGGLER - ->
+                            <!- - DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                            <!--<li class="dropdown dropdown-extended quick-sidebar-toggler">
                                 <span class="sr-only">Toggle Quick Sidebar</span>
                                 <i class="icon-logout"></i>
                             </li>
+                            <li class="dropdown dropdown-extended dropdown-notification">
+                                <span class="sr-only">Toggle Quick Sidebar</span>
+                                <i class="icon-logout"></i>
+                            </li>-->
                             <!-- END QUICK SIDEBAR TOGGLER -->
                         </ul>
                     </div>

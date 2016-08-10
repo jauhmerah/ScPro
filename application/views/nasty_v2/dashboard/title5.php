@@ -1,9 +1,15 @@
-<h1 class="page-title"> Blank Page Layout
-                        <small>blank page layout</small>
+<?php
+                if (!isset($title)) {
+                    $title = 'Statistics Overview';
+                }
+            ?>
+<h1 class="page-title"> Dashboard
+                        <small><?= $title; ?></small>
                     </h1>
                     <div class="page-bar">
                         <ul class="page-breadcrumb">
-                            <li>
+                            <li><?= $title; ?></li>
+                            <!--<li>
                                 <i class="icon-home"></i>
                                 <a href="index.html">Home</a>
                                 <i class="fa fa-angle-right"></i>
@@ -14,9 +20,9 @@
                             </li>
                             <li>
                                 <span>Page Layouts</span>
-                            </li>
+                            </li>-->
                         </ul>
-                        <div class="page-toolbar">
+                        <!--<div class="page-toolbar">
                             <div class="btn-group pull-right">
                                 <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true"> Actions
                                     <i class="fa fa-angle-down"></i>
@@ -41,6 +47,6 @@
                                     </li>
                                 </ul>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                     <!-- END PAGE HEADER-->

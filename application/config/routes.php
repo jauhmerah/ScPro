@@ -38,7 +38,7 @@
 |
 */
 
-$route['default_controller'] = "order";
+$route['default_controller'] = "nasty_v2/dashboard";
 $route['404_override'] = '';
 
 

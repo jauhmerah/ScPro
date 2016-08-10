@@ -8,7 +8,7 @@
 			<div class="panel-body">
 			<div class="row">
 				<div class="col-md-12">
-					<span class="pull-left"><a href="<?= site_url('dashboard/page/a12'); ?>"><button type="button" class="btn btn-success">Add Order</button></a></span>
+					<span class="pull-left"><a href="<?= site_url('nasty_v2/dashboard/page/a12'); ?>"><button type="button" class="btn btn-success">Add Order</button></a></span>
 				</div>	
 			</div>
 			<div class="clearfix">
