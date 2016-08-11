@@ -51,7 +51,7 @@
 			view progress order = 2
 			view complete order = 3
 	    */
-	    public function getList($process = 0 , $del = 0)
+	    public function getList($process = 0 , $del = 0 , $down = 0)
 	    {
 	    	$this->db->select('*');
 	    	$this->db->from(self::TABLE_NAME);
@@ -74,6 +74,10 @@
 	    		default : $this->db->where('or_del', 0);
 	    			break;
 	    	}
+	    	if ($down == 1) {
+	    		$this->db->order_by('or_id', 'desc');
+	    	}
+	    	
 	    	$result = $this->db->get()->result();
 	    	for ($i=0; $i < sizeof($result); $i++) { 
 	    		$this->db->select("*");

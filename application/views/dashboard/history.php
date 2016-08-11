@@ -29,7 +29,7 @@
 							foreach ($arr as $key) { 
 								$n++;
 							?>
-							<tr <?php if($key->pr_id == 3){ echo 'style = "background-color : #73C10B;"'; } ?>>
+							<tr >
 								<td rowspan = "2"><?= $n; ?></td>
 								<td><?= $key->cl_name; ?></td>
 								<td><?= $key->cl_tel; ?></td>
@@ -133,3 +133,39 @@
 				</div>
 	</div>
 </div>
+<script>
+	$(document).ready(function() {
+		$(".listO").click(function() {
+			temp = $(this).prop('id');
+			if ($("."+temp).is(':visible')) {
+				$("."+temp).hide('slow');
+			}else{
+				$("."+temp).show('slow');
+			}			
+			//alert("jadi");
+		});
+		$(".clickAdd").click(function() {
+			$.when($(".menu").hide('slow')).then(function(){
+				$(".addform").show('slow');
+			});			
+		});
+		$("#backBtn").click(function() {
+			/* Act on the event */
+			$.when($(".addform").hide('slow')).then(function(){
+				$(".menu").show('slow');
+			});
+		});
+		$(".clickView").click(function() {
+			$.when($(".menu").hide('slow')).then(function(){
+				$(".viewL").show('slow');
+			});			
+		});
+		$("#backBtn2").click(function() {
+			/* Act on the event */
+			$.when($(".viewL").hide('slow')).then(function(){
+				$(".menu").show('slow');
+			});
+		});
+
+	});
+</script>

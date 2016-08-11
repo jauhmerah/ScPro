@@ -20,120 +20,140 @@
         </div>
         <div class="portlet-body form">
             <!-- BEGIN FORM-->
-            <form action="#" class="form-horizontal">
+            <div class="row">
+            <div class = "col-md-12">           	
+           	<form id = "add_form" class="form-horizontal" enctype="multipart/form-data" method="post" action="<?= site_url('nasty_v2/dashboard/page/a11'); ?>">
+           
                 <div class="form-body">
                 	<h3 class="form-section">Client Info</h3>
-                	<div class="form-group">
-                        <label class="col-md-3 control-label">Client Name</label>
-                        <div class="col-md-4">
-                            <select name="name" id="inputName" class="form-control" required>
-										<option value="-1" selected>-- Select One --</option>
-										<?php
-										foreach ($client as $cl) { ?>
-											<option value="<?= $cl->cl_id; ?>" ><?= $cl->cl_name; ?></option>
-										<?php }
-										?>										
-								</select><br/>
-								<a href="<?= site_url('dashboard/page/a4'); ?>"><button type="button" class="btn btn-success"><i class="fa fa-plus"></i> Add Client</button></a>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-3 control-label">Send Date</label>
-                        <div class="col-md-4">
-                            <input type="date" name="sendDate" id="inputSendDate" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-3 control-label">Bank</label>
-                        <div class="col-md-4">
-                            <input type="text" name="bank" id="inputBank" class="form-control" >
+                	<div class="row">
+                	<div class="col-md-6">
+                		<div class="form-group">
+	                        <label class="col-md-3 control-label">Client Name</label>
+	                        <div class="col-md-9">
+	                            <select name="name" id="inputName" class="form-control input-circle" required>
+											<option value="-1" selected>-- Select One --</option>
+											<?php
+											foreach ($client as $cl) { ?>
+												<option value="<?= $cl->cl_id; ?>" ><?= $cl->cl_name; ?></option>
+											<?php }
+											?>										
+									</select><br/>
+									<a href="<?= site_url('nasty_v2/dashboard/page/a4/add'); ?>"><button type="button" class="btn btn-success"><i class="fa fa-plus"></i> Add Client</button></a>
+	                        </div>
+	                    </div>
+	                    <div class="form-group">
+	                        <label class="col-md-3 control-label">Send Date</label>
+	                        <div class="col-md-9 ">
+	                        <div class="input-icon right">
+	                        	<i class="fa fa-calendar"></i>
+	                            <input type="date" name="sendDate" id="inputSendDate" class="form-control input-circle">
+	                        </div>
+	                        </div>                        
+	                    </div>                    
+	                    <div class="form-group">
+	                        <label class="col-md-3 control-label">Bank</label>
+	                        <div class="col-md-9">
+	                        <div class="input-icon right">
+	                        	<i class="fa fa-institution"></i>
+	                            <input type="text" name="bank" id="inputBank" class="form-control input-circle" >
+	                        </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-3 control-label">Deposit</label>
-                        <div class="col-md-4">
-                            <input type="text" name="deposit" id="inputDeposit" class="form-control" >
+                        <div class="col-md-9">
+                        	<div class="input-icon right">
+                        		<i class="fa fa-money"></i>
+                            <input type="text" name="deposit" id="inputDeposit" class="form-control input-circle" >
+                        </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-3 control-label">Note</label>
-                        <div class="col-md-4">
-                            <textarea name="note" id="inputNote" class="form-control" rows="3"></textarea>
+                        <div class="col-md-9">
+                            <textarea name="note" id="inputNote" class="form-control input-circle" rows="3"></textarea>
                         </div>
                     </div>
+                	</div>
+                	<div class="col-md-6">
+                		<div id="clientDetail" >
+                			<div align = "center"><img src="<?= base_url("assets/nasty/nastylogo.png"); ?>" class="img-responsive" alt="Image"></div>
+                		</div>
+                	</div>
+                	</div>
                     <h3 class="form-section">Order List</h3> 
                     <div class="form-group">
                         <div class="row">
-							<div class="col-lg-4">
+							<div class="col-md-4 col-md-offset-1" align="center">
 								<img id="imgDetail" class="img-thumbnail" src="<?= base_url('assets/nasty/400x400.png'); ?>" alt="">
 							</div>
-							<div class="col-lg-8">
-								<div class="col-md-5 col-md-offset-1">
-									<div class="row">
-										<div class="col-md-4">
-											<span class="pull-left">Flavored</span><span class="pull-right">:</span>
-										</div>
-										<div class="col-md-8">
-											<select name="perasa" id="inputPerasa" class="form-control">
-												<option value="-1" selected>-- Select One --</option>
-												<?php
-												foreach ($type as $item) { ?>
-													<option value="<?= $item->ty_id; ?>" ><?= $item->ty_desc; ?></option>
+							<div class="col-lg-6">
+								<div class="row">
+									<div class="col-md-4">
+										<span class="pull-left">Flavored</span><span class="pull-right">:</span>
+									</div>
+									<div class="col-md-8">
+										<select name="perasa" id="inputPerasa" class="form-control input-circle">
+											<option value="-1" selected>-- Select One --</option>
+											<?php
+											foreach ($type as $item) { ?>
+												<option value="<?= $item->ty_id; ?>" ><?= $item->ty_desc; ?></option>
+											<?php }
+											?>										
+										</select>
+									</div>
+								</div>
+								<div class="clearfix">
+								&nbsp;
+								</div>
+								<div class="row">
+									<div class="col-md-4">
+										<span class="pull-left">Nicotine</span><span class="pull-right">:</span>
+									</div>
+									<div class="col-md-8">
+										<select name="nico" id="inputNico" class="form-control input-circle">
+											<option value="-1" selected>-- Select One --</option>
+											<?php 
+												foreach ($nico as $mg) {?>
+													<option style = "background-color: <?= $mg->ni_color; ?> ;" value="<?= $mg->ni_mg; ?>"><?= $mg->ni_mg; ?> Mg</option>
 												<?php }
-												?>										
-											</select>
-										</div>
+											?>
+											
+										</select>
 									</div>
-									<div class="clearfix">
+								</div>
+								<div class="clearfix">
+								&nbsp;
+								</div>
+								<div class="row">
+									<div class="col-md-4">
+										<span class="pull-left">Quantity</span><span class="pull-right">:</span>
+									</div>
+									<div class="col-md-8">
+										<input type="number" value="0" name="qty" id="inputQty" class="form-control input-circle">
+									</div>
+								</div>
+								<div class="clearfix">
 									&nbsp;
+								</div>
+								<div class="row">
+									<div class="col-md-4">
+										<span class="pull-left">Tester</span><span class="pull-right">:</span>
 									</div>
-									<div class="row">
-										<div class="col-md-4">
-											<span class="pull-left">Nicotine</span><span class="pull-right">:</span>
-										</div>
-										<div class="col-md-8">
-											<select name="nico" id="inputNico" class="form-control">
-												<option value="-1" selected>-- Select One --</option>
-												<?php 
-													foreach ($nico as $mg) {?>
-														<option style = "background-color: <?= $mg->ni_color; ?> ;" value="<?= $mg->ni_mg; ?>"><?= $mg->ni_mg; ?> Mg</option>
-													<?php }
-												?>
-												
-											</select>
-										</div>
+									<div class="col-md-8">
+										<input type="number" name="promo" id="inputPromo" class="form-control input-circle" value="0">
 									</div>
 								</div>
-								<div class="col-md-5">
-									<div class="row">
-										<div class="col-md-4">
-											<span class="pull-left">Tester</span><span class="pull-right">:</span>
-										</div>
-										<div class="col-md-8">
-											<input type="number" name="promo" id="inputPromo" class="form-control" value="0">
-										</div>
-									</div>
-									<div class="clearfix">
-										&nbsp;
-									</div>
-									<div class="row">
-										<div class="col-md-4">
-											<span class="pull-left">Quantity</span><span class="pull-right">:</span>
-										</div>
-										<div class="col-md-8">
-											<input type="number" value="0" name="qty" id="inputQty" class="form-control">
-										</div>
-									</div>
-									<div class="clearfix">
-										&nbsp;
-									</div>
-									<div class="row">
-										<button type="button" id="addBtn" class="btn btn-success pull-right"><i class="fa fa-plus"></i>&nbsp;Add</button>
-									</div>
-									<div class="clearfix">
-										&nbsp;
-									</div>
+								<div class="clearfix">
+									&nbsp;
+								</div>								
+								<div class="row">
+									<span class="pull-left col-md-5 col-md-offset-1" id="loading" style="display:none;"><i class="fa fa-spinner fa-spin"></i>&nbsp;Loading</span><span class="pull-right col-md-5"><button type="button" id="addBtn" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp;Add</button></span>
 								</div>
+								<div class="clearfix">
+									&nbsp;
+								</div>								
 							</div>
 						</div>
 						<div class="clearfix">
@@ -153,189 +173,24 @@
 								</div>
 							</div>
 						</div>
-						<!--End of Order Box --> 
-                    </div> 
-                    <div class="form-group">
-                        <label class="col-md-3 control-label">Note</label>
-                        <div class="col-md-4">
-                            <textarea name="note" id="inputNote" class="form-control" rows="3"></textarea>
-                        </div>
-                    </div>                   
+						<!--End of Order Box -->
+						<input type="submit" id = "submitform" style="display: none;"></input>
+                    </div>                                     
                 </div>
                 <div class="form-actions">
                     <div class="row">
                         <div class="col-md-offset-3 col-md-9">
-                            <button type="submit" class="btn btn-circle green">Submit</button>
-                            <button type="button" class="btn btn-circle grey-salsa btn-outline">Cancel</button>
+                            <button type="button" id="submit_btn" class="btn btn-circle green">Submit</button>
+                            <a href="<?= site_url('nasty_v2/dashboard/page/a1') ?>"><button type="button" class="btn btn-circle grey-salsa btn-outline">Cancel</button></a>
                         </div>
                     </div>
                 </div>
             </form>
             <!-- END FORM-->
+            </div>            	
+            </div>
         </div>
-    </div>
-		<div class="panel panel-green">
-			<!-- Default panel contents -->
-		
-			<div class="panel-heading">Add New Order</div>
-			<div class="panel-body">
-				<!-- Table -->
-				<form id = "add_form" enctype="multipart/form-data" method="post" action="<?= site_url('dashboard/page/a11'); ?>">
-				<table class="table table-hover">
-					<tbody>
-						<tr class="row">
-							<td class="col-md-4"><span class="pull-left">Client Name</span><span class="pull-right">* :</span></td>
-							<td class="col-md-8">								
-								<select name="name" id="inputName" class="form-control" required>
-										<option value="-1" selected>-- Select One --</option>
-										<?php
-										foreach ($client as $cl) { ?>
-											<option value="<?= $cl->cl_id; ?>" ><?= $cl->cl_name; ?></option>
-										<?php }
-										?>										
-								</select><br/>
-								<a href="<?= site_url('dashboard/page/a4'); ?>"><button type="button" class="btn btn-success"><i class="fa fa-plus"></i> Add Client</button></a>
-							</td>
-						</tr>						
-						<tr class="row">
-							<td class="col-md-4"><span class="pull-left">Send Date</span><span class="pull-right"> :</span></td>
-							<td class="col-md-8"><input type="date" name="sendDate" id="inputSendDate" class="form-control">
-							</td>
-						</tr>
-						<tr class="row">
-							<td class="col-md-4"><span class="pull-left">Bank</span><span class="pull-right">:</span></td>
-							<td class="col-md-8"><input type="text" name="bank" id="inputBank" class="form-control" >
-							</td>
-						</tr>						
-						<tr class="row">
-							<td class="col-md-4"><span class="pull-left">Deposit</span><span class="pull-right">:</span></td>
-							<td class="col-md-8"><input type="text" name="deposit" id="inputDeposit" class="form-control" >
-							</td>
-						</tr>						
-						<tr class="row">
-							<td class="col-md-4"><span class="pull-left">Note</span><span class="pull-right">:</span></td>
-							<td class="col-md-8"><textarea name="note" id="inputNote" class="form-control" rows="3"></textarea>
-						</tr>
-					</tbody>
-				</table>
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h3 class="panel-title">Nasty Product</h3>
-					</div>
-					<div class="panel-body">
-						<div class="row">
-							<div class="col-lg-4 col-lg-offset-4">
-								<img id="imgDetail" class="img-thumbnail" src="<?= base_url('assets/nasty/400x400.png'); ?>" alt="">
-							</div>
-						</div>
-						<div class="clearfix">
-							&nbsp;
-						</div>
-						<div class="col-md-5 col-md-offset-1">
-							<div class="row">
-								<div class="col-md-4">
-									<span class="pull-left">Flavored</span><span class="pull-right">:</span>
-								</div>
-								<div class="col-md-8">
-									<select name="perasa" id="inputPerasa" class="form-control">
-										<option value="-1" selected>-- Select One --</option>
-										<?php
-										foreach ($type as $item) { ?>
-											<option value="<?= $item->ty_id; ?>" ><?= $item->ty_desc; ?></option>
-										<?php }
-										?>										
-									</select>
-								</div>
-							</div>
-							<div class="clearfix">
-							&nbsp;
-							</div>
-							<div class="row">
-								<div class="col-md-4">
-									<span class="pull-left">Nicotine</span><span class="pull-right">:</span>
-								</div>
-								<div class="col-md-8">
-									<select name="nico" id="inputNico" class="form-control">
-										<option value="-1" selected>-- Select One --</option>
-										<?php 
-											foreach ($nico as $mg) {?>
-												<option style = "background-color: <?= $mg->ni_color; ?> ;" value="<?= $mg->ni_mg; ?>"><?= $mg->ni_mg; ?> Mg</option>
-											<?php }
-										?>
-										
-									</select>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-5">
-							<div class="row">
-								<div class="col-md-4">
-									<span class="pull-left">Tester</span><span class="pull-right">:</span>
-								</div>
-								<div class="col-md-8">
-									<input type="number" name="promo" id="inputPromo" class="form-control" value="0">
-								</div>
-							</div>
-							<div class="clearfix">
-								&nbsp;
-							</div>
-							<div class="row">
-								<div class="col-md-4">
-									<span class="pull-left">Quantity</span><span class="pull-right">:</span>
-								</div>
-								<div class="col-md-8">
-									<input type="number" value="0" name="qty" id="inputQty" class="form-control">
-								</div>
-							</div>
-							<div class="clearfix">
-								&nbsp;
-							</div>
-							<div class="row">
-								<button type="button" id="addBtn" class="btn btn-success pull-right"><i class="fa fa-plus"></i>&nbsp;Add</button>
-							</div>
-							<div class="clearfix">
-								&nbsp;
-							</div>
-						</div>
-						<div class="clearfix">
-							&nbsp;
-						</div>
-						<!-- Order Box -->
-						<div class="row">
-							<div class="col-xs-10 col-xs-offset-1">
-								<div class="well">
-									<ul class="media-list" id="orderBox">
-									  	
-									</ul>
-								</div>
-							</div>
-						</div>
-						<!--End of Order Box --> 
-					</div>
-				</div>				
-			</div>
-				<table class="table table-hover">
-										
-	<tbody>
-						<!--<tr class="row">
-							<td class="col-md-4"><span class="pull-left">Order Status</span><span class="pull-right">:</span></td>
-							<td class="col-md-8"><textarea name="statusO" id="inputStatus" class="form-control" rows="3"></textarea>
-						</tr> -->
-					</tbody>
-				</table>
-						
-				
-				<input type="submit" id = "submitform" style="display: none;"></input>
-				</form>					
-
-			</div>
-
-			<div class="panel-footer">
-				<span class="pull-right"><button type="button" class="btn btn-primary" id="submit_btn">Submit</button></span>
-				<div class="clearfix"></div>
-			</div>	
-				
-		</div>
+    </div>	
 
 	</div>
 </div>
@@ -353,7 +208,8 @@
 				imgIcon = icon(flavcode);
 				num ++;
 				lColor = lColorFunc(niccode);
-				$.post('<?= site_url("dashboard/getAjaxOrderBox");?>', {
+				$('#lo')
+				$.post('<?= site_url("nasty_v2/dashboard/getAjaxOrderBox");?>', {
 					flavname : flavname , 
 					qty : qty , 
 					promo : promo ,
@@ -374,6 +230,19 @@
 				$("#add_form").submit();
 			}
 			
+		});
+		$('#inputName').change(function() {
+			if ($(this).val()!= -1) {
+ 				//$('#clientDetail').html('jadi');
+ 				key = $(this).val();
+ 				$.post('<?= site_url("nasty_v2/dashboard/getAjaxClient");?>', {
+ 					key: key
+ 				}, function(data) {
+ 					$('#clientDetail').html(data);
+ 				});
+			}else{
+				$('#clientDetail').html('<div align = "center"><img src="<?= base_url("assets/nasty/nastylogo.png"); ?>" class="img-responsive" alt="Image"></div>');
+			}
 		});
 		function checkForm(){
 			if ($('#inputName').val() == -1) {

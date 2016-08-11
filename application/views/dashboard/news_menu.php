@@ -33,7 +33,7 @@
 							foreach ($arr as $key) { 
 								$n++;
 							?>
-							<tr <?php if($key->pr_id == 3){ echo 'style = "background-color : #73C10B;"'; } ?>>
+							<tr>
 								<td rowspan = "2"><?= $n; ?></td>
 								<td><a href = "<?= site_url('dashboard/page/a4/read').'/'.$key->cl_id; ?>"><?= $key->cl_name; ?></a></td>
 								<td><?= $key->cl_tel; ?></td>
@@ -59,31 +59,33 @@
 								$peratus = ($n2/$size)*100;
 							?>
 							<tr>
+							<?php 	$label = "";
+									$bar = "";
+									switch ($key->pr_id) {
+										case '1':
+											
+											$label = '<span class="label label-warning">New Order</span>';
+											$bar = 'warning';
+											break;
+										case '2':
+											
+											$label = '<span class="label label-info">In Progress</span>';
+											$bar = 'info';
+											break;
+										case '3':
+											
+											$label = '<span class="label label-success">Order Completed</span>';
+											$bar = 'success';
+											break;
+									}
+							?>
 								<td colspan = "5">
-								<div class="progress">
-				                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<?= $peratus; ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?= $peratus; ?>%;"><span class="sr-only"><?= $peratus; ?>% Complete</span></div>
+								<div class="progress progress-striped active">
+				                    <div class="progress-bar progress-bar-<?= $bar; ?>" role="progressbar" aria-valuenow="<?= $peratus; ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?= $peratus; ?>%;"><span class="sr-only"><?= $peratus; ?>% Complete</span></div>
 				                </div>								
 								</td>
 								<td>
-									<?php 
-									switch ($key->pr_id) {
-										case '1':
-											?>
-											<span class="label label-warning">New Order</span>
-											<?php
-											break;
-										case '2':
-											?>
-											<span class="label label-info">In Progress</span>
-											<?php
-											break;
-										case '3':
-											?>
-											<span class="label label-success">Order Completed</span>
-											<?php
-											break;
-									}
-									?>
+									<?= $label; ?>
 								</td>
 							</tr>					
 							<tr class = "l<?= $n; ?> detail" style="display: none; ">								

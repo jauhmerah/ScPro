@@ -12,7 +12,7 @@
 	    }
 	
 	    function index() {
-	        $this->_show();
+	        $this->page('a1');
 	    }
 
 	   private function _show($page = 'display' , $data = null , $key = 'a1'){	    	
@@ -120,7 +120,7 @@
     				$this->load->database();
     				$this->load->model('m_order');
     				$data['title'] = '<i class="fa fa-fw fa-edit"></i> Order History</a>';
-    				$temp['arr'] = $this->m_order->getList(0,1);
+    				$temp['arr'] = $this->m_order->getList(0,1,1);
     				$data['display'] = $this->load->view($this->old_page.'/history' , $temp , true);
  					$this->_show('display' , $data , $key);
     				break;
@@ -167,6 +167,7 @@
 		    		$crud->set_subject('Item Type');
 		    		$crud->unset_print();
 		    		$crud->unset_export();
+		    		$crud->unset_jquery();
 		    		$crud->required_fields('ty_desc','ty_icon','ty_img');
 		    		$crud->display_as('ty_desc' , 'Item Name')
 		    			->display_as('ty_icon' , 'Item Icon')
@@ -205,7 +206,8 @@
     			case 'a4':
     				$data['title'] = '<i class="fa fa-fw fa-link"></i> Client Detail';
     				$this->_loadCrud();
-		    		$crud = new grocery_CRUD();    		
+		    		$crud = new grocery_CRUD();
+		    		//$crud->set_theme('twitter-bootstrap-new');    		
 		    		$crud->set_table('client');
 		    		$crud->set_subject('Client Detail');
 		    		$crud->unset_export();
@@ -482,7 +484,7 @@
 		function callbackGalary($pk , $row)
 		{	
 			$this->load->library('my_func');
-			return site_url('dashboard/page/a11').'?pk='.$this->my_func->scpro_encrypt($pk);
+			return site_url('nasty_v2/dashboard/page/a11').'?pk='.$this->my_func->scpro_encrypt($pk);
 		}
 
 		function callback_before_delete_allimg_news($pk)
@@ -530,7 +532,7 @@
 			$this->load->model('m_nico');
 			$arr = $this->input->post();
 			$arr['icon'] = base_url()."assets/uploads/item/".$arr['imgIcon'];			
-			echo $this->load->view($this->old_page. "/ajax/getAjaxOrderBox", $arr , true);
+			echo $this->load->view($this->old_page. "/ajax/getAjaxOrderBox2", $arr , true);
 		}
 		public function testAjax()
 		{
@@ -558,7 +560,7 @@
 			}else{
 				$this->session->set_flashdata('danger', 'Unable to delete the order, please contact the webmaster');
 			}
-			redirect(site_url('dashboard/page/a1'),'refresh');
+			redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
 		}
 
 		public function logout()
@@ -585,7 +587,16 @@
 				redirect(site_url('login'),'refresh');
 			}			
 		}
-
+		public function getAjaxClient()
+		{
+			if ($this->input->post('key')) {
+				$arr = $this->input->post('key');
+				$this->load->database();
+				$this->load->model('m_client');
+				$data['client'] = $this->m_client->get($arr);
+				echo $this->load->view('nasty_v2/dashboard/ajax/getAjaxClient', $data, TRUE);
+			}			
+		}
 		function _checkLvl()
 		{			
 			$this->load->library('my_func');

@@ -64,7 +64,7 @@
 												</div>
 											</div>
 											<div class="col-md-4">
-												<a href="<?= site_url('dashboard/page/a21?key='.$this->my_func->scpro_encrypt($key->or_id)); ?>"> <button type="button" class="btn btn-lg btn-primary pull-right">Move To Process</button></a>
+												<a href="<?= site_url('nasty_v2/dashboard/page/a21?key='.$this->my_func->scpro_encrypt($key->or_id)); ?>"> <button type="button" class="btn btn-lg btn-primary pull-right">Move To Process</button></a>
 											</div>
 										</div>
 									</div>		
@@ -134,7 +134,7 @@
 														&nbsp;
 													</div>
 													<div class="row">
-														<a href="<?php if($item->pr_id != 3){ echo site_url('dashboard/page/a22?done='.$this->my_func->scpro_encrypt($item->it_id)."&key=".$this->my_func->scpro_encrypt($key->or_id)); }?>"><button type="button" class="btn btn-success col-xs-12" <?php if($item->pr_id == 3){echo "disabled";} ?>>Done</button></a>
+														<a href="<?php if($item->pr_id != 3){ echo site_url('nasty_v2/dashboard/page/a22?done='.$this->my_func->scpro_encrypt($item->it_id)."&key=".$this->my_func->scpro_encrypt($key->or_id)); }?>"><button type="button" class="btn btn-success col-xs-12" <?php if($item->pr_id == 3){echo "disabled";} ?>>Done</button></a>
 													</div>															
 												</div>
 										<?php	}

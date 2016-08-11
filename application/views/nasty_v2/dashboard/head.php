@@ -41,8 +41,10 @@ License: You must have a valid license purchased only from themeforest(the above
         <link href="<?= base_url(); ?>asset2/layouts/layout2/css/layout.min.css" rel="stylesheet" type="text/css" />
         <link href="<?= base_url(); ?>asset2/layouts/layout2/css/themes/blue.min.css" rel="stylesheet" type="text/css" id="style_color" />
         <link href="<?= base_url(); ?>asset2/layouts/layout2/css/custom.min.css" rel="stylesheet" type="text/css" />
+        <script src="<?= base_url(); ?>asset2/global/plugins/jquery.min.js" type="text/javascript"></script>
+            <script src="<?= base_url(); ?>asset2/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 
         <!-- END THEME LAYOUT STYLES -->
-        <link rel="shortcut icon" href="favicon.ico" /> </head>
+        <link rel="icon" href="<?= base_url(); ?>assets/cover/favicon2.png"> 
         <script src="<?= base_url(); ?>asset/js/jquery-1.11.1.js"></script>        <script src="<?= base_url(); ?>asset/js/bootstrap.min.js"></script>
-    <!-- END HEAD -->
+    </head><!-- END HEAD -->
