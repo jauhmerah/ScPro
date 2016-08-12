@@ -15,6 +15,12 @@
 	        $this->page('a1');
 	    }
 
+	    public function testpage()
+	    {
+	    	echo "Jadi";
+	    	$this->_show('index');
+	    }
+
 	   private function _show($page = 'display' , $data = null , $key = 'a1'){	    	
 	    	$link['link'] = $key;
 	    	$link['admin'] = $this->_checkLvl();
@@ -212,6 +218,7 @@
 		    		$crud->set_subject('Client Detail');
 		    		$crud->unset_export();
 		    		$crud->unset_print();
+		    		$crud->unset_jquery();
 		    		$crud->required_fields('cl_name','cl_tel','cl_country','cl_address');
 		    		$crud->display_as('cl_name','Client Name')
 		    		->display_as('cl_tel','Contact Number')
@@ -222,6 +229,9 @@
 		    		$output = $crud->render();
 		    		$data['display'] = $this->load->view('crud' , $output , true);
 		    		$this->_show('display' , $data , $key); 
+    				break;
+    			case 'a5':
+    				
     				break;
     			case '312':
     				//Website Profile

@@ -57,7 +57,8 @@
                                 <span class="title">Order List</span>
                             </a>
                         </li>      
-                        <li class="nav-item <?php if (strpos($link, 'b') !== false) { echo "active open";}else{echo "start";}?>  ">
+                        <?php if($admin){?>
+                            <li class="nav-item <?php if (strpos($link, 'b') !== false) { echo "active open";}else{echo "start";}?>  ">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                <i class="fa fa-th-large"></i>
                                 <span class="title">Item List</span>
@@ -79,14 +80,20 @@
                                 </li>
                             </ul>
                         </li>
-                        <?php if($admin){?>
+                        
                         <li class="nav-item start ">
                             <a href="<?= site_url('nasty_v2/dashboard/page/a4') ?>" class="nav-link ">
                                 <i class="fa fa-group"></i>
                                 <span class="title">Client List</span>
                             </a>
                         </li> 
-                        <?php } ?>                        
+                        <?php } ?>
+                        <!--<li class="nav-item start ">
+                            <a href="<?= site_url('nasty_v2/dashboard/page/a5') ?>" class="nav-link ">
+                                <i class="fa fa-file-text"></i>
+                                <span class="title">Document Print </span>
+                            </a>
+                        </li>-->                        
                         <!--<li class="nav-item  active open">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <i class="icon-layers"></i>

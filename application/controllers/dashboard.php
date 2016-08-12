@@ -31,8 +31,7 @@
 	        	}	        	
   	        }else {
   	        	redirect(site_url('login'),'refresh');
-  	        }        
-	        
+  	        }	        
 	    }
 
 	    public function example()
