@@ -78,6 +78,16 @@
 </head>
 
   <body>
+<script src="<?php echo base_url();?>asset/js/jquery.backstretch.js"></script>
+<script>
+    $.backstretch([
+      "<?php echo base_url();?>asset/slider/bg1.jpg",
+      "<?php echo base_url();?>asset/slider/bg2.jpg"
+    ], {
+      fade: 850,    //Speed of Fade
+      duration: 10000  //Time of image display
+    });
+</script>
   <div class = "container">
      <div class="col-lg-offset-5 col-lg-2" align="center">
          <img src="<?= base_url(); ?>assets/cover/logo.png" class="img-responsive" alt="Image">

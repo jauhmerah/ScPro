@@ -111,8 +111,7 @@
 												foreach ($nico as $mg) {?>
 													<option style = "background-color: <?= $mg->ni_color; ?> ;" value="<?= $mg->ni_mg; ?>"><?= $mg->ni_mg; ?> Mg</option>
 												<?php }
-											?>
-											
+											?>											
 										</select>
 									</div>
 								</div>
@@ -142,7 +141,7 @@
 									&nbsp;
 								</div>								
 								<div class="row">
-									<span class="pull-left col-md-5 col-md-offset-1" id="loading" style="display:none;"><i class="fa fa-spinner fa-spin"></i>&nbsp;Loading</span><span class="pull-right col-md-5"><button type="button" id="addBtn" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp;Add</button></span>
+									<span class="pull-left col-md-5 col-md-offset-1" id="loadingText" style="display: none;"><i class="fa fa-spinner fa-spin"></i>&nbsp;Loading</span><span class="pull-right col-md-5"><button type="button" id="addBtn" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp;Add</button></span>
 								</div>
 								<div class="clearfix">
 									&nbsp;
@@ -201,22 +200,25 @@
 				imgIcon = icon(flavcode);
 				num ++;
 				lColor = lColorFunc(niccode);
-				$('#lo')
-				$.post('<?= site_url("nasty_v2/dashboard/getAjaxOrderBox");?>', {
-					flavname : flavname , 
-					qty : qty , 
-					promo : promo ,
-					flavcode : flavcode , 
-					niccode : niccode,
-					num :num,
-					imgIcon : imgIcon, 
-					lColor : lColor
-				}, function(data) {
-					$("#orderBox").append(data);
-					//alert(data);
-				});				
+				$.when($('#loadingText').show()).then(function(){
+					$.post('<?= site_url("nasty_v2/dashboard/getAjaxOrderBox");?>', {
+						flavname : flavname , 
+						qty : qty , 
+						promo : promo ,
+						flavcode : flavcode , 
+						niccode : niccode,
+						num :num,
+						imgIcon : imgIcon, 
+						lColor : lColor
+					}, function(data) {
+						$("#orderBox").append(data);
+						$('#loadingText').hide();
+					});
+				});
+								
 			}
 		});
+
 		//alert("jd lah");
 		$("#submit_btn").click(function() {
 			if(checkForm()){
@@ -281,6 +283,15 @@
 
 		$("#inputPerasa").change(function() {
 			var i = $(this).val();
+			$.when($('#loadingText').show()).then(function(){				
+				$.when(changeImg(i)).then(function(){
+					$('#loadingText').hide();
+				});	
+			});			
+		});
+
+		function changeImg(i) {
+			
 			<?php 
 				foreach ($type as $item) { ?>
 			if (i == <?= $item->ty_id; ?>) {
@@ -291,7 +302,8 @@
 			if (i == -1) {
 				$("#imgDetail").prop('src', '<?= base_url(); ?>/assets/nasty/400x400.png');
 			}
-		});
+			return true;
+		}
 
 		function icon(code) {
 				<?php 

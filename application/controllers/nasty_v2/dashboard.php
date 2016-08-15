@@ -89,7 +89,7 @@
 	    						redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
 	    					}
 	    				}   
-    				}    				
+    				}   				
     				 			
     			case 'a1':
     				if (!$this->_checkLvl()) {
@@ -217,11 +217,13 @@
 		    		$crud->unset_export();
 		    		$crud->unset_print();
 		    		$crud->unset_jquery();
-		    		$crud->required_fields('cl_name','cl_tel','cl_country','cl_address');
+		    		$crud->required_fields('cl_name','cl_tel','cl_country','cl_address' , 'cl_email');
 		    		$crud->display_as('cl_name','Client Name')
 		    		->display_as('cl_tel','Contact Number')
 		    		->display_as('cl_country','Country')
-		    		->display_as('cl_address','Address')
+		    		->display_as('cl_address','Shipping Address')
+		    		->display_as('cl_email','Email')
+		    		->display_as('cl_company','Company')
 		    		->display_as('cl_note','Note');
 		    		$crud->unset_texteditor('cl_address','full_text');
 		    		$output = $crud->render();
