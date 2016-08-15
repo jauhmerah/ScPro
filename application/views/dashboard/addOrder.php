@@ -1,10 +1,3 @@
-<!--<pre>
-	<?pshp
-		//print_r($type);
-		//print_r($nico);
-		print_r($client);
-	?>
-</pre>-->
 <div class="row addform"><!--style="display: none;-->
 	<div class="col-md-12">
 	<div class="portlet box green">

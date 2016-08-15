@@ -173,7 +173,6 @@
 		    		$crud->set_subject('Item Type');
 		    		$crud->unset_print();
 		    		$crud->unset_export();
-		    		$crud->unset_jquery();
 		    		$crud->required_fields('ty_desc','ty_icon','ty_img');
 		    		$crud->display_as('ty_desc' , 'Item Name')
 		    			->display_as('ty_icon' , 'Item Icon')
@@ -199,7 +198,6 @@
 		    		$crud->required_fields('ni_mg','ni_color');
 		    		$crud->display_as('ni_mg' , 'Amount (Mg)')
 		    			->display_as('ni_color' , 'Label Color (hex)');
-
 		    		$crud->callback_add_field('ni_color', function () {
 		    		        return '<input type="color" name="ni_color" id="inputNi_color" value="" title="Pick Color" width = 10px>';
 		    		    });
@@ -358,15 +356,18 @@
 				return false;
 			}			
 		}
-
+		//-------------------VVVVVVVVVVVVVV sini kene oter balik VVVVVVVV-------------
 		public function callback_delete_image_item($primary_key)
 		{
 			$this->load->database();
 			$this->load->model('m_type');
 			$obj = $this->m_type->get($primary_key);
-			$img = $obj->img_url;			
+			$img = $obj->ty_icon;
+			$img2 = $obj->ty_img;			
 			if (unlink('./assets/uploads/item/'.$img)) {
-				return true;
+				if (unlink('./assets/uploads/item/'.$img2)) {
+					return true;
+				}
 			}else{
 				return false;
 			}			
@@ -466,7 +467,7 @@
 			}else{
 				$this->session->set_flashdata('error' , "<b>Oh snap!</b> Unable to send the news, change a few things up and try submitting again.");
 			}
-			redirect('dashboard/page/a1','refresh');			
+			redirect('nasty_v2/dashboard/page/a1','refresh');			
 		}
 		public function getAjaxNews()
 		{

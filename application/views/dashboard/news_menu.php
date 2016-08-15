@@ -1,4 +1,3 @@
-<!--<pre><?p-hp print_r($arr); ?></pre>-->
 <div class="row">
 	<div class="col-md-12">
 		<div class="panel panel-primary">
@@ -35,7 +34,7 @@
 							?>
 							<tr>
 								<td rowspan = "2"><?= $n; ?></td>
-								<td><a href = "<?= site_url('dashboard/page/a4/read').'/'.$key->cl_id; ?>"><?= $key->cl_name; ?></a></td>
+								<td><a href = "<?= site_url('nasty_v2/dashboard/page/a4/read').'/'.$key->cl_id; ?>"><?= $key->cl_name; ?></a></td>
 								<td><?= $key->cl_tel; ?></td>
 								<td><?= $key->cl_country; ?></td>
 								<td><?= $key->or_deposit; ?></td>
@@ -43,7 +42,7 @@
 								<td>
 								<div class="btn-group">
 									<a href="#" class="listO" id="l<?= $n; ?>" title="View Detail"><button type="button" class="btn btn-info"><i class="fa fa-eye"></i></button></a>																	
-									<a onclick = "return confirm('Confirm Delete!');" href="<?= site_url('dashboard/deleteOrder?key='.$this->my_func->scpro_encrypt($key->or_id)); ?>" title="Delete"><button type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button></a>
+									<a onclick = "return confirm('Confirm Delete!');" href="<?= site_url('nasty_v2/dashboard/deleteOrder?key='.$this->my_func->scpro_encrypt($key->or_id)); ?>" title="Delete"><button type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button></a>
 									<!--<a href="" title="Edit"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;-->	
 								</div>
 								</td>
