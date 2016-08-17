@@ -231,87 +231,24 @@
 		    		$this->_show('display' , $data , $key); 
     				break;
     			case 'a5':
-    				
-    				break;
-    			case '312':
-    				//Website Profile
-    				$data['title'] = "<i class=\"fa fa-fw fa-desktop\"></i> Website Profile";
-    				$this->_loadCrud();    		
-		    		$crud = new grocery_CRUD();    		
-		    		$crud->set_table('web_profile');
-		    		$crud->set_subject('Website Profile');
-		    		$crud->unset_add();
-		    		$crud->unset_delete();
-		    		$crud->unset_print();
-		    		$crud->unset_export();
-		    		$crud->unset_texteditor('wp_meta','full_text');
-		    		$crud->set_field_upload('wp_logo','assets/cover');
-		    		$crud->set_field_upload('wp_favicon','assets/cover');
-		    		
-					$output = $crud->render();
-					$data['search_filter'] = false;
-		    		$data['display'] = $this->load->view('crud' , $output , true);
-		    		$this->_show('display' , $data , $key);    		
-    				break;
-    			case '32':
-    				//Banner edit
-    				$data['title'] = '<i class="fa fa-fw fa-bookmark-o"></i> Banner';
-    				//$this->path_callback = 'banner';
-    				$this->_loadCrud();    		
-		    		$crud = new grocery_CRUD();  		
-		    		$crud->set_table('banner');
-		    		$crud->set_subject('Banner');
-		    		
-		    		$crud->unset_print();
-		    		$crud->unset_export();
-		    		$crud->unset_fields('ba_timestamp');
-		    		$crud->columns('ba_title','ba_msg', 'img_url' , 'ba_queue' , 'ba_active');
-		    		//$crud->fields('ba_title','ba_msg', 'img_url' , 'ba_queue' , 'ba_active');
-		    		$crud->set_field_upload('img_url','assets/uploads/banner');
-		    		$crud->unset_jquery();
-		    		$crud->display_as('ba_title' , 'Title')
-		    			->display_as('ba_msg' , 'Message')
-		    			->display_as('img_url' , 'Background Image')
-		    			->display_as('ba_queue' , 'Banner Queue')
-		    			->display_as('ba_active' , 'Active Banner');
-					
-					$crud->callback_before_delete(array($this,'callback_delete_image_banner'));
-					$output = $crud->render();
-		    		$data['display'] = $this->load->view('crud' , $output , true);
-		    		$this->_show('display' , $data , $key);
-    				break;
-    			case '3':
-    				//Header
-    				$data['title'] = '<i class="fa fa-fw fa-list-alt"></i> Header';
-    				$this->path_callback = 'header';
-    				$this->_loadCrud();    		
-		    		$crud = new grocery_CRUD();    		
-		    		$crud->set_table('header');
-		    		$crud->set_subject('Header');		    		
-		    		$crud->unset_print();
-		    		$crud->unset_export();
-		    		$crud->unset_add();
-		    		$crud->unset_delete();
-		    		$crud->unset_fields('he_timestamp');
-					$crud->columns('he_title','he_msg', 'img_url' , 'he_queue' , 'he_active');
-					$crud->set_field_upload('img_url','assets/uploads/header');
-		    		$crud->unset_jquery();
-		    		$crud->display_as('he_title' , 'Title')
-		    			->display_as('he_msg' , 'Message')
-		    			->display_as('img_url' , 'Icon Image')
-		    			->display_as('he_queue' , 'Header Queue')
-		    			->display_as('he_active' , 'Active Header');
-
-		    		$data['search_filter'] = false;
-					$output = $crud->render();
+    				$data['title'] = '<i class="fa fa-fw fa-link"></i> Currency';
+    				$this->_loadCrud();
+    				$crud = new grocery_CRUD();
+    				$crud->set_table('currency');
+    				$crud->set_subject('Currency');
+    				$crud->unset_jquery();
+    				$crud->unset_print();
+    				$crud->unset_export();
+    				$crud->display_as('cu_desc','Currency');
+    				$output = $crud->render();
 		    		$data['display'] = $this->load->view('crud' , $output , true);
 		    		$this->_show('display' , $data , $key); 
     				break;
-    			case '4':
-    				$data['title'] = '<i class="fa fa-fw fa-tags"></i> Tag Announcement';
-    				$data['display'] = "This function under development !!!";
-    				$this->_show('display' , $data , $key);
-    				break;    			
+    			case 'z1':
+    				$data['title'] = '<i class="fa fa-file-text"></i> Order Form';
+    				$data['display'] = $this->load->view($this->parent_page.'/orderForm' , '' , true);
+		    		$this->_show('display' , $data , $key); 
+    			break;    			
     			default:
     				$this->_show();
     				break;

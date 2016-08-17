@@ -88,12 +88,51 @@
                             </a>
                         </li> 
                         <?php } ?>
-                        <!--<li class="nav-item start ">
-                            <a href="<?= site_url('nasty_v2/dashboard/page/a5') ?>" class="nav-link ">
-                                <i class="fa fa-file-text"></i>
-                                <span class="title">Document Print </span>
+                        <li class="nav-item <?php if (strpos($link, 'a5') !== false) { echo "active open";}else{echo "start";}?>  ">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                               <i class="fa fa-wrench"></i>
+                                <span class="title">Setting</span>
+                                <span class="arrow"></span>
                             </a>
-                        </li>-->                        
+                            <ul class="sub-menu">
+                                <li class="nav-item start">
+                                    <a href="<?= site_url('nasty_v2/dashboard/page/b1') ?>" class="nav-link ">
+                                        <i class="fa fa-users"></i>
+                                        <span class="title">User</span>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a href="<?= site_url('nasty_v2/dashboard/page/b2') ?>" class="nav-link ">
+                                        <i class="fa fa-money"></i>
+                                        <span class="title">Currency</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item start">
+                                    <a href="<?= site_url('nasty_v2/dashboard/page/b1') ?>" class="nav-link ">
+                                        <i class="fa fa-ship"></i>
+                                        <span class="title">Shipping Company</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item start">
+                                    <a href="<?= site_url('nasty_v2/dashboard/page/b1') ?>" class="nav-link ">
+                                        <i class="fa fa-th-list"></i>
+                                        <span class="title">Shipping Optional</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item start">
+                                    <a href="<?= site_url('nasty_v2/dashboard/page/b1') ?>" class="nav-link ">
+                                        <i class="fa fa-th-list"></i>
+                                        <span class="title">Shipping Optional</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>                        
+                        <li class="nav-item start ">
+                            <a href="<?= site_url('nasty_v2/dashboard/page/z1') ?>" class="nav-link ">
+                                <i class="fa fa-file-text"></i>
+                                <span class="title">Order Form</span>
+                            </a>
+                        </li>                       
                         <!--<li class="nav-item  active open">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <i class="icon-layers"></i>
