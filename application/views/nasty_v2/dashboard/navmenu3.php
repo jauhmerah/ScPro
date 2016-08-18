@@ -20,7 +20,7 @@
                     <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
                     <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
                     <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
-                    <ul class="page-sidebar-menu  page-header-fixed page-sidebar-menu-hover-submenu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                    <ul class="page-sidebar-menu  page-header-fixed page-sidebar-menu-hover-submenu page-sidebar-menu-closed " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
                         <?php if($admin){?>
                         <li class="nav-item <?php if (strpos($link, 'a1') !== false) { echo "active open";}else{echo "start";}?>  ">
                             <a href="javascript:;" class="nav-link nav-toggle">
@@ -88,7 +88,7 @@
                             </a>
                         </li> 
                         <?php } ?>
-                        <li class="nav-item <?php if (strpos($link, 'a5') !== false) { echo "active open";}else{echo "start";}?>  ">
+                        <li class="nav-item <?php if (strpos($link, 'c') !== false) { echo "active open";}else{echo "start";}?>  ">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                <i class="fa fa-wrench"></i>
                                 <span class="title">Setting</span>
@@ -96,7 +96,7 @@
                             </a>
                             <ul class="sub-menu">
                                 <li class="nav-item start">
-                                    <a href="<?= site_url('nasty_v2/dashboard/page/b1') ?>" class="nav-link ">
+                                    <a href="<?= site_url('nasty_v2/dashboard/page/c1') ?>" class="nav-link ">
                                         <i class="fa fa-users"></i>
                                         <span class="title">User</span>
                                     </a>

@@ -248,7 +248,12 @@
     				$data['title'] = '<i class="fa fa-file-text"></i> Order Form';
     				$data['display'] = $this->load->view($this->parent_page.'/orderForm' , '' , true);
 		    		$this->_show('display' , $data , $key); 
-    			break;    			
+    				break;
+    			case 'c1':
+    				$data['title'] = '<i class="fa fa-file-text"></i> User Setting';
+    				$data['display'] = $this->load->view($this->parent_page.'/userlist' , '' , true);
+		    		$this->_show('display' , $data , $key); 
+    				break;
     			default:
     				$this->_show();
     				break;

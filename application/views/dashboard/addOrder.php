@@ -3,13 +3,17 @@
 	<div class="portlet box green">
         <div class="portlet-title">
             <div class="caption">
-                <i class="fa fa-gift"></i>Add Order Form </div>
-            <!--<div class="tools">
-                <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
+                <div class="caption">
+	                <img src="<?= base_url(); ?>/assets/cover/favicon2.png"> Add Order Form 
+	            </div>
+	        </div>
+            <div class="tools">
+                <!--<a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
                 <a href="#portlet-config" data-toggle="modal" class="config" data-original-title="" title=""> </a>
                 <a href="javascript:;" class="reload" data-original-title="" title=""> </a>
-                <a href="javascript:;" class="remove" data-original-title="" title=""> </a>
-            </div>-->
+                <a href="javascript:;" class="remove" data-original-title="" title=""> </a>-->
+                <span class="pull-right" >Order Code : <strong style="color:red;">#100000</strong></span>
+            </div>
         </div>
         <div class="portlet-body form">
             <!-- BEGIN FORM-->
@@ -166,9 +170,231 @@
 							</div>
 						</div>
 						<!--End of Order Box -->
-						<input type="submit" id = "submitform" style="display: none;"></input>
+						<!-- Shipping Note -->
+
+						<!-- End Shipping Note -->
                     </div>                                     
                 </div>
+                <!-- Ship Note -->
+                <div class="row">
+	                <div class="col-md-12">              
+	                	<div class="portlet box purple">
+	                        <div class="portlet-title">
+	                            <div class="caption">
+	                                <i class="fa fa-ship"></i>Shipping Note 
+	                            </div>
+	                            <span class="pull-right">	                            	
+	                            <div class="mt-checkbox-inline">
+                                    <label class="mt-checkbox">
+                                        <input type="checkbox" value="0">
+	                                		<strong>Worldwide</strong>
+                                        <span></span>
+                                    </label>
+                                    <label class="mt-checkbox">
+                                        <input type="checkbox" value="1">
+	                                		<strong>Nationwide</strong>
+                                        <span></span>
+                                    </label>
+                                </div>
+	                            </span>
+	                            
+	                        </div>
+	                        <div class="portlet-body">
+	                            <div class="table-responsive">
+	                                <table class="table table-striped table-condensed table-bordered">	                                    
+	                                    <tbody>
+	                                       	<tr>
+                                            	<th>
+                                            		Shipping Company :
+                                            	</th>
+                                            	<td colspan="4" >
+                                            		<div class="mt-checkbox-inline">
+					                                    <label class="mt-checkbox">
+					                                        <input type="checkbox" value="DHL">
+						                                		DHL
+					                                        <span></span>
+					                                    </label>
+					                                    <label class="mt-checkbox">
+					                                        <input type="checkbox" value="ARAMEX">
+						                                		ARAMEX
+					                                        <span></span>
+					                                    </label>
+					                                    <label class="mt-checkbox">
+					                                        <input type="checkbox" value="EMS">
+						                                		EMS
+					                                        <span></span>
+					                                    </label>
+					                                    <label class="mt-checkbox">
+					                                        <input type="checkbox" value="">
+						                                		 : _________
+					                                        <span></span>
+					                                    </label>
+					                                </div>
+                                            	</td>                                            	
+                                            	<th>
+                                            		Tracking No
+                                            	</th>
+                                            	<td>
+                                            		<input type = "text" class="form-control input-circle">
+                                            	</td>
+	                                        </tr>
+	                                        <tr>
+                                            	<th>
+                                            		Shipping Optional :
+                                            	</th>
+                                            	<td colspan="4" >
+                                            		<div class="mt-checkbox-inline">
+					                                    <label class="mt-checkbox">
+					                                        <input type="checkbox" value="DHL">
+						                                		Shop & Ship
+					                                        <span></span>
+					                                    </label>
+					                                    <label class="mt-checkbox">
+					                                        <input type="checkbox" value="ARAMEX">
+						                                		Express
+					                                        <span></span>
+					                                    </label>
+					                                    <label class="mt-checkbox">
+					                                        <input type="checkbox" value="EMS">
+						                                		Buyer Account
+					                                        <span></span>
+					                                    </label>
+					                                </div>
+                                            	</td>
+                                            	<th>
+                                            		Ship Date
+                                            	</th>
+                                            	<td>
+                                            		<input type = "date" class="form-control input-circle">
+                                            	</td>
+	                                        </tr>
+	                                        <tr>
+                                            	<th>
+                                            		Declare Item :
+                                            	</th>
+                                            	<td colspan="4" >
+                                            		<div class="mt-checkbox-inline">
+					                                    <label class="mt-checkbox">
+					                                        <input type="checkbox" value="DHL">
+						                                		Aromatherapy
+					                                        <span></span>
+					                                    </label>
+					                                    <label class="mt-checkbox">
+					                                        <input type="checkbox" value="ARAMEX">
+						                                		Beard Oil
+					                                        <span></span>
+					                                    </label>
+					                                    <label class="mt-checkbox">
+					                                        <input type="checkbox" value="EMS">
+						                                		Cake Flavoring
+					                                        <span></span>
+					                                    </label>
+					                                    <label class="mt-checkbox">
+					                                        <input type="checkbox" value="EMS">
+						                                		E-Juice
+					                                        <span></span>
+					                                    </label>
+					                                </div>
+                                            	</td>
+                                            	<th>
+                                            		Inv Attach
+                                            	</th>
+                                            	<td>
+                                            		<input type = "text" class="form-control input-circle">
+                                            	</td>
+	                                        </tr>
+	                                        <tr>
+                                            	<th>
+                                            		Declare Price :
+                                            	</th>
+                                            	<td colspan="4">
+                                            		<input type = "text" class="form-control input-circle">
+                                            	</td>
+                                            	<th>
+                                            		MSDS
+                                            	</th>
+                                            	<td>
+                                            		<input type = "text" class="form-control input-circle">
+                                            	</td>
+	                                        </tr>
+	                                        <tr>
+                                            	<th>
+                                            		Batch No Start :
+                                            	</th>
+                                            	<td>
+                                            		<input type = "text" class="form-control input-circle">                                            		
+                                            	</td>
+                                            	<td>
+                                            		<input type = "text" class="form-control input-circle">
+                                            	</td>
+                                            	<td>
+                                            		<input type = "text" class="form-control input-circle">
+                                            	</td>
+                                            	<td>
+                                            		<input type = "text" class="form-control input-circle">
+                                            	</td>
+                                            	<th>
+                                            		C.O.O
+                                            	</th>
+                                            	<td>
+                                            		<input type = "text" class="form-control input-circle">
+                                            	</td>
+	                                        </tr>
+	                                        <tr>
+                                            	<th>
+                                            		Batch No END :
+                                            	</th>
+                                            	<td>
+                                            		<input type = "text" class="form-control input-circle">                                            		
+                                            	</td>
+                                            	<td>
+                                            		<input type = "text" class="form-control input-circle">
+                                            	</td>
+                                            	<td>
+                                            		<input type = "text" class="form-control input-circle">
+                                            	</td>
+                                            	<td>
+                                            		<input type = "text" class="form-control input-circle">
+                                            	</td>
+                                            	<th>
+                                            		Small C Box
+                                            	</th>
+                                            	<td>
+                                            		<input type = "text" class="form-control input-circle">
+                                            	</td>
+	                                        </tr>
+	                                        <tr>
+                                            	<th>
+                                            		Batch :
+                                            	</th>
+                                            	<td>
+                                            		<input type = "text" class="form-control input-circle">
+                                            	</td>
+                                            	<td>
+                                            		<input type = "text" class="form-control input-circle">
+                                            	</td>
+                                            	<td>
+                                            		<input type = "text" class="form-control input-circle">
+                                            	</td>
+                                            	<td>
+                                            		<input type = "text" class="form-control input-circle">
+                                            	</td>
+                                            	<th>
+                                            		Big C Box
+                                            	</th>
+                                            	<td>
+                                            		<input type = "text" class="form-control input-circle">
+                                            	</td>
+	                                        </tr>	                                        
+	                                    </tbody>
+	                                </table>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+                </div>
+                <!-- ______________________ -->
+                <input type="submit" id = "submitform" style="display: none;"></input>
                 <div class="form-actions">
                     <div class="row">
                         <div class="col-md-offset-3 col-md-9">
