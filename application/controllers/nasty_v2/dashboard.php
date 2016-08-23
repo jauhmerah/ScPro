@@ -42,6 +42,30 @@
 	    	$this->load->view($this->parent_page.'/footer', '', FALSE);
 	    }
 
+	    function orderPDF($data = null){
+
+	    	$html = $this->load->view($this->parent_page.'/printPdf/head', '', true);
+	    	$html = $html . $this->load->view($this->parent_page.'/printPdf/head2', '', true);
+	    	$html = $html . $this->load->view($this->parent_page.'/printPdf/navmenu3', '', true);
+	    	$html = $html . $this->load->view($this->parent_page.'/printPdf/theme4', '', true);
+	    	$html = $html . $this->load->view($this->parent_page.'/printPdf/title5', '', true);
+	    	$html = $html . $this->load->view($this->parent_page.'/printPdf/orderForm', $data, true);
+	    	$html = $html . $this->load->view($this->parent_page.'/printPdf/sidebar7', '', true);
+	    	$html = $html . $this->load->view($this->parent_page.'/printPdf/footer', '', true);
+	    	//$this->pdfPrint($html);
+	    	echo $html;
+	    }
+
+	     function pdfPrint($html = "<h1>Hellow World</h1>"){
+	    	$this->load->library("Pdf");
+			$pdf = new Pdf('P', 'mm', 'A4', true, 'UTF-8', false);
+			$pdf->SetCreator(PDF_CREATOR);
+	        // Add a page
+	        $pdf->AddPage();
+	        $pdf->writeHTML($html, true, false, true, false, '');
+	        $pdf->Output();
+	    }
+
 	    public function page($key)
     	{
     		//$arr = $this->input->get();
@@ -251,7 +275,19 @@
     				break;
     			case 'c1':
     				$data['title'] = '<i class="fa fa-file-text"></i> User Setting';
-    				$data['display'] = $this->load->view($this->parent_page.'/userlist' , '' , true);
+    				$this->load->database();
+    				$this->load->model("m_user");
+    				$this->load->library('my_func');
+    				if (!$this->_checkLvl()) {
+    					$where = array(
+    						'us_lvl !=' => 1
+    						);
+    					$arr['arr'] = $this->m_user->getAll($where);
+    				}else{
+    					$arr['arr'] = $this->m_user->getAll();
+    				}
+    				
+    				$data['display'] = $this->load->view($this->parent_page.'/userlist' , $arr , true);
 		    		$this->_show('display' , $data , $key); 
     				break;
     			default:
