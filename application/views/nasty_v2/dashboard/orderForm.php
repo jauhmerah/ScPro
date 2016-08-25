@@ -16,6 +16,22 @@
                             </div>
                             <div class="portlet-body form">
                                 <!-- BEGIN FORM-->
+                                <div class="form-group">
+                                	<label for="input" class="col-sm-2 control-label">Exist Client :</label>
+                                	<div class="col-sm-2">
+                                		<select name="" id="input" class="form-control" required="required">
+                                			<option value="-1">--New Client--</option>
+                                			<option value="1">Jauhmerah</option>
+                                		</select>
+                                	</div>
+                                </div>
+                                <pre>
+                                <?php 
+                                	print_r($this->session->all_userdata());
+                                	echo "sfas";
+                                	echo $this->my_func->scpro_decrypt($this->session->userdata('us_username'));
+                                ?>
+                                </pre>
                                 <form action="#" class="horizontal-form">
                                     <div class="form-body">
                                         <h3 class="form-section">Client Info</h3>
@@ -59,7 +75,7 @@
 		                                            <div class="col-md-6">
 		                                                <div class="form-group">
 		                                                    <label class="control-label">Sales Person* :</label>
-		                                                    <input type="text" id="salesPerson" name="salesPerson" class="form-control input-circle" placeholder="Jauhmerah" required>
+		                                                    <input type="text" id="salesPerson" readonly name="salesPerson" class="form-control input-circle" value="<?php echo $this->my_func->scpro_decrypt($this->session->userdata('us_username')); ?>" >
 		                                                </div>
 		                                            </div>
 		                                            <!--/span-->

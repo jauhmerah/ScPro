@@ -8,6 +8,21 @@
 		{
 	        $this->obj =& get_instance();
 		}
+
+		public function staffName($userId = null , $crypt = false){
+			
+			if ($userId == null) {
+				return false;
+			}
+			if ($crypt) {
+				$userId = $this->scpro_decrypt($userId);
+			}
+			$ci = $this->obj;
+			$ci->load->database();
+			$ci->load->model("m_user");
+			$data = $ci->m_user->get($userId);
+			return $data;
+		}
 	
 		public function scpro_encrypt($text){
 			$ci = $this->obj;

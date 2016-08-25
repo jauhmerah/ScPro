@@ -24,7 +24,8 @@
 	    		echo "login Success";
 	    		$array = array(
 	    			'us_id' => $this->my_func->scpro_encrypt($data->us_id),
-	    			'us_lvl' => $this->my_func->scpro_encrypt($data->us_lvl)
+	    			'us_lvl' => $this->my_func->scpro_encrypt($data->us_lvl),
+	    			'us_username' => $this->my_func->scpro_encrypt($data->us_username)
 	    		);	    		
 	    		$this->session->set_userdata( $array );
 	    		redirect(site_url('nasty_v2/dashboard'),'refresh');

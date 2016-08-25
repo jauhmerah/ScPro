@@ -75,6 +75,10 @@
     				if ($this->input->post()) {
     					$this->load->database();
     					$arr = $this->input->post();
+    					echo "<pre>";
+    					print_r($arr);
+    					echo "</pre>";
+    					die();
 	    				/*$temp = array(
 	    					'cl_name' => $arr['name'],
 	    					'cl_tel' => $arr['telnumber'],
@@ -92,7 +96,6 @@
 	    						'or_deposit' => $arr['deposit'],
 	    						'or_note' => $arr['note']
 	    					);
-
 	    					$this->load->model('m_order');
 	    					$or_id = $this->m_order->insert($temp);
 	    					if ($or_id) {
@@ -273,6 +276,33 @@
     				$data['display'] = $this->load->view($this->parent_page.'/orderForm' , '' , true);
 		    		$this->_show('display' , $data , $key); 
     				break;
+    			case 'c13':
+    				//view
+    				if ($this->input->get('view')) {
+    					$data['title'] = '<i class="fa fa-file-text"></i> Staff Detail';
+    					$staffId = $this->my_func->scpro_decrypt($this->input->get('view'));
+    					$this->load->database();
+    					$this->load->model('m_user');
+    					$arr['arr'] = $this->m_user->get($staffId);
+    					$data['display'] = $this->load->view($this->parent_page.'/staffView' , $arr , true);
+		    			$this->_show('display' , $data , $key);
+    					break;
+    				}
+    			case 'c12':
+    				//delete
+    				if ($this->input->get('delete')) {
+    					$staffId = $this->my_func->scpro_decrypt($this->input->get('delete'));
+    					echo $staffId;
+    					break;
+    				}
+    				
+    			case 'c11':
+    				//edit
+    				if ($this->input->get('edit')) {
+    					$staffId = $this->my_func->scpro_decrypt($this->input->get('edit'));
+    					echo $staffId;
+    					break;
+    				}    				
     			case 'c1':
     				$data['title'] = '<i class="fa fa-file-text"></i> User Setting';
     				$this->load->database();
@@ -289,7 +319,7 @@
     				
     				$data['display'] = $this->load->view($this->parent_page.'/userlist' , $arr , true);
 		    		$this->_show('display' , $data , $key); 
-    				break;
+    				break;    			
     			default:
     				$this->_show();
     				break;
