@@ -10,9 +10,6 @@
                 <!-- BEGIN FORM-->
                 <form class="form-horizontal" role="form">
                     <div class="form-body">
-                    	<pre>
-                    		<?php print_r($arr); ?>
-                    	</pre>
                         <h2 class="margin-bottom-20"> Staff Info - <?php $text = ($arr->us_fname == null || $arr->us_lname == null) ? "Name Not Set" : $arr->us_fname." ".$arr->us_lname ; echo $text; ?> </h2>
                         <h3 class="form-section">Person Info</h3>
                         <div class="row">
@@ -48,9 +45,9 @@
                             <!--/span-->
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label col-md-3">Date of Birth:</label>
+                                    <label class="control-label col-md-3">Signup Date:</label>
                                     <div class="col-md-9">
-                                        <p class="form-control-static"> 20.01.1984 </p>
+                                        <p class="form-control-static"> <?php $text = ($arr->us_signup == null) ? "Not Set" : $arr->us_signup ; echo $text; ?> </p>
                                     </div>
                                 </div>
                             </div>
@@ -60,9 +57,9 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label col-md-3">Category:</label>
+                                    <label class="control-label col-md-3">Email:</label>
                                     <div class="col-md-9">
-                                        <p class="form-control-static"> Category1 </p>
+                                        <p class="form-control-static"> <?php $text = ($arr->us_email == null) ? "Not Set" : $arr->us_email ; echo $text; ?> </p>
                                     </div>
                                 </div>
                             </div>
@@ -71,74 +68,27 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-3">Membership:</label>
                                     <div class="col-md-9">
-                                        <p class="form-control-static"> Free </p>
+                                        <p class="form-control-static"> <?php $text = ($arr->ul_desc == null) ? "Not Set" : $arr->ul_desc ; echo $text; ?> </p>
                                     </div>
                                 </div>
                             </div>
                             <!--/span-->
                         </div>
-                        <!--/row-->
-                        <h3 class="form-section">Address</h3>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label col-md-3">Address:</label>
-                                    <div class="col-md-9">
-                                        <p class="form-control-static"> #24 Sun Park Avenue, Rolton Str </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label col-md-3">City:</label>
-                                    <div class="col-md-9">
-                                        <p class="form-control-static"> New York </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--/span-->
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label col-md-3">State:</label>
-                                    <div class="col-md-9">
-                                        <p class="form-control-static"> New York </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--/span-->
-                        </div>
-                        <!--/row-->
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label col-md-3">Post Code:</label>
-                                    <div class="col-md-9">
-                                        <p class="form-control-static"> 457890 </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--/span-->
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label col-md-3">Country:</label>
-                                    <div class="col-md-9">
-                                        <p class="form-control-static"> USA </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--/span-->
-                        </div>
+                        <!--/row-->                       
                     </div>
                     <div class="form-actions">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="row">
                                     <div class="col-md-offset-3 col-md-9">
-                                        <button type="submit" class="btn green">
-                                            <i class="fa fa-pencil"></i> Edit</button>
-                                        <button type="button" class="btn default">Cancel</button>
+                                    <?php 
+                                    	$usId = $this->my_func->scpro_encrypt($arr->us_id);
+                                    ?>
+                                        <a href="<?= site_url('nasty_v2/dashboard/page/c11?edit=').$usId; ?>">
+                                        <button type="button" class="btn green">
+                                            <i class="fa fa-pencil"></i> Edit
+                                        </button></a>
+                                        <a href="<?= site_url('nasty_v2/dashboard/page/c1');?>"><button type="button" class="btn default">Cancel</button></a>
                                     </div>
                                 </div>
                             </div>

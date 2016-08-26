@@ -1,4 +1,3 @@
-<pre><?php print_r($arr); ?></pre>
 <div class="row">
 	<div class="col-md-12">
 		<div class="portlet box purple">

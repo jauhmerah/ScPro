@@ -282,8 +282,8 @@
     					$data['title'] = '<i class="fa fa-file-text"></i> Staff Detail';
     					$staffId = $this->my_func->scpro_decrypt($this->input->get('view'));
     					$this->load->database();
-    					$this->load->model('m_user');
-    					$arr['arr'] = $this->m_user->get($staffId);
+    					$this->load->model('m_user');    					
+    					$arr['arr'] = $this->m_user->getAll($staffId);
     					$data['display'] = $this->load->view($this->parent_page.'/staffView' , $arr , true);
 		    			$this->_show('display' , $data , $key);
     					break;
@@ -298,9 +298,16 @@
     				
     			case 'c11':
     				//edit
+    				$data['title'] = '<i class="fa fa-file-text"></i> User Edit';
     				if ($this->input->get('edit')) {
     					$staffId = $this->my_func->scpro_decrypt($this->input->get('edit'));
-    					echo $staffId;
+    					//echo $staffId;
+    					$this->load->database();
+    					$this->load->model('m_user');
+    					$arr['lvl'] = $this->m_user->getLvl();
+    					$arr['arr'] = $this->m_user->getAll($staffId);
+    					$data['display'] = $this->load->view($this->parent_page.'/editStaff' , $arr , true);
+    					$this->_show('display' , $data , $key); 
     					break;
     				}    				
     			case 'c1':
@@ -339,6 +346,16 @@
     		$this->load->library('grocery_CRUD');
     	}
     	
+    	public function update()
+    	{
+    		if ($this->input->post()) {
+    			$arr = $this->input->post();
+    			echo "<pre>";
+    			print_r($arr);
+    			echo "</pro>";
+    		}
+    	}
+
     	public function uploadPic()
 		{
 			$this->load->helper('form');

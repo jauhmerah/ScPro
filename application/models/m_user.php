@@ -45,6 +45,13 @@
 	        }
 	    }
 
+	    public function getLvl(){
+	    	$this->db->select("*");
+	    	$this->db->from('user_level ul');
+	    	$result = $this->db->get()->result();
+	    	return $result;
+	    }
+
 	    public function getAll($where = null)
 	    {
 	    	$this->db->select('*');
