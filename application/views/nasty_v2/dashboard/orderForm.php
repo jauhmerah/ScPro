@@ -1,5 +1,10 @@
 <div class="row">
 	<div class="col-md-12">
+	<pre>
+    <?php 
+    	print_r($client);
+    ?>
+    </pre>
            <div class="tab-pane active" id="tab_1">
                         <div class="portlet box green">
                             <div class="portlet-title">
@@ -7,35 +12,31 @@
                                     <img src="<?= base_url(); ?>/assets/cover/favicon2.png"> Order List                                     
                                 </div>
                                 <div class="tools">
-                                    <!--<a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
-                                    <a href="#portlet-config" data-toggle="modal" class="config" data-original-title="" title=""> </a>
-                                    <a href="javascript:;" class="reload" data-original-title="" title=""> </a>
-                                    <a href="javascript:;" class="remove" data-original-title="" title=""> </a>-->
                                     <span class="pull-right" style="color:red;">#100000</span>
                                 </div>
                             </div>
                             <div class="portlet-body form">
-                                <!-- BEGIN FORM-->
-                                <div class="form-group">
-                                	<label for="input" class="col-sm-2 control-label">Exist Client :</label>
-                                	<div class="col-sm-2">
-                                		<select name="" id="input" class="form-control" required="required">
-                                			<option value="-1">--New Client--</option>
-                                			<option value="1">Jauhmerah</option>
-                                		</select>
-                                	</div>
-                                </div>
-                                <pre>
-                                <?php 
-                                	print_r($this->session->all_userdata());
-                                	echo "sfas";
-                                	echo $this->my_func->scpro_decrypt($this->session->userdata('us_username'));
-                                ?>
-                                </pre>
+                                <!-- BEGIN FORM-->                           
+                                
                                 <form action="#" class="horizontal-form">
                                     <div class="form-body">
+                                    	<div class="row">
+                                    		<div class="form-group">
+		                                	<label for="input" class="col-sm-2 control-label">Exist Client :</label>
+		                                	<div class="col-sm-2">
+		                                		<select name="" id="input" class="form-control input-circle" required="required">
+		                                			<option value="-1">--New Client--</option>
+		                                			<?php 
+		                                			foreach ($client as $key) { ?>
+		                                				<option value="<?= $key->cl_id; ?>"> <?= $key->cl_name; ?> </option>
+		                                			<?php }
+		                                			?>
+		                                		</select>
+		                                	</div>
+		                                </div>
+                                    	</div>
                                         <h3 class="form-section">Client Info</h3>
-                                        <div class="row">
+                                        <div class="row" id = "clientInfo">
                                         	<div class="col-md-8">
                                         		<div class="row">
 		                                            <div class="col-md-6">

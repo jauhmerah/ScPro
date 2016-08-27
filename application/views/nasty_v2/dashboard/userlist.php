@@ -1,3 +1,8 @@
+<script>
+	function onDel() {
+		return confirm('Are You Sure ?');
+	}
+</script>
 <div class="row">
 	<div class="col-md-12">
 		<div class="portlet box purple">
@@ -9,7 +14,10 @@
             <div class="portlet-body flip-scroll">
 	            <div class="row">
 	            	<div class="col-md-12">
-	            		<div class="col-md-6">
+	            		<div class="col-md-2">
+	            			<a href="<?= site_url('nasty_v2/dashboard/page/c14') ?>"><button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Add Staff</button></a>
+	            		</div>
+	            		<div class="col-md-5">
 	            			<div class="form-group">
 	            				<label for="input" class="col-sm-2 control-label">Search :</label>
 	            				<div class="col-sm-10">
@@ -88,7 +96,7 @@
                                     ?>
 		                            	<a href="<?= site_url('nasty_v2/dashboard/page/c13?view=').$usid; ?>" name="c4" title="User Detail"><button type="button" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></button></a>&nbsp;-&nbsp;                            	
 										<a href="<?= site_url('nasty_v2/dashboard/page/c11?edit=').$usid; ?>" name="c3" title="Edit User"><button type="button" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i></button></a>&nbsp;-&nbsp;										
-										<a href="<?= site_url('nasty_v2/dashboard/page/c12?delete=').$usid; ?>" name="c5" title="Delete User"><button type="button" class="btn btn-danger btn-xs"><i class="fa fa-close"></i></button></a>
+										<a onclick = "return onDel();" href="<?= site_url('nasty_v2/dashboard/page/c12?delete=').$usid; ?>" name="c5" title="Delete User"><button type="button" class="btn btn-danger btn-xs"><i class="fa fa-close"></i></button></a>
 		                            </td>		                            
 		                        </tr>		
 		                    			<?php

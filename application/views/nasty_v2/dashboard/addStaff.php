@@ -1,51 +1,51 @@
 <div class="row">
 	<div class="col-md-12">
-		<div class="portlet box purple">
+		<div class="portlet box blue">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-user"></i>User Edit</div>
-                
+                    <i class="fa fa-user"></i>Add Staff</div>                
             </div>
             <div class="portlet-body form">
                 <!-- BEGIN FORM-->
-                <form  action="<?= site_url('nasty_v2/dashboard/updateStaff') ?>" method = 'post' class="form-horizontal">
+                <form  action="<?= site_url('nasty_v2/dashboard/addStaff') ?>" method = 'post' class="form-horizontal">
                     <div class="form-body">
                     	<h3 class="form-section">Staff Detail</h3>
                         <div class="form-group">
                             <label class="col-md-3 control-label">First Name :</label>
                             <div class="col-md-4">
-                                <input type="text" name="fname" class="form-control input-circle" placeholder="<?= $arr->us_fname; ?>">
+                                <input type="text" name="fname" class="form-control input-circle" placeholder="First Name">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-3 control-label">Last Name :</label>
                             <div class="col-md-4">
-                                <input type="text" name="lname" class="form-control input-circle" placeholder="<?= $arr->us_lname; ?>">
+                                <input type="text" name="lname" class="form-control input-circle" placeholder="Last Name">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-3 control-label">Username :</label>
+                            <label class="col-md-3 control-label">Username* :</label>
                            <div class="col-md-4">
-                                <input type="text" name="username" class="form-control input-circle" placeholder="<?= $arr->us_username; ?>">
+                                <input type="text" name="username" class="form-control input-circle" placeholder="Username" required >
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-3 control-label">Email Address</label>
+                            <label class="col-md-3 control-label">Email Address*</label>
                             <div class="col-md-4">
                                 <div class="input-group">
                                     <span class="input-group-addon input-circle-left">
                                         <i class="fa fa-envelope"></i>
                                     </span>
-                                    <input type="email" name="email" class="form-control input-circle-right" placeholder="<?= $arr->us_email; ?>"> </div>
+                                    <input type="email" name="email" class="form-control input-circle-right" placeholder="Email" required> </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-3 control-label">Membership :</label>
                             <div class="col-md-4">
                                 <select name="lvl" id="input" class="form-control input-circle">
+                                
                         	<?php foreach ($lvl as $key) {
                         		?>
-								<option value="<?= $key->ul_id; ?>" <?php if($key->ul_id == $arr->us_lvl){echo " selected ";} ?> > <?= $key->ul_desc; ?></option>
+								<option value="<?= $key->ul_id; ?>" > <?= $key->ul_desc; ?></option>
                         		<?php
                         	} ?>
                         </select>
@@ -53,10 +53,10 @@
                         </div>
                         <h3 class="form-section">New Password</h3>
                         <div class="form-group" id="p1">
-                            <label class="col-md-3 control-label">New Password :</label>
+                            <label class="col-md-3 control-label">New Password* :</label>
                             <div class="col-md-4">
                                 <div class="input-group">
-                                    <input type="password" name="pass" id = "pass1" class="form-control input-circle-left" placeholder="New Password">
+                                    <input type="password" name="pass" id = "pass1" class="form-control input-circle-left" placeholder="New Password" required>
                                     <span class="input-group-addon input-circle-right">
                                         <i class="fa fa-key"></i>
                                     </span>
@@ -69,12 +69,11 @@
                                     <input type="password" id = "pass2" class="form-control input-circle" placeholder="Re-password">                                    
                             </div>
                         </div>
-                         <input type="hidden" name="id" id="inputId" class="form-control" value="<?= $id; ?>">
                     </div>
                     <div class="form-actions">
                         <div class="row">
                             <div class="col-md-offset-3 col-md-9">
-                                <button type="submit" id="btnSubmit" class="btn btn-circle green">Save</button>
+                                <button type="submit" id="btnSubmit" class="btn btn-circle green">Add Staff</button>
                                 <a href="<?= site_url('nasty_v2/dashboard/page/c1');?>"><button type="button" class="btn btn-circle grey-salsa btn-outline">Cancel</button></a>
                             </div>
                         </div>

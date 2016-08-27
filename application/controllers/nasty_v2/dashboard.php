@@ -273,7 +273,10 @@
     				break;
     			case 'z1':
     				$data['title'] = '<i class="fa fa-file-text"></i> Order Form';
-    				$data['display'] = $this->load->view($this->parent_page.'/orderForm' , '' , true);
+    				$this->load->database();
+    				$this->load->model('m_client');
+    				$arr['client'] = $this->m_client->get();
+    				$data['display'] = $this->load->view($this->parent_page.'/orderForm' , $arr , true);
 		    		$this->_show('display' , $data , $key); 
     				break;
     			case 'c13':
@@ -292,10 +295,11 @@
     				//delete
     				if ($this->input->get('delete')) {
     					$staffId = $this->my_func->scpro_decrypt($this->input->get('delete'));
-    					echo $staffId;
+    					$this->load->model('m_user');
+    					$this->m_user->delete($staffId);
+    					//redirect(site_url('nasty_v2/dashboard/page/c1'),'refresh');
     					break;
-    				}
-    				
+    				}    			
     			case 'c11':
     				//edit
     				$data['title'] = '<i class="fa fa-file-text"></i> User Edit';
@@ -304,6 +308,7 @@
     					//echo $staffId;
     					$this->load->database();
     					$this->load->model('m_user');
+    					$arr['id'] = $this->input->get('edit');
     					$arr['lvl'] = $this->m_user->getLvl();
     					$arr['arr'] = $this->m_user->getAll($staffId);
     					$data['display'] = $this->load->view($this->parent_page.'/editStaff' , $arr , true);
@@ -326,6 +331,13 @@
     				
     				$data['display'] = $this->load->view($this->parent_page.'/userlist' , $arr , true);
 		    		$this->_show('display' , $data , $key); 
+    				break;
+				case 'c14':
+					$this->load->database();
+    				$this->load->model('m_user');
+    				$arr['lvl'] = $this->m_user->getLvl();
+    				$data['display'] = $this->load->view($this->parent_page.'/addStaff' ,$arr , true);
+		    		$this->_show('display' , $data , $key); 
     				break;    			
     			default:
     				$this->_show();
@@ -345,14 +357,51 @@
     		$this->load->database();
     		$this->load->library('grocery_CRUD');
     	}
-    	
-    	public function update()
+    	public function addStaff()
     	{
     		if ($this->input->post()) {
-    			$arr = $this->input->post();
-    			echo "<pre>";
-    			print_r($arr);
-    			echo "</pro>";
+    			$arr = $this->input->post();    			
+    			$this->load->database();
+    			$this->load->model('m_user');
+    			$this->load->library('my_func');
+    			foreach ($arr as $key => $value) {
+    				if ($value != null) {
+    					if ($key == 'pass') {
+    						$value = $this->my_func->scpro_encrypt($value);
+    					}
+    					$arr2['us_'.$key] = $value;   					
+    				}
+    			}
+    			$result = $this->m_user->insert($arr2);
+    			redirect(site_url('nasty_v2/dashboard/page/c1'),'refresh');
+    		}else{
+    			redirect(site_url('nasty_v2/dashboard/page/c1'),'refresh');
+    		}
+    	}
+    	
+    	public function updateStaff()
+    	{
+    		if ($this->input->post()) {
+    			$arr = $this->input->post();    			
+    			$this->load->database();
+    			$this->load->model('m_user');
+    			$this->load->library('my_func');
+    			foreach ($arr as $key => $value) {
+    				if ($value != null) {
+    					if ($key == 'pass') {
+    						$value = $this->my_func->scpro_encrypt($value);
+    					}
+    					if ($key == 'id') {
+    						$id = $this->my_func->scpro_decrypt($value);
+    					}else{
+    						$arr2['us_'.$key] = $value;
+    					}    					
+    				}
+    			}
+    			$result = $this->m_user->update($arr2 , $id);
+    			redirect(site_url('nasty_v2/dashboard/page/c1'),'refresh');
+    		}else{
+    			redirect(site_url('nasty_v2/dashboard/page/c1'),'refresh');
     		}
     	}
 
@@ -631,8 +680,14 @@
 				$arr = $this->input->post('key');
 				$this->load->database();
 				$this->load->model('m_client');
-				$data['client'] = $this->m_client->get($arr);
-				echo $this->load->view('nasty_v2/dashboard/ajax/getAjaxClient', $data, TRUE);
+				$this->load->library('my_func');
+				if($arr != -1){
+					$data['client'] = $this->m_client->get($arr);
+					echo $this->load->view('nasty_v2/dashboard/ajax/getAjaxClient', $data, TRUE);
+				}else{
+					echo $this->load->view('nasty_v2/dashboard/ajax/getAjaxClient', '', TRUE);
+				}
+				
 			}			
 		}
 		function _checkLvl()

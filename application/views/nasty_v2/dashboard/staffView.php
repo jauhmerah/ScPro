@@ -71,7 +71,7 @@
                                         <p class="form-control-static"> <?php $text = ($arr->ul_desc == null) ? "Not Set" : $arr->ul_desc ; echo $text; ?> </p>
                                     </div>
                                 </div>
-                            </div>
+                            </div>                          
                             <!--/span-->
                         </div>
                         <!--/row-->                       
