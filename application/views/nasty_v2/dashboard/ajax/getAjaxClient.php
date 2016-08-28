@@ -3,21 +3,21 @@
     if (isset($client)) {
         ?>
 <pre>
-<?php print_r($client); ?>
+<?php print_r($client); echo date('m/d/Y'); ?>
 </pre>
 <div class="col-md-8">
     <div class="row">
         <div class="col-md-6">
-            <div class="form-group">
+            <div class="form-group has-success">
                 <label class="control-label">Name* :</label>
-                <input type="text" id="name" name="name" class="form-control input-circle" placeholder="Client Name" required>
+                <input readOnly type="text" id="name" value = "<?= $client->cl_name; ?>" name="name" class="form-control input-circle" placeholder="Client Name" required>
             </div>
         </div>
         <!--/span-->
         <div class="col-md-6">
-            <div class="form-group">
+            <div class="form-group has-success">
                 <label class="control-label">Company :</label>
-                <input type="text" id="company" name="company" class="form-control input-circle" placeholder="Nasty">
+                <input readOnly type="text" id="company" value = "<?= $client->cl_company; ?>" name="company" class="form-control input-circle" placeholder="Nasty">
             </div>
         </div>
         <!--/span-->
@@ -25,16 +25,16 @@
     <!--/row-->
     <div class="row">
         <div class="col-md-6">
-            <div class="form-group">
+            <div class="form-group has-success">
                 <label class="control-label">Contact Number* :</label>
-                <input type="text" id="tel" name="tel" class="form-control input-circle" placeholder="Client Number" required>
+                <input readOnly type="text" id="tel" value = "<?= $client->cl_tel; ?>" name="tel" class="form-control input-circle" placeholder="Client Number" required>
             </div>
         </div>
         <!--/span-->
         <div class="col-md-6">
-            <div class="form-group">
+            <div class="form-group has-success">
                 <label class="control-label">Country* :</label>
-                <input type="text" id="country" name="country" class="form-control input-circle" placeholder="Country" required>
+                <input readOnly type="text" id="country" value = "<?= $client->cl_country; ?>" name="country" class="form-control input-circle" placeholder="Country" required>
             </div>
         </div>
         <!--/span-->
@@ -44,14 +44,14 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label class="control-label">Sales Person* :</label>
-                <input type="text" id="salesPerson" readonly name="salesPerson" class="form-control input-circle" value="<?= $salesPerson; ?>" >
+                <input type="text" id="salesPerson" readonly name="salesPerson" class="form-control input-circle" value="<?= $saleperson; ?>" >
             </div>
         </div>
         <!--/span-->
-        <div class="col-md-6">
+        <div class="col-md-6 has-success">
             <div class="form-group">
                 <label class="control-label">Email* :</label>
-                <input type="text" id="email" name="email" class="form-control input-circle" placeholder="Email" required>
+                <input readOnly type="text" id="email" value = "<?= $client->cl_email; ?>" name="email" class="form-control input-circle" placeholder="Email" required>
             </div>
         </div>
         <!--/span-->
@@ -68,7 +68,7 @@
     <div class="row">   
         <div class="form-group col-md-12">
             <label class="control-label">Order Date :</label>
-            <input type="date" id="orderdate" name="orderdate" class="form-control input-circle">
+            <input type="date" readonly id="orderdate" name="orderdate" value = "<?= date('Y-m-d'); ?>" class="form-control input-circle">
         </div>                                                  
         <!--/span-->
     </div>
@@ -135,7 +135,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label class="control-label">Sales Person* :</label>
-                <input type="text" id="salesPerson" readonly name="salesPerson" class="form-control input-circle" value="<?= $salesPerson; ?>" >
+                <input type="text" id="salesPerson" readonly name="salesPerson" class="form-control input-circle" value="<?= $saleperson; ?>" >
             </div>
         </div>
         <!--/span-->
@@ -159,7 +159,7 @@
     <div class="row">   
         <div class="form-group col-md-12">
             <label class="control-label">Order Date :</label>
-            <input type="date" id="orderdate" name="orderdate" class="form-control input-circle">
+            <input type="date" readonly id="orderdate" name="orderdate" value = "<?= date('Y-m-d'); ?>" class="form-control input-circle">
         </div>                                                  
         <!--/span-->
     </div>

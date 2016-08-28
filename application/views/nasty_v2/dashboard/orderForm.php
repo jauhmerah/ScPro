@@ -24,7 +24,7 @@
                                     		<div class="form-group">
 		                                	<label for="input" class="col-sm-2 control-label">Exist Client :</label>
 		                                	<div class="col-sm-2">
-		                                		<select name="" id="input" class="form-control input-circle" required="required">
+		                                		<select name="client" id="client" class="form-control input-circle" required="required">
 		                                			<option value="-1">--New Client--</option>
 		                                			<?php 
 		                                			foreach ($client as $key) { ?>
@@ -100,7 +100,7 @@
 	                                            <div class="row">	
 	                                                <div class="form-group col-md-12">
 	                                                    <label class="control-label">Order Date :</label>
-	                                                    <input type="date" id="orderdate" name="orderdate" class="form-control input-circle">
+	                                                    <input type="date" readonly id="orderdate" name="orderdate" value = "<?= date('Y-m-d'); ?>" class="form-control input-circle">
 	                                                </div>		                                            
 		                                            <!--/span-->
 		                                        </div>
@@ -480,3 +480,14 @@
                     </div>
         </div>
 </div>
+<script>
+	$(document).ready(function() {
+		$('#client').change(function() {
+			temp = $(this).val();
+			//alert(temp);
+			$.post('<?= site_url('nasty_v2/dashboard/getAjaxClient'); ?>', {key : temp}, function(data) {
+				$('#clientInfo').html(data);
+			});
+		});
+	});
+</script>

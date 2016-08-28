@@ -203,6 +203,9 @@ function myFunction() {
 	                                    </tbody>
 	                                </table>
                                 </div>
+                                <div class="clearfix">
+                                &nbsp;
+                                </div>
                                 
                                 <h4 ><i class="fa fa-ship"></i>Shipping Note 
                                     </h4><span class="pull-right">
