@@ -1,10 +1,5 @@
 <div class="row">
 	<div class="col-md-12">
-	<pre>
-    <?php 
-    	print_r($client);
-    ?>
-    </pre>
            <div class="tab-pane active" id="tab_1">
                         <div class="portlet box green">
                             <div class="portlet-title">
@@ -16,9 +11,8 @@
                                 </div>
                             </div>
                             <div class="portlet-body form">
-                                <!-- BEGIN FORM-->                           
-                                
-                                <form action="#" class="horizontal-form">
+                                <!-- BEGIN FORM-->
+                                <form action="<?= site_url('nasty_v2/dashboard/page/z11'); ?>" method = "post" class="horizontal-form">
                                     <div class="form-body">
                                     	<div class="row">
                                     		<div class="form-group">
@@ -33,6 +27,8 @@
 		                                			?>
 		                                		</select>
 		                                	</div>
+		                                	<span class="pull-left" id="loadingText" style="display: none;"><i class="fa fa-spinner fa-spin"></i>&nbsp;Loading</span>
+		                                	
 		                                </div>
                                     	</div>
                                         <h3 class="form-section">Client Info</h3>
@@ -88,6 +84,15 @@
 		                                            </div>
 		                                            <!--/span-->
 		                                        </div>
+		                                        <div class="row">
+													<div class="col-md-12">
+													    <div class="form-group">
+													        <label class="control-label">Address* :</label>
+													        <input type="text" id="address" name="address" class="form-control input-circle" placeholder = "Address" required >
+													    </div>
+													</div> 
+													<!--/span-->
+												</div>
                                         	</div>
                                         	<div class="col-md-4">
                                         		<div class="row">		                                            
@@ -114,7 +119,7 @@
 		                                        <div class="row">	
 	                                                <div class="form-group col-md-12">
 	                                                    <label class="control-label">Currency :</label>
-	                                                    <select class="form-control input-circle">
+	                                                    <select class="form-control input-circle" name="currency">
 	                                                        <option value="MYR">MYR</option>
 	                                                        <option value="USD">USD</option>
 	                                                        <option value="EURO">EURO</option>
@@ -162,85 +167,85 @@
 						                                            <td class="col-md-1">1</td>
 						                                            <td class="col-md-4">Blackurrant | <strong>Bad Blood</strong> | Red</td>
 						                                            <div class="col-md-4">
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="red[]" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="red[]" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="red[]" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="red[]" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="red[]" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="red[]" class="form-control input-sm"></td>
 						                                            </div><div class="col-md-3">
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="qtyred[]" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="unitred[]" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="total[]" class="form-control input-sm"></td>
 						                                            </div>
 						                                        </tr>
 						                                        <tr>
 						                                            <td class="col-md-1">2</td>
 						                                            <td class="col-md-4">Manggo | <strong>Fat Boy</strong> | Yellow</td>
 						                                            <div class="col-md-4">
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="yellow[]" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="yellow[]" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="yellow[]" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="yellow[]" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="yellow[]" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="yellow[]" class="form-control input-sm"></td>
 						                                            </div><div class="col-md-3">
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="qtyyellow[]" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="unityellow[]" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="total[]" class="form-control input-sm"></td>
 						                                            </div>
 						                                        </tr>
 						                                        <tr>
 						                                            <td class="col-md-1">3</td>
 						                                            <td class="col-md-4">Honey Dew | <strong>Devil Teeth</strong> | Orange</td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="orange[]" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="orange[]" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="orange[]" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="orange[]" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="orange[]" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="orange[]" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="qtyorange[]" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="unitorange[]" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="total[]" class="form-control input-sm"></td>
 						                                        </tr>
 						                                        <tr>
 						                                            <td class="col-md-1">4</td>
 						                                            <td class="col-md-4">Grape | <strong>Asap Grape</strong> | Purple</td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="purple[]" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="purple[]" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="purple[]" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="purple[]" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="purple[]" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="purple[]" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="qtypurple[]" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="unitpurple[]" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="total[]" class="form-control input-sm"></td>
 						                                        </tr>
 						                                        <tr>
 						                                            <td class="col-md-1">5</td>
 						                                            <td class="col-md-4">Blackurrant + L | <strong>Wicked Haze</strong> | Pink</td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="pink[]" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="pink[]" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="pink[]" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="pink[]" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="pink[]" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="pink[]" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="qtypink[]" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="unitpink[]" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="total[]" class="form-control input-sm"></td>
 						                                        </tr>
 						                                        <tr>
 						                                            <td class="col-md-1">6</td>
 						                                            <td class="col-md-4">Pineapple | <strong>Slow Blow</strong> | Cyan</td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
-						                                            <td class="numeric"><input type="text" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="cyan[]" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="cyan[]" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="cyan[]" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="cyan[]" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="cyan[]" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="cyan[]" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="qtycyan[]" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="unitcyan[]" class="form-control input-sm"></td>
+						                                            <td class="numeric"><input type="text" name="total[]" class="form-control input-sm"></td>
 						                                        </tr>
 						                                    </tbody>
 						                                </table>
@@ -259,14 +264,14 @@
 						                                <i class="fa fa-ship"></i>Shipping Note 
 						                            </div>
 						                            <span class="pull-right">	                            	
-						                            <div class="mt-checkbox-inline">
-					                                    <label class="mt-checkbox">
-					                                        <input type="checkbox" value="0">
+						                            <div class="mt-radio-inline">
+					                                    <label class="mt-radio">
+					                                        <input type="radio" name="wide" value="0">
 						                                		<strong>Worldwide</strong>
 					                                        <span></span>
 					                                    </label>
-					                                    <label class="mt-checkbox">
-					                                        <input type="checkbox" value="1">
+					                                    <label class="mt-radio">
+					                                        <input type="radio" name="wide" value="1">
 						                                		<strong>Nationwide</strong>
 					                                        <span></span>
 					                                    </label>
@@ -280,27 +285,27 @@
 						                                    <tbody>
 						                                       	<tr>
 					                                            	<th>
-					                                            		Shipping Company :
+					                                            		Shipping Company
 					                                            	</th>
 					                                            	<td colspan="4" >
-					                                            		<div class="mt-checkbox-inline">
-										                                    <label class="mt-checkbox">
-										                                        <input type="checkbox" value="DHL">
+					                                            		<div class="mt-radio-inline">
+										                                    <label class="mt-radio">
+										                                        <input type="radio" name="sh_company" value="1">
 											                                		DHL
 										                                        <span></span>
 										                                    </label>
-										                                    <label class="mt-checkbox">
-										                                        <input type="checkbox" value="ARAMEX">
+										                                    <label class="mt-radio">
+										                                        <input type="radio" name="sh_company" value="2">
 											                                		ARAMEX
 										                                        <span></span>
 										                                    </label>
-										                                    <label class="mt-checkbox">
-										                                        <input type="checkbox" value="EMS">
+										                                    <label class="mt-radio">
+										                                        <input type="radio" name="sh_company" value="3">
 											                                		EMS
 										                                        <span></span>
 										                                    </label>
-										                                    <label class="mt-checkbox">
-										                                        <input type="checkbox" value="">
+										                                    <label class="mt-radio">
+										                                        <input type="radio" name="sh_company" value="4">
 											                                		 : _________
 										                                        <span></span>
 										                                    </label>
@@ -310,27 +315,27 @@
 					                                            		Tracking No
 					                                            	</th>
 					                                            	<td>
-					                                            		<input type = "text" class="form-control input-circle">
+					                                            		<input type = "text" name="traking" class="form-control input-circle">
 					                                            	</td>
 						                                        </tr>
 						                                        <tr>
 					                                            	<th>
-					                                            		Shipping Optional :
+					                                            		Shipping Optional
 					                                            	</th>
 					                                            	<td colspan="4" >
-					                                            		<div class="mt-checkbox-inline">
-										                                    <label class="mt-checkbox">
-										                                        <input type="checkbox" value="DHL">
+					                                            		<div class="mt-radio-inline">
+										                                    <label class="mt-radio">
+										                                        <input type="radio" name="sh_opt" value="1">
 											                                		Shop & Ship
 										                                        <span></span>
 										                                    </label>
-										                                    <label class="mt-checkbox">
-										                                        <input type="checkbox" value="ARAMEX">
+										                                    <label class="mt-radio">
+										                                        <input type="radio" name="sh_opt" value="2">
 											                                		Express
 										                                        <span></span>
 										                                    </label>
-										                                    <label class="mt-checkbox">
-										                                        <input type="checkbox" value="EMS">
+										                                    <label class="mt-radio">
+										                                        <input type="radio" name="sh_opt" value="3">
 											                                		Buyer Account
 										                                        <span></span>
 										                                    </label>
@@ -345,27 +350,27 @@
 						                                        </tr>
 						                                        <tr>
 					                                            	<th>
-					                                            		Declare Item :
+					                                            		Declare Item
 					                                            	</th>
 					                                            	<td colspan="4" >
-					                                            		<div class="mt-checkbox-inline">
-										                                    <label class="mt-checkbox">
-										                                        <input type="checkbox" value="DHL">
+					                                            		<div class="mt-radio-inline">
+										                                    <label class="mt-radio">
+										                                        <input type="radio" name="sh_declare" value="1">
 											                                		Aromatherapy
 										                                        <span></span>
 										                                    </label>
-										                                    <label class="mt-checkbox">
-										                                        <input type="checkbox" value="ARAMEX">
+										                                    <label class="mt-radio">
+										                                        <input type="radio" name="sh_declare" value="2">
 											                                		Beard Oil
 										                                        <span></span>
 										                                    </label>
-										                                    <label class="mt-checkbox">
-										                                        <input type="checkbox" value="EMS">
+										                                    <label class="mt-radio">
+										                                        <input type="radio" name="sh_declare" value="3">
 											                                		Cake Flavoring
 										                                        <span></span>
 										                                    </label>
-										                                    <label class="mt-checkbox">
-										                                        <input type="checkbox" value="EMS">
+										                                    <label class="mt-radio">
+										                                        <input type="radio" name="sh_declare" value="4">
 											                                		E-Juice
 										                                        <span></span>
 										                                    </label>
@@ -375,90 +380,90 @@
 					                                            		Inv Attach
 					                                            	</th>
 					                                            	<td>
-					                                            		<input type = "text" class="form-control input-circle">
+					                                            		<input type = "text" name="invAtt" class="form-control input-circle">
 					                                            	</td>
 						                                        </tr>
 						                                        <tr>
 					                                            	<th>
-					                                            		Declare Price :
+					                                            		Declare Price
 					                                            	</th>
 					                                            	<td colspan="4">
-					                                            		<input type = "text" class="form-control input-circle">
+					                                            		<input type = "text" name="declarePrice" class="form-control input-circle">
 					                                            	</td>
 					                                            	<th>
 					                                            		MSDS
 					                                            	</th>
 					                                            	<td>
-					                                            		<input type = "text" class="form-control input-circle">
+					                                            		<input type = "text" name="msds" class="form-control input-circle">
 					                                            	</td>
 						                                        </tr>
 						                                        <tr>
 					                                            	<th>
-					                                            		Batch No Start :
+					                                            		Batch No Start
 					                                            	</th>
 					                                            	<td>
-					                                            		<input type = "text" class="form-control input-circle">                                            		
+					                                            		<input type = "text" name="bats[]" class="form-control input-circle">                                            		
 					                                            	</td>
 					                                            	<td>
-					                                            		<input type = "text" class="form-control input-circle">
+					                                            		<input type = "text" name="bats[]" class="form-control input-circle">
 					                                            	</td>
 					                                            	<td>
-					                                            		<input type = "text" class="form-control input-circle">
+					                                            		<input type = "text" name="bats[]" class="form-control input-circle">
 					                                            	</td>
 					                                            	<td>
-					                                            		<input type = "text" class="form-control input-circle">
+					                                            		<input type = "text" name="bats[]" class="form-control input-circle">
 					                                            	</td>
 					                                            	<th>
 					                                            		C.O.O
 					                                            	</th>
 					                                            	<td>
-					                                            		<input type = "text" class="form-control input-circle">
+					                                            		<input type = "text" name="coo" class="form-control input-circle">
 					                                            	</td>
 						                                        </tr>
 						                                        <tr>
 					                                            	<th>
-					                                            		Batch No END :
+					                                            		Batch No END
 					                                            	</th>
 					                                            	<td>
-					                                            		<input type = "text" class="form-control input-circle">                                            		
+					                                            		<input type = "text" name="bate[]" class="form-control input-circle">                                            		
 					                                            	</td>
 					                                            	<td>
-					                                            		<input type = "text" class="form-control input-circle">
+					                                            		<input type = "text" name="bate[]" class="form-control input-circle">
 					                                            	</td>
 					                                            	<td>
-					                                            		<input type = "text" class="form-control input-circle">
+					                                            		<input type = "text" name="bate[]" class="form-control input-circle">
 					                                            	</td>
 					                                            	<td>
-					                                            		<input type = "text" class="form-control input-circle">
+					                                            		<input type = "text" name="bate[]" class="form-control input-circle">
 					                                            	</td>
 					                                            	<th>
 					                                            		Small C Box
 					                                            	</th>
 					                                            	<td>
-					                                            		<input type = "text" class="form-control input-circle">
+					                                            		<input type = "text" name="smallcb" class="form-control input-circle">
 					                                            	</td>
 						                                        </tr>
 						                                        <tr>
 					                                            	<th>
-					                                            		Batch :
+					                                            		Batch
 					                                            	</th>
 					                                            	<td>
-					                                            		<input type = "text" class="form-control input-circle">
+					                                            		<input type = "text" name="bat[]" class="form-control input-circle">
 					                                            	</td>
 					                                            	<td>
-					                                            		<input type = "text" class="form-control input-circle">
+					                                            		<input type = "text" name="bat[]" class="form-control input-circle">
 					                                            	</td>
 					                                            	<td>
-					                                            		<input type = "text" class="form-control input-circle">
+					                                            		<input type = "text" name="bat[]" class="form-control input-circle">
 					                                            	</td>
 					                                            	<td>
-					                                            		<input type = "text" class="form-control input-circle">
+					                                            		<input type = "text" name="bat[]" class="form-control input-circle">
 					                                            	</td>
 					                                            	<th>
 					                                            		Big C Box
 					                                            	</th>
 					                                            	<td>
-					                                            		<input type = "text" class="form-control input-circle">
+					                                            		<input type = "text" name="bigcb" class="form-control input-circle">
 					                                            	</td>
 						                                        </tr>	                                        
 						                                    </tbody>
@@ -484,9 +489,12 @@
 	$(document).ready(function() {
 		$('#client').change(function() {
 			temp = $(this).val();
-			//alert(temp);
-			$.post('<?= site_url('nasty_v2/dashboard/getAjaxClient'); ?>', {key : temp}, function(data) {
-				$('#clientInfo').html(data);
+			$.when($('#loadingText').show()).then(function(){
+				$.post('<?= site_url('nasty_v2/dashboard/getAjaxClient'); ?>', {key : temp}, function(data) {
+					$.when($('#clientInfo').html(data)).then(function(){
+						$('#loadingText').hide();
+					});
+				});
 			});
 		});
 	});

@@ -2,9 +2,6 @@
     $saleperson = $this->my_func->scpro_decrypt($this->session->userdata('us_username'));
     if (isset($client)) {
         ?>
-<pre>
-<?php print_r($client); echo date('m/d/Y'); ?>
-</pre>
 <div class="col-md-8">
     <div class="row">
         <div class="col-md-6">
@@ -56,6 +53,14 @@
         </div>
         <!--/span-->
     </div>
+    <div class="row">
+        <div class="col-md-12 has-success">
+            <div class="form-group">
+                <label class="control-label">Address* :</label>
+                <input type="text" id="address" readonly name="address" class="form-control input-circle" placeholder = "Address" required value = "<?= $client->cl_address; ?>" >
+            </div>
+        </div>        
+    </div>
 </div>
 <div class="col-md-4">
     <div class="row">                                                   
@@ -82,7 +87,7 @@
     <div class="row">   
         <div class="form-group col-md-12">
             <label class="control-label">Currency :</label>
-            <select class="form-control input-circle">
+            <select class="form-control input-circle" name="currency">
                 <option value="MYR">MYR</option>
                 <option value="USD">USD</option>
                 <option value="EURO">EURO</option>
@@ -144,7 +149,15 @@
                 <label class="control-label">Email* :</label>
                 <input type="text" id="email" name="email" class="form-control input-circle" placeholder="Email" required>
             </div>
-        </div>
+        </div>               
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="control-label">Address* :</label>
+                <input type="text" id="address" name="address" class="form-control input-circle" placeholder = "Address" required >
+            </div>
+        </div> 
         <!--/span-->
     </div>
 </div>
@@ -173,7 +186,7 @@
     <div class="row">   
         <div class="form-group col-md-12">
             <label class="control-label">Currency :</label>
-            <select class="form-control input-circle">
+            <select class="form-control input-circle" name="currency">
                 <option value="MYR">MYR</option>
                 <option value="USD">USD</option>
                 <option value="EURO">EURO</option>

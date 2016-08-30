@@ -271,6 +271,55 @@
 		    		$data['display'] = $this->load->view('crud' , $output , true);
 		    		$this->_show('display' , $data , $key); 
     				break;
+    			case 'z11':
+    				if ($this->input->post()) {
+    					$arr = $this->input->post();
+    					echo "<pre>";
+    					print_r($arr);
+    					echo "</pre>";
+    					$this->load->library('my_func');
+    					$order = array(
+    						"cl_id" => $arr['client'],
+    						"us_id" => $this->my_func->scpro_decrypt($this->session->userdata('us_id')),
+    						"or_sendDate" => $arr['finishdate'],
+    						"or_date" => $arr['orderdate']
+    					);
+    					$or_id = 1;
+    					$order_ext = array(
+    						'or_id' => $or_id,
+    						'or_dateline' => $arr['dateline'],
+    						'cu_id' => $arr['currency'],
+    						'or_wide' => $arr['wide'],
+    						'or_shipcom' => $arr['sh_company'],
+    						'or_shipopt' => $arr['sh_opt'],
+    						'dec_id' => $arr['sh_declare'],
+    						'or_declarePrice' => $arr['declarePrice'],
+    						'bats_id' => 1,
+    						'bate_id' => 1,
+    						'bat_id' => 1,
+    						'or_traking' => $arr['traking'],
+    						'or_invAtt' => $arr['invAtt'],
+    						'or_msds' => $arr['msds'],
+    						'or_coo' => $arr['coo'],
+    						'or_smallcb' => $arr['smallcb'],
+    						'or_bigcb' => $arr['bigcb']
+    					);
+
+    					$orex_id = 1;
+    					//red = 1
+    					$order_note = array(
+    						'orex_id' => $orex_id,
+    						'ty2_id' => 1,
+    						'orn_0mg' => $arr['red']['0'],
+    						'orn_0mg+' => $arr['red']['1'],
+    						'orn_3mg' => $arr['red']['2'],
+    						'orn_3mg+' => $arr['red']['3'],
+    						'orn_6mg' => $arr['red']['4'],
+    						'orn_6mg+' => $arr['red']['5']		
+
+    					);
+    					break;
+    				}   
     			case 'z1':
     				$data['title'] = '<i class="fa fa-file-text"></i> Order Form';
     				$this->load->database();
@@ -338,7 +387,8 @@
     				$arr['lvl'] = $this->m_user->getLvl();
     				$data['display'] = $this->load->view($this->parent_page.'/addStaff' ,$arr , true);
 		    		$this->_show('display' , $data , $key); 
-    				break;    			
+    				break;
+
     			default:
     				$this->_show();
     				break;
