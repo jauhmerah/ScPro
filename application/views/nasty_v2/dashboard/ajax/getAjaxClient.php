@@ -88,9 +88,9 @@
         <div class="form-group col-md-12">
             <label class="control-label">Currency :</label>
             <select class="form-control input-circle" name="currency">
-                <option value="MYR">MYR</option>
-                <option value="USD">USD</option>
-                <option value="EURO">EURO</option>
+                <option value="1">MYR</option>
+                <option value="2">USD</option>
+                <option value="3">EURO</option>
             </select>
         </div>                                                  
         <!--/span-->
@@ -187,9 +187,9 @@
         <div class="form-group col-md-12">
             <label class="control-label">Currency :</label>
             <select class="form-control input-circle" name="currency">
-                <option value="MYR">MYR</option>
-                <option value="USD">USD</option>
-                <option value="EURO">EURO</option>
+                <option value="1">MYR</option>
+                <option value="2">USD</option>
+                <option value="3">EURO</option>
             </select>
         </div>                                                  
         <!--/span-->
