@@ -409,18 +409,9 @@
 					                                            	<th>
 					                                            		Batch No Start
 					                                            	</th>
-					                                            	<td>
-					                                            		<input type = "text" name="bats[]" class="form-control input-circle">                                            		
-					                                            	</td>
-					                                            	<td>
-					                                            		<input type = "text" name="bats[]" class="form-control input-circle">
-					                                            	</td>
-					                                            	<td>
-					                                            		<input type = "text" name="bats[]" class="form-control input-circle">
-					                                            	</td>
-					                                            	<td>
-					                                            		<input type = "text" name="bats[]" class="form-control input-circle">
-					                                            	</td>
+					                                            	<td colspan="4" rowspan="3">
+					                                            		<textarea name="note" id="input" class="form-control input-circle input-lg" rows="4" placeholder="#Note"></textarea>                                            		
+					                                            	</td>					                                            	
 					                                            	<th>
 					                                            		C.O.O
 					                                            	</th>
@@ -432,18 +423,7 @@
 					                                            	<th>
 					                                            		Batch No END
 					                                            	</th>
-					                                            	<td>
-					                                            		<input type = "text" name="bate[]" class="form-control input-circle">                                            		
-					                                            	</td>
-					                                            	<td>
-					                                            		<input type = "text" name="bate[]" class="form-control input-circle">
-					                                            	</td>
-					                                            	<td>
-					                                            		<input type = "text" name="bate[]" class="form-control input-circle">
-					                                            	</td>
-					                                            	<td>
-					                                            		<input type = "text" name="bate[]" class="form-control input-circle">
-					                                            	</td>
+					                                            						                                            	
 					                                            	<th>
 					                                            		Small C Box
 					                                            	</th>
@@ -455,18 +435,8 @@
 					                                            	<th>
 					                                            		Batch
 					                                            	</th>
-					                                            	<td>
-					                                            		<input type = "text" name="bat[]" class="form-control input-circle">
-					                                            	</td>
-					                                            	<td>
-					                                            		<input type = "text" name="bat[]" class="form-control input-circle">
-					                                            	</td>
-					                                            	<td>
-					                                            		<input type = "text" name="bat[]" class="form-control input-circle">
-					                                            	</td>
-					                                            	<td>
-					                                            		<input type = "text" name="bat[]" class="form-control input-circle">
-					                                            	</td>
+					                                            	
+					                                            	
 					                                            	<th>
 					                                            		Big C Box
 					                                            	</th>

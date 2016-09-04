@@ -89,7 +89,51 @@
 	    	}
 	    	return $result;
 	    }
-	
+
+	    public function getList_ext($where = null , $up = 0)
+	    {
+	    	$this->db->select('*');
+	        $this->db->from(self::TABLE_NAME);
+	        if ($where !== NULL) {
+	            if (is_array($where)) {
+	                foreach ($where as $field=>$value) {
+	                    $this->db->where($field, $value);
+	                }
+	            } else {
+	                $this->db->where(self::PRI_INDEX, $where);
+	            }
+	        }
+	        if ($up != 1) {
+	    		$this->db->order_by(self::TABLE_NAME.'.or_id', 'desc');
+	    	}
+	       	$this->db->join('client', self::TABLE_NAME.'.cl_id = client.cl_id', 'left');
+	       	$this->db->join('order_ext' , self::TABLE_NAME.'.or_id = order_ext.or_id' , 'left');
+	        $result = $this->db->get()->result();
+	        //return $result;
+	        foreach ($result as $key) {
+				$this->db->select('*'); 
+				$this->db->from('order_note');
+				$this->db->where('orex_id', $key->orex_id); 
+				$res2 = $this->db->get()->result();
+				$data[] = array(
+					'order' => $key,
+					'item' => $res2
+				);
+	        }
+	        return $data;
+	    }
+
+	    public function listOr($limit = null , $start = null)
+	    {
+	    	$this->db->select('ord.or_id , us1.us_username , cl.cl_name , ord.or_date');
+	    	$this->db->from('order ord');
+	    	$this->db->join('client cl', 'ord.cl_id = cl.cl_id', 'left');
+	    	$this->db->join('user us1' , 'ord.us_id = us1.us_id' , 'left');
+	    	$this->db->join('process pr' , 'ord.pr_id = pr.pr_id' , 'left');
+	    	$this->db->order_by('ord.or_id', 'desc');
+	    	$result = $this->db->get()->result();
+	    	return $result;
+	    }
 	    /**
 	     * Inserts new data into database
 	     *

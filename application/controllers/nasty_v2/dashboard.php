@@ -17,8 +17,9 @@
 
 	    public function testpage()
 	    {
-	    	echo "Jadi";
-	    	$this->_show('index');
+	    	//echo "Jadi";
+	    	//$this->_show('index');
+            $this->load->view('test');
 	    }
 
 	   private function _show($page = 'display' , $data = null , $key = 'a1'){	    	
@@ -72,50 +73,7 @@
     		$this->_checkSession();
     		switch ($key) {
     			case 'a11':
-    				if ($this->input->post()) {
-    					$this->load->database();
-    					$arr = $this->input->post();
-    					echo "<pre>";
-    					print_r($arr);
-    					echo "</pre>";
-    					die();
-	    				/*$temp = array(
-	    					'cl_name' => $arr['name'],
-	    					'cl_tel' => $arr['telnumber'],
-	    					'cl_country' => $arr['country']
-	    				);
-	    				$this->load->model("m_client");
-	    				$cl_id = $this->m_client->insert($temp);  */
-	    				$cl_id = $arr['name'];
-	    				if ($cl_id) {
-	    					//unset($temp);
-	    					$temp = array(
-	    						'cl_id' => $cl_id,
-	    						'or_sendDate' => $arr['sendDate'],
-	    						'or_bank' => $arr['bank'],
-	    						'or_deposit' => $arr['deposit'],
-	    						'or_note' => $arr['note']
-	    					);
-	    					$this->load->model('m_order');
-	    					$or_id = $this->m_order->insert($temp);
-	    					if ($or_id) {
-	    						$this->load->model('m_item');
-	    						foreach ($arr['proOrder'] as $item) {
-	    							$arrItem = explode('|', $item);
-	    							unset($temp);
-	    							$temp = array(
-	    								'ty_id' => $arrItem[0],
-	    								'it_mg' => $arrItem[1],
-	    								'it_qty' => $arrItem[2],
-	    								'or_id' => $or_id,
-	    								'it_promo' => $arrItem[3]
-	    							);	    							
-	    							$this->m_item->insert($temp);	    							
-	    						}
-	    						$this->session->set_flashdata('success' , '<b>Well done!</b> You successfully add the order.');
-	    						redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
-	    					}
-	    				}   
+    				 
     				}   				
     				 			
     			case 'a1':
@@ -125,10 +83,9 @@
     				$this->load->library('my_func');
     				$this->load->database();
     				$this->load->model('m_order');
-    				$arr = $this->m_order->getList();
-    				$temp['arr'] = $arr;
+                    $arr['arr'] = $this->m_order->listOr();  
     				$data['title'] = '<i class="fa fa-fw fa-edit"></i> Production</a>';
-    				$data['display'] = $this->load->view($this->old_page.'/news_menu' , $temp , true);
+    				$data['display'] = $this->load->view($this->parent_page.'/orderList' ,$arr , true);
     				$this->_show('display' , $data , $key);
     				break;
     			case 'a12':
@@ -284,11 +241,12 @@
     						"cl_id" => $arr['client'],
     						"us_id" => $this->my_func->scpro_decrypt($this->session->userdata('us_id')),
     						"or_sendDate" => $arr['finishdate'],
-    						"or_date" => $arr['orderdate']
+    						"or_date" => $arr['orderdate'],
+                            "or_note" => $arr['note']
     					);
     					$or_id = $this->m_order->insert($order);
                         echo 'or_id =>'.$or_id;                                                
-                        $bats = array(
+                        /*$bats = array(
                             'bats_1' => $arr['bats'][0],
                             'bats_2' => $arr['bats'][1],
                             'bats_3' => $arr['bats'][2],
@@ -314,7 +272,7 @@
                         );
                         $this->load->model('m_batch');
                         $bat_id = $this->m_batch->insert($batch);
-                        echo "<br>bat_id => ".$bat_id;                        
+                        echo "<br>bat_id => ".$bat_id; */                       
     					$order_ext = array(
     						'or_id' => $or_id,
     						'or_dateline' => $arr['dateline'],
@@ -324,9 +282,6 @@
     						'or_shipopt' => $arr['sh_opt'],
     						'dec_id' => $arr['sh_declare'],
     						'or_declarePrice' => $arr['declarePrice'],
-    						'bats_id' => $bats_id,
-    						'bate_id' => $bate_id,
-    						'bat_id' => $bat_id,
     						'or_traking' => $arr['traking'],
     						'or_invAtt' => $arr['invAtt'],
     						'or_msds' => $arr['msds'],
@@ -336,10 +291,8 @@
     					);
                         $this->load->model('m_order_ext');                        
     					$orex_id = $this->m_order_ext->insert($order_ext);
-                        echo "<br>orex_id => ".$orex_id;  
-                        die();
-                        $this->load->model('m_order_note');
-                        
+                        echo "<br>orex_id => ".$orex_id;                         
+                        $this->load->model('m_order_note');                        
     					//red = 1
     					$order_note = array(
     						'orex_id' => $orex_id,
@@ -353,7 +306,7 @@
                             'orn_qty' => $arr['qtyred'],
                             'orn_price' => $arr['unitred']
         				);
-
+                        echo "<br>ornRed => " . $this->m_order_note->insert($order_note);  
                         //yellow = 1
                         $order_note = array(
                             'orex_id' => $orex_id,
@@ -367,6 +320,7 @@
                             'orn_qty' => $arr['qtyyellow'],
                             'orn_price' => $arr['unityellow']
                         );
+                        echo "<br>ornYellow => " . $this->m_order_note->insert($order_note);
                         //orange = 1
                         $order_note = array(
                             'orex_id' => $orex_id,
@@ -380,6 +334,7 @@
                             'orn_qty' => $arr['qtyorange'],
                             'orn_price' => $arr['unitorange']
                         );
+                        echo "<br>ornOrange => " . $this->m_order_note->insert($order_note);
                         //purple = 1
                         $order_note = array(
                             'orex_id' => $orex_id,
@@ -393,6 +348,7 @@
                             'orn_qty' => $arr['qtypurple'],
                             'orn_price' => $arr['unitpurple']
                         );
+                        echo "<br>ornPurple => " . $this->m_order_note->insert($order_note);
                         //pink = 1
                         $order_note = array(
                             'orex_id' => $orex_id,
@@ -406,6 +362,7 @@
                             'orn_qty' => $arr['qtypink'],
                             'orn_price' => $arr['unitpink']
                         );
+                        echo "<br>ornPink => " . $this->m_order_note->insert($order_note);
                         //cyan = 1
                         $order_note = array(
                             'orex_id' => $orex_id,
@@ -419,13 +376,16 @@
                             'orn_qty' => $arr['qtycyan'],
                             'orn_price' => $arr['unitcyan']
                         );
+                        echo "<br>ornCyan => " . $this->m_order_note->insert($order_note);
+                        $this->load->model('m_shipping_note');
                         $shipping_note = array(
                             'sn_company' => $arr['sh_company'],
                             'sn_opt' => $arr['sh_opt'],
                             'sn_declare' => $arr['sh_declare'],
                             'sn_wide' => $arr['wide'],
                             'cl_id' => $arr['client']
-                        );                        
+                        );
+                        echo "<br>Shipping Note => " . $this->m_shipping_note->insert($shipping_note);                     
     					break;    				
                     }   
     			case 'z1':
