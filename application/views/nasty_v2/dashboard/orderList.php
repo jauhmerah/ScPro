@@ -102,9 +102,9 @@
                                     <?php 
                                         $usid = $this->my_func->scpro_encrypt($user->or_id);
                                     ?>
-		                            	<a href="<?= site_url('nasty_v2/dashboard/page/c13?view=').$usid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></button></a>&nbsp;-&nbsp;                            	
-										<a href="<?= site_url('nasty_v2/dashboard/page/c11?edit=').$usid; ?>" name="c3" title="Edit Order"><button type="button" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i></button></a>&nbsp;-&nbsp;										
-										<a onclick = "return onDel();" href="<?= site_url('nasty_v2/dashboard/page/c12?delete=').$usid; ?>" name="c5" title="Delete Order"><button type="button" class="btn btn-danger btn-xs"><i class="fa fa-close"></i></button></a>
+		                            	<a href="<?= site_url('nasty_v2/dashboard/page/a11?view=').$usid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></button></a>&nbsp;-&nbsp;                            	
+										<a href="<?= site_url('nasty_v2/dashboard/page/a12?edit=').$usid; ?>" name="c3" title="Edit Order"><button type="button" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i></button></a>&nbsp;-&nbsp;										
+										<a onclick = "return onDel();" href="<?= site_url('nasty_v2/dashboard/page/c13?delete=').$usid; ?>" name="c5" title="Delete Order"><button type="button" class="btn btn-danger btn-xs"><i class="fa fa-close"></i></button></a>
 		                            </td>		                            
 		                        </tr>		
 		                    			<?php

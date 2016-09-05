@@ -100,7 +100,7 @@
 	                    $this->db->where($field, $value);
 	                }
 	            } else {
-	                $this->db->where(self::PRI_INDEX, $where);
+	                $this->db->where(self::TABLE_NAME.".".self::PRI_INDEX, $where);
 	            }
 	        }
 	        if ($up != 1) {
@@ -115,7 +115,13 @@
 				$this->db->from('order_note');
 				$this->db->where('orex_id', $key->orex_id); 
 				$res2 = $this->db->get()->result();
+				$this->db->select("us_username");
+				$this->db->from('user');
+				$this->db->where('us_id', $key->us_id);
+				$res3 = $this->db->get()->result();
+				$res3 = array_shift($res3);
 				$data[] = array(
+					'staff' => $res3,
 					'order' => $key,
 					'item' => $res2
 				);

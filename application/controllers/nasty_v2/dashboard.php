@@ -57,7 +57,7 @@
 	    	echo $html;
 	    }
 
-	     function pdfPrint($html = "<h1>Hellow World</h1>"){
+	   function pdfPrint($html = "<h1>Hello World</h1>"){
 	    	$this->load->library("Pdf");
 			$pdf = new Pdf('P', 'mm', 'A4', true, 'UTF-8', false);
 			$pdf->SetCreator(PDF_CREATOR);
@@ -67,15 +67,51 @@
 	        $pdf->Output();
 	    }
 
+        public function formPrint($or_id = null)
+        {
+            //if ($or_id != null || $this->input->get('key')) {
+                //$html = $this->load->view($this->parent_page.'/printPdf/printForm' , '' , true);
+            $this->load->view($this->parent_page.'/printPdf/printForm' , '' , false);
+                //$this->pdfPrint($html);
+            //}
+        }
+
 	    public function page($key)
     	{
     		//$arr = $this->input->get();
     		$this->_checkSession();
     		switch ($key) {
-    			case 'a11':
-    				 
-    				}   				
-    				 			
+                case 'a13':
+                    //delete
+                    if ($this->input->get('delete')) {
+                        $id = $this->input->get('delete');
+                        $id = $this->my_func->scpro_decrypt($id);
+                        echo $id;
+                        break;
+                    }     
+    			case 'a12':
+                    //edit
+                    if ($this->input->get('edit')) {
+                        $id = $this->input->get('edit');
+                        $id = $this->my_func->scpro_decrypt($id);
+                        echo $id;
+                        break;
+                    }                    
+                case 'a11':
+                    //view
+                    if($this->input->get('view')){
+                        $id = $this->input->get('view');
+                        //$this->load->library('my_func');
+                        $id = $this->my_func->scpro_decrypt($id);
+                        echo $id;
+                        $this->load->database();
+                        $this->load->model('m_order');
+                        $arr['arr'] = array_shift($this->m_order->getList_ext($id)); 
+                        $data['title'] = '<i class="fa fa-eye"></i> Order Detail</a>';
+                        $data['display'] = $this->load->view($this->parent_page.'/orderView' ,$arr , true);
+                        $this->_show('display' , $data , $key);
+                        break;
+                    }                     				 			
     			case 'a1':
     				if (!$this->_checkLvl()) {
     					redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
@@ -245,34 +281,8 @@
                             "or_note" => $arr['note']
     					);
     					$or_id = $this->m_order->insert($order);
-                        echo 'or_id =>'.$or_id;                                                
-                        /*$bats = array(
-                            'bats_1' => $arr['bats'][0],
-                            'bats_2' => $arr['bats'][1],
-                            'bats_3' => $arr['bats'][2],
-                            'bats_4' => $arr['bats'][3]
-                        );
-                        $this->load->model('m_bats');
-                        $bats_id = $this->m_bats->insert($bats);
-                        echo "<br>bats_id => ".$bats_id;
-                        $bate = array(
-                            'bate_1' => $arr['bate'][0],
-                            'bate_2' => $arr['bate'][1],
-                            'bate_3' => $arr['bate'][2],
-                            'bate_4' => $arr['bate'][3]
-                        );
-                        $this->load->model('m_bate');
-                        $bate_id = $this->m_bate->insert($bate);
-                        echo "<br>bate_id => ".$bate_id;
-                        $batch = array(
-                            'bat_1' => $arr['bat'][0],
-                            'bat_2' => $arr['bat'][1],
-                            'bat_3' => $arr['bat'][2],
-                            'bat_4' => $arr['bat'][3]
-                        );
-                        $this->load->model('m_batch');
-                        $bat_id = $this->m_batch->insert($batch);
-                        echo "<br>bat_id => ".$bat_id; */                       
+                        echo 'or_id =>'.$or_id;                                         
+                                          
     					$order_ext = array(
     						'or_id' => $or_id,
     						'or_dateline' => $arr['dateline'],
