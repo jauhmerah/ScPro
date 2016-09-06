@@ -5,10 +5,6 @@
 </script>
 <div class="row">
 	<div class="col-md-12">
-
-	            	<pre>
-	            		<?php print_r($arr); ?>
-	            	</pre>
 		<div class="portlet box green">
             <div class="portlet-title">
                 <div class="caption">

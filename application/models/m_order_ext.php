@@ -44,6 +44,29 @@ class M_order_ext extends CI_Model {
             return false;
         }
     }
+    public function getId($where = NULL) {
+        $this->db->select('orex_id');
+        $this->db->from(self::TABLE_NAME);
+        if ($where !== NULL) {
+            if (is_array($where)) {
+                foreach ($where as $field=>$value) {
+                    $this->db->where($field, $value);
+                }
+            } else {
+                $this->db->where(self::PRI_INDEX, $where);
+            }
+        }
+        $result = $this->db->get()->result();
+        if ($result) {
+            if ($where !== NULL) {
+                return array_shift($result);
+            } else {
+                return $result;
+            }
+        } else {
+            return false;
+        }
+    }
 
     /**
      * Inserts new data into database

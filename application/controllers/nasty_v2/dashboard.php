@@ -70,9 +70,9 @@
         public function formPrint($or_id = null)
         {
             //if ($or_id != null || $this->input->get('key')) {
-                //$html = $this->load->view($this->parent_page.'/printPdf/printForm' , '' , true);
-            $this->load->view($this->parent_page.'/printPdf/printForm' , '' , false);
+                $html = $this->load->view($this->parent_page.'/printPdf/printForm' , '' , true);            
                 //$this->pdfPrint($html);
+                echo $html;
             //}
         }
 
@@ -94,7 +94,11 @@
                     if ($this->input->get('edit')) {
                         $id = $this->input->get('edit');
                         $id = $this->my_func->scpro_decrypt($id);
-                        echo $id;
+                        $this->load->model('m_order');
+                        $arr['arr'] = array_shift($this->m_order->getList_ext($id));
+                        $data['title'] = '<i class="fa fa-eye"></i> Order Detail</a>';
+                        $data['display'] = $this->load->view($this->parent_page.'/orderEdit' ,$arr , true);
+                        $this->_show('display' , $data , $key);
                         break;
                     }                    
                 case 'a11':
@@ -264,7 +268,145 @@
 		    		$data['display'] = $this->load->view('crud' , $output , true);
 		    		$this->_show('display' , $data , $key); 
     				break;
+                case 'z12':
+                    //edit order
+                    if ($this->input->post() && $this->input->get('key')) {
+                        $arr = $this->input->post();
+                        echo "<pre>";
+                        print_r($arr);
+                        echo "</pre>";
+                        $or_id = $this->my_func->scpro_decrypt($this->input->get('key'));
+                        
+                        $this->load->library('my_func');
+                        $this->load->database();
+                        $this->load->model('m_order');                        
+                        $order = array(                            
+                            "or_sendDate" => $arr['sendDate'],
+                            "or_note" => $arr['note']
+                        );
+                        $or = $this->m_order->update($order , $or_id);
+                        echo $or_id.'or_id =>'.$or;                           
+                        $order_ext = array(
+                            'or_dateline' => $arr['dateline'],
+                            'cu_id' => $arr['currency'],
+                            'or_wide' => $arr['wide'],
+                            'or_finishdate' => $arr['finishdate'],
+                            'or_shipcom' => $arr['sh_company'],
+                            'or_shipopt' => $arr['sh_opt'],
+                            'dec_id' => $arr['sh_declare'],
+                            'or_declarePrice' => $arr['declarePrice'],
+                            'or_traking' => $arr['traking'],
+                            'or_invAtt' => $arr['invAtt'],
+                            'or_msds' => $arr['msds'],
+                            'or_coo' => $arr['coo'],
+                            'or_smallcb' => $arr['smallcb'],
+                            'or_bigcb' => $arr['bigcb']
+                        );
+                        $this->load->model('m_order_ext');                        
+                        $orex_id = $this->m_order_ext->update($order_ext , array('or_id' => $or_id));
+                        echo "<br>Update => ".$orex_id; 
+                        $orex_id = $this->m_order_ext->getId(array('or_id' => $or_id));
+                        echo "<br>orex_id => ".$orex_id->orex_id;
+                        die();                         
+                        $this->load->model('m_order_note');                        
+                        //red = 1
+                        $order_note = array(
+                            'orex_id' => $orex_id,
+                            'ty2_id' => 1,
+                            'orn_0mg' => $arr['red']['0'],
+                            'orn_0mgp' => $arr['red']['1'],
+                            'orn_3mg' => $arr['red']['2'],
+                            'orn_3mgp' => $arr['red']['3'],
+                            'orn_6mg' => $arr['red']['4'],
+                            'orn_6mgp' => $arr['red']['5'],
+                            'orn_qty' => $arr['qtyred'],
+                            'orn_price' => $arr['unitred']
+                        );
+                        echo "<br>ornRed => " . $this->m_order_note->insert($order_note);  
+                        //yellow = 1
+                        $order_note = array(
+                            'orex_id' => $orex_id,
+                            'ty2_id' => 1,
+                            'orn_0mg' => $arr['yellow']['0'],
+                            'orn_0mgp' => $arr['yellow']['1'],
+                            'orn_3mg' => $arr['yellow']['2'],
+                            'orn_3mgp' => $arr['yellow']['3'],
+                            'orn_6mg' => $arr['yellow']['4'],
+                            'orn_6mgp' => $arr['yellow']['5'],
+                            'orn_qty' => $arr['qtyyellow'],
+                            'orn_price' => $arr['unityellow']
+                        );
+                        echo "<br>ornYellow => " . $this->m_order_note->insert($order_note);
+                        //orange = 1
+                        $order_note = array(
+                            'orex_id' => $orex_id,
+                            'ty2_id' => 1,
+                            'orn_0mg' => $arr['orange']['0'],
+                            'orn_0mgp' => $arr['orange']['1'],
+                            'orn_3mg' => $arr['orange']['2'],
+                            'orn_3mgp' => $arr['orange']['3'],
+                            'orn_6mg' => $arr['orange']['4'],
+                            'orn_6mgp' => $arr['orange']['5'],
+                            'orn_qty' => $arr['qtyorange'],
+                            'orn_price' => $arr['unitorange']
+                        );
+                        echo "<br>ornOrange => " . $this->m_order_note->insert($order_note);
+                        //purple = 1
+                        $order_note = array(
+                            'orex_id' => $orex_id,
+                            'ty2_id' => 1,
+                            'orn_0mg' => $arr['purple']['0'],
+                            'orn_0mgp' => $arr['purple']['1'],
+                            'orn_3mg' => $arr['purple']['2'],
+                            'orn_3mgp' => $arr['purple']['3'],
+                            'orn_6mg' => $arr['purple']['4'],
+                            'orn_6mgp' => $arr['purple']['5'],
+                            'orn_qty' => $arr['qtypurple'],
+                            'orn_price' => $arr['unitpurple']
+                        );
+                        echo "<br>ornPurple => " . $this->m_order_note->insert($order_note);
+                        //pink = 1
+                        $order_note = array(
+                            'orex_id' => $orex_id,
+                            'ty2_id' => 1,
+                            'orn_0mg' => $arr['pink']['0'],
+                            'orn_0mgp' => $arr['pink']['1'],
+                            'orn_3mg' => $arr['pink']['2'],
+                            'orn_3mgp' => $arr['pink']['3'],
+                            'orn_6mg' => $arr['pink']['4'],
+                            'orn_6mgp' => $arr['pink']['5'],
+                            'orn_qty' => $arr['qtypink'],
+                            'orn_price' => $arr['unitpink']
+                        );
+                        echo "<br>ornPink => " . $this->m_order_note->insert($order_note);
+                        //cyan = 1
+                        $order_note = array(
+                            'orex_id' => $orex_id,
+                            'ty2_id' => 1,
+                            'orn_0mg' => $arr['cyan']['0'],
+                            'orn_0mgp' => $arr['cyan']['1'],
+                            'orn_3mg' => $arr['cyan']['2'],
+                            'orn_3mgp' => $arr['cyan']['3'],
+                            'orn_6mg' => $arr['cyan']['4'],
+                            'orn_6mgp' => $arr['cyan']['5'],
+                            'orn_qty' => $arr['qtycyan'],
+                            'orn_price' => $arr['unitcyan']
+                        );
+                        echo "<br>ornCyan => " . $this->m_order_note->insert($order_note);
+                        $this->load->model('m_shipping_note');
+                        $shipping_note = array(
+                            'sn_company' => $arr['sh_company'],
+                            'sn_opt' => $arr['sh_opt'],
+                            'sn_declare' => $arr['sh_declare'],
+                            'sn_wide' => $arr['wide'],
+                            'cl_id' => $arr['client']
+                        );
+                        echo "<br>Shipping Note => " . $this->m_shipping_note->insert($shipping_note);                     
+                        break;                  
+                    }
+                    break;
     			case 'z11':
+                //add order
     				if ($this->input->post()) {
     					$arr = $this->input->post();
     					echo "<pre>";
@@ -273,10 +415,22 @@
     					$this->load->library('my_func');
                         $this->load->database();
                         $this->load->model('m_order');
+                        if ($arr['client'] == -1) {
+                            $cl = array(
+                                'cl_name' => $arr['name'],
+                                'cl_company' => $arr['company'],
+                                'cl_tel' => $arr['tel'],
+                                'cl_address' => $arr['address'],
+                                'cl_email' => $arr['email'],
+                                'cl_country' => $arr['country'],
+                            );
+                            $this->load->model('m_client');
+                            $arr['client'] = $this->m_client->insert($cl);
+                        }
     					$order = array(
     						"cl_id" => $arr['client'],
     						"us_id" => $this->my_func->scpro_decrypt($this->session->userdata('us_id')),
-    						"or_sendDate" => $arr['finishdate'],
+    						"or_sendDate" => $arr['sendDate'],
     						"or_date" => $arr['orderdate'],
                             "or_note" => $arr['note']
     					);
@@ -286,6 +440,7 @@
     					$order_ext = array(
     						'or_id' => $or_id,
     						'or_dateline' => $arr['dateline'],
+                            'or_finishdate' => $arr['finishdate'],
     						'cu_id' => $arr['currency'],
     						'or_wide' => $arr['wide'],
     						'or_shipcom' => $arr['sh_company'],
@@ -308,11 +463,11 @@
     						'orex_id' => $orex_id,
     						'ty2_id' => 1,
     						'orn_0mg' => $arr['red']['0'],
-    						'orn_0mg+' => $arr['red']['1'],
+    						'orn_0mgp' => $arr['red']['1'],
     						'orn_3mg' => $arr['red']['2'],
-    						'orn_3mg+' => $arr['red']['3'],
+    						'orn_3mgp' => $arr['red']['3'],
     						'orn_6mg' => $arr['red']['4'],
-    						'orn_6mg+' => $arr['red']['5'],
+    						'orn_6mgp' => $arr['red']['5'],
                             'orn_qty' => $arr['qtyred'],
                             'orn_price' => $arr['unitred']
         				);
@@ -322,11 +477,11 @@
                             'orex_id' => $orex_id,
                             'ty2_id' => 1,
                             'orn_0mg' => $arr['yellow']['0'],
-                            'orn_0mg+' => $arr['yellow']['1'],
+                            'orn_0mgp' => $arr['yellow']['1'],
                             'orn_3mg' => $arr['yellow']['2'],
-                            'orn_3mg+' => $arr['yellow']['3'],
+                            'orn_3mgp' => $arr['yellow']['3'],
                             'orn_6mg' => $arr['yellow']['4'],
-                            'orn_6mg+' => $arr['yellow']['5'],
+                            'orn_6mgp' => $arr['yellow']['5'],
                             'orn_qty' => $arr['qtyyellow'],
                             'orn_price' => $arr['unityellow']
                         );
@@ -336,11 +491,11 @@
                             'orex_id' => $orex_id,
                             'ty2_id' => 1,
                             'orn_0mg' => $arr['orange']['0'],
-                            'orn_0mg+' => $arr['orange']['1'],
+                            'orn_0mgp' => $arr['orange']['1'],
                             'orn_3mg' => $arr['orange']['2'],
-                            'orn_3mg+' => $arr['orange']['3'],
+                            'orn_3mgp' => $arr['orange']['3'],
                             'orn_6mg' => $arr['orange']['4'],
-                            'orn_6mg+' => $arr['orange']['5'],
+                            'orn_6mgp' => $arr['orange']['5'],
                             'orn_qty' => $arr['qtyorange'],
                             'orn_price' => $arr['unitorange']
                         );
@@ -350,11 +505,11 @@
                             'orex_id' => $orex_id,
                             'ty2_id' => 1,
                             'orn_0mg' => $arr['purple']['0'],
-                            'orn_0mg+' => $arr['purple']['1'],
+                            'orn_0mgp' => $arr['purple']['1'],
                             'orn_3mg' => $arr['purple']['2'],
-                            'orn_3mg+' => $arr['purple']['3'],
+                            'orn_3mgp' => $arr['purple']['3'],
                             'orn_6mg' => $arr['purple']['4'],
-                            'orn_6mg+' => $arr['purple']['5'],
+                            'orn_6mgp' => $arr['purple']['5'],
                             'orn_qty' => $arr['qtypurple'],
                             'orn_price' => $arr['unitpurple']
                         );
@@ -364,11 +519,11 @@
                             'orex_id' => $orex_id,
                             'ty2_id' => 1,
                             'orn_0mg' => $arr['pink']['0'],
-                            'orn_0mg+' => $arr['pink']['1'],
+                            'orn_0mgp' => $arr['pink']['1'],
                             'orn_3mg' => $arr['pink']['2'],
-                            'orn_3mg+' => $arr['pink']['3'],
+                            'orn_3mgp' => $arr['pink']['3'],
                             'orn_6mg' => $arr['pink']['4'],
-                            'orn_6mg+' => $arr['pink']['5'],
+                            'orn_6mgp' => $arr['pink']['5'],
                             'orn_qty' => $arr['qtypink'],
                             'orn_price' => $arr['unitpink']
                         );
@@ -378,11 +533,11 @@
                             'orex_id' => $orex_id,
                             'ty2_id' => 1,
                             'orn_0mg' => $arr['cyan']['0'],
-                            'orn_0mg+' => $arr['cyan']['1'],
+                            'orn_0mgp' => $arr['cyan']['1'],
                             'orn_3mg' => $arr['cyan']['2'],
-                            'orn_3mg+' => $arr['cyan']['3'],
+                            'orn_3mgp' => $arr['cyan']['3'],
                             'orn_6mg' => $arr['cyan']['4'],
-                            'orn_6mg+' => $arr['cyan']['5'],
+                            'orn_6mgp' => $arr['cyan']['5'],
                             'orn_qty' => $arr['qtycyan'],
                             'orn_price' => $arr['unitcyan']
                         );

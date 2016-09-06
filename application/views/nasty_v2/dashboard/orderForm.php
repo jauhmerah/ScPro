@@ -6,9 +6,6 @@
                                 <div class="caption">
                                     <img src="<?= base_url(); ?>/assets/cover/favicon2.png"> Order List                                     
                                 </div>
-                                <div class="tools">
-                                    <span class="pull-right" style="color:red;">#100000</span>
-                                </div>
                             </div>
                             <div class="portlet-body form">
                                 <!-- BEGIN FORM-->
@@ -353,7 +350,7 @@
 					                                            		Ship Date
 					                                            	</th>
 					                                            	<td>
-					                                            		<input type = "date" class="form-control input-circle">
+					                                            		<input type = "date" class="form-control input-circle" name="sendDate">
 					                                            	</td>
 						                                        </tr>
 						                                        <tr>

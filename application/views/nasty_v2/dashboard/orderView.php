@@ -71,7 +71,7 @@
 												</div>
                                         	</div>
                                         	<div class="col-md-4">
-                                        		<div class="row">		                                            
+                                        		<div class="row">                           
 	                                                <div class="form-group col-md-12">
 	                                                    <label class="control-label">Date Line : <strong> <?php if($arr['order']->or_dateline != '0000-00-00 00:00:00'){ echo date_format(date_create($arr['order']->or_dateline) , 'd-M-Y' );}else{echo '--Not Set--';} ?></strong></label>
 	                                                </div>
