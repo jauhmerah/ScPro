@@ -600,9 +600,9 @@
 				var1 = parseInt($('#'+ibu+'1').val());
 				var3 = parseInt($('#'+ibu+'3').val());
 				var5 = parseInt($('#'+ibu+'5').val());
-				var2 = Math.round(var1/bahagi);
-				var4 = Math.round(var3/bahagi);
-				var6 = Math.round(var5/bahagi);
+				var2 = Math.floor(var1/bahagi);
+				var4 = Math.floor(var3/bahagi);
+				var6 = Math.floor(var5/bahagi);
 				$('#'+ibu+'2').val(var2);
 				$('#'+ibu+'4').val(var4);
 				$('#'+ibu+'6').val(var6);

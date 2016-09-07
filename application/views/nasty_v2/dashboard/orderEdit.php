@@ -261,7 +261,7 @@
 						                                            ?>
 						                                            <td class="numeric"><input type="text" name="qtypink" id = 'qtypink' class="form-control input-sm" value="<?= $qty . ' + ' . $qty2; ?>" readonly></td>
 						                                            <td class="numeric"><input type="text" name="unitpink" id = 'unitpink' class="pi form-control input-sm" value="<?= $arr['item'][4]->orn_price; ?>"></td>
-						                                            <td class="numeric"><input type="text" name="total[]" id = 'totalpink' class="form-control input-sm" value="0" readonly></td>
+						                                            <td class="numeric"><input type="text" name="total[]" id = 'totalpink' class="form-control input-sm" value="<?= $price; ?>"" readonly></td>
 						                                        </tr>
 						                                        <tr>
 						                                            <td class="col-md-1">6</td>

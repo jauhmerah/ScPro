@@ -33,14 +33,14 @@
 	    	}else{
 	    		$T = null;
 	    	}
-	    	$this->load->view($this->parent_page.'/head', '', FALSE);
-	    	$this->load->view($this->parent_page.'/head2', $link, FALSE);
-	    	$this->load->view($this->parent_page.'/navmenu3', $link, FALSE);
-	    	$this->load->view($this->parent_page.'/theme4', '', FALSE);
-	    	$this->load->view($this->parent_page.'/title5', $T, FALSE);
+	    	$this->load->view($this->parent_page.'/page/head', '', FALSE);
+	    	$this->load->view($this->parent_page.'/page/head2', $link, FALSE);
+	    	$this->load->view($this->parent_page.'/page/navmenu3', $link, FALSE);
+	    	$this->load->view($this->parent_page.'/page/theme4', '', FALSE);
+	    	$this->load->view($this->parent_page.'/page/title5', $T, FALSE);
 	    	$this->load->view($this->parent_page.'/'.$page, $data, FALSE);
-	    	$this->load->view($this->parent_page.'/sidebar7', '', FALSE);
-	    	$this->load->view($this->parent_page.'/footer', '', FALSE);
+	    	$this->load->view($this->parent_page.'/page/sidebar7', '', FALSE);
+	    	$this->load->view($this->parent_page.'/page/footer', '', FALSE);
 	    }
 
 	    function orderPDF($data = null){
@@ -82,13 +82,17 @@
     		$this->_checkSession();
     		switch ($key) {
                 case 'a13':
-                    //delete
-                    if ($this->input->get('delete')) {
-                        $id = $this->input->get('delete');
-                        $id = $this->my_func->scpro_decrypt($id);
-                        echo $id;
-                        break;
-                    }     
+                    if($this->input->get('del')){
+                        $or_id = $this->my_func->scpro_decrypt($this->input->get('del'));
+                        echo $or_id;
+                        $arr = array(
+                            'or_del' => 1
+                        );
+                        $this->load->model('m_order');
+                        $this->m_order->update($arr , $or_id);
+                    }
+                    redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
+                    break;    
     			case 'a12':
                     //edit
                     if ($this->input->get('edit')) {
@@ -275,8 +279,7 @@
                         echo "<pre>";
                         print_r($arr);
                         echo "</pre>";
-                        $or_id = $this->my_func->scpro_decrypt($this->input->get('key'));
-                        
+                        $or_id = $this->my_func->scpro_decrypt($this->input->get('key'));                        
                         $this->load->library('my_func');
                         $this->load->database();
                         $this->load->model('m_order');                        
@@ -306,13 +309,12 @@
                         $orex_id = $this->m_order_ext->update($order_ext , array('or_id' => $or_id));
                         echo "<br>Update => ".$orex_id; 
                         $orex_id = $this->m_order_ext->getId(array('or_id' => $or_id));
-                        echo "<br>orex_id => ".$orex_id->orex_id;
-                        die();                         
+                        $orex_id = $orex_id->orex_id;
+                        echo "<br>orex_id => ".$orex_id;
+                                                 
                         $this->load->model('m_order_note');                        
-                        //red = 1
-                        $order_note = array(
-                            'orex_id' => $orex_id,
-                            'ty2_id' => 1,
+                        //red = 1-------------------------------------------
+                        $order_note = array(                            
                             'orn_0mg' => $arr['red']['0'],
                             'orn_0mgp' => $arr['red']['1'],
                             'orn_3mg' => $arr['red']['2'],
@@ -321,12 +323,11 @@
                             'orn_6mgp' => $arr['red']['5'],
                             'orn_qty' => $arr['qtyred'],
                             'orn_price' => $arr['unitred']
-                        );
-                        echo "<br>ornRed => " . $this->m_order_note->insert($order_note);  
-                        //yellow = 1
+                        );  
+                        $orn = $this->m_order_note->update($order_note , array('orex_id' => $orex_id,'ty2_id' => 1));
+                        echo "Red = ".$orn;
+                        //yellow = 2
                         $order_note = array(
-                            'orex_id' => $orex_id,
-                            'ty2_id' => 1,
                             'orn_0mg' => $arr['yellow']['0'],
                             'orn_0mgp' => $arr['yellow']['1'],
                             'orn_3mg' => $arr['yellow']['2'],
@@ -336,11 +337,10 @@
                             'orn_qty' => $arr['qtyyellow'],
                             'orn_price' => $arr['unityellow']
                         );
-                        echo "<br>ornYellow => " . $this->m_order_note->insert($order_note);
-                        //orange = 1
+                        $orn = $this->m_order_note->update($order_note , array('orex_id' => $orex_id,'ty2_id' => 2));
+                        echo "Yellow = ".$orn;
+                        //orange = 3
                         $order_note = array(
-                            'orex_id' => $orex_id,
-                            'ty2_id' => 1,
                             'orn_0mg' => $arr['orange']['0'],
                             'orn_0mgp' => $arr['orange']['1'],
                             'orn_3mg' => $arr['orange']['2'],
@@ -350,11 +350,10 @@
                             'orn_qty' => $arr['qtyorange'],
                             'orn_price' => $arr['unitorange']
                         );
-                        echo "<br>ornOrange => " . $this->m_order_note->insert($order_note);
-                        //purple = 1
+                        $orn = $this->m_order_note->update($order_note , array('orex_id' => $orex_id,'ty2_id' => 3));
+                        echo "Orange = ".$orn;
+                        //purple = 4
                         $order_note = array(
-                            'orex_id' => $orex_id,
-                            'ty2_id' => 1,
                             'orn_0mg' => $arr['purple']['0'],
                             'orn_0mgp' => $arr['purple']['1'],
                             'orn_3mg' => $arr['purple']['2'],
@@ -364,11 +363,10 @@
                             'orn_qty' => $arr['qtypurple'],
                             'orn_price' => $arr['unitpurple']
                         );
-                        echo "<br>ornPurple => " . $this->m_order_note->insert($order_note);
-                        //pink = 1
+                        $orn = $this->m_order_note->update($order_note , array('orex_id' => $orex_id,'ty2_id' => 4));
+                        echo "Purple = ".$orn;
+                        //pink = 5
                         $order_note = array(
-                            'orex_id' => $orex_id,
-                            'ty2_id' => 1,
                             'orn_0mg' => $arr['pink']['0'],
                             'orn_0mgp' => $arr['pink']['1'],
                             'orn_3mg' => $arr['pink']['2'],
@@ -378,11 +376,10 @@
                             'orn_qty' => $arr['qtypink'],
                             'orn_price' => $arr['unitpink']
                         );
-                        echo "<br>ornPink => " . $this->m_order_note->insert($order_note);
-                        //cyan = 1
+                        $orn = $this->m_order_note->update($order_note , array('orex_id' => $orex_id,'ty2_id' => 5));
+                        echo "Pink = ".$orn;
+                        //cyan = 6
                         $order_note = array(
-                            'orex_id' => $orex_id,
-                            'ty2_id' => 1,
                             'orn_0mg' => $arr['cyan']['0'],
                             'orn_0mgp' => $arr['cyan']['1'],
                             'orn_3mg' => $arr['cyan']['2'],
@@ -392,18 +389,21 @@
                             'orn_qty' => $arr['qtycyan'],
                             'orn_price' => $arr['unitcyan']
                         );
-                        echo "<br>ornCyan => " . $this->m_order_note->insert($order_note);
+                        $orn = $this->m_order_note->update($order_note , array('orex_id' => $orex_id,'ty2_id' => 6));
+                        echo "Cyan = ".$orn;
+                        $cl_id = $this->m_order->get2($or_id , 'cl_id');
+                        $cl_id = $cl_id->cl_id;
+                        echo "<br>".$cl_id;                        
                         $this->load->model('m_shipping_note');
                         $shipping_note = array(
                             'sn_company' => $arr['sh_company'],
                             'sn_opt' => $arr['sh_opt'],
                             'sn_declare' => $arr['sh_declare'],
-                            'sn_wide' => $arr['wide'],
-                            'cl_id' => $arr['client']
+                            'sn_wide' => $arr['wide']
                         );
-                        echo "<br>Shipping Note => " . $this->m_shipping_note->insert($shipping_note);                     
-                        break;                  
+                        echo "<br>Shipping Note => " . $this->m_shipping_note->update($shipping_note , array('cl_id' => $cl_id));                                             
                     }
+                    redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
                     break;
     			case 'z11':
                 //add order
@@ -472,10 +472,10 @@
                             'orn_price' => $arr['unitred']
         				);
                         echo "<br>ornRed => " . $this->m_order_note->insert($order_note);  
-                        //yellow = 1
+                        //yellow = 2
                         $order_note = array(
                             'orex_id' => $orex_id,
-                            'ty2_id' => 1,
+                            'ty2_id' => 2,
                             'orn_0mg' => $arr['yellow']['0'],
                             'orn_0mgp' => $arr['yellow']['1'],
                             'orn_3mg' => $arr['yellow']['2'],
@@ -486,10 +486,10 @@
                             'orn_price' => $arr['unityellow']
                         );
                         echo "<br>ornYellow => " . $this->m_order_note->insert($order_note);
-                        //orange = 1
+                        //orange = 3
                         $order_note = array(
                             'orex_id' => $orex_id,
-                            'ty2_id' => 1,
+                            'ty2_id' => 3,
                             'orn_0mg' => $arr['orange']['0'],
                             'orn_0mgp' => $arr['orange']['1'],
                             'orn_3mg' => $arr['orange']['2'],
@@ -500,10 +500,10 @@
                             'orn_price' => $arr['unitorange']
                         );
                         echo "<br>ornOrange => " . $this->m_order_note->insert($order_note);
-                        //purple = 1
+                        //purple = 4
                         $order_note = array(
                             'orex_id' => $orex_id,
-                            'ty2_id' => 1,
+                            'ty2_id' => 4,
                             'orn_0mg' => $arr['purple']['0'],
                             'orn_0mgp' => $arr['purple']['1'],
                             'orn_3mg' => $arr['purple']['2'],
@@ -514,10 +514,10 @@
                             'orn_price' => $arr['unitpurple']
                         );
                         echo "<br>ornPurple => " . $this->m_order_note->insert($order_note);
-                        //pink = 1
+                        //pink = 5
                         $order_note = array(
                             'orex_id' => $orex_id,
-                            'ty2_id' => 1,
+                            'ty2_id' => 5,
                             'orn_0mg' => $arr['pink']['0'],
                             'orn_0mgp' => $arr['pink']['1'],
                             'orn_3mg' => $arr['pink']['2'],
@@ -528,10 +528,10 @@
                             'orn_price' => $arr['unitpink']
                         );
                         echo "<br>ornPink => " . $this->m_order_note->insert($order_note);
-                        //cyan = 1
+                        //cyan = 6
                         $order_note = array(
                             'orex_id' => $orex_id,
-                            'ty2_id' => 1,
+                            'ty2_id' => 6,
                             'orn_0mg' => $arr['cyan']['0'],
                             'orn_0mgp' => $arr['cyan']['1'],
                             'orn_3mg' => $arr['cyan']['2'],

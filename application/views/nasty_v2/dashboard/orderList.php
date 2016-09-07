@@ -15,7 +15,7 @@
 	            <div class="row">
 	            	<div class="col-md-12">
 	            		<div class="col-md-2">
-	            			<a href=""><button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Add Order</button></a>
+	            			<a href="<?= site_url('nasty_v2/dashboard/page/z1'); ?>"><button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Add Order</button></a>
 	            		</div>
 	            		<div class="col-md-5">
 	            			<div class="form-group">
@@ -100,7 +100,7 @@
                                     ?>
 		                            	<a href="<?= site_url('nasty_v2/dashboard/page/a11?view=').$usid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></button></a>&nbsp;-&nbsp;                            	
 										<a href="<?= site_url('nasty_v2/dashboard/page/a12?edit=').$usid; ?>" name="c3" title="Edit Order"><button type="button" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i></button></a>&nbsp;-&nbsp;										
-										<a onclick = "return onDel();" href="<?= site_url('nasty_v2/dashboard/page/c13?delete=').$usid; ?>" name="c5" title="Delete Order"><button type="button" class="btn btn-danger btn-xs"><i class="fa fa-close"></i></button></a>
+										<a onclick = "return onDel();" href="<?= site_url('nasty_v2/dashboard/page/a13?del=').$usid; ?>" name="c5" title="Delete Order"><button type="button" class="btn btn-danger btn-xs"><i class="fa fa-close"></i></button></a>
 		                            </td>		                            
 		                        </tr>		
 		                    			<?php
