@@ -114,11 +114,10 @@
 	    	return $result;
 	    }
 
-	    public function getList_ext($where = null , $up = 0 )
+	    public function getList_ext($where = null , $up = 0 , $process = 0 , $del = -1)
 	    {
 	    	$this->db->select('*');
 	        $this->db->from(self::TABLE_NAME);
-
 	        if ($where !== NULL) {
 	            if (is_array($where)) {
 	                foreach ($where as $field=>$value) {
@@ -133,8 +132,28 @@
 	    	}	    	
 	       	$this->db->join('client', self::TABLE_NAME.'.cl_id = client.cl_id', 'left');
 	       	$this->db->join('order_ext' , self::TABLE_NAME.'.or_id = order_ext.or_id' , 'left');
+	       	switch ($process) {
+	    		case 1:
+	    			$this->db->where(self::TABLE_NAME.'.pr_id', 1);
+	    			break;
+	    		case 2:
+	    			$this->db->where(self::TABLE_NAME.'.pr_id', 2);
+	    			break;
+	    		case 3:
+	    			$this->db->where(self::TABLE_NAME.'.pr_id', 3);
+	    			break;
+	    	}
+	    	switch ($del) {
+	    	 	case 0:
+	    	 		$this->db->where(self::TABLE_NAME.'.or_del', 0);
+	    	 		break;
+	    	 	case 1:
+	    	 		$this->db->where(self::TABLE_NAME.'.or_del', 1);
+	    	 		break;
+	    	 } 
 	        $result = $this->db->get()->result();
 	        //return $result;
+	        $data = array();
 	        foreach ($result as $key) {
 				$this->db->select('*'); 
 				$this->db->from('order_note');

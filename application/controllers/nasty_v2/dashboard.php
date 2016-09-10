@@ -82,6 +82,7 @@
     		$this->_checkSession();
     		switch ($key) {
                 case 'a13':
+                    //delete
                     if($this->input->get('del')){
                         $or_id = $this->my_func->scpro_decrypt($this->input->get('del'));
                         echo $or_id;
@@ -91,6 +92,7 @@
                         $this->load->model('m_order');
                         $this->m_order->update($arr , $or_id);
                     }
+                    $this->session->set_flashdata('info', 'Order Deleted');
                     redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
                     break;    
     			case 'a12':
@@ -100,7 +102,7 @@
                         $id = $this->my_func->scpro_decrypt($id);
                         $this->load->model('m_order');
                         $arr['arr'] = array_shift($this->m_order->getList_ext($id));
-                        $data['title'] = '<i class="fa fa-eye"></i> Order Detail</a>';
+                        $data['title'] = '<i class="fa fa-pencil"></i>Edit Order Detail</a>';
                         $data['display'] = $this->load->view($this->parent_page.'/orderEdit' ,$arr , true);
                         $this->_show('display' , $data , $key);
                         break;
@@ -158,39 +160,32 @@
     				$data['display'] = $this->load->view($this->old_page.'/history' , $temp , true);
  					$this->_show('display' , $data , $key);
     				break;
-    			case 'a21':    				
-    				if ($this->input->get('key')) {
-    					$this->load->library('my_func');
-	    				$this->load->database();
-	    				$this->load->model('m_order');
-    					$key = $this->input->get('key');    				
-    					$or_id = $this->my_func->scpro_decrypt($key);
-    					$this->m_order->update(array('pr_id' => 2),$or_id);
-    					redirect(site_url('nasty_v2/dashboard/page/a2'), 'refresh');
-    				}    				
+                case 'a21':                 
+                    if ($this->input->get('move')) {
+                        $or_id = $this->my_func->scpro_decrypt($this->input->get('move'));
+                        $this->load->database();
+                        $this->load->model('m_order');
+                        $result = $this->m_order->update(array('pr_id' => 2) , $or_id);
+                        $orCode = "#".(100000+$or_id);
+                        if ($result == 0) {                            
+                            $this->session->set_flashdata('warning', 'Something wrong with your order <strong>'.$orCode.'</strong>, please contact your IT Team');
+                        } else {
+                            $this->session->set_flashdata('success', 'Successfully move this order <strong>'.$orCode.'</strong> to process queue');
+                        }
+                        redirect(site_url('nasty_v2/dashboard/page/a2?mode=2'),'refresh');                        
+                        break;
+                    }
     			case 'a2':  
-    				$this->load->library('my_func');
+    				//$this->load->library('my_func');
 	    			$this->load->database();
-	    			$this->load->model('m_order');   				
-    				$temp['arr'] = $this->m_order->getList(1);
-    				$temp['arr1'] = $this->m_order->getList(2);
+	    			$this->load->model('m_order');  
+                    $this->load->library('l_label');
+    				$temp['arr'] = $this->m_order->getList_ext(null , 1 , 1 , 0);
+    				$temp['arr1'] = $this->m_order->getList_ext(null , 1 , 2 , 0);
     				$data['title'] = '<i class="fa fa-fw fa-edit"></i>Order List</a>';
-    				$data['display'] = $this->load->view($this->old_page.'/productionOrder', $temp , TRUE);
+    				$data['display'] = $this->load->view($this->parent_page.'/productionOrder', $temp , TRUE);
     				$this->_show('display' , $data , $key);
-    				break;
-    			case 'a22':    				
-    				if ($this->input->get('done') && $this->input->get('key')) {
-    					$this->load->library('my_func');
-	    				$this->load->database();
-	    				$this->load->model('m_item');
-	    				$this->load->model('m_order');
-	    				$it_id = $this->my_func->scpro_decrypt($this->input->get('done'));
-	    				$or_id = $this->my_func->scpro_decrypt($this->input->get('key'));
-	    				$this->m_item->update(array('pr_id' => 3), $it_id);
-	    				$this->m_order->checkDone($or_id);
-	    				redirect(site_url('nasty_v2/dashboard/page/a2'), 'refresh');
-    				}
-    				break;
+    				break;    			
     			case 'b1':
     				//Item
     				$data['title'] = '<i class="fa fa-fw fa-link"></i> Item List';
@@ -276,9 +271,6 @@
                     //edit order
                     if ($this->input->post() && $this->input->get('key')) {
                         $arr = $this->input->post();
-                        echo "<pre>";
-                        print_r($arr);
-                        echo "</pre>";
                         $or_id = $this->my_func->scpro_decrypt($this->input->get('key'));                        
                         $this->load->library('my_func');
                         $this->load->database();
@@ -288,7 +280,7 @@
                             "or_note" => $arr['note']
                         );
                         $or = $this->m_order->update($order , $or_id);
-                        echo $or_id.'or_id =>'.$or;                           
+                        //echo $or_id.'or_id =>'.$or;                           
                         $order_ext = array(
                             'or_dateline' => $arr['dateline'],
                             'cu_id' => $arr['currency'],
@@ -307,10 +299,10 @@
                         );
                         $this->load->model('m_order_ext');                        
                         $orex_id = $this->m_order_ext->update($order_ext , array('or_id' => $or_id));
-                        echo "<br>Update => ".$orex_id; 
+                        //echo "<br>Update => ".$orex_id; 
                         $orex_id = $this->m_order_ext->getId(array('or_id' => $or_id));
                         $orex_id = $orex_id->orex_id;
-                        echo "<br>orex_id => ".$orex_id;
+                        //echo "<br>orex_id => ".$orex_id;
                                                  
                         $this->load->model('m_order_note');                        
                         //red = 1-------------------------------------------
@@ -325,7 +317,7 @@
                             'orn_price' => $arr['unitred']
                         );  
                         $orn = $this->m_order_note->update($order_note , array('orex_id' => $orex_id,'ty2_id' => 1));
-                        echo "Red = ".$orn;
+                        //echo "Red = ".$orn;
                         //yellow = 2
                         $order_note = array(
                             'orn_0mg' => $arr['yellow']['0'],
@@ -338,7 +330,7 @@
                             'orn_price' => $arr['unityellow']
                         );
                         $orn = $this->m_order_note->update($order_note , array('orex_id' => $orex_id,'ty2_id' => 2));
-                        echo "Yellow = ".$orn;
+                       //echo "Yellow = ".$orn;
                         //orange = 3
                         $order_note = array(
                             'orn_0mg' => $arr['orange']['0'],
@@ -351,7 +343,7 @@
                             'orn_price' => $arr['unitorange']
                         );
                         $orn = $this->m_order_note->update($order_note , array('orex_id' => $orex_id,'ty2_id' => 3));
-                        echo "Orange = ".$orn;
+                        //echo "Orange = ".$orn;
                         //purple = 4
                         $order_note = array(
                             'orn_0mg' => $arr['purple']['0'],
@@ -364,7 +356,7 @@
                             'orn_price' => $arr['unitpurple']
                         );
                         $orn = $this->m_order_note->update($order_note , array('orex_id' => $orex_id,'ty2_id' => 4));
-                        echo "Purple = ".$orn;
+                       //echo "Purple = ".$orn;
                         //pink = 5
                         $order_note = array(
                             'orn_0mg' => $arr['pink']['0'],
@@ -377,7 +369,7 @@
                             'orn_price' => $arr['unitpink']
                         );
                         $orn = $this->m_order_note->update($order_note , array('orex_id' => $orex_id,'ty2_id' => 5));
-                        echo "Pink = ".$orn;
+                        //echo "Pink = ".$orn;
                         //cyan = 6
                         $order_note = array(
                             'orn_0mg' => $arr['cyan']['0'],
@@ -390,10 +382,10 @@
                             'orn_price' => $arr['unitcyan']
                         );
                         $orn = $this->m_order_note->update($order_note , array('orex_id' => $orex_id,'ty2_id' => 6));
-                        echo "Cyan = ".$orn;
+                        //echo "Cyan = ".$orn;
                         $cl_id = $this->m_order->get2($or_id , 'cl_id');
                         $cl_id = $cl_id->cl_id;
-                        echo "<br>".$cl_id;                        
+                        //echo "<br>".$cl_id;                        
                         $this->load->model('m_shipping_note');
                         $shipping_note = array(
                             'sn_company' => $arr['sh_company'],
@@ -401,18 +393,19 @@
                             'sn_declare' => $arr['sh_declare'],
                             'sn_wide' => $arr['wide']
                         );
-                        echo "<br>Shipping Note => " . $this->m_shipping_note->update($shipping_note , array('cl_id' => $cl_id));                                             
+                        //echo "<br>Shipping Note => " . $this->m_shipping_note->update($shipping_note , array('cl_id' => $cl_id));                                             
                     }
+                    $this->session->set_flashdata('success', 'Edit Success');
                     redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
                     break;
     			case 'z11':
                 //add order
     				if ($this->input->post()) {
-    					$arr = $this->input->post();
-    					echo "<pre>";
-    					print_r($arr);
-    					echo "</pre>";
-    					$this->load->library('my_func');
+                        $arr = $this->input->post();
+                        echo "<pre>";
+                        print_r($arr);
+                        echo "</pre>";
+                        $this->load->library('my_func');
                         $this->load->database();
                         $this->load->model('m_order');
                         if ($arr['client'] == -1) {
@@ -427,50 +420,50 @@
                             $this->load->model('m_client');
                             $arr['client'] = $this->m_client->insert($cl);
                         }
-    					$order = array(
-    						"cl_id" => $arr['client'],
-    						"us_id" => $this->my_func->scpro_decrypt($this->session->userdata('us_id')),
-    						"or_sendDate" => $arr['sendDate'],
-    						"or_date" => $arr['orderdate'],
+                        $order = array(
+                            "cl_id" => $arr['client'],
+                            "us_id" => $this->my_func->scpro_decrypt($this->session->userdata('us_id')),
+                            "or_sendDate" => $arr['sendDate'],
+                            "or_date" => $arr['orderdate'],
                             "or_note" => $arr['note']
-    					);
-    					$or_id = $this->m_order->insert($order);
+                        );
+                        $or_id = $this->m_order->insert($order);
                         echo 'or_id =>'.$or_id;                                         
                                           
-    					$order_ext = array(
-    						'or_id' => $or_id,
-    						'or_dateline' => $arr['dateline'],
+                        $order_ext = array(
+                            'or_id' => $or_id,
+                            'or_dateline' => $arr['dateline'],
                             'or_finishdate' => $arr['finishdate'],
-    						'cu_id' => $arr['currency'],
-    						'or_wide' => $arr['wide'],
-    						'or_shipcom' => $arr['sh_company'],
-    						'or_shipopt' => $arr['sh_opt'],
-    						'dec_id' => $arr['sh_declare'],
-    						'or_declarePrice' => $arr['declarePrice'],
-    						'or_traking' => $arr['traking'],
-    						'or_invAtt' => $arr['invAtt'],
-    						'or_msds' => $arr['msds'],
-    						'or_coo' => $arr['coo'],
-    						'or_smallcb' => $arr['smallcb'],
-    						'or_bigcb' => $arr['bigcb']
-    					);
+                            'cu_id' => $arr['currency'],
+                            'or_wide' => $arr['wide'],
+                            'or_shipcom' => $arr['sh_company'],
+                            'or_shipopt' => $arr['sh_opt'],
+                            'dec_id' => $arr['sh_declare'],
+                            'or_declarePrice' => $arr['declarePrice'],
+                            'or_traking' => $arr['traking'],
+                            'or_invAtt' => $arr['invAtt'],
+                            'or_msds' => $arr['msds'],
+                            'or_coo' => $arr['coo'],
+                            'or_smallcb' => $arr['smallcb'],
+                            'or_bigcb' => $arr['bigcb']
+                        );
                         $this->load->model('m_order_ext');                        
-    					$orex_id = $this->m_order_ext->insert($order_ext);
+                        $orex_id = $this->m_order_ext->insert($order_ext);
                         echo "<br>orex_id => ".$orex_id;                         
                         $this->load->model('m_order_note');                        
-    					//red = 1
-    					$order_note = array(
-    						'orex_id' => $orex_id,
-    						'ty2_id' => 1,
-    						'orn_0mg' => $arr['red']['0'],
-    						'orn_0mgp' => $arr['red']['1'],
-    						'orn_3mg' => $arr['red']['2'],
-    						'orn_3mgp' => $arr['red']['3'],
-    						'orn_6mg' => $arr['red']['4'],
-    						'orn_6mgp' => $arr['red']['5'],
+                        //red = 1
+                        $order_note = array(
+                            'orex_id' => $orex_id,
+                            'ty2_id' => 1,
+                            'orn_0mg' => $arr['red']['0'],
+                            'orn_0mgp' => $arr['red']['1'],
+                            'orn_3mg' => $arr['red']['2'],
+                            'orn_3mgp' => $arr['red']['3'],
+                            'orn_6mg' => $arr['red']['4'],
+                            'orn_6mgp' => $arr['red']['5'],
                             'orn_qty' => $arr['qtyred'],
                             'orn_price' => $arr['unitred']
-        				);
+                        );
                         echo "<br>ornRed => " . $this->m_order_note->insert($order_note);  
                         //yellow = 2
                         $order_note = array(
@@ -541,7 +534,7 @@
                             'orn_qty' => $arr['qtycyan'],
                             'orn_price' => $arr['unitcyan']
                         );
-                        echo "<br>ornCyan => " . $this->m_order_note->insert($order_note);
+                        $this->m_order_note->insert($order_note);
                         $this->load->model('m_shipping_note');
                         $shipping_note = array(
                             'sn_company' => $arr['sh_company'],
@@ -550,7 +543,11 @@
                             'sn_wide' => $arr['wide'],
                             'cl_id' => $arr['client']
                         );
-                        echo "<br>Shipping Note => " . $this->m_shipping_note->insert($shipping_note);                     
+                        $this->m_shipping_note->insert($shipping_note); 
+
+                        die();                    
+                        $this->session->set_flashdata('success', 'New Order successfully added');
+                        redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
     					break;    				
                     }   
     			case 'z1':
