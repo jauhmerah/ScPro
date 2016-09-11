@@ -4,7 +4,7 @@
 	}
 </script>
 <div class="row">
-	<div class="col-md-12">
+	<div class="col-md-12">	
 		<div class="portlet box green">
             <div class="portlet-title">
                 <div class="caption">
@@ -54,6 +54,7 @@
 		                            <th>Order Code</th>
 		                            <th>Order Date</th>
 		                            <th>Sales Person</th>
+		                            <th>Status</th>
 		                            <th>Action</th>
 		                        </tr>
 		                    </thead>
@@ -94,6 +95,29 @@
                                     $view = ( $user->us_username == null) ? "--Not Set--" :  $user->us_username ;
                                     echo $view;
                                     ?></td>
+                                    <td> <?php                                    	
+                                    	switch ($user->pr_id) {
+                                    		case 1:
+                                    			?>
+                                    			<span class="label label-info"><?= $user->pr_desc; ?></span>
+                                    			<?php
+                                    			break;
+                                    		case 2:
+                                    			?>
+                                    			<span class="label label-warning"><?= $user->pr_desc; ?></span>
+                                    			<?php
+                                    			break;
+                                    		case 3:
+                                    			?>
+                                    			<span class="label label-success"><?= $user->pr_desc; ?></span>
+                                    			<?php
+                                    			break;
+                                    		default: ?>
+                                    			<span class="label label-danger">Status Error</span>
+                                    			<?php break;
+                                    	}
+                                    	?>
+                                    </td>
 		                            <td>
                                     <?php 
                                         $usid = $this->my_func->scpro_encrypt($user->or_id);

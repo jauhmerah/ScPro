@@ -1,5 +1,14 @@
+<?php 
+	if ($arr['order']->pr_id == 3) {
+		$mode = "readonly";
+	} else {
+		$mode = "";
+	}
+	
+?>
 <div class="row">
 	<div class="col-md-12">
+	<pre><?php print_r($arr); ?></pre>
            <div class="tab-pane active" id="tab_1">
                         <div class="portlet box green">
                             <div class="portlet-title">
@@ -87,7 +96,7 @@
 	                                                    		$date = '';
 	                                                    	}
 	                                                    ?>
-	                                                    <input type="date" id="dateline" name="dateline" value="<?= $date; ?>" class="form-control input-circle">
+	                                                    <input type="date" id="dateline" <?= $mode ?> name="dateline" value="<?= $date; ?>" class="form-control input-circle">
 	                                                </div>
 		                                            <!--/span-->
 	                                            </div>
@@ -113,14 +122,14 @@
 	                                                    		$date = '';
 	                                                    	}
 	                                                    ?>
-	                                                    <input type="date" id="finishdate" name="finishdate" value = "<?= $date; ?>" class="form-control input-circle">
+	                                                    <input type="date" id="finishdate" name="finishdate" <?= $mode ?> value = "<?= $date; ?>" class="form-control input-circle">
 	                                                </div>		                                            
 		                                            <!--/span-->
 		                                        </div>
 		                                        <div class="row">	
 	                                                <div class="form-group col-md-12">
 	                                                    <label class="control-label">Currency :</label>
-	                                                    <select class="form-control input-circle" name="currency">
+	                                                    <select <?php if($arr['order']->pr_id == 3){echo "disabled";} ?> class="form-control input-circle" name="currency">
 	                                                        <option value="1" <?php if($arr['order']->cu_id == 1){echo "selected";} ?>>MYR</option>
 	                                                        <option value="2" <?php if($arr['order']->cu_id == 2){echo "selected";} ?>>USD</option>
 	                                                        <option value="3" <?php if($arr['order']->cu_id == 3){echo "selected";} ?>>EURO</option>
@@ -163,12 +172,12 @@
 						                                            <td class="col-md-1">1</td>
 						                                            <td class="col-md-4">Blackurrant | <strong>Bad Blood</strong> | Red</td>
 						                                            <div class="col-md-4">
-						                                            <td class="numeric"><input type="text" name="red[]" id = 'red1' class="re form-control input-sm" value="<?= $arr['item'][0]->orn_0mg; ?>"></td>
-						                                            <td class="numeric warning"><input type="text" name="red[]" id = 'red2' class="re form-control input-sm" value="<?= $arr['item'][0]->orn_0mgp; ?>"></td>
-						                                            <td class="numeric"><input type="text" name="red[]" id = 'red3' class="re form-control input-sm" value="<?= $arr['item'][0]->orn_3mg; ?>"></td>
-						                                            <td class="numeric warning"><input type="text" name="red[]" id = 'red4' class="re form-control input-sm" value="<?= $arr['item'][0]->orn_3mgp; ?>"></td>
-						                                            <td class="numeric"><input type="text" name="red[]" id = 'red5' class="re form-control input-sm " value="<?= $arr['item'][0]->orn_6mg; ?>"></td>
-						                                            <td class="numeric warning"><input type="text" name="red[]" id = 'red6' class="re form-control input-sm " value="<?= $arr['item'][0]->orn_6mgp; ?>"></td>
+						                                            <td class="numeric"><input <?= $mode ?> type="text" name="red[]" id = 'red1' class="re form-control input-sm" value="<?= $arr['item'][0]->orn_0mg; ?>"></td>
+						                                            <td class="numeric warning"><input <?= $mode ?> type="text" name="red[]" id = 'red2' class="re form-control input-sm" value="<?= $arr['item'][0]->orn_0mgp; ?>"></td>
+						                                            <td class="numeric"><input <?= $mode ?> type="text" name="red[]" id = 'red3' class="re form-control input-sm" value="<?= $arr['item'][0]->orn_3mg; ?>"></td>
+						                                            <td class="numeric warning"><input <?= $mode ?> type="text" name="red[]" id = 'red4' class="re form-control input-sm" value="<?= $arr['item'][0]->orn_3mgp; ?>"></td>
+						                                            <td class="numeric"><input <?= $mode ?> type="text" name="red[]" id = 'red5' class="re form-control input-sm " value="<?= $arr['item'][0]->orn_6mg; ?>"></td>
+						                                            <td class="numeric warning"><input <?= $mode ?> type="text" name="red[]" id = 'red6' class="re form-control input-sm " value="<?= $arr['item'][0]->orn_6mgp; ?>"></td>
 						                                            </div>
 						                                            <?php  
 						                                            	$qty = $arr['item'][0]->orn_0mg + $arr['item'][0]->orn_3mg +  $arr['item'][0]->orn_6mg;
@@ -178,7 +187,7 @@
 						                                            ?>
 						                                            <div class="col-md-3">
 						                                            <td class="numeric"><input type="text" name="qtyred" id = 'qtyred' class="form-control input-sm" value="<?= $qty . ' + ' . $qty2; ?>" readonly></td>
-						                                            <td class="numeric"><input type="text" name="unitred" id = 'unitred' class="re form-control input-sm" value="<?= $arr['item'][0]->orn_price; ?>"></td>
+						                                            <td class="numeric"><input <?= $mode ?> type="text" name="unitred" id = 'unitred' class="re form-control input-sm" value="<?= $arr['item'][0]->orn_price; ?>"></td>
 						                                            <td class="numeric"><input type="text" name="total[]" id = 'totalred' class="form-control input-sm" readonly value="<?= $price; ?>"></td>
 						                                            </div>
 						                                        </tr>
@@ -186,12 +195,12 @@
 						                                            <td class="col-md-1">2</td>
 						                                            <td class="col-md-4">Manggo | <strong>Fat Boy</strong> | Yellow</td>
 						                                            <div class="col-md-4">
-						                                            <td class="numeric"><input type="text" name="yellow[]" id = 'yellow1' class="ye form-control input-sm" value="<?= $arr['item'][1]->orn_0mg; ?>"></td>
-						                                            <td class="numeric warning"><input type="text" name="yellow[]" id = 'yellow2' class="ye form-control input-sm" value="<?= $arr['item'][1]->orn_0mgp; ?>"></td>
-						                                            <td class="numeric"><input type="text" name="yellow[]" id = 'yellow3' class="ye form-control input-sm" value="<?= $arr['item'][1]->orn_3mg; ?>"></td>
-						                                            <td class="numeric warning"><input type="text" name="yellow[]" id = 'yellow4' class="ye form-control input-sm" value="<?= $arr['item'][1]->orn_3mgp; ?>"></td>
-						                                            <td class="numeric"><input type="text" name="yellow[]" id = 'yellow5' class="ye form-control input-sm" value="<?= $arr['item'][1]->orn_6mg; ?>"></td>
-						                                            <td class="numeric warning"><input type="text" name="yellow[]" id = 'yellow6' class="ye form-control input-sm" value="<?= $arr['item'][1]->orn_6mgp; ?>"></td>
+						                                            <td class="numeric"><input <?= $mode ?> type="text" name="yellow[]" id = 'yellow1' class="ye form-control input-sm" value="<?= $arr['item'][1]->orn_0mg; ?>"></td>
+						                                            <td class="numeric warning"><input <?= $mode ?> type="text" name="yellow[]" id = 'yellow2' class="ye form-control input-sm" value="<?= $arr['item'][1]->orn_0mgp; ?>"></td>
+						                                            <td class="numeric"><input <?= $mode ?> type="text" name="yellow[]" id = 'yellow3' class="ye form-control input-sm" value="<?= $arr['item'][1]->orn_3mg; ?>"></td>
+						                                            <td class="numeric warning"><input <?= $mode ?> type="text" name="yellow[]" id = 'yellow4' class="ye form-control input-sm" value="<?= $arr['item'][1]->orn_3mgp; ?>"></td>
+						                                            <td class="numeric"><input <?= $mode ?> type="text" name="yellow[]" id = 'yellow5' class="ye form-control input-sm" value="<?= $arr['item'][1]->orn_6mg; ?>"></td>
+						                                            <td class="numeric warning"><input <?= $mode ?> type="text" name="yellow[]" id = 'yellow6' class="ye form-control input-sm" value="<?= $arr['item'][1]->orn_6mgp; ?>"></td>
 						                                            </div>
 						                                            <?php  
 						                                            	$qty = $arr['item'][1]->orn_0mg + $arr['item'][1]->orn_3mg +  $arr['item'][1]->orn_6mg;
@@ -201,19 +210,19 @@
 						                                            ?>
 						                                            <div class="col-md-3">
 						                                            <td class="numeric"><input type="text" name="qtyyellow" id = 'qtyyellow' class="form-control input-sm" value="<?= $qty . ' + ' . $qty2; ?>" readonly></td>
-						                                            <td class="numeric"><input type="text" name="unityellow" id = 'unityellow' class="ye form-control input-sm" value="<?= $arr['item'][1]->orn_price; ?>"></td>
+						                                            <td class="numeric"><input <?= $mode ?> type="text" name="unityellow" id = 'unityellow' class="ye form-control input-sm" value="<?= $arr['item'][1]->orn_price; ?>"></td>
 						                                            <td class="numeric"><input type="text" name="total[]" id = 'totalyellow' class="form-control input-sm" value="<?= $price; ?>" readonly></td>
 						                                            </div>
 						                                        </tr>
 						                                        <tr>
 						                                            <td class="col-md-1">3</td>
 						                                            <td class="col-md-4">Honey Dew | <strong>Devil Teeth</strong> | Orange</td>
-						                                            <td class="numeric"><input type="text" name="orange[]" id = 'orange1' class="or form-control input-sm" value="<?= $arr['item'][2]->orn_0mg; ?>"></td>
-						                                            <td class="numeric warning"><input type="text" name="orange[]" id = 'orange2' class="or form-control input-sm" value="<?= $arr['item'][2]->orn_0mgp; ?>"></td>
-						                                            <td class="numeric"><input type="text" name="orange[]" id = 'orange3' class="or form-control input-sm" value="<?= $arr['item'][2]->orn_3mg; ?>"></td>
-						                                            <td class="numeric warning"><input type="text" name="orange[]" id = 'orange4' class="or form-control input-sm" value="<?= $arr['item'][2]->orn_3mgp; ?>"></td>
-						                                            <td class="numeric"><input type="text" name="orange[]" id = 'orange5' class="or form-control input-sm" value="<?= $arr['item'][2]->orn_6mg; ?>"></td>
-						                                            <td class="numeric warning"><input type="text" name="orange[]" id = 'orange6' class="or form-control input-sm" value="<?= $arr['item'][2]->orn_6mgp; ?>"></td>
+						                                            <td class="numeric"><input <?= $mode ?> type="text" name="orange[]" id = 'orange1' class="or form-control input-sm" value="<?= $arr['item'][2]->orn_0mg; ?>"></td>
+						                                            <td class="numeric warning"><input <?= $mode ?> type="text" name="orange[]" id = 'orange2' class="or form-control input-sm" value="<?= $arr['item'][2]->orn_0mgp; ?>"></td>
+						                                            <td class="numeric"><input <?= $mode ?> type="text" name="orange[]" id = 'orange3' class="or form-control input-sm" value="<?= $arr['item'][2]->orn_3mg; ?>"></td>
+						                                            <td class="numeric warning"><input <?= $mode ?> type="text" name="orange[]" id = 'orange4' class="or form-control input-sm" value="<?= $arr['item'][2]->orn_3mgp; ?>"></td>
+						                                            <td class="numeric"><input <?= $mode ?> type="text" name="orange[]" id = 'orange5' class="or form-control input-sm" value="<?= $arr['item'][2]->orn_6mg; ?>"></td>
+						                                            <td class="numeric warning"><input <?= $mode ?> type="text" name="orange[]" id = 'orange6' class="or form-control input-sm" value="<?= $arr['item'][2]->orn_6mgp; ?>"></td>
 						                                            <?php  
 						                                            	$qty = $arr['item'][2]->orn_0mg + $arr['item'][2]->orn_3mg +  $arr['item'][2]->orn_6mg;
 						                                            	$qty2 = $arr['item'][2]->orn_0mgp + $arr['item'][2]->orn_3mgp +  $arr['item'][2]->orn_6mgp;
@@ -221,18 +230,18 @@
 						                                            	$totPrice = $totPrice + $price;					                                            	
 						                                            ?>
 						                                            <td class="numeric"><input type="text" name="qtyorange" id = 'qtyorange' class="form-control input-sm" value="<?= $qty . ' + ' . $qty2; ?>" readonly></td>
-						                                            <td class="numeric"><input type="text" name="unitorange" id = 'unitorange' class="or form-control input-sm" value="<?= $arr['item'][2]->orn_price; ?>"></td>
+						                                            <td class="numeric"><input <?= $mode ?> type="text" name="unitorange" id = 'unitorange' class="or form-control input-sm" value="<?= $arr['item'][2]->orn_price; ?>"></td>
 						                                            <td class="numeric"><input type="text" name="total[]" id = 'totalorange' class="form-control input-sm" value="<?= $price; ?>" readonly></td>
 						                                        </tr>
 						                                        <tr>
 						                                            <td class="col-md-1">4</td>
 						                                            <td class="col-md-4">Grape | <strong>Asap Grape</strong> | Purple</td>
-						                                            <td class="numeric"><input type="text" name="purple[]" id = 'purple1' class="pu form-control input-sm" value="<?= $arr['item'][3]->orn_0mg; ?>"></td>
-						                                            <td class="numeric warning"><input type="text" name="purple[]" id = 'purple2' class="pu form-control input-sm" value="<?= $arr['item'][3]->orn_0mgp; ?>"></td>
-						                                            <td class="numeric"><input type="text" name="purple[]" id = 'purple3' class="pu form-control input-sm" value="<?= $arr['item'][3]->orn_3mg; ?>"></td>
-						                                            <td class="numeric warning"><input type="text" name="purple[]" id = 'purple4' class="pu form-control input-sm" value="<?= $arr['item'][3]->orn_3mgp; ?>"></td>
-						                                            <td class="numeric"><input type="text" name="purple[]" id = 'purple5' class="pu form-control input-sm" value="<?= $arr['item'][3]->orn_6mg; ?>"></td>
-						                                            <td class="numeric warning"><input type="text" name="purple[]" id = 'purple6' class="pu form-control input-sm" value="<?= $arr['item'][3]->orn_6mgp; ?>"></td>
+						                                            <td class="numeric"><input <?= $mode ?> type="text" name="purple[]" id = 'purple1' class="pu form-control input-sm" value="<?= $arr['item'][3]->orn_0mg; ?>"></td>
+						                                            <td class="numeric warning"><input <?= $mode ?> type="text" name="purple[]" id = 'purple2' class="pu form-control input-sm" value="<?= $arr['item'][3]->orn_0mgp; ?>"></td>
+						                                            <td class="numeric"><input <?= $mode ?> type="text" name="purple[]" id = 'purple3' class="pu form-control input-sm" value="<?= $arr['item'][3]->orn_3mg; ?>"></td>
+						                                            <td class="numeric warning"><input <?= $mode ?> type="text" name="purple[]" id = 'purple4' class="pu form-control input-sm" value="<?= $arr['item'][3]->orn_3mgp; ?>"></td>
+						                                            <td class="numeric"><input <?= $mode ?> type="text" name="purple[]" id = 'purple5' class="pu form-control input-sm" value="<?= $arr['item'][3]->orn_6mg; ?>"></td>
+						                                            <td class="numeric warning"><input <?= $mode ?> type="text" name="purple[]" id = 'purple6' class="pu form-control input-sm" value="<?= $arr['item'][3]->orn_6mgp; ?>"></td>
 						                                            <?php  
 						                                            	$qty = $arr['item'][3]->orn_0mg + $arr['item'][3]->orn_3mg +  $arr['item'][3]->orn_6mg;
 						                                            	$qty2 = $arr['item'][3]->orn_0mgp + $arr['item'][3]->orn_3mgp +  $arr['item'][3]->orn_6mgp;
@@ -240,18 +249,18 @@
 						                                            	$totPrice = $totPrice + $price;					                                            	
 						                                            ?>
 						                                            <td class="numeric"><input type="text" name="qtypurple" id = 'qtypurple' class="form-control input-sm" value="<?= $qty . ' + ' . $qty2; ?>" readonly></td>
-						                                            <td class="numeric"><input type="text" name="unitpurple" id = 'unitpurple' class="pu form-control input-sm" value="<?= $arr['item'][3]->orn_price; ?>"></td>
+						                                            <td class="numeric"><input <?= $mode ?> type="text" name="unitpurple" id = 'unitpurple' class="pu form-control input-sm" value="<?= $arr['item'][3]->orn_price; ?>"></td>
 						                                            <td class="numeric"><input type="text" name="total[]" id = 'totalpurple' class="form-control input-sm" value="<?= $price; ?>" readonly></td>
 						                                        </tr>
 						                                        <tr>
 						                                            <td class="col-md-1">5</td>
 						                                            <td class="col-md-4">Blackurrant + L | <strong>Wicked Haze</strong> | Pink</td>
-						                                            <td class="numeric"><input type="text" name="pink[]" id = 'pink1' class="pi form-control input-sm" value="<?= $arr['item'][4]->orn_0mg; ?>"></td>
-						                                            <td class="numeric warning"><input type="text" name="pink[]" id = 'pink2' class="pi form-control input-sm" value="<?= $arr['item'][4]->orn_0mgp; ?>"></td>
-						                                            <td class="numeric"><input type="text" name="pink[]" id = 'pink3' class="pi form-control input-sm" value="<?= $arr['item'][4]->orn_3mg; ?>"></td>
-						                                            <td class="numeric warning"><input type="text" name="pink[]" id = 'pink4' class="pi form-control input-sm" value="<?= $arr['item'][4]->orn_3mgp; ?>"></td>
-						                                            <td class="numeric"><input type="text" name="pink[]" id = 'pink5' class="pi form-control input-sm" value="<?= $arr['item'][4]->orn_6mg; ?>"></td>
-						                                            <td class="numeric warning"><input type="text" name="pink[]" id = 'pink6' class="pi form-control input-sm" value="<?= $arr['item'][4]->orn_6mgp; ?>"></td>
+						                                            <td class="numeric"><input <?= $mode ?> type="text" name="pink[]" id = 'pink1' class="pi form-control input-sm" value="<?= $arr['item'][4]->orn_0mg; ?>"></td>
+						                                            <td class="numeric warning"><input <?= $mode ?> type="text" name="pink[]" id = 'pink2' class="pi form-control input-sm" value="<?= $arr['item'][4]->orn_0mgp; ?>"></td>
+						                                            <td class="numeric"><input <?= $mode ?> type="text" name="pink[]" id = 'pink3' class="pi form-control input-sm" value="<?= $arr['item'][4]->orn_3mg; ?>"></td>
+						                                            <td class="numeric warning"><input <?= $mode ?> type="text" name="pink[]" id = 'pink4' class="pi form-control input-sm" value="<?= $arr['item'][4]->orn_3mgp; ?>"></td>
+						                                            <td class="numeric"><input <?= $mode ?> type="text" name="pink[]" id = 'pink5' class="pi form-control input-sm" value="<?= $arr['item'][4]->orn_6mg; ?>"></td>
+						                                            <td class="numeric warning"><input <?= $mode ?> type="text" name="pink[]" id = 'pink6' class="pi form-control input-sm" value="<?= $arr['item'][4]->orn_6mgp; ?>"></td>
 						                                            <?php  
 						                                            	$qty = $arr['item'][4]->orn_0mg + $arr['item'][4]->orn_3mg +  $arr['item'][4]->orn_6mg;
 						                                            	$qty2 = $arr['item'][4]->orn_0mgp + $arr['item'][4]->orn_3mgp +  $arr['item'][4]->orn_6mgp;
@@ -259,18 +268,18 @@
 						                                            	$totPrice = $totPrice + $price;					                                            	
 						                                            ?>
 						                                            <td class="numeric"><input type="text" name="qtypink" id = 'qtypink' class="form-control input-sm" value="<?= $qty . ' + ' . $qty2; ?>" readonly></td>
-						                                            <td class="numeric"><input type="text" name="unitpink" id = 'unitpink' class="pi form-control input-sm" value="<?= $arr['item'][4]->orn_price; ?>"></td>
+						                                            <td class="numeric"><input <?= $mode ?> type="text" name="unitpink" id = 'unitpink' class="pi form-control input-sm" value="<?= $arr['item'][4]->orn_price; ?>"></td>
 						                                            <td class="numeric"><input type="text" name="total[]" id = 'totalpink' class="form-control input-sm" value="<?= $price; ?>"" readonly></td>
 						                                        </tr>
 						                                        <tr>
 						                                            <td class="col-md-1">6</td>
 						                                            <td class="col-md-4">Pineapple | <strong>Slow Blow</strong> | Cyan</td>
-						                                            <td class="numeric"><input type="text" name="cyan[]" id = 'cyan1' class="cy form-control input-sm" value="<?= $arr['item'][5]->orn_0mg; ?>"></td>
-						                                            <td class="numeric warning"><input type="text" name="cyan[]" id = 'cyan2' class="cy form-control input-sm" value="<?= $arr['item'][5]->orn_0mgp; ?>"></td>
-						                                            <td class="numeric"><input type="text" name="cyan[]" id = 'cyan3' class="cy form-control input-sm" value="<?= $arr['item'][5]->orn_3mg; ?>"></td>
-						                                            <td class="numeric warning"><input type="text" name="cyan[]" id = 'cyan4' class="cy form-control input-sm" value="<?= $arr['item'][5]->orn_3mgp; ?>"></td>
-						                                            <td class="numeric"><input type="text" name="cyan[]" id = 'cyan5' class="cy form-control input-sm" value="<?= $arr['item'][5]->orn_6mg; ?>"></td>
-						                                            <td class="numeric warning"><input type="text" name="cyan[]" id = 'cyan6' class="cy form-control input-sm" value="<?= $arr['item'][5]->orn_6mgp; ?>"></td>
+						                                            <td class="numeric"><input <?= $mode ?> type="text" name="cyan[]" id = 'cyan1' class="cy form-control input-sm" value="<?= $arr['item'][5]->orn_0mg; ?>"></td>
+						                                            <td class="numeric warning"><input <?= $mode ?> type="text" name="cyan[]" id = 'cyan2' class="cy form-control input-sm" value="<?= $arr['item'][5]->orn_0mgp; ?>"></td>
+						                                            <td class="numeric"><input <?= $mode ?> type="text" name="cyan[]" id = 'cyan3' class="cy form-control input-sm" value="<?= $arr['item'][5]->orn_3mg; ?>"></td>
+						                                            <td class="numeric warning"><input <?= $mode ?> type="text" name="cyan[]" id = 'cyan4' class="cy form-control input-sm" value="<?= $arr['item'][5]->orn_3mgp; ?>"></td>
+						                                            <td class="numeric"><input <?= $mode ?> type="text" name="cyan[]" id = 'cyan5' class="cy form-control input-sm" value="<?= $arr['item'][5]->orn_6mg; ?>"></td>
+						                                            <td class="numeric warning"><input <?= $mode ?> type="text" name="cyan[]" id = 'cyan6' class="cy form-control input-sm" value="<?= $arr['item'][5]->orn_6mgp; ?>"></td>
 						                                            <?php  
 						                                            	$qty = $arr['item'][5]->orn_0mg + $arr['item'][5]->orn_3mg +  $arr['item'][5]->orn_6mg;
 						                                            	$qty2 = $arr['item'][5]->orn_0mgp + $arr['item'][5]->orn_3mgp +  $arr['item'][5]->orn_6mgp;
@@ -278,11 +287,11 @@
 						                                            	$totPrice = $totPrice + $price;					                                            	
 						                                            ?>
 						                                            <td class="numeric"><input type="text" name="qtycyan" id = 'qtycyan' class="form-control input-sm" value="<?= $qty . ' + ' . $qty2; ?>" readonly></td>
-						                                            <td class="numeric"><input type="text" name="unitcyan" id = 'unitcyan' class="cy form-control input-sm" value="<?= $arr['item'][5]->orn_price; ?>"></td>
+						                                            <td class="numeric"><input <?= $mode ?> type="text" name="unitcyan" id = 'unitcyan' class="cy form-control input-sm" value="<?= $arr['item'][5]->orn_price; ?>"></td>
 						                                            <td class="numeric"><input type="text" name="total[]" id = 'totalcyan' class="form-control input-sm" value="<?= $price; ?>" readonly></td>
 						                                        </tr>
 						                                        <tr>
-						                                        	<td colspan="8"><div class="radio">
+						                                        	<td colspan="8"><?php if($arr['order']->pr_id != 3){ ?><div class="radio">
 						                                        	<div class="mt-radio-inline">
 									                                    <span class="input-group-btn">
 									                                    	<button type="button" id="20" class="plus btn btn-default">20+1</button>
@@ -290,7 +299,7 @@
 									                                    	<button type="button" id="0" class="plus btn btn-default">No Tester</button>
 									                                    </span>
 									                                </div>
-						                                        	</div></td>
+						                                        	</div><?php } ?> </td>
 						                                        	<td><span class="label" id="qtyAll"></span></td>
 						                                        	<td colspan="2" align = "center"><label id="totalAll"><?= $totPrice; ?></label></td>
 						                                        </tr>					                                        

@@ -175,7 +175,7 @@
 
 	    public function listOr($limit = null , $start = null , $del = 0)
 	    {
-	    	$this->db->select('ord.or_id , us1.us_username , cl.cl_name , ord.or_date');
+	    	$this->db->select('ord.or_id , us1.us_username , cl.cl_name , ord.or_date ,ord.pr_id, pr.pr_desc');
 	    	$this->db->from('order ord');
 	    	if($del != 3){	    		
 	    		$this->db->where('ord.or_del', $del);

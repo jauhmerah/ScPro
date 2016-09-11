@@ -160,6 +160,20 @@
     				$data['display'] = $this->load->view($this->old_page.'/history' , $temp , true);
  					$this->_show('display' , $data , $key);
     				break;
+                case 'a22':
+                    if ($this->input->get('done')) {
+                        $or_id = $this->my_func->scpro_decrypt($this->input->get('done'));
+                        $this->load->database();
+                        $this->load->model('m_order');
+                        $row = $this->m_order->update(array('pr_id' => 3) , $or_id);
+                        if ($row == 0) {
+                            $this->session->set_flashdata('warning', 'Ops!! Unable to update the order status...');
+                        } else {
+                            $this->session->set_flashdata('success', 'The order are completed. Please print the D.O. form before shipping.');
+                        }
+                        redirect(site_url('nasty_v2/dashboard/page/a2?mode=2'),'refresh');
+                    }
+                    break;
                 case 'a21':                 
                     if ($this->input->get('move')) {
                         $or_id = $this->my_func->scpro_decrypt($this->input->get('move'));
@@ -172,11 +186,14 @@
                         } else {
                             $this->session->set_flashdata('success', 'Successfully move this order <strong>'.$orCode.'</strong> to process queue');
                         }
-                        redirect(site_url('nasty_v2/dashboard/page/a2?mode=2'),'refresh');                        
+                        redirect(site_url('nasty_v2/dashboard/page/a2?mode=1'),'refresh');                        
                         break;
                     }
     			case 'a2':  
     				//$this->load->library('my_func');
+                    if ($this->input->get('mode')) {
+                        $temp['mode'] = $this->input->get('mode');                 
+                    }                    
 	    			$this->load->database();
 	    			$this->load->model('m_order');  
                     $this->load->library('l_label');
@@ -282,8 +299,7 @@
                         $or = $this->m_order->update($order , $or_id);
                         //echo $or_id.'or_id =>'.$or;                           
                         $order_ext = array(
-                            'or_dateline' => $arr['dateline'],
-                            'cu_id' => $arr['currency'],
+                            'or_dateline' => $arr['dateline'],                          
                             'or_wide' => $arr['wide'],
                             'or_finishdate' => $arr['finishdate'],
                             'or_shipcom' => $arr['sh_company'],
@@ -297,6 +313,9 @@
                             'or_smallcb' => $arr['smallcb'],
                             'or_bigcb' => $arr['bigcb']
                         );
+                        if (isset($arr['currency'])) {
+                            $order_ext['cu_id'] = $arr['currency'];
+                        }                        
                         $this->load->model('m_order_ext');                        
                         $orex_id = $this->m_order_ext->update($order_ext , array('or_id' => $or_id));
                         //echo "<br>Update => ".$orex_id; 
@@ -980,6 +999,21 @@
 				return false;
 			}
 		}
+        public function getAjaxProItem()
+        {
+            $this->load->library("my_func");
+            $arr = $this->input->post('key');
+            $arr = $this->my_func->scpro_decrypt($arr);
+            $arr = explode('|', $arr);
+            $arr2 = array(
+                    $arr[1] => 3
+                );
+            $this->load->database();
+            $this->load->model('m_order_note');
+            $rowChange = $this->m_order_note->update($arr2 , $arr[0]);
+            $rowChange = ($rowChange == 0) ? false : true ;
+            echo $rowChange;
+        }
 	}
 	        
 ?>
