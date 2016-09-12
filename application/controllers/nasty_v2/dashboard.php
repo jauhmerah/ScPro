@@ -76,6 +76,17 @@
             //}
         }
 
+        public function testEmail()
+        {
+            $email['fromEmail'] = 'jauhmerah@nastyjuice.com';
+            $email['fromName'] = 'Jauhmerah';
+            $email['toEmail'] = 'jauhmerah@gmail.com';
+            $email['subject'] = 'test Email system';
+            $email['msg'] = 'Test jadi';
+            $this->sendEmail($email);
+            $this->page('a1');
+        }
+
 	    public function page($key)
     	{
     		//$arr = $this->input->get();
@@ -170,7 +181,31 @@
                             $this->session->set_flashdata('warning', 'Ops!! Unable to update the order status...');
                         } else {
                             $this->session->set_flashdata('success', 'The order are completed. Please print the D.O. form before shipping.');
+                            $email['fromName'] = "Ai System";
+                            $email['fromEmail'] = "nstylabc@sirius.sfdns.net";
+                            $email['toEmail'] = "bellazul@nastyjuice.com";
+                            $email['subject'] = "Order #".(100000+$or_id)." Completed";
+                            $email['msg'] = "
+Order Detail
+
+Order No : #".(100000+$or_id)."
+Order Status : Order Complete
+
+Print D.O.Form Link : ".site_url('order/doForm?id='.$this->my_func->scpro_encrypt($or_id))."
+
+Print Order Page : ".site_url()."
+System Login : ".site_url('login')."
+
+Sincerely,
+Ai System
+
+Programmer
+JauhMerah
+jauhmerah@nastyjuice.com
+                        ";
+                        $this->sendEmail($email);
                         }
+                        
                         redirect(site_url('nasty_v2/dashboard/page/a2?mode=2'),'refresh');
                     }
                     break;
@@ -421,9 +456,6 @@
                 //add order
     				if ($this->input->post()) {
                         $arr = $this->input->post();
-                        echo "<pre>";
-                        print_r($arr);
-                        echo "</pre>";
                         $this->load->library('my_func');
                         $this->load->database();
                         $this->load->model('m_order');
@@ -447,8 +479,6 @@
                             "or_note" => $arr['note']
                         );
                         $or_id = $this->m_order->insert($order);
-                        echo 'or_id =>'.$or_id;                                         
-                                          
                         $order_ext = array(
                             'or_id' => $or_id,
                             'or_dateline' => $arr['dateline'],
@@ -467,8 +497,7 @@
                             'or_bigcb' => $arr['bigcb']
                         );
                         $this->load->model('m_order_ext');                        
-                        $orex_id = $this->m_order_ext->insert($order_ext);
-                        echo "<br>orex_id => ".$orex_id;                         
+                        $orex_id = $this->m_order_ext->insert($order_ext);                        
                         $this->load->model('m_order_note');                        
                         //red = 1
                         $order_note = array(
@@ -483,7 +512,7 @@
                             'orn_qty' => $arr['qtyred'],
                             'orn_price' => $arr['unitred']
                         );
-                        echo "<br>ornRed => " . $this->m_order_note->insert($order_note);  
+                        $this->m_order_note->insert($order_note);  
                         //yellow = 2
                         $order_note = array(
                             'orex_id' => $orex_id,
@@ -497,7 +526,7 @@
                             'orn_qty' => $arr['qtyyellow'],
                             'orn_price' => $arr['unityellow']
                         );
-                        echo "<br>ornYellow => " . $this->m_order_note->insert($order_note);
+                        $this->m_order_note->insert($order_note);
                         //orange = 3
                         $order_note = array(
                             'orex_id' => $orex_id,
@@ -511,7 +540,7 @@
                             'orn_qty' => $arr['qtyorange'],
                             'orn_price' => $arr['unitorange']
                         );
-                        echo "<br>ornOrange => " . $this->m_order_note->insert($order_note);
+                        $this->m_order_note->insert($order_note);
                         //purple = 4
                         $order_note = array(
                             'orex_id' => $orex_id,
@@ -525,7 +554,7 @@
                             'orn_qty' => $arr['qtypurple'],
                             'orn_price' => $arr['unitpurple']
                         );
-                        echo "<br>ornPurple => " . $this->m_order_note->insert($order_note);
+                        $this->m_order_note->insert($order_note);
                         //pink = 5
                         $order_note = array(
                             'orex_id' => $orex_id,
@@ -539,7 +568,7 @@
                             'orn_qty' => $arr['qtypink'],
                             'orn_price' => $arr['unitpink']
                         );
-                        echo "<br>ornPink => " . $this->m_order_note->insert($order_note);
+                        $this->m_order_note->insert($order_note);
                         //cyan = 6
                         $order_note = array(
                             'orex_id' => $orex_id,
@@ -562,9 +591,36 @@
                             'sn_wide' => $arr['wide'],
                             'cl_id' => $arr['client']
                         );
-                        $this->m_shipping_note->insert($shipping_note); 
+                        $this->m_shipping_note->insert($shipping_note);
+                        $this->load->model('m_user');
+                        $saleman = $this->m_user->getName($this->my_func->scpro_decrypt($this->session->userdata('us_id')));
+                        $email['fromName'] = "Ai System";
+                        $email['fromEmail'] = "nstylabc@sirius.sfdns.net";
+                        $email['toEmail'] = "production@nastyjuice.com";
+                        $email['subject'] = "New Order #".(100000+$or_id);
+                        $email['msg'] = "
+Order Detail
 
-                        die();                    
+Order No : #".(100000+$or_id)."
+Order Status : New Order
+Salesman : ".$saleman."
+Order Date : ".$arr['orderdate']."
+Due Date : ".$arr['dateline']."
+
+(#Note : Once this link clicked, the Ai system will automaticaly change the order status into \"Processing Mode\".)
+Print Order Link : ".site_url('order/printO?id='.$this->my_func->scpro_encrypt($or_id))."
+
+Print Order Page : ".site_url()."
+System Login : ".site_url('login')."
+
+Sincerely,
+Ai System
+
+Programmer
+JauhMerah
+jauhmerah@nastyjuice.com
+                        ";
+                        $this->sendEmail($email);
                         $this->session->set_flashdata('success', 'New Order successfully added');
                         redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
     					break;    				
@@ -1013,6 +1069,62 @@
             $rowChange = $this->m_order_note->update($arr2 , $arr[0]);
             $rowChange = ($rowChange == 0) ? false : true ;
             echo $rowChange;
+        }
+
+        public function sendEmail($email = null){
+            /*
+                fromEmail
+                fromName
+                toEmail
+                toCc
+                toBcc
+                subject
+                msg
+            */
+            if ($email != null && is_array($email)) {
+                $this->load->library('email');
+
+                $this->email->from($email['fromEmail'], $email['fromName']);
+                if(isset($email['toEmail'])){
+                    if (is_array($email['toEmail'])) {
+                        foreach ($email['toEmail'] as $key) {
+                            $this->email->to($key);
+                        }
+                    }else{
+                        $this->email->to($email['toEmail']);
+                    }
+                }else{
+                    $this->session->set_flashdata('error', 'Please set to->email');
+                    return false;
+                }
+                if (isset($email['toCc'])) {
+                    if (is_array($email['toCc'])) {
+                        foreach ($email['toCc'] as $key) {
+                            $this->email->cc($key);
+                        }
+                    }else{
+                        $this->email->cc($email['toCc']); 
+                    }
+                }                  
+                if (isset($email['toBcc'])) {
+                    if (is_array($email['toBcc'])) {
+                        foreach ($email['toBcc'] as $key) {
+                            $this->email->bcc($key);
+                        }
+                    }else{
+                        $this->email->bcc($email['toBcc']); 
+                    }
+                }
+                $this->email->subject($email['subject']);
+                $this->email->message($email['msg']);  
+
+                $this->email->send();
+
+                $msg = $this->email->print_debugger();
+                $this->session->set_flashdata('info', $msg);
+                return true;
+            }
+            return false;         
         }
 	}
 	        

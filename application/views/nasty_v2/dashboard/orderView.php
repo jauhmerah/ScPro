@@ -11,6 +11,7 @@
                                 </div>
                             </div>
                             <div class="portlet-body form">
+                            <pre><?php print_r($arr); ?></pre>
                                 <!-- BEGIN FORM-->
                                 <form method = "post" class="horizontal-form">
                                     <div class="form-body">  
@@ -101,6 +102,8 @@
 	                                                	case 3:
 	                                                		$cu = "EURO";
 	                                                		break;
+	                                                	default :
+	                                                		$cu = "Currency Error!!!";
 	                                                } ?>
 	                                                    <label class="control-label">Currency : <strong> <?= $cu; ?></strong></label>
 	                                                </div>		                                            

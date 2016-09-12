@@ -44,6 +44,15 @@
 	            return false;
 	        }
 	    }
+	    public function getName($id = null)
+	    {
+	    	$this->db->select('us_username');
+	    	$this->db->from('user');
+	    	$this->db->where('us_id', $id);
+	    	$result = $this->db->get()->result();
+	    	$result = array_shift($result);
+	    	return $result->us_username;
+	    }
 
 	    public function getLvl(){
 	    	$this->db->select("*");

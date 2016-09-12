@@ -109,7 +109,7 @@
 		                                        <div class="row">	
 	                                                <div class="form-group col-md-12">
 	                                                    <label class="control-label">Finish Date :</label>
-	                                                    <input type="date" id="finishdate" name="finishdate" class="form-control input-circle">
+	                                                    <input type="date" readonly id="finishdate" name="finishdate" class="form-control input-circle">
 	                                                </div>		                                            
 		                                            <!--/span-->
 		                                        </div>
