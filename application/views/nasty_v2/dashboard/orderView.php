@@ -11,7 +11,6 @@
                                 </div>
                             </div>
                             <div class="portlet-body form">
-                            <pre><?php print_r($arr); ?></pre>
                                 <!-- BEGIN FORM-->
                                 <form method = "post" class="horizontal-form">
                                     <div class="form-body">  

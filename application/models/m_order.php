@@ -129,7 +129,8 @@
 	        }
 	        if ($up != 1) {
 	    		$this->db->order_by(self::TABLE_NAME.'.or_id', 'desc');
-	    	}	    	
+	    	}
+	    	$this->db->join('process pr', self::TABLE_NAME.'.pr_id = pr.pr_id', 'left');	    	
 	       	$this->db->join('client', self::TABLE_NAME.'.cl_id = client.cl_id', 'left');
 	       	$this->db->join('order_ext' , self::TABLE_NAME.'.or_id = order_ext.or_id' , 'left');
 	       	switch ($process) {

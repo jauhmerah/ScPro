@@ -91,12 +91,15 @@
     	{
     		//$arr = $this->input->get();
     		$this->_checkSession();
+            $lvl =$this->my_func->scpro_decrypt($this->session->userdata('us_lvl'));
     		switch ($key) {
                 case 'a13':
                     //delete
+                    if ($lvl == 2 || $lvl == 3) {
+                        redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
+                    }
                     if($this->input->get('del')){
-                        $or_id = $this->my_func->scpro_decrypt($this->input->get('del'));
-                        echo $or_id;
+                        $or_id = $this->my_func->scpro_decrypt($this->input->get('del'));                        
                         $arr = array(
                             'or_del' => 1
                         );
@@ -108,6 +111,9 @@
                     break;    
     			case 'a12':
                     //edit
+                    if ($lvl == 2 || $lvl == 3) {
+                        redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
+                    }
                     if ($this->input->get('edit')) {
                         $id = $this->input->get('edit');
                         $id = $this->my_func->scpro_decrypt($id);
@@ -120,11 +126,13 @@
                     }                    
                 case 'a11':
                     //view
+                    if ($lvl == 2 || $lvl == 3) {
+                        redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
+                    }
                     if($this->input->get('view')){
                         $id = $this->input->get('view');
                         //$this->load->library('my_func');
                         $id = $this->my_func->scpro_decrypt($id);
-                        echo $id;
                         $this->load->database();
                         $this->load->model('m_order');
                         $arr['arr'] = array_shift($this->m_order->getList_ext($id)); 
@@ -134,9 +142,9 @@
                         break;
                     }                     				 			
     			case 'a1':
-    				if (!$this->_checkLvl()) {
-    					redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
-    				}
+    				if ($lvl == 2 || $lvl == 3) {
+                        redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
+                    }
     				$this->load->library('my_func');
     				$this->load->database();
     				$this->load->model('m_order');
@@ -145,7 +153,7 @@
     				$data['display'] = $this->load->view($this->parent_page.'/orderList' ,$arr , true);
     				$this->_show('display' , $data , $key);
     				break;
-    			case 'a12':
+    			case 'a12old':
     				if (!$this->_checkLvl()) {
     					redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
     				}
@@ -176,6 +184,9 @@
                         $or_id = $this->my_func->scpro_decrypt($this->input->get('done'));
                         $this->load->database();
                         $this->load->model('m_order');
+                        $this->load->model('m_order_ext');                        
+                        $finish = date("Y-m-d",time());
+                        $this->m_order_ext->update(array("or_finishdate" => $finish), array('or_id' => $or_id));
                         $row = $this->m_order->update(array('pr_id' => 3) , $or_id);
                         if ($row == 0) {
                             $this->session->set_flashdata('warning', 'Ops!! Unable to update the order status...');
@@ -191,9 +202,10 @@ Order Detail
 Order No : #".(100000+$or_id)."
 Order Status : Order Complete
 
-Print D.O.Form Link : ".site_url('order/doForm?id='.$this->my_func->scpro_encrypt($or_id))."
+Print D.O.Form Link : ".site_url('order/printDO?id='.$this->my_func->scpro_encrypt($or_id))."
+Print Order Detail : ".site_url('order/printO?id='.$this->my_func->scpro_encrypt($or_id))."
 
-Print Order Page : ".site_url()."
+Search Order Page : ".site_url()."
 System Login : ".site_url('login')."
 
 Sincerely,
@@ -226,6 +238,9 @@ jauhmerah@nastyjuice.com
                     }
     			case 'a2':  
     				//$this->load->library('my_func');
+                    if ($lvl == 4) {
+                        redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
+                    }
                     if ($this->input->get('mode')) {
                         $temp['mode'] = $this->input->get('mode');                 
                     }                    
@@ -283,6 +298,9 @@ jauhmerah@nastyjuice.com
 		    		$this->_show('display' , $data , $key); 
     				break;
     			case 'a4':
+                    if ($lvl == 2 || $lvl == 3) {
+                        redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
+                    }
     				$data['title'] = '<i class="fa fa-fw fa-link"></i> Client Detail';
     				$this->_loadCrud();
 		    		$crud = new grocery_CRUD();
@@ -321,6 +339,9 @@ jauhmerah@nastyjuice.com
     				break;
                 case 'z12':
                     //edit order
+                    if ($lvl == 2 || $lvl == 3) {
+                        redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
+                    }
                     if ($this->input->post() && $this->input->get('key')) {
                         $arr = $this->input->post();
                         $or_id = $this->my_func->scpro_decrypt($this->input->get('key'));                        
@@ -454,6 +475,9 @@ jauhmerah@nastyjuice.com
                     break;
     			case 'z11':
                 //add order
+                    if ($lvl == 2 || $lvl == 3) {
+                        redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
+                    }
     				if ($this->input->post()) {
                         $arr = $this->input->post();
                         $this->load->library('my_func');
@@ -608,9 +632,9 @@ Order Date : ".$arr['orderdate']."
 Due Date : ".$arr['dateline']."
 
 (#Note : Once this link clicked, the Ai system will automaticaly change the order status into \"Processing Mode\".)
-Print Order Link : ".site_url('order/printO?id='.$this->my_func->scpro_encrypt($or_id))."
+Print Order Link : ".site_url('order/printOrder?id='.$this->my_func->scpro_encrypt($or_id))."
 
-Print Order Page : ".site_url()."
+Search Order Page : ".site_url()."
 System Login : ".site_url('login')."
 
 Sincerely,
@@ -626,6 +650,9 @@ jauhmerah@nastyjuice.com
     					break;    				
                     }   
     			case 'z1':
+                    if ($lvl == 2 || $lvl == 3) {
+                        redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
+                    }
     				$data['title'] = '<i class="fa fa-file-text"></i> Order Form';
     				$this->load->database();
     				$this->load->model('m_client');
@@ -670,6 +697,9 @@ jauhmerah@nastyjuice.com
     					break;
     				}    				
     			case 'c1':
+                    if ($lvl != 1) {
+                        redirect(site_url('order'),'refresh');
+                    }
     				$data['title'] = '<i class="fa fa-file-text"></i> User Setting';
     				$this->load->database();
     				$this->load->model("m_user");
@@ -1045,15 +1075,16 @@ jauhmerah@nastyjuice.com
 				
 			}			
 		}
-		function _checkLvl()
+		function _checkLvl($page = null)
 		{			
-			$this->load->library('my_func');
+			//$this->load->library('my_func');
 			$lvl =$this->my_func->scpro_decrypt($this->session->userdata('us_lvl'));
-			if ($lvl == 1) {
-				return true;
-			}else{
-				return false;
-			}
+            if ($lvl == 1) {
+                return true;
+            }else{
+                return false;
+            }
+			
 		}
         public function getAjaxProItem()
         {
@@ -1118,10 +1149,13 @@ jauhmerah@nastyjuice.com
                 $this->email->subject($email['subject']);
                 $this->email->message($email['msg']);  
 
-                $this->email->send();
-
-                $msg = $this->email->print_debugger();
-                $this->session->set_flashdata('info', $msg);
+                if($this->email->send()){
+                    $this->session->set_flashdata('info', "Successfully Send the Notification");
+                }else{
+                    $this->session->set_flashdata('Warning', "Unable To send The email");
+                }
+                //$msg = $this->email->print_debugger();
+                
                 return true;
             }
             return false;         

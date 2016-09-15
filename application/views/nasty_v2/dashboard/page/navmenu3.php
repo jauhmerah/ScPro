@@ -21,7 +21,8 @@
                     <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
                     <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
                     <ul class="page-sidebar-menu  page-header-fixed page-sidebar-menu-hover-submenu page-sidebar-menu-closed " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
-                        <?php if($admin){?>
+                    <?php $us_lvl = $this->my_func->scpro_decrypt($this->session->userdata('us_lvl')); ?>
+                        <?php if($us_lvl != 2 && $us_lvl != 3 ){?>
                         <li class="nav-item <?php if (strpos($link, 'a1') !== false) { echo "active open";}else{echo "start";}?>  ">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <i class="fa fa-cog fa-spin"></i>
@@ -46,23 +47,26 @@
                                     <a href="<?= site_url('nasty_v2/dashboard/page/a13') ?>" class="nav-link ">
                                         <i class="fa fa-list"></i>
                                         <span class="title">History</span>
-                                        <span class="badge badge-danger">5</span>- k->
+                                        <span class="badge badge-danger">5</span>
                                     </a>
                                 </li>-->
                             </ul>
-                        </li> <?php } ?>                      
+                        </li> <?php } ?>
+                        <?php if($us_lvl != 4){?>                     
                         <li class="nav-item <?php if (strpos($link, 'a2') !== false) { echo "active open";}else{echo "start";}?>   ">
                             <a href="<?= site_url('nasty_v2/dashboard/page/a2') ?>" class="nav-link ">
                                 <i class="fa fa-outdent"></i>
                                 <span class="title">Order List</span>
                             </a>
-                        </li>
+                        </li><?php } ?>
+                        <?php if($us_lvl != 2){?>
                         <li class="nav-item start ">
                             <a href="<?= site_url('nasty_v2/dashboard/page/a4') ?>" class="nav-link ">
                                 <i class="fa fa-group"></i>
                                 <span class="title">Client List</span>
                             </a>
-                        </li>
+                        </li><?php } ?>
+                        <?php if($us_lvl == 1){?>
                         <li class="nav-item <?php if (strpos($link, 'c') !== false) { echo "active open";}else{echo "start";}?>  ">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                <i class="fa fa-wrench"></i>
@@ -75,33 +79,10 @@
                                         <i class="fa fa-users"></i>
                                         <span class="title">User</span>
                                     </a>
-                                </li>
-                                <li class="">
-                                    <a href="<?= site_url('nasty_v2/dashboard/page/b2') ?>" class="nav-link ">
-                                        <i class="fa fa-money"></i>
-                                        <span class="title">Currency</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item start">
-                                    <a href="<?= site_url('nasty_v2/dashboard/page/b1') ?>" class="nav-link ">
-                                        <i class="fa fa-ship"></i>
-                                        <span class="title">Shipping Company</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item start">
-                                    <a href="<?= site_url('nasty_v2/dashboard/page/b1') ?>" class="nav-link ">
-                                        <i class="fa fa-th-list"></i>
-                                        <span class="title">Shipping Optional</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item start">
-                                    <a href="<?= site_url('nasty_v2/dashboard/page/b1') ?>" class="nav-link ">
-                                        <i class="fa fa-th-list"></i>
-                                        <span class="title">Shipping Optional</span>
-                                    </a>
-                                </li>
+                                </li>                                                             
                             </ul>
-                        </li>                      
+                        </li> 
+                        <?php } ?>                    
                                                
                         <!--<li class="nav-item  active open">
                             <a href="javascript:;" class="nav-link nav-toggle">

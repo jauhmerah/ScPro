@@ -19,7 +19,7 @@
 	            		</div>
 	            		<div class="col-md-5">
 	            			<div class="form-group">
-	            				<label for="input" class="col-sm-2 control-label">Search :</label>
+	            				<label for="input" class="col-sm-2 control-label">Search</label>
 	            				<div class="col-sm-10">
 	            					<input type="search" name="" id="search" placeholder="Search" class="form-control input-circle" value="" title="" disabled>
 	            				</div>
@@ -35,6 +35,7 @@
 	            						<option value="1">Order Code</option>
 	            						<option value="2">Order Date</option>
 	            						<option value="3">Sales Person</option>
+	            						<option value="4">Order Status</option>
 	            					</select>
 	            				</div>
 	            			</div>
@@ -123,7 +124,12 @@
                                         $usid = $this->my_func->scpro_encrypt($user->or_id);
                                     ?>
 		                            	<a href="<?= site_url('nasty_v2/dashboard/page/a11?view=').$usid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></button></a>&nbsp;-&nbsp;                            	
-										<a href="<?= site_url('nasty_v2/dashboard/page/a12?edit=').$usid; ?>" name="c3" title="Edit Order"><button type="button" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i></button></a>&nbsp;-&nbsp;										
+										<a href="<?= site_url('nasty_v2/dashboard/page/a12?edit=').$usid; ?>" name="c3" title="Edit Order"><button type="button" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i></button></a>
+										<?php if($user->pr_id == 3){ ?>
+                                    			&nbsp;- &nbsp;<button title = "Print Order" onclick = "window.open('<?= site_url('order/printO?id='.$this->my_func->scpro_encrypt($user->or_id)); ?>');" type="button" class="btn btn-default btn-info btn-xs"><i class="fa fa-print"></i></button>&nbsp;-&nbsp;
+                                    			<button type="button" title = "D.O Form" onclick = "window.open('<?= site_url('order/printDO?id='.$this->my_func->scpro_encrypt($user->or_id)); ?>');" class="btn btn-success btn-xs"><i class="fa fa-file-text"></i></button>
+                                    		<?php } ?>
+										&nbsp;-&nbsp;										
 										<a onclick = "return onDel();" href="<?= site_url('nasty_v2/dashboard/page/a13?del=').$usid; ?>" name="c5" title="Delete Order"><button type="button" class="btn btn-danger btn-xs"><i class="fa fa-close"></i></button></a>
 		                            </td>		                            
 		                        </tr>		

@@ -209,7 +209,7 @@
 								<td><?= $date; ?></td>
 								<td>
 								<?php $usid = $this->my_func->scpro_encrypt($key['order']->or_id); ?>
-									<a href="<?= site_url('nasty_v2/dashboard/page/a22?done=').$usid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-success"><i class="fa fa-check"></i> Done All</button></a>&nbsp;- &nbsp;<a><button type="button" class="btn btn-info"><i class="fa fa-print"></i></button></a>
+									<a href="<?= site_url('nasty_v2/dashboard/page/a22?done=').$usid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-success"><i class="fa fa-check"></i> Done All</button></a>&nbsp;- &nbsp;<button type="button" onclick = "window.open('<?= site_url('order/printO?id='.$this->my_func->scpro_encrypt($key['order']->or_id)); ?>');" class="btn btn-info"><i class="fa fa-print"></i></button>
 								</td>
 							</tr>
 							<tr class="L<?= $n; ?>" style="display : none;">

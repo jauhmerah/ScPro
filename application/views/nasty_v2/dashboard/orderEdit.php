@@ -8,7 +8,6 @@
 ?>
 <div class="row">
 	<div class="col-md-12">
-	<pre><?php print_r($arr); ?></pre>
            <div class="tab-pane active" id="tab_1">
                         <div class="portlet box green">
                             <div class="portlet-title">
