@@ -64,7 +64,7 @@
 		                    	if (sizeof($arr) == 0) {
 		                    		?>
 	                    		<tr>
-	                    			<td colspan = "6">
+	                    			<td colspan = "7">
 	                    				<div align = "center">No Data</div>
 	                    			</td>
 	                    		</tr>

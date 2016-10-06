@@ -485,8 +485,8 @@
 			red6 = parseInt($('#red6').val());
 			qty = red2 + red4 + red6;
 			qty2 = red1 + red3 + red5;
-			price = parseInt($('#unitred').val()) * qty2;
-			$('#totalred').val(price);
+			price = parseFloat($('#unitred').val()).toFixed(2) * parseFloat(qty2).toFixed(2);
+			$('#totalred').val(price.toFixed(2));
 			$('#qtyred').val(qty2 + " + " +qty);
 			totalP();
 		}
@@ -505,8 +505,8 @@
 			yellow6 = parseInt($('#yellow6').val());
 			qty = yellow2 + yellow4 + yellow6;
 			qty2 = yellow1 + yellow3 + yellow5;
-			price = parseInt($('#unityellow').val()) * qty2;
-			$('#totalyellow').val(price);
+			price = parseFloat($('#unityellow').val()).toFixed(2) * parseFloat(qty2).toFixed(2);
+			$('#totalyellow').val(price.toFixed(2));
 			$('#qtyyellow').val(qty2 + " + " +qty);
 			totalP();
 		}
@@ -525,8 +525,8 @@
 			orange6 = parseInt($('#orange6').val());
 			qty = orange2 + orange4 + orange6;
 			qty2 = orange1 + orange3 + orange5;
-			price = parseInt($('#unitorange').val()) * qty2;
-			$('#totalorange').val(price);
+			price = parseFloat($('#unitorange').val()).toFixed(2) * parseFloat(qty2).toFixed(2);
+			$('#totalorange').val(price.toFixed(2));
 			$('#qtyorange').val(qty2 + " + " +qty);
 			totalP();
 		}
@@ -545,8 +545,8 @@
 			purple6 = parseInt($('#purple6').val());
 			qty = purple2 + purple4 + purple6;
 			qty2 = purple1 + purple3 + purple5;
-			price = parseInt($('#unitpurple').val()) * qty2;
-			$('#totalpurple').val(price);
+			price = parseFloat($('#unitpurple').val()).toFixed(2) * parseFloat(qty2).toFixed(2);
+			$('#totalpurple').val(price.toFixed(2));
 			$('#qtypurple').val(qty2 + " + " +qty);
 			totalP();
 		}
@@ -565,8 +565,8 @@
 			pink6 = parseInt($('#pink6').val());
 			qty = pink2 + pink4 + pink6;
 			qty2 = pink1 + pink3 + pink5;
-			price = parseInt($('#unitpink').val()) * qty2;
-			$('#totalpink').val(price);
+			price = parseFloat($('#unitpink').val()).toFixed(2) * parseFloat(qty2).toFixed(2);
+			$('#totalpink').val(price.toFixed(2));
 			$('#qtypink').val(qty2 + " + " +qty);
 			totalP();
 		}
@@ -585,8 +585,8 @@
 			cyan6 = parseInt($('#cyan6').val());
 			qty = cyan2 + cyan4 + cyan6;
 			qty2 = cyan1 + cyan3 + cyan5;
-			price = parseInt($('#unitcyan').val()) * qty2;
-			$('#totalcyan').val(price);
+			price = parseFloat($('#unitcyan').val()).toFixed(2) * parseFloat(qty2).toFixed(2);
+			$('#totalcyan').val(price.toFixed(2));
 			$('#qtycyan').val(qty2 + " + " +qty);
 			totalP();
 		}
@@ -628,15 +628,15 @@
 		});
 
 		function totalP() {
-			red = parseInt($('#totalred').val());
-			yellow = parseInt($('#totalyellow').val());
-			orange = parseInt($('#totalorange').val());
-			purple = parseInt($('#totalpurple').val());
-			pink = parseInt($('#totalpink').val());
-			cyan = parseInt($('#totalcyan').val());
+			red = parseFloat($('#totalred').val()).toFixed(2);
+			yellow = parseFloat($('#totalyellow').val()).toFixed(2);
+			orange = parseFloat($('#totalorange').val()).toFixed(2);
+			purple = parseFloat($('#totalpurple').val()).toFixed(2);
+			pink = parseFloat($('#totalpink').val()).toFixed(2);
+			cyan = parseFloat($('#totalcyan').val()).toFixed(2);
 
-			total = red + yellow + purple + orange + pink + cyan;
-			$("#totalAll").html(total);
+			total = parseFloat(red + yellow + purple + orange + pink + cyan);
+			$("#totalAll").html(total.toFixed(2));
 		}
 	});
 </script>

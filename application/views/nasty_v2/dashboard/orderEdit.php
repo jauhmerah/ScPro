@@ -501,7 +501,7 @@
                                     <div class="form-actions right">
                                         <a href="<?= site_url('nasty_v2/dashboard/page/a1'); ?>"><button type="button" class="btn default">Cancel</button></a>
                                         <button type="submit" class="btn blue">
-                                            <i class="fa fa-pencil"></i> Edit</button>
+                                            <i class="fa fa-save"></i> Save</button>
                                     </div>
                                 </form>
                                 <!-- END FORM-->
