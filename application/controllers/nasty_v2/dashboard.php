@@ -252,30 +252,73 @@ jauhmerah@nastyjuice.com
     				$data['title'] = '<i class="fa fa-fw fa-edit"></i>Order List</a>';
     				$data['display'] = $this->load->view($this->parent_page.'/productionOrder', $temp , TRUE);
     				$this->_show('display' , $data , $key);
-    				break;    			
-    			case 'b1':
+    				break;
+                case 'c4':
+                    //Category
+                    $this->_loadCrud();
+                    $crud = new grocery_CRUD();
+                    
+                    $crud->set_table('category');
+                    $crud->set_subject('Event'); 
+                    $crud->required_fields('ca_desc','ca_color');
+                    $crud->unset_add_fields("ca_date");
+                    $crud->unset_edit_fields('ca_date');
+                    $crud->callback_add_field('ca_color', function () {
+                            return '<input type="color" name="ca_color" id="inputCa_color" value="" title="Pick Color" width = 10px>';
+                        });
+                    $crud->callback_add_field('ca_desc', function () {
+                            return '<input type="text" name="ca_desc" id="inputCa_desc" value="" title="Event Title">';
+                        });
+                    $crud->display_as('ca_desc','Event Title')
+                        ->display_as('ca_color', 'Event Color')
+                        ->display_as('ca_note' , 'Event Note')
+                        ->display_as('ca_date' , 'Event Date Created');
+                    $crud->callback_column('ca_color',array($this,'callback_col_cat'));
+                    $crud->callback_edit_field('ca_color',array($this,'edit_field_callback_cat'));
+                    $output = $crud->render();
+                    $data['display'] = $this->load->view('crud' , $output , true);
+                    $this->_show('display' , $data , $key); 
+                    break;   			
+    			case 'c2':
     				//Item
     				$data['title'] = '<i class="fa fa-fw fa-link"></i> Item List';
     				//$this->path_callback = 'channel';
     				$this->_loadCrud();    		
 		    		$crud = new grocery_CRUD();    		
-		    		$crud->set_table('type');
+		    		$crud->set_table('type2');
 		    		$crud->set_subject('Item Type');
+                    $crud->display_as('ty2_desc','Item Detail')
+                         ->display_as('ca_id','Event Category');
+                    $crud->required_fields('ty2_desc', 'ca_id');
 		    		$crud->unset_print();
 		    		$crud->unset_export();
-		    		$crud->required_fields('ty_desc','ty_icon','ty_img');
-		    		$crud->display_as('ty_desc' , 'Item Name')
-		    			->display_as('ty_icon' , 'Item Icon')
-		    			->display_as('ty_img' , 'Item Image')
-		    			->display_as('ty_detail' , 'Item Detail');
-		    		$crud->set_field_upload('ty_icon','assets/uploads/item')
-		    			->set_field_upload('ty_img','assets/uploads/item');
-		    		$crud->callback_before_delete(array($this,'callback_delete_image_item'));
+                    $crud->callback_column('ca_id',array($this,'callback_col_item'));		    		
+                    $crud->callback_add_field('ca_id', function () {
+                            $this->load->database();
+                            $this->load->model('m_category');
+                            $cat = $this->m_category->get();
+                            $text2 = "";
+                            foreach ($cat as $key) { 
+                                $text2 = $text2 . '<option style="background-color:'.$key->ca_color.'" value="'.$key->ca_id .'">'. $key->ca_desc.' </option>';
+                            }
+                            $text = '
+                            <div class="form-group">
+                                <div class="col-sm-8">
+                                    <select id="cat" name= "ca_id" class="form-control input-circle">
+                                        <option value="-1">-- Select Category --</option>
+                                        '.$text2.'
+                                    </select>
+                                </div>
+                            </div>
+                            ';
+                            return $text;
+                        });
+                    $crud->callback_before_insert(array($this,'callback_before_insert_item'));
 					$output = $crud->render();
 		    		$data['display'] = $this->load->view('crud' , $output , true);
 		    		$this->_show('display' , $data , $key); 
     				break;
-    			case 'b2':
+    			case 'c3':
     				//Nico
     				$data['title'] = '<i class="fa fa-fw fa-link"></i> Nicotine List';
     				//$this->path_callback = 'channel';
@@ -656,10 +699,25 @@ jauhmerah@nastyjuice.com
     				$data['title'] = '<i class="fa fa-file-text"></i> Order Form';
     				$this->load->database();
     				$this->load->model('m_client');
-    				$arr['client'] = $this->m_client->get();
-    				$data['display'] = $this->load->view($this->parent_page.'/orderForm' , $arr , true);
+                    $this->load->model('m_category');
+                    $this->load->model('m_nico');
+                    $arr['nico'] = $this->m_nico->get();
+                    $arr['cat'] = $this->m_category->get(null , 'asc');
+    				$arr['client'] = $this->m_client->get(null , 'asc');
+    				$data['display'] = $this->load->view($this->parent_page.'/orderForm1' , $arr , true);
 		    		$this->_show('display' , $data , $key); 
     				break;
+                case 'z1old':
+                    if ($lvl == 2 || $lvl == 3) {
+                        redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
+                    }
+                    $data['title'] = '<i class="fa fa-file-text"></i> Order Form';
+                    $this->load->database();
+                    $this->load->model('m_client');
+                    $arr['client'] = $this->m_client->get();
+                    $data['display'] = $this->load->view($this->parent_page.'/orderForm' , $arr , true);
+                    $this->_show('display' , $data , $key); 
+                    break;
     			case 'c13':
     				//view
     				if ($this->input->get('view')) {
@@ -733,10 +791,34 @@ jauhmerah@nastyjuice.com
     	{
     		return '<input type="color" name="ni_color" id="inputNi_color" value="'.$value.'" title="Pick Color" width = 10px>';
     	}
+        public function edit_field_callback_cat($value, $primary_key)
+        {
+            return '<input type="color" name="ca_color" id="inputCa_color" value="'.$value.'" title="Pick Color" width = 10px>';
+        }
     	public function callback_col_nico($value, $primary_key)
     	{
     		return '<input type="color" name="ni_color" id="inputNi_color" value="'.$value.'" title="Pick Color" width = 10px disabled>';
     	}
+        public function callback_col_cat($value, $primary_key)
+        {
+            return '<input type="color" name="ca_color" id="inputNi_color" value="'.$value.'" title="Pick Color" width = 10px disabled>';
+        }
+        public function callback_before_insert_item($post_array)
+        {
+            if ($post_array['ca_id'] == -1) {               
+                return false;
+            } else {
+                return $post_array;
+            }
+        }
+        public function callback_col_item($value, $primary_key)
+        {
+            $this->load->database();
+            $this->load->model('m_category');
+            $cat = $this->m_category->get($value);
+            $text = '<span class="label" style="background-color: '.$cat->ca_color.';" ><strong>'.$cat->ca_desc.'</strong></span>';
+            return $text ;
+        }
     	private function _loadCrud()
     	{
     		$this->load->database();
@@ -1159,6 +1241,32 @@ jauhmerah@nastyjuice.com
                 return true;
             }
             return false;         
+        }
+
+        public function getAjaxItem()
+        {
+            $this->load->database();
+            $ca_id = $this->input->post('ca_id');
+            $this->load->model('m_type2');
+            if ($ca_id == -1) {
+                $type['cat'] = $ca_id;
+            } else {
+                $type['type'] = $this->m_type2->get(array('ca_id' => $ca_id));
+                $type['cat'] = $ca_id;
+            }         
+            
+            echo $this->load->view($this->parent_page."/ajax/getAjaxType", $type , true);
+        }
+
+        public function getAjaxItemList()
+        {
+            $arr = $this->input->post();
+            $this->load->database();
+            $this->load->model('m_nico');
+            $this->load->model('m_type2');
+            $nico = $this->m_nico->get($arr['nico']);
+            $item = $this->m_type2->get($arr['type']);
+            echo $this->load->view($this->parent_page."/ajax/getAjaxItem", "" , true);;
         }
 	}
 	        

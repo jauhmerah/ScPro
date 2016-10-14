@@ -21,7 +21,7 @@
 	     *                      If string, value will be used to match against PRI_INDEX
 	     * @return mixed Single record if ID is given, or array of results
 	     */
-	    public function get($where = NULL) {
+	    public function get($where = NULL, $asc = false) {
 	        $this->db->select('*');
 	        $this->db->from(self::TABLE_NAME);
 	        if ($where !== NULL) {
@@ -32,6 +32,9 @@
 	            } else {
 	                $this->db->where(self::PRI_INDEX, $where);
 	            }
+	        }
+	        if ($asc != false) {
+	        	$this->db->order_by('cl_name', $asc);
 	        }
 	        $result = $this->db->get()->result();
 	        if ($result) {

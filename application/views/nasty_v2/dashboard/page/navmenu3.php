@@ -79,7 +79,25 @@
                                         <i class="fa fa-users"></i>
                                         <span class="title">User</span>
                                     </a>
-                                </li>                                                             
+                                </li>
+                                <li class="nav-item start">
+                                    <a href="<?= site_url('nasty_v2/dashboard/page/c4') ?>" class="nav-link ">
+                                        <i class="fa fa-fw fa-desktop"></i>
+                                        <span class="title">Category</span>
+                                    </a>
+                                </li> 
+                                <li class="nav-item start">
+                                    <a href="<?= site_url('nasty_v2/dashboard/page/c2') ?>" class="nav-link ">
+                                        <i class="fa fa-fw fa-desktop"></i>
+                                        <span class="title">Item Detail</span>
+                                    </a>
+                                </li> 
+                                <li class="nav-item start">
+                                    <a href="<?= site_url('nasty_v2/dashboard/page/c3') ?>" class="nav-link ">
+                                        <i class="fa fa-fw fa-bookmark-o"></i>
+                                        <span class="title">Nicotin</span>
+                                    </a>
+                                </li>                                                              
                             </ul>
                         </li> 
                         <?php } ?>                    

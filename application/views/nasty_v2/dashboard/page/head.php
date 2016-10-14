@@ -43,7 +43,9 @@ License: You must have a valid license purchased only from themeforest(the above
         <link href="<?= base_url(); ?>asset2/layouts/layout2/css/custom.min.css" rel="stylesheet" type="text/css" />
         <script src="<?= base_url(); ?>asset2/global/plugins/jquery.min.js" type="text/javascript"></script>
             <script src="<?= base_url(); ?>asset2/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <link href="<?= base_url(); ?>asset2/global/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css">
+        <link href="<?= base_url(); ?>asset2/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css">
         <!-- END THEME LAYOUT STYLES -->
         <link rel="icon" href="<?= base_url(); ?>assets/cover/favicon2.png"> 
         <script src="<?= base_url(); ?>asset/js/jquery-1.11.1.js"></script>        <script src="<?= base_url(); ?>asset/js/bootstrap.min.js"></script>
