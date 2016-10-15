@@ -114,7 +114,7 @@
 	    	return $result;
 	    }
 
-	    public function getList_ext($where = null , $up = 0 , $process = 0 , $del = -1)
+	    public function getList_ext($where = null ,$ver = 0, $up = 0 , $process = 0 , $del = -1)
 	    {
 	    	$this->db->select('*');
 	        $this->db->from(self::TABLE_NAME);
@@ -156,8 +156,15 @@
 	        //return $result;
 	        $data = array();
 	        foreach ($result as $key) {
-				$this->db->select('*'); 
-				$this->db->from('order_note');
+				$this->db->select('*');
+				if ($ver == 0) {
+				 	$this->db->from('order_note');
+				} else {
+				 	$this->db->from('order_item oi');
+				 	$this->db->join('type2 ty2', 'ty2.ty2_id = oi.ty2_id', 'left');
+				 	$this->db->join('category ca', 'ca.ca_id = ty2.ca_id', 'left');
+				 	$this->db->join('nicotine nic', 'nic.ni_id = oi.ni_id', 'left');
+				}
 				$this->db->where('orex_id', $key->orex_id); 
 				$res2 = $this->db->get()->result();
 				$this->db->select("us_username");

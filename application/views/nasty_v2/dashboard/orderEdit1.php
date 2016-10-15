@@ -1,33 +1,33 @@
+<?php 
+	if ($arr['order']->pr_id == 3) {
+		$mode = "readonly";
+	} else {
+		$mode = "";
+	}
+	
+?>
 <div class="row">
 	<div class="col-md-12">
+	<?php
+	echo "<pre>";
+    print_r($arr);
+    echo "</pre>"; 
+	?>
            <div class="tab-pane active" id="tab_1">
                         <div class="portlet box" style="border: 1px solid #f77d00;">
                             <div class="portlet-title" style="background-color: #f77d00;">
                                 <div class="caption">
                                     <img src="<?= base_url(); ?>/assets/cover/favicon2.png"> Order List                                     
                                 </div>
+                                <div class="tools">
+                                    <span class="pull-right" style="color:blue;"><h3><?php $code = 110000 + $arr['order']->or_id; echo "#".$code; ?></h3></span>
+                                </div>
                             </div>
+
                             <div class="portlet-body form">
                                 <!-- BEGIN FORM-->
-                                <form action="<?= site_url('nasty_v2/dashboard/page/z11'); ?>" method = "post" class="horizontal-form">
-                                    <div class="form-body">
-                                    	<div class="row">
-                                    		<div class="form-group">
-		                                	<label for="input" class="col-sm-2 control-label">Exist Client :</label>
-		                                	<div class="col-sm-2">
-		                                		<select name="client" id="client" class="input-circle form-control input-sm select2-multiple select2-hidden-accessible" tabindex="-1" aria-hidden="true">
-											    <option value="-1">--New Client--</option>
-		                                			<?php 
-		                                			foreach ($client as $key) { ?>
-		                                				<option value="<?= $key->cl_id; ?>"> <?= $key->cl_name; ?> </option>
-		                                			<?php }
-		                                			?>
-    											</select>
-		                                	</div>
-		                                	<span class="pull-left" id="loadingText" style="display: none;"><i class="fa fa-spinner fa-spin"></i>&nbsp;Loading</span>
-		                                	
-		                                </div>
-                                    	</div>
+                                <form action="<?= site_url('nasty_v2/dashboard/page/z121?key=').$this->my_func->scpro_encrypt($arr['order']->or_id); ?>" method = "post" class="horizontal-form">
+                                    <div class="form-body">    
                                         <h3 class="form-section">Client Info</h3>
                                         <div class="row" id = "clientInfo">
                                         	<div class="col-md-8">
@@ -35,14 +35,14 @@
 		                                            <div class="col-md-6">
 		                                                <div class="form-group">
 		                                                    <label class="control-label">Name* :</label>
-		                                                    <input type="text" id="name" name="name" class="form-control input-circle" placeholder="Client Name" required>
+		                                                    <input type="text" id="name" class="form-control input-circle" placeholder="Client Name" readonly value="<?= $arr['order']->cl_name; ?>">
 		                                                </div>
 		                                            </div>
 		                                            <!--/span-->
 		                                            <div class="col-md-6">
 		                                                <div class="form-group">
 		                                                    <label class="control-label">Company :</label>
-		                                                    <input type="text" id="company" name="company" class="form-control input-circle" placeholder="Nasty">
+		                                                    <input type="text" id="company" class="form-control input-circle" placeholder="Nasty" readonly value="<?= $arr['order']->cl_company; ?>">
 		                                                </div>
 		                                            </div>
 		                                            <!--/span-->
@@ -52,14 +52,14 @@
 		                                            <div class="col-md-6">
 		                                                <div class="form-group">
 		                                                    <label class="control-label">Contact Number* :</label>
-		                                                    <input type="text" id="tel" name="tel" class="form-control input-circle" placeholder="Client Number" required>
+		                                                    <input type="text" id="tel"  class="form-control input-circle" placeholder="Client Number" readonly value="<?= $arr['order']->cl_tel; ?>">
 		                                                </div>
 		                                            </div>
 		                                            <!--/span-->
 		                                            <div class="col-md-6">
 		                                                <div class="form-group">
 		                                                    <label class="control-label">Country* :</label>
-		                                                    <input type="text" id="country" name="country" class="form-control input-circle" placeholder="Country" required>
+		                                                    <input type="text" id="country"  class="form-control input-circle" placeholder="Country" readonly value="<?= $arr['order']->cl_country; ?>">
 		                                                </div>
 		                                            </div>
 		                                            <!--/span-->
@@ -69,14 +69,14 @@
 		                                            <div class="col-md-6">
 		                                                <div class="form-group">
 		                                                    <label class="control-label">Sales Person* :</label>
-		                                                    <input type="text" id="salesPerson" readonly name="salesPerson" class="form-control input-circle" value="<?php echo $this->my_func->scpro_decrypt($this->session->userdata('us_username')); ?>" >
+		                                                    <input type="text" id="salesPerson" readonly class="form-control input-circle" value="<?= $arr['staff']->us_username; ?>" >
 		                                                </div>
 		                                            </div>
 		                                            <!--/span-->
 		                                            <div class="col-md-6">
 		                                                <div class="form-group">
-		                                                    <label class="control-label">Email* :</label>
-		                                                    <input type="text" id="email" name="email" class="form-control input-circle" placeholder="jauhmerah@nastyjuice.com" required>
+		                                                    <label class="control-label">Email :</label>
+		                                                    <input type="text" id="email"  class="form-control input-circle" placeholder="jauhmerah@nastyjuice.com" readonly value="<?= $arr['order']->cl_email; ?>">
 		                                                </div>
 		                                            </div>
 		                                            <!--/span-->
@@ -84,8 +84,8 @@
 		                                        <div class="row">
 													<div class="col-md-12">
 													    <div class="form-group">
-													        <label class="control-label">Address* :</label>
-													        <input type="text" id="address" name="address" class="form-control input-circle" placeholder = "Address" required >
+													        <label class="control-label">Address :</label>
+													        <textarea id="input" readonly class="form-control input-circle" rows="3"><?= $arr['order']->cl_address; ?></textarea>
 													    </div>
 													</div> 
 													<!--/span-->
@@ -95,31 +95,49 @@
                                         		<div class="row">		                                            
 	                                                <div class="form-group col-md-12">
 	                                                    <label class="control-label">Date Line :</label>
-	                                                    <input type="date" id="dateline" name="dateline" class="form-control input-circle">
+	                                                    <?php if($arr['order']->or_dateline != '0000-00-00 00:00:00'){ 
+	                                                    	$date = date_format(date_create($arr['order']->or_dateline) , 'Y-m-d' );
+	                                                    	}else{
+	                                                    		$date = '';
+	                                                    	}
+	                                                    ?>
+	                                                    <input type="date" id="dateline" <?= $mode ?> name="dateline" value="<?= $date; ?>" class="form-control input-circle">
 	                                                </div>
 		                                            <!--/span-->
 	                                            </div>
 	                                            <div class="row">	
 	                                                <div class="form-group col-md-12">
 	                                                    <label class="control-label">Order Date :</label>
-	                                                    <input type="date" readonly id="orderdate" name="orderdate" value = "<?= date('Y-m-d'); ?>" class="form-control input-circle">
+	                                                    <?php if($arr['order']->or_date != '0000-00-00 00:00:00'){ 
+	                                                    	$date = date_format(date_create($arr['order']->or_date) , 'Y-m-d' );
+	                                                    	}else{
+	                                                    		$date = '';
+	                                                    	}
+	                                                    ?>
+	                                                    <input type="date" readonly id="orderdate" name="orderdate" value = "<?= $date; ?>" class="form-control input-circle">
 	                                                </div>		                                            
 		                                            <!--/span-->
 		                                        </div>
 		                                        <div class="row">	
 	                                                <div class="form-group col-md-12">
 	                                                    <label class="control-label">Finish Date :</label>
-	                                                    <input type="date" readonly id="finishdate" name="finishdate" class="form-control input-circle">
+	                                                    <?php if($arr['order']->or_finishdate != '0000-00-00 00:00:00'){ 
+	                                                    	$date = date_format(date_create($arr['order']->or_finishdate) , 'Y-m-d' );
+	                                                    	}else{
+	                                                    		$date = '';
+	                                                    	}
+	                                                    ?>
+	                                                    <input type="date" id="finishdate" name="finishdate" <?= $mode ?> value = "<?= $date; ?>" class="form-control input-circle">
 	                                                </div>		                                            
 		                                            <!--/span-->
 		                                        </div>
 		                                        <div class="row">	
 	                                                <div class="form-group col-md-12">
 	                                                    <label class="control-label">Currency :</label>
-	                                                    <select class="form-control input-circle" name="currency">
-	                                                        <option value="1">MYR</option>
-	                                                        <option value="2">USD</option>
-	                                                        <option value="3">EURO</option>
+	                                                    <select <?php if($arr['order']->pr_id == 3){echo "disabled";} ?> class="form-control input-circle" name="currency">
+	                                                        <option value="1" <?php if($arr['order']->cu_id == 1){echo "selected";} ?>>MYR</option>
+	                                                        <option value="2" <?php if($arr['order']->cu_id == 2){echo "selected";} ?>>USD</option>
+	                                                        <option value="3" <?php if($arr['order']->cu_id == 3){echo "selected";} ?>>EURO</option>
 	                                                    </select>
 	                                                </div>		                                            
 		                                            <!--/span-->
@@ -140,26 +158,50 @@
 				                                    
 				                                </div>
 				                                <div class="portlet-body">
-				                                    <table class="table table-hover table-condensed">
-				                                    	<thead>
-				                                    		<tr>
-				                                    			<th>Item Detail</th>
-				                                    			<th>Price</th>
-				                                    			<th>Qty</th>
-				                                    			<th>Tester</th>
-				                                    			<th>Action</th>
-				                                    		</tr>
-				                                    	</thead>
-				                                    	<tbody id="orderList">				                               
-				                                    	</tbody>
-				                                    		
-				                                    	<tfoot>
-				                                    		<tr>
-				                                    			<td colspan="5">
-				                                    				<textarea name="note" id="input" class="form-control input-circle input-lg" rows="4" placeholder="#Note"></textarea>
-				                                    			</td>
-				                                    		</tr>
-				                                    		<tr>
+				                                    <div class="table-responsive">
+				                                        <table class="table table-striped table-bordered table-hover">
+						                                    <thead>
+						                                        <tr>
+					                                    			<th>Item Detail</th>
+					                                    			<th>Price</th>
+					                                    			<th>Qty</th>
+					                                    			<th>Tester</th>
+					                                    			<th>Action</th>
+					                                    		</tr>
+						                                    </thead>
+						                                    <tbody id="orderList">
+						                                    	<?php 
+						                                    		if (!isset($arr)) {
+						                                    			?>
+						                                    				<tr>
+						                                    					<td colspan="6" align="center">-- No Data--</td>
+						                                    				</tr>
+						                                    			<?php
+						                                    		} else {
+						                                    			foreach ($arr['item'] as $key) {
+						                                    				?>
+						                                    				<tr id="delEdit_<?= $key->oi_id;?>">						                                    					
+						                                    					<td><?= $key->ty2_desc; ?><br>
+																					<span class="label" style="color: black;background-color: <?= $key->ca_color; ?>; font-size: 75%;" ><strong><?= $key->ca_desc; ?></strong></span>&nbsp;
+																					<span class="label" style="color: black;font-size: 75%; background-color: <?= $key->ni_color; ?>;" ><strong><?= $key->ni_mg; ?> mg</strong></span></td>
+																				<td><input type="number" name="priceE[]" id="inputPrice" min="0" step="any" class="form-control" value="<?= $key->oi_price; ?>" required="required"></td>
+																				<td><input type="number" name="qtyE[]" id="inputQty" min="0" class="form-control" value="<?= $key->oi_qty; ?>" required="required"></td>
+																				<td><input type="number" name="testerE[]" id="inputTester" min="0" value="<?= $key->oi_tester; ?>" class="form-control"></td>	
+																				<td>
+																					<input type="hidden" name="idE[]" id="inputIdE" class="form-control" value="<?= $key->oi_id;?>">
+																					<span><button type="button" id="<?= $key->oi_id;?>" class="btn btn-danger btn-xs delEdit"><i class="fa fa-trash" ></i></button></span>
+																				</td>
+						                                    				</tr>
+						                                    				<?php
+						                                    			}
+						                                    		}						                                    		
+						                                    	?>						                                    	                                        
+						                                    </tbody>
+						                                    <tfoot>
+						                                    	<td colspan="5">
+					                                            		<textarea name="note" id="input" class="form-control input-circle input-lg" rows="2" placeholder="#Note"><?= $arr['order']->or_note; ?></textarea>                                            		
+					                                            </td>
+					                                            <tr>
 				                                    			<td colspan="5">				                                    				
 				                                    				<div class="row">
 				                                    					<div class="col-md-6">
@@ -213,8 +255,9 @@
 				                                    				</div>				                                    				
 				                                    			</td>				     
 				                                    		</tr>
-				                                    	</tfoot>
-				                                    </table>
+						                                    </tfoot>
+						                                </table>
+				                                    </div>
 				                                </div>
 				                            </div>
                                         </div>
@@ -231,12 +274,12 @@
 						                            <span class="pull-right">	                            	
 						                            <div class="mt-radio-inline">
 					                                    <label class="mt-radio">
-					                                        <input type="radio" name="wide" checked value="0">
+					                                        <input type="radio" name="wide" <?php if($arr['order']->or_wide == 0){echo "checked";} ?> value="0">
 						                                		<strong>Worldwide</strong>
 					                                        <span></span>
 					                                    </label>
 					                                    <label class="mt-radio">
-					                                        <input type="radio" name="wide" value="1">
+					                                        <input type="radio" name="wide" <?php if($arr['order']->or_wide == 1){echo "checked";} ?> value="1">
 						                                		<strong>Nationwide</strong>
 					                                        <span></span>
 					                                    </label>
@@ -255,33 +298,33 @@
 					                                            	<td colspan="4" >
 					                                            		<div class="mt-radio-inline">
 										                                    <label class="mt-radio">
-										                                        <input type="radio" name="sh_company" checked value="1">
+										                                        <input type="radio" name="sh_company" <?php if($arr['order']->or_shipcom == 1){echo "checked";} ?> value="1">
 											                                		DHL
 										                                        <span></span>
 										                                    </label>
 										                                    <label class="mt-radio">
-										                                        <input type="radio" name="sh_company" value="2">
+										                                        <input type="radio" name="sh_company" <?php if($arr['order']->or_shipcom == 2){echo "checked";} ?> value="2">
 											                                		ARAMEX
 										                                        <span></span>
 										                                    </label>
 										                                    <label class="mt-radio">
-										                                        <input type="radio" name="sh_company" value="3">
+										                                        <input type="radio" name="sh_company" <?php if($arr['order']->or_shipcom == 3){echo "checked";} ?> value="3">
 											                                		EMS
 										                                        <span></span>
 										                                    </label>
 										                                    <label class="mt-radio">
-										                                        <input type="radio" name="sh_company" value="4">
+										                                        <input type="radio" name="sh_company" <?php if($arr['order']->or_shipcom == 4){echo "checked";} ?> value="4">
 											                                		 : _________
 										                                        <span></span>
 										                                    </label>
 										                                </div>
-					                                            	</td>
+					                                            	</td>                                            	
 					                                            	<th>
-					                                            		Ship Date
+					                                            		Tracking No
 					                                            	</th>
 					                                            	<td>
-					                                            		<input type = "date" class="form-control input-circle" name="sendDate">
-					                                            	</td> 
+					                                            		<input type = "text" name="traking" class="form-control input-circle" value="<?= $arr['order']->or_traking; ?>">
+					                                            	</td>
 						                                        </tr>
 						                                        <tr>
 					                                            	<th>
@@ -290,27 +333,27 @@
 					                                            	<td colspan="4" >
 					                                            		<div class="mt-radio-inline">
 										                                    <label class="mt-radio">
-										                                        <input type="radio" name="sh_opt" checked value="1">
+										                                        <input type="radio" name="sh_opt" <?php if($arr['order']->or_shipopt == 1){ echo "checked";} ?> value="1">
 											                                		Shop & Ship
 										                                        <span></span>
 										                                    </label>
 										                                    <label class="mt-radio">
-										                                        <input type="radio" name="sh_opt" value="2">
+										                                        <input type="radio" name="sh_opt" <?php if($arr['order']->or_shipopt == 2){ echo "checked";} ?> value="2">
 											                                		Express
 										                                        <span></span>
 										                                    </label>
 										                                    <label class="mt-radio">
-										                                        <input type="radio" name="sh_opt" value="3">
+										                                        <input type="radio" name="sh_opt" <?php if($arr['order']->or_shipopt == 3){ echo "checked";} ?> value="3">
 											                                		Buyer Account
 										                                        <span></span>
 										                                    </label>
 										                                </div>
 					                                            	</td>
 					                                            	<th>
-					                                            		Invoice Link
+					                                            		Ship Date
 					                                            	</th>
 					                                            	<td>
-					                                            		<input type = "text" name="traking" class="form-control input-circle" disabled placeholder="Next Version 2.21 Alpha">
+					                                            		<input type = "date" name="sendDate" class="form-control input-circle" value="<?php if($arr['order']->or_sendDate != '0000-00-00 00:00:00') { echo date_format(date_create($arr['order']->or_sendDate) , 'Y-m-d' ); }else{echo '';} ?>">
 					                                            	</td>
 						                                        </tr>
 						                                        <tr>
@@ -320,34 +363,87 @@
 					                                            	<td colspan="4" >
 					                                            		<div class="mt-radio-inline">
 										                                    <label class="mt-radio">
-										                                        <input type="radio" name="sh_declare" checked value="1">
+										                                        <input type="radio" name="sh_declare" <?php if($arr['order']->dec_id == 1){echo "checked";} ?> value="1">
 											                                		Aromatherapy
 										                                        <span></span>
 										                                    </label>
 										                                    <label class="mt-radio">
-										                                        <input type="radio" name="sh_declare" value="2">
+										                                        <input type="radio" name="sh_declare" <?php if($arr['order']->dec_id == 2){echo "checked";} ?> value="2">
 											                                		Beard Oil
 										                                        <span></span>
 										                                    </label>
 										                                    <label class="mt-radio">
-										                                        <input type="radio" name="sh_declare" value="3">
+										                                        <input type="radio" name="sh_declare" <?php if($arr['order']->dec_id == 3){echo "checked";} ?> value="3">
 											                                		Cake Flavoring
 										                                        <span></span>
 										                                    </label>
 										                                    <label class="mt-radio">
-										                                        <input type="radio" name="sh_declare" value="4">
+										                                        <input type="radio" name="sh_declare" <?php if($arr['order']->dec_id == 4){echo "checked";} ?> value="4">
 											                                		E-Juice
 										                                        <span></span>
 										                                    </label>
 										                                </div>
 					                                            	</td>
 					                                            	<th>
-					                                            		<strong>Dummy</strong> Invoice
+					                                            		Inv Attach
 					                                            	</th>
 					                                            	<td>
-					                                            		<input type = "text" name="invAtt" class="form-control input-circle" disabled placeholder="Next Version 2.21 Alpha">
+					                                            		<input type = "text" name="invAtt" class="form-control input-circle" value="<?= $arr['order']->or_invAtt; ?>">
 					                                            	</td>
-						                                        </tr>						                                                                             
+						                                        </tr>
+						                                        <tr>
+					                                            	<th>
+					                                            		Declare Price
+					                                            	</th>
+					                                            	<td colspan="4">
+					                                            		<input type = "text" name="declarePrice" class="form-control input-circle" value="<?= $arr['order']->or_declarePrice ;?>">
+					                                            	</td>
+					                                            	<th>
+					                                            		MSDS
+					                                            	</th>
+					                                            	<td>
+					                                            		<input type = "text" name="msds" class="form-control input-circle" value="<?= $arr['order']->or_msds; ?>">
+					                                            	</td>
+						                                        </tr>
+						                                        <tr>
+					                                            	<th>
+					                                            		Batch No Start
+					                                            	</th>
+					                                            	<td colspan="4" rowspan="3">
+					                                            		<textarea name="note" id="input" class="form-control input-circle input-lg" rows="4" placeholder="#Note"><?= $arr['order']->or_note;?></textarea>                                            		
+					                                            	</td>					                                            	
+					                                            	<th>
+					                                            		C.O.O
+					                                            	</th>
+					                                            	<td>
+					                                            		<input type = "text" name="coo" value="<?= $arr['order']->or_coo;?>" class="form-control input-circle">
+					                                            	</td>
+						                                        </tr>
+						                                        <tr>
+					                                            	<th>
+					                                            		Batch No END
+					                                            	</th>
+					                                            						                                            	
+					                                            	<th>
+					                                            		Small C Box
+					                                            	</th>
+					                                            	<td>
+					                                            		<input type = "text" name="smallcb" value="<?= $arr['order']->or_smallcb; ?>" class="form-control input-circle">
+					                                            	</td>
+						                                        </tr>
+						                                        <tr>
+					                                            	<th>
+					                                            		Batch
+					                                            	</th>
+					                                            	
+					                                            	
+					                                            	<th>
+					                                            		Big C Box
+					                                            	</th>
+					                                            	<td>
+					                                            		<input type = "text" value="<?= $arr['order']->or_bigcb; ?>" name="bigcb" class="form-control input-circle">
+					                                            	</td>
+						                                        </tr>	                                        
 						                                    </tbody>
 						                                </table>
 						                            </div>
@@ -356,9 +452,9 @@
 						                </div>
 					                </div>						                
                                     <div class="form-actions right">
-                                        <button type="button" class="btn default">Cancel</button>
+                                        <a href="<?= site_url('nasty_v2/dashboard/page/a1'); ?>"><button type="button" class="btn default">Cancel</button></a>
                                         <button type="submit" class="btn blue">
-                                            <i class="fa fa-check"></i> Save</button>
+                                            <i class="fa fa-save"></i> Update</button>
                                     </div>
                                 </form>
                                 <!-- END FORM-->
@@ -398,6 +494,18 @@
 			$.post('<?= site_url("nasty_v2/dashboard/getAjaxItemList") ?>', {type : type , nico : nic , cat : cat , num : num}, function(data) {
 				$("#orderList").append(data);
 			});
-		});		
+		});
+		$('.delEdit').click(function() {
+			oi_id = $(this).prop('id');
+			if(confirm("Are you sure? This will auto delete permanently in the database!!!")){
+				$.post('<?= site_url("nasty_v2/dashboard/getAjaxDelItem") ?>', {oi_id: oi_id}, function(data) {
+					if (data == '0') {
+						alert("Ops!! Something Wrong... Contact JM.");
+					} else {
+						$("#delEdit_"+oi_id).remove();
+					}
+				});				
+			}			
+		});
 	});
 </script>

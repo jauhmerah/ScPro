@@ -109,7 +109,7 @@
                     }
                     $this->session->set_flashdata('info', 'Order Deleted');
                     redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
-                    break;    
+                    break;  
     			case 'a12':
                     //edit
                     if ($lvl == 2 || $lvl == 3) {
@@ -124,7 +124,27 @@
                         $data['display'] = $this->load->view($this->parent_page.'/orderEdit' ,$arr , true);
                         $this->_show('display' , $data , $key);
                         break;
-                    }                    
+                    }
+                case 'a121':
+                    //edit
+                    if ($lvl == 2 || $lvl == 3) {
+                        redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
+                    }
+                    if ($this->input->get('edit')) {
+                        $id = $this->input->get('edit');
+                        $id = $this->my_func->scpro_decrypt($id);
+                        $this->load->model('m_order');
+                        $this->load->model('m_client');
+                        $this->load->model('m_category');
+                        $this->load->model('m_nico');
+                        $arr['nico'] = $this->m_nico->get();
+                        $arr['cat'] = $this->m_category->get(null , 'asc');
+                        $arr['arr'] = array_shift($this->m_order->getList_ext($id, 1));
+                        $data['title'] = '<i class="fa fa-pencil"></i>Edit Order Detail</a>';
+                        $data['display'] = $this->load->view($this->parent_page.'/orderEdit1' ,$arr , true);
+                        $this->_show('display' , $data , $key);
+                        break;
+                    }                   
                 case 'a11':
                     //view
                     if ($lvl == 2 || $lvl == 3) {
@@ -139,6 +159,23 @@
                         $arr['arr'] = array_shift($this->m_order->getList_ext($id)); 
                         $data['title'] = '<i class="fa fa-eye"></i> Order Detail</a>';
                         $data['display'] = $this->load->view($this->parent_page.'/orderView' ,$arr , true);
+                        $this->_show('display' , $data , $key);
+                        break;
+                    }
+                case 'a111':
+                    //view new
+                    if ($lvl == 2 || $lvl == 3) {
+                        redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
+                    }
+                    if($this->input->get('view')){
+                        $id = $this->input->get('view');
+                        //$this->load->library('my_func');
+                        $id = $this->my_func->scpro_decrypt($id);
+                        $this->load->database();
+                        $this->load->model('m_order');
+                        $arr['arr'] = array_shift($this->m_order->getList_ext($id , 1));                                               
+                        $data['title'] = '<i class="fa fa-eye"></i> Order Detail</a>';
+                        $data['display'] = $this->load->view($this->parent_page.'/orderView1' ,$arr , true);                        
                         $this->_show('display' , $data , $key);
                         break;
                     }                     				 			
@@ -382,7 +419,7 @@ jauhmerah@nastyjuice.com
 		    		$data['display'] = $this->load->view('crud' , $output , true);
 		    		$this->_show('display' , $data , $key); 
     				break;
-                case 'z12old':
+                case 'z12':
                     //edit order
                     if ($lvl == 2 || $lvl == 3) {
                         redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
@@ -694,15 +731,21 @@ jauhmerah@nastyjuice.com
                         redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
                         break;                  
                     }
-                    case 'z12':
+                    case 'z121':
                     //edit order
                     if ($lvl == 2 || $lvl == 3) {
                         redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
                     }
                     if ($this->input->post() && $this->input->get('key')) {
                         $arr = $this->input->post();
-                        $or_id = $this->my_func->scpro_decrypt($this->input->get('key'));                        
-                        $this->load->library('my_func');
+                        $or_id = $this->my_func->scpro_decrypt($this->input->get('key'));
+                        echo "<pre>";                        
+                        print_r($arr);
+                        echo "</pre>";
+                        die();
+                        if (condition) {
+                            
+                        }                        
                         $this->load->database();
                         $this->load->model('m_order');                        
                         $order = array(                            
@@ -837,9 +880,6 @@ jauhmerah@nastyjuice.com
                     }
     				if ($this->input->post()) {
                         $arr = $this->input->post();
-                        echo "<pre>";
-                        print_r($arr);
-                        echo "</pre>";
                         $this->load->library('my_func');
                         $this->load->database();
                         $this->load->model('m_order');
@@ -885,7 +925,8 @@ jauhmerah@nastyjuice.com
                                 'ty2_id' => $arr['itemId'][$i],
                                 'ni_id' => $arr['nico'][$i],
                                 'oi_price' => $arr['nico'][$i],
-                                'oi_qty' => $arr['qty'][$i]
+                                'oi_qty' => $arr['qty'][$i],
+                                'oi_tester' => $arr['tester'][$i]
                             );
                             $this->m_order_item->insert($item);
                         }
@@ -1509,6 +1550,15 @@ jauhmerah@nastyjuice.com
             $temp['item'] = $this->m_type2->get($arr['type']);
             $temp['num'] = $arr['num'];
             echo $this->load->view($this->parent_page."/ajax/getAjaxItem", $temp , true);
+        }
+
+        public function getAjaxDelItem()
+        {
+            $oi_id = $this->input->post('oi_id');
+            $this->load->database();
+            $this->load->model('m_order_item');
+            $row = $this->m_order_item->delete($oi_id);
+            echo $row;
         }
 	}
 	        
