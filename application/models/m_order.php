@@ -174,13 +174,14 @@
 	        return $data;
 	    }
 
-	    public function listOr($limit = null , $start = null , $del = 0)
+	    public function listOr($ver = 0 , $limit = null , $start = null , $del = 0)
 	    {
 	    	$this->db->select('ord.or_id , us1.us_username , cl.cl_name , ord.or_date ,ord.pr_id, pr.pr_desc');
 	    	$this->db->from('order ord');
 	    	if($del != 3){	    		
 	    		$this->db->where('ord.or_del', $del);
 	    	}
+	    	$this->db->where('ord.or_ver', $ver);
 	    	$this->db->join('client cl', 'ord.cl_id = cl.cl_id', 'left');
 	    	$this->db->join('user us1' , 'ord.us_id = us1.us_id' , 'left');
 	    	$this->db->join('process pr' , 'ord.pr_id = pr.pr_id' , 'left');

@@ -33,14 +33,7 @@ if ($cat == -1) { ?>
 				} else {
 					$("#addBtn").removeProp('disabled');
 				}
-			});
-			$("#addBtn").click(function() {
-				type = $("#itemType").val();
-				nic = $("#inputNico").val();
-				$.post('<?= site_url("nasty_v2/dashboard/getAjaxItemList") ?>', {type : type , nico : nic}, function(data) {
-					$("#orderList").append(data);
-				});
-			});
+			});			
 		});
 	</script>	
 <?php }

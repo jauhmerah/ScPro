@@ -3,6 +3,7 @@
 	
 	class Login extends CI_Controller {
 	
+		var $version = "Nasty Process System v2.2.0 Alpha";
 	    function __construct() {
 	        parent::__construct();
 	        $this->load->library('session' , 'my_func');

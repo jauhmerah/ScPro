@@ -3,6 +3,7 @@
 class Order extends CI_Controller {
  	
  	var $parent_page = "order";
+ 	var $version = "Nasty Process System v2.2.0 Alpha";
 	public function __construct()
 	{
 		parent::__construct();
@@ -27,7 +28,7 @@ class Order extends CI_Controller {
 
 	function _show($data = null)
 	{
-		$T = array();
+		$T['T'] = $this->version;
 		if (isset($data['T'])) {
 			$T['T'] = $data['T'];
 			unset($data['T']);

@@ -143,7 +143,6 @@
 				                                    <table class="table table-hover table-condensed">
 				                                    	<thead>
 				                                    		<tr>
-				                                    			<th>#</th>
 				                                    			<th>Item Detail</th>
 				                                    			<th>Price</th>
 				                                    			<th>Qty</th>
@@ -153,7 +152,13 @@
 				                                    	</thead>
 				                                    	<tbody id="orderList">				                               
 				                                    	</tbody>
+				                                    		
 				                                    	<tfoot>
+				                                    		<tr>
+				                                    			<td colspan="5">
+				                                    				<textarea name="note" id="input" class="form-control input-circle input-lg" rows="4" placeholder="#Note"></textarea>
+				                                    			</td>
+				                                    		</tr>
 				                                    		<tr>
 				                                    			<td colspan="5">				                                    				
 				                                    				<div class="row">
@@ -187,7 +192,7 @@
 				                                    						<div class="form-group">
 				                                    							<label for="input" class="col-md-4 control-label">Nicotine : </label>
 				                                    							<div class="col-sm-5">
-				                                    								<select name="nico" id="inputNico" class="form-control input-circle">
+				                                    								<select id="inputNico" class="form-control input-circle">
 																						<option value="-1" selected>-- Select One --</option>
 																						<?php 
 																							foreach ($nico as $mg) {?>
@@ -270,13 +275,13 @@
 										                                        <span></span>
 										                                    </label>
 										                                </div>
-					                                            	</td>                                            	
+					                                            	</td>
 					                                            	<th>
-					                                            		Tracking No
+					                                            		Ship Date
 					                                            	</th>
 					                                            	<td>
-					                                            		<input type = "text" name="traking" class="form-control input-circle">
-					                                            	</td>
+					                                            		<input type = "date" class="form-control input-circle" name="sendDate">
+					                                            	</td> 
 						                                        </tr>
 						                                        <tr>
 					                                            	<th>
@@ -302,10 +307,10 @@
 										                                </div>
 					                                            	</td>
 					                                            	<th>
-					                                            		Ship Date
+					                                            		Invoice Link
 					                                            	</th>
 					                                            	<td>
-					                                            		<input type = "date" class="form-control input-circle" name="sendDate">
+					                                            		<input type = "text" name="traking" class="form-control input-circle" disabled placeholder="Next Version 2.21 Alpha">
 					                                            	</td>
 						                                        </tr>
 						                                        <tr>
@@ -337,65 +342,12 @@
 										                                </div>
 					                                            	</td>
 					                                            	<th>
-					                                            		Inv Attach
+					                                            		<strong>Dummy</strong> Invoice
 					                                            	</th>
 					                                            	<td>
-					                                            		<input type = "text" name="invAtt" class="form-control input-circle">
+					                                            		<input type = "text" name="invAtt" class="form-control input-circle" disabled placeholder="Next Version 2.21 Alpha">
 					                                            	</td>
-						                                        </tr>
-						                                        <tr>
-					                                            	<th>
-					                                            		Declare Price
-					                                            	</th>
-					                                            	<td colspan="4">
-					                                            		<input type = "text" name="declarePrice" class="form-control input-circle">
-					                                            	</td>
-					                                            	<th>
-					                                            		MSDS
-					                                            	</th>
-					                                            	<td>
-					                                            		<input type = "text" name="msds" class="form-control input-circle">
-					                                            	</td>
-						                                        </tr>
-						                                        <tr>
-					                                            	<th>
-					                                            		Batch No Start
-					                                            	</th>
-					                                            	<td colspan="4" rowspan="3">
-					                                            		<textarea name="note" id="input" class="form-control input-circle input-lg" rows="4" placeholder="#Note"></textarea>                                            		
-					                                            	</td>					                                            	
-					                                            	<th>
-					                                            		C.O.O
-					                                            	</th>
-					                                            	<td>
-					                                            		<input type = "text" name="coo" class="form-control input-circle">
-					                                            	</td>
-						                                        </tr>
-						                                        <tr>
-					                                            	<th>
-					                                            		Batch No END
-					                                            	</th>
-					                                            						                                            	
-					                                            	<th>
-					                                            		Small C Box
-					                                            	</th>
-					                                            	<td>
-					                                            		<input type = "text" name="smallcb" class="form-control input-circle">
-					                                            	</td>
-						                                        </tr>
-						                                        <tr>
-					                                            	<th>
-					                                            		Batch
-					                                            	</th>
-					                                            	
-					                                            	
-					                                            	<th>
-					                                            		Big C Box
-					                                            	</th>
-					                                            	<td>
-					                                            		<input type = "text" name="bigcb" class="form-control input-circle">
-					                                            	</td>
-						                                        </tr>	                                        
+						                                        </tr>						                                                                             
 						                                    </tbody>
 						                                </table>
 						                            </div>
@@ -416,7 +368,8 @@
         </div>
 </div>
 <script>
-	$(document).ready(function() {
+	var num = 1;
+	$(document).ready(function() {		
 		$('#client').change(function() {
 			temp = $(this).val();
 			$.when($('#loadingText').show()).then(function(){
@@ -434,6 +387,16 @@
 			}
 			$.post('<?= site_url('nasty_v2/dashboard/getAjaxItem'); ?>', {ca_id : temp}, function(data) {
 				$("#divType").html(data);
+			});
+		});
+		$("#addBtn").click(function() {
+			type = $("#itemType").val();
+			nic = $("#inputNico").val();
+			cat = $("#cat").val();
+			//alert(type + " " + nic + " " + cat);				
+			num ++;
+			$.post('<?= site_url("nasty_v2/dashboard/getAjaxItemList") ?>', {type : type , nico : nic , cat : cat , num : num}, function(data) {
+				$("#orderList").append(data);
 			});
 		});		
 	});
