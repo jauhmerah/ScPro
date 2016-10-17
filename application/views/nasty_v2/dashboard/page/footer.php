@@ -18,7 +18,7 @@
             <script src="<?= base_url(); ?>asset2/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
             <script src="<?= base_url(); ?>asset2/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
             <script src="<?= base_url(); ?>asset2/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
-
+            <script src="<?= base_url(); ?>asset2/global/plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
             <!-- END CORE PLUGINS -->
             <!-- BEGIN THEME GLOBAL SCRIPTS -->
             <script src="<?= base_url(); ?>asset2/global/scripts/app.min.js" type="text/javascript"></script>

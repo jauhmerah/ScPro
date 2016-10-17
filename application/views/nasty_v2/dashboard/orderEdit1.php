@@ -151,8 +151,8 @@
                                         <!-- Order Note -->
                                         <div class="col-md-12">
                                         <div class="row">
-                                        	<div class="portlet box green">
-				                                <div class="portlet-title">
+                                        	<div class="portlet box"  style="border: 1px solid #3246d2;">
+				                                <div class="portlet-title"  style="background-color: #3246d2;">
 				                                    <div class="caption">
 				                                        <i class="fa fa-cogs"></i>Order Note </div>
 				                                    
@@ -199,7 +199,8 @@
 						                                    </tbody>
 						                                    <tfoot>
 						                                    	<td colspan="5">
-					                                            		<textarea name="note" id="input" class="form-control input-circle input-lg" rows="2" placeholder="#Note"><?= $arr['order']->or_note; ?></textarea>                                            		
+						                                    		<input type="hidden" name="orex_id" id="inputOrex_id" class="form-control" value="<?= $arr['order']->orex_id; ?>">
+					                                            	<textarea name="note" id="input" class="form-control input-circle input-lg" rows="2" placeholder="#Note"><?= $arr['order']->or_note; ?></textarea>                                            		
 					                                            </td>
 					                                            <tr>
 				                                    			<td colspan="5">				                                    				
@@ -318,12 +319,12 @@
 										                                        <span></span>
 										                                    </label>
 										                                </div>
-					                                            	</td>                                            	
+					                                            	</td> 
 					                                            	<th>
-					                                            		Tracking No
+					                                            		Ship Date
 					                                            	</th>
 					                                            	<td>
-					                                            		<input type = "text" name="traking" class="form-control input-circle" value="<?= $arr['order']->or_traking; ?>">
+					                                            		<input type = "date" name="sendDate" class="form-control input-circle" value="<?php if($arr['order']->or_sendDate != '0000-00-00 00:00:00') { echo date_format(date_create($arr['order']->or_sendDate) , 'Y-m-d' ); }else{echo '';} ?>">
 					                                            	</td>
 						                                        </tr>
 						                                        <tr>
@@ -350,11 +351,11 @@
 										                                </div>
 					                                            	</td>
 					                                            	<th>
-					                                            		Ship Date
+					                                            		Invoice Link
 					                                            	</th>
 					                                            	<td>
-					                                            		<input type = "date" name="sendDate" class="form-control input-circle" value="<?php if($arr['order']->or_sendDate != '0000-00-00 00:00:00') { echo date_format(date_create($arr['order']->or_sendDate) , 'Y-m-d' ); }else{echo '';} ?>">
-					                                            	</td>
+					                                            		<input type = "text" name="traking" class="form-control input-circle" disabled placeholder="Next Version 2.21 Alpha">
+					                                            	</td>					                                            	
 						                                        </tr>
 						                                        <tr>
 					                                            	<th>
@@ -385,63 +386,10 @@
 										                                </div>
 					                                            	</td>
 					                                            	<th>
-					                                            		Inv Attach
+					                                            		<strong>Dummy</strong> Invoice
 					                                            	</th>
 					                                            	<td>
-					                                            		<input type = "text" name="invAtt" class="form-control input-circle" value="<?= $arr['order']->or_invAtt; ?>">
-					                                            	</td>
-						                                        </tr>
-						                                        <tr>
-					                                            	<th>
-					                                            		Declare Price
-					                                            	</th>
-					                                            	<td colspan="4">
-					                                            		<input type = "text" name="declarePrice" class="form-control input-circle" value="<?= $arr['order']->or_declarePrice ;?>">
-					                                            	</td>
-					                                            	<th>
-					                                            		MSDS
-					                                            	</th>
-					                                            	<td>
-					                                            		<input type = "text" name="msds" class="form-control input-circle" value="<?= $arr['order']->or_msds; ?>">
-					                                            	</td>
-						                                        </tr>
-						                                        <tr>
-					                                            	<th>
-					                                            		Batch No Start
-					                                            	</th>
-					                                            	<td colspan="4" rowspan="3">
-					                                            		<textarea name="note" id="input" class="form-control input-circle input-lg" rows="4" placeholder="#Note"><?= $arr['order']->or_note;?></textarea>                                            		
-					                                            	</td>					                                            	
-					                                            	<th>
-					                                            		C.O.O
-					                                            	</th>
-					                                            	<td>
-					                                            		<input type = "text" name="coo" value="<?= $arr['order']->or_coo;?>" class="form-control input-circle">
-					                                            	</td>
-						                                        </tr>
-						                                        <tr>
-					                                            	<th>
-					                                            		Batch No END
-					                                            	</th>
-					                                            						                                            	
-					                                            	<th>
-					                                            		Small C Box
-					                                            	</th>
-					                                            	<td>
-					                                            		<input type = "text" name="smallcb" value="<?= $arr['order']->or_smallcb; ?>" class="form-control input-circle">
-					                                            	</td>
-						                                        </tr>
-						                                        <tr>
-					                                            	<th>
-					                                            		Batch
-					                                            	</th>
-					                                            	
-					                                            	
-					                                            	<th>
-					                                            		Big C Box
-					                                            	</th>
-					                                            	<td>
-					                                            		<input type = "text" value="<?= $arr['order']->or_bigcb; ?>" name="bigcb" class="form-control input-circle">
+					                                            		<input type = "text" name="invAtt" class="form-control input-circle" disabled placeholder="Next Version 2.21 Alpha">
 					                                            	</td>
 						                                        </tr>	                                        
 						                                    </tbody>
@@ -464,8 +412,9 @@
         </div>
 </div>
 <script>
+
 	var num = 1;
-	$(document).ready(function() {		
+	$(document).ready(function() {	
 		$('#client').change(function() {
 			temp = $(this).val();
 			$.when($('#loadingText').show()).then(function(){

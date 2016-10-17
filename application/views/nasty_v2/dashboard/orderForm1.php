@@ -133,8 +133,8 @@
                                         <!-- Order Note -->
                                         <div class="col-md-12">
                                         <div class="row">
-                                        	<div class="portlet box green">
-				                                <div class="portlet-title">
+                                        	<div class="portlet box" style="border: 1px solid #3246d2;">
+				                                <div class="portlet-title"  style="background-color: #3246d2;">
 				                                    <div class="caption">
 				                                        <i class="fa fa-cogs"></i>Order Note </div>
 				                                    

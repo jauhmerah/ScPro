@@ -1,10 +1,5 @@
 <div class="row">
 	<div class="col-md-12">
-	<?php
-	echo "<pre>";
-    print_r($arr);
-    echo "</pre>"; 
-	?>
            <div class="tab-pane active" id="tab_1">
                         <div class="portlet box" style="border: 1px solid #f77d00;">
                             <div class="portlet-title" style="background-color: #f77d00;">
@@ -122,11 +117,11 @@
                                         <!-- Order Note -->
                                         <div class="col-md-12">
                                         <div class="row">
-                                        	<div class="portlet box green">
-				                                <div class="portlet-title">
+                                        	<div class="portlet box" style="border: 1px solid #3246d2;">
+				                                <div class="portlet-title" style="background-color: #3246d2;">
 				                                    <div class="caption">
-				                                        <i class="fa fa-cogs"></i>Order Note </div>
-				                                    
+				                                        <i class="fa fa-cogs"></i>Order Note
+				                                    </div>				                                    
 				                                </div>
 				                                <div class="portlet-body">
 				                                    <div class="table-responsive">
