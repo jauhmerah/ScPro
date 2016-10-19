@@ -260,6 +260,47 @@ jauhmerah@nastyjuice.com
                         redirect(site_url('nasty_v2/dashboard/page/a2?mode=2'),'refresh');
                     }
                     break;
+                case 'a221':
+                    if ($this->input->get('done')) {
+                        $or_id = $this->my_func->scpro_decrypt($this->input->get('done'));
+                        $this->load->database();
+                        $this->load->model('m_order');
+                        $this->load->model('m_order_ext');                        
+                        $finish = date("Y-m-d",time());
+                        $this->m_order_ext->update(array("or_finishdate" => $finish), array('or_id' => $or_id));
+                        $row = $this->m_order->update(array('pr_id' => 3) , $or_id);
+                        if ($row == 0) {
+                            $this->session->set_flashdata('warning', 'Ops!! Unable to update the order status...');
+                        } else {
+                            $this->session->set_flashdata('success', 'The order are completed. Please print the D.O. form before shipping.');
+                            $email['fromName'] = "Ai System";
+                            $email['fromEmail'] = "nstylabc@sirius.sfdns.net";
+                            $email['toEmail'] = "bellazul@nastyjuice.com";
+                            $email['subject'] = "Order #".(110000+$or_id)." Completed";
+                            $email['msg'] = "
+Order Detail
+
+Order No : #".(110000+$or_id)."
+Order Status : Order Complete
+
+Print D.O.Form Link : ".site_url('order/printDO1?id='.$this->my_func->scpro_encrypt($or_id))."
+Print Order Detail : ".site_url('order/printO1?id='.$this->my_func->scpro_encrypt($or_id))."
+
+Search Order Page : ".site_url()."
+System Login : ".site_url('login')."
+
+Sincerely,
+Ai System
+
+Programmer
+JauhMerah
+jauhmerah@nastyjuice.com
+                        ";
+                        $this->sendEmail($email);
+                        }
+                        redirect(site_url('nasty_v2/dashboard/page/a2?mode=2'),'refresh');
+                    }
+                    break;
                 case 'a21':                 
                     if ($this->input->get('move')) {
                         $or_id = $this->my_func->scpro_decrypt($this->input->get('move'));
