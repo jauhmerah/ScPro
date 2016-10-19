@@ -3,6 +3,17 @@
 		$mode = 0;
 	}	
 ?>
+<pre>
+	<?php
+	print_r($arrV);
+	print_r($arrV1);
+	?>
+</pre>
+<script>
+	function moveTo() {
+		return confirm('Are you sure?');
+	}
+</script>
 <div class="row">
 	<div class="col-xs-12">
 		<div class="row">
@@ -13,7 +24,7 @@
                     </div>
                     <div class="details">
                         <div class="number">
-                            <span data-counter="counterup" data-value="<?= sizeof($arr); ?>"><?= sizeof($arr); ?></span>
+                            <span data-counter="counterup" data-value="<?= sizeof($arr); ?>"><?= sizeof($arr)+sizeof($arrV); ?></span>
                         </div>
                         <div class="desc"> New Order </div>
                     </div>
@@ -26,7 +37,7 @@
                     </div>
                     <div class="details">
                         <div class="number">
-                            <span data-counter="counterup" data-value="<?= sizeof($arr1); ?>"><?= sizeof($arr1); ?></span></div>
+                            <span data-counter="counterup" data-value="<?= sizeof($arr1); ?>"><?= sizeof($arr1)+sizeof($arrV1); ?></span></div>
                         <div class="desc"> In Progress </div>
                     </div>
                 </a>
@@ -54,119 +65,213 @@
 						<tbody>
 						<?php
 						$n=0;
-						foreach ($arr as $key) { 
-							$n++;
-							?>						
-							<tr class="Lorder" id="L<?= $n; ?>">
-								<td><span style = "color:red;" >#<?= 100000 + $key['order']->or_id; ?></span></td>
-								<td><?= $key['order']->cl_name; ?></td>
-								
-								<td><?= $key['order']->cl_country; ?></td>
-								<?php if($key['order']->or_dateline != '0000-00-00 00:00:00'){ 
-                                	$date = date_format(date_create($key['order']->or_dateline) , 'd-m-Y' );
-                                	}else{
-                                		$date = '--Not Set--';
-                                	}
-                                ?>
-								<td><?= $date; ?></td>
-								<td>
-								<?php $usid = $this->my_func->scpro_encrypt($key['order']->or_id); ?>
-									<a href="<?= site_url('nasty_v2/dashboard/page/a21?move=').$usid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-info"><i class="fa fa-share-square-o"></i> Move To Process</button></a>
-								</td>
-							</tr>
-							<tr class="L<?= $n; ?>" style="display : none;">
-								<td colspan="5" >
-									<div class="row">
-										<div class="col-md-10 col-md-offset-1">
-											<table class="table table-condensed table-hover">
-												<thead>
-													<tr>
-														<th>#</th>
-														<th>Product</th>
-														<th>Quantity</th>
-														<th>Tester</th>
-													</tr>
-												</thead>
-												<tbody>
-												<?php if (sizeof($key['item'] != 0)) {
-														$n2 = 0;
-														foreach ($key['item'] as $key2) { 
-															if ($key2->orn_0mg != 0) { 
-															$n2++; ?>
-															<tr>
-																<td>
-																	<?= $n2; ?>
-																</td>
-																<td><?= $this->l_label->item_label($key2->ty2_id); ?> | <span class="label label-default"><strong>0 mg</strong></span> </td>
-																<td>
-																	<?= $key2->orn_0mg; ?>
-																</td>
-																<td>
-																	<?= $key2->orn_0mgp; ?>
-																</td>
-															</tr>
-															<?php }
-															if ($key2->orn_3mg != 0) { 
-															$n2++; ?>
-															<tr>
-																<td>
-																	<?= $n2; ?>
-																</td>
-																<td><?= $this->l_label->item_label($key2->ty2_id); ?> | <span class="label label-danger"><strong>3 mg</strong></span> </td>
-																<td>
-																	<?= $key2->orn_3mg; ?>
-																</td>
-																<td>
-																	<?= $key2->orn_3mgp; ?>
-																</td>
-															</tr>
-															<?php }
-															if ($key2->orn_6mg != 0) { 
-															$n2++; ?>
-															<tr>
-																<td>
-																	<?= $n2; ?>
-																</td>
-																<td><?= $this->l_label->item_label($key2->ty2_id); ?> | <span class="label label-success"><strong>6 mg</strong></span> </td>
-																<td>
-																	<?= $key2->orn_6mg; ?>
-																</td>
-																<td>
-																	<?= $key2->orn_6mgp; ?>
-																</td>
-															</tr>
-															<?php }
-															?>	
-														<?php }
-													?>
-													
-												<?php }else{ ?>
-													<tr>
-														<td align = 'center'>
-															--No Data--
-														</td>
-													</tr>
-												<?php } ?>
-												</tbody>
-											</table>												
-										</div>										
-									</div>
-									<div class="row">
-										<div class="col-md-12">
-											<hr>
-											<div class="col-md-2">
-												<span class="pull-left">Note</span><span class="pull-right">:</span>
-											</div>
-											<div class="col-md-6">
-												<div class="well">
-													<?= $key['order']->or_note; ?>
+						// vvvvvvvvvvvvvvv OrdYs 2.2.0 vvvvvvvvvvvvvvv
+							foreach ($arrV as $key) { 
+								$n++;
+								?>						
+								<tr class="Lorder" id="L<?= $n; ?>">
+									<td><span style = "color:blue;" >#<?= 110000 + $key['order']->or_id; ?></span></td>
+									<td><?= $key['order']->cl_name; ?></td>
+									
+									<td><?= $key['order']->cl_country; ?></td>
+									<?php if($key['order']->or_dateline != '0000-00-00 00:00:00'){ 
+	                                	$date = date_format(date_create($key['order']->or_dateline) , 'd-m-Y' );
+	                                	}else{
+	                                		$date = '--Not Set--';
+	                                	}
+	                                ?>
+									<td><?= $date; ?></td>
+									<td>
+									<?php $usid = $this->my_func->scpro_encrypt($key['order']->or_id); ?>
+										<a onclick="return moveTo();" href="<?= site_url('nasty_v2/dashboard/page/a21?move=').$usid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-info"><i class="fa fa-share-square-o"></i> Move To Process</button></a>
+									</td>
+								</tr>
+								<tr class="L<?= $n; ?>" style="display : none;">
+									<td colspan="5" >
+										<div class="row">
+											<div class="col-md-10 col-md-offset-1">
+												<table class="table table-condensed table-hover">
+													<thead>
+														<tr>
+															<th>#</th>
+															<th>Product</th>
+															<th>Quantity</th>
+															<th>Tester</th>
+														</tr>
+													</thead>
+													<tbody>
+													<?php if (sizeof($key['item'] != 0)) {
+															$n2 = 0;
+															foreach ($key['item'] as $key2) { 
+																$n2++; ?>
+																<tr>
+																	<td>
+																		<?= $n2; ?>
+																	</td>
+																	<td><?= $key2->ty2_desc; ?> | 
+																	<span class="label" style="color: black;background-color: <?= $key2->ca_color; ?>; font-size: 75%;" ><strong><?= $key2->ca_desc; ?></strong></span>&nbsp;
+																	<span class="label" style="color: black;font-size: 75%; background-color: <?= $key2->ni_color; ?>;" ><strong><?= $key2->ni_mg; ?> mg</strong></span> 
+																	</td>
+																	<td>
+																		<?= $key2->oi_qty; ?>
+																	</td>
+																	<td>
+																		<?= $key2->oi_tester; ?>
+																	</td>
+																</tr>
+															<?php
+															}
+														?>
+														
+													<?php }else{ ?>
+														<tr>
+															<td align = 'center'>
+																--No Data--
+															</td>
+														</tr>
+													<?php } ?>
+													</tbody>
+												</table>												
+											</div>										
+										</div>
+										<div class="row">
+											<div class="col-md-12">
+												<hr>
+												<div class="col-md-2">
+													<span class="pull-left">Note</span><span class="pull-right">:</span>
+												</div>
+												<div class="col-md-6">
+													<div class="well">
+														<?= $key['order']->or_note; ?>
+													</div>
 												</div>
 											</div>
+										</div>		
+									</td>
+								</tr>
+							<?php }
+						// ^^^^^^^^^^^^^^^ End Ord
+						if (sizeof($arr) != 0) { ?>
+						<tr>
+                			<td colspan = "5">
+                				<div align = "center">vvvvvvv Old Version 2.1 Alpha vvvvvvv</div>
+                			</td>
+                		</tr>
+						<?php
+							foreach ($arr as $key) { 
+								$n++;
+								?>						
+								<tr class="Lorder" id="L<?= $n; ?>">
+									<td><span style = "color:red;" >#<?= 100000 + $key['order']->or_id; ?></span></td>
+									<td><?= $key['order']->cl_name; ?></td>
+									
+									<td><?= $key['order']->cl_country; ?></td>
+									<?php if($key['order']->or_dateline != '0000-00-00 00:00:00'){ 
+	                                	$date = date_format(date_create($key['order']->or_dateline) , 'd-m-Y' );
+	                                	}else{
+	                                		$date = '--Not Set--';
+	                                	}
+	                                ?>
+									<td><?= $date; ?></td>
+									<td>
+									<?php $usid = $this->my_func->scpro_encrypt($key['order']->or_id); ?>
+										<a onclick="return moveTo();" href="<?= site_url('nasty_v2/dashboard/page/a21?move=').$usid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-info"><i class="fa fa-share-square-o"></i> Move To Process</button></a>
+									</td>
+								</tr>
+								<tr class="L<?= $n; ?>" style="display : none;">
+									<td colspan="5" >
+										<div class="row">
+											<div class="col-md-10 col-md-offset-1">
+												<table class="table table-condensed table-hover">
+													<thead>
+														<tr>
+															<th>#</th>
+															<th>Product</th>
+															<th>Quantity</th>
+															<th>Tester</th>
+														</tr>
+													</thead>
+													<tbody>
+													<?php if (sizeof($key['item'] != 0)) {
+															$n2 = 0;
+															foreach ($key['item'] as $key2) { 
+																if ($key2->orn_0mg != 0) { 
+																$n2++; ?>
+																<tr>
+																	<td>
+																		<?= $n2; ?>
+																	</td>
+																	<td><?= $this->l_label->item_label($key2->ty2_id); ?> | <span class="label label-default"><strong>0 mg</strong></span> </td>
+																	<td>
+																		<?= $key2->orn_0mg; ?>
+																	</td>
+																	<td>
+																		<?= $key2->orn_0mgp; ?>
+																	</td>
+																</tr>
+																<?php }
+																if ($key2->orn_3mg != 0) { 
+																$n2++; ?>
+																<tr>
+																	<td>
+																		<?= $n2; ?>
+																	</td>
+																	<td><?= $this->l_label->item_label($key2->ty2_id); ?> | <span class="label label-danger"><strong>3 mg</strong></span> </td>
+																	<td>
+																		<?= $key2->orn_3mg; ?>
+																	</td>
+																	<td>
+																		<?= $key2->orn_3mgp; ?>
+																	</td>
+																</tr>
+																<?php }
+																if ($key2->orn_6mg != 0) { 
+																$n2++; ?>
+																<tr>
+																	<td>
+																		<?= $n2; ?>
+																	</td>
+																	<td><?= $this->l_label->item_label($key2->ty2_id); ?> | <span class="label label-success"><strong>6 mg</strong></span> </td>
+																	<td>
+																		<?= $key2->orn_6mg; ?>
+																	</td>
+																	<td>
+																		<?= $key2->orn_6mgp; ?>
+																	</td>
+																</tr>
+																<?php }
+																?>	
+															<?php }
+														?>
+														
+													<?php }else{ ?>
+														<tr>
+															<td align = 'center'>
+																--No Data--
+															</td>
+														</tr>
+													<?php } ?>
+													</tbody>
+												</table>												
+											</div>										
 										</div>
-									</div>		
-								</td>
-							</tr>
-						<?php }
+										<div class="row">
+											<div class="col-md-12">
+												<hr>
+												<div class="col-md-2">
+													<span class="pull-left">Note</span><span class="pull-right">:</span>
+												</div>
+												<div class="col-md-6">
+													<div class="well">
+														<?= $key['order']->or_note; ?>
+													</div>
+												</div>
+											</div>
+										</div>		
+									</td>
+								</tr>
+							<?php }
+						}
 						?>
 						</tbody>
 					</table>
