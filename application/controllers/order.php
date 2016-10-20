@@ -84,6 +84,34 @@ class Order extends CI_Controller {
 			
 	}
 
+	function printO1($or_id = null){
+		//production print email
+		if ($this->input->get('id') || $or_id != null) {
+			if ($this->input->get('id')) {
+				$or_id = $this->input->get('id');
+				$or_id = $this->my_func->scpro_decrypt($or_id);
+			}
+			$this->load->database();
+			$this->load->model('m_order');
+			$arr = $this->m_order->getList_ext($or_id , 1);
+			if(sizeof($arr) != 0){
+				$order['arr'] = array_shift($arr);
+				unset($arr);
+				$this->load->library('l_label');
+				$data["T"] = "#".(110000+$order['arr']['order']->or_id);				
+				$data['display'] = $this->load->view($this->parent_page."/printForm" , $order , true);
+				$this->_show($data);				
+			}else{
+				$this->session->set_flashdata('info', 'Sorry Your Order Not Found');
+				redirect(site_url(),'refresh');	
+			}
+		} else {
+			$this->session->set_flashdata('warning', 'Ops!!! Wrong path pal');
+			redirect(site_url(),'refresh');	
+		}
+			
+	}
+
 	public function printDO(){
 		if ($this->input->get('id')) {
 			$or_id = $this->my_func->scpro_decrypt($this->input->get('id'));
