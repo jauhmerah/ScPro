@@ -168,7 +168,7 @@
 						                                    		
 						                                    	?>
 						                                    	<td colspan="5">
-					                                            		<textarea name="note" id="input" class="form-control input-circle input-lg" rows="2" placeholder="#Note" readonly><?= $arr['order']->or_note; ?></textarea>                                            		
+					                                            		<textarea name="note" id="input" class="form-control input-circle input-lg" rows="2" placeholder="#Note" readonly><?= $arr['order']->or_note; ?></textarea>
 					                                            </td>
 						                                    </tbody>
 						                                </table>
