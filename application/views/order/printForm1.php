@@ -73,7 +73,24 @@
         			$n = 0;
         			$total = 0;
         			$totalTester = 0;
-        			foreach ($arr['item'] as $key) {
+        			$allT = 0;
+        			$allTV = 0;
+        			$cat = $arr['item'][0]->ca_id;
+        			foreach ($arr['item'] as $key) {        				
+        				if ($cat != $key->ca_id) { 
+        				$cat = $key->ca_id;
+        					?>
+        					<tr>
+				        		<td colspan="2"></td>
+				        		<td><strong>Total Qty : </strong><?= $total; ?></td>
+				        		<td><strong>Total Tester : </strong><?= $totalTester; ?></td>
+				        	</tr>
+        				<?php 
+        				$allT += $total;
+        				$allTV += $totalTester;
+        				$total = 0;
+        				$totalTester = 0;
+        				} 
         				$n++;
         				$total += $key->oi_qty;
         				$totalTester += $key->oi_tester;
@@ -87,14 +104,11 @@
 								<span class="label" style="color: black;font-size: 75%; background-color: <?= $key->ni_color; ?>;" ><strong><?= $key->ni_mg; ?> mg</strong></span></td>
 								<td><?= $key->oi_qty; ?></td>
 								<td><?= $key->oi_tester; ?></td>
-								
-								</td>
 							</tr>
         				</tr>
-        				<?php
+        				<?php        				      				
         			}
-        		}
-        		
+        		}        		
         	?>        	
         	<tr>
         		<td colspan="2"></td>
