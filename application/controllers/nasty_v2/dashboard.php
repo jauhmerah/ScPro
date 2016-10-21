@@ -5,7 +5,7 @@
 	
 	   	var $parent_page = "nasty_v2/dashboard";
 	   	var $old_page = "dashboard";
-        var $version = "Nasty Process System v2.2.0 Alpha";
+        var $version = "OrdYs v2.2.1 Alpha";
 
 	    function __construct() {
 	        parent::__construct();
@@ -784,28 +784,32 @@ jauhmerah@nastyjuice.com
                         $or_id = $this->my_func->scpro_decrypt($this->input->get('key'));
                         $this->load->database();
                         $this->load->model('m_order_item');
-                        if (sizeof($arr['ideE']) != 0) {
-                            for ($i=0; $i < sizeof($arr['ideE']); $i++) { 
-                                $oi_id = $arr['ideE'][$i];
-                                $temp = array(
-                                   'oi_price' => $arr['priceE'],
-                                   'oi_qty' => $arr['qtyE'],
-                                   'oi_tester' => $arr['testerE']
-                                );
-                                $this->m_order_item->update($temp , $oi_id);                                
+                        if (isset($arr['idE'])) {
+                            if (sizeof($arr['idE']) != 0) {
+                                for ($i=0; $i < sizeof($arr['idE']); $i++) { 
+                                    $oi_id = $arr['idE'][$i];
+                                    $temp = array(
+                                       'oi_price' => $arr['priceE'][$i],
+                                       'oi_qty' => $arr['qtyE'][$i],
+                                       'oi_tester' => $arr['testerE'][$i]
+                                    );
+                                    $this->m_order_item->update($temp , $oi_id);
+                                }
                             }
-                        }
-                        if (sizeof($arr['itemId'])) {                            
-                            for ($i=0; $i < sizeof($arr['itemId']) ; $i++) { 
-                                $item = array(
-                                    'orex_id' => $arr['orex_id'],
-                                    'ty2_id' => $arr['itemId'][$i],
-                                    'ni_id' => $arr['nico'][$i],
-                                    'oi_price' => $arr['nico'][$i],
-                                    'oi_qty' => $arr['qty'][$i],
-                                    'oi_tester' => $arr['tester'][$i]
-                                );
-                                $this->m_order_item->insert($item);
+                        }                        
+                        if (isset($arr['itemId'])) {  
+                            if (sizeof($arr['itemId'])) {                            
+                                for ($i=0; $i < sizeof($arr['itemId']) ; $i++) { 
+                                    $item = array(
+                                        'orex_id' => $arr['orex_id'],
+                                        'ty2_id' => $arr['itemId'][$i],
+                                        'ni_id' => $arr['nico'][$i],
+                                        'oi_price' => $arr['price'][$i],
+                                        'oi_qty' => $arr['qty'][$i],
+                                        'oi_tester' => $arr['tester'][$i]
+                                    );
+                                    $this->m_order_item->insert($item);
+                                }
                             }
                         }
                         
@@ -844,6 +848,10 @@ jauhmerah@nastyjuice.com
                         $this->load->library('my_func');
                         $this->load->database();
                         $this->load->model('m_order');
+                        echo "<pre>";
+                        print_r($arr);
+                        echo "</pre>";
+
                         if ($arr['client'] == -1) {
                             $cl = array(
                                 'cl_name' => $arr['name'],
@@ -885,11 +893,11 @@ jauhmerah@nastyjuice.com
                                 'orex_id' => $orex_id,
                                 'ty2_id' => $arr['itemId'][$i],
                                 'ni_id' => $arr['nico'][$i],
-                                'oi_price' => $arr['nico'][$i],
+                                'oi_price' => $arr['price'][$i],
                                 'oi_qty' => $arr['qty'][$i],
                                 'oi_tester' => $arr['tester'][$i]
                             );
-                            $this->m_order_item->insert($item);
+                            echo $this->m_order_item->insert($item);
                         }
                         /*$this->load->model('m_shipping_note');
                         $shipping_note = array(

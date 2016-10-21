@@ -1,8 +1,7 @@
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
-			<span class="pull-left"><h2>Order List</h2></span><span class="pull-right" style="color: blue"><h2>#<?php echo (110000+$arr['order']->or_id); ?></h2></span>			
-		</div>
-		
+			<span class="pull-left"><img src="<?= base_url("assets/cover/orderlistlogo.png"); ?>"  class="img-responsive" width = "250px" alt="Image"></span><span class="pull-right" style="color: blue"><h2>#<?php echo (110000+$arr['order']->or_id); ?></h2></span>			
+		</div>		
 	</div>
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
@@ -83,7 +82,7 @@
         					<td>
         						<?= $n; ?>
         					</td>
-        					<td><?= $key->ty2_desc; ?><br>
+        					<td><?= $key->ty2_desc; ?>
 								<span class="label" style="color: black;background-color: <?= $key->ca_color; ?>; font-size: 75%;" ><strong><?= $key->ca_desc; ?></strong></span>&nbsp;
 								<span class="label" style="color: black;font-size: 75%; background-color: <?= $key->ni_color; ?>;" ><strong><?= $key->ni_mg; ?> mg</strong></span></td>
 								<td><?= $key->oi_qty; ?></td>
@@ -100,13 +99,19 @@
         	<tr>
         		<td colspan="2"></td>
         		<td><strong>Total Qty : </strong><?= $total; ?></td>
-        		<td>Total Tester : <?= $totalTester; ?></td>
+        		<td><strong>Total Tester : </strong><?= $totalTester; ?></td>
         	</tr>
+        	<?php 
+        	if ($arr['order']->or_note != null || $arr['order']->or_note != "") {
+        		?>
         	<tr>
         		<td colspan="4">
 					<textarea name="note" id="input" class="form-control input-circle input-lg" rows="2" placeholder="#Note" readonly><?= $arr['order']->or_note; ?></textarea>
 				</td>
         	</tr>
+        	<?php
+        	}
+        	?>  
 				</tbody>
 			</table>
 		</div>

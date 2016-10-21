@@ -187,13 +187,24 @@
 		<p>&nbsp;</p><p>&nbsp;</p>
 		<p>&nbsp;</p>
 		</div>
-		<div align="right">
+		<table class = "table" border = "0">
+		<tr>
+			<td>
+			<div align="Left">
+			________________________________<br>
+			Logistic<?= "'s"; ?> Signature / Company Stamp<p></p>
+			Time of Receipt : __________________
+		</div>
+			</td>
+			<td>
+			<div align="right">
 			________________________________<br>
 			Receiver<?= "'s"; ?> Signature / Company Stamp<p></p>
 			Time of Receipt : __________________
 		</div>
-		
-
+			</td>
+		</tr>
+		</table>
 	</div>	
 </div>
 <script>

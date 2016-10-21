@@ -47,9 +47,14 @@ class Order extends CI_Controller {
 				$this->session->set_flashdata('warning', 'Please Enter the Correct Order Code');
 				redirect(site_url(),'refresh');
 			}
-			$id = $search - 100000;
-			$this->printO($id);
-			
+			$str = (string)$search;
+			if ($str[1] == '1') {
+				$id = $search - 110000;
+				$this->printO1($id);
+			} else {
+				$id = $search - 100000;
+				$this->printO($id);
+			}			
 		} else {
 			$this->session->set_flashdata('warning', 'Ops!!! Wrong path pal');
 			redirect(site_url(),'refresh');
@@ -65,10 +70,14 @@ class Order extends CI_Controller {
 			}
 			$this->load->database();
 			$this->load->model('m_order');
-			$arr = $this->m_order->getList_ext($or_id);
+			$arr = $this->m_order->getList_ext($or_id , 0);
 			if(sizeof($arr) != 0){
 				$order['arr'] = array_shift($arr);
 				unset($arr);
+				if ($order['arr']['order']->pr_id == 1) {
+					$this->session->set_flashdata('warning', 'Please click "Move to process" before printing !!!');
+					redirect(site_url(),'refresh');	
+				}
 				$this->load->library('l_label');
 				$data["T"] = "#".(100000+$order['arr']['order']->or_id);				
 				$data['display'] = $this->load->view($this->parent_page."/printForm" , $order , true);
@@ -97,9 +106,12 @@ class Order extends CI_Controller {
 			if(sizeof($arr) != 0){
 				$order['arr'] = array_shift($arr);
 				unset($arr);
-				$this->load->library('l_label');
+				if ($order['arr']['order']->pr_id == 1) {
+					$this->session->set_flashdata('warning', 'Please click "Move to process" before printing !!!');
+					redirect(site_url(),'refresh');	
+				}			
 				$data["T"] = "#".(110000+$order['arr']['order']->or_id);				
-				$data['display'] = $this->load->view($this->parent_page."/printForm" , $order , true);
+				$data['display'] = $this->load->view($this->parent_page."/printForm1" , $order , true);
 				$this->_show($data);				
 			}else{
 				$this->session->set_flashdata('info', 'Sorry Your Order Not Found');
@@ -126,6 +138,20 @@ class Order extends CI_Controller {
 		}
 		
 	}
+	public function printDO1(){
+		if ($this->input->get('id')) {
+			$or_id = $this->my_func->scpro_decrypt($this->input->get('id'));
+			$this->load->database();
+			$this->load->model('m_order');
+			$this->load->library('l_label');
+			$arr = $this->m_order->getList_ext($or_id , 1);
+			$arr1['arr'] = array_shift($arr);
+			unset($arr);
+			$data['display'] = $this->load->view($this->parent_page."/doForm1" , $arr1 , true);
+			$this->_show($data);
+		}
+		
+	}
 
 	public function printOrder()
 	{
@@ -139,6 +165,24 @@ class Order extends CI_Controller {
 				);
 			$this->m_order->update($arr , $or_id);
 			$this->printO($or_id);
+		} else {
+			$this->session->set_flashdata('warning', 'Ops!!! Wrong Path (Ox,\"O)');
+			redirect(site_url(),'refresh');	
+		}
+		
+	}
+	public function printOrder1()
+	{
+		// click from email link
+		if ($this->input->get('id')) {
+			$or_id = $this->my_func->scpro_decrypt($this->input->get('id'));
+			$this->load->database();
+			$this->load->model('m_order');
+			$arr = array(
+				"pr_id" => 2
+				);
+			$this->m_order->update($arr , $or_id);
+			$this->printO1($or_id);
 		} else {
 			$this->session->set_flashdata('warning', 'Ops!!! Wrong Path (Ox,\"O)');
 			redirect(site_url(),'refresh');	
