@@ -3,7 +3,7 @@
 class Order extends CI_Controller {
  	
  	var $parent_page = "order";
- 	var $version = "Nasty Process System v2.2.0 Alpha";
+ 	var $version = "Nasty Process System v2.2.3 Alpha";
 	public function __construct()
 	{
 		parent::__construct();

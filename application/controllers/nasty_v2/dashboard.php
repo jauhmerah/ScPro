@@ -5,7 +5,7 @@
 	
 	   	var $parent_page = "nasty_v2/dashboard";
 	   	var $old_page = "dashboard";
-        var $version = "OrdYs v2.2.1 Alpha";
+        var $version = "OrdYs v2.2.3 Alpha";
 
 	    function __construct() {
 	        parent::__construct();
@@ -848,10 +848,6 @@ jauhmerah@nastyjuice.com
                         $this->load->library('my_func');
                         $this->load->database();
                         $this->load->model('m_order');
-                        echo "<pre>";
-                        print_r($arr);
-                        echo "</pre>";
-
                         if ($arr['client'] == -1) {
                             $cl = array(
                                 'cl_name' => $arr['name'],

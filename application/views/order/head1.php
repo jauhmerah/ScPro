@@ -9,5 +9,10 @@
 
 		<!-- Bootstrap CSS -->
 		<link rel="stylesheet" href="<?= base_url().'/asset/js/new/bootstrap.min.css'; ?>">		
+		<script src="<?= base_url().'/asset/js/new/jquery.js'; ?>"></script>
+		<!-- Bootstrap JavaScript -->
+		<script src="<?= base_url().'/asset/js/new/bootstrap.min.js'; ?>" ></script>
+		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+		<script src="<?= base_url(); ?>asset2/global/plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
 	</head>
 	<body>
