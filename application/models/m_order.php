@@ -190,11 +190,16 @@
 	    	if($del != 3){	    		
 	    		$this->db->where('ord.or_del', $del);
 	    	}
+	    	$this->db->order_by('ord.or_id', 'desc');
+	    	if ($limit !== null && $start !== null) {
+	    		$this->db->limit($limit, $start);
+	    	}	
 	    	$this->db->where('ord.or_ver', $ver);
 	    	$this->db->join('client cl', 'ord.cl_id = cl.cl_id', 'left');
 	    	$this->db->join('user us1' , 'ord.us_id = us1.us_id' , 'left');
 	    	$this->db->join('process pr' , 'ord.pr_id = pr.pr_id' , 'left');
-	    	$this->db->order_by('ord.or_id', 'desc');
+	    	
+	    	    	
 	    	$result = $this->db->get()->result();
 	    	return $result;
 	    }
@@ -283,6 +288,13 @@
 	    	}else{
 	    		return false;
 	    	}
+	    }
+
+	    public function orderCount()
+	    {
+	    	$this->db->like('ord.or_del', 0);
+			$this->db->from('order ord');
+			return $this->db->count_all_results();
 	    }
 	}
 	        

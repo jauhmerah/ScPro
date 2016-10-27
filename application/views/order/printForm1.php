@@ -262,23 +262,18 @@
 				</tbody>
 			</table>
 		</div>		
-	</div><?php 
-    $te = explode("\n", $hasNote);
-    $hasNote  = implode("", $te);
-    ?>
-    <?= $hasNote; ?>
+	</div>
 	<script>
-    $(document).ready(function() {
-        <?php if (isset($hasNote)) {?> var text1 = { myS : '<?= $hasNote; ?>';} <?php } ?>
-        
+    $(document).ready(function() {        
         popUp();    
         function popUp() {
             <?php 
             if (isset($hasNote)) {
+                $hasNote = preg_replace("~[\r\n]~", " ",$hasNote);
                 ?>
                 bootbox.alert({
                     title : "Order Note",
-                    message : text1.myS,
+                    message : "<?= $hasNote; ?>",
                     callback : function(){
                     setTimeout(function() {window.print();}, 500);                    
                 }
@@ -290,7 +285,6 @@
             }            
             ?>
         }
-    });		
-		
+    });	
 	</script>
 	

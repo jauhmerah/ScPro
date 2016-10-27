@@ -127,26 +127,18 @@
 		                        </tr>		
 		                    			<?php
 		                    		}
-		                    		?>
-		                    		<tr>
-		                    			<td colspan = "7">
-		                    				<div align = "center">vvvvvvv Old Version 2.1 Alpha vvvvvvv</div>
-		                    			</td>
-		                    		</tr>
-		                    		<?php
 		                    	}
 		                    ?>
 		                    <!-- <<<<<<<<<<<<<<<<<<<New version 2.20 Alpha>>>>>>>>>>>>>>>>>>> -->
 		                    <?php 
-		                    	if (sizeof($arr) == 0) {
-		                    		?>
-	                    		<tr>
+		                    if (isset($arr)) {		                    
+		                    	if (sizeof($arr) != 0) { ?>
+		                    	<tr>
 	                    			<td colspan = "7">
-	                    				<div align = "center">No Data</div>
+	                    				<div align = "center">vvvvvvv Old Version 2.1 Alpha vvvvvvv</div>
 	                    			</td>
 	                    		</tr>
-		                    		<?php
-		                    	}else{
+		                    	<?php		                    		
 		                    		foreach ($arr as $user) {
 		                    			$n++;
 		                    			?>
@@ -212,9 +204,25 @@
 		                    			<?php
 		                    		}
 		                    	}
+		                    }
 		                    ?>		                                               
 		                    </tbody>
-		                </table>
+		                    <tfoot>
+		                    	<td colspan="7">
+			                	<div class="col-md-5 col-sm-5">
+			                		<div class="dataTables_info" id="sample_1_info" role="status" aria-live="polite">Showing 1 to 5 of 25 records</div>
+			                	</div>
+			                	<div class="col-md-7 col-sm-7" align="right">
+			                		<div class="dataTables_paginate paging_bootstrap_full_number" id="sample_1_paginate">
+			                			<ul class="pagination" style="visibility: visible;">
+			                				<li class="prev disabled"><a href="#" title="Prev"><i class="fa fa-angle-left"></i></a></li>			                				
+			                				<li class="next"><a href="#" title="Next"><i class="fa fa-angle-right"></i></a></li>
+			                			</ul>
+			                		</div>
+			                	</div>
+				                </td>
+		                    </tfoot>
+		                </table>		                
 	            	</div>
 	            </div>	                         
             </div>

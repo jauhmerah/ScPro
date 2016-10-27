@@ -183,11 +183,17 @@
     				if ($lvl == 2 || $lvl == 3) {
                         redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
                     }
+                    if ($this->input->get('page')) {
+                        $p = $this->input->get('page');
+                    }else{
+                        $p = 0;
+                    }
     				$this->load->library('my_func');
     				$this->load->database();
     				$this->load->model('m_order');
-                    $arr['arr'] = $this->m_order->listOr();
-                    $arr['arr1'] = $this->m_order->listOr(1);
+                    $arr['arr1'] = $this->m_order->listOr(1 , 10 , $p );
+                    $arr['arr'] = $this->m_order->listOr(0 , 10 , $p);                    
+                    echo $this->m_order->orderCount();
     				$data['title'] = '<i class="fa fa-fw fa-edit"></i> Production</a>';
     				$data['display'] = $this->load->view($this->parent_page.'/orderList' ,$arr , true);
     				$this->_show('display' , $data , $key);
