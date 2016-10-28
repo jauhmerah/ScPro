@@ -290,9 +290,12 @@
 	    	}
 	    }
 
-	    public function orderCount()
+	    public function orderCount($ver = -1)
 	    {
 	    	$this->db->like('ord.or_del', 0);
+	    	if ($ver != -1) {
+	    		$this->db->like('ord.or_ver', $ver);
+	    	}	    	
 			$this->db->from('order ord');
 			return $this->db->count_all_results();
 	    }

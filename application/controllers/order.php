@@ -92,6 +92,10 @@ class Order extends CI_Controller {
 		}
 			
 	}
+	public function getfun()
+	{
+		echo $this->load->view($this->parent_page."/ajax/getAjaxForm", false);
+	}
 
 	function printO1($or_id = null){
 		//production print email

