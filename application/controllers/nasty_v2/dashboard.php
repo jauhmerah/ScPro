@@ -5,7 +5,7 @@
 	
 	   	var $parent_page = "nasty_v2/dashboard";
 	   	var $old_page = "dashboard";
-        var $version = "OrdYs v2.2.3 Alpha";
+        var $version = "OrdYs v2.2.4 Alpha";
 
 	    function __construct() {
 	        parent::__construct();
@@ -188,28 +188,86 @@
                     }else{
                         $p = 0;
                     }
-    				$this->load->library('my_func');
-    				$this->load->database();
-    				$this->load->model('m_order');
-                    $ver0 = $this->m_order->orderCount(0);
-                    $ver1 = $this->m_order->orderCount(1);
-                    $arr['arr1'] = $this->m_order->listOr(1 , 10 , $p);
-                    $result1 = sizeof($arr['arr1']);
-                    $sizeA = 10 - $result1;
-                    if ($sizeA != 0) {
-                        $p1 = $p + 10 - $ver1;
-                        if ($p1 < 10) {
-                            $p2 = 0;
-                        } else {
-                            $p2 = $p1;
-                            $p1 = 10;
-                        }                        
-                        $arr['arr'] = $this->m_order->listOr(0 , $p1 , $p2);
-                        $result1 = $result1 + sizeof($arr['arr']);
+                    $this->load->library('my_func');
+                    $this->load->database();
+                    $this->load->model('m_order');
+                    if ($this->input->post("search") && $this->input->post("filter")) {
+                        $search = $this->input->post("search");
+                        switch ($this->input->post("filter")) {
+                            case '10':
+                                //Client Name
+                                $where = array(
+                                    "cl.cl_name" => $search
+                                );
+                                break;
+                            case '1':
+                                //Order Code
+                                //Hanya Single
+                                if (strpos($search, "#") !== false) {
+                                    $search = str_replace("#", "", $search);
+                                }
+                                if (!is_numeric($search)) {
+                                    $this->session->set_flashdata('warning', 'Please Enter the Correct Order Code');
+                                    redirect(site_url("nasty_v2/dashboard/page/a1"),'refresh');
+                                }
+                                $str = (string)$search;
+                                if ($str[1] == '1') {
+                                    $id = $search - 110000;
+                                    $ver = 1;
+                                } else {
+                                    $id = $search - 100000;
+                                    $ver = 0;
+                                }
+                                $where = array(
+                                    "ord.or_id" => $id
+                                );
+                                break;
+                            case '2':
+                                //Sales Person
+                                $where = array(
+                                    "us1.us_username" => $search
+                                );
+                                break;
+                            case '3':
+                                //Order Status
+                                $where = array(
+                                    "pr.pr_desc" => $search
+                                );
+                                break;
+                        }
+                        if (isset($ver)) {
+                            $arr['arr'] = array();
+                            $arr['arr1'] = array();
+                            if ($ver == 1) {
+                                $arr['arr1'] = $this->m_order->listOr($ver , null , null , 0 , $where);
+                            } else {
+                                $arr['arr'] = $this->m_order->listOr($ver , null , null , 0 , $where);
+                            }
+                        }else{
+                            $arr['arr1'] = $this->m_order->listSearch(1 , null , null , 0 , $where);
+                            $arr['arr'] = $this->m_order->listSearch(0 , null , null , 0 , $where);
+                        }
+                    } else {                        
+                        $ver0 = $this->m_order->orderCount(0);
+                        $ver1 = $this->m_order->orderCount(1);
+                        $arr['arr1'] = $this->m_order->listOr(1 , 10 , $p);
+                        $result1 = sizeof($arr['arr1']);
+                        $sizeA = 10 - $result1;
+                        if ($sizeA != 0) {
+                            $p1 = $p + 10 - $ver1;
+                            if ($p1 < 10) {
+                                $p2 = 0;
+                            } else {
+                                $p2 = $p1;
+                                $p1 = 10;
+                            }                        
+                            $arr['arr'] = $this->m_order->listOr(0 , $p1 , $p2);
+                            $result1 = $result1 + sizeof($arr['arr']);
+                        }
+                        $arr['page'] = $p;
+                        $arr['total'] = $ver0 + $ver1;
+                        $arr['row'] = $result1;
                     }
-                    $arr['page'] = $p;
-                    $arr['total'] = $ver0 + $ver1;
-                    $arr['row'] = $result1;
     				$data['title'] = '<i class="fa fa-fw fa-edit"></i> Production</a>';
     				$data['display'] = $this->load->view($this->parent_page.'/orderList' ,$arr , true);
     				$this->_show('display' , $data , $key);

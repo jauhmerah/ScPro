@@ -3,9 +3,10 @@
 class Order extends CI_Controller {
  	
  	var $parent_page = "order";
- 	var $version = "Nasty Process System v2.2.3 Alpha";
+ 	var $version = "Nasty Process System v2.2.4 Alpha";
 	public function __construct()
 	{
+		date_default_timezone_set('Asia/Kuala_Lumpur');
 		parent::__construct();
 		$this->load->library('session');
 		$this->load->library('my_func');

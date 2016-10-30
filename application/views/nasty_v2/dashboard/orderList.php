@@ -2,6 +2,22 @@
 	function onDel() {
 		return confirm('Are You Sure ?');
 	}
+	$(document).ready(function() {
+
+		$("#sub").click(function() {
+			if (searchFun()) {
+				$("#formSearch").submit();
+			} else {
+				$("#inputFilter").focus();
+			}
+		});
+		function searchFun() {
+			filter = $("#inputFilter").val();
+			if (filter == -1) {
+				bootbox.alert("Please select Filter");
+				return false;} else {return true;}
+		}
+	});	
 </script>
 <div class="row">
 	<div class="col-md-12">	
@@ -13,34 +29,38 @@
             </div>
             <div class="portlet-body flip-scroll">
 	            <div class="row">
+	            <form id="formSearch" action="<?= site_url('nasty_v2/dashboard/page/a1'); ?>" method="POST" role="form">
 	            	<div class="col-md-12">
 	            		<div class="col-md-2">
 	            			<a href="<?= site_url('nasty_v2/dashboard/page/z1'); ?>"><button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Add Order</button></a>
 	            		</div>
-	            		<div class="col-md-5">
+	            		<div class="col-md-4">
 	            			<div class="form-group">
 	            				<label for="input" class="col-sm-2 control-label">Search</label>
 	            				<div class="col-sm-10">
-	            					<input type="search" name="" id="search" class="form-control input-circle" value="" title="" disabled placeholder="Next Ver 2.3 Alpha">
+	            					<input type="search" name="search" id="search" class="form-control input-circle" placeholder="Search" required>
 	            				</div>
 	            			</div>
 	            		</div>
-	            		<div class="col-md-5">
+	            		<div class="col-md-4">
 	            			<div class="form-group">
-	            				<label for="inputFilter" class="col-sm-2 control-label">Filter :</label>
+	            				<label for="inputFilter" class="col-sm-2 control-label">Filter</label>
 	            				<div class="col-sm-10">
-	            					<select name="filter" id="inputFilter" class="form-control input-circle" disabled>
-	            						<option value="-1">-- Next Ver 2.3 Alpha --</option>
-	            						<option value="0">Client Name</option>
+	            					<select name="filter" id="inputFilter" class="form-control input-circle">
+	            						<option value="-1">-- Select Filter --</option>
+	            						<option value="10">Client Name</option>
 	            						<option value="1">Order Code</option>
-	            						<option value="2">Order Date</option>
-	            						<option value="3">Sales Person</option>
-	            						<option value="4">Order Status</option>
+	            						<option value="2">Sales Person</option>
+	            						<option value="3">Order Status</option>
 	            					</select>
 	            				</div>
 	            			</div>
 	            		</div>
+	            		<div class="col-md-2">
+	            			<button type="button" id="sub" class="btn btn-default"><i class="fa fa-search"></i> Search</button>
+	            		</div>
 	            	</div>
+	            </form>
 	            </div>
 	            <div class="clearfix">
 	            	&nbsp;
@@ -207,6 +227,7 @@
 		                    }
 		                    ?>		                                               
 		                    </tbody>
+		                    <?php if (isset($page)) {?>
 		                    <tfoot>
 		                    	<td colspan="7">
 			                	<div class="col-md-5 col-sm-5">
@@ -225,13 +246,14 @@
 			                					$next = "disabled";
 			                				}
 			                			?>
-			                				<li class="prev <?= $prev; ?>"><a href="<?php if($prev!="disabled"){ ?><?= site_url('nasty_v2/dashboard/page/a1?page='.($page-10)); ?><?php } ?>" title="Prev"><i class="fa fa-angle-left"></i></a></li>			                				
-			                				<li class="next <?= $next; ?>"><a href="<?php if($next!="disabled"){ ?><?= site_url('nasty_v2/dashboard/page/a1?page='.($page+10)); ?><?php } ?>" title="Next"><i class="fa fa-angle-right"></i></a></li>
+			                				<li class="prev <?= $prev; ?>"><a <?php if($prev!="disabled"){ ?>href="<?= site_url('nasty_v2/dashboard/page/a1?page='.($page-10)); ?>"<?php } ?> title="Prev" ><i class="fa fa-angle-left"></i></a></li>			                				
+			                				<li class="next <?= $next; ?>"><a <?php if($next!="disabled"){ ?>href="<?= site_url('nasty_v2/dashboard/page/a1?page='.($page+10)); ?>"<?php } ?> title="Next"><i class="fa fa-angle-right"></i></a></li>
 			                			</ul>
 			                		</div>
 			                	</div>
 				                </td>
-		                    </tfoot>
+		                    </tfoot> <?php 
+		                    } ?>
 		                </table>		                
 	            	</div>
 	            </div>	                         
