@@ -210,13 +210,23 @@
 		                    <tfoot>
 		                    	<td colspan="7">
 			                	<div class="col-md-5 col-sm-5">
-			                		<div class="dataTables_info" id="sample_1_info" role="status" aria-live="polite">Showing 1 to 5 of 25 records</div>
+			                		<div class="dataTables_info" id="sample_1_info" role="status" aria-live="polite">Showing <?= ($page+1); ?> to <?= ($page+$row); ?> of <?= $total; ?> records</div>
 			                	</div>
 			                	<div class="col-md-7 col-sm-7" align="right">
 			                		<div class="dataTables_paginate paging_bootstrap_full_number" id="sample_1_paginate">
 			                			<ul class="pagination" style="visibility: visible;">
-			                				<li class="prev disabled"><a href="#" title="Prev"><i class="fa fa-angle-left"></i></a></li>			                				
-			                				<li class="next"><a href="#" title="Next"><i class="fa fa-angle-right"></i></a></li>
+			                			<?php
+			                			$prev = "";
+			                			$next = "";
+			                				if ($page == 0) {
+			                					$prev = "disabled";
+			                				}
+			                				if ($total <= ($page + 10)) {
+			                					$next = "disabled";
+			                				}
+			                			?>
+			                				<li class="prev <?= $prev; ?>"><a href="<?php if($prev!="disabled"){ ?><?= site_url('nasty_v2/dashboard/page/a1?page='.($page-10)); ?><?php } ?>" title="Prev"><i class="fa fa-angle-left"></i></a></li>			                				
+			                				<li class="next <?= $next; ?>"><a href="<?php if($next!="disabled"){ ?><?= site_url('nasty_v2/dashboard/page/a1?page='.($page+10)); ?><?php } ?>" title="Next"><i class="fa fa-angle-right"></i></a></li>
 			                			</ul>
 			                		</div>
 			                	</div>

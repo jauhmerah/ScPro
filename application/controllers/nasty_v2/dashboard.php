@@ -205,8 +205,11 @@
                             $p1 = 10;
                         }                        
                         $arr['arr'] = $this->m_order->listOr(0 , $p1 , $p2);
+                        $result1 = $result1 + sizeof($arr['arr']);
                     }
-                    //die();
+                    $arr['page'] = $p;
+                    $arr['total'] = $ver0 + $ver1;
+                    $arr['row'] = $result1;
     				$data['title'] = '<i class="fa fa-fw fa-edit"></i> Production</a>';
     				$data['display'] = $this->load->view($this->parent_page.'/orderList' ,$arr , true);
     				$this->_show('display' , $data , $key);
