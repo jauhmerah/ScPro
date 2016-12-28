@@ -263,7 +263,7 @@
 					                                            		Invoice Link
 					                                            	</th>
 					                                            	<td>
-					                                            		<input type = "text" name="traking" class="form-control input-circle" disabled placeholder="Next Version 2.21 Alpha">
+					                 <input type = "text" name="traking" class="form-control input-circle" disabled placeholder="Next Version 2.21 Alpha">
 					                                            	</td>
 						                                        </tr>
 						                                        <tr>
@@ -293,10 +293,11 @@
 					                                            	?>	</strong>				                                            		
 					                                            	</td>
 					                                            	<th>
-					                                            		<strong>Dummy</strong> Invoice
+					                                            		
 					                                            	</th>
-					                                            	<td>
-					                                            		<input type = "text" name="invAtt" class="form-control input-circle" disabled placeholder="Next Version 2.21 Alpha">
+					                                            	<td>	
+					       <a href="<?= site_url('nasty_v2/dashboard/dummyInvoice'); ?>" target="_blank"> <button type="button" class="btn blue" ><i class="fa fa-print"></i>&nbsp;&nbsp;Dummy Invoice</button></a>
+					                                            		
 					                                            	</td>
 						                                        </tr>	                                        
 						                                    </tbody>
@@ -307,8 +308,12 @@
 						                </div>
 					                </div>						                
                                     <div class="form-actions right">
+                                 
+                                    
+                                    
+                                    
                                         <a href="<?= site_url('nasty_v2/dashboard/page/a1'); ?>"><button type="button" class="btn default">Back</button></a>
-                                        <a href="#"><button type="button" class="btn blue"><i class="fa fa-print"></i> Print View</button></a>
+                                        <a href= "<?= site_url('order/printO1?id='.$this->my_func->scpro_encrypt($arr['order']->or_id)); ?>" target="_blank"><button type="button"  class="btn default"><i class="fa fa-print"></i> Print View</button></a>
                                     </div>
                                 </form>
                                 <!-- END FORM-->
