@@ -176,6 +176,11 @@ class Order extends CI_Controller {
 		}
 		
 	}
+	public function red()
+	{
+		$data['display'] = $this->load->view($this->parent_page."/searchOrder2", '', TRUE);
+		$this->_show($data);
+	}
 	public function printOrder1()
 	{
 		// click from email link

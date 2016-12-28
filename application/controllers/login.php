@@ -22,7 +22,7 @@
 	    	$this->load->model('m_login');
 	    	$data = $this->m_login->login($email,$pass);
 	    	if ($data) {
-	    		echo "login Success";
+	    		//echo "login Success";
 	    		$array = array(
 	    			'us_id' => $this->my_func->scpro_encrypt($data->us_id),
 	    			'us_lvl' => $this->my_func->scpro_encrypt($data->us_lvl),
@@ -31,7 +31,7 @@
 	    		$this->session->set_userdata( $array );
 	    		redirect(site_url('nasty_v2/dashboard'),'refresh');
 	    	}else{
-	    		echo "Login Not Success";
+	    		//echo "Login Not Success";
 	    		redirect(site_url('login'),'refresh');
 	    	}
 	    	//$temp = $this->m_login->get();
