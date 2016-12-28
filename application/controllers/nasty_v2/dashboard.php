@@ -917,7 +917,6 @@ jauhmerah@nastyjuice.com
                         $orex_id = $this->m_order_ext->update($order_ext , array('or_id' => $or_id));
                         //echo "<br>Update => ".$orex_id;                         
                     }
-                    die();
                     $this->session->set_flashdata('success', 'Update Success');
                     redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
                     break;
