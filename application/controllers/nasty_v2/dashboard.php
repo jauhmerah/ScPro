@@ -860,6 +860,9 @@ jauhmerah@nastyjuice.com
                     }
                     if ($this->input->post() && $this->input->get('key')) {
                         $arr = $this->input->post();
+                        echo "<pre>";
+                        print_r($arr);
+                        echo "</pre>";
                         $or_id = $this->my_func->scpro_decrypt($this->input->get('key'));
                         $this->load->database();
                         $this->load->model('m_order_item');
@@ -914,6 +917,7 @@ jauhmerah@nastyjuice.com
                         $orex_id = $this->m_order_ext->update($order_ext , array('or_id' => $or_id));
                         //echo "<br>Update => ".$orex_id;                         
                     }
+                    die();
                     $this->session->set_flashdata('success', 'Update Success');
                     redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
                     break;
