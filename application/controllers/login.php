@@ -18,7 +18,7 @@
 	    	//$this->load->library("encrypt");
 	    	$email = $this->input->post('email');
 	    	$pass = $this->input->post('pass');
-
+			$this->load->database();
 	    	$this->load->model('m_login');
 	    	$data = $this->m_login->login($email,$pass);
 	    	if ($data) {
