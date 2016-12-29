@@ -22,6 +22,18 @@
 	    	//$this->_show('index');
             $this->load->view('test');
 	    }
+          public function dummyInvoice()
+        {
+        
+            $html =$this->load->view($this->parent_page.'/orderDummy' , '' , true); 
+            echo $html;
+        }
+          public function Invoice()
+        {
+        
+            $html =$this->load->view($this->parent_page.'/orderInvoice' , '' , true); 
+            echo $html;
+        }
 
 	   private function _show($page = 'display' , $data = null , $key = 'a1'){
             $link['link'] = $key;
