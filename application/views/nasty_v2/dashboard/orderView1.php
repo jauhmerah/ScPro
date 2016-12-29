@@ -99,7 +99,7 @@
 	                                                		$cu = "USD";
 	                                                		break;
 	                                                	case 3:
-	                                                		$cu = "EURO";
+	                                                		$cu = "GBP";
 	                                                		break;
 	                                                	default :
 	                                                		$cu = "Currency Error!!!";
@@ -209,7 +209,7 @@
 					                                            	<th>
 					                                            		Shipping Company
 					                                            	</th>
-					                                            	<td colspan="4" >
+					                                            	<td  >
 					                                            		<strong>
 					                                            			<?php 
 					                                            			switch ($arr['order']->or_shipcom) {
@@ -223,7 +223,7 @@
 					                                            					echo "EMS";
 					                                            					break;
 					                                            				default:
-					                                            					echo "Other";
+					                                            					echo $arr['order']->or_shipcom;
 					                                            					break;
 					                                            			}
 					                                            			?>
@@ -240,7 +240,7 @@
 					                                            	<th>
 					                                            		Shipping Optional
 					                                            	</th>
-					                                            	<td colspan="4" >
+					                                            	<td  >
 					                                            	<strong>
 					                                            	<?php 
 					                                            		switch ($arr['order']->or_shipopt) {
@@ -254,23 +254,20 @@
 					                                            				echo "Buyer Account";
 					                                            				break;
 					                                            			default:
-					                                            				echo "error";
+					                                            				echo $arr['order']->or_shipopt;
 					                                            				break;
 					                                            		}
 					                                            	?></strong>					                                            		
 					                                            	</td>
-					                                            	<th>
-					                                            		Invoice Link
-					                                            	</th>
-					                                            	<td>
-					                 <input type = "text" name="traking" class="form-control input-circle" disabled placeholder="Next Version 2.21 Alpha">
+					                                            	<td colspan="2" align="right">
+					                 <a href="<?= site_url('nasty_v2/dashboard/dummyInvoice'); ?>" target="_blank"> <button type="button" class="btn green" ><i class="fa fa-print"></i>&nbsp;&nbsp;Invoice</button></a>
 					                                            	</td>
 						                                        </tr>
 						                                        <tr>
 					                                            	<th>
 					                                            		Declare Item
 					                                            	</th>
-					                                            	<td colspan="4" ><strong>
+					                                            	<td ><strong>
 					                                            	<?php 
 					                                            	switch ($arr['order']->dec_id) {
 					                                            		case 1:
@@ -287,15 +284,12 @@
 					                                            			break;
 					                                            		
 					                                            		default:
-					                                            			echo "error";
+					                                            			echo $arr['order']->dec_id;
 					                                            			break;
 					                                            	}
 					                                            	?>	</strong>				                                            		
 					                                            	</td>
-					                                            	<th>
-					                                            		
-					                                            	</th>
-					                                            	<td>	
+					                                            	<td colspan="2" align="right">	
 					       <a href="<?= site_url('nasty_v2/dashboard/dummyInvoice'); ?>" target="_blank"> <button type="button" class="btn blue" ><i class="fa fa-print"></i>&nbsp;&nbsp;Dummy Invoice</button></a>
 					                                            		
 					                                            	</td>
@@ -308,12 +302,7 @@
 						                </div>
 					                </div>						                
                                     <div class="form-actions right">
-                                 
-                                    
-                                    
-                                    
-                                        <a href="<?= site_url('nasty_v2/dashboard/page/a1'); ?>"><button type="button" class="btn default">Back</button></a>
-                                        <a href= "<?= site_url('order/printO1?id='.$this->my_func->scpro_encrypt($arr['order']->or_id)); ?>" target="_blank"><button type="button"  class="btn default"><i class="fa fa-print"></i> Print View</button></a>
+                                        <a href="<?= site_url('nasty_v2/dashboard/page/a1'); ?>"><button type="button" class="btn default">Back</button></a>                                        
                                     </div>
                                 </form>
                                 <!-- END FORM-->

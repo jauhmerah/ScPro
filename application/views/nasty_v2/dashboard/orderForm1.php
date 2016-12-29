@@ -119,7 +119,7 @@
 	                                                    <select class="form-control input-circle" name="currency">
 	                                                        <option value="1">MYR</option>
 	                                                        <option value="2">USD</option>
-	                                                        <option value="3">EURO</option>
+	                                                        <option value="3">GBP</option>
 	                                                    </select>
 	                                                </div>		                                            
 		                                            <!--/span-->
@@ -269,12 +269,11 @@
 											                                		EMS
 										                                        <span></span>
 										                                    </label>
-										                                    <label class="mt-radio">
-										                                        <input type="radio" name="sh_company" value="4">
-											                                		 : _________
-										                                        <span></span>
-										                                    </label>
+										                                    <input type="radio" name="sh_company" class="sh_com" value="4">
+											                                		 : <input type="text" class="inputText" id = "sh_com" >
+										                                        <span></span>										                                        
 										                                </div>
+										                                
 					                                            	</td>
 					                                            	<th>
 					                                            		Ship Date
@@ -287,7 +286,7 @@
 					                                            	<th>
 					                                            		Shipping Optional
 					                                            	</th>
-					                                            	<td colspan="4" >
+					                                            	<td colspan="6" >
 					                                            		<div class="mt-radio-inline">
 										                                    <label class="mt-radio">
 										                                        <input type="radio" name="sh_opt" checked value="1">
@@ -304,20 +303,18 @@
 											                                		Buyer Account
 										                                        <span></span>
 										                                    </label>
+										                                    <input type="radio" name="sh_opt" class="sh_opti" value="4">
+											                                		 : <input type="text" class="inputText" id = "sh_opti">
+										                                        <span></span>
+										                                    
 										                                </div>
-					                                            	</td>
-					                                            	<th>
-					                                            		Invoice Link
-					                                            	</th>
-					                                            	<td>
-					                                            		<input type = "text" name="traking" class="form-control input-circle" disabled placeholder="Next Version 2.21 Alpha">
-					                                            	</td>
+					                                            	</td>					                                            	
 						                                        </tr>
 						                                        <tr>
 					                                            	<th>
 					                                            		Declare Item
 					                                            	</th>
-					                                            	<td colspan="4" >
+					                                            	<td colspan="6" >
 					                                            		<div class="mt-radio-inline">
 										                                    <label class="mt-radio">
 										                                        <input type="radio" name="sh_declare" checked value="1">
@@ -339,14 +336,11 @@
 											                                		E-Juice
 										                                        <span></span>
 										                                    </label>
+										                                    <input type="radio" name="sh_declare" class="sh_dec" value="4">
+											                                		 : <input type="text" class="inputText" id = "sh_dec">
+										                                        <span></span>										                                    
 										                                </div>
-					                                            	</td>
-					                                            	<th>
-					                                            		<strong>Dummy</strong> Invoice
-					                                            	</th>
-					                                            	<td>
-					                                            		<input type = "text" name="invAtt" class="form-control input-circle" disabled placeholder="Next Version 2.21 Alpha">
-					                                            	</td>
+					                                            	</td>					                                            	
 						                                        </tr>						                                                                             
 						                                    </tbody>
 						                                </table>
@@ -398,6 +392,12 @@
 			$.post('<?= site_url("nasty_v2/dashboard/getAjaxItemList") ?>', {type : type , nico : nic , cat : cat , num : num}, function(data) {
 				$("#orderList").append(data);
 			});
-		});		
+		});
+		$(".inputText").keyup(function() {
+			rad = $(this).prop('id');
+			v = $(this).val();
+			$("."+rad).val(v);
+		});
 	});
+
 </script>

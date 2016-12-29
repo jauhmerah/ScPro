@@ -134,7 +134,7 @@
 	                                                    <select <?php if($arr['order']->pr_id == 3){echo "disabled";} ?> class="form-control input-circle" name="currency">
 	                                                        <option value="1" <?php if($arr['order']->cu_id == 1){echo "selected";} ?>>MYR</option>
 	                                                        <option value="2" <?php if($arr['order']->cu_id == 2){echo "selected";} ?>>USD</option>
-	                                                        <option value="3" <?php if($arr['order']->cu_id == 3){echo "selected";} ?>>EURO</option>
+	                                                        <option value="3" <?php if($arr['order']->cu_id == 3){echo "selected";} ?>>GBP</option>
 	                                                    </select>
 	                                                </div>		                                            
 		                                            <!--/span-->
@@ -318,11 +318,9 @@
 											                                		EMS
 										                                        <span></span>
 										                                    </label>
-										                                    <label class="mt-radio">
-										                                        <input type="radio" name="sh_company" <?php if($arr['order']->or_shipcom == 4){echo "checked";} ?> value="4" <?= $radio; ?>>
-											                                		 : _________
+										                                    <input type="radio" name="sh_company" class="sh_com" <?php $temp = $arr['order']->or_shipcom; if($temp != 3 && $temp != 1 && $temp != 2){echo "checked";} ?> value="<?= $temp; ?>">
+											                                		 : <input type="text" class="inputText " id = "sh_com" value="<?= $temp; ?>" >
 										                                        <span></span>
-										                                    </label>
 										                                </div>
 					                                            	</td> 
 					                                            	<th>
@@ -336,7 +334,7 @@
 					                                            	<th>
 					                                            		Shipping Optional
 					                                            	</th>
-					                                            	<td colspan="4" >
+					                                            	<td colspan="6" >
 					                                            		<div class="mt-radio-inline">
 										                                    <label class="mt-radio">
 										                                        <input type="radio" name="sh_opt" <?php if($arr['order']->or_shipopt == 1){ echo "checked";} ?> value="1" <?= $radio; ?>>
@@ -353,20 +351,17 @@
 											                                		Buyer Account
 										                                        <span></span>
 										                                    </label>
+										                                    <input type="radio" name="sh_opt" class="sh_opti" <?php $temp = $arr['order']->or_shipopt; if($temp != 3 && $temp != 1 && $temp != 2){echo "checked";} ?> value="<?= $temp; ?>">
+											                                		 : <input type="text" class="inputText" id = "sh_opti" value="<?= $temp; ?>">
+										                                        <span></span>
 										                                </div>
-					                                            	</td>
-					                                            	<th>
-					                                            		Invoice Link
-					                                            	</th>
-					                                            	<td>
-					                                            		<input type = "text" name="traking" class="form-control input-circle" disabled placeholder="Next Version 2.21 Alpha">
-					                                            	</td>					                                            	
+					                                            	</td>					                                 					                                            	
 						                                        </tr>
 						                                        <tr>
 					                                            	<th>
 					                                            		Declare Item
 					                                            	</th>
-					                                            	<td colspan="4" >
+					                                            	<td colspan="6" >
 					                                            		<div class="mt-radio-inline">
 										                                    <label class="mt-radio">
 										                                        <input type="radio" name="sh_declare" <?php if($arr['order']->dec_id == 1){echo "checked";} ?> value="1" <?= $radio; ?>>
@@ -388,13 +383,10 @@
 											                                		E-Juice
 										                                        <span></span>
 										                                    </label>
+										                                    <input type="radio" name="sh_declare" class="sh_dec" <?php $temp = $arr['order']->dec_id; if($temp != 3 && $temp != 1 && $temp != 2 && $temp != 4){echo "checked";} ?> value="<?= $temp; ?>">
+											                                		 : <input type="text" class="inputText" id = "sh_dec" value="<?= $temp; ?>">
+										                                        <span></span>
 										                                </div>
-					                                            	</td>
-					                                            	<th>
-					                                            		<strong>Dummy</strong> Invoice
-					                                            	</th>
-					                                            	<td>
-					                                            		<input type = "text" name="invAtt" class="form-control input-circle" disabled placeholder="Next Version 2.21 Alpha">
 					                                            	</td>
 						                                        </tr>	                                        
 						                                    </tbody>
