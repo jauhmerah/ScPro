@@ -89,6 +89,7 @@ div {
    <div id="ReadOnlyControls" class="span12 no-container-margin">
                 
 
+ 
 
 
 
@@ -115,7 +116,7 @@ div {
       
    
   	<div class="pull-right" style="text-align: right;">
-      <h1><big>SHIPPING NOTE</big></h1>
+      <h1><big>INVOICE</big></h1>
       <strong>NSTY WORLDWIDE SDN BHD</strong>
       
         <div class="contemporary-template__header__info__address">

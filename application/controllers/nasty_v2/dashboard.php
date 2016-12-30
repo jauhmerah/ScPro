@@ -16,9 +16,21 @@
 	        $this->page('a1');
 	    }
 
-	    public function dummyInvoice()
-        {       
+	    public function testpage()
+	    {
+	    	
+            $this->load->view('test');
+	    }
+          public function dummyInvoice()
+        {
+        
             $html =$this->load->view($this->parent_page.'/orderDummy' , '' , true); 
+            echo $html;
+        }
+          public function Invoice()
+        {
+        
+            $html =$this->load->view($this->parent_page.'/orderInvoice' , '' , true); 
             echo $html;
         }
 
