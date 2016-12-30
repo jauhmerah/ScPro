@@ -318,8 +318,8 @@
 											                                		EMS
 										                                        <span></span>
 										                                    </label>
-										                                    <input type="radio" name="sh_company" class="sh_com" <?php $temp = $arr['order']->or_shipcom; if($temp != 3 && $temp != 1 && $temp != 2){echo "checked";} ?> value="<?= $temp; ?>">
-											                                		 : <input type="text" class="inputText " id = "sh_com" value="<?= $temp; ?>" >
+										                                    <input type="radio" name="sh_company" class="sh_com" <?php $temp = $arr['order']->or_shipcom; if($temp != 3 && $temp != 1 && $temp != 2){echo "checked";} ?> value="<?= $temp; ?>" <?= $radio; ?>>
+											                                		 : <input type="text" class="inputText " id = "sh_com" value="<?= $temp; ?>" <?= $mode ?> >
 										                                        <span></span>
 										                                </div>
 					                                            	</td> 
@@ -351,8 +351,8 @@
 											                                		Buyer Account
 										                                        <span></span>
 										                                    </label>
-										                                    <input type="radio" name="sh_opt" class="sh_opti" <?php $temp = $arr['order']->or_shipopt; if($temp != 3 && $temp != 1 && $temp != 2){echo "checked";} ?> value="<?= $temp; ?>">
-											                                		 : <input type="text" class="inputText" id = "sh_opti" value="<?= $temp; ?>">
+										                                    <input type="radio" name="sh_opt" class="sh_opti" <?php $temp = $arr['order']->or_shipopt; if($temp != 3 && $temp != 1 && $temp != 2){echo "checked";} ?> value="<?= $temp; ?>" <?= $radio; ?>>
+											                                		 : <input type="text" class="inputText" id = "sh_opti" value="<?= $temp; ?>" <?= $mode ?>>
 										                                        <span></span>
 										                                </div>
 					                                            	</td>					                                 					                                            	
@@ -383,8 +383,8 @@
 											                                		E-Juice
 										                                        <span></span>
 										                                    </label>
-										                                    <input type="radio" name="sh_declare" class="sh_dec" <?php $temp = $arr['order']->dec_id; if($temp != 3 && $temp != 1 && $temp != 2 && $temp != 4){echo "checked";} ?> value="<?= $temp; ?>">
-											                                		 : <input type="text" class="inputText" id = "sh_dec" value="<?= $temp; ?>">
+										                                    <input type="radio" name="sh_declare" class="sh_dec" <?php $temp = $arr['order']->dec_id; if($temp != 3 && $temp != 1 && $temp != 2 && $temp != 4){echo "checked";} ?> value="<?= $temp; ?>" <?= $radio; ?>>
+											                                		 : <input type="text" class="inputText" id = "sh_dec" value="<?= $temp; ?>" <?= $mode ?>>
 										                                        <span></span>
 										                                </div>
 					                                            	</td>
@@ -455,6 +455,11 @@
 					}
 				});				
 			}			
+		});
+		$(".inputText").keyup(function() {
+			rad = $(this).prop('id');
+			v = $(this).val();
+			$("."+rad).val(v);
 		});
 	});
 </script>

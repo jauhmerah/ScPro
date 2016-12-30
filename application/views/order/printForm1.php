@@ -37,7 +37,7 @@
 	                        		$cu = "USD";
 	                        		break;
 	                        	case 3:
-	                        		$cu = "EURO";
+	                        		$cu = "GBP";
 	                        		break;
 	                        	default :
 	                        		$cu = "Currency Error!!!";
@@ -182,7 +182,7 @@
 				<tbody>
 					<tr>
 						<th>Shipping Company</th>
-						<td><strong>
+						<td>
                 			<?php 
                 			switch ($arr['order']->or_shipcom) {
                 				case 1:
@@ -195,17 +195,17 @@
                 					echo "EMS";
                 					break;
                 				default:
-                					echo "Other";
+                					echo $arr['order']->or_shipcom;
                 					break;
                 			}
                 			?>
-                		</strong></td>
+                		</td>
 						<th>Ship Date</th>
-						<td><strong><?php if($arr['order']->or_sendDate != '0000-00-00 00:00:00') { echo date_format(date_create($arr['order']->or_sendDate) , 'd-M-Y' ); }else{echo '--Not Set--';} ?></strong></td>
+						<td><?php if($arr['order']->or_sendDate != '0000-00-00 00:00:00') { echo date_format(date_create($arr['order']->or_sendDate) , 'd-M-Y' ); }else{echo '--Not Set--';} ?></td>
 					</tr>
 					<tr>
 						<th>Shipping Optional</th>
-						<td><strong>
+						<td colspan="3">
                         	<?php 
                         		switch ($arr['order']->or_shipopt) {
                         			case 1:
@@ -218,20 +218,14 @@
                         				echo "Buyer Account";
                         				break;
                         			default:
-                        				echo "error";
+                        				echo $arr['order']->or_shipopt;
                         				break;
                         		}
-                        	?></strong></td>
-                        	<th>
-                        		Invoice Link
-                        	</th>
-                        	<td>
-                        		<input type = "text" name="traking" class="form-control input-circle" disabled placeholder="Next Version 2.21 Alpha">
-                        	</td>
+                        	?></td>
 						</tr>
 					<tr>
 						<th>Declare Item</th>
-						<td><strong><?php 
+						<td colspan="3"><?php 
                         	switch ($arr['order']->dec_id) {
                         		case 1:
                         			echo "Aromatherapy";
@@ -247,17 +241,11 @@
                         			break;
                         		
                         		default:
-                        			echo "error";
+                        			echo $arr['order']->dec_id;
                         			break;
                         	}
-                        	?></strong>
+                        	?>
                         </td>
-						<th>
-                    		<strong>Dummy</strong> Invoice
-                    	</th>
-                    	<td>
-                    		<input type = "text" name="invAtt" class="form-control input-circle" disabled placeholder="Next Version 2.21 Alpha">
-                    	</td>
 					</tr>					
 				</tbody>
 			</table>

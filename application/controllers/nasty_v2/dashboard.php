@@ -860,9 +860,6 @@ jauhmerah@nastyjuice.com
                     }
                     if ($this->input->post() && $this->input->get('key')) {
                         $arr = $this->input->post();
-                        echo "<pre>";
-                        print_r($arr);
-                        echo "</pre>";
                         $or_id = $this->my_func->scpro_decrypt($this->input->get('key'));
                         $this->load->database();
                         $this->load->model('m_order_item');
