@@ -89,31 +89,7 @@ div {
    <div id="ReadOnlyControls" class="span12 no-container-margin">
                 
 
-  <!--  <div class="sc-heading--title readonly-payment-information__title">
-    
-      Request for Payment from NSTY WORLDWIDE SDN BHD
-    
-  </div>
-  <div class="readonly-payment-information__details">
-    <div class="readonly-payment-information__details__items">
-      Invoice #1740
-    </div>
-    &nbsp; &nbsp;&nbsp;
-
-    <div class="readonly-payment-information__details__items readonly-payment-information__details__items--separator"></div>
-    &nbsp; &nbsp;&nbsp;
-    <div class="readonly-payment-information__details__items">
-      Amount due:
-      $236.00
-    </div>
-    &nbsp; &nbsp;&nbsp;
-    <div class="readonly-payment-information__details__items readonly-payment-information__details__items--separator"></div>
-    &nbsp; &nbsp;&nbsp;
-    <div class="readonly-payment-information__details__items">
-      Due on:
-      December 29, 2016
-    </div>
-  </div>
+ 
 
 
 
@@ -140,7 +116,7 @@ div {
       
    
   	<div class="pull-right" style="text-align: right;">
-      <h1><big>SHIPPING NOTE</big></h1>
+      <h1><big>INVOICE</big></h1>
       <strong>NSTY WORLDWIDE SDN BHD</strong>
       
         <div class="contemporary-template__header__info__address">

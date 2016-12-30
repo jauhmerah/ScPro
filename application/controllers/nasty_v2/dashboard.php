@@ -18,8 +18,7 @@
 
 	    public function testpage()
 	    {
-	    	//echo "Jadi";
-	    	//$this->_show('index');
+	    	
             $this->load->view('test');
 	    }
           public function dummyInvoice()
