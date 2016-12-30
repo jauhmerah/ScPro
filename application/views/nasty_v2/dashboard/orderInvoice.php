@@ -98,7 +98,7 @@ div {
 
 
     
-  </div> -->
+  </div>
 </div>
 
      <div class="row-fluid">
@@ -112,7 +112,7 @@ div {
  
    
           
-        <img class="contemporary-template__business-logo" src="https://d13urdz427oqex.cloudfront.net/uploads/invoices/business_logos/34ebad66-06d6-4bd2-88c7-2ed1618ed501.png" width="314" height="161"/>
+        <img class="contemporary-template__business-logo" src="<?= base_url(); ?>assets/cover/nstylogo.png" width="314" height="161"/>
       
    
   	<div class="pull-right" style="text-align: right;">
@@ -170,30 +170,30 @@ div {
       <table class="wv-table">
         <tr class="wv-table__row">
           <td class="wv-table__cell" style="text-align: right;">
-            <strong class="wv-text--strong">Invoice Number:</strong>
+            <strong class="wv-text--strong">Invoice Number : </strong>
           </td>
           <td></td>
           <td class="wv-table__cell" style="text-align: right;">
-            <span>#1740</span>
+            <span>#1740</span><br>
           </td>
         </tr>
         
         <tr class="wv-table__row">
           <td class="wv-table__cell" style="text-align: right;">
-            <strong class="wv-text--strong">Invoice Date:</strong>
+            <strong class="wv-text--strong">Invoice Date : </strong>
           </td>
           <td></td>
           <td class="wv-table__cell" style="text-align: right;">
-            <span>December 29, 2016</span>
+            <span>December 29, 2016</span><br>
           </td>
         </tr>
         <tr class="wv-table__row">
           <td class="wv-table__cell" style="text-align: right;">
-            <strong class="wv-text--strong">Payment Due:</strong>
+            <strong class="wv-text--strong">Payment Due : </strong>
           </td>
           <td></td>
           <td class="wv-table__cell" style="text-align: right;">
-            <span>December 29, 2016</span>
+            <span>December 29, 2016</span><br>
           </td>
         </tr>
         <tr class="wv-table__row">
@@ -208,7 +208,7 @@ div {
               
                 $236.00
               
-            </span>
+            </span><p>
           </td>
         </tr>
       </table>
@@ -283,7 +283,7 @@ div {
 <script>
 
     
-	 	window.print();
+	 //	window.print();
 
 	
 	</script>
