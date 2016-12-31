@@ -75,6 +75,19 @@
 			view progress order = 2
 			view complete order = 3
 	    */
+
+		//start added
+		 public function countneworder(){
+            $this->db->select('pr_id,COUNT(pr_id) as total');
+            $this->db->from('order');
+            $this->db->where('pr_id =', 2);
+        
+            $result = $this->db->get()->result();
+            return $result;
+        }
+        //end added
+
+
 	    public function getList($process = 0 , $del = 0 , $down = 0)
 	    {
 	    	$this->db->select('*');
