@@ -1144,20 +1144,9 @@ jauhmerah@nastyjuice.com
                     $arr['nico'] = $this->m_nico->get();
                     $arr['cat'] = $this->m_category->get(null , 'asc');
     				$arr['client'] = $this->m_client->get(null , 'asc');
-    				$data['display'] = $this->load->view($this->parent_page.'/orderForm1' , $arr , true);
+    				$data['display'] = $this->load->view($this->parent_page.'/orderForm' , $arr , true);
 		    		$this->_show('display' , $data , $key); 
     				break;
-                case 'z1old':
-                    if ($lvl == 2 || $lvl == 3) {
-                        redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
-                    }
-                    $data['title'] = '<i class="fa fa-file-text"></i> Order Form';
-                    $this->load->database();
-                    $this->load->model('m_client');
-                    $arr['client'] = $this->m_client->get();
-                    $data['display'] = $this->load->view($this->parent_page.'/orderForm' , $arr , true);
-                    $this->_show('display' , $data , $key); 
-                    break;
     			case 'c13':
     				//view
     				if ($this->input->get('view')) {

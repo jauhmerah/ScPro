@@ -32,7 +32,7 @@
 	            <form id="formSearch" action="<?= site_url('nasty_v2/dashboard/page/a1'); ?>" method="POST" role="form">
 	            	<div class="col-md-12">
 	            		<div class="col-md-2">
-	            			<a href="<?= site_url('nasty_v2/dashboard/page/z1'); ?>"><button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Add Order</button></a>
+	            			<button type="button" class="btn btn-primary disabled"><i class="fa fa-plus"></i> Add Order</button></a>
 	            		</div>
 	            		<div class="col-md-4">
 	            			<div class="form-group">

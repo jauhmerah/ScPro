@@ -1,6 +1,14 @@
 
 <div class="row">
 	<div class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-md-offset-2" align="center">
+                <h2>Switchover Version 2017</h2>
+                <div class="clearfix">
+                &nbsp;
+                </div>
+            </div>
+        </div>
 		<div class="row">
             <div class="col-md-6">
                 <a class="dashboard-stat dashboard-stat-v2 purple" href="<?= site_url('nasty_v2/dashboard/page/a1new'); ?>">
