@@ -84,22 +84,6 @@ div {
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 	</head>
 	<body style="background-color:#EAEDED">
-	
-
-   <div id="ReadOnlyControls" class="span12 no-container-margin">
-                
-
- 
-
-
-
-
-
-
-
-    
-  </div>
-</div>
 
      <div class="row-fluid">
               <div id="ReadOnlyView" class="span12 read-only-view">
@@ -221,10 +205,10 @@ div {
     <table class="table">
       <thead style="background-color: #FFFFFF;">
         <tr>
-          <th colspan="4" style="color: #000000;">Product</th>
-          <th colspan="1" style="color: #000000;">Quantity</th>
-          <th colspan="1" style="color: #000000;">Price</th>
-          <th colspan="1" style="color: #000000;">Amount</th>
+          <th colspan="4" style="color: #000000;" align="center">Product</th>
+          <th colspan="1" style="color: #000000;" align="center">Quantity</th>
+          <th colspan="1" style="color: #000000;" align="center">Price</th>
+          <th colspan="1" style="color: #000000;" align="center">Amount</th>
         </tr>
       </thead>
       <tbody>
@@ -234,9 +218,9 @@ div {
           	<br>
 			Slow Blow | No Menthol | Pineapple 6MG| 50 ML | Alluminium Bottle + Box
           </td>
-          <td colspan="1" style="color: #000000;">4	</td>
-          <td colspan="1" style="color: #000000;">$13.00</td>
-          <td colspan="1" style="color: #000000;">$52.00</td>
+          <td colspan="1" style="color: #000000;" align="center">4	</td>
+          <td colspan="1" style="color: #000000;" align="center">$13.00</td>
+          <td colspan="1" style="color: #000000;" align="center">$52.00</td>
         </tr>
          <tr>
           <td colspan="4" style="color: #000000;">
@@ -244,40 +228,30 @@ div {
           	<br>
 			Slow Blow | No Menthol | Pineapple 6MG| 50 ML | Alluminium Bottle + Box
           </td>
-          <td colspan="1" style="color: #000000;">4	</td>
-          <td colspan="1" style="color: #000000;">$13.00</td>
-          <td colspan="1" style="color: #000000;">$52.00</td>
+          <td colspan="1" style="color: #000000;" align="center">4	</td>
+          <td colspan="1" style="color: #000000;" align="center">$13.00</td>
+          <td colspan="1" style="color: #000000;" align="center">$52.00</td>
         </tr>
          <tr>
         <td style="color: #000000;text-align: right;" colspan="6" ><strong>Total :</strong></td>
-          <td style="color: #000000;">$52.00</td>
+          <td style="color: #000000;" align="center">$52.00</td>
         </tr>
          <tr>
         	
           <td style="color: #000000;text-align: right;" colspan="6"> <strong>Amount Due (USD) :</strong></td>
-          <td style="color: #000000;"><strong>$52.00</strong></td>
-        </tr>
-      
+          <td style="color: #000000;" align="center"><strong>$52.00</strong></td>
+        </tr>      
       </tbody>
     </table>
-
-	  
   </div>
 </div>
 <!-- invoice end -->
 <footer>
 <div class="clear" style="height: 100px;"></div>
-
-			
-		
-				
-						 
-						
-						
-		<!-- jQuery -->
-		<script src="//code.jquery.com/jquery.js"></script>
-		<!-- Bootstrap JavaScript -->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+		<!-- jQuery 
+		<script src="//code.jquery.com/jquery.js"></script>-->
+		<!-- Bootstrap JavaScript 
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>-->
 	</body>
 </html>
 <script>
