@@ -15,6 +15,9 @@
 	    function index() {
 	        $this->page('a1');
 	    }
+        function index2() {
+            $this->page('x1');
+        }
 
 	    public function testpage()
 	    {
@@ -99,12 +102,25 @@
             $this->page('a1');
         }
 
+
 	    public function page($key)
     	{
     		//$arr = $this->input->get();
     		$this->_checkSession();
             $lvl =$this->my_func->scpro_decrypt($this->session->userdata('us_lvl'));
     		switch ($key) {
+                case "x1" :// dashboard
+                        //start added
+                        $this->load->database();
+                        $this->load->model('m_order');
+                        $neworder = array_shift($this->m_order->countneworder());
+                        //end added
+
+                $data['title'] = '<i class="fa fa-pencil"></i>Main Page</a>';
+                        $data['display'] = $this->load->view($this->parent_page.'/dashboard' ,"", true);
+                        $this->_show('display' , $data , $key);
+                        break;
+
                 case 'a13':
                     //delete
                     if ($lvl == 2 || $lvl == 3) {

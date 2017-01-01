@@ -107,7 +107,7 @@ div {
           
 		  Lot 139, 1st Floor, Jalan Besar Tampin,<br>
 		  Tampin,
-		  Negeri Sembilan 73000<br>
+		  Negeri Sembilan  73000<br>
 		  Malaysia<br>
 
 		<br>

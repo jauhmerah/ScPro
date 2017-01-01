@@ -21,6 +21,12 @@
                     <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
                     <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
                     <ul class="page-sidebar-menu  page-header-fixed page-sidebar-menu-hover-submenu page-sidebar-menu-closed " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                     <li class="nav-item <?php if (strpos($link, 'a2') !== false) { echo "active open";}else{echo "start";}?>   ">
+                            <a href="<?= site_url('nasty_v2/dashboard/page/x1') ?>" class="nav-link ">
+                                <i class="fa fa-tachometer"></i>
+                                <span class="title">Dashboard</span>
+                            </a>
+                        </li>
                     <?php $us_lvl = $this->my_func->scpro_decrypt($this->session->userdata('us_lvl')); ?>
                         <?php if($us_lvl != 2 && $us_lvl != 3 ){?>
                         <li class="nav-item <?php if (strpos($link, 'a1') !== false) { echo "active open";}else{echo "start";}?>  ">
@@ -52,6 +58,7 @@
                                 </li>-->
                             </ul>
                         </li> <?php } ?>
+                       
                         <?php if($us_lvl != 4){?>                     
                         <li class="nav-item <?php if (strpos($link, 'a2') !== false) { echo "active open";}else{echo "start";}?>   ">
                             <a href="<?= site_url('nasty_v2/dashboard/page/a2') ?>" class="nav-link ">
