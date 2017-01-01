@@ -1,5 +1,5 @@
-Grocery CRUD
-=============
-Grocery CRUD is a PHP and Codeigniter Framework library that creates a full functional CRUD system without the need to customise JavaScript or CSS.
+Programmer
+Muhammad Farid Husaini Bin Abd Razak
+jauhmerah@gmail.com
 
-For more information, visit http://www.grocerycrud.com
+Nasty OrdSys 2.3.0
