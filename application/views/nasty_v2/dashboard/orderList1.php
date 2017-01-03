@@ -21,6 +21,7 @@
 </script>
 <div class="row">
 	<div class="col-md-12">	
+	<pre><?php print_r($arr1); ?></pre>
 		<div class="portlet box purple">
             <div class="portlet-title">
                 <div class="caption">
@@ -94,8 +95,8 @@
                                     ?></td>
 		                            <td><?php 
 		                            if ($user->or_id) {
-		                            	$id = '#'.(110000+$user->or_id);
-		                            	echo '<span style = "color : blue;"><strong>'.$id.'</strong></span>';
+		                            	$id = '#'.(120000+$user->or_id);
+		                            	echo '<span style = "color : #b706d6;"><strong>'.$id.'</strong></span>';
 		                            } else {
 		                            	echo "--Not Set--";
 		                            }
@@ -108,28 +109,8 @@
                                     $view = ( $user->us_username == null) ? "--Not Set--" :  $user->us_username ;
                                     echo $view;
                                     ?></td>
-                                    <td> <?php                                    	
-                                    	switch ($user->pr_id) {
-                                    		case 1:
-                                    			?>
-                                    			<span class="label label-info"><?= $user->pr_desc; ?></span>
-                                    			<?php
-                                    			break;
-                                    		case 2:
-                                    			?>
-                                    			<span class="label label-warning"><?= $user->pr_desc; ?></span>
-                                    			<?php
-                                    			break;
-                                    		case 3:
-                                    			?>
-                                    			<span class="label label-success"><?= $user->pr_desc; ?></span>
-                                    			<?php
-                                    			break;
-                                    		default: ?>
-                                    			<span class="label label-danger">Status Error</span>
-                                    			<?php break;
-                                    	}
-                                    	?>
+                                    <td>
+                            			<span class="label" style="background-color: <?= $user->pr_color; ?>"><?= $user->pr_desc; ?></span>                                    			
                                     </td>
 		                            <td>
                                     <?php 

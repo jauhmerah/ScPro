@@ -13,11 +13,8 @@
 	    }
 	
 	    function index() {
-	        $this->page('a1');
+	        $this->page('x1');
 	    }
-        function index2() {
-            $this->page('x1');
-        }
 
 	    public function testpage()
 	    {
@@ -207,7 +204,9 @@
                         break;
                     }
                 case 'a1':
-
+                    if ($lvl == 2 || $lvl == 3) {
+                        redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
+                    }
                     $this->load->database();
                     $this->load->model('m_order');
                     $arr['vernew'] = $this->m_order->orderCount(2);
@@ -289,7 +288,7 @@
                         $ver = $this->m_order->orderCount(2);
                         $arr['arr1'] = $this->m_order->listOr(2 , 10 , $p);
                         $result1 = sizeof($arr['arr1']);
-                        $sizeA = 10 - $result1;
+                        //$sizeA = 10 - $result1;
                         /*if ($sizeA != 0) {
                             $p1 = $p + 10 - $ver1;
                             if ($p1 < 10) {
@@ -1077,7 +1076,8 @@ jauhmerah@nastyjuice.com
                             "us_id" => $this->my_func->scpro_decrypt($this->session->userdata('us_id')),
                             "or_sendDate" => $arr['sendDate'],
                             "or_date" => $arr['orderdate'],
-                            "or_note" => $arr['note']
+                            "or_note" => $arr['note'],
+                            "pr_id" => $arr['pr_id']
                         );
                         $or_id = $this->m_order->insert($order);
                         
@@ -1115,16 +1115,17 @@ jauhmerah@nastyjuice.com
                             'cl_id' => $arr['client']
                         );
                         $this->m_shipping_note->insert($shipping_note);*/
-                        $this->load->model('m_user');
+                        if ($arr['pr_id'] != 4) {
+                            $this->load->model('m_user');
                         $saleman = $this->m_user->getName($this->my_func->scpro_decrypt($this->session->userdata('us_id')));
                         $email['fromName'] = "Ai System";
                         $email['fromEmail'] = "nstylabc@sirius.sfdns.net";
                         $email['toEmail'] = "production@nastyjuice.com";
-                        $email['subject'] = "New Order #".(110000+$or_id);
+                        $email['subject'] = "New Order #".(120000+$or_id);
                         $email['msg'] = "
 Order Detail
 
-Order No : #".(110000+$or_id)."
+Order No : #".(120000+$or_id)."
 Order Status : New Order
 Salesman : ".$saleman."
 Order Date : ".$arr['orderdate']."
@@ -1144,6 +1145,7 @@ JauhMerah
 jauhmerah@nastyjuice.com
                         ";
                         $this->sendEmail($email);
+                        }                        
                         $this->session->set_flashdata('success', 'New Order successfully added');
                         redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
     					break;    				
