@@ -113,14 +113,18 @@
                         //start added
                         $this->load->database();
                         $this->load->model('m_order');
-                        $neworder = array_shift($this->m_order->countneworder());
+                         
+                        $arr['neworder'] = $this->m_order->countOrderType($num=1);
+                        $arr['inprogress'] = $this->m_order->countOrderType($num=2);
+                        $arr['complete'] = $this->m_order->countOrderType($num=3);
+                        $arr['totalOrder'] = $this->m_order->countOrderType($num=0);
+                        $arr['totalProfit'] = $this->m_order->totalProfit();
                         //end added
 
-                $data['title'] = '<i class="fa fa-pencil"></i>Main Page</a>';
-                        $data['display'] = $this->load->view($this->parent_page.'/dashboard' ,"", true);
-                        $this->_show('display' , $data , $key);
-                        break;
-
+                        $data['title'] = '<i class="fa fa-pencil"></i>Main Page</a>';
+                        $data['display'] = $this->load->view($this->parent_page.'/dashboard' ,$arr, true);
+                        $this->_show('display' , $data, $key);
+                   break;   
                 case 'a13':
                     //delete
                     if ($lvl == 2 || $lvl == 3) {
