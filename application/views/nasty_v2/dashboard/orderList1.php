@@ -109,104 +109,32 @@
                                     $view = ( $user->us_username == null) ? "--Not Set--" :  $user->us_username ;
                                     echo $view;
                                     ?></td>
-                                    <td>
-                            			<span class="label" style="background-color: <?= $user->pr_color; ?>"><?= $user->pr_desc; ?></span>                                    			
+                                    <td class="mt-element-ribbon">
+                            			<span class="label" style="background-color: <?= $user->pr_color; ?>"><?= $user->pr_desc; ?></span>
+                            			<div title="Paid" class="ribbon ribbon-right ribbon-vertical-right ribbon-shadow ribbon-border-dash-vert ribbon-color-success uppercase" >
+                            				<div class="ribbon-sub ribbon-bookmark"><i class="fa fa-money"></i></div>
+                            			</div>
                                     </td>
-		                            <td>
+		                            <td align="center">
                                     <?php 
                                         $usid = $this->my_func->scpro_encrypt($user->or_id);
                                     ?>
-		                            	<a href="<?= site_url('nasty_v2/dashboard/page/a111?view=').$usid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></button></a>&nbsp;-&nbsp;                            	
-										<a href="<?= site_url('nasty_v2/dashboard/page/a121?edit=').$usid; ?>" name="c3" title="Edit Order"><button type="button" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i></button></a>
+		                            	<a href="<?= site_url('nasty_v2/dashboard/page/a111?v=2&view=').$usid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-info btn-circle btn-xs"><i class="fa fa-eye"></i></button></a>&nbsp;-&nbsp;                            	
+										<a href="<?= site_url('nasty_v2/dashboard/page/a121?v=2&edit=').$usid; ?>" name="c3" title="Edit Order"><button type="button" class="btn btn-warning btn-circle btn-xs"><i class="fa fa-pencil"></i></button></a>&nbsp;-&nbsp; 
+										<button type="button" class="btn btn-circle purple-seance btn-xs"><i class="fa fa-upload"></i></button></a>
 										<?php if($user->pr_id == 3){ ?>
-                                    			&nbsp;- &nbsp;<button title = "Print Order" onclick = "window.open('<?= site_url('order/printO1?id='.$this->my_func->scpro_encrypt($user->or_id)); ?>');" type="button" class="btn btn-default btn-info btn-xs"><i class="fa fa-print"></i></button>&nbsp;-&nbsp;
-                                    			<button type="button" title = "D.O Form" onclick = "window.open('<?= site_url('order/printDO1?id='.$this->my_func->scpro_encrypt($user->or_id)); ?>');" class="btn btn-success btn-xs"><i class="fa fa-file-text"></i></button>
-                                    		<?php } ?>
-										&nbsp;-&nbsp;										
-										<a onclick = "return onDel();" href="<?= site_url('nasty_v2/dashboard/page/a13?del=').$usid; ?>" name="c5" title="Delete Order"><button type="button" class="btn btn-danger btn-xs"><i class="fa fa-close"></i></button></a>
+                                    			&nbsp;- &nbsp;<button title = "Print Order" onclick = "window.open('<?= site_url('order/printO1?id='.$this->my_func->scpro_encrypt($user->or_id)); ?>');" type="button" class="btn btn-default btn-circle btn-info btn-xs"><i class="fa fa-print"></i></button>&nbsp;-&nbsp;
+                                    			<button type="button" title = "D.O Form" onclick = "window.open('<?= site_url('order/printDO1?id='.$this->my_func->scpro_encrypt($user->or_id)); ?>');" class="btn btn-success btn-circle btn-xs"><i class="fa fa-truck"></i></button>
+                                    		<?php } ?><br>
+										<button type="button" class="btn blue-dark btn-circle btn-xs" title="Invoice">Inv</button></a>&nbsp;-&nbsp;    
+										<button type="button" class="btn c-btn-border-1x c-btn-blue-dark btn-circle btn-xs" title="Dummy Invoice">DInv</button></a>&nbsp;-&nbsp;    
+										<button type="button" class="btn bg-green-jungle btn-circle btn-xs" title="Confirm"><i class="fa fa-thumbs-up"></i></button><button type="button" class="btn bg-red-pink btn-circle btn-xs" title="Un Confirm"><i class="fa fa-thumbs-down"></i></button></a>&nbsp;-&nbsp;       										
+										<button type="button" class="btn btn-default btn-circle btn-xs" title="Cancel Order"><i class="fa fa-close"></i></button><a onclick = "return onDel();" href="<?= site_url('nasty_v2/dashboard/page/a13?del=').$usid; ?>" name="c5" title="Delete Order"><button type="button" class="btn btn-danger btn-circle btn-xs"><i class="fa fa-trash"></i></button></a>
 		                            </td>		                            
 		                        </tr>		
 		                    			<?php
 		                    		}
-		                    	}
-		                    ?>
-		                    <!-- <<<<<<<<<<<<<<<<<<<New version 2.20 Alpha>>>>>>>>>>>>>>>>>>> -->
-		                    <?php 
-		                    if (isset($arr)) {		                    
-		                    	if (sizeof($arr) != 0) { ?>
-		                    	<tr>
-	                    			<td colspan = "7">
-	                    				<div align = "center">vvvvvvv Old Version 2.1 Alpha vvvvvvv</div>
-	                    			</td>
-	                    		</tr>
-		                    	<?php		                    		
-		                    		foreach ($arr as $user) {
-		                    			$n++;
-		                    			?>
-		                    	<tr>
-		                            <td><?= $n; ?></td>
-		                            <td><?php 
-                                    $view = ($user->cl_name == null) ? "--Not Set--" : $user->cl_name ;
-                                    echo $view;
-                                    ?></td>
-		                            <td><?php 
-		                            if ($user->or_id) {
-		                            	$id = '#'.(100000+$user->or_id);
-		                            	echo '<span style = "color : red;"><strong>'.$id.'</strong></span>';
-		                            } else {
-		                            	echo "--Not Set--";
-		                            }
-                                    ?></td>
-		                            <td><?php 
-                                    $view = ( $user->or_date == null) ? "--Not Set--" :  date_format(date_create($user->or_date) , 'd-M-Y' ) ;
-                                    echo $view ;
-                                    ?></td>
-		                            <td><?php 
-                                    $view = ( $user->us_username == null) ? "--Not Set--" :  $user->us_username ;
-                                    echo $view;
-                                    ?></td>
-                                    <td> <?php                                    	
-                                    	switch ($user->pr_id) {
-                                    		case 1:
-                                    			?>
-                                    			<span class="label label-info"><?= $user->pr_desc; ?></span>
-                                    			<?php
-                                    			break;
-                                    		case 2:
-                                    			?>
-                                    			<span class="label label-warning"><?= $user->pr_desc; ?></span>
-                                    			<?php
-                                    			break;
-                                    		case 3:
-                                    			?>
-                                    			<span class="label label-success"><?= $user->pr_desc; ?></span>
-                                    			<?php
-                                    			break;
-                                    		default: ?>
-                                    			<span class="label label-danger">Status Error</span>
-                                    			<?php break;
-                                    	}
-                                    	?>
-                                    </td>
-		                            <td>
-                                    <?php 
-                                        $usid = $this->my_func->scpro_encrypt($user->or_id);
-                                    ?>
-		                            	<a href="<?= site_url('nasty_v2/dashboard/page/a11?view=').$usid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></button></a>&nbsp;-&nbsp;                            	
-										<a href="<?= site_url('nasty_v2/dashboard/page/a12?edit=').$usid; ?>" name="c3" title="Edit Order"><button type="button" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i></button></a>
-										<?php if($user->pr_id == 3){ ?>
-                                    			&nbsp;- &nbsp;<button title = "Print Order" onclick = "window.open('<?= site_url('order/printO?id='.$this->my_func->scpro_encrypt($user->or_id)); ?>');" type="button" class="btn btn-default btn-info btn-xs"><i class="fa fa-print"></i></button>&nbsp;-&nbsp;
-                                    			<button type="button" title = "D.O Form" onclick = "window.open('<?= site_url('order/printDO?id='.$this->my_func->scpro_encrypt($user->or_id)); ?>');" class="btn btn-success btn-xs"><i class="fa fa-file-text"></i></button>
-                                    		<?php } ?>
-										&nbsp;-&nbsp;										
-										<a onclick = "return onDel();" href="<?= site_url('nasty_v2/dashboard/page/a13?del=').$usid; ?>" name="c5" title="Delete Order"><button type="button" class="btn btn-danger btn-xs"><i class="fa fa-close"></i></button></a>
-		                            </td>		                            
-		                        </tr>		
-		                    			<?php
-		                    		}
-		                    	}
-		                    }
-		                    ?>		                                               
+		                    	}		                    ?>		                                               
 		                    </tbody>
 		                    <?php if (isset($page)) {?>
 		                    <tfoot>

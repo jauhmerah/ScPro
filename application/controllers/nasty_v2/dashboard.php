@@ -163,7 +163,12 @@
                         $this->load->model('m_nico');
                         $arr['nico'] = $this->m_nico->get();
                         $arr['cat'] = $this->m_category->get(null , 'asc');
-                        $arr['arr'] = array_shift($this->m_order->getList_ext($id, 1));
+                        if ($this->input->get('v')) {
+                            $vers = $this->input->get('v');
+                        }else{
+                            $vers = 1;
+                        }
+                        $arr['arr'] = array_shift($this->m_order->getList_ext($id, $vers));
                         $data['title'] = '<i class="fa fa-pencil"></i>Edit Order Detail</a>';
                         $data['display'] = $this->load->view($this->parent_page.'/orderEdit1' ,$arr , true);
                         $this->_show('display' , $data , $key);
