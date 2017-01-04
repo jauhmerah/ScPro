@@ -59,12 +59,12 @@
 						<tbody>
 						<?php
 						$n=0;
-						// vvvvvvvvvvvvvvv OrdYs 2.2.0 vvvvvvvvvvvvvvv
+						// vvvvvvvvvvvvvvv OrdYs 2.3.0 vvvvvvvvvvvvvvv
 							foreach ($arrV as $key) { 
 								$n++;
 								?>						
 								<tr class="Lorder" id="L<?= $n; ?>">
-									<td><span style = "color:blue;" >#<?= 110000 + $key['order']->or_id; ?></span></td>
+									<td><span style = "color:#b706d6;" >#<?= 120000 + $key['order']->or_id; ?></span></td>
 									<td><?= $key['order']->cl_name; ?></td>
 									
 									<td><?= $key['order']->cl_country; ?></td>
@@ -148,7 +148,7 @@
 						if (sizeof($arr) != 0) { ?>
 						<tr>
                 			<td colspan = "5">
-                				<div align = "center">vvvvvvv Old Version 2.1 Alpha vvvvvvv</div>
+                				<div align = "center">vvvvvvv Old Version 2.2 Alpha vvvvvvv</div>
                 			</td>
                 		</tr>
 						<?php
@@ -156,7 +156,7 @@
 								$n++;
 								?>						
 								<tr class="Lorder" id="L<?= $n; ?>">
-									<td><span style = "color:red;" >#<?= 100000 + $key['order']->or_id; ?></span></td>
+									<td><span style = "color:blue;" >#<?= 110000 + $key['order']->or_id; ?></span></td>
 									<td><?= $key['order']->cl_name; ?></td>
 									
 									<td><?= $key['order']->cl_country; ?></td>
@@ -295,7 +295,7 @@
 							$n++;
 							?>						
 							<tr class="Lorder" id="L<?= $n; ?>">
-								<td><span style = "color:blue;" >#<?= 110000 + $key['order']->or_id; ?></span></td>
+								<td><span style = "color:#b706d6;" >#<?= 120000 + $key['order']->or_id; ?></span></td>
 								<td><?= $key['order']->cl_name; ?></td>
 								
 								<td><?= $key['order']->cl_country; ?></td>
@@ -384,7 +384,7 @@
 							$n++;
 							?>						
 							<tr class="Lorder" id="L<?= $n; ?>">
-								<td><span style = "color:red;" >#<?= 100000 + $key['order']->or_id; ?></span></td>
+								<td><span style = "color:blue;" >#<?= 110000 + $key['order']->or_id; ?></span></td>
 								<td><?= $key['order']->cl_name; ?></td>
 								
 								<td><?= $key['order']->cl_country; ?></td>

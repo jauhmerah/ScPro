@@ -202,7 +202,10 @@
                         $id = $this->my_func->scpro_decrypt($id);
                         $this->load->database();
                         $this->load->model('m_order');
-                        $arr['arr'] = array_shift($this->m_order->getList_ext($id , 1));                                               
+                        $arr['arr'] = array_shift($this->m_order->getList_ext($id , 1));
+                        if (sizeof($arr['arr']) == 0) {
+                            $arr['arr'] = array_shift($this->m_order->getList_ext($id , 2));
+                        }
                         $data['title'] = '<i class="fa fa-eye"></i> Order Detail</a>';
                         $data['display'] = $this->load->view($this->parent_page.'/orderView1' ,$arr , true);                        
                         $this->_show('display' , $data , $key);
@@ -542,10 +545,11 @@ jauhmerah@nastyjuice.com
 	    			$this->load->database();
 	    			$this->load->model('m_order');  
                     $this->load->library('l_label');
-    				$temp['arr'] = $this->m_order->getList_ext(null ,0, 1 , 1 , 0);
-    				$temp['arr1'] = $this->m_order->getList_ext(null ,0, 1 , 2 , 0);
-                    $temp['arrV'] = $this->m_order->getList_ext(null ,1, 1 , 1 , 0);
-                    $temp['arrV1'] = $this->m_order->getList_ext(null ,1, 1 , 2 , 0);
+    				$temp['arr'] = $this->m_order->getList_ext(null ,1, 1 , 1 , 0);
+    				$temp['arr1'] = $this->m_order->getList_ext(null ,1, 1 , 2 , 0);
+                    $temp['arrV'] = $this->m_order->getList_ext(null ,2, 1 , 1 , 0);
+                    $temp['arrV1'] = $this->m_order->getList_ext(null ,2, 1 , 2 , 0);
+                    $temp['arrHold'] = $this->m_order->getList_ext(null ,2, 1 , 8 , 0);
     				$data['title'] = '<i class="fa fa-fw fa-edit"></i>Order List</a>';
     				$data['display'] = $this->load->view($this->parent_page.'/productionOrder', $temp , TRUE);
     				$this->_show('display' , $data , $key);
@@ -1031,7 +1035,8 @@ jauhmerah@nastyjuice.com
                         $this->load->model('m_order');                        
                         $order = array(                            
                             "or_sendDate" => $arr['sendDate'],
-                            "or_note" => $arr['note']
+                            "or_note" => $arr['note'],
+                            'pr_id' => $arr['pr_id']
                         );
                         $or = $this->m_order->update($order , $or_id);
                         //echo $or_id.'or_id =>'.$or;                           
@@ -1041,7 +1046,7 @@ jauhmerah@nastyjuice.com
                             'or_finishdate' => $arr['finishdate'],
                             'or_shipcom' => $arr['sh_company'],
                             'or_shipopt' => $arr['sh_opt'],
-                            'dec_id' => $arr['sh_declare']                            
+                            'dec_id' => $arr['sh_declare']
                         );
                         if (isset($arr['currency'])) {
                             $order_ext['cu_id'] = $arr['currency'];
@@ -1486,7 +1491,53 @@ jauhmerah@nastyjuice.com
 
 			return $output;
 		}
-
+        function change_pr_id(){
+            if ($this->input->post('id')) {
+                $id = $this->my_func->scpro_decrypt($this->input->post('id'));
+                $this->load->database();
+                $this->load->model('m_order');
+                /*  1 - New Order
+                    2 - In Progress
+                    3 - Complete
+                    4 - Unconfirm
+                    5 - Cancel
+                    6 - Cancel In Progress
+                    7 - On Hold In Progress */
+                switch ($this->input->post('pr_id')) {
+                    case '1':
+                        // change to 4
+                        $arr = array(
+                            'pr_id' => 4
+                        );                        
+                        break;
+                    case '2':
+                        // Change to 8
+                        $arr = array(
+                            'pr_id' => 8
+                        );
+                        break; 
+                    case '4':
+                        // Change to 1
+                        $arr = array(
+                            'pr_id' => 1
+                        ); 
+                        break;
+                    case '8':
+                        // Change to 2
+                        $arr = array(
+                            'pr_id' => 2
+                        );
+                        break;
+                }
+                if ($this->m_order->update($arr , $id)) {
+                    $this->session->set_flashdata('success', 'New Order successfully Updated');
+                    return true;
+                }else{
+                    $this->session->set_flashdata('success', 'New Order successfully Updated');
+                    return false;
+                }
+            }
+        }
 		function callbackGalary($pk , $row)
 		{	
 			$this->load->library('my_func');

@@ -19,6 +19,9 @@
 		}
 	});	
 </script>
+<?php
+	$us_id = $this->my_func->scpro_decrypt($this->session->userdata('us_id'));
+?>
 <div class="row">
 	<div class="col-md-12">	
 	<pre><?php print_r($arr1); ?></pre>
@@ -128,8 +131,10 @@
                                     		<?php } ?><br>
 										<button type="button" class="btn blue-dark btn-circle btn-xs" title="Invoice">Inv</button></a>&nbsp;-&nbsp;    
 										<button type="button" class="btn c-btn-border-1x c-btn-blue-dark btn-circle btn-xs" title="Dummy Invoice">DInv</button></a>&nbsp;-&nbsp;    
-										<button type="button" class="btn bg-green-jungle btn-circle btn-xs" title="Confirm"><i class="fa fa-thumbs-up"></i></button><button type="button" class="btn bg-red-pink btn-circle btn-xs" title="Un Confirm"><i class="fa fa-thumbs-down"></i></button></a>&nbsp;-&nbsp;       										
-										<button type="button" class="btn btn-default btn-circle btn-xs" title="Cancel Order"><i class="fa fa-close"></i></button><a onclick = "return onDel();" href="<?= site_url('nasty_v2/dashboard/page/a13?del=').$usid; ?>" name="c5" title="Delete Order"><button type="button" class="btn btn-danger btn-circle btn-xs"><i class="fa fa-trash"></i></button></a>
+										<?php if($user->pr_id == 4 || $user->pr_id == 8 ){ ?><button type="button" class="btn bg-green-jungle btn-circle btn-xs jari" id="<?= $usid ?>" title="Confirm"><i class="fa fa-thumbs-up"></i></button> <?php }else{  ?>
+										<button type="button" class="btn bg-red-pink btn-circle btn-xs  jari" title="Un Confirm" id="<?= $usid ?>"><i class="fa fa-thumbs-down"></i></button></a><?php } ?> &nbsp;-&nbsp; 
+										<input type="hidden" class="form-control <?= $usid ?>" value="<?= $user->pr_id ?>">      										
+										<?php if($user->pr_id != 5 && $user->pr_id != 7 && $user->pr_id != 3 ){ ?><button type="button" class="btn btn-default btn-circle btn-xs" title="Cancel Order"><i class="fa fa-close"></i></button><?php }else{  ?><a onclick = "return onDel();" href="<?= site_url('nasty_v2/dashboard/page/a13?del=').$usid; ?>" name="c5" title="Delete Order"><button type="button" class="btn btn-danger btn-circle btn-xs"><i class="fa fa-trash"></i></button></a><?php } ?>
 		                            </td>		                            
 		                        </tr>		
 		                    			<?php
@@ -170,3 +175,10 @@
         </div>
 	</div>
 </div>
+<script>
+	$(document).ready(function() {
+		$('.jari').click(function() {
+			id = $(this).prop('id');
+		});
+	});
+</script>

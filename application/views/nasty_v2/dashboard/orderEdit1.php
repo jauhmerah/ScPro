@@ -5,27 +5,35 @@
 	} else {
 		$mode = "";
 		$radio = "";
+		$us_id = $this->my_func->scpro_decrypt($this->session->userdata('us_id')) ;
 	}
+
 	
 ?>
 <div class="row">
 	<div class="col-md-12">
+	<pre><?php print_r($this->session->all_userdata());print_r($arr); ?></pre>
            <div class="tab-pane active" id="tab_1">
-                        <div class="portlet box" style="border: 1px solid #f77d00;">
-                            <div class="portlet-title" style="background-color: #f77d00;">
+                        <div class="portlet box purple ribbon mt-element-ribbon">
+                            <div class="portlet-title" >
                                 <div class="caption">
-                                    <img src="<?= base_url(); ?>/assets/cover/favicon2.png"> Order List                                     
+                                    <h2><i class="fa fa-pencil"></i>
+                                    &nbsp;Edit Order                                     </h2>
                                 </div>
                                 <div class="tools">
-                                    <span class="pull-right" style="color:blue;"><h3><?php $code = 110000 + $arr['order']->or_id; echo "#".$code; ?></h3></span>
+                                    <span class="pull-right" style="color:white;"><h3><?php $code =  (10000*$arr['order']->or_ver) + 100000 + $arr['order']->or_id; echo "#".$code; ?></h3></span>
                                 </div>
                             </div>
-
                             <div class="portlet-body form">
                                 <!-- BEGIN FORM-->
+                                <?php if($arr['order']->or_ver >= 2){?>
+                                <div style="<?php if($arr['order']->pr_id != 4){?>display: none;<?php } ?>" class="riben ribbon ribbon-right ribbon-clip ribbon-shadow ribbon-round ribbon-border-dash-hor ribbon-color-warning uppercase">
+                                    <div class="ribbon-sub ribbon-clip ribbon-right"></div><i class="fa fa-warning" ></i> Unconfirm Order </div>
+                                <?php } ?>
                                 <form action="<?= site_url('nasty_v2/dashboard/page/z121?key=').$this->my_func->scpro_encrypt($arr['order']->or_id); ?>" method = "post" class="horizontal-form">
                                     <div class="form-body">    
-                                        <h3 class="form-section">Client Info</h3>
+                                    <?php if($arr['order']->or_ver >= 2){?><input type="hidden" name="pr_id" id="pr_id" class="form-control" value="<?= $arr['order']->pr_id; ?>">
+                                        <?php } ?><h3 class="form-section">Client Info</h3>
                                         <div class="row" id = "clientInfo">
                                         	<div class="col-md-8">
                                         		<div class="row">
@@ -318,8 +326,8 @@
 											                                		EMS
 										                                        <span></span>
 										                                    </label>
-										                                    <input type="radio" name="sh_company" class="sh_com" <?php $temp = $arr['order']->or_shipcom; if($temp != 3 && $temp != 1 && $temp != 2){echo "checked";} ?> value="<?= $temp; ?>" <?= $radio; ?>>
-											                                		 : <input type="text" class="inputText " id = "sh_com" value="<?= $temp; ?>" <?= $mode ?> >
+										                                    <input type="radio" name="sh_company" class="sh_com" <?php $temp = $arr['order']->or_shipcom; $temp2 =""; if($temp != 3 && $temp != 1 && $temp != 2){echo "checked";$temp2 = $temp;} ?> value="<?= $temp; ?>" <?= $radio; ?>>
+											                                		 : <input type="text" class="inputText " id = "sh_com" value="<?= $temp2; ?>" <?= $mode ?> >
 										                                        <span></span>
 										                                </div>
 					                                            	</td> 
@@ -351,8 +359,8 @@
 											                                		Buyer Account
 										                                        <span></span>
 										                                    </label>
-										                                    <input type="radio" name="sh_opt" class="sh_opti" <?php $temp = $arr['order']->or_shipopt; if($temp != 3 && $temp != 1 && $temp != 2){echo "checked";} ?> value="<?= $temp; ?>" <?= $radio; ?>>
-											                                		 : <input type="text" class="inputText" id = "sh_opti" value="<?= $temp; ?>" <?= $mode ?>>
+										                                    <input type="radio" name="sh_opt" class="sh_opti" <?php $temp = $arr['order']->or_shipopt; $temp2 = ""; if($temp != 3 && $temp != 1 && $temp != 2){echo "checked"; $temp2 = $temp;} ?> value="<?= $temp; ?>" <?= $radio; ?>>
+											                                		 : <input type="text" class="inputText" id = "sh_opti" value="<?= $temp2; ?>" <?= $mode ?>>
 										                                        <span></span>
 										                                </div>
 					                                            	</td>					                                 					                                            	
@@ -383,8 +391,8 @@
 											                                		E-Juice
 										                                        <span></span>
 										                                    </label>
-										                                    <input type="radio" name="sh_declare" class="sh_dec" <?php $temp = $arr['order']->dec_id; if($temp != 3 && $temp != 1 && $temp != 2 && $temp != 4){echo "checked";} ?> value="<?= $temp; ?>" <?= $radio; ?>>
-											                                		 : <input type="text" class="inputText" id = "sh_dec" value="<?= $temp; ?>" <?= $mode ?>>
+										                                    <input type="radio" name="sh_declare" class="sh_dec" <?php $temp = $arr['order']->dec_id; $temp2 = ""; if($temp != 3 && $temp != 1 && $temp != 2 && $temp != 4){echo "checked";$temp2 = $temp;} ?> value="<?= $temp; ?>" <?= $radio; ?>>
+											                                		 : <input type="text" class="inputText" id = "sh_dec" value="<?= $temp2; ?>" <?= $mode ?>>
 										                                        <span></span>
 										                                </div>
 					                                            	</td>
@@ -397,6 +405,9 @@
 						                </div>
 					                </div>						                
                                     <div class="form-actions right">
+                                    <?php if($arr['order']->or_ver >= 2){?>
+                                     <div style="<?php if($arr['order']->pr_id != 4){?>display: none;<?php } ?>" class="riben ribbon ribbon-shadow ribbon-color-warning uppercase"><h2><i class="fa fa-warning" ></i> Unconfirm Order</h2></div>
+                                        <?php } if($arr['order']->pr_id != 4){ ?><button type="button" class="btn btn-success confirm btn-circle">Confirm</button> <?php }else{ ?> <button type="button" class="btn btn-warning confirm btn-circle">Unconfirm</button> <?php } ?>
                                         <a href="<?= site_url('nasty_v2/dashboard/page/a1'); ?>"><button type="button" class="btn default"><?php if($arr['order']->pr_id != 3){?>Cancel<?php }else{echo "Back";}?></button></a>
                                         <?php if($arr['order']->pr_id != 3){?>
                                         <button type="submit" class="btn blue">
@@ -461,5 +472,27 @@
 			v = $(this).val();
 			$("."+rad).val(v);
 		});
+
+		<?php
+		if ($us_id == $arr['order']->us_id) { ?>
+			$('.confirm').click(function() {
+			pr_id = $('#pr_id').val();
+			if (pr_id == 1) {
+				$(this).removeClass('btn-success').addClass('btn-warning');
+				$(this).text("Unconfirm");
+				$('.riben').show('slow');
+				$('#pr_id').val('4');
+			}else{
+				$(this).removeClass('btn-warning').addClass('btn-success');
+				$(this).text("Confirm");
+				$('.riben').hide('slow');
+				$('#pr_id').val('1');
+			}
+		}); <?php
+		}else{ ?>
+			$('.confirm').click(function() {
+			alert("Warning !!!, Only the salesPerson able to change the order confirmation status. Tq.");
+			});
+		<?php } ?>		
 	});
 </script>

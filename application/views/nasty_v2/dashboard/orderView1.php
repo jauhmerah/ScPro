@@ -1,17 +1,22 @@
 <div class="row">
 	<div class="col-md-12">
+	<pre><?php print_r($arr); ?></pre>
            <div class="tab-pane active" id="tab_1">
-                        <div class="portlet box" style="border: 1px solid #f77d00;">
-                            <div class="portlet-title" style="background-color: #f77d00;">
+                        <div class="portlet box purple ribbon mt-element-ribbon">
+                            <div class="portlet-title">
                                 <div class="caption">
                                     <img src="<?= base_url(); ?>/assets/cover/favicon2.png"> Order Detail                                     
                                 </div>
                                 <div class="tools">
-                                    <span class="pull-right" style="color:blue;"><h3><?php $code = 110000 + $arr['order']->or_id; echo "#".$code; ?></h3></span>
+                                    <span class="pull-right" style="color:white;"><h3><?php $code = (10000*$arr['order']->or_ver) + 100000 + $arr['order']->or_id; echo "#".$code; ?></h3></span>
                                 </div>
                             </div>
                             <div class="portlet-body form">
                                 <!-- BEGIN FORM-->
+                                <?php if($arr['order']->or_ver >= 2){?>
+                                <div style="<?php if($arr['order']->pr_id != 4){?>display: none;<?php } ?>" class="riben ribbon ribbon-right ribbon-clip ribbon-shadow ribbon-round ribbon-border-dash-hor ribbon-color-warning uppercase">
+                                    <div class="ribbon-sub ribbon-clip ribbon-right"></div><i class="fa fa-warning" ></i> Unconfirm Order </div>
+                                <?php } ?>
                                 <form method = "post" class="horizontal-form">
                                     <div class="form-body">  
                                         <h3 class="form-section">Client Info</h3>
@@ -302,6 +307,9 @@
 						                </div>
 					                </div>						                
                                     <div class="form-actions right">
+                                    <?php if($arr['order']->or_ver >= 2){?>
+                                     <div style="<?php if($arr['order']->pr_id != 4){?>display: none;<?php } ?>" class="riben ribbon ribbon-shadow ribbon-color-warning uppercase"><h2><i class="fa fa-warning" ></i> Unconfirm Order</h2></div>
+                                        <?php } ?>
                                         <a href="<?= site_url('nasty_v2/dashboard/page/a1'); ?>"><button type="button" class="btn default">Back</button></a>                                        
                                     </div>
                                 </form>

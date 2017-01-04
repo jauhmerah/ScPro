@@ -356,7 +356,7 @@
 						                </div>
 					                </div>						                
                                     <div class="form-actions right">
-                                    <div style="display: none;" class="riben ribbon ribbon-shadow ribbon-color-warning uppercase"><h2><i class="fa fa-warning" ></i> Unconfirm Order</h2></div>
+                                    <div style="display: none;" class="riben ribbon ribbon-shadow ribbon-color-warning uppercase"><h2><i class="fa fa-warning" ></i> Unconfirm Order</h2></div>                                    	
                                         <button type="button" class="btn default">Cancel</button>
                                         <button type="submit" class="btn blue">
                                             <i class="fa fa-check"></i> Save</button>
