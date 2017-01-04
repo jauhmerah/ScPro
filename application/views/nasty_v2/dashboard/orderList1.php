@@ -121,6 +121,11 @@
 		                            <td align="center">
                                     <?php 
                                         $usid = $this->my_func->scpro_encrypt($user->or_id);
+                                        if ($us_id == $user->us_id) {
+                                        	$conf = "jari";
+                                        }else{
+                                        	$conf = "xleh";
+                                        }
                                     ?>
 		                            	<a href="<?= site_url('nasty_v2/dashboard/page/a111?v=2&view=').$usid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-info btn-circle btn-xs"><i class="fa fa-eye"></i></button></a>&nbsp;-&nbsp;                            	
 										<a href="<?= site_url('nasty_v2/dashboard/page/a121?v=2&edit=').$usid; ?>" name="c3" title="Edit Order"><button type="button" class="btn btn-warning btn-circle btn-xs"><i class="fa fa-pencil"></i></button></a>&nbsp;-&nbsp; 
@@ -131,8 +136,9 @@
                                     		<?php } ?><br>
 										<button type="button" class="btn blue-dark btn-circle btn-xs" title="Invoice">Inv</button></a>&nbsp;-&nbsp;    
 										<button type="button" class="btn c-btn-border-1x c-btn-blue-dark btn-circle btn-xs" title="Dummy Invoice">DInv</button></a>&nbsp;-&nbsp;    
-										<?php if($user->pr_id == 4 || $user->pr_id == 8 ){ ?><button type="button" class="btn bg-green-jungle btn-circle btn-xs jari" id="<?= $usid ?>" title="Confirm"><i class="fa fa-thumbs-up"></i></button> <?php }else{  ?>
-										<button type="button" class="btn bg-red-pink btn-circle btn-xs  jari" title="Un Confirm" id="<?= $usid ?>"><i class="fa fa-thumbs-down"></i></button></a><?php } ?> &nbsp;-&nbsp; 
+										<?php if($user->pr_id == 4 || $user->pr_id == 8 ){ ?><button type="button" class="btn bg-green-jungle btn-circle btn-xs <?= $conf ?>" id="<?= $n.'con' ?>" title="Confirm"><i class="fa fa-thumbs-up"></i></button> <?php }else{  ?>
+										<button type="button" class="btn bg-red-pink btn-circle btn-xs <?= $conf ?>" title="Un Confirm" id="<?= $n.'con' ?>"><i class="fa fa-thumbs-down"></i></button></a><?php } ?> &nbsp;-&nbsp; 
+										<input type="hidden" class="form-control <?= $n.'con' ?>" value="<?= $usid ?>">
 										<input type="hidden" class="form-control <?= $usid ?>" value="<?= $user->pr_id ?>">      										
 										<?php if($user->pr_id != 5 && $user->pr_id != 7 && $user->pr_id != 3 ){ ?><button type="button" class="btn btn-default btn-circle btn-xs" title="Cancel Order"><i class="fa fa-close"></i></button><?php }else{  ?><a onclick = "return onDel();" href="<?= site_url('nasty_v2/dashboard/page/a13?del=').$usid; ?>" name="c5" title="Delete Order"><button type="button" class="btn btn-danger btn-circle btn-xs"><i class="fa fa-trash"></i></button></a><?php } ?>
 		                            </td>		                            
@@ -160,8 +166,8 @@
 			                					$next = "disabled";
 			                				}
 			                			?>
-			                				<li class="prev <?= $prev; ?>"><a <?php if($prev!="disabled"){ ?>href="<?= site_url('nasty_v2/dashboard/page/a1?page='.($page-10)); ?>"<?php } ?> title="Prev" ><i class="fa fa-angle-left"></i></a></li>			                				
-			                				<li class="next <?= $next; ?>"><a <?php if($next!="disabled"){ ?>href="<?= site_url('nasty_v2/dashboard/page/a1?page='.($page+10)); ?>"<?php } ?> title="Next"><i class="fa fa-angle-right"></i></a></li>
+			                				<li class="prev <?= $prev; ?>"><a <?php if($prev!="disabled"){ ?>href="<?= site_url('nasty_v2/dashboard/page/a1new?page='.($page-10)); ?>"<?php } ?> title="Prev" ><i class="fa fa-angle-left"></i></a></li>			                				
+			                				<li class="next <?= $next; ?>"><a <?php if($next!="disabled"){ ?>href="<?= site_url('nasty_v2/dashboard/page/a1new?page='.($page+10)); ?>"<?php } ?> title="Next"><i class="fa fa-angle-right"></i></a></li>
 			                			</ul>
 			                		</div>
 			                	</div>
@@ -179,6 +185,15 @@
 	$(document).ready(function() {
 		$('.jari').click(function() {
 			id = $(this).prop('id');
+			pr_id = $("."+id).val();
+			alert('jadi');
+			$.post('<?= site_url('nasty_v2/dashboard/change_pr_id'); ?>', {id: id , pr_id : pr_id}, function() {
+				$(window).attr("location", "<?= site_url('nasty_v2/dashboard/page/a1new'); ?>");
+			});
+		});
+		$('.xleh').click(function() {
+			alert("Warning!!!. Only order's Salesman can change the order status.");
 		});
 	});
+
 </script>

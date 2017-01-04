@@ -1493,6 +1493,7 @@ jauhmerah@nastyjuice.com
 		}
         function change_pr_id(){
             if ($this->input->post('id')) {
+                $this->load->library('my_func' , 'session');
                 $id = $this->my_func->scpro_decrypt($this->input->post('id'));
                 $this->load->database();
                 $this->load->model('m_order');
@@ -1530,11 +1531,9 @@ jauhmerah@nastyjuice.com
                         break;
                 }
                 if ($this->m_order->update($arr , $id)) {
-                    $this->session->set_flashdata('success', 'New Order successfully Updated');
-                    return true;
+                    $this->session->set_flashdata('success', 'New Order successfully Updated');                    
                 }else{
-                    $this->session->set_flashdata('success', 'New Order successfully Updated');
-                    return false;
+                    $this->session->set_flashdata('error', 'New Order Not Updated');
                 }
             }
         }
