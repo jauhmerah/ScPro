@@ -34,7 +34,6 @@
             
             <!-- END THEME LAYOUT SCRIPTS -->
             <!-- BEGIN PAGE LEVEL SCRIPTS -->
-            <script src="../assets/global/plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
             <script src="<?= base_url(); ?>asset2/pages/scripts/components-select2.min.js" type="text/javascript"></script>
             <!-- END PAGE LEVEL SCRIPTS -->
     </body>

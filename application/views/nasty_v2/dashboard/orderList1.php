@@ -21,7 +21,8 @@
 </script>
 <?php
 	$us_id = $this->my_func->scpro_decrypt($this->session->userdata('us_id'));
-?>
+	?>
+
 <div class="row">
 	<div class="col-md-12">	
 	<pre><?php print_r($arr1); ?></pre>
@@ -176,9 +177,40 @@
 				                </td>
 		                    </tfoot> <?php 
 		                    } ?>
-		                </table>		                
+		                </table>
+
 	            	</div>
-	            </div>	                         
+	            </div>	
+	            <!-- Input File -->
+	            <div class="row">
+	            	<div class="col-md-6 col-md-offset-3">
+<link href="<?= base_url(); ?>asset2/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css" rel="stylesheet" type="text/css">
+<script src="<?= base_url(); ?>asset2/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js" type="text/javascript"></script>
+	            		<form action="" method="POST" role="form">
+	            		<div class="portlet box purple-sharp">
+					        <div class="portlet-title">
+					            <div class="caption">
+					                <i class="fa fa-image"></i>Upload Payment Proof For #<span id = "orNum">1221111</span>
+					            </div>                
+					        </div>
+					        <div class="portlet-body flip-scroll" align="center">
+					        <div class="form-group">
+	            				<div class="fileinput fileinput-new" align="center" data-provides="fileinput">
+	                                <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; line-height: 150px;"></div>
+	                                <div>
+	                                    <span class="btn red btn-outline btn-file">
+	                                        <span class="fileinput-new"> Select image </span>
+	                                        <span class="fileinput-exists"> Change </span>
+	                                        <input type="hidden" value="" name="..."><input type="file" name=""> </span>
+	                                    <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> Remove </a>
+	                                    </div><div class="clearfix">&nbsp;</div><button type="submit" class="btn btn-primary btn-circle"><i class="fa fa-upload"> Submit</i></button>
+	                                </div>
+	                            </div>
+	            			</div>					        
+	            		</form>
+	            	</div>
+	            </div>
+	                                     
             </div>
         </div>
 	</div>
