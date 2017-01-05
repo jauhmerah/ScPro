@@ -1401,6 +1401,61 @@ jauhmerah@nastyjuice.com
 
 		}
 
+        public function uploadPaid()
+        {
+            if ($this->input->get('key')) {
+                $this->load->library('my_func');
+                $key = $this->my_func->scpro_decrypt($this->input->get('key'));
+                if ($key == "betul") {
+                    echo "jadi"; 
+                    echo "<pre>";
+                    print_r($this->input->post());
+                    echo "</pre>";
+                    $this->load->database();
+                    $this->load->model("m_order");
+                    $this->load->model('m_picture');
+                    $or_id = $this->my_func->scpro_encrypt($this->input->post('or_id'));
+                    $result = $this->my_func->do_upload('./assets/uploads/img/');
+                    $pi_id = null;
+                    $success = array();
+                    //$error = array();
+                    if (sizeof($result['success']) != 0) {
+                        foreach ($result['success'] as $filename => $detail) {                  
+                            $id = $this->m_picture->insert(array(
+                                    'pi_title' => $filename,
+                                    'img_url' => $detail['file_name'],
+                                    'ne_id' => $or_id
+                                ));
+                            $success[] = $filename;
+                        }
+                        $this->m_order->update(array('or_paid' => 1),$or_id);
+                    }
+                    $i = sizeof($success);
+                    $e = sizeof($result['error']);
+                    if ($e == 0) {
+                        $this->session->set_flashdata('success' , '<b>Well done!</b> You successfully send the picture.');
+                    }elseif ($i == 0) {
+                        $code = "<ul>";
+                        foreach ($result['error'] as $filename => $errormsg) {
+                            $code .= "<li> ".$filename." : ".$errormsg."
+                            </li>";
+                        }
+                        $code = "<b>Oh snap!</b> Change a few things up and try submitting again.</br>" . $code;
+                        $this->session->set_flashdata('error' , $code);
+                    }else{
+                        $code = "<ul>";
+                        foreach ($result['error'] as $filename => $errormsg) {
+                            $code .= "<li> ".$filename." : ".$errormsg."
+                            </li>";
+                        }
+                        $code = "<b>Warning!</b> You successfully send the news but <b>some your image not looking too good<b>.</br>".$code;
+                        $this->session->set_flashdata('warning' , $code);
+                    }
+                    redirect('nasty_v2/dashboard/page/a1new','refresh');
+                }
+            }
+        }
+
 		public function add_news()
 		{
 			$arr = $this->input->post();		
