@@ -12,6 +12,7 @@ footer{
 .verticalLine {
     border-left: thin solid #d6d9db;
 }
+
 .pdf-export #NextContemporary, .read-only-view #NextContemporary {
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 14px;
@@ -85,8 +86,8 @@ div {
 
 		<!-- Bootstrap CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    <link rel="stylesheet" href="<?= base_url(); ?>asset/css/plugins/bootstrap.min.css">
-    
+<!--     <link rel="stylesheet" href="<?= base_url(); ?>asset/css/plugins/bootstrap.min.css"> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	</head>
 	<body style="background-color:#EAEDED">
 	
@@ -95,7 +96,7 @@ div {
                 
 
 <form method = "post" class="horizontal-form">
-<div class="readonly-payment-information__details">
+<!-- <div class="readonly-payment-information__details">
         <div class="readonly-payment-information__details__items">
           
           Invoice <?php $code = 100000 + $arr['order']->or_id; echo "#".$code; ?>-D
@@ -120,7 +121,7 @@ div {
       </div>
     <center>
       <button type="button" class="btn btn-primary btn-lg" id="btnprint">Print</button>
-    </center>
+    </center> -->
 
 
     
@@ -133,7 +134,6 @@ div {
 
 <!-- invoice start -->
 <div class="clear" style="height: 40px;"></div>
-
 
 <div id="NextContemporary" class="export-template">
         
@@ -197,7 +197,7 @@ div {
     </div>
 
     <div class="pull-right">
-      <table class="wv-table">
+      <table class="wv-table" >
         <tr class="wv-table__row">
           <td class="wv-table__cell" style="text-align: right;">
             <strong class="wv-text--strong">Invoice Number:</strong>
@@ -235,7 +235,8 @@ div {
 
 
   <div class="contemporary-template__items">
-    <table class="table">
+  <div class="clear" style="height: 100px;"></div>
+    <table class="table-bordered" id="mytable">
       <thead style="background-color: #FFFFFF;">
         <tr>
           <th colspan="8" style="color: #000000;" >Item Details</th>
@@ -245,6 +246,7 @@ div {
           <th style="color: #000000;">Amount</th>
         </tr>
       </thead>
+      <form action="" method="post" id="origForm">
       <tbody>
         <?php 
           if (!isset($arr)) {
@@ -255,54 +257,78 @@ div {
           <?php
           } else {  
               $n = 0;
+              $total_all=0.0;
               foreach ($arr['item'] as $key) {
               $n++;
 
             ?>
           <tr>
           <td colspan="8" style="color: #000000;" >
-          <textarea id="name" name="name" style="width:500px;height: 60px;" class="form-control">
-           <?= $key->ty2_desc; ?><br>
-           <?= $key->ca_desc; ?> 
-          </textarea>
+      <?php 
+      $var1=strtr($key->ty2_desc,array('<strong>' => ' ', '</strong>' => ' ', '<br>' => ' '));
+      $var2=strtr($key->ca_desc,array('<strong>' => ' ', '</strong>' => ' ', '<br>' => ' '));
+      $var3=$key->ni_mg ." mg";
+      $desc= $var1 ." ". $var2 ."| ".$var3;
+      ?>
+
+          <input type="text" id="name" style="width:530px;" name="name" class="form-control input-circle" required value="<?php echo $desc ?>">
+         
           	
           </td>
        
-          <td style="color: #000000;"><input type="text" id="name" style="width:60px;" name="name" class="form-control input-circle" required value="<?= $key->oi_qty; ?>"></td>
-          <td style="color: #000000;"><input type="text" id="name" style="width:60px;" name="name" class="form-control input-circle" required value="<?= $key->oi_price; ?>"></td>
-          <td style="color: #000000;"><input type="text" id="name" style="width:60px;" name="name" class="form-control input-circle" required  value="<?= $key->oi_tester; ?>"></td>
+          <td style="color: #000000;"><input type="text" id="quantity" style="width:60px;" name="name" class="form-control input-circle" required value="<?= $key->oi_qty; ?>" onkeypress ="changeValue();" ></td>
+          <td style="color: #000000;"><input type="text" id="price" style="width:60px;" name="name" class="form-control input-circle" required value="<?= $key->oi_price; ?>" onkeypress ="changeValue();"></td>
+          <td style="color: #000000;"><input type="text" id="tester" style="width:60px;" name="name" class="form-control input-circle" required  value="<?= $key->oi_tester; ?>"></td>
            <?php
         
          $a= $key->oi_qty; 
         $b=$key->oi_price;
         $total=$a*$b;
          ?>
-          <td style="color: #000000;"><input type="text" id="name" style="width:60px;" name="name" class="form-control input-circle" required value="<?php $total ?>"></td>
+          <td style="color: #000000;"><input type="text" id="total" style="width:85px;" name="name" class="form-control input-circle" required value="<?= number_format((float)$total=$key->oi_qty * $key->oi_price, 2, '.', '');?>" ></td>
         </tr>
-       
 
-        <?php }
+
+        <?php 
+          $total_all=$total_all+$total; 
+          }
 
         } ?>
+        </form>
+       </tbody>
 
+       </table>
+
+      <div class="clear" style="height: 1px;"></div>
+      
+       <button type="button" class="btn btn-primary btn-xs" id="add-item">+ Add Item</button>
+       <div class="clear" style="height: 30px;"></div>
+        <table class="table-bordered" align="right">
+        <tbody>
        <tr>
-        <td style="color: #000000;text-align: right;" colspan="11"> <strong>Total :</strong></td>
-          <td style="color: #000000;"><input type="text" id="name" style="width:60px;" name="name" class="form-control input-circle" disabled="true" value=""></td>
+        <td style="color: #000000;text-align: left;" style="width:1000px;"> <strong>Total :</strong></td>
+          <td style="color: #000000;"><input type="text" id="name" style="width:85px;" name="name" class="form-control input-circle" disabled="true" value="<?php echo number_format((float)$total_all, 2, '.', ''); ?>"></td>
         </tr>
 
          <tr>
           
-          <td style="color: #000000;text-align: right;" colspan="11"> <strong>Amount Due (USD) :</strong></td>
-          <td style="color: #000000;"><strong><input type="text" id="name" style="width:60px;" name="name" class="form-control input-circle" required disabled="true"></strong></td>
+          <td style="color: #000000;text-align: left;" style="width:1000px;"> <strong>Amount Due (USD) :
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
+          <td style="color: #000000;"><strong><input type="text" id="name" style="width:85px;" name="name" class="form-control input-circle" required disabled="true" value="<?php echo number_format((float)$total_all, 2, '.', ''); ?>"></strong></td>
         </tr>
       </tbody>
     </table>
-
+    
+<div class="clear" style="height: 100px;"></div>
 	  
   </div>
 </div>
+
 </div>
+
 </div>
+
+
 <!-- invoice end -->
 <footer>
 <div class="clear" style="height: 100px;"></div>
@@ -315,16 +341,34 @@ div {
 						
 		<!-- jQuery -->
 		<script src="//code.jquery.com/jquery.js"></script>
-    <script src="<?= base_url(); ?>asset/js/plugins/bootstrap.min.js" type="text/javascript"></script>
+<!--     <script src="<?= base_url(); ?>asset/js/plugins/bootstrap.min.js" type="text/javascript"></script> -->
 		<!-- Bootstrap JavaScript -->
-		<script src="<?= base_url(); ?>asset2/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+		
 	</body>
 </html>
 <script>
+ var add_row= document.getElementById('add-item'); 
+ add_row.onclick = function() {
 
- var print_invoice= document.getElementById('btnprint'); 
- print_invoice.onclick = function() {
-	 	window.print();
+
+  $('#mytable').append('<tr><td colspan="8" style="color: #000000;" ><input type="text" id="name" style="width:530px;" name="name" class="form-control input-circle" required></td><td style="color: #000000;"><input type="text" id="name" style="width:60px;" name="name" class="form-control input-circle" required></td><td style="color: #000000;"><input type="text" id="name" style="width:60px;" name="name" class="form-control input-circle" required </td><td style="color: #000000;"><input type="text" id="name" style="width:60px;" name="name" class="form-control input-circle" required ></td><td style="color: #000000;"><input type="text" id="name" style="width:85px;" name="name" class="form-control input-circle" required disabled></td></tr>');
+  
 }
-	
+
+
+
+
+function changeValue() {
+    var val1 = document.getElementById("quantity").value;
+    var val2 = document.getElementById("price").value;
+
+      var total=val1*val2;
+  
+    document.getElementById("total").innerHTML = total;
+}
+/* var print_invoice= document.getElementById('btnprint'); 
+*/ /*print_invoice.onclick = function() {
+	 	//window.print();
+}*/
+ 
 	</script>

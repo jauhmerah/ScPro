@@ -208,21 +208,7 @@ div {
             <span><?php echo date("Y-m-d") ; ?></span><br>
           </td>
         </tr>
-        <tr class="wv-table__row">
-          <td class="wv-table__cell">
-          <strong class="wv-text--strong">
-            Amount Due (USD):
-          </strong>
-          </td>
-          <td></td>
-          <td class="wv-table__cell" style="text-align: right;">
-            <span class="wv-text--strong">
-              
-                $236.00
-              
-            </span><p>
-          </td>
-        </tr>
+     
       </table>
    </div>
   </section>
@@ -250,12 +236,12 @@ div {
           <?php
           } else {  
               $n = 0;
-              $total_all=0;
+              $total_all=0.0;
               foreach ($arr['item'] as $key) {
-                $total=$key->oi_qty * $key->oi_price;
-                $total_all=$total_all+$total; 
+                
+              
               $n++;
-
+             
             ?>
 
          <tr>
@@ -267,22 +253,25 @@ div {
           <td colspan="1" style="color: #000000;" style="width:60px;"><?= $key->oi_qty; ?></td>
           <td colspan="1" style="color: #000000;" style="width:60px;"><?= $key->oi_price; ?></td>
           <td colspan="1" style="color: #000000;" style="width:60px;"><?= $key->oi_tester; ?></td>
-          <td colspan="1" style="color: #000000;" style="width:60px;"><?= $total=$key->oi_qty * $key->oi_price; ?></td>
+          <td colspan="1" style="color: #000000;" style="width:60px;"><?= number_format((float)$total=$key->oi_qty * $key->oi_price, 2, '.', '');?></td>
         
 
         </tr>
-        <?php }
-          
+      
+        <?php 
+           $total_all=$total_all+$total; 
+          }
+           
         } ?>
 
          <tr>
         <td style="color: #000000;text-align: right;" colspan="11"><strong>Total :</strong></td>
-          <td style="color: #000000;">$<?php $total_all ?></td>
+          <td style="color: #000000;">$<?php echo number_format((float)$total_all, 2, '.', ''); ?></td>
         </tr>
          <tr>
         	
           <td style="color: #000000;text-align: right;" colspan="11"> <strong>Amount Due (USD) :</strong></td>
-          <td style="color: #000000;"><strong>$<?php $total_all ?></strong></td>
+          <td style="color: #000000;"><strong>$<?php echo  number_format((float)$total_all, 2, '.', ''); ?></strong></td>
         </tr>      
       </tbody>
     </table>
@@ -300,7 +289,7 @@ div {
 <script>
 
     
-	 //	window.print();
+	 	window.print();
 
 	
 	</script>
