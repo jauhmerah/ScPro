@@ -1530,10 +1530,10 @@ jauhmerah@nastyjuice.com
                         );
                         break;
                 }
-                if ($this->m_order->update($arr , $id)) {
-                    $this->session->set_flashdata('success', 'New Order successfully Updated');                    
+                if($this->m_order->update($arr , $id)){
+                    $this->session->set_flashdata('success', 'The order Confirmation was Updated!!');
                 }else{
-                    $this->session->set_flashdata('error', 'New Order Not Updated');
+                    $this->session->set_flashdata('error', 'Ops!!! Someting wrong, Contact Jm');
                 }
             }
         }

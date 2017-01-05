@@ -114,22 +114,24 @@
                                     ?></td>
                                     <td class="mt-element-ribbon">
                             			<span class="label" style="background-color: <?= $user->pr_color; ?>"><?= $user->pr_desc; ?></span>
-                            			<div title="Paid" class="ribbon ribbon-right ribbon-vertical-right ribbon-shadow ribbon-border-dash-vert ribbon-color-success uppercase" >
-                            				<div class="ribbon-sub ribbon-bookmark"><i class="fa fa-money"></i></div>
+                            			<?php if ($user->or_paid) { ?>
+                            				<div title="Paid" class="ribbon ribbon-right ribbon-vertical-right ribbon-shadow ribbon-border-dash-vert ribbon-color-success uppercase" >
+                            				<div class="ribbon-sub ribbon-bookmark" title="Paid"><i class="fa fa-money"></i></div>
                             			</div>
+                            			<?php } ?>
                                     </td>
 		                            <td align="center">
                                     <?php 
-                                        $usid = $this->my_func->scpro_encrypt($user->or_id);
+                                        $orid = $this->my_func->scpro_encrypt($user->or_id);
                                         if ($us_id == $user->us_id) {
                                         	$conf = "jari";
                                         }else{
                                         	$conf = "xleh";
                                         }
                                     ?>
-		                            	<a href="<?= site_url('nasty_v2/dashboard/page/a111?v=2&view=').$usid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-info btn-circle btn-xs"><i class="fa fa-eye"></i></button></a>&nbsp;-&nbsp;                            	
-										<a href="<?= site_url('nasty_v2/dashboard/page/a121?v=2&edit=').$usid; ?>" name="c3" title="Edit Order"><button type="button" class="btn btn-warning btn-circle btn-xs"><i class="fa fa-pencil"></i></button></a>&nbsp;-&nbsp; 
-										<button type="button" class="btn btn-circle purple-seance btn-xs"><i class="fa fa-upload"></i></button></a>
+		                            	<a href="<?= site_url('nasty_v2/dashboard/page/a111?v=2&view=').$orid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-info btn-circle btn-xs"><i class="fa fa-eye"></i></button></a>&nbsp;-&nbsp;                            	
+										<a href="<?= site_url('nasty_v2/dashboard/page/a121?v=2&edit=').$orid; ?>" name="c3" title="Edit Order"><button type="button" class="btn btn-warning btn-circle btn-xs"><i class="fa fa-pencil"></i></button></a>&nbsp;-&nbsp; 
+										<?php if (!$user->or_paid) { ?><button type="button" class="btn btn-circle purple-seance btn-xs" id="uploadPic"><i class="fa fa-upload"></i></button></a><?php } ?>
 										<?php if($user->pr_id == 3){ ?>
                                     			&nbsp;- &nbsp;<button title = "Print Order" onclick = "window.open('<?= site_url('order/printO1?id='.$this->my_func->scpro_encrypt($user->or_id)); ?>');" type="button" class="btn btn-default btn-circle btn-info btn-xs"><i class="fa fa-print"></i></button>&nbsp;-&nbsp;
                                     			<button type="button" title = "D.O Form" onclick = "window.open('<?= site_url('order/printDO1?id='.$this->my_func->scpro_encrypt($user->or_id)); ?>');" class="btn btn-success btn-circle btn-xs"><i class="fa fa-truck"></i></button>
@@ -138,9 +140,9 @@
 										<button type="button" class="btn c-btn-border-1x c-btn-blue-dark btn-circle btn-xs" title="Dummy Invoice">DInv</button></a>&nbsp;-&nbsp;    
 										<?php if($user->pr_id == 4 || $user->pr_id == 8 ){ ?><button type="button" class="btn bg-green-jungle btn-circle btn-xs <?= $conf ?>" id="<?= $n.'con' ?>" title="Confirm"><i class="fa fa-thumbs-up"></i></button> <?php }else{  ?>
 										<button type="button" class="btn bg-red-pink btn-circle btn-xs <?= $conf ?>" title="Un Confirm" id="<?= $n.'con' ?>"><i class="fa fa-thumbs-down"></i></button></a><?php } ?> &nbsp;-&nbsp; 
-										<input type="hidden" class="form-control <?= $n.'con' ?>" value="<?= $usid ?>">
-										<input type="hidden" class="form-control <?= $usid ?>" value="<?= $user->pr_id ?>">      										
-										<?php if($user->pr_id != 5 && $user->pr_id != 7 && $user->pr_id != 3 ){ ?><button type="button" class="btn btn-default btn-circle btn-xs" title="Cancel Order"><i class="fa fa-close"></i></button><?php }else{  ?><a onclick = "return onDel();" href="<?= site_url('nasty_v2/dashboard/page/a13?del=').$usid; ?>" name="c5" title="Delete Order"><button type="button" class="btn btn-danger btn-circle btn-xs"><i class="fa fa-trash"></i></button></a><?php } ?>
+										<input type="hidden" class="form-control <?= $n.'con' ?>" value="<?= $orid ?>">
+										<input type="hidden" class="form-control <?= $n.'con1' ?>" value="<?= $user->pr_id ?>">      										
+										<?php if($user->pr_id != 5 && $user->pr_id != 7 && $user->pr_id != 3 ){ ?><button type="button" class="btn btn-default btn-circle btn-xs" title="Cancel Order"><i class="fa fa-close"></i></button><?php }else{  ?><a onclick = "return onDel();" href="<?= site_url('nasty_v2/dashboard/page/a13?del=').$orid; ?>" name="c5" title="Delete Order"><button type="button" class="btn btn-danger btn-circle btn-xs"><i class="fa fa-trash"></i></button></a><?php } ?>
 		                            </td>		                            
 		                        </tr>		
 		                    			<?php
@@ -184,15 +186,19 @@
 <script>
 	$(document).ready(function() {
 		$('.jari').click(function() {
-			id = $(this).prop('id');
-			pr_id = $("."+id).val();
-			alert('jadi');
-			$.post('<?= site_url('nasty_v2/dashboard/change_pr_id'); ?>', {id: id , pr_id : pr_id}, function() {
+			id = $(this).prop('id');pr_id = $("."+id+"1").val();
+			id = $("."+id).val();			
+			$.post('<?= site_url('nasty_v2/dashboard/change_pr_id'); ?>', {id: id , pr_id : pr_id}, function(data) {
 				$(window).attr("location", "<?= site_url('nasty_v2/dashboard/page/a1new'); ?>");
 			});
 		});
 		$('.xleh').click(function() {
 			alert("Warning!!!. Only order's Salesman can change the order status.");
+		});
+		$("#uploadPic").click(function() {
+			bootbox.alert("Hello world!", function() {
+                console.log("Alert Callback");
+            });
 		});
 	});
 
