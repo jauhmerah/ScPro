@@ -85,6 +85,32 @@ div {
 	</head>
 	<body style="background-color:#EAEDED">
 
+
+
+<!-- <div class="readonly-payment-information__details">
+    <div class="readonly-payment-information__details__items">
+      
+      Invoice <?php $code = 100000 + $arr['order']->or_id; echo "#".$code; ?>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    </div>
+    <div class="readonly-payment-information__details__items">
+    <div class="verticalLine">
+    &nbsp;&nbsp;&nbsp;&nbsp;
+      Amount due:
+      $0.00
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      </div>
+    </div>
+ 
+    <div class="readonly-payment-information__details__items">
+    <div class="verticalLine">
+    &nbsp;&nbsp;&nbsp;&nbsp;
+      Due on:
+      <?php if($arr['order']->or_dateline != '0000-00-00 00:00:00'){ echo date_format(date_create($arr['order']->or_dateline) , 'd-M-Y' );}else{echo '--Not Set--';} ?>
+      </div>
+    </div>
+  </div> -->
+
      <div class="row-fluid">
               <div id="ReadOnlyView" class="span12 read-only-view">
                 
@@ -130,20 +156,22 @@ div {
     <div class="pull-left">
       <div class="contemporary-template__metadata__customer--billing">
         <div class="contemporary-template__metadata__customer__address-header">BILL TO :</div>
-        <strong>Bader Alsager</strong>
+        <strong><?= $arr['order']->cl_name; ?></strong>
         
           <div class="contemporary-template__metadata__customer__address">
  			 Bader Alsager
   			<br>
 
-				  36362-8120 Rawda-4741<br>
-				  Unit#01<br>
-				  Hofuf,
-				   31982<br>
-				  Saudi Arabia<br>
-					<br>
-				  +9660500466665<br>
-				  1.bader.sager@gmail.com<br>
+				  <table style="width:200px;">
+        <tr>
+        <td>
+         <?= $arr['order']->cl_address; ?>
+         </td>
+         </tr>
+         </table>
+          <br>
+          <?= $arr['order']->cl_tel; ?><br>
+         <?= $arr['order']->cl_email; ?><br>
 				</div>
         
       </div>
@@ -158,7 +186,7 @@ div {
           </td>
           <td></td>
           <td class="wv-table__cell" style="text-align: right;">
-            <span>#1740</span><br>
+            <span> <?php $code = 100000 + $arr['order']->or_id; echo "#".$code; ?></span><br>
           </td>
         </tr>
         
@@ -168,7 +196,7 @@ div {
           </td>
           <td></td>
           <td class="wv-table__cell" style="text-align: right;">
-            <span>December 29, 2016</span><br>
+            <span><?php echo date("Y-m-d") ; ?></span><br>
           </td>
         </tr>
         <tr class="wv-table__row">
@@ -177,7 +205,7 @@ div {
           </td>
           <td></td>
           <td class="wv-table__cell" style="text-align: right;">
-            <span>December 29, 2016</span><br>
+            <span><?php echo date("Y-m-d") ; ?></span><br>
           </td>
         </tr>
         <tr class="wv-table__row">
@@ -205,41 +233,56 @@ div {
     <table class="table">
       <thead style="background-color: #FFFFFF;">
         <tr>
-          <th colspan="4" style="color: #000000;" align="center">Product</th>
-          <th colspan="1" style="color: #000000;" align="center">Quantity</th>
-          <th colspan="1" style="color: #000000;" align="center">Price</th>
-          <th colspan="1" style="color: #000000;" align="center">Amount</th>
+          <th colspan="8" style="color: #000000;" align="center">Item Details</th>
+          <th style="color: #000000;" align="center">Quantity</th>
+          <th style="color: #000000;" align="center">Price</th>
+          <th style="color: #000000;">Tester</th> 
+          <th style="color: #000000;" align="center">Amount</th>
         </tr>
       </thead>
       <tbody>
+         <?php 
+          if (!isset($arr)) {
+          ?>
          <tr>
-          <td colspan="4" style="color: #000000;">
-          	<strong>Slow Blow | No Menthol | Pineapple 6MG| 50 ML | Alluminium Bottle + Box</strong>
+          <td colspan="11" align="center">-- No Data--</td>
+          </tr>
+          <?php
+          } else {  
+              $n = 0;
+              $total_all=0;
+              foreach ($arr['item'] as $key) {
+                $total=$key->oi_qty * $key->oi_price;
+                $total_all=$total_all+$total; 
+              $n++;
+
+            ?>
+
+         <tr>
+          <td colspan="8" style="color: #000000;">
+          	<strong><?= $key->ty2_desc; ?></strong>
           	<br>
-			Slow Blow | No Menthol | Pineapple 6MG| 50 ML | Alluminium Bottle + Box
+			     <?= $key->ca_desc; ?> | <?= $key->ni_mg; ?>mg
           </td>
-          <td colspan="1" style="color: #000000;" align="center">4	</td>
-          <td colspan="1" style="color: #000000;" align="center">$13.00</td>
-          <td colspan="1" style="color: #000000;" align="center">$52.00</td>
+          <td colspan="1" style="color: #000000;" style="width:60px;"><?= $key->oi_qty; ?></td>
+          <td colspan="1" style="color: #000000;" style="width:60px;"><?= $key->oi_price; ?></td>
+          <td colspan="1" style="color: #000000;" style="width:60px;"><?= $key->oi_tester; ?></td>
+          <td colspan="1" style="color: #000000;" style="width:60px;"><?= $total=$key->oi_qty * $key->oi_price; ?></td>
+        
+
         </tr>
+        <?php }
+          
+        } ?>
+
          <tr>
-          <td colspan="4" style="color: #000000;">
-          	<strong>Slow Blow | No Menthol | Pineapple 6MG| 50 ML | Alluminium Bottle + Box</strong>
-          	<br>
-			Slow Blow | No Menthol | Pineapple 6MG| 50 ML | Alluminium Bottle + Box
-          </td>
-          <td colspan="1" style="color: #000000;" align="center">4	</td>
-          <td colspan="1" style="color: #000000;" align="center">$13.00</td>
-          <td colspan="1" style="color: #000000;" align="center">$52.00</td>
-        </tr>
-         <tr>
-        <td style="color: #000000;text-align: right;" colspan="6" ><strong>Total :</strong></td>
-          <td style="color: #000000;" align="center">$52.00</td>
+        <td style="color: #000000;text-align: right;" colspan="11"><strong>Total :</strong></td>
+          <td style="color: #000000;">$<?php $total_all ?></td>
         </tr>
          <tr>
         	
-          <td style="color: #000000;text-align: right;" colspan="6"> <strong>Amount Due (USD) :</strong></td>
-          <td style="color: #000000;" align="center"><strong>$52.00</strong></td>
+          <td style="color: #000000;text-align: right;" colspan="11"> <strong>Amount Due (USD) :</strong></td>
+          <td style="color: #000000;"><strong>$<?php $total_all ?></strong></td>
         </tr>      
       </tbody>
     </table>
