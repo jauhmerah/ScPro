@@ -1416,6 +1416,9 @@ jauhmerah@nastyjuice.com
                     $this->load->model('m_picture');
                     $or_id = $this->my_func->scpro_encrypt($this->input->post('or_id'));
                     $result = $this->my_func->do_upload('./assets/uploads/img/');
+                    echo "<pre>";
+                    print_r($result);
+                    echo "</pre>";die();
                     $pi_id = null;
                     $success = array();
                     //$error = array();
@@ -1451,7 +1454,7 @@ jauhmerah@nastyjuice.com
                         $code = "<b>Warning!</b> You successfully send the news but <b>some your image not looking too good<b>.</br>".$code;
                         $this->session->set_flashdata('warning' , $code);
                     }
-                    redirect('nasty_v2/dashboard/page/a1new','refresh');
+                    //redirect('nasty_v2/dashboard/page/a1new','refresh');
                 }
             }
         }
