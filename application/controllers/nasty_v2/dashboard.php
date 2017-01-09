@@ -6,6 +6,7 @@
 	   	var $parent_page = "nasty_v2/dashboard";
 	   	var $old_page = "dashboard";
         var $version = "OrdYs v2.3.0 Alpha";
+        var $imgUploc = base_url()."/assets/uploads/img/";
 
 	    function __construct() {
 	        parent::__construct();
@@ -1421,17 +1422,29 @@ jauhmerah@nastyjuice.com
                     echo "</pre>";die();
                     $pi_id = null;
                     $success = array();
-                    //$error = array();
                     if (sizeof($result['success']) != 0) {
-                        foreach ($result['success'] as $filename => $detail) {                  
-                            $id = $this->m_picture->insert(array(
+                        $m_pic = array();
+                        foreach ($result['success'] as $filename => $detail) {   
+                                $m_pic = array(
                                     'pi_title' => $filename,
                                     'img_url' => $detail['file_name'],
                                     'ne_id' => $or_id
-                                ));
-                            $success[] = $filename;
+                                );
+                                $success[] = $filename;
                         }
                         $this->m_order->update(array('or_paid' => 1),$or_id);
+                        if ($this->m_picture->getbyne_id($or_id)) {
+                            $this->load->library('file');
+                            $t = $this->m_picture->get(array("ne_id" => $or_id));
+                            if (delete_files('./assets/uploads/img/'.$t->img_url)) {
+                                $this->m_picture->update($id , array("ne_id" => $or_id));
+                            }else{
+                                $this->session->set_flashdata('error', 'Ops !! , Unable to Find The old Image');
+                                delete_files('./assets/uploads/img/'.$m_pic['img_url']);
+                            }                            
+                        }else{
+                            $this->m_picture->insert($m_pic);
+                        }                        
                     }
                     $i = sizeof($success);
                     $e = sizeof($result['error']);
@@ -1454,9 +1467,9 @@ jauhmerah@nastyjuice.com
                         $code = "<b>Warning!</b> You successfully send the news but <b>some your image not looking too good<b>.</br>".$code;
                         $this->session->set_flashdata('warning' , $code);
                     }
-                    //redirect('nasty_v2/dashboard/page/a1new','refresh');
                 }
             }
+            redirect('nasty_v2/dashboard/page/a1new','refresh');
         }
 
 		public function add_news()

@@ -190,7 +190,7 @@
 	            		<div class="portlet box purple-sharp">
 					        <div class="portlet-title">
 					            <div class="caption">
-					                <i class="fa fa-image"></i>Upload Payment Proof For #<span id = "orNum">1221111</span>
+					                <i class="fa fa-image"></i>Upload Payment Proof For #<span id = "orNum">120024</span>
 					            </div>                
 					        </div>
 					        <div class="portlet-body flip-scroll" align="center">
@@ -206,7 +206,8 @@
 	                                    </div><div class="clearfix">&nbsp;</div><button type="submit" class="btn btn-primary btn-circle"><i class="fa fa-upload"> Submit</i></button>
 	                                </div>
 	                            </div>
-	            			</div>					        
+	            			</div>
+	            			<input type="hidden" name="or_id" id="inputOr_id" class="form-control" value="24">					        
 	            		</form>
 	            	</div>
 	            </div>
