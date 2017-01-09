@@ -22,7 +22,8 @@
 <?php
 	$us_id = $this->my_func->scpro_decrypt($this->session->userdata('us_id'));
 	?>
-
+<link href="<?= base_url(); ?>asset2/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css" rel="stylesheet" type="text/css">
+					<script src="<?= base_url(); ?>asset2/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js" type="text/javascript"></script>
 <div class="row">
 	<div class="col-md-12">	
 	<pre><?php print_r($arr1); ?></pre>
@@ -33,7 +34,7 @@
                 </div>                
             </div>
             <div class="portlet-body flip-scroll">
-	            <div class="row">
+	            <div class="row tableL">
 	            <form id="formSearch" action="<?= site_url('nasty_v2/dashboard/page/a1'); ?>" method="POST" role="form">
 	            	<div class="col-md-12">
 	            		<div class="col-md-2">
@@ -70,7 +71,7 @@
 	            <div class="clearfix">
 	            	&nbsp;
 	            </div>
-	            <div class="row">
+	            <div class="row tableL">
 	            	<div class="col-md-12">
 	            		<table class="table table-bordered table-striped flip-content">
 		                    <thead class="flip-content">
@@ -116,9 +117,10 @@
                                     <td class="mt-element-ribbon">
                             			<span class="label" style="background-color: <?= $user->pr_color; ?>"><?= $user->pr_desc; ?></span>
                             			<?php if ($user->or_paid) { ?>
-                            				<div title="Paid" class="ribbon ribbon-right ribbon-vertical-right ribbon-shadow ribbon-border-dash-vert ribbon-color-success uppercase" >
+                            				<div title="Paid" id="gmbr<?= $n ?>" class="bayar ribbon ribbon-right ribbon-vertical-right ribbon-shadow ribbon-border-dash-vert ribbon-color-success uppercase" >
                             				<div class="ribbon-sub ribbon-bookmark" title="Paid"><i class="fa fa-money"></i></div>
-                            			</div>
+                            				</div>
+                            				<input type="hidden" class="form-control gmbr<?= $n ?>" title = "<?= $user->pi_title; ?>" value="<?= $user->img_url; ?>">
                             			<?php } ?>
                                     </td>
 		                            <td align="center">
@@ -131,12 +133,15 @@
                                         }
                                     ?>
 		                            	<a href="<?= site_url('nasty_v2/dashboard/page/a111?v=2&view=').$orid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-info btn-circle btn-xs"><i class="fa fa-eye"></i></button></a>&nbsp;-&nbsp;                            	
-										<a href="<?= site_url('nasty_v2/dashboard/page/a121?v=2&edit=').$orid; ?>" name="c3" title="Edit Order"><button type="button" class="btn btn-warning btn-circle btn-xs"><i class="fa fa-pencil"></i></button></a>&nbsp;-&nbsp; 
-										<?php if (!$user->or_paid) { ?><button type="button" class="btn btn-circle purple-seance btn-xs" id="uploadPic"><i class="fa fa-upload"></i></button></a><?php } ?>
+										<a href="<?= site_url('nasty_v2/dashboard/page/a121?v=2&edit=').$orid; ?>" name="c3" title="Edit Order"><button type="button" class="btn btn-warning btn-circle btn-xs"><i class="fa fa-pencil"></i></button></a>
+										<?php if (!$user->or_paid) { ?>&nbsp;-&nbsp; <button type="button" class="btn btn-circle purple-seance btn-xs upPic" id="up<?= $n; ?>"><i class="fa fa-upload"></i></button></a><?php } ?>
+										<input type="hidden" class="form-control up<?= $n; ?>" value="<?= $orid; ?>">
 										<?php if($user->pr_id == 3){ ?>
                                     			&nbsp;- &nbsp;<button title = "Print Order" onclick = "window.open('<?= site_url('order/printO1?id='.$this->my_func->scpro_encrypt($user->or_id)); ?>');" type="button" class="btn btn-default btn-circle btn-info btn-xs"><i class="fa fa-print"></i></button>&nbsp;-&nbsp;
                                     			<button type="button" title = "D.O Form" onclick = "window.open('<?= site_url('order/printDO1?id='.$this->my_func->scpro_encrypt($user->or_id)); ?>');" class="btn btn-success btn-circle btn-xs"><i class="fa fa-truck"></i></button>
-                                    		<?php } ?><br>
+                                    		<?php } ?><br/><div class="clearfix">
+                                    		&nbsp;
+                                    		</div>
 										<button type="button" class="btn blue-dark btn-circle btn-xs" title="Invoice">Inv</button></a>&nbsp;-&nbsp;    
 										<button type="button" class="btn c-btn-border-1x c-btn-blue-dark btn-circle btn-xs" title="Dummy Invoice">DInv</button></a>&nbsp;-&nbsp;    
 										<?php if($user->pr_id == 4 || $user->pr_id == 8 ){ ?><button type="button" class="btn bg-green-jungle btn-circle btn-xs <?= $conf ?>" id="<?= $n.'con' ?>" title="Confirm"><i class="fa fa-thumbs-up"></i></button> <?php }else{  ?>
@@ -144,7 +149,7 @@
 										<input type="hidden" class="form-control <?= $n.'con' ?>" value="<?= $orid ?>">
 										<input type="hidden" class="form-control <?= $n.'con1' ?>" value="<?= $user->pr_id ?>">      										
 										<?php if($user->pr_id != 5 && $user->pr_id != 7 && $user->pr_id != 3 ){ ?><button type="button" class="btn btn-default btn-circle btn-xs" title="Cancel Order"><i class="fa fa-close"></i></button><?php }else{  ?><a onclick = "return onDel();" href="<?= site_url('nasty_v2/dashboard/page/a13?del=').$orid; ?>" name="c5" title="Delete Order"><button type="button" class="btn btn-danger btn-circle btn-xs"><i class="fa fa-trash"></i></button></a><?php } ?>
-		                            </td>		                            
+		                            </td>	                            
 		                        </tr>		
 		                    			<?php
 		                    		}
@@ -180,36 +185,9 @@
 		                </table>
 
 	            	</div>
-	            </div>	
-	            <!-- Input File -->
-	            <div class="row">
-	            	<div class="col-md-6 col-md-offset-3">
-					<link href="<?= base_url(); ?>asset2/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css" rel="stylesheet" type="text/css">
-					<script src="<?= base_url(); ?>asset2/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js" type="text/javascript"></script>
-	            		<form action="<?= site_url('nasty_v2/dashboard/uploadPaid?key=').$this->my_func->scpro_encrypt("betul"); ?>" method="POST" role="form" enctype="multipart/form-data">
-	            		<div class="portlet box purple-sharp">
-					        <div class="portlet-title">
-					            <div class="caption">
-					                <i class="fa fa-image"></i>Upload Payment Proof For #<span id = "orNum">120024</span>
-					            </div>                
-					        </div>
-					        <div class="portlet-body flip-scroll" align="center">
-					        <div class="form-group">
-	            				<div class="fileinput fileinput-new" align="center" data-provides="fileinput">
-	                                <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; line-height: 150px;"></div>
-	                                <div>
-	                                    <span class="btn red btn-outline btn-file">
-	                                        <span class="fileinput-new"> Select image </span>
-	                                        <span class="fileinput-exists"> Change </span>
-	                                        <input type="hidden" value="" name="title"><input type="file" name="fileImg"> </span>
-	                                    <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> Remove </a>
-	                                    </div><div class="clearfix">&nbsp;</div><button type="submit" class="btn btn-primary btn-circle"><i class="fa fa-upload"> Submit</i></button>
-	                                </div>
-	                            </div>
-	            			</div>
-	            			<input type="hidden" name="or_id" id="inputOr_id" class="form-control" value="24">					        
-	            		</form>
-	            	</div>
+	            </div>
+	            <div id="fileUp" style="display:none;">
+	            	
 	            </div>
 
             </div>
@@ -228,10 +206,25 @@
 		$('.xleh').click(function() {
 			alert("Warning!!!. Only order's Salesman can change the order status.");
 		});
-		$("#uploadPic").click(function() {
-			bootbox.alert("Hello world!", function() {
-                console.log("Alert Callback");
-            });
+		$(".upPic").click(function() {
+			hid = $(this).prop('id');
+			orid = $('.'+hid).val();
+			$.post('<?= site_url('nasty_v2/dashboard/getAjaxUpload'); ?>', {or_id : orid}, function(data) {
+				$.when($(".tableL").fadeOut("slow")).then(function(){
+					$.when($("#fileUp").html(data)).then(function(){$("#fileUp").fadeIn("fast");});
+				});				
+			});
+			/*bootbox.alert("Hello world!", function() {
+                //console.log("Alert Callback");
+            });*/
+		});
+		$(".bayar").click(function() {
+			gbr = $(this).prop("id");
+			imgL = $("."+gbr).val();
+			imgT = $("."+gbr).prop('title');
+			bootbox.dialog({message :
+				'<div align = "center"><img src="<?= base_url().'/'.$this->imgUploc; ?>'+imgL+'" class="img-responsive" alt="Image"></div>'
+			});
 		});
 	});
 
