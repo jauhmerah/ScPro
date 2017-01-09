@@ -201,7 +201,7 @@
 	                                    <span class="btn red btn-outline btn-file">
 	                                        <span class="fileinput-new"> Select image </span>
 	                                        <span class="fileinput-exists"> Change </span>
-	                                        <input type="hidden" value="" name="title"><input type="file" name="..."> </span>
+	                                        <input type="hidden" value="" name="title"><input type="file" name="fileImg"> </span>
 	                                    <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> Remove </a>
 	                                    </div><div class="clearfix">&nbsp;</div><button type="submit" class="btn btn-primary btn-circle"><i class="fa fa-upload"> Submit</i></button>
 	                                </div>
@@ -210,7 +210,7 @@
 	            		</form>
 	            	</div>
 	            </div>
-	                                     
+
             </div>
         </div>
 	</div>

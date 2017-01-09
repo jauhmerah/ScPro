@@ -1409,7 +1409,7 @@ jauhmerah@nastyjuice.com
                 if ($key == "betul") {
                     echo "jadi"; 
                     echo "<pre>";
-                    print_r($this->input->post());
+                    print_r($_FILES);
                     echo "</pre>";
                     $this->load->database();
                     $this->load->model("m_order");

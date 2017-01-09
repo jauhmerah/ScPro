@@ -101,6 +101,10 @@
 			$temp['success'] = $success;
 			$temp['error'] = $error;
 			return $temp;
+
+			foreach ($_FILES as $fileImg) {
+				# code...
+			}
 			
 		}
 
