@@ -141,8 +141,8 @@
                                     		<?php } ?><br/><div class="clearfix">
                                     		&nbsp;
                                     		</div>
-										<button type="button" class="btn blue-dark btn-circle btn-xs" title="Invoice">Inv</button></a>&nbsp;-&nbsp;    
-										<button type="button" class="btn c-btn-border-1x c-btn-blue-dark btn-circle btn-xs" title="Dummy Invoice">DInv</button></a>&nbsp;-&nbsp;    
+										<button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/Invoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');"  class="btn blue-dark btn-circle btn-xs" title="Invoice">Inv</button></a>&nbsp;-&nbsp;    
+										<button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/dummyInvoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn c-btn-border-1x c-btn-blue-dark btn-circle btn-xs" title="Dummy Invoice">DInv</button></a>&nbsp;-&nbsp;    
 										<?php if($user->pr_id == 4 || $user->pr_id == 8 ){ ?><button type="button" class="btn bg-green-jungle btn-circle btn-xs <?= $conf ?>" id="<?= $n.'con' ?>" title="Confirm"><i class="fa fa-thumbs-up"></i></button> <?php }else{  ?>
 										<button type="button" class="btn bg-red-pink btn-circle btn-xs <?= $conf ?>" title="Un Confirm" id="<?= $n.'con' ?>"><i class="fa fa-thumbs-down"></i></button></a><?php } ?> &nbsp;-&nbsp; 
 										<input type="hidden" class="form-control <?= $n.'con' ?>" value="<?= $orid ?>">

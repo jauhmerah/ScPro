@@ -150,10 +150,18 @@ body .ReadOnlyExtrasStatus {
 
 <div class="readonly-payment-information__nav-actions">
                   
-  
-  <div class="ReadOnlyExtrasStatus paid">
+  <?php
+  if ($arr['order']->or_paid) { ?>
+    <div class="ReadOnlyExtrasStatus paid">
     PAID
   </div>
+  <?php }else{ ?>
+    <div class="ReadOnlyExtrasStatus paid" style="background-color: orange;">
+    UnPaid
+  </div>
+  <?php }
+  ?>
+  
 </div> 
 <div class="clear" style="height: 30px;"></div>
 
@@ -260,7 +268,6 @@ body .ReadOnlyExtrasStatus {
   </section>
 <div class="clear" style="height: 100px;"></div>
 <div class="clear" style="height: 100px;"></div>
-
   <div class="contemporary-template__items">
     <table class="table">
       <thead style="background-color: #FFFFFF;">

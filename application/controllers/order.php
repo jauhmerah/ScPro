@@ -199,18 +199,19 @@ class Order extends CI_Controller {
 	{
 		echo $this->load->view($this->parent_page."/ajax/getAjaxForm", false);
 	}
-	public function printOrder1()
+	public function printOrder1($ver = 1)
 	{
 		// click from email link
 		if ($this->input->get('id')) {
 			$or_id = $this->my_func->scpro_decrypt($this->input->get('id'));
+			if($this->input->get('ver')){$ver = $this->input->get('ver');}
 			$this->load->database();
 			$this->load->model('m_order');
 			$arr = array(
 				"pr_id" => 2
 				);
 			$this->m_order->update($arr , $or_id);
-			$this->printO1($or_id);
+			$this->printO1($or_id , $ver);
 		} else {
 			$this->session->set_flashdata('warning', 'Ops!!! Wrong Path (Ox,\"O)');
 			redirect(site_url(),'refresh');	

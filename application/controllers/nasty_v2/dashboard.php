@@ -14,7 +14,7 @@
 	    }
 	
 	    function index() {
-	        $this->page('x1');
+	        $this->page('a1');
 	    }
 
 	    public function testpage()
@@ -440,49 +440,7 @@
     				$temp['arr'] = $this->m_order->getList(0,1,1);
     				$data['display'] = $this->load->view($this->old_page.'/history' , $temp , true);
  					$this->_show('display' , $data , $key);
-    				break;
-                case 'a22':
-                    if ($this->input->get('done')) {
-                        $or_id = $this->my_func->scpro_decrypt($this->input->get('done'));
-                        $this->load->database();
-                        $this->load->model('m_order');
-                        $this->load->model('m_order_ext');                        
-                        $finish = date("Y-m-d",time());
-                        $this->m_order_ext->update(array("or_finishdate" => $finish), array('or_id' => $or_id));
-                        $row = $this->m_order->update(array('pr_id' => 3) , $or_id);
-                        if ($row == 0) {
-                            $this->session->set_flashdata('warning', 'Ops!! Unable to update the order status...');
-                        } else {
-                            $this->session->set_flashdata('success', 'The order are completed. Please print the D.O. form before shipping.');
-                            $email['fromName'] = "Ai System";
-                            $email['fromEmail'] = "nstylabc@sirius.sfdns.net";
-                            $email['toEmail'] = "bellazul@nastyjuice.com";
-                            $email['subject'] = "Order #".(100000+$or_id)." Completed";
-                            $email['msg'] = "
-Order Detail
-
-Order No : #".(100000+$or_id)."
-Order Status : Order Complete
-
-Print D.O.Form Link : ".site_url('order/printDO?id='.$this->my_func->scpro_encrypt($or_id))."
-Print Order Detail : ".site_url('order/printO?id='.$this->my_func->scpro_encrypt($or_id))."
-
-Search Order Page : ".site_url()."
-System Login : ".site_url('login')."
-
-Sincerely,
-Ai System
-
-Programmer
-JauhMerah
-jauhmerah@nastyjuice.com
-                        ";
-                        $this->sendEmail($email);
-                        }
-                        
-                        redirect(site_url('nasty_v2/dashboard/page/a2?mode=2'),'refresh');
-                    }
-                    break;
+    				break;                
                 case 'a221':
                     if ($this->input->get('done')) {
                         $or_id = $this->my_func->scpro_decrypt($this->input->get('done'));
@@ -490,6 +448,10 @@ jauhmerah@nastyjuice.com
                         $this->load->model('m_order');
                         $this->load->model('m_order_ext');                        
                         $finish = date("Y-m-d",time());
+                        $ver = 1;
+                        if ($this->input->get('ver')) {
+                            $ver = $this->input->get('ver');
+                        }
                         $this->m_order_ext->update(array("or_finishdate" => $finish), array('or_id' => $or_id));
                         $row = $this->m_order->update(array('pr_id' => 3) , $or_id);
                         if ($row == 0) {
@@ -498,16 +460,16 @@ jauhmerah@nastyjuice.com
                             $this->session->set_flashdata('success', 'The order are completed. Please print the D.O. form before shipping.');
                             $email['fromName'] = "Ai System";
                             $email['fromEmail'] = "nstylabc@sirius.sfdns.net";
-                            $email['toEmail'] = "bellazul@nastyjuice.com";
-                            $email['subject'] = "Order #".(110000+$or_id)." Completed";
+                            $email['toEmail'] = array('0' => "faeiz@nastyjuice.com", '1' => "account@nastyjuice.com" , '2' => 'hairi@nastyjuice.com');
+                            $email['subject'] = "Order #".((10000*$ver)+100000+$or_id)." Completed";
                             $email['msg'] = "
 Order Detail
 
-Order No : #".(110000+$or_id)."
+Order No : #".((10000*$ver)+100000+$or_id)."
 Order Status : Order Complete
 
-Print D.O.Form Link : ".site_url('order/printDO1?id='.$this->my_func->scpro_encrypt($or_id))."
-Print Order Detail : ".site_url('order/printO1?id='.$this->my_func->scpro_encrypt($or_id))."
+Print D.O.Form Link : ".site_url('order/printDO1?id='.$this->my_func->scpro_encrypt($or_id))."&ver=".$ver."
+Print Order Detail : ".site_url('order/printO1?id='.$this->my_func->scpro_encrypt($or_id))."&ver=".$ver."
 
 Search Order Page : ".site_url()."
 System Login : ".site_url('login')."
@@ -518,6 +480,8 @@ Ai System
 Programmer
 JauhMerah
 jauhmerah@nastyjuice.com
+Epul
+epul@nastyjuice.com
                         ";
                         $this->sendEmail($email);
                         }
@@ -756,6 +720,7 @@ jauhmerah@nastyjuice.com
                     if ($lvl == 2 || $lvl == 3) {
                         redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
                     }
+                    $ver = 2;
     				if ($this->input->post()) {
                         $arr = $this->input->post();
                         $this->load->library('my_func');
@@ -823,7 +788,7 @@ jauhmerah@nastyjuice.com
                         $saleman = $this->m_user->getName($this->my_func->scpro_decrypt($this->session->userdata('us_id')));
                         $email['fromName'] = "Ai System";
                         $email['fromEmail'] = "nstylabc@sirius.sfdns.net";
-                        $email['toEmail'] = "production@nastyjuice.com";
+                        $email['toEmail'] = "abun@nastyjuice.com";
                         $email['subject'] = "New Order #".(120000+$or_id);
                         $email['msg'] = "
 Order Detail
@@ -835,7 +800,7 @@ Order Date : ".$arr['orderdate']."
 Due Date : ".$arr['dateline']."
 
 (#Note : Once this link clicked, the Ai system will automaticaly change the order status into \"Processing Mode\".)
-Print Order Link : ".site_url('order/printOrder1?id='.$this->my_func->scpro_encrypt($or_id))."
+Print Order Link : ".site_url('order/printOrder1?id='.$this->my_func->scpro_encrypt($or_id))."&ver=".$ver."
 
 Search Order Page : ".site_url()."
 System Login : ".site_url('login')."
@@ -846,6 +811,9 @@ Ai System
 Programmer
 JauhMerah
 jauhmerah@nastyjuice.com
+Epul
+epul@nastyjuice.com
+
                         ";
                         $this->sendEmail($email);
                         }                        
@@ -1390,8 +1358,8 @@ jauhmerah@nastyjuice.com
                 $this->email->from($email['fromEmail'], $email['fromName']);
                 if(isset($email['toEmail'])){
                     if (is_array($email['toEmail'])) {
-                        foreach ($email['toEmail'] as $key) {
-                            $this->email->to($key);
+                        foreach ($email['toEmail'] as $key => $toEmail) {
+                            $this->email->to($toEmail);
                         }
                     }else{
                         $this->email->to($email['toEmail']);
@@ -1489,8 +1457,170 @@ jauhmerah@nastyjuice.com
         public function getAjaxUpload()
         {
             $this->load->library("my_func");
-
             echo $this->load->view('nasty_v2/dashboard/ajax/getAjaxUpload', $this->input->post(), TRUE);
+        }
+
+        private function emailSendNew($arr = null , $ver = 1)
+        {
+            //unconfirm to new order;
+            if ($arr != null) {
+                $this->load->model('m_user');
+                $this->load->library('my_func');
+                $or_id = $arr->or_id;                
+                $saleman = $this->m_user->getName($arr->us_id);
+                $email['fromName'] = "Ai System";
+                $email['fromEmail'] = "nstylabc@sirius.sfdns.net";
+                $email['toEmail'] = array('0' => "faeiz@nastyjuice.com", '1' => "account@nastyjuice.com" , '2' => 'hairi@nastyjuice.com' , '3' => 'abun@nastyjuice.com');
+                $email['subject'] = "New Order #".((10000*$ver)+100000+$or_id);
+                $email['msg'] = "
+Order Detail
+
+Order No : #".((10000*$ver)+100000+$or_id)."
+Order Status : New Order
+Salesman : ".$saleman."
+Order Date : ".$arr['orderdate']."
+Due Date : ".$arr['dateline']."
+
+(#Note : Once this link clicked, the Ai system will automaticaly change the order status into \"Processing Mode\".)
+Print Order Link : ".site_url('order/printOrder1?id='.$this->my_func->scpro_encrypt($or_id))."&ver=".$ver."
+
+Search Order Page : ".site_url()."
+System Login : ".site_url('login')."
+
+Sincerely,
+Ai System
+
+Programmer
+JauhMerah
+jauhmerah@nastyjuice.com
+Epul
+epul@nastyjuice.com
+
+                ";
+                $this->sendEmail($email);                     
+            }
+        }
+
+        private function emailSendUnconfirm($arr = null , $ver = 1)
+        {
+            //Confirm to Unconfirm;
+            if ($arr != null) {
+                $this->load->model('m_user');
+                $this->load->library('my_func');
+                $or_id = $arr->or_id;                
+                $saleman = $this->m_user->getName($arr->us_id);
+                $email['fromName'] = "Ai System";
+                $email['fromEmail'] = "nstylabc@sirius.sfdns.net";
+                $email['toEmail'] = array('0' => "faeiz@nastyjuice.com", '1' => "account@nastyjuice.com" , '2' => 'hairi@nastyjuice.com' , '3' => 'abun@nastyjuice.com');
+                $email['subject'] = "Unconfirm #".((10000*$ver)+100000+$or_id);
+                $email['msg'] = "
+Order Detail
+
+Order No : #".((10000*$ver)+100000+$or_id)."
+Order Status : Unconfirm
+Salesman : ".$saleman."
+Order Date : ".$arr['orderdate']."
+Due Date : ".$arr['dateline']."
+
+Please Note.
+This order have been unconfirm by Salesman.
+
+Search Order Page : ".site_url()."
+System Login : ".site_url('login')."
+
+Sincerely,
+Ai System
+
+Programmer
+JauhMerah
+jauhmerah@nastyjuice.com
+Epul
+epul@nastyjuice.com
+
+                ";
+                $this->sendEmail($email);                     
+            }
+        }
+        private function emailSendOnhold($arr = null , $ver = 1)
+        {
+            //inProgress to On hold;
+            if ($arr != null) {
+                $this->load->model('m_user');
+                $this->load->library('my_func');
+                $or_id = $arr->or_id;                
+                $saleman = $this->m_user->getName($arr->us_id);
+                $email['fromName'] = "Ai System";
+                $email['fromEmail'] = "nstylabc@sirius.sfdns.net";
+                $email['toEmail'] = array('0' => "faeiz@nastyjuice.com", '1' => "account@nastyjuice.com" , '2' => 'hairi@nastyjuice.com' , '3' => 'abun@nastyjuice.com');
+                $email['subject'] = "On Hold Order #".((10000*$ver)+100000+$or_id);
+                $email['msg'] = "
+Order Detail
+
+Order No : #".((10000*$ver)+100000+$or_id)."
+Order Status : On Hold Order
+Salesman : ".$saleman."
+Order Date : ".$arr['orderdate']."
+Due Date : ".$arr['dateline']."
+
+Please Take Note!!!
+This Order was On hold by its salesman.
+
+Search Order Page : ".site_url()."
+System Login : ".site_url('login')."
+
+Sincerely,
+Ai System
+
+Programmer
+JauhMerah
+jauhmerah@nastyjuice.com
+Epul
+epul@nastyjuice.com
+
+                ";
+                $this->sendEmail($email);                     
+            }
+        }
+
+        private function emailSendInProgress($arr = null , $ver = 1)
+        {
+            //On hold to inProgress;
+            if ($arr != null) {
+                $this->load->model('m_user');
+                $this->load->library('my_func');
+                $or_id = $arr->or_id;                
+                $saleman = $this->m_user->getName($arr->us_id);
+                $email['fromName'] = "Ai System";
+                $email['fromEmail'] = "nstylabc@sirius.sfdns.net";
+                $email['toEmail'] = array('0' => "faeiz@nastyjuice.com", '1' => "account@nastyjuice.com" , '2' => 'hairi@nastyjuice.com' , '3' => 'abun@nastyjuice.com');
+                $email['subject'] = "In Progress Order #".((10000*$ver)+100000+$or_id);
+                $email['msg'] = "
+Order Detail
+
+Order No : #".((10000*$ver)+100000+$or_id)."
+Order Status : In Progress Order
+Salesman : ".$saleman."
+Order Date : ".$arr['orderdate']."
+Due Date : ".$arr['dateline']."
+
+Please Take Note!!!
+This Order was change to In-progress by its salesman.
+
+Search Order Page : ".site_url()."
+System Login : ".site_url('login')."
+
+Sincerely,
+Ai System
+
+Programmer
+JauhMerah
+jauhmerah@nastyjuice.com
+Epul
+epul@nastyjuice.com
+
+                ";
+                $this->sendEmail($email);                     
+            }
         }
 	}
 	        
