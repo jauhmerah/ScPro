@@ -12,7 +12,6 @@
 ?>
 <div class="row">
 	<div class="col-md-12">
-	<pre><?php print_r($this->session->all_userdata());print_r($arr); ?></pre>
            <div class="tab-pane active" id="tab_1">
                         <div class="portlet box purple ribbon mt-element-ribbon">
                             <div class="portlet-title" >

@@ -26,7 +26,6 @@
 					<script src="<?= base_url(); ?>asset2/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js" type="text/javascript"></script>
 <div class="row">
 	<div class="col-md-12">	
-	<pre><?php print_r($arr1); ?></pre>
 		<div class="portlet box purple">
             <div class="portlet-title">
                 <div class="caption">

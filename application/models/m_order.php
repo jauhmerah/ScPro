@@ -124,17 +124,9 @@
 	    	$this->db->join('process pr', self::TABLE_NAME.'.pr_id = pr.pr_id', 'left');	    	
 	       	$this->db->join('client', self::TABLE_NAME.'.cl_id = client.cl_id', 'left');
 	       	$this->db->join('order_ext' , self::TABLE_NAME.'.or_id = order_ext.or_id' , 'left');
-	       	switch ($process) {
-	    		case 1:
-	    			$this->db->where(self::TABLE_NAME.'.pr_id', 1);
-	    			break;
-	    		case 2:
-	    			$this->db->where(self::TABLE_NAME.'.pr_id', 2);
-	    			break;
-	    		case 3:
-	    			$this->db->where(self::TABLE_NAME.'.pr_id', 3);
-	    			break;
-	    	}
+	       	if ($process !== 0) {
+	       		$this->db->where(self::TABLE_NAME.'.pr_id', $process);
+	       	}	       	
 	    	switch ($del) {
 	    	 	case 0:
 	    	 		$this->db->where(self::TABLE_NAME.'.or_del', 0);

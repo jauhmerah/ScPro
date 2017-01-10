@@ -550,7 +550,7 @@ jauhmerah@nastyjuice.com
     				$temp['arr1'] = $this->m_order->getList_ext(null ,1, 1 , 2 , 0);
                     $temp['arrV'] = $this->m_order->getList_ext(null ,2, 1 , 1 , 0);
                     $temp['arrV1'] = $this->m_order->getList_ext(null ,2, 1 , 2 , 0);
-                    $temp['arrHold'] = $this->m_order->getList_ext(null ,2, 1 , 8 , 0);
+                    $temp['arrHold'] = $this->m_order->getList_ext(null ,2, 1 , 7 , 0);
     				$data['title'] = '<i class="fa fa-fw fa-edit"></i>Order List</a>';
     				$data['display'] = $this->load->view($this->parent_page.'/productionOrder', $temp , TRUE);
     				$this->_show('display' , $data , $key);
@@ -1136,9 +1136,9 @@ jauhmerah@nastyjuice.com
                         );                        
                         break;
                     case '2':
-                        // Change to 8
+                        // Change to 7
                         $arr = array(
-                            'pr_id' => 8
+                            'pr_id' => 7
                         );
                         break; 
                     case '4':
@@ -1147,7 +1147,7 @@ jauhmerah@nastyjuice.com
                             'pr_id' => 1
                         ); 
                         break;
-                    case '8':
+                    case '7':
                         // Change to 2
                         $arr = array(
                             'pr_id' => 2
