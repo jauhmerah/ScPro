@@ -243,7 +243,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="panel panel-primary" id="proOrder" <?php //if($mode != 2){ echo 'style="display:none;"';}?> >
+		<div class="panel panel-primary" id="proOrder" <?php if($mode != 2){ echo 'style="display:none;"';}?> >
 			<div class="panel-heading">
 				<h2 class="panel-title">Order In Prosess</h2>
 			</div>
@@ -343,7 +343,10 @@
 									</div>		
 								</td>
 							</tr>
-						<?php } ?> 
+						<?php } 
+						if (sizeof($arrHold) != 0) {
+						?>	
+						
 						<tr>
                 			<td colspan = "5">
                 				<div align = "center"><strong>On Hold List</strong></div>
@@ -431,6 +434,7 @@
 								</td>
 							</tr>
 						<?php }
+						}
 						if (sizeof($arr1) != 0) { ?>
 						<tr>
                 			<td colspan = "5">

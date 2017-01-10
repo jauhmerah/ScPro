@@ -31,8 +31,8 @@
                                 <?php } ?>
                                 <form action="<?= site_url('nasty_v2/dashboard/page/z121?key=').$this->my_func->scpro_encrypt($arr['order']->or_id); ?>" method = "post" class="horizontal-form">
                                     <div class="form-body">    
-                                    <?php if($arr['order']->or_ver >= 2){?><input type="hidden" name="pr_id" id="pr_id" class="form-control" value="<?= $arr['order']->pr_id; ?>">
-                                        <?php } ?><h3 class="form-section">Client Info</h3>
+                                    <input type="hidden" name="pr_id" id="pr_id" class="form-control" value="<?= $arr['order']->pr_id; ?>">
+                                        <h3 class="form-section">Client Info</h3>
                                         <div class="row" id = "clientInfo">
                                         	<div class="col-md-8">
                                         		<div class="row">
@@ -406,7 +406,8 @@
                                     <div class="form-actions right">
                                     <?php if($arr['order']->or_ver >= 2){?>
                                      <div style="<?php if($arr['order']->pr_id != 4){?>display: none;<?php } ?>" class="riben ribbon ribbon-shadow ribbon-color-warning uppercase"><h2><i class="fa fa-warning" ></i> Unconfirm Order</h2></div>
-                                        <?php } if($arr['order']->pr_id != 4){ ?><button type="button" class="btn btn-success confirm btn-circle">Confirm</button> <?php }else{ ?> <button type="button" class="btn btn-warning confirm btn-circle">Unconfirm</button> <?php } ?>
+                                        <?php } if ($arr['order']->or_ver >= 2) {
+                                         if($arr['order']->pr_id != 4){ ?><button type="button" class="btn btn-success confirm btn-circle">Confirm</button> <?php }else{ ?> <button type="button" class="btn btn-warning confirm btn-circle">Unconfirm</button> <?php }} ?>
                                         <a href="<?= site_url('nasty_v2/dashboard/page/a1'); ?>"><button type="button" class="btn default"><?php if($arr['order']->pr_id != 3){?>Cancel<?php }else{echo "Back";}?></button></a>
                                         <?php if($arr['order']->pr_id != 3){?>
                                         <button type="submit" class="btn blue">

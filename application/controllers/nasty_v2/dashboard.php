@@ -682,6 +682,71 @@ jauhmerah@nastyjuice.com
 		    		$data['display'] = $this->load->view('crud' , $output , true);
 		    		$this->_show('display' , $data , $key); 
     				break;                
+                case 'z121':
+                    //edit order
+                    if ($lvl == 2 || $lvl == 3) {
+                        redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
+                    }
+                    if ($this->input->post() && $this->input->get('key')) {
+                        $arr = $this->input->post();
+                        $or_id = $this->my_func->scpro_decrypt($this->input->get('key'));
+                        $this->load->database();
+                        $this->load->model('m_order_item');
+                        if (isset($arr['idE'])) {
+                            if (sizeof($arr['idE']) != 0) {
+                                for ($i=0; $i < sizeof($arr['idE']); $i++) { 
+                                    $oi_id = $arr['idE'][$i];
+                                    $temp = array(
+                                       'oi_price' => $arr['priceE'][$i],
+                                       'oi_qty' => $arr['qtyE'][$i],
+                                       'oi_tester' => $arr['testerE'][$i]
+                                    );
+                                    $this->m_order_item->update($temp , $oi_id);
+                                }
+                            }
+                        }                        
+                        if (isset($arr['itemId'])) {  
+                            if (sizeof($arr['itemId'])) {                            
+                                for ($i=0; $i < sizeof($arr['itemId']) ; $i++) { 
+                                    $item = array(
+                                        'orex_id' => $arr['orex_id'],
+                                        'ty2_id' => $arr['itemId'][$i],
+                                        'ni_id' => $arr['nico'][$i],
+                                        'oi_price' => $arr['price'][$i],
+                                        'oi_qty' => $arr['qty'][$i],
+                                        'oi_tester' => $arr['tester'][$i]
+                                    );
+                                    $this->m_order_item->insert($item);
+                                }
+                            }
+                        }
+                        
+                        $this->load->model('m_order');                        
+                        $order = array(                            
+                            "or_sendDate" => $arr['sendDate'],
+                            "or_note" => $arr['note'],
+                            'pr_id' => $arr['pr_id']
+                        );
+                        $or = $this->m_order->update($order , $or_id);
+                        //echo $or_id.'or_id =>'.$or;                           
+                        $order_ext = array(
+                            'or_dateline' => $arr['dateline'],                          
+                            'or_wide' => $arr['wide'],
+                            'or_finishdate' => $arr['finishdate'],
+                            'or_shipcom' => $arr['sh_company'],
+                            'or_shipopt' => $arr['sh_opt'],
+                            'dec_id' => $arr['sh_declare']
+                        );
+                        if (isset($arr['currency'])) {
+                            $order_ext['cu_id'] = $arr['currency'];
+                        }                        
+                        $this->load->model('m_order_ext');                        
+                        $orex_id = $this->m_order_ext->update($order_ext , array('or_id' => $or_id));
+                        //echo "<br>Update => ".$orex_id;                         
+                    }
+                    $this->session->set_flashdata('success', 'Update Success');
+                    redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
+                    break;
     			case 'z11':
                 //add order
                     if ($lvl == 2 || $lvl == 3) {
