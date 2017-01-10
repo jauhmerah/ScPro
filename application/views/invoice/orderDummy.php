@@ -374,7 +374,6 @@ body .ReadOnlyExtrasStatus {
 
         </form>
        </tbody>
-
        </table>
 
       <div class="clear" style="height: 1px;"></div>

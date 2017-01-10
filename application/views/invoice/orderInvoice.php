@@ -310,7 +310,6 @@ body .ReadOnlyExtrasStatus {
           }
            
         } ?>
-
          <tr>
         <td style="color: #000000;text-align: right;" colspan="11"><strong>Total :</strong></td>
           <td style="color: #000000;">$<?php echo number_format((float)$total_all, 2, '.', ''); ?></td>
