@@ -137,7 +137,7 @@ body .ReadOnlyExtrasStatus {
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>OrdYs v2.2.4 Alpha</title>
+		<title>OrdYs v2.3.0 Alpha</title>
 
 		<!-- Bootstrap CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -206,7 +206,6 @@ body .ReadOnlyExtrasStatus {
         <strong><?= $arr['order']->cl_name; ?></strong>
         
           <div class="contemporary-template__metadata__customer__address">
- 			 Bader Alsager
   			<br>
 
 				  <table style="width:200px;">
@@ -233,7 +232,7 @@ body .ReadOnlyExtrasStatus {
           </td>
           <td></td>
           <td class="wv-table__cell" style="text-align: right;">
-            <span> <?php $code = 100000 + $arr['order']->or_id; echo "#".$code; ?></span><br>
+            <span> <?= "INV-".$or_code; ?></span><br>
           </td>
         </tr>
         

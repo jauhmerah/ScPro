@@ -264,7 +264,7 @@
 					                                            	?></strong>					                                            		
 					                                            	</td>
 					                                            	<td colspan="2" align="right">
-					                 <a href="<?= site_url('nasty_v2/invoice/Invoice?id='.$this->my_func->scpro_encrypt($arr['order']->or_id)); ?>" target="_blank"> <button type="button" class="btn green" ><i class="fa fa-print"></i>&nbsp;&nbsp;Invoice</button></a>
+					                 <a href="<?= site_url('nasty_v2/invoice/Invoice?id='.$this->my_func->scpro_encrypt($arr['order']->or_id).'&ver=2'); ?>" target="_blank"> <button type="button" class="btn green" ><i class="fa fa-print"></i>&nbsp;&nbsp;Invoice</button></a>
 					                                            	</td>
 						                                        </tr>
 						                                        <tr>
@@ -294,7 +294,7 @@
 					                                            	?>	</strong>				                                            		
 					                                            	</td>
 					                                            	<td colspan="2" align="right">	
-					       <a href="<?= site_url('nasty_v2/invoice/dummyInvoice?id='.$this->my_func->scpro_encrypt($arr['order']->or_id)); ?>" target="_blank"> <button type="button" class="btn blue" ><i class="fa fa-print"></i>&nbsp;&nbsp;Dummy Invoice</button></a>
+					       <a href="<?= site_url('nasty_v2/invoice/dummyInvoice?id='.$this->my_func->scpro_encrypt($arr['order']->or_id).'&ver=2'); ?>" target="_blank"> <button type="button" class="btn blue" ><i class="fa fa-print"></i>&nbsp;&nbsp;Dummy Invoice</button></a>
 					                                            		
 					                                            	</td>
 						                                        </tr>	                                        

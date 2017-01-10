@@ -276,7 +276,7 @@ body .ReadOnlyExtrasStatus {
           </td>
           <td></td>
           <td class="wv-table__cell" style="text-align: right;">
-            <span> <?php $code = 100000 + $arr['order']->or_id; echo "#".$code; ?>-D</span>
+            <span> <?= "DIV-".$or_code; ?></span>
           </td>
         </tr>
         
