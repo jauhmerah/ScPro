@@ -15,7 +15,7 @@
 							</tr>
 							<tr>
 								<th>Order No.</th>
-								<td>#<?= (110000+$arr['order']->or_id); ?></td>
+								<td><?= $or_code; ?></td>
 							</tr>
 							<tr>
 								<th>Issue Date</th>

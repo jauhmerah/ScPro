@@ -49,13 +49,24 @@ class Order extends CI_Controller {
 				redirect(site_url(),'refresh');
 			}
 			$str = (string)$search;
-			if ($str[1] == '1') {
-				$id = $search - 110000;
-				$this->printO1($id);
-			} else {
-				$id = $search - 100000;
-				$this->printO($id);
-			}			
+			switch ($str[1]) {
+				case '2':
+					$id = $search - 120000;
+					$this->printO1($id , 2);
+					break;
+				case '1':
+					$id = $search - 110000;
+					$this->printO1($id);
+					break;
+				case '0':
+					$id = $search - 100000;
+					$this->printO($id);
+					break;				
+				default:
+					$this->session->set_flashdata('warning', 'Ops!!! Something wrong with System Version');
+					redirect(site_url(),'refresh');
+					break;
+			}					
 		} else {
 			$this->session->set_flashdata('warning', 'Ops!!! Wrong path pal');
 			redirect(site_url(),'refresh');
@@ -92,22 +103,20 @@ class Order extends CI_Controller {
 			redirect(site_url(),'refresh');	
 		}
 			
-	}
-	public function getfun()
-	{
-		echo $this->load->view($this->parent_page."/ajax/getAjaxForm", false);
-	}
-
-	function printO1($or_id = null){
+	}	
+	function printO1($or_id = null , $ver = 1){
 		//production print email
 		if ($this->input->get('id') || $or_id != null) {
 			if ($this->input->get('id')) {
 				$or_id = $this->input->get('id');
 				$or_id = $this->my_func->scpro_decrypt($or_id);
 			}
+			if ($this->input->get('ver')){
+				$ver = $this->input->get('ver');
+			}
 			$this->load->database();
 			$this->load->model('m_order');
-			$arr = $this->m_order->getList_ext($or_id , 1);
+			$arr = $this->m_order->getList_ext($or_id , $ver);
 			if(sizeof($arr) != 0){
 				$order['arr'] = array_shift($arr);
 				unset($arr);
@@ -115,7 +124,8 @@ class Order extends CI_Controller {
 					$this->session->set_flashdata('warning', 'Please click "Move to process" before printing !!!');
 					redirect(site_url(),'refresh');	
 				}			
-				$data["T"] = "#".(110000+$order['arr']['order']->or_id);				
+				$data["T"] = "#".((10000*$ver)+100000+$order['arr']['order']->or_id);	
+				$order["or_code"] = $data["T"];
 				$data['display'] = $this->load->view($this->parent_page."/printForm1" , $order , true);
 				$this->_show($data);				
 			}else{
@@ -143,14 +153,18 @@ class Order extends CI_Controller {
 		}
 		
 	}
-	public function printDO1(){
+	public function printDO1($ver = 1){
 		if ($this->input->get('id')) {
 			$or_id = $this->my_func->scpro_decrypt($this->input->get('id'));
 			$this->load->database();
 			$this->load->model('m_order');
 			$this->load->library('l_label');
-			$arr = $this->m_order->getList_ext($or_id , 1);
+			if($this->input->get('ver')){
+				$ver = $this->input->get('ver');
+			}
+			$arr = $this->m_order->getList_ext($or_id , $ver);
 			$arr1['arr'] = array_shift($arr);
+			$arr1["or_code"] = "#".((10000*$ver)+100000+$or_id);
 			unset($arr);
 			$data['display'] = $this->load->view($this->parent_page."/doForm1" , $arr1 , true);
 			$this->_show($data);
@@ -180,6 +194,10 @@ class Order extends CI_Controller {
 	{
 		$data['display'] = $this->load->view($this->parent_page."/searchOrder2", '', TRUE);
 		$this->_show($data);
+	}
+	public function getfun()
+	{
+		echo $this->load->view($this->parent_page."/ajax/getAjaxForm", false);
 	}
 	public function printOrder1()
 	{

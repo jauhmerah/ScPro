@@ -1094,19 +1094,12 @@ jauhmerah@nastyjuice.com
             if ($this->input->get('key')) {
                 $this->load->library('my_func');
                 $key = $this->my_func->scpro_decrypt($this->input->get('key'));
-                if ($key == "betul") {
-                    echo "jadi"; 
-                    echo "<pre>";
-                    print_r($_FILES);
-                    echo "</pre>";
+                if ($key == "betul") {                    
                     $this->load->database();
                     $this->load->model("m_order");
                     $this->load->model('m_picture');
                     $or_id = $this->my_func->scpro_decrypt($this->input->post('or_id'));
                     $result = $this->my_func->do_upload('./assets/uploads/img/');
-                    echo "<pre>";
-                    print_r($result);
-                    echo "</pre>";
                     $pi_id = null;
                     $success = array();
                     if (sizeof($result['success']) != 0) {
@@ -1162,6 +1155,7 @@ jauhmerah@nastyjuice.com
 
         private function change_pr_id2($or_id = null)
         {
+            //utk upload image part
             if ($or_id != null) {
                 $this->load->database();
                 $this->load->model('m_order');

@@ -1,6 +1,6 @@
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
-			<span class="pull-left"><img src="<?= base_url("assets/cover/orderlistlogo.png"); ?>"  class="img-responsive" width = "250px" alt="Image"></span><span class="pull-right" style="color: blue"><h2>#<?php echo (110000+$arr['order']->or_id); ?></h2></span>			
+			<span class="pull-left"><img src="<?= base_url("assets/cover/orderlistlogo.png"); ?>"  class="img-responsive" width = "250px" alt="Image"></span><span class="pull-right" style="color: purple;"><h2><?= $or_code; ?></h2></span>			
 		</div>		
 	</div>
 	<div class="row">
