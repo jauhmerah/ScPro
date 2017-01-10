@@ -54,16 +54,29 @@
 	    */
 
 		//start added
-		 public function countneworder(){
-            $this->db->select('pr_id,COUNT(pr_id) as total');
+		 public function countOrderType($num){
+      
+      		if($num != 0){
+            $this->db->where('pr_id', $num);
+        	$this->db->from('order');
+            $result = $this->db->count_all_results();
+            }
+            else{
             $this->db->from('order');
-            $this->db->where('pr_id =', 2);
-        
+            $result = $this->db->count_all_results();
+            }
+            return $result;
+        }
+        //end added
+        //start added
+        public function totalProfit(){
+      
+      		$this->db->select_sum('orn_price');
+      		$this->db->from('order_note');
             $result = $this->db->get()->result();
             return $result;
         }
         //end added
-
 
 	    public function getList($process = 0 , $del = 0 , $down = 0)
 	    {

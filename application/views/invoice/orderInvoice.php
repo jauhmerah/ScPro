@@ -7,8 +7,12 @@ header {
     text-align: center;
 }
 footer{
-	text-align: center;
+  text-align: center;
 }
+.verticalLine {
+    border-left: thin solid #d6d9db;
+}
+
 .pdf-export #NextContemporary, .read-only-view #NextContemporary {
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 14px;
@@ -23,6 +27,21 @@ footer{
 user agent stylesheet
 div {
     display: block;
+}
+
+input, input:hover, input:focus, input:active {
+  background: transparent;
+  border: none;
+  border-style: none;
+  border-color: transparent;
+  outline: none;
+  outline-offset: 0;
+  box-shadow: none;
+}
+.readonly-payment-information__nav-actions {
+    margin: 0 auto;
+    width: 820px;
+    position: relative;
 }
 .readonly-payment-information__details {
     background: #FFF;
@@ -63,9 +82,49 @@ div {
     margin: 0!important;
 }
 
+#ReadOnlyMain.payments-disabled:not(.ghost-form) .ReadOnlyExtrasStatus {
+    display: inline-block;
+    right: 30px;
+}
+
+.readonly-payment-information__nav-actions .ReadOnlyExtrasStatus {
+    right: 0!important;
+}
+.ReadOnlyExtrasStatus.paid {
+    background: #74aa00;
+}
+body .ReadOnlyExtrasStatus {
+    display: block;
+    right: 30px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+.ReadOnlyExtrasStatus {
+    display: none;
+    right: 0;
+    top: 0;
+    position: absolute;
+    color: #fff;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 2em;
+    font-weight: 500;
+    padding: 10px 20px;
+}
+
 #ReadOnlyMain {
     font-family: "Open Sans",sans-serif;
     margin-right: 400px;
+}
+
+
+@media print {
+    .readonly-payment-information__nav-actions{
+      display: none;
+
+
+
 }
 </style>
 
@@ -84,6 +143,20 @@ div {
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 	</head>
 	<body style="background-color:#EAEDED">
+
+
+
+
+
+<div class="readonly-payment-information__nav-actions">
+                  
+  
+  <div class="ReadOnlyExtrasStatus paid">
+    PAID
+  </div>
+</div> 
+<div class="clear" style="height: 30px;"></div>
+
 
      <div class="row-fluid">
               <div id="ReadOnlyView" class="span12 read-only-view">
@@ -130,20 +203,22 @@ div {
     <div class="pull-left">
       <div class="contemporary-template__metadata__customer--billing">
         <div class="contemporary-template__metadata__customer__address-header">BILL TO :</div>
-        <strong>Bader Alsager</strong>
+        <strong><?= $arr['order']->cl_name; ?></strong>
         
           <div class="contemporary-template__metadata__customer__address">
  			 Bader Alsager
   			<br>
 
-				  36362-8120 Rawda-4741<br>
-				  Unit#01<br>
-				  Hofuf,
-				   31982<br>
-				  Saudi Arabia<br>
-					<br>
-				  +9660500466665<br>
-				  1.bader.sager@gmail.com<br>
+				  <table style="width:200px;">
+        <tr>
+        <td>
+         <?= $arr['order']->cl_address; ?>
+         </td>
+         </tr>
+         </table>
+          <br>
+          <?= $arr['order']->cl_tel; ?><br>
+         <?= $arr['order']->cl_email; ?><br>
 				</div>
         
       </div>
@@ -158,7 +233,7 @@ div {
           </td>
           <td></td>
           <td class="wv-table__cell" style="text-align: right;">
-            <span>#1740</span><br>
+            <span> <?php $code = 100000 + $arr['order']->or_id; echo "#".$code; ?></span><br>
           </td>
         </tr>
         
@@ -168,7 +243,7 @@ div {
           </td>
           <td></td>
           <td class="wv-table__cell" style="text-align: right;">
-            <span>December 29, 2016</span><br>
+            <span><?php echo date("Y-m-d") ; ?></span><br>
           </td>
         </tr>
         <tr class="wv-table__row">
@@ -177,24 +252,10 @@ div {
           </td>
           <td></td>
           <td class="wv-table__cell" style="text-align: right;">
-            <span>December 29, 2016</span><br>
+            <span><?php echo date("Y-m-d") ; ?></span><br>
           </td>
         </tr>
-        <tr class="wv-table__row">
-          <td class="wv-table__cell">
-          <strong class="wv-text--strong">
-            Amount Due (USD):
-          </strong>
-          </td>
-          <td></td>
-          <td class="wv-table__cell" style="text-align: right;">
-            <span class="wv-text--strong">
-              
-                $236.00
-              
-            </span><p>
-          </td>
-        </tr>
+     
       </table>
    </div>
   </section>
@@ -205,41 +266,61 @@ div {
     <table class="table">
       <thead style="background-color: #FFFFFF;">
         <tr>
-          <th colspan="4" style="color: #000000;" align="center">Product</th>
-          <th colspan="1" style="color: #000000;" align="center">Quantity</th>
-          <th colspan="1" style="color: #000000;" align="center">Price</th>
-          <th colspan="1" style="color: #000000;" align="center">Amount</th>
+          <th colspan="8" style="color: #000000;" align="center">Item Details</th>
+          <th style="color: #000000;" align="center">Quantity</th>
+          <th style="color: #000000;" align="center">Price</th>
+          <th style="color: #000000;">Tester</th> 
+          <th style="color: #000000;" align="center">Amount</th>
         </tr>
       </thead>
       <tbody>
+         <?php 
+          if (!isset($arr)) {
+          ?>
          <tr>
-          <td colspan="4" style="color: #000000;">
-          	<strong>Slow Blow | No Menthol | Pineapple 6MG| 50 ML | Alluminium Bottle + Box</strong>
+          <td colspan="11" align="center">-- No Data--</td>
+          </tr>
+          <?php
+          } else {  
+              $n = 0;
+              $total_all=0.0;
+              foreach ($arr['item'] as $key) {
+                
+              
+              $n++;
+             
+            ?>
+
+         <tr>
+          <td colspan="8" style="color: #000000;">
+          	<strong><?= $key->ty2_desc; ?></strong>
           	<br>
-			Slow Blow | No Menthol | Pineapple 6MG| 50 ML | Alluminium Bottle + Box
+			     <?= $key->ca_desc; ?> | <?= $key->ni_mg; ?>mg
           </td>
-          <td colspan="1" style="color: #000000;" align="center">4	</td>
-          <td colspan="1" style="color: #000000;" align="center">$13.00</td>
-          <td colspan="1" style="color: #000000;" align="center">$52.00</td>
+          <td colspan="1" style="color: #000000;" style="width:60px;"><?= $key->oi_qty; ?></td>
+          <td colspan="1" style="color: #000000;" style="width:60px;"><?= $key->oi_price; ?></td>
+          <td colspan="1" style="color: #000000;" style="width:60px;"><?= $key->oi_tester; ?></td>
+          <td colspan="1" style="color: #000000;" style="width:60px;">$<?= number_format((float)$total=$key->oi_qty * $key->oi_price, 2, '.', '');?></td>
+        
+
+        </tr>
+      
+        <?php 
+           $total_all=$total_all+$total; 
+          }
+           
+        } ?>
+         <tr>
+        <td style="color: #000000;text-align: right;" colspan="11"><strong>Total :</strong></td>
+          <td style="color: #000000;">$<?php echo number_format((float)$total_all, 2, '.', ''); ?></td>
         </tr>
          <tr>
-          <td colspan="4" style="color: #000000;">
-          	<strong>Slow Blow | No Menthol | Pineapple 6MG| 50 ML | Alluminium Bottle + Box</strong>
-          	<br>
-			Slow Blow | No Menthol | Pineapple 6MG| 50 ML | Alluminium Bottle + Box
-          </td>
-          <td colspan="1" style="color: #000000;" align="center">4	</td>
-          <td colspan="1" style="color: #000000;" align="center">$13.00</td>
-          <td colspan="1" style="color: #000000;" align="center">$52.00</td>
+        	  <tr>
+        <td style="color: #000000;text-align: right;" colspan="11">Shipping :</td>
+          <td style="color: #000000;">$0.00</td>
         </tr>
-         <tr>
-        <td style="color: #000000;text-align: right;" colspan="6" ><strong>Total :</strong></td>
-          <td style="color: #000000;" align="center">$52.00</td>
-        </tr>
-         <tr>
-        	
-          <td style="color: #000000;text-align: right;" colspan="6"> <strong>Amount Due (USD) :</strong></td>
-          <td style="color: #000000;" align="center"><strong>$52.00</strong></td>
+          <td style="color: #000000;text-align: right;" colspan="11"> <strong>Amount Due :</strong></td>
+          <td style="color: #000000;"><strong>$<?php echo  number_format((float)$total_all, 2, '.', ''); ?></strong></td>
         </tr>      
       </tbody>
     </table>
@@ -257,7 +338,7 @@ div {
 <script>
 
     
-	 //	window.print();
+	 	window.print();
 
 	
 	</script>

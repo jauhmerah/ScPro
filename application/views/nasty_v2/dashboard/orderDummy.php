@@ -9,6 +9,9 @@ header {
 footer{
 	text-align: center;
 }
+.verticalLine {
+    border-left: thin solid #d6d9db;
+}
 .pdf-export #NextContemporary, .read-only-view #NextContemporary {
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 14px;
@@ -81,41 +84,62 @@ div {
 		<title>OrdYs v2.2.4 Alpha</title>
 
 		<!-- Bootstrap CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"> -->
+   <!--  <link rel="stylesheet" href="<?= base_url(); ?>asset/css/plugins/bootstrap.min.css"> -->
+    
 	</head>
 	<body style="background-color:#EAEDED">
 	
 
-   <div id="ReadOnlyControls" class="span12 no-container-margin">
+   <!-- <div id="ReadOnlyControls" class="span12 no-container-margin">
                 
 
 
-
-
+<div class="readonly-payment-information__details">
+    <div class="readonly-payment-information__details__items">
+      
+      Invoice #1740
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    </div>
+    <div class="readonly-payment-information__details__items">
+    <div class="verticalLine">
+    &nbsp;&nbsp;&nbsp;&nbsp;
+      Amount due:
+      $0.00
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      </div>
+    </div>
+ 
+    <div class="readonly-payment-information__details__items">
+    <div class="verticalLine">
+    &nbsp;&nbsp;&nbsp;&nbsp;
+      Due on:
+      December 29, 2016
+      </div>
+    </div>
+  </div>
 
 
 
 
     
-  </div> -->
-</div>
+  </div>  -->
 
-     <div class="row-fluid">
-              <div id="ReadOnlyView" class="span12 read-only-view">
-                
-
+   
 
 <!-- invoice start -->
 <div class="clear" style="height: 40px;"></div>
+
+
 <div id="NextContemporary" class="export-template">
- 
+        
    
           
         <img class="contemporary-template__business-logo" src="https://d13urdz427oqex.cloudfront.net/uploads/invoices/business_logos/34ebad66-06d6-4bd2-88c7-2ed1618ed501.png" width="314" height="161"/>
       
    
   	<div class="pull-right" style="text-align: right;">
-      <h1><big>SHIPPING NOTE</big></h1>
+      <h1><big>INVOICE</big></h1>
       <strong>NSTY WORLDWIDE SDN BHD</strong>
       
         <div class="contemporary-template__header__info__address">
@@ -173,7 +197,7 @@ div {
           </td>
           <td></td>
           <td class="wv-table__cell" style="text-align: right;">
-            <span>#1740</span>
+            <span>#1740-D</span>
           </td>
         </tr>
         
@@ -220,41 +244,31 @@ div {
     <table class="table">
       <thead style="background-color: #FFFFFF;">
         <tr>
-          <th colspan="4" style="color: #000000;">Product</th>
-          <th colspan="1" style="color: #000000;">Quantity</th>
-          <th colspan="1" style="color: #000000;">Price</th>
-          <th colspan="1" style="color: #000000;">Amount</th>
+          <th colspan="8" style="color: #000000;" >Product</th>
+          <th style="color: #000000;">Quantity</th>
+          <th style="color: #000000;">Price</th> 
+          <th style="color: #000000;">Amount</th>
         </tr>
       </thead>
       <tbody>
          <tr>
-          <td colspan="4" style="color: #000000;">
-          	<strong>Slow Blow | No Menthol | Pineapple 6MG| 50 ML | Alluminium Bottle + Box</strong>
+          <td colspan="8" style="color: #000000;" >
+          	<strong><input type="text" id="name" name="name" class="form-control input-circle" required ></strong>
           	<br>
-			Slow Blow | No Menthol | Pineapple 6MG| 50 ML | Alluminium Bottle + Box
+			
           </td>
-          <td colspan="1" style="color: #000000;">4	</td>
-          <td colspan="1" style="color: #000000;">$13.00</td>
-          <td colspan="1" style="color: #000000;">$52.00</td>
+          <td style="color: #000000;"><input type="text" id="name" name="name" class="form-control input-circle" required></td>
+          <td style="color: #000000;"><input type="text" id="name" name="name" class="form-control input-circle" required></td>
+          <td style="color: #000000;"><input type="text" id="name" name="name" class="form-control input-circle" required></td>
         </tr>
-         <tr>
-          <td colspan="4" style="color: #000000;">
-          	<strong>Slow Blow | No Menthol | Pineapple 6MG| 50 ML | Alluminium Bottle + Box</strong>
-          	<br>
-			Slow Blow | No Menthol | Pineapple 6MG| 50 ML | Alluminium Bottle + Box
-          </td>
-          <td colspan="1" style="color: #000000;">4	</td>
-          <td colspan="1" style="color: #000000;">$13.00</td>
-          <td colspan="1" style="color: #000000;">$52.00</td>
-        </tr>
-         <tr>
-        <td style="color: #000000;text-align: right;" colspan="6" ><strong>Total :</strong></td>
-          <td style="color: #000000;">$52.00</td>
+        <tr>
+        <td style="color: #000000;text-align: right;" colspan="10"> <strong>Total :</strong></td>
+          <td style="color: #000000;"><input type="text" id="name" name="name" class="form-control input-circle" disabled="true"></td>
         </tr>
          <tr>
         	
-          <td style="color: #000000;text-align: right;" colspan="6"> <strong>Amount Due (USD) :</strong></td>
-          <td style="color: #000000;"><strong>$52.00</strong></td>
+          <td style="color: #000000;text-align: right;" colspan="10"> <strong>Amount Due (USD) :</strong></td>
+          <td style="color: #000000;"><strong><input type="text" id="name" name="name" class="form-control input-circle" required></strong></td>
         </tr>
       
       </tbody>
@@ -264,7 +278,9 @@ div {
   </div>
 </div>
 <!-- invoice end -->
-<footer>
+<center>
+  <button type="button" class="btn btn-primary btn-lg" id="btnprint">Print</button>
+</center>
 <div class="clear" style="height: 100px;"></div>
 
 			
@@ -275,14 +291,16 @@ div {
 						
 		<!-- jQuery -->
 		<script src="//code.jquery.com/jquery.js"></script>
+    <script src="<?= base_url(); ?>asset/js/plugins/bootstrap.min.js" type="text/javascript"></script>
 		<!-- Bootstrap JavaScript -->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+		<script src="<?= base_url(); ?>asset2/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
 	</body>
 </html>
 <script>
 
-    
+ var print_invoice= document.getElementById('btnprint'); 
+ print_invoice.onclick = function() {
 	 	window.print();
-
+}
 	
 	</script>
