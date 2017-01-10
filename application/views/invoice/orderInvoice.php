@@ -7,8 +7,12 @@ header {
     text-align: center;
 }
 footer{
-	text-align: center;
+  text-align: center;
 }
+.verticalLine {
+    border-left: thin solid #d6d9db;
+}
+
 .pdf-export #NextContemporary, .read-only-view #NextContemporary {
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 14px;
@@ -23,6 +27,21 @@ footer{
 user agent stylesheet
 div {
     display: block;
+}
+
+input, input:hover, input:focus, input:active {
+  background: transparent;
+  border: none;
+  border-style: none;
+  border-color: transparent;
+  outline: none;
+  outline-offset: 0;
+  box-shadow: none;
+}
+.readonly-payment-information__nav-actions {
+    margin: 0 auto;
+    width: 820px;
+    position: relative;
 }
 .readonly-payment-information__details {
     background: #FFF;
@@ -63,9 +82,49 @@ div {
     margin: 0!important;
 }
 
+#ReadOnlyMain.payments-disabled:not(.ghost-form) .ReadOnlyExtrasStatus {
+    display: inline-block;
+    right: 30px;
+}
+
+.readonly-payment-information__nav-actions .ReadOnlyExtrasStatus {
+    right: 0!important;
+}
+.ReadOnlyExtrasStatus.paid {
+    background: #74aa00;
+}
+body .ReadOnlyExtrasStatus {
+    display: block;
+    right: 30px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+.ReadOnlyExtrasStatus {
+    display: none;
+    right: 0;
+    top: 0;
+    position: absolute;
+    color: #fff;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 2em;
+    font-weight: 500;
+    padding: 10px 20px;
+}
+
 #ReadOnlyMain {
     font-family: "Open Sans",sans-serif;
     margin-right: 400px;
+}
+
+
+@media print {
+    .readonly-payment-information__nav-actions{
+      display: none;
+
+
+
 }
 </style>
 
@@ -87,29 +146,17 @@ div {
 
 
 
-<!-- <div class="readonly-payment-information__details">
-    <div class="readonly-payment-information__details__items">
-      
-      Invoice <?php $code = 100000 + $arr['order']->or_id; echo "#".$code; ?>
-    &nbsp;&nbsp;&nbsp;&nbsp;
-    </div>
-    <div class="readonly-payment-information__details__items">
-    <div class="verticalLine">
-    &nbsp;&nbsp;&nbsp;&nbsp;
-      Amount due:
-      $0.00
-      &nbsp;&nbsp;&nbsp;&nbsp;
-      </div>
-    </div>
- 
-    <div class="readonly-payment-information__details__items">
-    <div class="verticalLine">
-    &nbsp;&nbsp;&nbsp;&nbsp;
-      Due on:
-      <?php if($arr['order']->or_dateline != '0000-00-00 00:00:00'){ echo date_format(date_create($arr['order']->or_dateline) , 'd-M-Y' );}else{echo '--Not Set--';} ?>
-      </div>
-    </div>
-  </div> -->
+
+
+<div class="readonly-payment-information__nav-actions">
+                  
+  
+  <div class="ReadOnlyExtrasStatus paid">
+    PAID
+  </div>
+</div> 
+<div class="clear" style="height: 30px;"></div>
+
 
      <div class="row-fluid">
               <div id="ReadOnlyView" class="span12 read-only-view">
@@ -253,7 +300,7 @@ div {
           <td colspan="1" style="color: #000000;" style="width:60px;"><?= $key->oi_qty; ?></td>
           <td colspan="1" style="color: #000000;" style="width:60px;"><?= $key->oi_price; ?></td>
           <td colspan="1" style="color: #000000;" style="width:60px;"><?= $key->oi_tester; ?></td>
-          <td colspan="1" style="color: #000000;" style="width:60px;"><?= number_format((float)$total=$key->oi_qty * $key->oi_price, 2, '.', '');?></td>
+          <td colspan="1" style="color: #000000;" style="width:60px;">$<?= number_format((float)$total=$key->oi_qty * $key->oi_price, 2, '.', '');?></td>
         
 
         </tr>
@@ -269,8 +316,11 @@ div {
           <td style="color: #000000;">$<?php echo number_format((float)$total_all, 2, '.', ''); ?></td>
         </tr>
          <tr>
-        	
-          <td style="color: #000000;text-align: right;" colspan="11"> <strong>Amount Due (USD) :</strong></td>
+        	  <tr>
+        <td style="color: #000000;text-align: right;" colspan="11">Shipping :</td>
+          <td style="color: #000000;">$0.00</td>
+        </tr>
+          <td style="color: #000000;text-align: right;" colspan="11"> <strong>Amount Due :</strong></td>
           <td style="color: #000000;"><strong>$<?php echo  number_format((float)$total_all, 2, '.', ''); ?></strong></td>
         </tr>      
       </tbody>

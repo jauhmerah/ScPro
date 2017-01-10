@@ -28,6 +28,21 @@ user agent stylesheet
 div {
     display: block;
 }
+
+input, input:hover, input:focus, input:active {
+  background: transparent;
+  border: none;
+  border-style: none;
+  border-color: transparent;
+  outline: none;
+  outline-offset: 0;
+  box-shadow: none;
+}
+.readonly-payment-information__nav-actions {
+    margin: 0 auto;
+    width: 820px;
+    position: relative;
+}
 .readonly-payment-information__details {
     background: #FFF;
     border-top: 1px solid #D0DBE1;
@@ -67,9 +82,54 @@ div {
     margin: 0!important;
 }
 
+#ReadOnlyMain.payments-disabled:not(.ghost-form) .ReadOnlyExtrasStatus {
+    display: inline-block;
+    right: 30px;
+}
+
+.readonly-payment-information__nav-actions .ReadOnlyExtrasStatus {
+    right: 0!important;
+}
+.ReadOnlyExtrasStatus.paid {
+    background: #74aa00;
+}
+body .ReadOnlyExtrasStatus {
+    display: block;
+    right: 30px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+.ReadOnlyExtrasStatus {
+    display: none;
+    right: 0;
+    top: 0;
+    position: absolute;
+    color: #fff;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 2em;
+    font-weight: 500;
+    padding: 10px 20px;
+}
+
 #ReadOnlyMain {
     font-family: "Open Sans",sans-serif;
     margin-right: 400px;
+}
+
+@media print {
+    .readonly-payment-information_details {
+      display: none;
+
+
+    }
+    .keepbtn{
+      display: none;
+    }
+    #table-bordered{
+      border: none !important;
+    }
 }
 </style>
 
@@ -85,9 +145,12 @@ div {
 		<title>OrdYs v2.2.4 Alpha</title>
 
 		<!-- Bootstrap CSS -->
+   
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 <!--     <link rel="stylesheet" href="<?= base_url(); ?>asset/css/plugins/bootstrap.min.css"> -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="<?= base_url(); ?>asset2/global/plugins/jquery/jquery-3.1.1.min.js"></script>
+    <script src="<?= base_url(); ?>asset2/global/plugins/jquery/example.js"></script>
+    <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 	</head>
 	<body style="background-color:#EAEDED">
 	
@@ -96,8 +159,8 @@ div {
                 
 
 <form method = "post" class="horizontal-form">
-<!-- <div class="readonly-payment-information__details">
-        <div class="readonly-payment-information__details__items">
+<div class="readonly-payment-information_details">
+    <!--     <div class="readonly-payment-information__details__items">
           
           Invoice <?php $code = 100000 + $arr['order']->or_id; echo "#".$code; ?>-D
         &nbsp;&nbsp;&nbsp;&nbsp;
@@ -118,12 +181,21 @@ div {
            <?php if($arr['order']->or_dateline != '0000-00-00 00:00:00'){ echo date_format(date_create($arr['order']->or_dateline) , 'd-M-Y' );}else{echo '--Not Set--';} ?>
           </div>
         </div>
-      </div>
+      </div> -->
+      <div class="clear" style="height: 10px;"></div>
     <center>
       <button type="button" class="btn btn-primary btn-lg" id="btnprint">Print</button>
-    </center> -->
+    </center>
 
 
+  <div class="readonly-payment-information__nav-actions">
+                  
+  
+  <div class="ReadOnlyExtrasStatus paid">
+    PAID
+  </div>
+</div> 
+<div class="clear" style="height: 30px;"></div>
     
 </div> 
 
@@ -236,14 +308,14 @@ div {
 
   <div class="contemporary-template__items">
   <div class="clear" style="height: 100px;"></div>
-    <table class="table-bordered" id="mytable">
+    <table class="table" id="mytable">
       <thead style="background-color: #FFFFFF;">
         <tr>
           <th colspan="8" style="color: #000000;" >Item Details</th>
           <th style="color: #000000;">Quantity</th>
           <th style="color: #000000;">Price</th>
           <th style="color: #000000;">Tester</th>  
-          <th style="color: #000000;">Amount</th>
+          <th style="color: #000000;">Amount($)</th>
         </tr>
       </thead>
       <form action="" method="post" id="origForm">
@@ -271,21 +343,21 @@ div {
       $desc= $var1 ." ". $var2 ."| ".$var3;
       ?>
 
-          <input type="text" id="name" style="width:530px;" name="name" class="form-control input-circle" required value="<?php echo $desc ?>">
+          <input type="text" id="name" style="width:450px;" name="name" class="w3-input w3-border-0" required value="<?php echo $desc ?>">
          
           	
           </td>
        
-          <td style="color: #000000;"><input type="text" id="quantity" style="width:60px;" name="name" class="form-control input-circle" required value="<?= $key->oi_qty; ?>" onkeypress ="changeValue();" ></td>
-          <td style="color: #000000;"><input type="text" id="price" style="width:60px;" name="name" class="form-control input-circle" required value="<?= $key->oi_price; ?>" onkeypress ="changeValue();"></td>
-          <td style="color: #000000;"><input type="text" id="tester" style="width:60px;" name="name" class="form-control input-circle" required  value="<?= $key->oi_tester; ?>"></td>
+          <td style="color: #000000;"><input type="text" id="quantity" style="width:60px;" name="quantity" class="w3-input w3-border-0" required value="<?= $key->oi_qty; ?>" ></td>
+          <td style="color: #000000;"><input type="text" id="price" style="width:60px;" name="price" class="w3-input w3-border-0" required value="<?= number_format((float)$key->oi_price, 2, '.', '');; ?>" ></td>
+          <td style="color: #000000;"><input type="text" id="tester" style="width:60px;" name="name" class="w3-input w3-border-0" required  value="<?= $key->oi_tester; ?>"></td>
            <?php
         
          $a= $key->oi_qty; 
         $b=$key->oi_price;
         $total=$a*$b;
          ?>
-          <td style="color: #000000;"><input type="text" id="total" style="width:85px;" name="name" class="form-control input-circle" required value="<?= number_format((float)$total=$key->oi_qty * $key->oi_price, 2, '.', '');?>" ></td>
+          <td style="color: #000000;"><input type="text" id="total" style="width:80px;" name="total" class="w3-input w3-border-0" required value="<?= number_format((float)$total=$key->oi_qty * $key->oi_price, 2, '.', '');?>" ></td>
         </tr>
 
 
@@ -294,27 +366,38 @@ div {
           }
 
         } ?>
+
+<script>
+  var num="<?php echo $n;?>";
+
+</script>
+
         </form>
        </tbody>
 
        </table>
 
       <div class="clear" style="height: 1px;"></div>
-      
-       <button type="button" class="btn btn-primary btn-xs" id="add-item">+ Add Item</button>
+      <div class="keepbtn"><button type="button" class="btn btn-primary btn-xs" id="add-item">+ Add Item</button></div>
+       
+
        <div class="clear" style="height: 30px;"></div>
         <table class="table-bordered" align="right">
         <tbody>
        <tr>
         <td style="color: #000000;text-align: left;" style="width:1000px;"> <strong>Total :</strong></td>
-          <td style="color: #000000;"><input type="text" id="name" style="width:85px;" name="name" class="form-control input-circle" disabled="true" value="<?php echo number_format((float)$total_all, 2, '.', ''); ?>"></td>
+          <td style="color: #000000;text-align: right;"><input type="text" id="name" name="name" class="w3-input w3-border-0" value="<?php echo number_format((float)$total_all, 2, '.', ''); ?>" ></td>
         </tr>
-
+        <tr>
+        <td style="color: #000000;text-align: left;">Shipping Cost:</td>
+          <td style="color: #000000;text-align: left;"><input type="text" id="name" name="name" class="w3-input w3-border-0" value="<?php echo number_format((float)$total_all, 2, '.', ''); ?>" ></td>
+        </tr>
          <tr>
+        
           
-          <td style="color: #000000;text-align: left;" style="width:1000px;"> <strong>Amount Due (USD) :
+          <td style="color: #000000;text-align: left;" style="width:1000px;"> <strong>Amount Due :
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></td>
-          <td style="color: #000000;"><strong><input type="text" id="name" style="width:85px;" name="name" class="form-control input-circle" required disabled="true" value="<?php echo number_format((float)$total_all, 2, '.', ''); ?>"></strong></td>
+          <td style="color: #000000;text-align: right;"><strong><input type="text" id="name" name="name" class="w3-input w3-border-0" required value="<?php echo number_format((float)$total_all, 2, '.', ''); ?>" ></strong></td>
         </tr>
       </tbody>
     </table>
@@ -347,28 +430,91 @@ div {
 	</body>
 </html>
 <script>
+
+var quantity;
+
+
+
+var price;
+
+
+// $('input[name=price]').each(function() {
+
+//     price = price +'&price[]='+Number($(this).val())
+// });
+// $('input[name=quantity]').each(function() {
+
+//     quantity =quantity +'&quantity[]='+Number($(this).val());
+
+// });
+//   $('input[name=quantity]').change(function(){
+          
+//         var total = price * quantity;
+//         $("#total").val(total);
+                        
+// });
+
+
+
+// $('input[name=quantity]').each(function() {
+
+
+
+
+//         $(this).change(function(){
+          
+//           var quantity = Number($(this).val());
+//           var price = $('input[name=price]').val();
+//           //var price = document.getElementById("price").value;
+//           var total = roundNumber(price * quantity,2);
+//           $('input[name=total]').val(total);
+//                          /*$('input[name=total]').each(function(index, el) {
+                            
+
+//                                 $(this).val(total);
+                            
+//                         });*/
+//       });
+// });
+// $('input[name=price]').each(function() {
+//         $(this).change(function(){
+            
+//             var price = Number($(this).val());
+//             var quantity = $('input[name=quantity]').val();
+//             var total = roundNumber(price * quantity,2);
+//              $('input[name=total]').val(total);
+//          /*     $('input[name=total]').each(function(index, el) {
+                            
+
+//                                 $(this).val(total);
+                            
+//                         });*/
+
+//         });
+
+// });
+
+/**//*function updateTotal(val)
+{
+    $("#quantity").val(val);
+    $("#quantity").trigger('change');
+    $("#price").val(val);
+    $("#price").trigger('change');
+}*/
+/*updateTotal(2);*/
+
+var print_invoice= document.getElementById('btnprint'); 
+print_invoice.onclick = function() {
+window.print();
+}
+ 
+</script>
+<script>
  var add_row= document.getElementById('add-item'); 
  add_row.onclick = function() {
 
 
-  $('#mytable').append('<tr><td colspan="8" style="color: #000000;" ><input type="text" id="name" style="width:530px;" name="name" class="form-control input-circle" required></td><td style="color: #000000;"><input type="text" id="name" style="width:60px;" name="name" class="form-control input-circle" required></td><td style="color: #000000;"><input type="text" id="name" style="width:60px;" name="name" class="form-control input-circle" required </td><td style="color: #000000;"><input type="text" id="name" style="width:60px;" name="name" class="form-control input-circle" required ></td><td style="color: #000000;"><input type="text" id="name" style="width:85px;" name="name" class="form-control input-circle" required disabled></td></tr>');
+  $('#mytable').append('<tr><td colspan="8" style="color: #000000;" ><input type="text" id="name" style="width:450px;" name="name" class="w3-input w3-border-0" required></td><td style="color: #000000;"><input type="text" id="name" style="width:60px;" name="name" class="w3-input w3-border-0" required></td><td style="color: #000000;"><input type="text" id="name" style="width:60px;" name="name" class="w3-input w3-border-0" required> </td><td style="color: #000000;"><input type="text" id="name" style="width:60px;" name="name" class="w3-input w3-border-0" required ></td><td style="color: #000000;"><input type="text" id="name" style="width:85px;" name="name" class="w3-input w3-border-0" required></td></tr>');
   
 }
-
-
-
-
-function changeValue() {
-    var val1 = document.getElementById("quantity").value;
-    var val2 = document.getElementById("price").value;
-
-      var total=val1*val2;
-  
-    document.getElementById("total").innerHTML = total;
-}
-/* var print_invoice= document.getElementById('btnprint'); 
-*/ /*print_invoice.onclick = function() {
-	 	//window.print();
-}*/
- 
-	</script>
+</script>
