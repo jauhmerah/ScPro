@@ -29,7 +29,7 @@
             </div>
             <div class="portlet-body flip-scroll">
 	            <div class="row">
-	            <form id="formSearch" action="<?= site_url('nasty_v2/dashboard/page/a1'); ?>" method="POST" role="form">
+	            <form id="formSearch" action="<?= site_url('nasty_v2/dashboard/page/a1old'); ?>" method="POST" role="form">
 	            	<div class="col-md-12">
 	            		<div class="col-md-2">
 	            			<button type="button" class="btn btn-primary disabled"><i class="fa fa-plus"></i> Add Order</button></a>

@@ -279,7 +279,7 @@
 								<td><?= $date; ?></td>
 								<td>
 								<?php $usid = $this->my_func->scpro_encrypt($key['order']->or_id); ?>
-									<a onclick="return moveTo();" href="<?= site_url('nasty_v2/dashboard/page/a221?done=').$usid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-success"><i class="fa fa-check"></i> Done All</button></a>&nbsp;- &nbsp;<button type="button" onclick = "window.open('<?= site_url('order/printO1?id='.$this->my_func->scpro_encrypt($key['order']->or_id)); ?>');" class="btn btn-info"><i class="fa fa-print"></i></button>
+									<a onclick="return moveTo();" href="<?= site_url('nasty_v2/dashboard/page/a221?done=').$usid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-success"><i class="fa fa-check"></i> Done All</button></a>&nbsp;- &nbsp;<button type="button" onclick = "window.open('<?= site_url('order/printO1?id='.$this->my_func->scpro_encrypt($key['order']->or_id)); ?>&ver=2');" class="btn btn-info"><i class="fa fa-print"></i></button>
 								</td>
 							</tr>
 							<tr class="L<?= $n; ?>" style="display : none;">
@@ -369,7 +369,7 @@
 								<td><strike><?= $date; ?></strike></td>
 								<td>
 								<?php $usid = $this->my_func->scpro_encrypt($key['order']->or_id); ?>
-									<button type="button" class="btn default"><i class="fa fa-hand-stop-o"></i> On Hold By <?= $key['staff']->us_username; ?></button>&nbsp;- &nbsp;<button type="button" onclick = "window.open('<?= site_url('order/printO1?id='.$this->my_func->scpro_encrypt($key['order']->or_id)); ?>');" class="btn btn-info"><i class="fa fa-print"></i></button>
+									<button type="button" class="btn default"><i class="fa fa-hand-stop-o"></i> On Hold By <?= $key['staff']->us_username; ?></button>&nbsp;- &nbsp;<button type="button" onclick = "window.open('<?= site_url('order/printO1?id='.$this->my_func->scpro_encrypt($key['order']->or_id)); ?>&ver=2');" class="btn btn-info"><i class="fa fa-print"></i></button>
 								</td>
 							</tr>
 							<tr class="L<?= $n; ?>" style="display : none;">

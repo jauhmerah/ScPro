@@ -1,6 +1,7 @@
 <script>
 	function onDel() {
-		return confirm('Are You Sure ?');
+		return false;
+		//confirm('Are You Sure ?');
 	}
 	$(document).ready(function() {
 
