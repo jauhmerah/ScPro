@@ -234,10 +234,10 @@
 					                                            		</strong>					                                            		
 					                                            	</td>                                            	
 					                                            	<th>
-					                                            		Ship Date
+					                                            		Shipping Price
 					                                            	</th>
 					                                            	<td>
-					                                            		<strong><?php if($arr['order']->or_sendDate != '0000-00-00 00:00:00') { echo date_format(date_create($arr['order']->or_sendDate) , 'd-M-Y' ); }else{echo '--Not Set--';} ?></strong>
+					                                            		<strong><?php if($arr['order']->or_traking != null) { echo $arr['order']->or_traking; }else{echo '--Not Set--';} ?></strong>
 					                                            	</td>
 						                                        </tr>
 						                                        <tr>

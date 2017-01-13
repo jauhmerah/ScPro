@@ -331,10 +331,10 @@
 										                                </div>
 					                                            	</td> 
 					                                            	<th>
-					                                            		Ship Date
+					                                            		Shiping Price
 					                                            	</th>
 					                                            	<td>
-					                                            		<input <?= $mode; ?> type = "date" name="sendDate" class="form-control input-circle" value="<?php if($arr['order']->or_sendDate != '0000-00-00 00:00:00') { echo date_format(date_create($arr['order']->or_sendDate) , 'Y-m-d' ); }else{echo '';} ?>">
+					                                            		<input required <?= $mode; ?> type = "number" min="0" step="any"  name="sendDate" class="form-control input-circle" value="<?php if($arr['order']->or_traking != null) { echo $arr['order']->or_traking; }else{echo '0';} ?>">
 					                                            	</td>
 						                                        </tr>
 						                                        <tr>

@@ -127,6 +127,9 @@ body .ReadOnlyExtrasStatus {
     .keepbtn{
       display: none;
     }
+    .delBtn{
+      display: none;
+    }
     #table-bordered{
       border: none !important;
     }
@@ -148,8 +151,7 @@ body .ReadOnlyExtrasStatus {
    
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 <!--     <link rel="stylesheet" href="<?= base_url(); ?>asset/css/plugins/bootstrap.min.css"> -->
-    <script src="<?= base_url(); ?>asset2/global/plugins/jquery/jquery-3.1.1.min.js"></script>
-    <script src="<?= base_url(); ?>asset2/global/plugins/jquery/example.js"></script>
+    
     <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 	</head>
 	<body style="background-color:#EAEDED">
@@ -349,7 +351,7 @@ body .ReadOnlyExtrasStatus {
               $n++;
 
             ?>
-          <tr>
+          <tr class="row<?= $n; ?>">
           <td colspan="8" style="color: #000000;" >
       <?php 
       $var1=strtr($key->ty2_desc,array('<strong>' => ' ', '</strong>' => ' ', '<br>' => ' '));
@@ -372,7 +374,9 @@ body .ReadOnlyExtrasStatus {
         $b=$key->oi_price;
         $total=$a*$b;
          ?>
-          <td style="color: #000000;"><input type="text" id="total" style="width:80px;" name="total" class="w3-input w3-border-0" required value="<?= number_format((float)$total=$key->oi_qty * $key->oi_price, 2, '.', '');?>" ></td>
+          <td style="color: #000000;"><input type="text" id="total" style="width:80px;" name="total" class="w3-input w3-border-0" required value="<?= number_format((float)$total=$key->oi_qty * $key->oi_price, 2, '.', '');?>" >
+          <div class="delBtn" ><button type="button" class="btn btn-danger btn-xs delB btn-circle" id="row<?= $n; ?>">x</button></div>
+          </td>
         </tr>
 
 
@@ -392,7 +396,7 @@ body .ReadOnlyExtrasStatus {
        </table>
 
       <div class="clear" style="height: 1px;"></div>
-      <div class="keepbtn"><button type="button" class="btn btn-primary btn-xs" id="add-item">+ Add Item</button></div>
+      <div class="keepbtn"><button type="button" class="btn btn-primary btn-xs" id="add_item">+ Add Item</button></div>
        
 
        <div class="clear" style="height: 30px;"></div>
@@ -447,75 +451,7 @@ body .ReadOnlyExtrasStatus {
 
 var quantity;
 
-
-
 var price;
-
-
-// $('input[name=price]').each(function() {
-
-//     price = price +'&price[]='+Number($(this).val())
-// });
-// $('input[name=quantity]').each(function() {
-
-//     quantity =quantity +'&quantity[]='+Number($(this).val());
-
-// });
-//   $('input[name=quantity]').change(function(){
-          
-//         var total = price * quantity;
-//         $("#total").val(total);
-                        
-// });
-
-
-
-// $('input[name=quantity]').each(function() {
-
-
-
-
-//         $(this).change(function(){
-          
-//           var quantity = Number($(this).val());
-//           var price = $('input[name=price]').val();
-//           //var price = document.getElementById("price").value;
-//           var total = roundNumber(price * quantity,2);
-//           $('input[name=total]').val(total);
-//                          /*$('input[name=total]').each(function(index, el) {
-                            
-
-//                                 $(this).val(total);
-                            
-//                         });*/
-//       });
-// });
-// $('input[name=price]').each(function() {
-//         $(this).change(function(){
-            
-//             var price = Number($(this).val());
-//             var quantity = $('input[name=quantity]').val();
-//             var total = roundNumber(price * quantity,2);
-//              $('input[name=total]').val(total);
-//          /*     $('input[name=total]').each(function(index, el) {
-                            
-
-//                                 $(this).val(total);
-                            
-//                         });*/
-
-//         });
-
-// });
-
-/**//*function updateTotal(val)
-{
-    $("#quantity").val(val);
-    $("#quantity").trigger('change');
-    $("#price").val(val);
-    $("#price").trigger('change');
-}*/
-/*updateTotal(2);*/
 
 var print_invoice= document.getElementById('btnprint'); 
 print_invoice.onclick = function() {
@@ -524,11 +460,18 @@ window.print();
  
 </script>
 <script>
- var add_row= document.getElementById('add-item'); 
- add_row.onclick = function() {
-
-
-  $('#mytable').append('<tr><td colspan="8" style="color: #000000;" ><input type="text" id="name" style="width:450px;" name="name" class="w3-input w3-border-0" required></td><td style="color: #000000;"><input type="text" id="name" style="width:60px;" name="name" class="w3-input w3-border-0" required></td><td style="color: #000000;"><input type="text" id="name" style="width:60px;" name="name" class="w3-input w3-border-0" required> </td><td style="color: #000000;"><input type="text" id="name" style="width:60px;" name="name" class="w3-input w3-border-0" required ></td><td style="color: #000000;"><input type="text" id="name" style="width:85px;" name="name" class="w3-input w3-border-0" required></td></tr>');
-  
-}
+$(document).ready(function() {
+  n = <?= $n ?>;
+  $(".delB").click(function() {
+    row = $(this).prop('id');
+    $('.'+row).remove();
+  });
+  $("#add_row").click(function() {
+    n++;
+    $.post('<?= site_url('nasty_v2/invoice/getAjaxRowDummy') ?>', {n: n}, function(data) {
+      //$('#mytable').append(data);
+      alert('jadi');
+    });
+  });
+});
 </script>

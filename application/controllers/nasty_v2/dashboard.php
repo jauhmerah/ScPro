@@ -741,8 +741,7 @@ epul@nastyjuice.com
 
                         $order = array(
                             "cl_id" => $arr['client'],
-                            "us_id" => $this->my_func->scpro_decrypt($this->session->userdata('us_id')),
-                            "or_sendDate" => $arr['sendDate'],
+                            "us_id" => $this->my_func->scpro_decrypt($this->session->userdata('us_id')),                            
                             "or_date" => $arr['orderdate'],
                             "or_note" => $arr['note'],
                             "pr_id" => $arr['pr_id']
@@ -756,6 +755,7 @@ epul@nastyjuice.com
                             'cu_id' => $arr['currency'],
                             'or_wide' => $arr['wide'],
                             'or_shipcom' => $arr['sh_company'],
+                            "or_traking" => $arr['traking'],
                             'or_shipopt' => $arr['sh_opt'],
                             'dec_id' => $arr['sh_declare']                            
                         );
@@ -772,7 +772,7 @@ epul@nastyjuice.com
                                 'oi_qty' => $arr['qty'][$i],
                                 'oi_tester' => $arr['tester'][$i]
                             );
-                            echo $this->m_order_item->insert($item);
+                            $this->m_order_item->insert($item);
                         }
                         /*$this->load->model('m_shipping_note');
                         $shipping_note = array(
@@ -783,39 +783,13 @@ epul@nastyjuice.com
                             'cl_id' => $arr['client']
                         );
                         $this->m_shipping_note->insert($shipping_note);*/
-                        if ($arr['pr_id'] != 4) {
-                            $this->load->model('m_user');
-                        $saleman = $this->m_user->getName($this->my_func->scpro_decrypt($this->session->userdata('us_id')));
-                        $email['fromName'] = "Ai System";
-                        $email['fromEmail'] = "nstylabc@sirius.sfdns.net";
-                        $email['toEmail'] = "abun@nastyjuice.com";
-                        $email['subject'] = "New Order #".(120000+$or_id);
-                        $email['msg'] = "
-Order Detail
-
-Order No : #".(120000+$or_id)."
-Order Status : New Order
-Salesman : ".$saleman."
-Order Date : ".$arr['orderdate']."
-Due Date : ".$arr['dateline']."
-
-(#Note : Once this link clicked, the Ai system will automaticaly change the order status into \"Processing Mode\".)
-Print Order Link : ".site_url('order/printOrder1?id='.$this->my_func->scpro_encrypt($or_id))."&ver=".$ver."
-
-Search Order Page : ".site_url()."
-System Login : ".site_url('login')."
-
-Sincerely,
-Ai System
-
-Programmer
-JauhMerah
-jauhmerah@nastyjuice.com
-Epul
-epul@nastyjuice.com
-
-                        ";
-                        $this->sendEmail($email);
+                        if ($arr['pr_id'] != 4) { 
+                        //#email1                           
+                            $this->load->model('m_user');                            
+                            $sendToMail['us_id'] = $this->my_func->scpro_decrypt($this->session->userdata('us_id'));
+                            $sendToMail['ver'] = $ver;
+                            $sendToMail['or_id'] = $or_id;
+                            $this->emailSendNew($sendToMail , $ver);
                         }                        
                         $this->session->set_flashdata('success', 'New Order successfully added');
                         redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
@@ -1152,6 +1126,9 @@ epul@nastyjuice.com
                 $id = $this->my_func->scpro_decrypt($this->input->post('id'));
                 $this->load->database();
                 $this->load->model('m_order');
+                $sendToMail['us_id'] = $this->my_func->scpro_decrypt($this->session->userdata('us_id'));
+                $sendToMail['ver'] = 2;
+                $sendToMail['or_id'] = $id;                
                 /*  1 - New Order
                     2 - In Progress
                     3 - Complete
@@ -1176,7 +1153,7 @@ epul@nastyjuice.com
                         // Change to 1
                         $arr = array(
                             'pr_id' => 1
-                        ); 
+                        );   
                         break;
                     case '7':
                         // Change to 2
@@ -1185,8 +1162,34 @@ epul@nastyjuice.com
                         );
                         break;
                 }
-                if($this->m_order->update($arr , $id)){
+                $betul = $this->m_order->update($arr , $id);
+                switch ($this->input->post('pr_id')) {
+                    case '1':
+                        // change to 4
+                        $arr = array(
+                            'pr_id' => 4
+                        );                        
+                        break;
+                    case '2':
+                        // Change to 7
+                        $arr = array(
+                            'pr_id' => 7
+                        );
+                        break; 
+                    case '4':
+                        //#email1
+                        $this->emailSendNew($sendToMail , $ver);
+                        break;
+                    case '7':
+                        // Change to 2
+                        $arr = array(
+                            'pr_id' => 2
+                        );
+                        break;
+                }
+                if($betul){
                     $this->session->set_flashdata('success', 'The order Confirmation was Updated!!');
+                    
                 }else{
                     $this->session->set_flashdata('error', 'Ops!!! Someting wrong, Contact Jm');
                 }
@@ -1463,11 +1466,12 @@ epul@nastyjuice.com
         private function emailSendNew($arr = null , $ver = 1)
         {
             //unconfirm to new order;
+            //#email1
             if ($arr != null) {
                 $this->load->model('m_user');
                 $this->load->library('my_func');
-                $or_id = $arr->or_id;                
-                $saleman = $this->m_user->getName($arr->us_id);
+                $or_id = $arr['or_id'];                
+                $saleman = $this->m_user->getName($arr['us_id']);
                 $email['fromName'] = "Ai System";
                 $email['fromEmail'] = "nstylabc@sirius.sfdns.net";
                 $email['toEmail'] = array('0' => "faeiz@nastyjuice.com", '1' => "account@nastyjuice.com" , '2' => 'hairi@nastyjuice.com' , '3' => 'abun@nastyjuice.com');
@@ -1478,17 +1482,16 @@ Order Detail
 Order No : #".((10000*$ver)+100000+$or_id)."
 Order Status : New Order
 Salesman : ".$saleman."
-Order Date : ".$arr['orderdate']."
-Due Date : ".$arr['dateline']."
 
 (#Note : Once this link clicked, the Ai system will automaticaly change the order status into \"Processing Mode\".)
 Print Order Link : ".site_url('order/printOrder1?id='.$this->my_func->scpro_encrypt($or_id))."&ver=".$ver."
+Invoice Form : ".site_url('invoice/Invoice?id='.$this->my_func->scpro_encrypt($or_id))."&ver=".$ver."
 
 Search Order Page : ".site_url()."
 System Login : ".site_url('login')."
 
 Sincerely,
-Ai System
+Ai OrdSys System
 
 Programmer
 JauhMerah
@@ -1504,6 +1507,7 @@ epul@nastyjuice.com
         private function emailSendUnconfirm($arr = null , $ver = 1)
         {
             //Confirm to Unconfirm;
+
             if ($arr != null) {
                 $this->load->model('m_user');
                 $this->load->library('my_func');
@@ -1621,7 +1625,7 @@ epul@nastyjuice.com
                 ";
                 $this->sendEmail($email);                     
             }
-        }
+        }        
 	}
 	        
 ?>

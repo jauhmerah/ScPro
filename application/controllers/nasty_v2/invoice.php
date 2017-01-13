@@ -63,5 +63,8 @@ class Invoice extends CI_Controller {
 			}
           
         }
-
+        public function getAjaxRowDummy()
+        {
+        	echo $this->load->view($this->parent_page."/ajax/getAjaxRowDummy",array("n" => $this->input->post('n')) , true);
+        }
 }

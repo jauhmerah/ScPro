@@ -207,6 +207,21 @@ body .ReadOnlyExtrasStatus {
 
   <div class="contemporary-template__divider contemporary-template__divider--full-width"></div>
 
+  <?php switch ($arr['order']->cu_id) {
+    case '1':
+      $duit = "MYR";
+      break;
+    case '2':
+      $duit = "USD";
+      break;
+    case '3':
+      $duit = "GBP";
+      break;
+    
+    default:
+      $duit = "Currency Error!!!<br>";
+      break;
+  } ?>
   <section class="contemporary-template__metadata">
     <div class="pull-left">
       <div class="contemporary-template__metadata__customer--billing">
@@ -306,7 +321,7 @@ body .ReadOnlyExtrasStatus {
           <td colspan="1" style="color: #000000;" style="width:60px;"><?= $key->oi_qty; ?></td>
           <td colspan="1" style="color: #000000;" style="width:60px;"><?= $key->oi_price; ?></td>
           <td colspan="1" style="color: #000000;" style="width:60px;"><?= $key->oi_tester; ?></td>
-          <td colspan="1" style="color: #000000;" style="width:60px;">$<?= number_format((float)$total=$key->oi_qty * $key->oi_price, 2, '.', '');?></td>
+          <td colspan="1" style="color: #000000;" style="width:60px;"><?= $duit; ?> <?= number_format((float)$total=$key->oi_qty * $key->oi_price, 2, '.', '');?></td>
         
 
         </tr>
@@ -318,15 +333,15 @@ body .ReadOnlyExtrasStatus {
         } ?>
          <tr>
         <td style="color: #000000;text-align: right;" colspan="11"><strong>Total :</strong></td>
-          <td style="color: #000000;">$<?php echo number_format((float)$total_all, 2, '.', ''); ?></td>
+          <td style="color: #000000;"><?= $duit; ?> <?php echo number_format((float)$total_all, 2, '.', ''); ?></td>
         </tr>
          <tr>
         	  <tr>
         <td style="color: #000000;text-align: right;" colspan="11">Shipping :</td>
-          <td style="color: #000000;">$0.00</td>
+          <td style="color: #000000;"><?= $duit; ?> <?= number_format((float)$arr['order']->or_traking, 2, '.', '');?></td>
         </tr>
           <td style="color: #000000;text-align: right;" colspan="11"> <strong>Amount Due :</strong></td>
-          <td style="color: #000000;"><strong>$<?php echo  number_format((float)$total_all, 2, '.', ''); ?></strong></td>
+          <td style="color: #000000;"><strong><?= $duit; ?> <?php echo  number_format((float)$total_all, 2, '.', ''); ?></strong></td>
         </tr>      
       </tbody>
     </table>

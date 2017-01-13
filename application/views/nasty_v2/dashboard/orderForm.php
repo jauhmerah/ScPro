@@ -282,10 +282,10 @@
 										                                
 					                                            	</td>
 					                                            	<th>
-					                                            		Ship Date
+					                                            		Shipping Price
 					                                            	</th>
 					                                            	<td>
-					                                            		<input type = "date" class="form-control input-circle" name="sendDate">
+					                                            		<input type = "number" class="form-control input-circle" min="0" step="any" name="traking" required>
 					                                            	</td> 
 						                                        </tr>
 						                                        <tr>
