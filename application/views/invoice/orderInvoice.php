@@ -329,7 +329,10 @@ body .ReadOnlyExtrasStatus {
         <?php 
            $total_all=$total_all+$total; 
           }
-           
+          if ($arr['order']->or_traking == null || $arr['order']->or_traking == '0000-00-00 00:00:00') {
+            $arr['order']->or_traking = 0;
+          }
+          $total_all += $arr['order']->or_traking;           
         } ?>
          <tr>
         <td style="color: #000000;text-align: right;" colspan="11"><strong>Total :</strong></td>

@@ -5,7 +5,7 @@
 	
 	   	var $parent_page = "nasty_v2/dashboard";
 	   	var $old_page = "dashboard";
-        var $version = "OrdYs v2.3.0 Alpha";
+        var $version = "OrdYs v2.3.1 Alpha";
         var $imgUploc = "/assets/uploads/img/";
 
 	    function __construct() {
@@ -230,6 +230,7 @@
                     break;
                 break;
     			case 'a1new':
+                    //OrdSys 2.3.0
     				if ($lvl == 2 || $lvl == 3) {
                         redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
                     }
@@ -261,13 +262,15 @@
                                     redirect(site_url("nasty_v2/dashboard/page/a1"),'refresh');
                                 }
                                 $str = (string)$search;
-                                if ($str[1] == '1') {
+                                /*if ($str[1] == '1') {
                                     $id = $search - 110000;
                                     $ver = 1;
                                 } else {
                                     $id = $search - 100000;
                                     $ver = 0;
-                                }
+                                }*/
+                                $ver = 2;
+                                $id = $search - 120000;
                                 $where = array(
                                     "ord.or_id" => $id
                                 );
@@ -286,16 +289,9 @@
                                 break;
                         }
                         if (isset($ver)) {
-                            $arr['arr'] = array();
-                            $arr['arr1'] = array();
-                            if ($ver == 1) {
-                                $arr['arr1'] = $this->m_order->listOr($ver , null , null , 0 , $where);
-                            } else {
-                                $arr['arr'] = $this->m_order->listOr($ver , null , null , 0 , $where);
-                            }
+                            $arr['arr1'] = $this->m_order->listOr($ver , null , null , 0 , $where);
                         }else{
-                            $arr['arr1'] = $this->m_order->listSearch(1 , null , null , 0 , $where);
-                            $arr['arr'] = $this->m_order->listSearch(0 , null , null , 0 , $where);
+                            $arr['arr1'] = $this->m_order->listSearch(2 , null , null , 0 , $where);                        
                         }
                     } else {
                         $ver = $this->m_order->orderCount(2);
@@ -785,7 +781,7 @@ epul@nastyjuice.com
                         $this->m_shipping_note->insert($shipping_note);*/
                         if ($arr['pr_id'] != 4) { 
                         //#email1                           
-                            $this->load->model('m_user');                            
+                            //$this->load->model('m_user');                            
                             $sendToMail['us_id'] = $this->my_func->scpro_decrypt($this->session->userdata('us_id'));
                             $sendToMail['ver'] = $ver;
                             $sendToMail['or_id'] = $or_id;
@@ -1163,18 +1159,18 @@ epul@nastyjuice.com
                         break;
                 }
                 $betul = $this->m_order->update($arr , $id);
+                $sendToMail['us_id'] = $this->my_func->scpro_decrypt($this->session->userdata('us_id'));
+                $sendToMail['ver'] = 2;
+                $sendToMail['or_id'] = $id;
                 switch ($this->input->post('pr_id')) {
                     case '1':
                         // change to 4
-                        $arr = array(
-                            'pr_id' => 4
-                        );                        
+                        //#email2
+                        $this->emailSendUnconfirm($sendToMail , $ver);
                         break;
                     case '2':
-                        // Change to 7
-                        $arr = array(
-                            'pr_id' => 7
-                        );
+                        //#email3
+                        $this->emailSendOnhold($sendToMail , $ver);
                         break; 
                     case '4':
                         //#email1
@@ -1182,6 +1178,7 @@ epul@nastyjuice.com
                         break;
                     case '7':
                         // Change to 2
+                        //#email4
                         $arr = array(
                             'pr_id' => 2
                         );
@@ -1507,7 +1504,7 @@ epul@nastyjuice.com
         private function emailSendUnconfirm($arr = null , $ver = 1)
         {
             //Confirm to Unconfirm;
-
+            //#email2
             if ($arr != null) {
                 $this->load->model('m_user');
                 $this->load->library('my_func');
@@ -1523,8 +1520,6 @@ Order Detail
 Order No : #".((10000*$ver)+100000+$or_id)."
 Order Status : Unconfirm
 Salesman : ".$saleman."
-Order Date : ".$arr['orderdate']."
-Due Date : ".$arr['dateline']."
 
 Please Note.
 This order have been unconfirm by Salesman.
@@ -1548,6 +1543,7 @@ epul@nastyjuice.com
         private function emailSendOnhold($arr = null , $ver = 1)
         {
             //inProgress to On hold;
+            //#email3
             if ($arr != null) {
                 $this->load->model('m_user');
                 $this->load->library('my_func');
@@ -1563,8 +1559,6 @@ Order Detail
 Order No : #".((10000*$ver)+100000+$or_id)."
 Order Status : On Hold Order
 Salesman : ".$saleman."
-Order Date : ".$arr['orderdate']."
-Due Date : ".$arr['dateline']."
 
 Please Take Note!!!
 This Order was On hold by its salesman.
@@ -1589,6 +1583,7 @@ epul@nastyjuice.com
         private function emailSendInProgress($arr = null , $ver = 1)
         {
             //On hold to inProgress;
+            //#email1
             if ($arr != null) {
                 $this->load->model('m_user');
                 $this->load->library('my_func');
@@ -1604,8 +1599,6 @@ Order Detail
 Order No : #".((10000*$ver)+100000+$or_id)."
 Order Status : In Progress Order
 Salesman : ".$saleman."
-Order Date : ".$arr['orderdate']."
-Due Date : ".$arr['dateline']."
 
 Please Take Note!!!
 This Order was change to In-progress by its salesman.

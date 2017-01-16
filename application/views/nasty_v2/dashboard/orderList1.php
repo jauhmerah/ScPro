@@ -35,7 +35,7 @@
             </div>
             <div class="portlet-body flip-scroll">
 	            <div class="row tableL">
-	            <form id="formSearch" action="<?= site_url('nasty_v2/dashboard/page/a1'); ?>" method="POST" role="form">
+	            <form id="formSearch" action="<?= site_url('nasty_v2/dashboard/page/a1new'); ?>" method="POST" role="form">
 	            	<div class="col-md-12">
 	            		<div class="col-md-2">
 	            			<a href="<?= site_url('nasty_v2/dashboard/page/z1'); ?>"><button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Add Order</button></a>
@@ -44,7 +44,7 @@
 	            			<div class="form-group">
 	            				<label for="input" class="col-sm-2 control-label">Search</label>
 	            				<div class="col-sm-10">
-	            					<input type="search" disabled name="search" id="search" class="form-control input-circle" placeholder="Next Ver 2.3.1" required>
+	            					<input type="search" name="search" id="search" class="form-control input-circle" placeholder="Search" required>
 	            				</div>
 	            			</div>
 	            		</div>
@@ -52,8 +52,8 @@
 	            			<div class="form-group">
 	            				<label for="inputFilter" class="col-sm-2 control-label">Filter</label>
 	            				<div class="col-sm-10">
-	            					<select name="filter" id="inputFilter" class="form-control input-circle" disabled>
-	            						<option value="-1">-- Next Ver 2.3.1 --</option>
+	            					<select name="filter" id="inputFilter" class="form-control input-circle">
+	            						<option value="-1">-- Select Filter --</option>
 	            						<option value="10">Client Name</option>
 	            						<option value="1">Order Code</option>
 	            						<option value="2">Sales Person</option>
@@ -63,7 +63,7 @@
 	            			</div>
 	            		</div>
 	            		<div class="col-md-2">
-	            			<button type="button" class="btn btn-default disabled"><i class="fa fa-search"></i> Search</button><!-- id="sub" -->
+	            			<button type="button" class="btn btn-default " id="sub"><i class="fa fa-search"></i> Search</button><!--  -->
 	            		</div>
 	            	</div>
 	            </form>

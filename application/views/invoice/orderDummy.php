@@ -466,11 +466,11 @@ $(document).ready(function() {
     row = $(this).prop('id');
     $('.'+row).remove();
   });
-  $("#add_row").click(function() {
+  $("#add_item").click(function() {
     n++;
     $.post('<?= site_url('nasty_v2/invoice/getAjaxRowDummy') ?>', {n: n}, function(data) {
-      //$('#mytable').append(data);
-      alert('jadi');
+      $('#mytable').append(data);
+      //alert('jadi');
     });
   });
 });
