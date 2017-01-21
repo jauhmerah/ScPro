@@ -5,7 +5,7 @@
 	
 	   	var $parent_page = "nasty_v2/dashboard";
 	   	var $old_page = "dashboard";
-        var $version = "OrdYs v2.3.1 Alpha";
+        var $version = "OrdYs v2.3.2 Alpha";
         var $imgUploc = "/assets/uploads/img/";
 
 	    function __construct() {
@@ -99,8 +99,24 @@
             $this->sendEmail($email);
             $this->page('a1');
         }
+        public function testgraph($value='')
+        {
+            $this->load->view($this->parent_page."/testgraft");
+        }
 
-
+        public function dataCount()
+        {
+            $this->load->database();
+            $this->load->model('m_item');
+            $arr = $this->m_item->totalByOrder();
+            echo "<pre>";
+            print_r($arr);
+            echo "</pre>";
+        }
+        public function getAjaxGraph()
+        {
+            echo $this->load->view($this->parent_page.'/ajax/getAjaxGraph', false);
+        }
 	    public function page($key)
     	{
     		//$arr = $this->input->get();

@@ -21,16 +21,27 @@ License: You must have a valid license purchased only from themeforest(the above
         <link href="<?= base_url(); ?>/asset2/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css" rel="stylesheet" type="text/css" />
         <link href="<?= base_url(); ?>/asset2/global/plugins/morris/morris.css" rel="stylesheet" type="text/css" />
         <link href="<?= base_url(); ?>/asset2/global/plugins/fullcalendar/fullcalendar.min.css" rel="stylesheet" type="text/css" />
-        <link href="<?= base_url(); ?>/asset2/global/plugins/jqvmap/jqvmap/jqvmap.css" rel="stylesheet" type="text/css" />
-        <!-- END PAGE LEVEL PLUGINS -->
+        <!--<link href="<?= base_url(); ?>/asset2/global/plugins/jqvmap/jqvmap/jqvmap.css" rel="stylesheet" type="text/css" />
+         END PAGE LEVEL PLUGINS -->
         <!-- BEGIN PAGE LEVEL PLUGINS -->
         <!-- <link href="<?= base_url(); ?>asset2/global/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css">
         <link href="<?= base_url(); ?>asset2/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css"> -->
-        <!-- END THEME LAYOUT STYLES -->
+        <!-- END THEME LAYOUT STYLES 
      
-        <link rel="shortcut icon" href="favicon.ico" />
+        <link rel="shortcut icon" href="favicon.ico" />-->
     <!-- END HEAD -->
-
+    <script src="https://www.amcharts.com/lib/3/amcharts.js"></script><!-- ada -->
+<script src="https://www.amcharts.com/lib/3/serial.js"></script><!-- ada -->
+<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+<script src="https://www.amcharts.com/lib/3/themes/none.js"></script>
+<style type="text/css">
+    #chartdiv {
+    width   : 100%;
+    height  : 500px;
+}
+                            
+</style>
 
                     <div class="row">
                       <div class="col-lg-12 ">
@@ -110,7 +121,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="clearfix"></div>
                     <!-- END DASHBOARD STATS 1-->
                     <div class="row">
-                        <div class="col-md-6 col-sm-6">
+                        <div class="col-md-12 col-sm-12">
                             <!-- BEGIN PORTLET-->
                             <div class="portlet light ">
                                 <div class="portlet-title">
@@ -120,20 +131,22 @@ License: You must have a valid license purchased only from themeforest(the above
                                       <span class="caption-helper">Total Statistic</span>
                                     </div>
                                     <div class="actions">
-                                        <div class="btn-group btn-group-devided" data-toggle="buttons">
+                                        <!--<div class="btn-group btn-group-devided" data-toggle="buttons">
                                             <label class="btn red btn-outline btn-circle btn-sm active">
                                                 <input type="radio" name="options" class="toggle" id="option1">New</label>
                                             <label class="btn red btn-outline btn-circle btn-sm">
                                                 <input type="radio" name="options" class="toggle" id="option2">Returning</label>
-                                        </div>
+                                        </div>-->
                                     </div>
                                 </div>
                                 <div class="clear" style="height:40px;"></div>
                                 <div class="portlet-body">
-                                    <div id="site_statistics_loading">
+                                    <div id="site_statistics_loading" >
                                         <img src="<?= base_url(); ?>/asset2/global/img/loading.gif" alt="loading" /> </div>
-                                    <div id="site_statistics_content" class="display-none">
-                                        <div id="site_statistics" class="chart"> </div>
+                                        <!-- #graph -->                                      
+                                    <div id="site_statistics_content" >
+                                        <div id="chartdiv" class="display-none"></div>
+                                        <div id="gcode" ></div>
                                     </div>
                                 </div>
                             </div>
@@ -1304,7 +1317,7 @@ License: You must have a valid license purchased only from themeforest(the above
   </div>
      
 <script>
-
+/*
 // Get the modal
 var modal = document.getElementById('myModal');
 var close= document.getElementById('close');
@@ -1325,7 +1338,18 @@ window.onclick = function(event) {
     if (event.target == modal) {
         modal.style.display = "none";
     }
-}
+}*/
+//#graph
+$(document).ready(function() {
+    $.post('<?= site_url('nasty_v2/dashboard/getAjaxGraph') ?>', {}, function(data) {
+        $.when($('#gcode').html(data)).then(function(){
+            $("#chartdiv").removeClass('display-none');
+            $("#site_statistics_loading").addClass('display-none');
+            alert("Jadi");
+        });
+    });
+});
+
 </script>
 
             <!--[if lt IE 9]>
@@ -1340,8 +1364,8 @@ window.onclick = function(event) {
             <script src="<?= base_url(); ?>/asset2/global/plugins/morris/raphael-min.js" type="text/javascript"></script>
             <script src="<?= base_url(); ?>/asset2/global/plugins/counterup/jquery.waypoints.min.js" type="text/javascript"></script>
             <script src="<?= base_url(); ?>/asset2/global/plugins/counterup/jquery.counterup.min.js" type="text/javascript"></script>
-            <script src="<?= base_url(); ?>/asset2/global/plugins/amcharts/amcharts/amcharts.js" type="text/javascript"></script>
-            <script src="<?= base_url(); ?>/asset2/global/plugins/amcharts/amcharts/serial.js" type="text/javascript"></script>
+            <!--<script src="<?= base_url(); ?>/asset2/global/plugins/amcharts/amcharts/amcharts.js" type="text/javascript"></script><!-- ada - ->
+            <script src="<?= base_url(); ?>/asset2/global/plugins/amcharts/amcharts/serial.js" type="text/javascript"></script><!-- ada - ->
             <script src="<?= base_url(); ?>/asset2/global/plugins/amcharts/amcharts/pie.js" type="text/javascript"></script>
             <script src="<?= base_url(); ?>/asset2/global/plugins/amcharts/amcharts/radar.js" type="text/javascript"></script>
             <script src="<?= base_url(); ?>/asset2/global/plugins/amcharts/amcharts/themes/light.js" type="text/javascript"></script>
@@ -1349,9 +1373,9 @@ window.onclick = function(event) {
             <script src="<?= base_url(); ?>/asset2/global/plugins/amcharts/amcharts/themes/chalk.js" type="text/javascript"></script>
             <script src="<?= base_url(); ?>/asset2/global/plugins/amcharts/ammap/ammap.js" type="text/javascript"></script>
             <script src="<?= base_url(); ?>/asset2/global/plugins/amcharts/ammap/maps/js/worldLow.js" type="text/javascript"></script>
-        <!--     <script src="<?= base_url(); ?>/asset2/global/plugins/amcharts/amstockcharts/amstock.js" type="text/javascript"></script> -->
+             <script src="<?= base_url(); ?>/asset2/global/plugins/amcharts/amstockcharts/amstock.js" type="text/javascript"></script> -->
             <script src="<?= base_url(); ?>/asset2/global/plugins/fullcalendar/fullcalendar.min.js" type="text/javascript"></script>
-            <script src="<?= base_url(); ?>/asset2/global/plugins/horizontal-timeline/horozontal-timeline.min.js" type="text/javascript"></script>
+           <!-- <script src="<?= base_url(); ?>/asset2/global/plugins/horizontal-timeline/horozontal-timeline.min.js" type="text/javascript"></script>
             <script src="<?= base_url(); ?>/asset2/global/plugins/flot/jquery.flot.min.js" type="text/javascript"></script>
             <script src="<?= base_url(); ?>/asset2/global/plugins/flot/jquery.flot.resize.min.js" type="text/javascript"></script>
             <script src="<?= base_url(); ?>/asset2/global/plugins/flot/jquery.flot.categories.min.js" type="text/javascript"></script>
@@ -1364,7 +1388,7 @@ window.onclick = function(event) {
             <script src="<?= base_url(); ?>/asset2/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.germany.js" type="text/javascript"></script>
             <script src="<?= base_url(); ?>/asset2/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js" type="text/javascript"></script>
             <script src="<?= base_url(); ?>/asset2/global/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js" type="text/javascript"></script>
-            <!-- END PAGE LEVEL PLUGINS -->
+             END PAGE LEVEL PLUGINS -->
             <!-- BEGIN THEME GLOBAL SCRIPTS -->
             <script src="<?= base_url(); ?>/asset2/global/scripts/app.min.js" type="text/javascript"></script>
             <!-- END THEME GLOBAL SCRIPTS -->
@@ -1376,4 +1400,8 @@ window.onclick = function(event) {
             <script src="<?= base_url(); ?>/asset2/layouts/layout2/scripts/demo.min.js" type="text/javascript"></script>
             <script src="<?= base_url(); ?>/asset2/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
             <!-- END THEME LAYOUT SCRIPTS -->
+            <!-- graph -->          
+ 
+                                 
+            <!-- end graph -->
 

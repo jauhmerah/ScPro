@@ -6,12 +6,12 @@ class M_item extends CI_Model {
     /**
      * @name string TABLE_NAME Holds the name of the table in use by this model
      */
-    const TABLE_NAME = 'item';
+    const TABLE_NAME = 'order_item';
 
     /**
      * @name string PRI_INDEX Holds the name of the tables' primary index used in this model
      */
-    const PRI_INDEX = 'it_id';
+    const PRI_INDEX = 'oi_id';
 
     /**
      * Retrieves record(s) from the database
@@ -86,6 +86,17 @@ class M_item extends CI_Model {
         }
         $this->db->delete(self::TABLE_NAME, $where);
         return $this->db->affected_rows();
+    }
+    public function totalByOrder()
+    {
+        $this->db->select('ord.* , ori.orex_id, ox.or_id , sum(ori.oi_qty) as total');
+        $this->db->from('order_item ori');
+        $this->db->join('order_ext ox', 'ox.orex_id = ori.orex_id', 'left');
+        $this->db->join('order ord', 'ox.or_id = ord.or_id', 'left');
+        $this->db->group_by('ori.orex_id');
+       
+        $result = $this->db->get()->result();
+        return $result;
     }
 }
         

@@ -68,6 +68,18 @@ class M_order_ext extends CI_Model {
         }
     }
 
+    public function totalByOrder()
+    {
+        $this->db->select('ore.orex_id, ore.or_id , sum(ori.oi_qty) as total');
+        $this->db->from('order_ext ore');
+        $this->db->join('order_item ori', 'ore.orex_id = ori.orex_id', 'left');
+        $this->db->join('order ord', 'ore.or_id = ord.or_id', 'left');
+        $this->db->group_by('ore.orex_id');
+        $this->db->where('ord.or_ver !=', 0);
+        $result = $this->db->get()->result();
+        return $result;
+    }
+
     /**
      * Inserts new data into database
      *

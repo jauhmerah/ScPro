@@ -76,7 +76,7 @@
             $result = $this->db->get()->result();
             return $result;
         }
-        //end added
+        //end added        
 
 	    public function getList($process = 0 , $del = 0 , $down = 0)
 	    {
