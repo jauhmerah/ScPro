@@ -30,17 +30,21 @@ License: You must have a valid license purchased only from themeforest(the above
      
         <link rel="shortcut icon" href="favicon.ico" />-->
     <!-- END HEAD -->
-    <script src="https://www.amcharts.com/lib/3/amcharts.js"></script><!-- ada -->
-<script src="https://www.amcharts.com/lib/3/serial.js"></script><!-- ada -->
+    <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/serial.js"></script>
 <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
 <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
-<script src="https://www.amcharts.com/lib/3/themes/none.js"></script>
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
 <style type="text/css">
-    #chartdiv {
+    #chartdiv, #flavdiv {
     width   : 100%;
     height  : 500px;
 }
-                            
+
+.amcharts-export-menu-top-right {
+  top: 10px;
+  right: 0;
+}                          
 </style>
 
                     <div class="row">
@@ -114,9 +118,6 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </div>
                             </a>
                         </div>
-                      
-        
-                        
                     </div>
                     <div class="clearfix"></div>
                     <!-- END DASHBOARD STATS 1-->
@@ -127,16 +128,10 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <div class="portlet-title">
                                     <div class="caption">
                                         <i class="icon-bar-chart font-dark hide"></i>
-                                        <span class="caption-subject font-dark bold uppercase">Order</span>
+                                        <span class="caption-subject font-dark bold uppercase">Total Order By Month</span>
                                       <span class="caption-helper">Total Statistic</span>
                                     </div>
                                     <div class="actions">
-                                        <!--<div class="btn-group btn-group-devided" data-toggle="buttons">
-                                            <label class="btn red btn-outline btn-circle btn-sm active">
-                                                <input type="radio" name="options" class="toggle" id="option1">New</label>
-                                            <label class="btn red btn-outline btn-circle btn-sm">
-                                                <input type="radio" name="options" class="toggle" id="option2">Returning</label>
-                                        </div>-->
                                     </div>
                                 </div>
                                 <div class="clear" style="height:40px;"></div>
@@ -152,8 +147,36 @@ License: You must have a valid license purchased only from themeforest(the above
                             </div>
                             <!-- END PORTLET-->
                         </div>
-                   <div class="col-md-6 col-sm-6">
+                            <!-- END PORTLET-->
+                    </div>
+                    <div class="row">
+                          <div class="col-md-12 col-sm-12">
+                              <div class="portlet light ">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class="icon-bar-chart font-dark hide"></i>
+                                        <span class="caption-subject font-dark bold uppercase">Total Flavored By Month</span>
+                                      <span class="caption-helper">Total Statistic</span>
+                                    </div>
+                                    <div class="actions">
+                                    </div>
+                                </div>
+                                <div class="clear" style="height:40px;"></div>
+                                <div class="portlet-body">
+                                    <div id="site_statistics_loading" class="display-none">>
+                                        <img src="<?= base_url(); ?>/asset2/global/img/loading.gif" alt="loading" /> </div>
+                                        <!-- #graph -->                                      
+                                    <div id="site_statistics_content" >
+                                        <div id="flavdiv" </div>
+                                        <div id="flavcode" ></div>
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+                      </div>  
+                        <div class="col-md-6 col-sm-6">
                             <!-- BEGIN PORTLET-->
+                            <!-- #feed -->
                             <div class="portlet light ">
                                 <div class="portlet-title tabbable-line">
                                     <div class="caption">
@@ -697,11 +720,6 @@ License: You must have a valid license purchased only from themeforest(the above
                             </div>
                            
                     </div>
-                 
-                     
-                    
-                            <!-- END PORTLET-->
-                        </div>
                          <div class="col-md-6 col-sm-6">
                             <!-- BEGIN PORTLET-->
                             <div class="portlet light calendar ">
@@ -1345,9 +1363,91 @@ $(document).ready(function() {
         $.when($('#gcode').html(data)).then(function(){
             $("#chartdiv").removeClass('display-none');
             $("#site_statistics_loading").addClass('display-none');
-            alert("Jadi");
         });
     });
+});
+
+var chart = AmCharts.makeChart("flavdiv", {
+  "type": "serial",
+  "theme": "light",
+  "marginRight": 70,
+  "dataProvider": [{
+    "country": "USA",
+    "visits": 3025,
+    "color": "#FF0F00"
+  }, {
+    "country": "China",
+    "visits": 1882,
+    "color": "#FF6600"
+  }, {
+    "country": "Japan",
+    "visits": 1809,
+    "color": "#FF9E01"
+  }, {
+    "country": "Germany",
+    "visits": 1322,
+    "color": "#FCD202"
+  }, {
+    "country": "UK",
+    "visits": 1122,
+    "color": "#F8FF01"
+  }, {
+    "country": "France",
+    "visits": 1114,
+    "color": "#B0DE09"
+  }, {
+    "country": "India",
+    "visits": 984,
+    "color": "#04D215"
+  }, {
+    "country": "Spain",
+    "visits": 711,
+    "color": "#0D8ECF"
+  }, {
+    "country": "Netherlands",
+    "visits": 665,
+    "color": "#0D52D1"
+  }, {
+    "country": "Russia",
+    "visits": 580,
+    "color": "#2A0CD0"
+  }, {
+    "country": "South Korea",
+    "visits": 443,
+    "color": "#8A0CCF"
+  }, {
+    "country": "Canada",
+    "visits": 441,
+    "color": "#CD0D74"
+  }],
+  "valueAxes": [{
+    "axisAlpha": 0,
+    "position": "left",
+    "title": "Total Flavor By Month"
+  }],
+  "startDuration": 1,
+  "graphs": [{
+    "balloonText": "<b>[[category]]: [[value]]</b>",
+    "fillColorsField": "color",
+    "fillAlphas": 0.9,
+    "lineAlpha": 0.2,
+    "type": "column",
+    "valueField": "visits"
+  }],
+  "chartCursor": {
+    "categoryBalloonEnabled": false,
+    "cursorAlpha": 0,
+    "zoomable": false
+  },
+  "categoryField": "country",
+  "categoryAxis": {
+    "gridPosition": "start",
+    "labelRotation": 45
+  },
+  "export": {
+    "enabled": true
+  }
+
 });
 
 </script>
@@ -1364,30 +1464,9 @@ $(document).ready(function() {
             <script src="<?= base_url(); ?>/asset2/global/plugins/morris/raphael-min.js" type="text/javascript"></script>
             <script src="<?= base_url(); ?>/asset2/global/plugins/counterup/jquery.waypoints.min.js" type="text/javascript"></script>
             <script src="<?= base_url(); ?>/asset2/global/plugins/counterup/jquery.counterup.min.js" type="text/javascript"></script>
-            <!--<script src="<?= base_url(); ?>/asset2/global/plugins/amcharts/amcharts/amcharts.js" type="text/javascript"></script><!-- ada - ->
-            <script src="<?= base_url(); ?>/asset2/global/plugins/amcharts/amcharts/serial.js" type="text/javascript"></script><!-- ada - ->
-            <script src="<?= base_url(); ?>/asset2/global/plugins/amcharts/amcharts/pie.js" type="text/javascript"></script>
-            <script src="<?= base_url(); ?>/asset2/global/plugins/amcharts/amcharts/radar.js" type="text/javascript"></script>
-            <script src="<?= base_url(); ?>/asset2/global/plugins/amcharts/amcharts/themes/light.js" type="text/javascript"></script>
-            <script src="<?= base_url(); ?>/asset2/global/plugins/amcharts/amcharts/themes/patterns.js" type="text/javascript"></script>
-            <script src="<?= base_url(); ?>/asset2/global/plugins/amcharts/amcharts/themes/chalk.js" type="text/javascript"></script>
-            <script src="<?= base_url(); ?>/asset2/global/plugins/amcharts/ammap/ammap.js" type="text/javascript"></script>
-            <script src="<?= base_url(); ?>/asset2/global/plugins/amcharts/ammap/maps/js/worldLow.js" type="text/javascript"></script>
-             <script src="<?= base_url(); ?>/asset2/global/plugins/amcharts/amstockcharts/amstock.js" type="text/javascript"></script> -->
+            <!---->
             <script src="<?= base_url(); ?>/asset2/global/plugins/fullcalendar/fullcalendar.min.js" type="text/javascript"></script>
-           <!-- <script src="<?= base_url(); ?>/asset2/global/plugins/horizontal-timeline/horozontal-timeline.min.js" type="text/javascript"></script>
-            <script src="<?= base_url(); ?>/asset2/global/plugins/flot/jquery.flot.min.js" type="text/javascript"></script>
-            <script src="<?= base_url(); ?>/asset2/global/plugins/flot/jquery.flot.resize.min.js" type="text/javascript"></script>
-            <script src="<?= base_url(); ?>/asset2/global/plugins/flot/jquery.flot.categories.min.js" type="text/javascript"></script>
-            <script src="<?= base_url(); ?>/asset2/global/plugins/jquery-easypiechart/jquery.easypiechart.min.js" type="text/javascript"></script>
-            <script src="<?= base_url(); ?>/asset2/global/plugins/jquery.sparkline.min.js" type="text/javascript"></script>
-            <script src="<?= base_url(); ?>/asset2/global/plugins/jqvmap/jqvmap/jquery.vmap.js" type="text/javascript"></script>
-            <script src="<?= base_url(); ?>/asset2/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.russia.js" type="text/javascript"></script>
-            <script src="<?= base_url(); ?>/asset2/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.world.js" type="text/javascript"></script>
-            <script src="<?= base_url(); ?>/asset2/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.europe.js" type="text/javascript"></script>
-            <script src="<?= base_url(); ?>/asset2/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.germany.js" type="text/javascript"></script>
-            <script src="<?= base_url(); ?>/asset2/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js" type="text/javascript"></script>
-            <script src="<?= base_url(); ?>/asset2/global/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js" type="text/javascript"></script>
+           <!--
              END PAGE LEVEL PLUGINS -->
             <!-- BEGIN THEME GLOBAL SCRIPTS -->
             <script src="<?= base_url(); ?>/asset2/global/scripts/app.min.js" type="text/javascript"></script>

@@ -115,7 +115,10 @@
         }
         public function getAjaxGraph()
         {
-            echo $this->load->view($this->parent_page.'/ajax/getAjaxGraph', false);
+            $this->load->database();
+            $this->load->model('m_item');
+            $arr['arr'] = $this->m_item->totalByOrder();
+            echo $this->load->view($this->parent_page.'/ajax/getAjaxGraph', $arr, false);
         }
 	    public function page($key)
     	{
@@ -123,6 +126,11 @@
     		$this->_checkSession();
             $lvl =$this->my_func->scpro_decrypt($this->session->userdata('us_lvl'));
     		switch ($key) {
+                case 'test':
+                    
+                $data['display'] = $this->load->view($this->parent_page."/testgraft" ,'', true);
+                        $this->_show('display' , $data, $key);
+                    break;
                 case "x1" :// dashboard
                         //start added
                         $this->load->database();

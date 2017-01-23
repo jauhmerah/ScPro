@@ -1,25 +1,12 @@
-<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
-<script src="https://www.amcharts.com/lib/3/serial.js"></script>
-<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
-<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
-<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
-<div id="chartdiv"></div>
-<style type="text/css">
-    #chartdiv {
-    width   : 100%;
-    height  : 500px;
-}
-                                        
-</style>                                                                                
-<script type="text/javascript">
+<script>
     var chart = AmCharts.makeChart("chartdiv", {
     "type": "serial",
-    "theme": "light",
+    "theme": "none",
     "marginRight": 40,
     "marginLeft": 40,
     "autoMarginOffset": 20,
     "mouseWheelZoomEnabled":true,
-    "dataDateFormat": "YYYY-MM-DD",
+    "dataDateFormat": "YYYY-MM",
     "valueAxes": [{
         "id": "v1",
         "axisAlpha": 0,
@@ -87,12 +74,25 @@
     "export": {
         "enabled": true
     },
-    "dataProvider": [{
-        "date": "2012-07-27",
-        "value": 13
-    }, {
-        "date": "2012-08-28",
-        "value": 11
+    "dataProvider": [
+        <?php 
+        $n = 0;
+        if (sizeof($arr) != 0) {
+            
+            foreach ($arr as $data) {
+                if ($n != 0) {
+                echo "},";
+                }else{ $n++;}
+                echo "{";
+                ?>
+                "date": "<?= $data->tahun; ?>-<?= $data->bulan; ?>",
+                "value": <?= $data->total; ?>
+                <?php
+            }
+        }else{
+            echo "{";
+        }            
+        ?>
     }]
 });
 
@@ -103,4 +103,4 @@ zoomChart();
 function zoomChart() {
     chart.zoomToIndexes(chart.dataProvider.length - 40, chart.dataProvider.length - 1);
 }
-</script>
+</script>  

@@ -89,11 +89,13 @@ class M_item extends CI_Model {
     }
     public function totalByOrder()
     {
-        $this->db->select('ord.* , ori.orex_id, ox.or_id , sum(ori.oi_qty) as total');
+        $this->db->select('ord.or_date as date,MONTH(ord.or_date) AS bulan , YEAR(ord.or_date) as tahun, sum(ori.oi_qty) as total');
         $this->db->from('order_item ori');
         $this->db->join('order_ext ox', 'ox.orex_id = ori.orex_id', 'left');
         $this->db->join('order ord', 'ox.or_id = ord.or_id', 'left');
-        $this->db->group_by('ori.orex_id');
+        //$this->db->group_by('ori.orex_id');
+        $this->db->group_by('MONTH(ord.or_date)');
+        $this->db->order_by('ord.or_date', 'asc');
        
         $result = $this->db->get()->result();
         return $result;
