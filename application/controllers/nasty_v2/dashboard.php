@@ -108,7 +108,7 @@
         {
             $this->load->database();
             $this->load->model('m_item');
-            $arr = $this->m_item->totalByOrder();
+            $arr = $this->m_item->totalByFlavor();
             echo "<pre>";
             print_r($arr);
             echo "</pre>";
@@ -119,6 +119,13 @@
             $this->load->model('m_item');
             $arr['arr'] = $this->m_item->totalByOrder();
             echo $this->load->view($this->parent_page.'/ajax/getAjaxGraph', $arr, false);
+        }
+        public function getAjaxGraph2()
+        {
+            $this->load->database();
+            $this->load->model('m_item');
+            $arr['arr'] = $this->m_item->totalByFlavor();
+            echo $this->load->view($this->parent_page.'/ajax/getAjaxGraph2', $arr , false);
         }
 	    public function page($key)
     	{
