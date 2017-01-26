@@ -12,9 +12,16 @@
                 echo "},";
                 }else{ $n++;}
                 echo "{";
+                $text = explode("|", $data->detail);
+                $rep = array('<p>','<strong>','</strong>' , '</p>' , ' ', '"');
+                $text2 = str_replace($rep, '', $text[1]);
+                unset($rep);
+                $rep = array('<p>','<strong>','</strong>' , '</p>' , '"' );
+                $tex = preg_replace( "/\r|\n/", "", $data->ca_desc );
+                $tex = str_replace($rep, '', $tex);
                 ?>
-                "country": "<?= $data->detail; ?>",
-                "visits": <?= $data->total; ?>,
+                "flavor": '<?= $text2; ?>-<?= $tex;?>',
+                "total": <?= $data->total; ?>,
                 "color": "<?= $data->ca_color; ?>"
                 <?php
             }
@@ -27,7 +34,7 @@
   "valueAxes": [{
     "axisAlpha": 0,
     "position": "left",
-    "title": "Total Flavor By Month"
+    "title": "Total Flavor"
   }],
   "startDuration": 1,
   "graphs": [{
@@ -36,14 +43,14 @@
     "fillAlphas": 0.9,
     "lineAlpha": 0.2,
     "type": "column",
-    "valueField": "visits"
+    "valueField": "total"
   }],
   "chartCursor": {
     "categoryBalloonEnabled": false,
     "cursorAlpha": 0,
     "zoomable": false
   },
-  "categoryField": "country",
+  "categoryField": "flavor",
   "categoryAxis": {
     "gridPosition": "start",
     "labelRotation": 45

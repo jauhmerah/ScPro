@@ -125,6 +125,7 @@
             $this->load->database();
             $this->load->model('m_item');
             $arr['arr'] = $this->m_item->totalByFlavor();
+            //print_r($arr);//die()
             echo $this->load->view($this->parent_page.'/ajax/getAjaxGraph2', $arr , false);
         }
 	    public function page($key)
@@ -142,12 +143,13 @@
                         //start added
                         $this->load->database();
                         $this->load->model('m_order');
-                         
+                        $this->load->model('m_client');
                         $arr['neworder'] = $this->m_order->countOrderType($num=1);
                         $arr['inprogress'] = $this->m_order->countOrderType($num=2);
                         $arr['complete'] = $this->m_order->countOrderType($num=3);
                         $arr['totalOrder'] = $this->m_order->countOrderType($num=0);
                         $arr['totalProfit'] = $this->m_order->totalProfit();
+                        $arr['client'] = $this->m_client->get(null , 'asc');
                         //end added
 
                         $data['title'] = '<i class="fa fa-pencil"></i>Main Page</a>';

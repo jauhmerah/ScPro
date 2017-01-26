@@ -163,6 +163,69 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </div>
                                 <div class="clear" style="height:40px;"></div>
                                 <div class="portlet-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                        <div class="col-lg-5">
+                                            <label for="input" class="col-sm-2 control-label">Year :</label>
+                                            <div class="col-sm-10">
+                                                <input type="number" name="year" id="flavYear" class="form-control" min="2016" placeholder="Year">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-5">
+                                            <label for="input" class="col-sm-3 control-label">Month :</label>
+                                            <div class="col-sm-9">
+                                                <select id="flavMonth" class="form-control">
+                                                    <option value="-1">-- All Month --</option>
+                                                    <option value="1">January</option>
+                                                    <option value="2">February</option>
+                                                    <option value="3">March</option>
+                                                    <option value="4">April</option>
+                                                    <option value="5">May</option>
+                                                    <option value="6">June</option>
+                                                    <option value="7">July</option>
+                                                    <option value="8">August</option>
+                                                    <option value="9">September</option>
+                                                    <option value="10">October</option>
+                                                    <option value="11">November</option>
+                                                    <option value="12">December</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <button type="button" id="flavBtn" class="btn btn-circle purple">Generate</button>
+                                        </div>                                            
+                                        </div>
+                                    </div>
+                                    <div class="clearfix">
+                                        &nbsp;
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class= "col-lg-5">
+                                                <div class="form-group">
+                                                    <label for="input" class="col-sm-2 control-label">Client :</label>
+                                                    <div class="col-sm-10">
+                                                        <select name="client" id="client" class="input-circle form-control input-sm select2-multiple select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                                                        <option value="-1">--New Client--</option>
+                                                            <?php 
+                                                            foreach ($client as $key) { ?>
+                                                                <option value="<?= $key->cl_id; ?>"> <?= $key->cl_name; ?> </option>
+                                                            <?php }
+                                                            ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="row">
+                                    <div align="center">
+                                        <h2>Flavor Statistic</h2>
+                                    </div>
+                                </div>
                                     <div id="site_statistics_loading2" >
                                         <img src="<?= base_url(); ?>/asset2/global/img/loading.gif" alt="loading" /> </div>
                                         <!-- #graph -->                                      
