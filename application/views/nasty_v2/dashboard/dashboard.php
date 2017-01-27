@@ -207,7 +207,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                     <label for="input" class="col-sm-2 control-label">Client :</label>
                                                     <div class="col-sm-10">
                                                         <select name="client" id="client" class="input-circle form-control input-sm select2-multiple select2-hidden-accessible" tabindex="-1" aria-hidden="true">
-                                                        <option value="-1">--New Client--</option>
+                                                        <option value="-1">--All Client--</option>
                                                             <?php 
                                                             foreach ($client as $key) { ?>
                                                                 <option value="<?= $key->cl_id; ?>"> <?= $key->cl_name; ?> </option>
@@ -226,7 +226,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                         <h2>Flavor Statistic</h2>
                                     </div>
                                 </div>
-                                    <div id="site_statistics_loading2" >
+                                    <div id="site_statistics_loading2" class="display-none">
                                         <img src="<?= base_url(); ?>/asset2/global/img/loading.gif" alt="loading" /> </div>
                                         <!-- #graph -->                                      
                                     <div id="site_statistics_content"  >
@@ -237,9 +237,9 @@ License: You must have a valid license purchased only from themeforest(the above
                             </div>
                           </div>
                       </div>  
-                        <div class="col-md-6 col-sm-6">
-                            <!-- BEGIN PORTLET-->
-                            <!-- #feed -->
+                    <!--<div class="col-md-6 col-sm-6">
+                            <!- - BEGIN PORTLET- ->
+                            <!-- #feed - ->
                             <div class="portlet light ">
                                 <div class="portlet-title tabbable-line">
                                     <div class="caption">
@@ -257,7 +257,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </div>
 
                                 <div class="portlet-body">
-                                    <!--BEGIN TABS-->
+                                    <!- -BEGIN TABS- ->
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="tab_1_1">
                                             <div class="scroller" style="height: 339px;" data-always-visible="1" data-rail-visible="0">
@@ -778,13 +778,13 @@ License: You must have a valid license purchased only from themeforest(the above
                                             </div>
                                         </div>
                                     </div>
-                                    <!--END TABS-->
+                                    <!- -END TABS- ->
                                 </div>
                             </div>
-                           
-                    </div>
+                    -->      
+                    <!-- </div>
                          <div class="col-md-6 col-sm-6">
-                            <!-- BEGIN PORTLET-->
+                            <!- - BEGIN PORTLET- ->
                             <div class="portlet light calendar ">
                                 <div class="portlet-title ">
                                     <div class="caption">
@@ -796,8 +796,8 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <div id="calendar"> </div>
                                 </div>
                             </div>
-                            <!-- END PORTLET-->
-                        </div>
+                            <!- - END PORTLET- ->
+                        </div> -->
                     </div>
                  
                     </div>
@@ -1428,12 +1428,25 @@ $(document).ready(function() {
             $("#site_statistics_loading").addClass('display-none');
         });
     });
-
-    $.post('<?= site_url('nasty_v2/dashboard/getAjaxGraph2') ?>', {}, function(data) {
-        $.when($('#flavcode').html(data)).then(function(){
-            $("#flavdiv").removeClass('display-none');
-            $("#site_statistics_loading2").addClass('display-none');
-        });
+    $("#flavBtn").click(function() {
+        year1 = $('#flavYear').val();
+        month1 = $('#flavMonth').val();
+        client = $('#client').val();
+        if (year1 == "" && month1 != -1) {
+            bootbox.alert("Year is empty");
+            $('#flavYear').focus();
+        }else{
+            //alert(month1);
+            $.when($("#site_statistics_loading2").removeClass('display-none')).then(function(){        
+                $.post('<?= site_url('nasty_v2/dashboard/getAjaxGraph2') ?>', {year1 : year1 , month1 : month1 , client : client}, function(data) {
+                    $.when($('#flavcode').html(data)).then(function(){
+                        $("#flavdiv").removeClass('display-none');
+                        $("#site_statistics_loading2").addClass('display-none');
+                    });
+                });
+            });
+        }
+        
     });
 
 });

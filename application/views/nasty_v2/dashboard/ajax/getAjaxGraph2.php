@@ -26,7 +26,11 @@
                 <?php
             }
         }else{
-            echo "{";
+            echo "{"; ?>
+            "flavor": 'No Data',
+                "total": 0,
+                "color": "black"
+            <?php
         }            
         ?>
     }
