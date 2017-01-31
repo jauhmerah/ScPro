@@ -54,15 +54,21 @@
 	    */
 
 		//start added
-		 public function countOrderType($num){
+		 public function countOrderType($num = 0 , $ver = -1){
       
       		if($num != 0){
             $this->db->where('pr_id', $num);
         	$this->db->from('order');
+        	if ($ver != -1) {
+        		$this->db->where('or_ver', $ver);
+        	}
             $result = $this->db->count_all_results();
             }
             else{
             $this->db->from('order');
+            if ($ver != -1) {
+        		$this->db->where('or_ver', $ver);
+        	}
             $result = $this->db->count_all_results();
             }
             return $result;

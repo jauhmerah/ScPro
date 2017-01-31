@@ -102,14 +102,15 @@ class M_item extends CI_Model {
         return $result;
     }
 
-    public function totalByFlavor($year = null , $month = -1 , $client = null)
+    public function totalByFlavor($year = null , $month = -1 , $client = -1)
     {
-        $this->db->select('ty2.ty2_id as item_id , ty2.ty2_desc as detail ,ca.* , sum(ori.oi_qty) as total');
+        $this->db->select('ori.oi_id ,ty2.ty2_id as item_id , MONTH(ord.or_date) as month , YEAR(ord.or_date) as year , ni.ni_mg , ty2.ty2_desc as detail ,ca.* , sum(ori.oi_qty) as total');
         $this->db->from('order_item ori');
         $this->db->join('order_ext ox', 'ox.orex_id = ori.orex_id', 'left');
         $this->db->join('order ord', 'ox.or_id = ord.or_id', 'left');
         $this->db->join('type2 ty2' , 'ty2.ty2_id = ori.ty2_id' , 'left');
         $this->db->join('category ca' , 'ty2.ca_id = ca.ca_id' , 'left');
+        $this->db->join('nicotine ni', 'ori.ni_id = ni.ni_id' , 'left');
         //$this->db->group_by('ori.orex_id');
         if ($year != null && $year != ' ') {
             $this->db->where('YEAR(ord.or_date)', $year);
@@ -120,8 +121,9 @@ class M_item extends CI_Model {
         if ($client != -1) {
             $this->db->where('ord.cl_id', $client);
         }
-        $this->db->group_by('ori.ty2_id');  
-        $this->db->where('ord.or_del', 0);     
+        $this->db->group_by('ori.ni_id,ori.ty2_id');  
+        $this->db->where('ord.or_del', 0);
+        $this->db->order_by('ord.or_date', 'asc'); 
         $result = $this->db->get()->result();
         return $result;
     }

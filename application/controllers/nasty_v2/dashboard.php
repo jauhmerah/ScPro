@@ -108,7 +108,7 @@
         {
             $this->load->database();
             $this->load->model('m_item');
-            $arr = $this->m_item->totalByOrder();
+            $arr = $this->m_item->totalByFlavor();
             echo "<pre>";
             print_r($arr);
             echo "</pre>";
@@ -125,9 +125,11 @@
             $arr1 = $this->input->post();
             $this->load->database();
             $this->load->model('m_item');
+            $this->load->model('m_nico');
             $arr['arr'] = $this->m_item->totalByFlavor($arr1['year1'] , $arr1['month1'] , $arr1['client']);
-            //print_r($arr);//die()
-            echo $this->load->view($this->parent_page.'/ajax/getAjaxGraph3', $arr , false);
+            $arr['nico'] = $this->m_nico->get();
+            //print_r($arr);die();
+            echo $this->load->view($this->parent_page.'/ajax/getAjaxGraph2', $arr , false);
         }
 	    public function page($key)
     	{
@@ -145,10 +147,13 @@
                         $this->load->database();
                         $this->load->model('m_order');
                         $this->load->model('m_client');
-                        $arr['neworder'] = $this->m_order->countOrderType($num=1);
-                        $arr['inprogress'] = $this->m_order->countOrderType($num=2);
-                        $arr['complete'] = $this->m_order->countOrderType($num=3);
-                        $arr['totalOrder'] = $this->m_order->countOrderType($num=0);
+                        $arr['neworder'] = $this->m_order->countOrderType(1 , 2);
+                        $arr['inprogress'] = $this->m_order->countOrderType(2 , 2);
+                        $arr['complete'] = $this->m_order->countOrderType(3 , 2);
+                        $arr['unconfirm'] = $this->m_order->countOrderType(4 , 2);
+                        $arr['onhold'] = $this->m_order->countOrderType(7 , 2);
+                        $arr['vernew'] = $this->m_order->orderCount(2);
+                        $arr['verold'] = $this->m_order->orderCount(1) + $this->m_order->orderCount(0);
                         $arr['totalProfit'] = $this->m_order->totalProfit();
                         $arr['client'] = $this->m_client->get(null , 'asc');
                         //end added
@@ -276,9 +281,15 @@
                     $this->load->library('my_func');
                     $this->load->database();
                     $this->load->model('m_order');
-                    if ($this->input->post("search") && $this->input->post("filter")) {
-                        $search = $this->input->post("search");
-                        switch ($this->input->post("filter")) {
+                    if ($this->input->post("search") && $this->input->post("filter") || $this->input->get("search") && $this->input->get("filter")) {
+                        if ($this->input->get("search") && $this->input->get("filter")) {
+                            $search = $this->input->get("search");
+                            $filter = $this->input->get("filter");
+                        } else {
+                            $search = $this->input->post("search");
+                            $filter = $this->input->post("filter");
+                        }
+                        switch ($filter) {
                             case '10':
                                 //Client Name
                                 $where = array(

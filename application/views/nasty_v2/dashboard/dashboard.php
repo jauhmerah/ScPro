@@ -48,23 +48,36 @@ License: You must have a valid license purchased only from themeforest(the above
 </style>
 
                     <div class="row">
-                      <div class="col-lg-12 ">
-                            <a class="dashboard-stat dashboard-stat-v2 purple-plum" href="#">
+                        <div class="col-xs-6 ">
+                            <a class="dashboard-stat dashboard-stat-v2 purple" href="<?= site_url(); ?>nasty_v2/dashboard/page/a1new">
                                 <div class="visual">
-                                    <i class="fa fa-cubes"></i>
+                                    <i>2017</i>
                                 </div>
                                 <div class="details">
                                     <div class="number">
-                                        <span data-counter="counterup" data-value="<?php echo $totalOrder ?>">0</span>
+                                        <span data-counter="counterup" data-value="<?php echo $vernew ?>">0</span>
                                     </div>
-                                    <div class="desc"> Total Order </div>
+                                    <div class="desc"> Total Order 2017 </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-xs-6 ">
+                            <a class="dashboard-stat dashboard-stat-v2 green" href="<?= site_url(); ?>nasty_v2/dashboard/page/a1old">
+                                <div class="visual">
+                                    <i>2016</i>
+                                </div>
+                                <div class="details">
+                                    <div class="number">
+                                        <span data-counter="counterup" data-value="<?php echo $verold ?>">0</span>
+                                    </div>
+                                    <div class="desc"> Total Order 2016</div>
                                 </div>
                             </a>
                         </div>
                     </div>
                     <div class="row">
-                      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                            <a class="dashboard-stat dashboard-stat-v2 green" href="#">
+                      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                            <a class="dashboard-stat dashboard-stat-v2 blue" href="<?= site_url(); ?>nasty_v2/dashboard/page/a1new?search=new%20order&filter=3">
                                 <div class="visual">
                                     <i class="fa fa-shopping-cart"></i>
                                 </div>
@@ -77,10 +90,10 @@ License: You must have a valid license purchased only from themeforest(the above
                             </a>
                         </div>
                       
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                            <a class="dashboard-stat dashboard-stat-v2 red" href="#">
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                            <a class="dashboard-stat dashboard-stat-v2 purple-plum" href="<?= site_url(); ?>nasty_v2/dashboard/page/a1new?search=in%20progress&filter=3">
                                 <div class="visual">
-                                    <i class="fa fa-spinner"></i>
+                                    <i class="fa fa-spinner fa-spin"></i>
                                 </div>
                                 <div class="details">
                                     <div class="number">
@@ -91,10 +104,10 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </div>
                             </a>
                         </div>
-                         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                            <a class="dashboard-stat dashboard-stat-v2 blue" href="#">
+                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                            <a class="dashboard-stat dashboard-stat-v2 green" href="<?= site_url(); ?>nasty_v2/dashboard/page/a1new?search=complete&filter=3">
                                 <div class="visual">
-                                    <i class="fa fa-list"></i>
+                                    <i class="fa fa-check-square-o"></i>
                                 </div>
                                 <div class="details">
                                     <div class="number">
@@ -105,16 +118,29 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </div>
                             </a>
                         </div>
-                       
-                         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                            <a class="dashboard-stat dashboard-stat-v2 grey-mint" href="#">
+                    </div>
+                    <div class="row">                       
+                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <a class="dashboard-stat dashboard-stat-v2 yellow-lemon" href="<?= site_url(); ?>nasty_v2/dashboard/page/a1new?search=unconfirm&filter=3">
                                 <div class="visual">
-                                    <i class="fa fa-question-circle"></i>
+                                    <i class="fa fa-exclamation-circle fa-spin"></i>
                                 </div>
                                 <div class="details">
                                     <div class="number">
-                                        <span data-counter="counterup" data-value="0"></span></div>
+                                        <span data-counter="counterup" data-value="<?= $unconfirm; ?>">0</span></div>
                                     <div class="desc"> Unconfirm Order </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <a class="dashboard-stat dashboard-stat-v2 grey-salt" href="<?= site_url(); ?>nasty_v2/dashboard/page/a1new?search=hold&filter=3">
+                                <div class="visual">
+                                    <i class="fa fa-hand-stop-o"></i>
+                                </div>
+                                <div class="details">
+                                    <div class="number">
+                                        <span data-counter="counterup" data-value="<?= $onhold; ?>">0</span></div>
+                                    <div class="desc"> On Hold In Progress Order </div>
                                 </div>
                             </a>
                         </div>
