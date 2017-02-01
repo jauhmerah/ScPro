@@ -66,7 +66,7 @@
 			return $val2;
 		}
 
-		function do_upload($path = './assets/uploads/files/', $config = null , $type = 'gif|jpg|png')
+		function do_upload($path = './assets/uploads/files/', $config = null , $type = 'gif|jpg|png|jpeg')
 		{	
 			$ci = $this->obj;	
 			$config['upload_path'] = $path;
