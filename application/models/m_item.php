@@ -95,7 +95,7 @@ class M_item extends CI_Model {
         $this->db->join('order ord', 'ox.or_id = ord.or_id', 'left');
         //$this->db->group_by('ori.orex_id');
         $this->db->where('ord.or_del', 0);
-        $this->db->group_by('MONTH(ord.or_date)');
+        $this->db->group_by('date(ord.or_date)');
         $this->db->order_by('ord.or_date', 'asc');
        
         $result = $this->db->get()->result();
@@ -112,7 +112,7 @@ class M_item extends CI_Model {
         $this->db->join('category ca' , 'ty2.ca_id = ca.ca_id' , 'left');
         $this->db->join('nicotine ni', 'ori.ni_id = ni.ni_id' , 'left');
         //$this->db->group_by('ori.orex_id');
-        if ($year != null && $year != ' ') {
+        if ($year != null) {
             $this->db->where('YEAR(ord.or_date)', $year);
             if ($month != -1) {
                 $this->db->where('MONTH(ord.or_date)', $month);
@@ -121,7 +121,7 @@ class M_item extends CI_Model {
         if ($client != -1) {
             $this->db->where('ord.cl_id', $client);
         }
-        $this->db->group_by('ori.ni_id,ori.ty2_id');  
+        $this->db->group_by('ori.ty2_id');  
         $this->db->where('ord.or_del', 0);
         $this->db->order_by('ord.or_date', 'asc'); 
         $result = $this->db->get()->result();

@@ -6,7 +6,7 @@
     "marginLeft": 40,
     "autoMarginOffset": 20,
     "mouseWheelZoomEnabled":true,
-    "dataDateFormat": "YYYY-MM",
+    "dataDateFormat": "YYYY-MM-DD",
     "valueAxes": [{
         "id": "v1",
         "axisAlpha": 0,
@@ -85,7 +85,7 @@
                 }else{ $n++;}
                 echo "{";
                 ?>
-                "date": "<?= $data->tahun; ?>-<?= $data->bulan; ?>",
+                "date": "<?= $data->date; ?>",
                 "value": <?= $data->total; ?>
                 <?php
             }

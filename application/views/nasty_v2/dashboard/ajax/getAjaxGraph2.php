@@ -15,6 +15,7 @@
                 $text = explode("|", $data->detail);
                 $rep = array('<p>','<strong>','</strong>' , '</p>' , ' ', '"');
                 $text2 = str_replace($rep, '', $text[1]);
+                $text2 = preg_replace( "/\r|\n/", "", $text2 );
                 unset($rep);
                 $rep = array('<p>','<strong>','</strong>' , '</p>' , '"' );
                 $tex = preg_replace( "/\r|\n/", "", $data->ca_desc );

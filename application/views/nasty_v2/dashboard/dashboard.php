@@ -1,20 +1,4 @@
 
-<!-- 
-Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.6
-Version: 4.6
-Author: KeenThemes
-Website: http://www.keenthemes.com/
-Contact: support@keenthemes.com
-Follow: www.twitter.com/keenthemes
-Dribbble: www.dribbble.com/keenthemes
-Like: www.facebook.com/keenthemes
-Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
-Renew Support: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
-License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
--->
-<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
-<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
-<!--[if !IE]><!-->
 
 
              <!-- BEGIN PAGE LEVEL PLUGINS -->
@@ -146,9 +130,37 @@ License: You must have a valid license purchased only from themeforest(the above
                         </div>
                     </div>
                     <div class="clearfix"></div>
-                    <!-- END DASHBOARD STATS 1-->
+                    <!-- END DASHBOARD STATS 1
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
+                              <div class="portlet light ">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class="icon-bar-chart font-dark hide"></i>
+                                        <span class="caption-subject font-dark bold uppercase">Total Statistic</span>
+                                      <span class="caption-helper">Total Order</span>
+                                    </div>
+                                    <div class="actions">
+                                    </div>
+                                </div>
+                                <div class="clear" style="height:40px;"></div>
+                                <div class="portlet-body">
+                                <div class="row">
+                                    <div align="center">
+                                        <h2>Flavor Statistic</h2>
+                                    </div>
+                                </div>
+                                    <div id="site_statistics_loading2" class="display-none">
+                                        <img src="<?= base_url(); ?>/asset2/global/img/loading.gif" alt="loading" /> </div>
+                                        <!- - #graph - ->                                      
+                                    <div id="site_statistics_content"  >
+                                        <div id="orderdiv" class="display-none"> </div>
+                                        <div id="ordercode" ></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>-->
+                        <div class="col-md-6 col-sm-6">
                             <!-- BEGIN PORTLET-->
                             <div class="portlet light ">
                                 <div class="portlet-title">
@@ -174,9 +186,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <!-- END PORTLET-->
                         </div>
                             <!-- END PORTLET-->
-                    </div>
-                    <div class="row">
-                          <div class="col-md-12 col-sm-12">
+                        <div class="col-md-6 col-sm-6">
                               <div class="portlet light ">
                                 <div class="portlet-title">
                                     <div class="caption">
@@ -193,30 +203,24 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <div class="col-md-12">
                                         <div class="form-group">
                                         <div class="col-lg-5">
-                                            <label for="input" class="col-sm-2 control-label">Year :</label>
-                                            <div class="col-sm-10">
-                                                <input type="number" name="year" id="flavYear" class="form-control" min="2016" placeholder="Year">
-                                            </div>
+                                            <input type="number" name="year" id="flavYear" class="form-control" min="2016" placeholder="Year">
                                         </div>
                                         <div class="col-lg-5">
-                                            <label for="input" class="col-sm-3 control-label">Month :</label>
-                                            <div class="col-sm-9">
-                                                <select id="flavMonth" class="form-control">
-                                                    <option value="-1">-- All Month --</option>
-                                                    <option value="1">January</option>
-                                                    <option value="2">February</option>
-                                                    <option value="3">March</option>
-                                                    <option value="4">April</option>
-                                                    <option value="5">May</option>
-                                                    <option value="6">June</option>
-                                                    <option value="7">July</option>
-                                                    <option value="8">August</option>
-                                                    <option value="9">September</option>
-                                                    <option value="10">October</option>
-                                                    <option value="11">November</option>
-                                                    <option value="12">December</option>
-                                                </select>
-                                            </div>
+                                            <select id="flavMonth" class="form-control">
+                                                <option value="-1">-- All Month --</option>
+                                                <option value="1">January</option>
+                                                <option value="2">February</option>
+                                                <option value="3">March</option>
+                                                <option value="4">April</option>
+                                                <option value="5">May</option>
+                                                <option value="6">June</option>
+                                                <option value="7">July</option>
+                                                <option value="8">August</option>
+                                                <option value="9">September</option>
+                                                <option value="10">October</option>
+                                                <option value="11">November</option>
+                                                <option value="12">December</option>
+                                            </select>
                                         </div>
                                         <div class="col-lg-2">
                                             <button type="button" id="flavBtn" class="btn btn-circle purple">Generate</button>
@@ -228,19 +232,16 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div class= "col-lg-5">
+                                            <div class= "col-lg-8 col-lg-offset-1">
                                                 <div class="form-group">
-                                                    <label for="input" class="col-sm-2 control-label">Client :</label>
-                                                    <div class="col-sm-10">
-                                                        <select name="client" id="client" class="input-circle form-control input-sm select2-multiple select2-hidden-accessible" tabindex="-1" aria-hidden="true">
-                                                        <option value="-1">--All Client--</option>
-                                                            <?php 
-                                                            foreach ($client as $key) { ?>
-                                                                <option value="<?= $key->cl_id; ?>"> <?= $key->cl_name; ?> </option>
-                                                            <?php }
-                                                            ?>
-                                                        </select>
-                                                    </div>
+                                                    <select name="client" id="client" class="input-circle form-control input-sm select2-multiple select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                                                    <option value="-1">--All Client--</option>
+                                                        <?php 
+                                                        foreach ($client as $key) { ?>
+                                                            <option value="<?= $key->cl_id; ?>"> <?= $key->cl_name; ?> </option>
+                                                        <?php }
+                                                        ?>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -261,8 +262,8 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </div>
                                 </div>
                             </div>
-                          </div>
-                      </div>  
+                        </div>
+                    </div> 
                     <!--<div class="col-md-6 col-sm-6">
                             <!- - BEGIN PORTLET- ->
                             <!-- #feed - ->
@@ -890,6 +891,7 @@ $(document).ready(function() {
             $("#site_statistics_loading").addClass('display-none');
         });
     });
+    kelik();   
     $("#flavBtn").click(function() {
         year1 = $('#flavYear').val();
         month1 = $('#flavMonth').val();
@@ -907,11 +909,24 @@ $(document).ready(function() {
                     });
                 });
             });
-        }
-        
+        }        
     });
 
 });
+
+function kelik() {
+    year1 = $('#flavYear').val();
+    month1 = $('#flavMonth').val();
+    client = $('#client').val();
+    $.when($("#site_statistics_loading2").removeClass('display-none')).then(function(){        
+        $.post('<?= site_url('nasty_v2/dashboard/getAjaxGraph2') ?>', {year1 : year1 , month1 : month1 , client : client}, function(data) {
+            $.when($('#flavcode').html(data)).then(function(){
+                $("#flavdiv").removeClass('display-none');
+                $("#site_statistics_loading2").addClass('display-none');
+            });
+        });
+    });
+}
 
 </script>
 

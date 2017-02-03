@@ -265,16 +265,10 @@ body .ReadOnlyExtrasStatus {
           </td>
           <td></td>
           <td class="wv-table__cell" style="text-align: right;">
-            <span><?php echo date("Y-m-d") ; ?></span><br>
-          </td>
-        </tr>
-        <tr class="wv-table__row">
-          <td class="wv-table__cell" style="text-align: right;">
-            <strong class="wv-text--strong">Payment Due : </strong>
-          </td>
-          <td></td>
-          <td class="wv-table__cell" style="text-align: right;">
-            <span><?php echo date("Y-m-d") ; ?></span><br>
+          <?php 
+            $temp = date_create($arr['order']->or_date);
+          ?>
+            <span><?= date_format($temp,"Y-m-d"); ?></span><br>
           </td>
         </tr>
      

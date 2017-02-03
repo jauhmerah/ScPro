@@ -57,7 +57,6 @@
 	    }
 
 	    function orderPDF($data = null){
-
 	    	$html = $this->load->view($this->parent_page.'/printPdf/head', '', true);
 	    	$html = $html . $this->load->view($this->parent_page.'/printPdf/head2', '', true);
 	    	$html = $html . $this->load->view($this->parent_page.'/printPdf/navmenu3', '', true);
@@ -128,7 +127,10 @@
             $this->load->model('m_nico');
             $arr['arr'] = $this->m_item->totalByFlavor($arr1['year1'] , $arr1['month1'] , $arr1['client']);
             $arr['nico'] = $this->m_nico->get();
-            //print_r($arr);die();
+            /*echo "<pre>";
+            print_r($arr);
+            echo "</pre>";*/
+            //die();
             echo $this->load->view($this->parent_page.'/ajax/getAjaxGraph2', $arr , false);
         }
 	    public function page($key)
