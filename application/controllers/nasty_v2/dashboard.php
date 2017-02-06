@@ -1665,7 +1665,55 @@ epul@nastyjuice.com
                 ";
                 $this->sendEmail($email);                     
             }
-        }        
+        }
+
+        public function getAjaxGraph4()
+        {
+            $arr = $this->input->post();
+            echo $this->load->view($this->parent_page.'/ajax/getAjaxGraph4', $arr, false);
+        }
+
+        public function cancelConfirm()
+        {            
+            if ($this->input->post('or_id') && $this->input->get("cancel")) {
+                $this->load->library('my_func');
+                $or_code = $this->my_func->scpro_decrypt($this->input->post('or_id'));            
+                $msg = $this->input->post('msg');
+                $this->load->model('m_user');
+                $this->load->library('my_func');
+                $or_id = $arr->or_id;                
+                $saleman = $this->m_user->getName($arr->us_id);
+                $email['fromName'] = "Ai System";
+                $email['fromEmail'] = "nstylabc@sirius.sfdns.net";
+                $email['toEmail'] = array('0' => "faeiz@nastyjuice.com", '1' => "account@nastyjuice.com" , '2' => 'hairi@nastyjuice.com' , '3' => 'abun@nastyjuice.com');
+                $email['subject'] = "In Progress Order #".((10000*$ver)+100000+$or_id);
+                $email['msg'] = "
+Order Detail
+
+Order No : #".((10000*$ver)+100000+$or_id)."
+Order Status : In Progress Order
+Salesman : ".$saleman."
+
+Please Take Note!!!
+This Order was change to In-progress by its salesman.
+
+Search Order Page : ".site_url()."
+System Login : ".site_url('login')."
+
+Sincerely,
+Ai System
+
+Programmer
+JauhMerah
+jauhmerah@nastyjuice.com
+Epul
+epul@nastyjuice.com
+
+                ";
+                $this->sendEmail($email);  
+
+            }
+        }
 	}
 	        
 ?>

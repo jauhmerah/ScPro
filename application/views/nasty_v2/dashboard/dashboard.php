@@ -19,8 +19,9 @@
 <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
 <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
 <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+<script src="https://www.amcharts.com/lib/3/pie.js"></script>
 <style type="text/css">
-    #chartdiv, #flavdiv {
+    #chartdiv, #flavdiv , #orderdiv{
     width   : 100%;
     height  : 500px;
 }
@@ -130,7 +131,7 @@
                         </div>
                     </div>
                     <div class="clearfix"></div>
-                    <!-- END DASHBOARD STATS 1
+                    <!-- END DASHBOARD STATS 1-->
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
                               <div class="portlet light ">
@@ -138,7 +139,7 @@
                                     <div class="caption">
                                         <i class="icon-bar-chart font-dark hide"></i>
                                         <span class="caption-subject font-dark bold uppercase">Total Statistic</span>
-                                      <span class="caption-helper">Total Order</span>
+                                      <span class="caption-helper">Total Order Status</span>
                                     </div>
                                     <div class="actions">
                                     </div>
@@ -147,19 +148,19 @@
                                 <div class="portlet-body">
                                 <div class="row">
                                     <div align="center">
-                                        <h2>Flavor Statistic</h2>
+                                        <h2>Total Order Status</h2>
                                     </div>
                                 </div>
-                                    <div id="site_statistics_loading2" class="display-none">
+                                    <div id="site_statistics_loading4">
                                         <img src="<?= base_url(); ?>/asset2/global/img/loading.gif" alt="loading" /> </div>
-                                        <!- - #graph - ->                                      
+                                        <!-- #graph4 -->                                      
                                     <div id="site_statistics_content"  >
                                         <div id="orderdiv" class="display-none"> </div>
                                         <div id="ordercode" ></div>
                                     </div>
                                 </div>
                             </div>
-                        </div>-->
+                        </div>
                         <div class="col-md-6 col-sm-6">
                             <!-- BEGIN PORTLET-->
                             <div class="portlet light ">
@@ -885,6 +886,13 @@ window.onclick = function(event) {
 }*/
 //#graph
 $(document).ready(function() {
+    $.post('<?= site_url('nasty_v2/dashboard/getAjaxGraph4') ?>', {new: '<?= $neworder; ?>',inprogress: '<?= $inprogress; ?>',complete: '<?= $complete; ?>',unconfirm: '<?= $unconfirm; ?>',onhold: '<?= $onhold; ?>'}, function(data) {
+        //alert("jadi");
+        $.when($('#ordercode').html(data)).then(function(){
+            $("#orderdiv").removeClass('display-none');
+            $("#site_statistics_loading4").addClass('display-none');
+        });
+    });
     $.post('<?= site_url('nasty_v2/dashboard/getAjaxGraph') ?>', {}, function(data) {
         $.when($('#gcode').html(data)).then(function(){
             $("#chartdiv").removeClass('display-none');

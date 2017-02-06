@@ -1,57 +1,39 @@
 <script type="text/javascript">
-	var chart = AmCharts.makeChart("flavdiv", {
-  "type": "serial",
+var chart = AmCharts.makeChart( "orderdiv", {
+  "type": "pie",
   "theme": "light",
-  "marginRight": 70,
-  "dataProvider": [{
-    "flavor": '<?= $new; ?>',
-    "total": <?= $newtot; ?>,
-    "color": "#3598dc"
+  "titles": [ {
+    "text": "Total Order",
+    "size": 16
+  } ],
+  "dataProvider": [ {
+    "flavor": 'New',
+    "total": <?= $new; ?>
   },{
-    "flavor": '<?= $inprogress; ?>',
-    "total": <?= $data->total; ?>,
-    "color": "<?= $data->ca_color; ?>"
+    "flavor": 'In Progress',
+    "total": <?= $inprogress; ?>
   },{
-    "flavor": '<?= $text2; ?>-<?= $tex;?>',
-    "total": <?= $data->total; ?>,
-    "color": "<?= $data->ca_color; ?>"
+    "flavor": 'Complete',
+    "total": <?= $complete; ?>
   },{
-    "flavor": '<?= $text2; ?>-<?= $tex;?>',
-    "total": <?= $data->total; ?>,
-    "color": "<?= $data->ca_color; ?>"
+    "flavor": 'UnConfirm',
+    "total": <?= $unconfirm; ?>
   },{
-    "flavor": '<?= $text2; ?>-<?= $tex;?>',
-    "total": <?= $data->total; ?>,
-    "color": "<?= $data->ca_color; ?>"
+    "flavor": 'On hold In Progress',
+    "total": <?= $onhold; ?>
   }],
-  "valueAxes": [{
-    "axisAlpha": 0,
-    "position": "left",
-    "title": "Total Flavor"
-  }],
-  "startDuration": 1,
-  "graphs": [{
-    "balloonText": "<b>[[category]]: [[value]]</b>",
-    "fillColorsField": "color",
-    "fillAlphas": 0.9,
-    "lineAlpha": 0.2,
-    "type": "column",
-    "valueField": "total"
-  }],
-  "chartCursor": {
-    "categoryBalloonEnabled": false,
-    "cursorAlpha": 0,
-    "zoomable": false
-  },
-  "categoryField": "flavor",
-  "categoryAxis": {
-    "gridPosition": "start",
-    "labelRotation": 45
-  },
+  "valueField": "total",
+  "titleField": "flavor",
+  "startEffect": "elastic",
+  "startDuration": 2,
+  "labelRadius": 15,
+  "innerRadius": "50%",
+  "depth3D": 10,
+  "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
+  "angle": 15,
   "export": {
     "enabled": true
   }
-
-});
+} );
 
 </script>

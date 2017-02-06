@@ -194,8 +194,37 @@
         </div>
 	</div>
 </div>
+<div class="modal" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" id="cross">&times;</button>
+          <h4 class="modal-title">Cancel The Order #120537</h4>
+        </div>
+        <div class="modal-body">
+        <div class="row" align="center">
+        	<h2><span class="label label-warning">Requested By : jauhmerah</span></h2>
+        </div>
+        <div class="row">
+        	<div class="form-group">
+          		<label for="textarea" class="col-sm-2 control-label">Reason :</label>
+          		<div class="col-sm-10">
+          			<textarea name="" id="textarea" class="form-control input-circle" rows="5" required="required"></textarea>
+          		</div>
+          	</div>
+        </div>
+          	
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" id="close">Close</button>
+          <button type="button" class="btn btn-danger"  id="send"><i class="fa fa-send"></i> Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
 <script>
 	$(document).ready(function() {
+		$('#myModal').show('slow');
 		$('.jari').click(function() {
 			id = $(this).prop('id');pr_id = $("."+id+"1").val();
 			id = $("."+id).val();			
@@ -225,6 +254,9 @@
 			bootbox.dialog({message :
 				'<div align = "center"><img src="<?= base_url().'/'.$this->imgUploc; ?>'+imgL+'" class="img-responsive" alt="Image"></div>'
 			});
+		});
+		$('#close').click(function() {
+		    $('#myModal').hide('slow');
 		});
 	});
 
