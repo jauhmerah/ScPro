@@ -217,9 +217,7 @@
           		<div class="col-sm-10">
           			<textarea name="" id="textarea" class="form-control input-circle" rows="5" required="required"></textarea>
           		</div>
-          		</div>  	
-        		
-        	
+          		</div>
         		<button type="submit" class="btn btn-primary">Submit</button>
         	</form>
           		
