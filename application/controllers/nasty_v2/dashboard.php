@@ -258,7 +258,7 @@
                         break;
                     }
                 case 'a1':
-                    if ($lvl == 2 || $lvl == 3) {
+                    /*if ($lvl == 2 || $lvl == 3) {
                         redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
                     }
                     $this->load->database();
@@ -268,8 +268,7 @@
                     $data['title'] = '<i class="fa fa-fw fa-edit">Switchover</i> </a>';
                     $data['display'] = $this->load->view($this->parent_page.'/switch_ver' ,$arr, true);
                     $this->_show('display' , $data , $key);
-                    break;
-                break;
+                break;*/
     			case 'a1new':
                     //OrdSys 2.3.0
     				if ($lvl == 2 || $lvl == 3) {

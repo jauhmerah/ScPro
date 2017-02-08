@@ -32,7 +32,12 @@
             <div class="portlet-title">
                 <div class="caption">
                     <i class="fa fa-list"></i>Order List 2017
-                </div>                
+                </div>
+                <div class="actions">
+                    <div class="btn-group btn-group-devided" data-toggle="buttons">
+                        <a ><button type="button" onclick="window.location.href='<?= site_url('nasty_v2/dashboard/page/a1old'); ?>'" class="btn green btn-circle btn-sm">Old Order List</button></a>
+                    </div>
+                </div>           
             </div>
             <div class="portlet-body flip-scroll">
 	            <div class="row tableL">
