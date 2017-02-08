@@ -22,6 +22,7 @@
 </script>
 <?php
 	$us_id = $this->my_func->scpro_decrypt($this->session->userdata('us_id'));
+	$us_name = $this->my_func->scpro_decrypt($this->session->userdata('us_username'));
 	?>
 <link href="<?= base_url(); ?>asset2/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css" rel="stylesheet" type="text/css">
 					<script src="<?= base_url(); ?>asset2/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js" type="text/javascript"></script>
@@ -146,9 +147,10 @@
 										<button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/dummyInvoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn c-btn-border-1x c-btn-blue-dark btn-circle btn-xs" title="Dummy Invoice">DInv</button></a>&nbsp;-&nbsp;    
 										<?php if($user->pr_id == 4 || $user->pr_id == 8 ){ ?><button type="button" class="btn bg-green-jungle btn-circle btn-xs <?= $conf ?>" id="<?= $n.'con' ?>" title="Confirm"><i class="fa fa-thumbs-up"></i></button> <?php }else{  ?>
 										<button type="button" class="btn bg-red-pink btn-circle btn-xs <?= $conf ?>" title="Un Confirm" id="<?= $n.'con' ?>"><i class="fa fa-thumbs-down"></i></button></a><?php } ?> &nbsp;-&nbsp; 
-										<input type="hidden" class="form-control <?= $n.'con' ?>" value="<?= $orid ?>">
-										<input type="hidden" class="form-control <?= $n.'con1' ?>" value="<?= $user->pr_id ?>">      										
-										<?php if($user->pr_id != 5 && $user->pr_id != 7 && $user->pr_id != 3 ){ ?><button type="button" class="btn btn-default btn-circle btn-xs" title="Cancel Order"><i class="fa fa-close"></i></button><?php }else{  ?><a onclick = "return onDel();" href="<?= site_url('nasty_v2/dashboard/page/a13?del=').$orid; ?>" name="c5" title="Delete Order"><button type="button" class="btn btn-danger btn-circle btn-xs"><i class="fa fa-trash"></i></button></a><?php } ?>
+										<input type="hidden" class="form-control <?= $n.'con' ?>" value ="<?= $orid ?>">
+										<input type="hidden" class="form-control <?= $n.'con1' ?>" value ="<?= $user->pr_id ?>">
+										<input type="hidden" class="form-control <?= $n.'cocode' ?>" value ="<?= $id; ?>">     										
+										<?php if($user->pr_id != 5 && $user->pr_id != 7 && $user->pr_id != 3 ){ ?><button type="button" class="btn btn-default btn-circle btn-xs cancelOrd" id="<?= $n.'co' ?>" title="Cancel Order"><i class="fa fa-close"></i></button><?php }else{  ?><a onclick = "return onDel();" href="<?= site_url('nasty_v2/dashboard/page/a13?del=').$orid; ?>" name="c5" title="Delete Order"><button type="button" class="btn btn-danger btn-circle btn-xs"><i class="fa fa-trash"></i></button></a><?php } ?>
 		                            </td>	                            
 		                        </tr>		
 		                    			<?php
@@ -199,18 +201,28 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" id="cross">&times;</button>
-          <h4 class="modal-title">Cancel The Order #120537</h4>
+          <h4 class="modal-title">Cancel The Order <span id = "ordercode"></span></h4>
         </div>
         <div class="modal-body">
         <div class="row" align="center">
-        	<h2><span class="label label-warning">Requested By : jauhmerah</span></h2>
+        	<h2><span class="label label-warning">Requested By : <?= $us_name; ?></span></h2>
         </div>
+        <div class="clearfix">&nbsp;</div>
         <div class="row">
         	<div class="form-group">
-          		<label for="textarea" class="col-sm-2 control-label">Reason :</label>
+        	<form action="" method="POST" role="form">
+        	
+        		<div class="form-group">
+        			<label for="textarea" class="col-sm-2 control-label">Reason :</label>
           		<div class="col-sm-10">
           			<textarea name="" id="textarea" class="form-control input-circle" rows="5" required="required"></textarea>
           		</div>
+          		</div>  	
+        		
+        	
+        		<button type="submit" class="btn btn-primary">Submit</button>
+        	</form>
+          		
           	</div>
         </div>
           	
@@ -224,7 +236,10 @@
   </div>
 <script>
 	$(document).ready(function() {
-		$('#myModal').show('slow');
+		//
+		$(".cancelOrd").click(function() {
+			$('#myModal').show('slow');
+		});
 		$('.jari').click(function() {
 			id = $(this).prop('id');pr_id = $("."+id+"1").val();
 			id = $("."+id).val();			
@@ -257,6 +272,14 @@
 		});
 		$('#close').click(function() {
 		    $('#myModal').hide('slow');
+		});
+		$('.close').click(function() {
+		    $('#myModal').hide('slow');
+		});
+		$('.cancelOrd').click(function() {
+			id = $(this).prop('id');
+			or_id = $('.'+id+'n').val();
+			us_id = $('.'+id+'n1').val();
 		});
 	});
 
