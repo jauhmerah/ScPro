@@ -7,6 +7,7 @@
 	   	var $old_page = "dashboard";
         var $version = "OrdYs v2.3.4 Alpha";
         var $imgUploc = "/assets/uploads/img/";
+        var $flags = 'asset/flags/flags.png';
 
 	    function __construct() {
 	        parent::__construct();
@@ -280,6 +281,7 @@
                         $p = 0;
                     }
                     $this->load->library('my_func');
+                    $this->load->library('my_flag');
                     $this->load->database();
                     $this->load->model('m_order');
                     if ($this->input->post("search") && $this->input->post("filter") || $this->input->get("search") && $this->input->get("filter")) {
@@ -1675,6 +1677,10 @@ epul@nastyjuice.com
         public function cancelConfirm()
         {            
             if ($this->input->post('or_id') && $this->input->get("cancel")) {
+                if ($this->my_func->scpro_decrypt($this->input->get("cancel")) == "cancel") {                    
+                echo "<pre>";
+                print_r($this->input->post());
+                echo "</pre>";die();
                 $this->load->library('my_func');
                 $or_code = $this->my_func->scpro_decrypt($this->input->post('or_id'));            
                 $msg = $this->input->post('msg');
@@ -1711,6 +1717,7 @@ epul@nastyjuice.com
                 ";
                 $this->sendEmail($email);  
 
+                }
             }
         }
 	}

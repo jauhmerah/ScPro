@@ -103,7 +103,16 @@
 		                            <td><?php 
                                     $view = ($user->cl_name == null) ? "--Not Set--" : $user->cl_name ;
                                     echo $view;
-                                    ?></td>
+                                    ?><span class="pull-right">
+                                    <?= ucwords($user->cl_country); ?>
+                                    <?php
+                                    $fc = $this->my_flag->flag_code(ucwords($user->cl_country));
+                                    if ($fc != "") {
+                                    	?>
+                                    	<img class="flag flag-<?= $fc; ?>"/>
+                                    	<?php
+                                    }
+                                    ?></span></td>
 		                            <td><?php 
 		                            if ($user->or_id) {
 		                            	$id = '#'.(120000+$user->or_id);
@@ -204,6 +213,8 @@
 <div class="modal" id="myModal" role="dialog">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
+      	<form action="<?= site_url('nasty_v2/dashboard/cancelConfirm').'?cancel='.$this->my_func->scpro_encrypt('cancel'); ?>" method="POST" role="form">     		
+      	
         <div class="modal-header">
           <button type="button" class="close" id="cross">&times;</button>
           <h4 class="modal-title">Cancel The Order <span id = "ordercode"></span></h4>
@@ -215,25 +226,24 @@
         <div class="clearfix">&nbsp;</div>
         <div class="row">
         	<div class="form-group">
-        	<form action="" method="POST" role="form">
-        	
+        	<form action="" method="POST" role="form">        	
         		<div class="form-group">
         			<label for="textarea" class="col-sm-2 control-label">Reason :</label>
           		<div class="col-sm-10">
-          			<textarea name="" id="textarea" class="form-control input-circle" rows="5" required="required"></textarea>
+          			<textarea name="msg" id="textarea" class="form-control input-circle" rows="5" required="required"></textarea>
           		</div>
           		</div>
-        		<button type="submit" class="btn btn-primary">Submit</button>
-        	</form>
-          		
+        	</form>          		
           	</div>
         </div>
-          	
+        <input type="hidden" name="or_id" id="inputOrid" class="form-control" value="">
+        <input type="hidden" name="us_id" id="inputUs_id" class="form-control" value="">          
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" id="close">Close</button>
-          <button type="button" class="btn btn-danger"  id="send"><i class="fa fa-send"></i> Send</button>
+          <button type="submit" class="btn btn-danger"  id="send"><i class="fa fa-send"></i> Send</button>
         </div>
+        </form>
       </div>
     </div>
   </div>
@@ -242,6 +252,14 @@
 		//
 		$(".cancelOrd").click(function() {
 			$('#myModal').show('slow');
+			key = $(this).prop('id');
+			codeOr = $("."+key+"code").val();
+			alert(key);
+			codeOrId = $("."+key+"n").val();
+			$("#inputOrid").val(codeOrId);
+			$("#inputUs_id").val(<?= $us_id; ?>);
+			
+
 		});
 		$('.jari').click(function() {
 			id = $(this).prop('id');pr_id = $("."+id+"1").val();
