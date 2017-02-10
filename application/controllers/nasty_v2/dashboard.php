@@ -5,7 +5,7 @@
 	
 	   	var $parent_page = "nasty_v2/dashboard";
 	   	var $old_page = "dashboard";
-        var $version = "OrdYs v2.3.4 Alpha";
+        var $version = "OrdYs v2.3.5 Alpha";
         var $imgUploc = "/assets/uploads/img/";
         var $flags = 'asset/flags/flags.png';
 

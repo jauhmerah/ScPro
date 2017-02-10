@@ -83,13 +83,13 @@
                             </a>
                             <ul class="sub-menu">
                                 <li class="nav-item start" title="Request Of Shipping">
-                                    <a href="<?= site_url('nasty_v2/dashboard/page/a1') ?>" class="nav-link ">
+                                    <a href="" class="nav-link ">
                                         <i class="fa fa-flag-checkered"></i>
                                         <span class="title">ROS</span>
                                     </a>
                                 </li>
                                 <li class="nav-item start" title="Ready To Shipping">
-                                    <a href="<?= site_url('nasty_v2/dashboard/page/z1') ?>" class="nav-link ">
+                                    <a href="" class="nav-link ">
                                         <i class="fa fa-truck"></i>
                                         <span class="title">RTS</span>
                                         <!--<span class="badge badge-success">1</span>-->
@@ -98,8 +98,8 @@
                             </ul>
                         </li> <?php } ?>                                                
                         <?php if($us_lvl != 4){?>                     
-                        <li class="nav-item <?php if (strpos($link, 'a2') !== false) { echo "active open";}else{echo "start";}?>   ">
-                            <a href="<?= site_url('nasty_v2/dashboard/page/a2') ?>" class="nav-link ">
+                        <li class="nav-item <?php if (strpos($link, 'g') !== false) { echo "active open";}else{echo "start";}?>   ">
+                            <a href="" class="nav-link ">
                                 <i class="fa fa-ship"></i>
                                 <span class="title">Shipping</span>
                             </a>
