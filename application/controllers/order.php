@@ -219,6 +219,27 @@ class Order extends CI_Controller {
 		
 	}
 
+	public function deleteOrder()
+	{
+		$this->load->database();
+		$this->load->library('my_func');
+		if($this->input->get('del')){
+            $or_id = $this->my_func->scpro_decrypt($this->input->get('del'));
+            $arr = array(
+                'or_del' => 1
+            );
+            $this->load->model('m_order');            
+            if ($this->m_order->update($arr , $or_id)) {
+            	$this->session->set_flashdata('info', 'The Order was deleted');
+            } else {
+            	$this->session->set_flashdata('warning', 'Someone have deleted the order');
+            }            
+        }else{
+        	$this->session->set_flashdata('error', 'Ops! Wrong Place, Contact jauhmerah@nastyjuice.com for any inquiry.');
+        }        
+        redirect(site_url(),'refresh');
+	}
+
 
 }
 

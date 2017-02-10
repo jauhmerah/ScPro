@@ -205,16 +205,14 @@
 	            <div id="fileUp" style="display:none;">
 	            	
 	            </div>
-
             </div>
         </div>
 	</div>
 </div>
 <div class="modal" id="myModal" role="dialog">
+	<form id="formcancel" action="<?= site_url('nasty_v2/dashboard/cancelConfirm').'?cancel='.$this->my_func->scpro_encrypt('cancel'); ?>" method="POST" role="form">     		      	
     <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-      	<form action="<?= site_url('nasty_v2/dashboard/cancelConfirm').'?cancel='.$this->my_func->scpro_encrypt('cancel'); ?>" method="POST" role="form">     		
-      	
+      <div class="modal-content">      	
         <div class="modal-header">
           <button type="button" class="close" id="cross">&times;</button>
           <h4 class="modal-title">Cancel The Order <span id = "ordercode"></span></h4>
@@ -238,23 +236,23 @@
         </div>
         <input type="hidden" name="or_id" id="inputOrid" class="form-control" value="">
         <input type="hidden" name="us_id" id="inputUs_id" class="form-control" value="">          
+        <input type="hidden" name="ver" id="inputUs_id" class="form-control" value="2">
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" id="close">Close</button>
           <button type="submit" class="btn btn-danger"  id="send"><i class="fa fa-send"></i> Send</button>
-        </div>
-        </form>
+        </div>        
       </div>
-    </div>
+    </div></form>
   </div>
 <script>
 	$(document).ready(function() {
-		//
+		
 		$(".cancelOrd").click(function() {
 			$('#myModal').show('slow');
 			key = $(this).prop('id');
 			codeOr = $("."+key+"code").val();
-			alert(key);
+			//alert(key);
 			codeOrId = $("."+key+"n").val();
 			$("#inputOrid").val(codeOrId);
 			$("#inputUs_id").val(<?= $us_id; ?>);

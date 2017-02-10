@@ -1675,32 +1675,31 @@ epul@nastyjuice.com
         }
 
         public function cancelConfirm()
-        {            
+        {   
+            $this->load->database();
+            $this->load->library('my_func');
             if ($this->input->post('or_id') && $this->input->get("cancel")) {
-                if ($this->my_func->scpro_decrypt($this->input->get("cancel")) == "cancel") {                    
-                echo "<pre>";
-                print_r($this->input->post());
-                echo "</pre>";die();
+                if ($this->my_func->scpro_decrypt($this->input->get("cancel")) == "cancel") { 
                 $this->load->library('my_func');
-                $or_code = $this->my_func->scpro_decrypt($this->input->post('or_id'));            
+                $or_id = $this->my_func->scpro_decrypt($this->input->post('or_id'));            
                 $msg = $this->input->post('msg');
                 $this->load->model('m_user');
-                $this->load->library('my_func');
-                $or_id = $arr->or_id;                
-                $saleman = $this->m_user->getName($arr->us_id);
+                //$or_id = $arr->or_id;
+                $ver = $this->input->post('ver');
+                $saleman = $this->m_user->get($this->input->post('us_id'));
                 $email['fromName'] = "Ai System";
-                $email['fromEmail'] = "nstylabc@sirius.sfdns.net";
-                $email['toEmail'] = array('0' => "faeiz@nastyjuice.com", '1' => "account@nastyjuice.com" , '2' => 'hairi@nastyjuice.com' , '3' => 'abun@nastyjuice.com');
-                $email['subject'] = "In Progress Order #".((10000*$ver)+100000+$or_id);
+                $email['fromEmail'] = $saleman->us_email;
+                $email['toEmail'] = array('0' => "fadtan@nastyjuice.com", '1' => "pakdin@nastyjuice.com" , '2' => "jauhmerah@nastyjuice.com");
+                $email['subject'] = "Request for Cancel #".((10000*$ver)+100000+$or_id);
                 $email['msg'] = "
 Order Detail
 
 Order No : #".((10000*$ver)+100000+$or_id)."
-Order Status : In Progress Order
-Salesman : ".$saleman."
+Order Status : Request for Cancel
+Salesman : ".$saleman->us_username."
 
-Please Take Note!!!
-This Order was change to In-progress by its salesman.
+Click This Link to accept the request.
+".site_url('order/deleteOrder?del='.$this->input->post('or_id'))."
 
 Search Order Page : ".site_url()."
 System Login : ".site_url('login')."
@@ -1715,10 +1714,11 @@ Epul
 epul@nastyjuice.com
 
                 ";
-                $this->sendEmail($email);  
-
+                $this->sendEmail($email);
                 }
             }
+            $this->session->set_flashdata('success', 'Success Send the Request');
+            redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
         }
 	}
 	        
