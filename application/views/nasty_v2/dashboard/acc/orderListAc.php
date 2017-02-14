@@ -28,23 +28,18 @@
 					<script src="<?= base_url(); ?>asset2/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js" type="text/javascript"></script>
 <div class="row">
 	<div class="col-md-12">	
-		<div class="portlet box purple">
+		<div class="portlet box yellow-casablanca">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-list"></i>Order List 2017
-                </div>
-                <div class="actions">
-                    <div class="btn-group btn-group-devided" data-toggle="buttons">
-                        <a ><button type="button" onclick="window.location.href='<?= site_url('nasty_v2/dashboard/page/a1old'); ?>'" class="btn green btn-circle btn-sm">Old Order List</button></a>
-                    </div>
-                </div>           
+                    <i class="fa fa-bank"></i>Order List 2017
+                </div>                      
             </div>
             <div class="portlet-body flip-scroll">
 	            <div class="row tableL">
 	            <form id="formSearch" action="<?= site_url('nasty_v2/dashboard/page/a1new'); ?>" method="POST" role="form">
 	            	<div class="col-md-12">
 	            		<div class="col-md-2">
-	            			<a href="<?= site_url('nasty_v2/dashboard/page/z1'); ?>"><button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Add Order</button></a>
+	            			
 	            		</div>
 	            		<div class="col-md-4">
 	            			<div class="form-group">
@@ -97,8 +92,9 @@
 		                    	if (sizeof($arr1) != 0) { 
 		                    		foreach ($arr1 as $user) {
 		                    			$n++;
+		                    			$green = ($user->or_acc == 0) ? "" : "bg-green-meadow bg-font-green-meadow" ;
 		                    			?>
-		                    	<tr>
+		                    	<tr class="<?= $green; ?>">
 		                            <td><?= $n; ?></td>
 		                            <td><?php 
                                     $view = ($user->cl_name == null) ? "--Not Set--" : $user->cl_name ;
@@ -147,24 +143,22 @@
                                         	$conf = "xleh";
                                         }
                                     ?>
-		                            	<a href="<?= site_url('nasty_v2/dashboard/page/a111?v=2&view=').$orid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-info btn-circle btn-xs"><i class="fa fa-eye"></i></button></a>&nbsp;-&nbsp;                            	
-										<a href="<?= site_url('nasty_v2/dashboard/page/a121?v=2&edit=').$orid; ?>" name="c3" title="Edit Order"><button type="button" class="btn btn-warning btn-circle btn-xs"><i class="fa fa-pencil"></i></button></a>
-										<?php if (!$user->or_paid) { ?>&nbsp;-&nbsp; <button type="button" class="btn btn-circle purple-seance btn-xs upPic" id="up<?= $n; ?>"><i class="fa fa-upload"></i></button></a><?php } ?>
-										<input type="hidden" class="form-control up<?= $n; ?>" value="<?= $orid; ?>">
-										<?php if($user->pr_id == 3){ ?>
-                                    			&nbsp;- &nbsp;<button title = "Print Order" onclick = "window.open('<?= site_url('order/printO1?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" type="button" class="btn btn-default btn-circle btn-info btn-xs"><i class="fa fa-print"></i></button>&nbsp;-&nbsp;
-                                    			<button type="button" title = "D.O Form" onclick = "window.open('<?= site_url('order/printDO1?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn btn-success btn-circle btn-xs"><i class="fa fa-truck"></i></button>
-                                    		<?php } ?><br/><div class="clearfix">
-                                    		&nbsp;
-                                    		</div>
+		                            	<a href="<?= site_url('nasty_v2/dashboard/page/a111?v=2&view=').$orid."&mode=acc"; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-info btn-circle btn-xs"><i class="fa fa-eye"></i></button></a>&nbsp;-&nbsp;                            											
+										<input type="hidden" class="form-control <?= $n.'check' ?>" value="<?= $orid; ?>">
+										
 										<button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/Invoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');"  class="btn blue-dark btn-circle btn-xs" title="Invoice">Inv</button></a>&nbsp;-&nbsp;    
-										<button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/dummyInvoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn c-btn-border-1x c-btn-blue-dark btn-circle btn-xs" title="Dummy Invoice">DInv</button></a>&nbsp;-&nbsp;    
-										<?php if($user->pr_id == 4 || $user->pr_id == 8 ){ ?><button type="button" class="btn bg-green-jungle btn-circle btn-xs <?= $conf ?>" id="<?= $n.'con' ?>" title="Confirm"><i class="fa fa-thumbs-up"></i></button> <?php }else{  ?>
-										<button type="button" class="btn bg-red-pink btn-circle btn-xs <?= $conf ?>" title="Un Confirm" id="<?= $n.'con' ?>"><i class="fa fa-thumbs-down"></i></button></a><?php } ?> &nbsp;-&nbsp; 
-										<input type="hidden" class="form-control <?= $n.'con' ?>" value ="<?= $orid ?>">
-										<input type="hidden" class="form-control <?= $n.'con1' ?>" value ="<?= $user->pr_id ?>">
-										<input type="hidden" class="form-control <?= $n.'cocode' ?>" value ="<?= $id; ?>">     										
-										<?php if($user->pr_id != 5 && $user->pr_id != 7 && $user->pr_id != 3 ){ ?><button type="button" class="btn btn-default btn-circle btn-xs cancelOrd" id="<?= $n.'co' ?>" title="Cancel Order"><i class="fa fa-close"></i></button><?php }else{  ?><a href="<?= site_url('nasty_v2/dashboard/page/a13?del=').$orid; ?>" name="c5" title="Delete Order"><button type="button" class="btn btn-danger btn-circle btn-xs"><i class="fa fa-trash"></i></button></a><?php } ?>
+										<button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/dummyInvoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn c-btn-border-1x c-btn-blue-dark btn-circle btn-xs" title="Dummy Invoice">DInv</button></a>&nbsp;-&nbsp;										
+										<?php 
+										if ($user->or_acc == 0) {
+											?>
+											<button type="button" class="btn green-jungle btn-circle btn-xs doneC" title="Checked" id="<?= $n.'check' ?>"><i class="fa fa-check"></i></button></a> 
+											<?php
+										} else {
+											?>
+											<button type="button" class="btn red-pink btn-circle btn-xs cancelC" title="Unchecked" id="<?= $n.'check' ?>"><i class="fa fa-close"></i></button></a> 
+											<?php
+										}										
+										?>										
 		                            </td>	                            
 		                        </tr>		
 		                    			<?php
@@ -209,96 +203,30 @@
         </div>
 	</div>
 </div>
-<div class="modal" id="myModal" role="dialog">
-	<form id="formcancel" action="<?= site_url('nasty_v2/dashboard/cancelConfirm').'?cancel='.$this->my_func->scpro_encrypt('cancel'); ?>" method="POST" role="form">     		      	
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">      	
-        <div class="modal-header">
-          <button type="button" class="close" id="cross">&times;</button>
-          <h4 class="modal-title">Cancel The Order <span id = "ordercode"></span></h4>
-        </div>
-        <div class="modal-body">
-        <div class="row" align="center">
-        	<h2><span class="label label-warning">Requested By : <?= $us_name; ?></span></h2>
-        </div>
-        <div class="clearfix">&nbsp;</div>
-        <div class="row">
-        	<div class="form-group">
-        	<form action="" method="POST" role="form">        	
-        		<div class="form-group">
-        			<label for="textarea" class="col-sm-2 control-label">Reason :</label>
-          		<div class="col-sm-10">
-          			<textarea name="msg" id="textarea" class="form-control input-circle" rows="5" required="required"></textarea>
-          		</div>
-          		</div>
-        	</form>          		
-          	</div>
-        </div>
-        <input type="hidden" name="or_id" id="inputOrid" class="form-control" value="">
-        <input type="hidden" name="us_id" id="inputUs_id" class="form-control" value="">          
-        <input type="hidden" name="ver" id="inputUs_id" class="form-control" value="2">
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" id="close">Close</button>
-          <button type="submit" class="btn btn-danger"  id="send"><i class="fa fa-send"></i> Send</button>
-        </div>        
-      </div>
-    </div></form>
-  </div>
-<script>
-	$(document).ready(function() {
-		
-		$(".cancelOrd").click(function() {
-			$('#myModal').show('slow');
-			key = $(this).prop('id');
-			codeOr = $("."+key+"code").val();
-			//alert(key);
-			codeOrId = $("."+key+"n").val();
-			$("#inputOrid").val(codeOrId);
-			$("#inputUs_id").val(<?= $us_id; ?>);
-			
 
-		});
-		$('.jari').click(function() {
-			id = $(this).prop('id');pr_id = $("."+id+"1").val();
-			id = $("."+id).val();			
-			$.post('<?= site_url('nasty_v2/dashboard/change_pr_id'); ?>', {id: id , pr_id : pr_id}, function(data) {
-				$(window).attr("location", "<?= site_url('nasty_v2/dashboard/page/a1new'); ?>");
+<script>
+	$(document).ready(function() {		
+		$(".doneC").click(function() {
+			key = $(this).prop('id');
+			or_id = $('.'+key).val();
+			$.post('<?= site_url()."nasty_v2/dashboard/getAjaxDone" ?>', {or_id: or_id}, function(data, textStatus, xhr) {
+				window.location = "<?= current_url(); ?>";
 			});
 		});
-		$('.xleh').click(function() {
-			alert("Warning!!!. Only order's Salesman can change the order status.");
-		});
-		$(".upPic").click(function() {
-			hid = $(this).prop('id');
-			orid = $('.'+hid).val();
-			$.post('<?= site_url('nasty_v2/dashboard/getAjaxUpload'); ?>', {or_id : orid}, function(data) {
-				$.when($(".tableL").fadeOut("slow")).then(function(){
-					$.when($("#fileUp").html(data)).then(function(){$("#fileUp").fadeIn("fast");});
-				});				
+		$(".cancelC").click(function() {
+			key = $(this).prop('id');
+			or_id = $('.'+key).val();
+			$.post('<?= site_url()."nasty_v2/dashboard/getAjaxCancel" ?>', {or_id: or_id}, function(data, textStatus, xhr) {
+				window.location = "<?= current_url(); ?>";
 			});
-			/*bootbox.alert("Hello world!", function() {
-                //console.log("Alert Callback");
-            });*/
 		});
 		$(".bayar").click(function() {
 			gbr = $(this).prop("id");
 			imgL = $("."+gbr).val();
 			imgT = $("."+gbr).prop('title');
 			bootbox.dialog({message :
-				'<div align = "center"><img src="<?= base_url().'/'.$this->imgUploc; ?>'+imgL+'" class="img-responsive" alt="Image"></div>'
+				'<div align = "center"><img src="<?= base_url().$this->imgUploc; ?>'+imgL+'" class="img-responsive" alt="Image"></div>'
 			});
-		});
-		$('#close').click(function() {
-		    $('#myModal').hide('slow');
-		});
-		$('.close').click(function() {
-		    $('#myModal').hide('slow');
-		});
-		$('.cancelOrd').click(function() {
-			id = $(this).prop('id');
-			or_id = $('.'+id+'n').val();
-			us_id = $('.'+id+'n1').val();
 		});
 	});
 

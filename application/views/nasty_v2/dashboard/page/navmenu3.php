@@ -105,8 +105,8 @@
                             </a>
                         </li><?php } ?>
                         <?php if($us_lvl != 4){?>                     
-                        <li class="nav-item <?php if (strpos($link, 'k') !== false) { echo "active open";}else{echo "start";}?>   ">
-                            <a href="" class="nav-link ">
+                        <li class="nav-item <?php if (strpos($link, 'k1') !== false) { echo "active open";}else{echo "start";}?>   ">
+                            <a href="<?= site_url('nasty_v2/dashboard/page/k1') ?>" class="nav-link ">
                                 <i class="fa fa-bank"></i>
                                 <span class="title">Acounting</span>
                             </a>

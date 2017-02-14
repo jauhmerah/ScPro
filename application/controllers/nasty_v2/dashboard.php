@@ -955,7 +955,7 @@ epul@nastyjuice.com
                                 }
                                 if (!is_numeric($search)) {
                                     $this->session->set_flashdata('warning', 'Please Enter the Correct Order Code');
-                                    redirect(site_url("nasty_v2/dashboard/page/a1"),'refresh');
+                                    redirect(site_url("nasty_v2/dashboard/page/k1"),'refresh');
                                 }
                                 $str = (string)$search;
                                 /*if ($str[1] == '1') {
@@ -1009,9 +1009,9 @@ epul@nastyjuice.com
                         $arr['total'] = $ver;
                         $arr['row'] = $result1;
                     }
-                    $data['title'] = '<i class="fa fa-fw fa-edit"></i> Production</a>';
-                    $data['display'] = $this->load->view($this->parent_page.'/orderList1' ,$arr , true);
-                    $this->_show('display' , $data , 'a1');
+                    $data['title'] = '<i class="fa fa-fw fa-edit"></i> Accounting</a>';
+                    $data['display'] = $this->load->view($this->parent_page.'/acc/orderListAc' ,$arr , true);
+                    $this->_show('display' , $data , 'k1');
                     break;
 
     			default:
@@ -1819,6 +1819,32 @@ epul@nastyjuice.com
             }
             $this->session->set_flashdata('success', 'Success Send the Request');
             redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
+        }
+        public function getAjaxDone()
+        {
+            if ($this->input->post('or_id')) {
+                $this->load->library('my_func');
+                $this->load->database();
+                $or_id = $this->my_func->scpro_decrypt($this->input->post('or_id'));
+                $this->load->model('m_order');
+                $arr = array(
+                    "or_acc" => 1
+                );
+                $this->m_order->update($arr, $or_id);
+            }
+        }
+        public function getAjaxCancel()
+        {
+            if ($this->input->post('or_id')) {
+                $this->load->library('my_func');
+                $this->load->database();
+                $or_id = $this->my_func->scpro_decrypt($this->input->post('or_id'));
+                $this->load->model('m_order');
+                $arr = array(
+                    "or_acc" => 0
+                );
+                $this->m_order->update($arr, $or_id);
+            }
         }
 	}
 	        
