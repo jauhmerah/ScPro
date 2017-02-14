@@ -1185,7 +1185,7 @@ epul@nastyjuice.com
                     $this->load->model("m_order");
                     $this->load->model('m_picture');
                     $or_id = $this->my_func->scpro_decrypt($this->input->post('or_id'));
-                    $result = $this->my_func->do_upload('./assets/uploads/img/');
+                    $result = $this->my_func->do_upload('./assets/uploads/img/');                    
                     $pi_id = null;
                     $success = array();
                     if (sizeof($result['success']) != 0) {
@@ -1200,7 +1200,8 @@ epul@nastyjuice.com
                         }
                         $this->m_order->update(array('or_paid' => 1),$or_id);
                         $this->change_pr_id2($or_id);
-                        if ($this->m_picture->getbyne_id($or_id)) {
+                        // this part for replace image if already uploaded.
+                        /*if ($this->m_picture->getbyne_id($or_id)) {
                             $this->load->library('file');
                             $t = $this->m_picture->get(array("ne_id" => $or_id));
                             if (delete_files('./assets/uploads/img/'.$t->img_url)) {
@@ -1209,9 +1210,9 @@ epul@nastyjuice.com
                                 $this->session->set_flashdata('error', 'Ops !! , Unable to Find The old Image');
                                 delete_files('./assets/uploads/img/'.$m_pic['img_url']);
                             }                            
-                        }else{
+                        }else{*/
                             $this->m_picture->insert($m_pic);
-                        }                        
+                        //}                        
                     }
                     $i = sizeof($success);
                     $e = sizeof($result['error']);
@@ -1601,7 +1602,14 @@ epul@nastyjuice.com
         public function getAjaxUpload()
         {
             $this->load->library("my_func");
-            echo $this->load->view('nasty_v2/dashboard/ajax/getAjaxUpload', $this->input->post(), TRUE);
+            $arr = $this->input->post();
+            $this->load->database();
+            $this->load->model('m_picture');
+            $temp = array(
+                "ne_id" => $this->my_func->scpro_decrypt($this->input->post('or_id'))
+            );
+            $arr['img'] = $this->m_picture->getPaid($temp);
+            echo $this->load->view('nasty_v2/dashboard/ajax/getAjaxUpload', $arr , TRUE);
         }
 
         private function emailSendNew($arr = null , $ver = 1)
@@ -1845,6 +1853,29 @@ epul@nastyjuice.com
                 );
                 $this->m_order->update($arr, $or_id);
             }
+        }
+        public function getAjaxDelImg()
+        {
+            $pi_id = $this->input->post("pi_id");            
+            $this->load->database();
+            $this->load->model("m_picture");
+            $img = $this->m_picture->get($pi_id);
+            $this->load->helper('file');            
+            if (unlink('./assets/uploads/img/'.$img->img_url)) {
+                $this->m_picture->delete($pi_id);
+                echo "true";
+            }else{
+                echo "false";
+            }            
+        }
+        public function getAjaxImg()
+        {
+            $this->load->library("my_func");
+            $ne_id = $this->my_func->scpro_decrypt($this->input->post("or_id"));            
+            $this->load->database();
+            $this->load->model("m_picture");
+            $arr['img'] = $this->m_picture->getPaid(array("ne_id" => $ne_id));
+            echo $this->load->view('nasty_v2/dashboard/ajax/getAjaxImg', $arr , TRUE);
         }
 	}
 	        

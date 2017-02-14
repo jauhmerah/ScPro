@@ -42,12 +42,24 @@
 				                    </div>
 				                </div>                 
 					        </div>
-					        <div class="portlet-body flip-scroll">					        
-					        <div class="form-group">
-	            				
-                            </div>
+					        <div class="portlet-body flip-scroll">	
+					        <div class="row">				        
+						        <?php
+						        	if ($img) {
+						        	foreach ($img as $key) {
+						        		?>
+						        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 t<?= $key->pi_id; ?>" align="center">
+						        	<a class="thumbnail" >
+						        		<img src="<?= base_url($this->imgUploc.$key->img_url); ?>" class = "img">
+						        		<button type="button" class="btn red-pink btn-circle btn-sm delImg" id = "<?= $key->pi_id; ?>"><i class="fa fa-close"></i></button>
+						        	</a>
+						        </div>
+						        <?php
+						        	}
+						        	}
+						         ?>
             				</div>
-	            			<input type="hidden" name="or_id" id="inputOr_id" class="form-control" value="<?= $or_id; ?>">					        
+            				</div>	            			
 	            		</div>
 	            	</div>
 	            </div>
@@ -58,5 +70,25 @@
 							$("#fileUp").fadeOut("fast");
 							$("#fileUp").html("");
 						});
+	            		$(".img").click(function() {
+	            			img = $(this).prop('src');
+	            			bootbox.dialog({message :
+								'<div align = "center"><img src="'+img+'" class="img-responsive" alt="Image"><br/></div>'
+							});
+	            		});
+	            		$(".delImg").click(function(){
+	            			pi_id = $(this).prop('id');
+	            			if (confirm("Are you sure?")) {
+	            				$.when($(".t"+pi_id).html("<h2><i class='fa fa-refresh fa-spin'></i></h2>")).then(function(){
+	            					$.post('<?= site_url('nasty_v2/dashboard/getAjaxDelImg') ?>', {pi_id: pi_id}, function(data) {
+	            						if(data){
+            								$(".t"+pi_id).remove();           							
+	            						}else{
+	            							bootbox.alert("Warning Error, Contact Jauhmerah....");
+	            						}
+	            					});
+	            				});
+	            			}
+	            		});
 	            	});	
 	            </script>
