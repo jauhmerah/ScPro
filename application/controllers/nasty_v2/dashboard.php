@@ -567,6 +567,71 @@ epul@nastyjuice.com
     				$data['display'] = $this->load->view($this->parent_page.'/productionOrder', $temp , TRUE);
     				$this->_show('display' , $data , $key);
     				break;
+
+
+                    case 'a6':  
+                    //$this->load->library('my_func');
+                   /* if ($lvl == 4) {
+                        redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
+                    }
+                    if ($this->input->get('mode')) {
+                        $temp['mode'] = $this->input->get('mode');                 
+                    }          */          
+                    $this->load->database();
+                    $this->load->model('m_order');  
+                    $this->load->library('l_label');
+                    $temp['arr'] = $this->m_order->getList_ext(null ,1, 1 , 1 , 0);
+                    $temp['arr1'] = $this->m_order->getList_ext(null ,1, 1 , 2 , 0);
+                    $temp['arrV'] = $this->m_order->getList_ext(null ,2, 1 , 1 , 0);
+                    $temp['arrV1'] = $this->m_order->getList_ext(null ,2, 1 , 2 , 0);
+                    $temp['arrHold'] = $this->m_order->getList_ext(null ,2, 1 , 7 , 0);
+                    $data['title'] = '<i class="fa fa-fw fa-edit"></i>ROS List</a>';
+                    $data['display'] = $this->load->view($this->parent_page.'/ROSlist', $temp , TRUE);
+                    $this->_show('display' , $data , $key);
+                    break;
+
+                    case 'a7':  
+                    //$this->load->library('my_func');
+                   /* if ($lvl == 4) {
+                        redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
+                    }
+                    if ($this->input->get('mode')) {
+                        $temp['mode'] = $this->input->get('mode');                 
+                    }          */          
+                    $this->load->database();
+                    $this->load->model('m_order');  
+                    $this->load->library('l_label');
+                    $temp['arr'] = $this->m_order->getList_ext(null ,1, 1 , 1 , 0);
+                    $temp['arr1'] = $this->m_order->getList_ext(null ,1, 1 , 2 , 0);
+                    $temp['arrV'] = $this->m_order->getList_ext(null ,2, 1 , 1 , 0);
+                    $temp['arrV1'] = $this->m_order->getList_ext(null ,2, 1 , 2 , 0);
+                    $temp['arrHold'] = $this->m_order->getList_ext(null ,2, 1 , 7 , 0);
+                    $data['title'] = '<i class="fa fa-fw fa-edit"></i>RST List</a>';
+                    $data['display'] = $this->load->view($this->parent_page.'/RSTlist', $temp , TRUE);
+                    $this->_show('display' , $data , $key);
+                    break;
+
+                    case 'a8':  
+                    //$this->load->library('my_func');
+                   /* if ($lvl == 4) {
+                        redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
+                    }
+                    if ($this->input->get('mode')) {
+                        $temp['mode'] = $this->input->get('mode');                 
+                    }          */          
+                    $this->load->database();
+                    $this->load->model('m_order');  
+                    $this->load->library('l_label');
+                    $temp['arr'] = $this->m_order->getList_ext(null ,1, 1 , 1 , 0);
+                    $temp['arr1'] = $this->m_order->getList_ext(null ,1, 1 , 2 , 0);
+                    $temp['arrV'] = $this->m_order->getList_ext(null ,2, 1 , 1 , 0);
+                    $temp['arrV1'] = $this->m_order->getList_ext(null ,2, 1 , 2 , 0);
+                    $temp['arrHold'] = $this->m_order->getList_ext(null ,2, 1 , 7 , 0);
+                    $data['title'] = '<i class="fa fa-fw fa-edit"></i>RST Action</a>';
+                    $data['display'] = $this->load->view($this->parent_page.'/RSTaction', $temp , TRUE);
+                    $this->_show('display' , $data , $key);
+                    break;
+
                 case 'c4':
                     //Category
                     $this->_loadCrud();
