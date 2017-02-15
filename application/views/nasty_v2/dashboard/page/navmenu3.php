@@ -83,15 +83,22 @@
                             </a>
                             <ul class="sub-menu">
                                 <li class="nav-item start" title="Request Of Shipping">
-                                    <a href="" class="nav-link ">
+                                    <a href="<?= site_url('nasty_v2/dashboard/page/a6') ?>" class="nav-link ">
                                         <i class="fa fa-flag-checkered"></i>
                                         <span class="title">ROS</span>
                                     </a>
                                 </li>
                                 <li class="nav-item start" title="Ready To Shipping">
-                                    <a href="" class="nav-link ">
+                                    <a href="<?= site_url('nasty_v2/dashboard/page/a7') ?>" class="nav-link ">
                                         <i class="fa fa-truck"></i>
                                         <span class="title">RTS</span>
+                                        <!--<span class="badge badge-success">1</span>-->
+                                    </a>
+                                </li>
+                                    <li class="nav-item start" title="Ready To Shipping">
+                                    <a href="<?= site_url('nasty_v2/dashboard/page/a8') ?>" class="nav-link ">
+                                        <i class="fa fa-flag"></i>
+                                        <span class="title">RTS Action</span>
                                         <!--<span class="badge badge-success">1</span>-->
                                     </a>
                                 </li>
