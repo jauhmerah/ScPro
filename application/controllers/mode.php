@@ -22,7 +22,7 @@ class Mode extends CI_Controller {
 </style>
 
 <article>
-<div align="center"><img src="<?= base_url("assets/cover/logo.png"); ?>" width = "200px" alt="Image"><br><h3>OrdYs 2.3.5 Alpha</h3><br><h1>We&rsquo;ll be back soon!</h1><br><h4>We should be back shortly on <strong> 11.30pm </strong> .Thank you for your patience. ;)</h4></div>	
+<div align="center"><iframe width="560" height="315" src="https://www.youtube.com/embed/s1kBgXLTR8A?autoplay=1" frameborder="0" allowfullscreen></iframe><br><h3>OrdYs 2.3.5 Alpha</h3><br><h1>We&rsquo;ll be back soon!</h1><br><h4>We should be back shortly .Thank you for your patience. ;)</h4></div>	
     
     <div>
         <p>Sorry for the inconvenience but we&rsquo;re performing some maintenance at the moment. If you need to you can always <a href="mailto:jauhmerah@gmail.com">contact us</a>, otherwise we&rsquo;ll be back online shortly!</p>
