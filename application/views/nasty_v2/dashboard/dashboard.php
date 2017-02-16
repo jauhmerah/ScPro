@@ -21,7 +21,7 @@
 <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
 <script src="https://www.amcharts.com/lib/3/pie.js"></script>
 <style type="text/css">
-    #chartdiv, #flavdiv , #orderdiv{
+    #chartdiv, #flavdiv , #orderdiv , #paiddiv{
     width   : 100%;
     height  : 500px;
 }
@@ -133,6 +133,34 @@
                     <div class="clearfix"></div>
                     <!-- END DASHBOARD STATS 1-->
                     <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                              <div class="portlet light ">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class="icon-bar-chart font-dark hide"></i>
+                                        <span class="caption-subject font-dark bold uppercase">Total Statistic</span>
+                                      <span class="caption-helper">Income Status</span>
+                                    </div>
+                                    <div class="actions">
+                                    </div>
+                                </div>
+                                <div class="clear" style="height:40px;"></div>
+                                <div class="portlet-body">
+                                <div class="row">
+                                    <div align="center">
+                                        <h2>Income Status</h2>
+                                    </div>
+                                </div>
+                                    <div id="site_statistics_loading5">
+                                        <img src="<?= base_url(); ?>/asset2/global/img/loading.gif" alt="loading" /> </div>
+                                        <!-- #graph5 -->                                      
+                                    <div id="site_statistics_content"  >
+                                        <div id="paiddiv" class="display-none"> </div>
+                                        <div id="paidcode" ></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-md-12 col-sm-12">
                               <div class="portlet light ">
                                 <div class="portlet-title">
@@ -897,6 +925,12 @@ $(document).ready(function() {
         $.when($('#gcode').html(data)).then(function(){
             $("#chartdiv").removeClass('display-none');
             $("#site_statistics_loading").addClass('display-none');
+        });
+    });
+    $.post('<?= site_url('nasty_v2/dashboard/getAjaxGraph5') ?>', {}, function(data) {
+        $.when($('#paidcode').html(data)).then(function(){
+            $("#paiddiv").removeClass('display-none');
+            $("#site_statistics_loading5").addClass('display-none');
         });
     });
     kelik();   

@@ -99,18 +99,30 @@
             $this->sendEmail($email);
             $this->page('a1');
         }
-        public function testgraph($value='')
-        {
-            $this->load->view($this->parent_page."/testgraft");
-        }
 
         public function dataCount()
         {
             $this->load->database();
-            $this->load->model('m_item');
-            $arr = $this->m_item->totalByFlavor();
+            $this->load->model('m_order');
+            $arr['net'] = $this->m_order->getIncome(1);
+            $arr['acc'] = $this->m_order->getIncome(1,1);
+            $sizeNet = sizeof($arr['net']);
+            if ($sizeNet != 0) {
+                for ($i = 0 ; $i < $sizeNet ; $i++) { 
+                    $data[$i]['date'] = $arr['net'][$i]->month."|".$arr['net'][$i]->year;
+                    $data[$i]['net'] = $arr['net'][$i]->sales;
+                    if ($arr['net'][$i]->month == $arr['acc'][0]->month && $arr['net'][$i]->year == $arr['acc'][0]->year) {
+                        $data[$i]['acc'] = $arr['acc'][0]->sales;
+                        array_shift($arr['acc']);
+                    } else {
+                        $data[$i]['acc'] = 0;
+                    }                    
+                }
+            }else{
+                $data = null;
+            }
             echo "<pre>";
-            print_r($arr);
+            print_r($data);
             echo "</pre>";
         }
         public function getAjaxGraph()
@@ -996,7 +1008,9 @@ epul@nastyjuice.com
                     $this->load->library('my_func');
                     $this->load->library('my_flag');
                     $this->load->database();
-                    $this->load->model('m_order');
+                    $this->load->model('m_order'); 
+                    //echo $this->input->get("search").$this->input->get("filter");
+                    //die();
                     if ($this->input->post("search") && $this->input->post("filter") || $this->input->get("search") && $this->input->get("filter")) {
                         if ($this->input->get("search") && $this->input->get("filter")) {
                             $search = $this->input->get("search");
@@ -1005,6 +1019,7 @@ epul@nastyjuice.com
                             $search = $this->input->post("search");
                             $filter = $this->input->post("filter");
                         }
+
                         switch ($filter) {
                             case '10':
                                 //Client Name
@@ -1841,6 +1856,32 @@ epul@nastyjuice.com
         {
             $arr = $this->input->post();
             echo $this->load->view($this->parent_page.'/ajax/getAjaxGraph4', $arr, false);
+        }
+
+        public function getAjaxGraph5()
+        {
+            //#graph5
+            $this->load->database();
+            $this->load->model('m_order');
+            $arr['net'] = $this->m_order->getIncome(1);
+            $arr['acc'] = $this->m_order->getIncome(1,1);
+            $sizeNet = sizeof($arr['net']);
+            if ($sizeNet != 0) {
+                for ($i = 0 ; $i < $sizeNet ; $i++) { 
+                    $data[$i]['date'] = $arr['net'][$i]->month."|".$arr['net'][$i]->year;
+                    $data[$i]['net'] = $arr['net'][$i]->sales;
+                    if ($arr['net'][$i]->month == $arr['acc'][0]->month && $arr['net'][$i]->year == $arr['acc'][0]->year) {
+                        $data[$i]['acc'] = $arr['acc'][0]->sales;
+                        array_shift($arr['acc']);
+                    } else {
+                        $data[$i]['acc'] = 0;
+                    }                    
+                }
+            }else{
+                $data = null;
+            }
+            $temp['data'] = $data;
+            echo $this->load->view($this->parent_page.'/ajax/getAjaxGraph5', $temp, false);
         }
 
         public function cancelConfirm()

@@ -36,7 +36,7 @@
             </div>
             <div class="portlet-body flip-scroll">
 	            <div class="row tableL">
-	            <form id="formSearch" action="<?= site_url('nasty_v2/dashboard/page/a1new'); ?>" method="POST" role="form">
+	            <form id="formSearch" action="<?= site_url('nasty_v2/dashboard/page/k1'); ?>" method="POST" role="form">
 	            	<div class="col-md-12">
 	            		<div class="col-md-2">
 	            			
@@ -203,21 +203,32 @@
         </div>
 	</div>
 </div>
-
+<?php
+	$get = "";
+	if($this->input->get('page')){
+		$get = "?page=".$this->input->get('page');
+	}
+	if($this->input->get('search') && $this->input->get('filter')){
+		$get = "?search=".$this->input->get('search')."&filter=".$this->input->get('filter');
+	}
+	if($this->input->post('search') && $this->input->post('filter')){
+		$get = "?search=".$this->input->post('search')."&filter=".$this->input->post('filter');
+	}
+?>
 <script>
 	$(document).ready(function() {		
 		$(".doneC").click(function() {
 			key = $(this).prop('id');
 			or_id = $('.'+key).val();
 			$.post('<?= site_url()."nasty_v2/dashboard/getAjaxDone" ?>', {or_id: or_id}, function(data, textStatus, xhr) {
-				window.location = "<?= current_url(); ?>";
+				window.location = "<?= current_url().$get; ?>";
 			});
 		});
 		$(".cancelC").click(function() {
 			key = $(this).prop('id');
 			or_id = $('.'+key).val();
 			$.post('<?= site_url()."nasty_v2/dashboard/getAjaxCancel" ?>', {or_id: or_id}, function(data, textStatus, xhr) {
-				window.location = "<?= current_url(); ?>";
+				window.location = "<?= current_url().$get; ?>";
 			});
 		});
 		$(".bayar").click(function() {

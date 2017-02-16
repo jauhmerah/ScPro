@@ -1,7 +1,10 @@
 <script>
-	function onDel() {
-		return false;
-		//confirm('Are You Sure ?');
+	function onDel() {		
+		if(confirm('Are You Sure ?')){
+			return true;
+		}else{
+			return false;
+		}
 	}
 	$(document).ready(function() {
 
@@ -164,7 +167,7 @@
 										<input type="hidden" class="form-control <?= $n.'con' ?>" value ="<?= $orid ?>">
 										<input type="hidden" class="form-control <?= $n.'con1' ?>" value ="<?= $user->pr_id ?>">
 										<input type="hidden" class="form-control <?= $n.'cocode' ?>" value ="<?= $id; ?>">     										
-										<?php if($user->pr_id != 5 && $user->pr_id != 7 && $user->pr_id != 3 ){ ?><button type="button" class="btn btn-default btn-circle btn-xs cancelOrd" id="<?= $n.'co' ?>" title="Cancel Order"><i class="fa fa-close"></i></button><?php }else{  ?><a href="<?= site_url('nasty_v2/dashboard/page/a13?del=').$orid; ?>" name="c5" title="Delete Order"><button type="button" class="btn btn-danger btn-circle btn-xs"><i class="fa fa-trash"></i></button></a><?php } ?>
+										<?php if($user->pr_id != 5 && $user->pr_id != 7 && $user->pr_id != 3 ){ ?><button type="button" class="btn btn-default btn-circle btn-xs cancelOrd" id="<?= $n.'co' ?>" title="Cancel Order"><i class="fa fa-close"></i></button><?php }else{  ?><a onclick="return onDel();" href="<?= site_url('nasty_v2/dashboard/page/a13?del=').$orid; ?>" name="c5" title="Delete Order"><button type="button" class="btn btn-danger btn-circle btn-xs"><i class="fa fa-trash"></i></button></a><?php } ?>
 		                            </td>	                            
 		                        </tr>		
 		                    			<?php
@@ -246,8 +249,7 @@
     </div></form>
   </div>
 <script>
-	$(document).ready(function() {
-		
+	$(document).ready(function() {		
 		$(".cancelOrd").click(function() {
 			$('#myModal').show('slow');
 			key = $(this).prop('id');
