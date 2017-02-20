@@ -58,6 +58,14 @@
 	            return false;
 	        }
 	    }
+	    public function getLvl(){
+            $this->db->select("*");
+            $this->db->from('process');
+            $this->db->where("pr_id BETWEEN 8 AND 10");
+
+            $result = $this->db->get()->result();
+            return $result;
+        }
 	
 	    /**
 	     * Updates selected record in the database

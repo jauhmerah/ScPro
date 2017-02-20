@@ -154,8 +154,28 @@
 										<?php if($user->pr_id == 3){ ?>
                                     			&nbsp;- &nbsp;<button title = "Print Order" onclick = "window.open('<?= site_url('order/printO1?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" type="button" class="btn btn-default btn-circle btn-info btn-xs"><i class="fa fa-print"></i></button>&nbsp;-&nbsp;
                                     			<button type="button" title = "D.O Form" onclick = "window.open('<?= site_url('order/printDO1?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn btn-success btn-circle btn-xs"><i class="fa fa-truck"></i></button>
-                                    		<?php } ?><br/><div class="clearfix">
-                                    		&nbsp;
+                                    		<?php } ?>
+                                    		
+
+
+                                    		<?php if($user->pr_id == 3){ 
+
+
+                                    			if($user->pr_id != 8){
+                                    			?>
+                                    			&nbsp;-&nbsp;
+                                      	
+                                    		 	 
+                                    			<button type="button" title = "ROS" class="ROSButton btn btn-primary btn-circle btn-xs" id="ROSButton" name="ROSButton"><i class="fa fa-flag-checkered"></i></button>
+	
+                                    		 <?php }} ?>
+
+
+                                    		<div class="clearfix">
+                                    		
+                                    
+
+
                                     		</div>
 										<button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/Invoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');"  class="btn blue-dark btn-circle btn-xs" title="Invoice">Inv</button></a>&nbsp;-&nbsp;    
 										<button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/dummyInvoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn c-btn-border-1x c-btn-blue-dark btn-circle btn-xs" title="Dummy Invoice">DInv</button></a>&nbsp;-&nbsp;    
@@ -246,7 +266,50 @@
     </div></form>
   </div>
 <script>
+
+
+
+
+
+
 	$(document).ready(function() {
+
+
+
+		$(".ROSButton").click(function() {
+       		
+			bootbox.confirm({
+			    message: "Are You Sure?",
+			    buttons: {
+			        confirm: {
+			            label: 'Yes',
+			            className: 'btn-success'
+			           
+			        },
+			        cancel: {
+			            label: 'No',
+			            className: 'btn-danger'
+			        }
+			    },
+			    callback: function (result) {
+			    	if(result == true){
+
+			    		$.post('<?= site_url('nasty_v2/dashboard/change_pr_id3'); ?>', {or_id: "<?= $this->my_func->scpro_encrypt($user->or_id); ?>",pr_id: 8}, function(data) {
+			            	alert("Success!!!.");
+			            	$(window).attr("location", "<?= site_url('nasty_v2/dashboard/page/a1new'); ?>");
+			            	
+			            });
+
+			    	}
+			    	
+			        
+			    }
+			});
+
+
+    	});
+
+
 		
 		$(".cancelOrd").click(function() {
 			$('#myModal').show('slow');

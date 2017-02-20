@@ -84,6 +84,41 @@
         }
         //end added        
 
+
+         public function getAll($where = null , $all = false)
+        {
+            $this->db->select('*');
+            $this->db->from(self::TABLE_NAME);
+            if ($where !== NULL) {
+                if (is_array($where)) {
+                    foreach ($where as $field=>$value) {
+                        $this->db->where($field, $value);
+                    }
+                } else {
+                    $this->db->where(self::PRI_INDEX, $where);
+                }
+            }
+       /*     if (!$all) {
+                $this->db->where('us_lvl >', 0);
+            }           
+            $this->db->join('user_level ul', 'user.us_lvl = ul.ul_id', 'left');*/
+            $result = $this->db->get()->result();
+            if ($result) {
+                if ($where !== NULL) {
+                    return array_shift($result);
+                } else {
+                    return $result;
+                }
+            } else {
+                return false;
+            }
+        }
+
+
+
+
+
+
 	    public function getList($process = 0 , $del = 0 , $down = 0)
 	    {
 	    	$this->db->select('*');
@@ -255,6 +290,25 @@
                 $where = array(self::PRI_INDEX => $where);
             }
 	        $this->db->update(self::TABLE_NAME, $data, $where);
+	        return $this->db->affected_rows();
+	    }
+
+
+	    /**
+	     * Updates selected record in the database
+	     *
+	     * @param Array $data Associative array field_name=>value to be updated
+	     * @param Array $where Optional. Associative array field_name=>value, for where condition. If specified, $id is not used
+	     * @return int Number of affected rows by the update query
+	     */
+
+	    /*pr_id,or_id*/
+	    public function updateROS($data = array(), $where = array()) {
+            if (!is_array($where)) {
+                $where =array(self::PRI_INDEX => $where);
+                $pr_id =array('pr_id' => $data);
+            }
+	        $this->db->update(self::TABLE_NAME, $pr_id, $where);
 	        return $this->db->affected_rows();
 	    }
 	

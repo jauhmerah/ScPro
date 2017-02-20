@@ -579,14 +579,114 @@ epul@nastyjuice.com
                     }          */          
                     $this->load->database();
                     $this->load->model('m_order');  
-                    $this->load->library('l_label');
-                    $temp['arr'] = $this->m_order->getList_ext(null ,1, 1 , 1 , 0);
+                    //$this->load->library('l_label');
+                 /*   $temp['arr'] = $this->m_order->getList_ext(null ,1, 1 , 1 , 0);
                     $temp['arr1'] = $this->m_order->getList_ext(null ,1, 1 , 2 , 0);
                     $temp['arrV'] = $this->m_order->getList_ext(null ,2, 1 , 1 , 0);
                     $temp['arrV1'] = $this->m_order->getList_ext(null ,2, 1 , 2 , 0);
-                    $temp['arrHold'] = $this->m_order->getList_ext(null ,2, 1 , 7 , 0);
+                    $temp['arrHold'] = $this->m_order->getList_ext(null ,2, 1 , 7 , 0);*/
+                    $arr['arr'] = $this->m_order->getAll();
                     $data['title'] = '<i class="fa fa-fw fa-edit"></i>ROS List</a>';
-                    $data['display'] = $this->load->view($this->parent_page.'/ROSlist', $temp , TRUE);
+                    $data['display'] = $this->load->view($this->parent_page.'/ROSlist', $arr , TRUE);
+                    $this->_show('display' , $data , $key);
+                    break;
+
+
+                     case 'a62':  
+                    //$this->load->library('my_func');
+                   /* if ($lvl == 4) {
+                        redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
+                    }
+                    if ($this->input->get('mode')) {
+                        $temp['mode'] = $this->input->get('mode');                 
+                    }          */          
+                    $this->load->database();
+                    $this->load->library('my_func');
+                    $this->load->library('my_flag');
+                    $this->load->model('m_order');
+                    $this->load->model('m_order_process');
+
+                    if ($this->input->post("search") && $this->input->post("filter") || $this->input->get("search") && $this->input->get("filter")) {
+                        if ($this->input->get("search") && $this->input->get("filter")) {
+                            $search = $this->input->get("search");
+                            $filter = $this->input->get("filter");
+                        } else {
+                            $search = $this->input->post("search");
+                            $filter = $this->input->post("filter");
+                        }
+                        switch ($filter) {
+                            case '10':
+                                //Client Name
+                                $where = array(
+                                    "cl.cl_name" => $search
+                                );
+                                break;
+                            case '1':
+                                //Order Code
+                                //Hanya Single
+                                if (strpos($search, "#") !== false) {
+                                    $search = str_replace("#", "", $search);
+                                }
+                                if (!is_numeric($search)) {
+                                    $this->session->set_flashdata('warning', 'Please Enter the Correct Order Code');
+                                    redirect(site_url("nasty_v2/dashboard/page/a1"),'refresh');
+                                }
+                                $str = (string)$search;
+                                /*if ($str[1] == '1') {
+                                    $id = $search - 110000;
+                                    $ver = 1;
+                                } else {
+                                    $id = $search - 100000;
+                                    $ver = 0;
+                                }*/
+                                $ver = 2;
+                                $id = $search - 120000;
+                                $where = array(
+                                    "ord.or_id" => $id
+                                );
+                                break;
+                            case '2':
+                                //Sales Person
+                                $where = array(
+                                    "us1.us_username" => $search
+                                );
+                                break;
+                            case '3':
+                                //Order Status
+                                $where = array(
+                                    "pr.pr_desc" => $search
+                                );
+                                break;
+                        }
+                        if (isset($ver)) {
+                            $arr['arr1'] = $this->m_order->listOr($ver , null , null , 0 , $where);
+                        }else{
+                            $arr['arr1'] = $this->m_order->listSearch(2 , null , null , 0 , $where);                        
+                        }
+                    } else {
+                        $ver = $this->m_order->orderCount(2);
+                        $arr['arr1'] = $this->m_order->listOr(2 , 10);
+                        $result1 = sizeof($arr['arr1']);
+                        //$sizeA = 10 - $result1;
+                        /*if ($sizeA != 0) {
+                            $p1 = $p + 10 - $ver1;
+                            if ($p1 < 10) {
+                                $p2 = 0;
+                            } else {
+                                $p2 = $p1;
+                                $p1 = 10;
+                            }                        
+                            $arr['arr'] = $this->m_order->listOr(0 , $p1 , $p2);
+                            $result1 = $result1 + sizeof($arr['arr']);
+                        }*/
+                        //$arr['page'] = $p;
+                        $arr['total'] = $ver;
+                        $arr['row'] = $result1;
+                        $arr['lvl'] = $this->m_order_process->getLvl();
+                    }
+                    //$arr['arr'] = $this->m_order->getAll();
+                    $data['title'] = '<i class="fa fa-fw fa-edit"></i>ROS List</a>';
+                    $data['display'] = $this->load->view($this->parent_page.'/ROSlist2', $arr , TRUE);
                     $this->_show('display' , $data , $key);
                     break;
 
@@ -629,6 +729,27 @@ epul@nastyjuice.com
                     $temp['arrHold'] = $this->m_order->getList_ext(null ,2, 1 , 7 , 0);
                     $data['title'] = '<i class="fa fa-fw fa-edit"></i>RST Action</a>';
                     $data['display'] = $this->load->view($this->parent_page.'/RSTaction', $temp , TRUE);
+                    $this->_show('display' , $data , $key);
+                    break;
+
+                    case 'a9':  
+                    //$this->load->library('my_func');
+                   /* if ($lvl == 4) {
+                        redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
+                    }
+                    if ($this->input->get('mode')) {
+                        $temp['mode'] = $this->input->get('mode');                 
+                    }          */          
+                    $this->load->database();
+                    $this->load->model('m_order');  
+                    $this->load->library('l_label');
+                    $temp['arr'] = $this->m_order->getList_ext(null ,1, 1 , 1 , 0);
+                    $temp['arr1'] = $this->m_order->getList_ext(null ,1, 1 , 2 , 0);
+                    $temp['arrV'] = $this->m_order->getList_ext(null ,2, 1 , 1 , 0);
+                    $temp['arrV1'] = $this->m_order->getList_ext(null ,2, 1 , 2 , 0);
+                    $temp['arrHold'] = $this->m_order->getList_ext(null ,2, 1 , 7 , 0);
+                    $data['title'] = '<i class="fa fa-fw fa-edit"></i>ROS List</a>';
+                    $data['display'] = $this->load->view($this->parent_page.'/ROSswitch', $temp , TRUE);
                     $this->_show('display' , $data , $key);
                     break;
 
@@ -1073,6 +1194,8 @@ epul@nastyjuice.com
     		}
     	}
 
+      
+
     	public function uploadPic()
 		{
 			$this->load->helper('form');
@@ -1208,6 +1331,45 @@ epul@nastyjuice.com
             redirect('nasty_v2/dashboard/page/a1new','refresh');
         }
 
+
+         public function change_pr_id3()
+        {
+            
+                if ($this->input->post('or_id')){
+                $this->load->library('my_func'); 
+                $or_id = $this->my_func->scpro_decrypt($this->input->post('or_id'));
+                $pr_id = $this->input->post('pr_id');
+                $this->load->database();
+                $this->load->model('m_order');
+
+               
+/*
+                  1 - New Order
+                    2 - In Progress
+                    3 - Complete
+                    4 - Unconfirm
+                    5 - Cancel
+                    6 - Cancel In Progress
+                    7 - On Hold In Progress
+                    8 - ROS
+                    9 - DOC
+                    10 - RTS
+                    11 - Shipping
+                    12 - Arrived
+                    13 - Return */
+                    $this->m_order->updateROS($pr_id, $or_id);
+
+                    redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
+
+                }
+
+                    
+        }
+
+
+
+
+
         private function change_pr_id2($or_id = null)
         {
             //utk upload image part
@@ -1220,7 +1382,13 @@ epul@nastyjuice.com
                     4 - Unconfirm
                     5 - Cancel
                     6 - Cancel In Progress
-                    7 - On Hold In Progress */
+                    7 - On Hold In Progress
+                    8 - ROS
+                    9 - DOC
+                    10 - RTS
+                    11 - Shipping
+                    12 - Arrived
+                    13 - Return */
                 $arr = $this->m_order->get($or_id , "pr_id");
                 if ($arr->pr_id == 4) {
                     $this->m_order->update(array("pr_id" => 1) , $or_id);
@@ -1229,6 +1397,25 @@ epul@nastyjuice.com
                 return false;
             }
         }
+     /*   public function updateROS()
+        {
+        
+                    if ($this->input->get('id')) {
+                
+                        $this->load->database();
+                        $this->load->model("m_order");
+                        $or_id = $this->my_func->scpro_decrypt($this->input->get('id'));
+                    
+                        $this->change_pr_id2($or_id);
+                    }
+        
+        }
+*/
+
+
+
+
+
         function change_pr_id(){
             if ($this->input->post('id')) {
                 $this->load->library('my_func' , 'session');

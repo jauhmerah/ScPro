@@ -129,78 +129,39 @@
 		<div class="portlet box purple">
 			 <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-user"></i>ROS List 
+                    <i class="fa fa-user"></i>ROS Switch 
                 </div>                
             </div>
 
             <div class="portlet-body flip-scroll">
 		            <div class="row">
-		            		<div class="col-md-12">
-					            	<div id="Request" style="width: 111%;">
-					            		<div id="div1" class="task-contain" ondrop="drop(event)" ondragover="allowDrop(event)" >
+		            		<div class="col-lg-6 col-md-6 col-sm-6">
+                            <a class="dashboard-stat dashboard-stat-v2 blue" href="<?= site_url('nasty_v2/dashboard/page/a62') ?>">
+                                <div class="visual">
+                                    <i class="fa fa-shopping-cart"></i>
+                                </div>
+                                <div class="details">
+                                    <div class="number">
+                   
+                                    </div>
+                                    <div class="desc"> Version 1.0 </div>
+                                </div>
+                            </a>
+                        </div>
 
-						                        <h3 class="ui-sortable-handle" style="text-align: left;"> <i class="fa fa-circle-o-notch"></i> ROS</h3>
-						                        <hr>
-						                          <?php
-                                $n = 0; 
-                                if (sizeof($arr) != 0) { 
-                                    foreach ($arr as $user) {
-                                        $n++;
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <a class="dashboard-stat dashboard-stat-v2 blue" href="<?= site_url('nasty_v2/dashboard/page/a6') ?>">
+                                <div class="visual">
+                                    <i class="fa fa-shopping-cart"></i>
+                                </div>
+                                <div class="details">
+                                    <div class="number">
 
-                                        if($user->pr_id==8){
-
-                                        ?>
-
-						                            <div style="opacity: 1;" class="todo-task" draggable="true" ondragstart="drag(event)" id="drag1">
-						                                <div class="task-header">
-						                                    <div class="task-no">Order No. : <?php 
-                                    if ($user->or_id) {
-                                        $id = '#'.(120000+$user->or_id);
-                                        echo $id;
-                                    } else {
-                                        echo "--Not Set--";
-                                    }
-                                    ?></div>
-						                                    
-						                                </div>
-						                                <div class="task-body">
-						                                    <div class="task-title">
-                                                            Meet with technical teams to discuss solution
-                                                            </div>
-						                                </div>
-						                                <div class="task-footer">
-						                                    <div class="task-date">Due: <?php 
-                                    $view = ( $user->or_date == null) ? "--Not Set--" :  date_format(date_create($user->or_date) , 'd-M-Y' ) ;
-                                    echo $view ;
-                                    ?></div>
-						                                </div>
-						                            </div>
-
-                                            <?php
-                                            }
-                                        }
-                                    }
-
-                                             ?> 
-
-			                        		</div>
-			                        	</div>
-			                        <div id="Document" style="width: 111%;">
-						            	  <div id="div2" class="task-contain" ondrop="drop(event)" ondragover="allowDrop(event)" >
-				                                <h3 class="ui-sortable-handle" style="text-align: left;"> <i class="fa fa-file-o"></i> DOC</h3>
-				                                <hr>
-				                        	</div>
-				                    </div>
-
-				                    <div id="RTS" style="width: 111%;">
-			                        <div id="div3" class="task-contain" ondrop="drop(event)" ondragover="allowDrop(event)" >
-			                                <h3 class="ui-sortable-handle" style="text-align: left;"> 
-			                                <i class="fa fa-truck"></i> RTS</h3>
-			                                <hr>
-			                        </div>
-			                        </div>
-
-			                </div>
+                                    </div>
+                                    <div class="desc"> Version 2.0 </div>
+                                </div>
+                            </a>
+                        </div>
 		            </div>
             </div>
 
