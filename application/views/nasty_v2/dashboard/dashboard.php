@@ -21,7 +21,7 @@
 <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
 <script src="https://www.amcharts.com/lib/3/pie.js"></script>
 <style type="text/css">
-    #chartdiv, #flavdiv , #orderdiv , #paiddiv{
+    #chartdiv, #flavdiv , #orderdiv , #paiddiv , #usddiv , #gbpdiv{
     width   : 100%;
     height  : 500px;
 }
@@ -62,7 +62,7 @@
                     </div>
                     <div class="row">
                       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                            <a class="dashboard-stat dashboard-stat-v2 blue" href="<?= site_url(); ?>nasty_v2/dashboard/page/a1new?search=new%20order&filter=3">
+                            <a class="dashboard-stat dashboard-stat-v2 blue-dark" href="<?= site_url(); ?>nasty_v2/dashboard/page/a1new?search=new%20order&filter=3">
                                 <div class="visual">
                                     <i class="fa fa-shopping-cart"></i>
                                 </div>
@@ -90,7 +90,7 @@
                             </a>
                         </div>
                          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                            <a class="dashboard-stat dashboard-stat-v2 green" href="<?= site_url(); ?>nasty_v2/dashboard/page/a1new?search=complete&filter=3">
+                            <a class="dashboard-stat dashboard-stat-v2 green-seagreen" href="<?= site_url(); ?>nasty_v2/dashboard/page/a1new?search=complete&filter=3">
                                 <div class="visual">
                                     <i class="fa fa-check-square-o"></i>
                                 </div>
@@ -106,7 +106,7 @@
                     </div>
                     <div class="row">                       
                          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <a class="dashboard-stat dashboard-stat-v2 yellow-lemon" href="<?= site_url(); ?>nasty_v2/dashboard/page/a1new?search=unconfirm&filter=3">
+                            <a class="dashboard-stat dashboard-stat-v2 yellow-haze" href="<?= site_url(); ?>nasty_v2/dashboard/page/a1new?search=unconfirm&filter=3">
                                 <div class="visual">
                                     <i class="fa fa-exclamation-circle fa-spin"></i>
                                 </div>
@@ -146,49 +146,69 @@
                                 </div>
                                 <div class="clear" style="height:40px;"></div>
                                 <div class="portlet-body">
-                                <div class="row">
-                                    <div align="center">
-                                        <h2>Income Status</h2>
+                                    <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="row">
+                                            <div align="center">
+                                                <h2>Income Status (MYR)</h2>
+                                            </div>
+                                        </div>
+                                        <div id="sales1" align="center">
+                                            <h1><i class="fa fa-repeat fa-spin"></i></h1>
+                                        </div>
+                                            <!-- #graph5 -->                     
+                                        <div id="site_statistics_content"  >
+                                            <div id="paiddiv" class="display-none"> </div>
+                                            <div id="paidcode" ></div>
+                                        </div>
                                     </div>
-                                </div>
-                                    <div id="site_statistics_loading5">
-                                        <img src="<?= base_url(); ?>/asset2/global/img/loading.gif" alt="loading" /> </div>
-                                        <!-- #graph5 -->                                      
-                                    <div id="site_statistics_content"  >
-                                        <div id="paiddiv" class="display-none"> </div>
-                                        <div id="paidcode" ></div>
+                                    <div class="col-lg-6">
+                                        <div class="row">
+                                            <div align="center">
+                                                <h2>Income Status (USD)</h2>
+                                            </div>
+                                        </div>
+                                        <div id="sales2" align="center">
+                                            <h1><i class="fa fa-repeat fa-spin"></i></h1></div>
+                                            <!-- #graph5 -->                     
+                                        <div id="site_statistics_content"  >
+                                            <div id="usddiv" class="display-none"> </div>
+                                            <div id="usdcode" ></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="row">
+                                            <div align="center">
+                                                <h2>Income Status (GBP)</h2>
+                                            </div>
+                                        </div>
+                                        <div id="sales3" align="center">
+                                            <h1><i class="fa fa-repeat fa-spin"></i></h1></div>
+                                            <!-- #graph5 -->                     
+                                        <div id="site_statistics_content"  >
+                                            <div id="gbpdiv" class="display-none"> </div>
+                                            <div id="gbpcode" ></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="row">
+                                            <div align="center">
+                                                <h2>Total Order Status</h2>
+                                            </div>
+                                        </div>
+                                            <div id="site_statistics_loading4">
+                                                <img src="<?= base_url(); ?>/asset2/global/img/loading.gif" alt="loading" /> </div>
+                                                <!-- #graph4 -->                                      
+                                            <div id="site_statistics_content"  >
+                                                <div id="orderdiv" class="display-none"> </div>
+                                                <div id="ordercode" ></div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-12 col-sm-12">
-                              <div class="portlet light ">
-                                <div class="portlet-title">
-                                    <div class="caption">
-                                        <i class="icon-bar-chart font-dark hide"></i>
-                                        <span class="caption-subject font-dark bold uppercase">Total Statistic</span>
-                                      <span class="caption-helper">Total Order Status</span>
-                                    </div>
-                                    <div class="actions">
-                                    </div>
-                                </div>
-                                <div class="clear" style="height:40px;"></div>
-                                <div class="portlet-body">
-                                <div class="row">
-                                    <div align="center">
-                                        <h2>Total Order Status</h2>
-                                    </div>
-                                </div>
-                                    <div id="site_statistics_loading4">
-                                        <img src="<?= base_url(); ?>/asset2/global/img/loading.gif" alt="loading" /> </div>
-                                        <!-- #graph4 -->                                      
-                                    <div id="site_statistics_content"  >
-                                        <div id="orderdiv" class="display-none"> </div>
-                                        <div id="ordercode" ></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        </div>                        
                         <div class="col-md-6 col-sm-6">
                             <!-- BEGIN PORTLET-->
                             <div class="portlet light ">
@@ -927,10 +947,22 @@ $(document).ready(function() {
             $("#site_statistics_loading").addClass('display-none');
         });
     });
-    $.post('<?= site_url('nasty_v2/dashboard/getAjaxGraph5') ?>', {}, function(data) {
+    $.post('<?= site_url('nasty_v2/dashboard/getAjaxGraph5/paiddiv/1') ?>', {}, function(data) {
         $.when($('#paidcode').html(data)).then(function(){
             $("#paiddiv").removeClass('display-none');
-            $("#site_statistics_loading5").addClass('display-none');
+            $("#sales1").addClass('display-none');
+        });
+    });
+    $.post('<?= site_url('nasty_v2/dashboard/getAjaxGraph5/usddiv/2') ?>', {}, function(data) {
+        $.when($('#usdcode').html(data)).then(function(){
+            $("#usddiv").removeClass('display-none');
+            $("#sales2").addClass('display-none');
+        });
+    });
+    $.post('<?= site_url('nasty_v2/dashboard/getAjaxGraph5/gbpdiv/3') ?>', {}, function(data) {
+        $.when($('#gbpcode').html(data)).then(function(){
+            $("#gbpdiv").removeClass('display-none');
+            $("#sales3").addClass('display-none');
         });
     });
     kelik();   

@@ -1,6 +1,6 @@
 <!-- Company Income -->
 <script type="text/javascript">
-var chart = AmCharts.makeChart( "paiddiv", {
+var chart = AmCharts.makeChart( "<?= $box; ?>", {
   "type": "serial",
   "addClassNames": true,
   "theme": "light",
@@ -34,7 +34,9 @@ var chart = AmCharts.makeChart( "paiddiv", {
     "net": <?= $data[$i]['net'] ?>,
     "dashLengthColumn": 5,
     "alpha": 0.2,
-    "additional": "(projection)"
+    "additional": "<?php if (isset($cu)) {
+      echo $cu;
+    } ?>"
   }      
     <?php }
     
@@ -49,7 +51,7 @@ var chart = AmCharts.makeChart( "paiddiv", {
     "alphaField": "alpha",
     "balloonText": "<span style='font-size:12px;'>[[title]] in [[category]]:<br><span style='font-size:20px;'>[[value]]</span> [[additional]]</span>",
     "fillAlphas": 1,
-    "title": "Sales",
+    "title": "Sales (approve)",
     "type": "column",
     "valueField": "sales",
     "dashLengthField": "dashLengthColumn"
@@ -79,5 +81,4 @@ var chart = AmCharts.makeChart( "paiddiv", {
     "enabled": true
   }
 } );
-
 </script>

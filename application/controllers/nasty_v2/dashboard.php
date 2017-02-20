@@ -12,6 +12,7 @@
 	    function __construct() {
 	        parent::__construct();
 	        $this->load->library('session');
+            date_default_timezone_set('Asia/Kuala_Lumpur');
 	    }
 	
 	    function index() {
@@ -1858,29 +1859,38 @@ epul@nastyjuice.com
             echo $this->load->view($this->parent_page.'/ajax/getAjaxGraph4', $arr, false);
         }
 
-        public function getAjaxGraph5()
+        public function getAjaxGraph5($box = null , $cu = 1)
         {
             //#graph5
             $this->load->database();
             $this->load->model('m_order');
-            $arr['net'] = $this->m_order->getIncome(1);
-            $arr['acc'] = $this->m_order->getIncome(1,1);
+            $temp['box'] = $box;
+            $arr['net'] = $this->m_order->getIncome($cu);
+            $arr['acc'] = $this->m_order->getIncome($cu,1);
             $sizeNet = sizeof($arr['net']);
+            if ($sizeNet != 0) {
+                $temp['cu'] = $arr['net'][0]->cu_desc;
+            }        
             if ($sizeNet != 0) {
                 for ($i = 0 ; $i < $sizeNet ; $i++) { 
                     $data[$i]['date'] = $arr['net'][$i]->month."|".$arr['net'][$i]->year;
                     $data[$i]['net'] = $arr['net'][$i]->sales;
-                    if ($arr['net'][$i]->month == $arr['acc'][0]->month && $arr['net'][$i]->year == $arr['acc'][0]->year) {
-                        $data[$i]['acc'] = $arr['acc'][0]->sales;
-                        array_shift($arr['acc']);
-                    } else {
+                    if (sizeof($arr['acc']) == 0) {
                         $data[$i]['acc'] = 0;
-                    }                    
+                    } else { 
+                        if ($arr['net'][$i]->month == $arr['acc'][0]->month && $arr['net'][$i]->year == $arr['acc'][0]->year) {
+                            $data[$i]['acc'] = $arr['acc'][0]->sales;
+                            array_shift($arr['acc']);
+                        } else {
+                            $data[$i]['acc'] = 0;
+                        } 
+                    }                   
                 }
             }else{
                 $data = null;
             }
             $temp['data'] = $data;
+            unset($data);
             echo $this->load->view($this->parent_page.'/ajax/getAjaxGraph5', $temp, false);
         }
 
