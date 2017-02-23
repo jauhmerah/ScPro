@@ -241,6 +241,35 @@
 	    	$result = $this->db->get()->result();
 	    	return $result;
 	    }
+
+	    public function listOr_ext($ver = 0 , $limit = null , $start = null , $del = 0 , $where = null)
+	    {
+	    	$this->db->select('ord.or_id , ord.us_id , us1.us_username , cl.cl_name, cl.cl_country , ord.or_date ,ord.pr_id, pr.pr_desc , pr.pr_color, ord.or_paid , pic.img_url , pic.pi_title');
+	    	$this->db->from('order ord');
+	    	if($del != 3){	    		
+	    		$this->db->where('ord.or_del', $del);
+	    	}	    	
+	    	$this->db->order_by('ord.or_id', 'desc');
+	    	if ($limit !== null && $start !== null) {
+	    		$this->db->limit($limit, $start);
+	    	}	
+	    	$this->db->where('ord.or_ver', $ver);
+	    	$this->db->join('client cl', 'ord.cl_id = cl.cl_id', 'left');
+	    	$this->db->join('user us1' , 'ord.us_id = us1.us_id' , 'left');
+	    	$this->db->join('process pr' , 'ord.pr_id = pr.pr_id' , 'left');
+	    	$this->db->join('picture pic' , 'ord.or_id = pic.ne_id' , 'left');
+
+	    	if ($where != null) {
+	    		$this->db->where('ord.pr_id',$where);
+	    	}
+	    	$result = $this->db->get()->result();
+	    	return $result;
+	    }
+
+
+
+
+
 	    public function listSearch($ver = 0 , $limit = null , $start = null , $del = 0 , $where = null)
 	    {
 	    	$this->db->select('ord.or_id , ord.us_id , us1.us_username , cl.cl_name , ord.or_date ,ord.pr_id, pr.pr_desc , pr.pr_color, ord.or_paid , pic.img_url , pic.pi_title');

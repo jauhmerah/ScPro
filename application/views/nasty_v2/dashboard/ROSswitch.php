@@ -136,7 +136,7 @@
             <div class="portlet-body flip-scroll">
 		            <div class="row">
 		            		<div class="col-lg-6 col-md-6 col-sm-6">
-                            <a class="dashboard-stat dashboard-stat-v2 blue" href="<?= site_url('nasty_v2/dashboard/page/a62') ?>">
+                            <a class="dashboard-stat dashboard-stat-v2 purple" href="<?= site_url('nasty_v2/dashboard/page/a62') ?>">
                                 <div class="visual">
                                     <i class="fa fa-shopping-cart"></i>
                                 </div>
@@ -144,7 +144,7 @@
                                     <div class="number">
                    
                                     </div>
-                                    <div class="desc"> Version 1.0 </div>
+                                    <div class="desc">ROS LIST </div>
                                 </div>
                             </a>
                         </div>
@@ -158,7 +158,7 @@
                                     <div class="number">
 
                                     </div>
-                                    <div class="desc"> Version 2.0 </div>
+                                    <div class="desc">RTS LIST </div>
                                 </div>
                             </a>
                         </div>

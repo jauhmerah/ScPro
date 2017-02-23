@@ -162,40 +162,7 @@
 
                                             <tr class="collapse row1">
                                             <td colspan="4" cellspadding="10" style="background-color: #F1F1F1;">
-                                            <div class="col-md-10 col-md-offset-1">
-                                                <fieldset>
-                                              <legend>Status</legend>
-                                              <div class="switch-toggle well">
-                                                <input id="hour3" name="view3" type="radio" checked>
-                                                <label for="hour3" onclick="">
-                                                <i class="fa fa-flag"></i>
-
-                                                    RTS
-                                                </label>
-
-                                                <input id="day4" name="view3" type="radio">
-                                                <label for="day4" onclick="">
-                                                <i class="fa fa-truck"></i>
-                                                Shipped</label>
-
-                                                <input id="week5" name="view3" type="radio">
-                                                <label for="week5" onclick="">
-                                                <i class="fa fa-paper-plane"></i>
-                                                Delivered</label>
-
-                                                <input id="month6" name="view3" type="radio">
-                                                <label for="month6" onclick="">
-                                                 <i class="fa fa-reply"></i>
-                                                Return</label>
-
-                                                <a class="btn btn-success"></a>
-                                              </div>
-                                            </fieldset>
-
-                                                <div class="pull-right">
-                                                <a class="btn btn-success">Save</a>
-                                                </div>
-                                           </div>
+                                            
                                             </td>
                                             </tr>
 
