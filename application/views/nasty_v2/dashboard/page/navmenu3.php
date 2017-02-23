@@ -82,10 +82,10 @@
                                 <span class="arrow"></span>
                             </a>
                             <ul class="sub-menu">
-                                <li class="nav-item start" title="Request Of Shipping">
+                                <li class="nav-item start" title="Distributor Action">
                                     <a href="<?= site_url('nasty_v2/dashboard/page/a62') ?>" class="nav-link ">
                                         <i class="fa fa-flag-checkered"></i>
-                                        <span class="title">Distributor List</span>
+                                        <span class="title">Distributor Action</span>
                                     </a>
                                 </li>
                                 <li class="nav-item start" title="Ready To Shipping">

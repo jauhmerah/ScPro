@@ -130,13 +130,30 @@
                                     echo $view;
                                     ?></td>
                                     <td class="mt-element-ribbon">
-                            			<span class="label" style="background-color: <?= $user->pr_color; ?>"><?= $user->pr_desc; ?></span>
+                                    
+                                    	<div class="pull-left"> 
+                                    		<?php if(($user->pr_id==8)||($user->pr_id==9)||($user->pr_id==10)||($user->pr_id==11)||($user->pr_id==12)||($user->pr_id==13)){ ?>
+                                    	
+                                    		<span class="label" style="background-color:#36c6d3;">Complete</span>
+                                    		<div class="clearfix" style="height: 10px;"></div>
+
+                                    	<?php }?>
+
+
+                                    	<span class="label" style="background-color: <?= $user->pr_color; ?>"><?= $user->pr_desc; ?></span>
+                                    	</div>
+                                   
+
                             			<?php if ($user->or_paid) { ?>
                             				<div title="Paid" id="gmbr<?= $n ?>" class="bayar ribbon ribbon-right ribbon-vertical-right ribbon-shadow ribbon-border-dash-vert ribbon-color-success uppercase" >
                             				<div class="ribbon-sub ribbon-bookmark" title="Paid"><i class="fa fa-money"></i></div>
                             				</div>
                             				<input type="hidden" class="form-control gmbr<?= $n ?>" title = "<?= $user->pi_title; ?>" value="<?= $user->img_url; ?>">
                             			<?php } ?>
+                            			
+                            			
+
+
                                     </td>
 		                            <td align="center">
                                     <?php 
