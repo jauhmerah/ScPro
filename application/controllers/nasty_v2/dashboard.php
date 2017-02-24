@@ -672,7 +672,7 @@ epul@nastyjuice.com
                         $arr['lvl'] = $this->m_order_process->getLvl();
                     }
                     //$arr['arr'] = $this->m_order->getAll();
-                    $data['title'] = '<i class="fa fa-fw fa-edit"></i>ROS List</a>';
+                    $data['title'] = '<i class="fa fa-fw fa-edit"></i>Distributor</a>';
                     $data['display'] = $this->load->view($this->parent_page.'/ROSlist', $arr , TRUE);
                     $this->_show('display' , $data , $key);
                     break;
@@ -1537,10 +1537,12 @@ epul@nastyjuice.com
 
          public function change_pr_id3()
         {
-            
-                if ($this->input->post('or_id')){
-                $this->load->library('my_func'); 
-                $or_id = $this->my_func->scpro_decrypt($this->input->post('or_id'));
+                
+                //if ($this->input->post('or_id')){
+                //echo "<script>alert('test');</script>";
+                //$this->load->library('my_func'); 
+                $or_id = $this->input->post('or_id');
+                //$or_id = $this->my_func->scpro_decrypt($this->input->post('or_id'));
                 $pr_id = $this->input->post('pr_id');
                 $this->load->database();
                 $this->load->model('m_order');
@@ -1562,9 +1564,12 @@ epul@nastyjuice.com
                     13 - Return */
                     $this->m_order->updateROS($pr_id, $or_id);
 
-                    redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
+                    redirect(site_url('nasty_v2/dashboard/page/a1new'),'refresh');
 
-                }
+                // }
+                // else{
+                //     return false;
+                // }
 
                     
         }

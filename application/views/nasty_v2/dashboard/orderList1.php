@@ -158,6 +158,7 @@
 		                            <td align="center">
                                     <?php 
                                         $orid = $this->my_func->scpro_encrypt($user->or_id);
+                                        
                                         if ($us_id == $user->us_id) {
                                         	$conf = "jari";
                                         }else{
@@ -177,13 +178,14 @@
 
                                     		<?php if($user->pr_id == 3){ 
 
-
+                                    			$orid = $this->my_func->scpro_encrypt($user->or_id);
                                     			if($user->pr_id != 8){
                                     			?>
                                     			&nbsp;-&nbsp;
                                       	
                                     		 	 
-                                    			<button type="button" title = "ROS" class="ROSButton btn btn-primary btn-circle btn-xs" id="ROSButton" name="ROSButton"><i class="fa fa-flag-checkered"></i></button>
+                                    			<button type="button" title = "ROS" class="ROSButton btn btn-primary btn-circle btn-xs" id="ros<?= $n; ?>" name="ros<?= $n; ?>"><i class="fa fa-flag-checkered"></i></button>
+                                    			<input type="hidden" class="or_id" name="or_id" id="or_id" value="<?= $user->or_id ?>">
 	
                                     		 <?php }} ?>
 
@@ -310,8 +312,10 @@
 			    },
 			    callback: function (result) {
 			    	if(result == true){
-
-			    		$.post('<?= site_url('nasty_v2/dashboard/change_pr_id3'); ?>', {or_id: "<?= $this->my_func->scpro_encrypt($user->or_id); ?>",pr_id: 8}, function(data) {
+			    		var elements = document.getElementsByClassName("or_id");
+			    		var orid = elements[0].value;
+			    		//alert(orid);
+			    		$.post('<?= site_url('nasty_v2/dashboard/change_pr_id3'); ?>', {or_id: orid,pr_id: 8}, function(data) {
 			            	alert("Success!!!.");
 			            	$(window).attr("location", "<?= site_url('nasty_v2/dashboard/page/a1new'); ?>");
 			            	

@@ -91,17 +91,17 @@
                                 <li class="nav-item start" title="Ready To Shipping">
                                     <a href="<?= site_url('nasty_v2/dashboard/page/a6') ?>" class="nav-link ">
                                         <i class="fa fa-flag"></i>
-                                        <span class="title">ROS List</span>
+                                        <span class="title">Dashboard</span>
                                         <!--<span class="badge badge-success">1</span>-->
                                     </a>
                                 </li>
-                                    <li class="nav-item start" title="Ready To Shipping">
+                                    <!-- <li class="nav-item start" title="Ready To Shipping">
                                     <a href="<?= site_url('nasty_v2/dashboard/page/a7') ?>" class="nav-link ">
                                         <i class="fa fa-truck"></i>
                                         <span class="title">RTS List</span>
                                         <!--<span class="badge badge-success">1</span>-->
                                     </a>
-                                </li>
+                                </li> -->
                             </ul>
                         </li> <?php } ?>                                                
                         <?php if($us_lvl != 4){?>                     
