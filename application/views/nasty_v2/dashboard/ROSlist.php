@@ -154,7 +154,7 @@
 		<div class="portlet box purple">
 			 <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-user"></i>Distributor 
+                    <i class="fa fa-user"></i> 
                 </div>                
             </div>
 
@@ -166,7 +166,7 @@
                                 <div class="portlet box green col-md-4" >
                                      <div class="portlet-title">
                                         <div class="caption">
-                                            <i class="fa fa-user"></i>ROS 
+                                            <i class="fa fa-flag"></i>ROS 
                                         </div>
 
                                     </div>
@@ -251,7 +251,7 @@
                                 <div class="portlet box blue col-md-4" >
                                      <div class="portlet-title">
                                         <div class="caption">
-                                            <i class="fa fa-user"></i>DOC
+                                            <i class="fa fa-file"></i>DOC
                                         </div>                
                                     </div>
 
@@ -337,7 +337,7 @@
                                 <div class="portlet box red col-md-4" >
                                      <div class="portlet-title">
                                         <div class="caption">
-                                            <i class="fa fa-user"></i>RTS 
+                                            <i class="fa fa-paper-plane"></i>RTS 
                                         </div>                
                                     </div>
                                     <div class="portlet-body flip-scroll" style="overflow-y: scroll;height:500px; ">
@@ -432,7 +432,7 @@
     <div class="portlet box purple">
        <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-user"></i>Distributor 
+                    <i class="fa fa-user"></i> 
                 </div>                
             </div>
 
@@ -444,7 +444,7 @@
                                 <div class="portlet box green col-md-4" >
                                      <div class="portlet-title">
                                         <div class="caption">
-                                            <i class="fa fa-user"></i>Shipped 
+                                            <i class="fa fa-plane"></i>Shipped 
                                         </div>
 
                                     </div>
@@ -529,7 +529,7 @@
                                 <div class="portlet box blue col-md-4" >
                                      <div class="portlet-title">
                                         <div class="caption">
-                                            <i class="fa fa-user"></i>Arrived
+                                            <i class="fa fa-truck"></i>Arrived
                                         </div>                
                                     </div>
 
@@ -615,7 +615,7 @@
                                 <div class="portlet box red col-md-4" >
                                      <div class="portlet-title">
                                         <div class="caption">
-                                            <i class="fa fa-user"></i>Return 
+                                            <i class="fa fa-rotate-right"></i>Return 
                                         </div>                
                                     </div>
                                     <div class="portlet-body flip-scroll" style="overflow-y: scroll;height:500px; ">
