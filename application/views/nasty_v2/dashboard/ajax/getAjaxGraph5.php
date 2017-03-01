@@ -1,84 +1,53 @@
 <!-- Company Income -->
 <script type="text/javascript">
-var chart = AmCharts.makeChart( "<?= $box; ?>", {
-  "type": "serial",
-  "addClassNames": true,
-  "theme": "light",
-  "autoMargins": false,
-  "marginLeft": 30,
-  "marginRight": 8,
-  "marginTop": 10,
-  "marginBottom": 26,
-  "balloon": {
-    "adjustBorderColor": false,
-    "horizontalPadding": 10,
-    "verticalPadding": 8,
-    "color": "#ffffff"
-  },
-  "dataProvider": [
-<?php 
+var chart = AmCharts.makeChart("<?= $box; ?>", {
+    "theme": "light",
+    "type": "serial",
+    "dataProvider": [<?php 
   $size = sizeof($data);
-  for ($i=0; $i < $size ; $i++) {       
-    if ($i != ($size-1)) {
+  for ($i=0; $i < $size ; $i++) {
       ?>
   {
     "year": "<?= $data[$i]['date'] ?>",
-    "sales": <?= $data[$i]['acc'] ?>,
-    "net": <?= $data[$i]['net'] ?>
-  },
-      <?php
-    } else { ?>
-  {
-    "year": "<?= $data[$i]['date'] ?>",
-    "sales": <?= $data[$i]['acc'] ?>,
     "net": <?= $data[$i]['net'] ?>,
-    "dashLengthColumn": 5,
-    "alpha": 0.2,
-    "additional": "<?php if (isset($cu)) {
-      echo $cu;
-    } ?>"
-  }      
-    <?php }
-    
+    "sales": <?= $data[$i]['acc'] ?>
+  }<?php
+    if ($i+1 != $size) {
+       echo ",";
+     } 
   }
 ?>],
-  "valueAxes": [ {
-    "axisAlpha": 0,
-    "position": "left"
-  } ],
-  "startDuration": 1,
-  "graphs": [ {
-    "alphaField": "alpha",
-    "balloonText": "<span style='font-size:12px;'>[[title]] in [[category]]:<br><span style='font-size:20px;'>[[value]]</span> [[additional]]</span>",
-    "fillAlphas": 1,
-    "title": "Sales (approve)",
-    "type": "column",
-    "valueField": "sales",
-    "dashLengthField": "dashLengthColumn"
-  }, {
-    "id": "graph2",
-    "balloonText": "<span style='font-size:12px;'>[[title]] in [[category]]:<br><span style='font-size:20px;'>[[value]]</span> [[additional]]</span>",
-    "bullet": "round",
-    "lineThickness": 3,
-    "bulletSize": 7,
-    "bulletBorderAlpha": 1,
-    "bulletColor": "#FFFFFF",
-    "useLineColorForBulletBorder": true,
-    "bulletBorderThickness": 3,
-    "fillAlphas": 0,
-    "lineAlpha": 1,
-    "title": "Net Sales",
-    "valueField": "net",
-    "dashLengthField": "dashLengthLine"
-  }],
-  "categoryField": "year",
-  "categoryAxis": {
-    "gridPosition": "start",
-    "axisAlpha": 0,
-    "tickLength": 0
-  },
-  "export": {
-    "enabled": true
-  }
-} );
+    "valueAxes": [{
+        "unit": "MYR",
+        "position": "left",
+        "title": "Total Income",
+    }],
+    "startDuration": 1,
+    "graphs": [{
+        "balloonText": "Net Sales [[category]] : <b>MYR [[value]]</b>",
+        "fillAlphas": 0.9,
+        "lineAlpha": 0.2,
+        "title": "Net Sales",
+        "type": "column",
+        "valueField": "net"
+    }, {
+        "balloonText": "Approved Income [[category]] : <b>MYR [[value]]</b>",
+        "fillAlphas": 0.9,
+        "lineAlpha": 0.2,
+        "title": "Approved Income",
+        "type": "column",
+        "clustered":false,
+        "columnWidth":0.5,
+        "valueField": "sales"
+    }],
+    "plotAreaFillAlphas": 0.1,
+    "categoryField": "year",
+    "categoryAxis": {
+        "gridPosition": "start"
+    },
+    "export": {
+      "enabled": true
+     }
+
+});
 </script>

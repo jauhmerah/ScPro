@@ -133,7 +133,7 @@
                     <div class="clearfix"></div>
                     <!-- END DASHBOARD STATS 1-->
                     <div class="row">
-                    <div class="col-md-12 col-sm-12">
+                    <div align="center">
                               <div class="portlet light ">
                                 <div class="portlet-title">
                                     <div class="caption">
@@ -147,7 +147,7 @@
                                 <div class="clear" style="height:40px;"></div>
                                 <div class="portlet-body">
                                     <div class="row">
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-12">
                                         <div class="row">
                                             <div align="center">
                                                 <h2>Income Status (MYR)</h2>
@@ -162,54 +162,12 @@
                                             <div id="paidcode" ></div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
-                                        <div class="row">
-                                            <div align="center">
-                                                <h2>Income Status (USD)</h2>
-                                            </div>
-                                        </div>
-                                        <div id="sales2" align="center">
-                                            <h1><i class="fa fa-repeat fa-spin"></i></h1></div>
-                                            <!-- #graph5 -->                     
-                                        <div id="site_statistics_content"  >
-                                            <div id="usddiv" class="display-none"> </div>
-                                            <div id="usdcode" ></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="row">
-                                            <div align="center">
-                                                <h2>Income Status (GBP)</h2>
-                                            </div>
-                                        </div>
-                                        <div id="sales3" align="center">
-                                            <h1><i class="fa fa-repeat fa-spin"></i></h1></div>
-                                            <!-- #graph5 -->                     
-                                        <div id="site_statistics_content"  >
-                                            <div id="gbpdiv" class="display-none"> </div>
-                                            <div id="gbpcode" ></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="row">
-                                            <div align="center">
-                                                <h2>Total Order Status</h2>
-                                            </div>
-                                        </div>
-                                            <div id="site_statistics_loading4">
-                                                <img src="<?= base_url(); ?>/asset2/global/img/loading.gif" alt="loading" /> </div>
-                                                <!-- #graph4 -->                                      
-                                            <div id="site_statistics_content"  >
-                                                <div id="orderdiv" class="display-none"> </div>
-                                                <div id="ordercode" ></div>
-                                            </div>
-                                        </div>
                                     </div>
                                     </div>
                                 </div>
                             </div>
                         </div>                        
-                        <div class="col-md-6 col-sm-6">
+                        <div class="col-md-12 col-sm-12">
                             <!-- BEGIN PORTLET-->
                             <div class="portlet light ">
                                 <div class="portlet-title">
@@ -229,13 +187,27 @@
                                     <div id="site_statistics_content" >
                                         <div id="chartdiv" class="display-none"></div>
                                         <div id="gcode" ></div>
-                                    </div>
-                                </div>
+                                    </div>                                    
+                                </div>                                
                             </div>
                             <!-- END PORTLET-->
                         </div>
                             <!-- END PORTLET-->
-                        <div class="col-md-6 col-sm-6">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div align="center">
+                                    <h2>Total Order Status</h2>
+                                </div>
+                            </div>
+                            <div id="site_statistics_loading4">
+                                <img src="<?= base_url(); ?>/asset2/global/img/loading.gif" alt="loading" /> </div>
+                                <!-- #graph4 -->                                      
+                            <div id="site_statistics_content"  >
+                                <div id="orderdiv" class="display-none"> </div>
+                                <div id="ordercode" ></div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12">
                               <div class="portlet light ">
                                 <div class="portlet-title">
                                     <div class="caption">
@@ -281,7 +253,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div class= "col-lg-8 col-lg-offset-1">
+                                            <div class= "col-lg-4 col-lg-offset-1">
                                                 <div class="form-group">
                                                     <select name="client" id="client" class="input-circle form-control input-sm select2-multiple select2-hidden-accessible" tabindex="-1" aria-hidden="true">
                                                     <option value="-1">--All Client--</option>
@@ -293,13 +265,25 @@
                                                     </select>
                                                 </div>
                                             </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <select name="mg" id="nicomg" class="input-circle form-control input-sm select2-multiple select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                                                    <option value="-1">--All MG--</option>
+                                                        <?php 
+                                                        foreach ($mg as $key) { ?>
+                                                            <option value="<?= $key->ni_mg; ?>" style = "background-color: <?= $key->ni_color; ?>;"> <?= $key->ni_mg; ?> MG</option>
+                                                        <?php }
+                                                        ?>
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     
                                 </div>
                                 <div class="row">
                                     <div align="center">
-                                        <h2>Flavor Statistic</h2>
+                                        <h2>Flavor Statistic <span id="mgL"></span></h2>
                                     </div>
                                 </div>
                                     <div id="site_statistics_loading2" class="display-none">
@@ -892,23 +876,6 @@
 
 
         <!-- Modal -->
-  <div class="modal" id="myModal" role="dialog">
-    <div class="modal-dialog modal-sm">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" id="cross">&times;</button>
-          <h4 class="modal-title">Sorry...</h4>
-        </div>
-        <div class="modal-body">
-          <p>Dashboard is still under maintainance...</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal" id="close">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-     
 <script>
 /*
 // Get the modal
@@ -953,30 +920,24 @@ $(document).ready(function() {
             $("#sales1").addClass('display-none');
         });
     });
-    $.post('<?= site_url('nasty_v2/dashboard/getAjaxGraph5/usddiv/2') ?>', {}, function(data) {
-        $.when($('#usdcode').html(data)).then(function(){
-            $("#usddiv").removeClass('display-none');
-            $("#sales2").addClass('display-none');
-        });
-    });
-    $.post('<?= site_url('nasty_v2/dashboard/getAjaxGraph5/gbpdiv/3') ?>', {}, function(data) {
-        $.when($('#gbpcode').html(data)).then(function(){
-            $("#gbpdiv").removeClass('display-none');
-            $("#sales3").addClass('display-none');
-        });
-    });
     kelik();   
     $("#flavBtn").click(function() {
         year1 = $('#flavYear').val();
         month1 = $('#flavMonth').val();
         client = $('#client').val();
+        mg = $('#nicomg').val();
+        if (mg != -1) {
+            $('#mgL').html("("+mg+" MG)");
+        }else{
+            $('#mgL').html("");
+        }
         if (year1 == "" && month1 != -1) {
             bootbox.alert("Year is empty");
             $('#flavYear').focus();
         }else{
             //alert(month1);
             $.when($("#site_statistics_loading2").removeClass('display-none')).then(function(){        
-                $.post('<?= site_url('nasty_v2/dashboard/getAjaxGraph2') ?>', {year1 : year1 , month1 : month1 , client : client}, function(data) {
+                $.post('<?= site_url('nasty_v2/dashboard/getAjaxGraph2') ?>', {year1 : year1 , month1 : month1 , client : client , mg : mg}, function(data) {
                     $.when($('#flavcode').html(data)).then(function(){
                         $("#flavdiv").removeClass('display-none');
                         $("#site_statistics_loading2").addClass('display-none');
@@ -985,15 +946,14 @@ $(document).ready(function() {
             });
         }        
     });
-
 });
-
 function kelik() {
     year1 = $('#flavYear').val();
     month1 = $('#flavMonth').val();
     client = $('#client').val();
+    mg = $('#nicomg').val();
     $.when($("#site_statistics_loading2").removeClass('display-none')).then(function(){        
-        $.post('<?= site_url('nasty_v2/dashboard/getAjaxGraph2') ?>', {year1 : year1 , month1 : month1 , client : client}, function(data) {
+        $.post('<?= site_url('nasty_v2/dashboard/getAjaxGraph2') ?>', {year1 : year1 , month1 : month1 , client : client , mg : mg}, function(data) {
             $.when($('#flavcode').html(data)).then(function(){
                 $("#flavdiv").removeClass('display-none');
                 $("#site_statistics_loading2").addClass('display-none');

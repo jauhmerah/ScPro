@@ -139,8 +139,7 @@
             $this->load->database();
             $this->load->model('m_item');
             $this->load->model('m_nico');
-            $arr['arr'] = $this->m_item->totalByFlavor($arr1['year1'] , $arr1['month1'] , $arr1['client']);
-            $arr['nico'] = $this->m_nico->get();
+            $arr['arr'] = $this->m_item->totalByFlavor($arr1['year1'] , $arr1['month1'] , $arr1['client'] , $arr1['mg']);                      
             /*echo "<pre>";
             print_r($arr);
             echo "</pre>";*/
@@ -163,6 +162,7 @@
                         $this->load->database();
                         $this->load->model('m_order');
                         $this->load->model('m_client');
+                        $this->load->model('m_nico');
                         $arr['neworder'] = $this->m_order->countOrderType(1 , 2);
                         $arr['inprogress'] = $this->m_order->countOrderType(2 , 2);
                         $arr['complete'] = $this->m_order->countOrderType(3 , 2);
@@ -172,9 +172,8 @@
                         $arr['verold'] = $this->m_order->orderCount(1) + $this->m_order->orderCount(0);
                         $arr['totalProfit'] = $this->m_order->totalProfit();
                         $arr['client'] = $this->m_client->get(null , 'asc');
-                        //end added
-
-                        $data['title'] = '<i class="fa fa-pencil"></i>Main Page</a>';
+                        $arr['mg'] = $this->m_nico->get();
+                        //end added                        $data['title'] = '<i class="fa fa-pencil"></i>Main Page</a>';
                         $data['display'] = $this->load->view($this->parent_page.'/dashboard' ,$arr, true);
                         $this->_show('display' , $data, $key);
                    break;   
@@ -1704,7 +1703,7 @@ epul@nastyjuice.com
                 $saleman = $this->m_user->getName($arr['us_id']);
                 $email['fromName'] = "Ai System";
                 $email['fromEmail'] = "nstylabc@sirius.sfdns.net";
-                $email['toEmail'] = array('0' => "faeiz@nastyjuice.com", '1' => "account@nastyjuice.com" , '2' => 'hairi@nastyjuice.com' , '3' => 'abun@nastyjuice.com');
+                $email['toEmail'] = array("faeiz@nastyjuice.com", "account@nastyjuice.com" , 'hairi@nastyjuice.com' , 'abun@nastyjuice.com');
                 $email['subject'] = "New Order #".((10000*$ver)+100000+$or_id);
                 $email['msg'] = "
 Order Detail
@@ -1745,7 +1744,7 @@ epul@nastyjuice.com
                 $saleman = $this->m_user->getName($arr->us_id);
                 $email['fromName'] = "Ai System";
                 $email['fromEmail'] = "nstylabc@sirius.sfdns.net";
-                $email['toEmail'] = array('0' => "faeiz@nastyjuice.com", '1' => "account@nastyjuice.com" , '2' => 'hairi@nastyjuice.com' , '3' => 'abun@nastyjuice.com');
+                $email['toEmail'] = array("faeiz@nastyjuice.com", "account@nastyjuice.com" ,'hairi@nastyjuice.com' ,'abun@nastyjuice.com');
                 $email['subject'] = "Unconfirm #".((10000*$ver)+100000+$or_id);
                 $email['msg'] = "
 Order Detail
@@ -1784,7 +1783,7 @@ epul@nastyjuice.com
                 $saleman = $this->m_user->getName($arr->us_id);
                 $email['fromName'] = "Ai System";
                 $email['fromEmail'] = "nstylabc@sirius.sfdns.net";
-                $email['toEmail'] = array('0' => "faeiz@nastyjuice.com", '1' => "account@nastyjuice.com" , '2' => 'hairi@nastyjuice.com' , '3' => 'abun@nastyjuice.com');
+                $email['toEmail'] = array("faeiz@nastyjuice.com","account@nastyjuice.com" ,'hairi@nastyjuice.com' , 'abun@nastyjuice.com');
                 $email['subject'] = "On Hold Order #".((10000*$ver)+100000+$or_id);
                 $email['msg'] = "
 Order Detail
@@ -1824,7 +1823,7 @@ epul@nastyjuice.com
                 $saleman = $this->m_user->getName($arr->us_id);
                 $email['fromName'] = "Ai System";
                 $email['fromEmail'] = "nstylabc@sirius.sfdns.net";
-                $email['toEmail'] = array('0' => "faeiz@nastyjuice.com", '1' => "account@nastyjuice.com" , '2' => 'hairi@nastyjuice.com' , '3' => 'abun@nastyjuice.com');
+                $email['toEmail'] = array("faeiz@nastyjuice.com","account@nastyjuice.com" , 'hairi@nastyjuice.com' ,'abun@nastyjuice.com');
                 $email['subject'] = "In Progress Order #".((10000*$ver)+100000+$or_id);
                 $email['msg'] = "
 Order Detail
@@ -1862,11 +1861,17 @@ epul@nastyjuice.com
         public function getAjaxGraph5($box = null , $cu = 1)
         {
             //#graph5
+            // flat rate usd 4.40
+            // flat rate GBP 5.50
             $this->load->database();
             $this->load->model('m_order');
             $temp['box'] = $box;
-            $arr['net'] = $this->m_order->getIncome($cu);
-            $arr['acc'] = $this->m_order->getIncome($cu,1);
+            $arr['net'] = $this->m_order->getIncome(1);
+            $arr['acc'] = $this->m_order->getIncome(1,1);
+            $arr['net1'] = $this->m_order->getIncome(2);
+            $arr['acc1'] = $this->m_order->getIncome(2,1);
+            $arr['net2'] = $this->m_order->getIncome(3);
+            $arr['acc2'] = $this->m_order->getIncome(3,1);
             $sizeNet = sizeof($arr['net']);
             if ($sizeNet != 0) {
                 $temp['cu'] = $arr['net'][0]->cu_desc;
@@ -1875,16 +1880,45 @@ epul@nastyjuice.com
                 for ($i = 0 ; $i < $sizeNet ; $i++) { 
                     $data[$i]['date'] = $arr['net'][$i]->month."|".$arr['net'][$i]->year;
                     $data[$i]['net'] = $arr['net'][$i]->sales;
-                    if (sizeof($arr['acc']) == 0) {
-                        $data[$i]['acc'] = 0;
-                    } else { 
+                    if (sizeof($arr['net1']) > ($i)) {
+                        $data[$i]['net'] += $arr['net1'][$i]->sales * 4.4;
+                    }
+                    if (sizeof($arr['net2']) > ($i)) {
+                        $data[$i]['net'] += $arr['net2'][$i]->sales * 5.5;  
+                    }                
+                    $data[$i]['acc'] = 0;
+                    if (sizeof($arr['acc']) != 0 ) {
                         if ($arr['net'][$i]->month == $arr['acc'][0]->month && $arr['net'][$i]->year == $arr['acc'][0]->year) {
-                            $data[$i]['acc'] = $arr['acc'][0]->sales;
+                            $data[$i]['acc'] += $arr['acc'][0]->sales;
                             array_shift($arr['acc']);
                         } else {
-                            $data[$i]['acc'] = 0;
-                        } 
-                    }                   
+                            $data[$i]['acc'] += 0;
+                        }
+                    }
+                    if (sizeof($arr['acc1']) != 0 ) {
+                        if ($arr['net1'][$i]->month == $arr['acc1'][0]->month && $arr['net1'][$i]->year == $arr['acc1'][0]->year) {
+                            $data[$i]['acc'] += $arr['acc1'][0]->sales * 4.4;
+                            array_shift($arr['acc1']);
+                        } else {
+                            $data[$i]['acc'] += 0;
+                        }
+                    }
+                    if (sizeof($arr['acc2']) != 0 ) {
+                        if ($arr['net2'][$i]->month == $arr['acc2'][0]->month && $arr['net2'][$i]->year == $arr['acc2'][0]->year) {
+                            $data[$i]['acc'] += $arr['acc2'][0]->sales * 5.5;
+                            array_shift($arr['acc2']);
+                        } else {
+                            $data[$i]['acc'] += 0;
+                        }
+                    }                 
+                }
+                $size = sizeof($data);
+                if ($size <= 12) {
+                    for ($j=($size); $j < 12 ; $j++) { 
+                        $data[$j]['date'] = ($j+1)."|2017";
+                        $data[$j]['net'] = 0;
+                        $data[$j]['acc'] = 0;
+                    }
                 }
             }else{
                 $data = null;
@@ -1909,7 +1943,7 @@ epul@nastyjuice.com
                 $saleman = $this->m_user->get($this->input->post('us_id'));
                 $email['fromName'] = "Ai System";
                 $email['fromEmail'] = $saleman->us_email;
-                $email['toEmail'] = array('0' => "fadtan@nastyjuice.com", '1' => "pakdin@nastyjuice.com" , '2' => "jauhmerah@nastyjuice.com");
+                $email['toEmail'] = array("jauhmerah@nastyjuice.com", "pakdin@nastyjuice.com" , "fadtan@nastyjuice.com");
                 $email['subject'] = "Request for Cancel #".((10000*$ver)+100000+$or_id);
                 $email['msg'] = "
 Order Detail
