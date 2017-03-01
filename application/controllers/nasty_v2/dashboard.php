@@ -811,8 +811,7 @@ epul@nastyjuice.com
                         }
                         
                         $this->load->model('m_order');                        
-                        $order = array(                            
-                            "or_sendDate" => $arr['sendDate'],
+                        $order = array(
                             "or_note" => $arr['note'],
                             'pr_id' => $arr['pr_id']
                         );
@@ -824,7 +823,8 @@ epul@nastyjuice.com
                             'or_finishdate' => $arr['finishdate'],
                             'or_shipcom' => $arr['sh_company'],
                             'or_shipopt' => $arr['sh_opt'],
-                            'dec_id' => $arr['sh_declare']
+                            'dec_id' => $arr['sh_declare'],
+                            'or_traking' => $arr['traking']
                         );
                         if (isset($arr['currency'])) {
                             $order_ext['cu_id'] = $arr['currency'];
