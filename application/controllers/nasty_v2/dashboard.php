@@ -781,6 +781,7 @@ epul@nastyjuice.com
                         $or_id = $this->my_func->scpro_decrypt($this->input->get('key'));
                         $this->load->database();
                         $this->load->model('m_order_item');
+                        $this->load->model('m_oie');
                         if (isset($arr['idE'])) {
                             if (sizeof($arr['idE']) != 0) {
                                 for ($i=0; $i < sizeof($arr['idE']); $i++) { 
@@ -791,6 +792,11 @@ epul@nastyjuice.com
                                        'oi_tester' => $arr['testerE'][$i]
                                     );
                                     $this->m_order_item->update($temp , $oi_id);
+                                    if ($arr['testerE2'][$i] != 0 && $arr['testerE2'][$i] != null && $arr['testerE2'][$i] != " ") {
+                                        if (sizeof($this->m_oie->get(array("oi_id" => $oi_id) ))) {
+                                            # code...
+                                        }
+                                    }
                                 }
                             }
                         }                        
@@ -805,11 +811,16 @@ epul@nastyjuice.com
                                         'oi_qty' => $arr['qty'][$i],
                                         'oi_tester' => $arr['tester'][$i]
                                     );
-                                    $this->m_order_item->insert($item);
+                                    $oi_id = $this->m_order_item->insert($item);
+                                    if ($arr['tester2'][$i] != 0 && $arr['tester2'][$i] != null && $arr['tester2'][$i] != " ") {
+                                        $this->m_oie->insert(array(
+                                            "oi_id" => $oi_id,
+                                            "oi_tester2" => $arr['tester2'][$i]
+                                        ));
+                                    }
                                 }
                             }
-                        }
-                        
+                        }                        
                         $this->load->model('m_order');                        
                         $order = array(
                             "or_note" => $arr['note'],
@@ -859,7 +870,6 @@ epul@nastyjuice.com
                             $this->load->model('m_client');
                             $arr['client'] = $this->m_client->insert($cl);
                         }
-
                         $order = array(
                             "cl_id" => $arr['client'],
                             "us_id" => $this->my_func->scpro_decrypt($this->session->userdata('us_id')),                            
@@ -884,6 +894,7 @@ epul@nastyjuice.com
                         $orex_id = $this->m_order_ext->insert($order_ext);                        
                         $this->load->model('m_order_item');
                         $sizeArr = sizeof($arr['itemId']);
+                        $this->load->model('m_oie');
                         for ($i=0; $i < $sizeArr ; $i++) { 
                             $item = array(
                                 'orex_id' => $orex_id,
@@ -893,8 +904,14 @@ epul@nastyjuice.com
                                 'oi_qty' => $arr['qty'][$i],
                                 'oi_tester' => $arr['tester'][$i]
                             );
-                            $this->m_order_item->insert($item);
-                        }
+                            $oi_id = $this->m_order_item->insert($item);
+                            if ($arr['tester2'][$i] != 0 && $arr['tester2'][$i] != null && $arr['tester2'][$i] != " ") {
+                                $this->m_oie->insert(array(
+                                    "oi_id" => $oi_id,
+                                    "oi_tester2" => $arr['tester2'][$i]
+                                ));
+                            }
+                        }                        
                         /*$this->load->model('m_shipping_note');
                         $shipping_note = array(
                             'sn_company' => $arr['sh_company'],
