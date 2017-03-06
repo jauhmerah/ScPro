@@ -166,6 +166,7 @@
 				 	$this->db->join('type2 ty2', 'ty2.ty2_id = oi.ty2_id', 'left');
 				 	$this->db->join('category ca', 'ca.ca_id = ty2.ca_id', 'left');
 				 	$this->db->join('nicotine nic', 'nic.ni_id = oi.ni_id', 'left');
+				 	$this->db->join('order_item_ext oie' , 'oie.oi_id = oi.oi_id' , 'left');
 				 	$this->db->order_by('ty2.ca_id', 'asc');
 				}
 				$this->db->where('orex_id', $key->orex_id); 

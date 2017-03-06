@@ -793,9 +793,18 @@ epul@nastyjuice.com
                                     );
                                     $this->m_order_item->update($temp , $oi_id);
                                     if ($arr['testerE2'][$i] != 0 && $arr['testerE2'][$i] != null && $arr['testerE2'][$i] != " ") {
-                                        if (sizeof($this->m_oie->get(array("oi_id" => $oi_id) ))) {
-                                            # code...
+                                        if (sizeof($this->m_oie->get(array("oi_id" => $oi_id) )) != 0) {
+                                            $this->m_oie->update(array("oi_tester2" => $arr['testerE2'][$i]) , array("oi_id" => $oi_id));
+                                        }else{
+                                            $this->m_oie->insert(array(
+                                                "oi_id" => $oi_id,
+                                                "oi_tester2" => $arr['testerE2'][$i]
+                                            ));
                                         }
+                                    }else{
+                                        if (sizeof($this->m_oie->get(array("oi_id" => $oi_id))) != 0) {
+                                            $this->m_oie->delete(array("oi_id" => $oi_id));
+                                        }                                       
                                     }
                                 }
                             }
@@ -1692,7 +1701,9 @@ epul@nastyjuice.com
             $oi_id = $this->input->post('oi_id');
             $this->load->database();
             $this->load->model('m_order_item');
+            $this->load->model('m_oie');
             $row = $this->m_order_item->delete($oi_id);
+            $this->m_oie->delete(array('oi_id' => $oi_id));
             echo $row;
         }
 

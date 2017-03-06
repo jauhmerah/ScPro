@@ -203,7 +203,6 @@
 						                            	?></strong>	
 					                                </div>
 						                            </span>
-						                            
 						                        </div>
 						                        <div class="portlet-body">
 						                            <div class="table-responsive">
@@ -264,7 +263,7 @@
 					                                            	?></strong>					                                            		
 					                                            	</td>
 					                                            	<td colspan="2" align="right"><?php if($arr['order']->or_ver >= 2){?>
-					                 <a href="<?= site_url('nasty_v2/invoice/Invoice?id='.$this->my_func->scpro_encrypt($arr['order']->or_id).'&ver=2'); ?>" target="_blank"> <button type="button" class="btn green" ><i class="fa fa-print"></i>&nbsp;&nbsp;Invoice</button></a><?php } ?>
+					                 								<a href="<?= site_url('nasty_v2/invoice/Invoice?id='.$this->my_func->scpro_encrypt($arr['order']->or_id).'&ver=2'); ?>" target="_blank"> <button type="button" class="btn green" ><i class="fa fa-print"></i>&nbsp;&nbsp;Invoice</button></a><?php } ?>
 					                                            	</td>
 						                                        </tr>
 						                                        <tr>
@@ -294,8 +293,7 @@
 					                                            	?>	</strong>				                                            		
 					                                            	</td>
 					                                            	<td colspan="2" align="right"><?php if($arr['order']->or_ver >= 2){?>	
-					       <a href="<?= site_url('nasty_v2/invoice/dummyInvoice?id='.$this->my_func->scpro_encrypt($arr['order']->or_id).'&ver=2'); ?>" target="_blank"> <button type="button" class="btn blue" ><i class="fa fa-print"></i>&nbsp;&nbsp;Dummy Invoice</button></a> <?php } ?>
-					                                            		
+					       <a href="<?= site_url('nasty_v2/invoice/dummyInvoice?id='.$this->my_func->scpro_encrypt($arr['order']->or_id).'&ver=2'); ?>" target="_blank"> <button type="button" class="btn blue" ><i class="fa fa-print"></i>&nbsp;&nbsp;Dummy Invoice</button></a> <?php } ?>					                                            		
 					                                            	</td>
 						                                        </tr>	                                        
 						                                    </tbody>
