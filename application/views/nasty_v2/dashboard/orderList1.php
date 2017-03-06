@@ -182,8 +182,6 @@
                                     			if($user->pr_id != 8){
                                     			?>
                                     			&nbsp;-&nbsp;
-                                      	
-                                    		 	 
                                     			<button type="button" title = "ROS" class="ROSButton btn btn-primary btn-circle btn-xs" id="ros<?= $n; ?>" name="ros<?= $n; ?>"><i class="fa fa-flag-checkered"></i></button>
                                     			<input type="hidden" class="or_id" name="or_id" id="or_id" value="<?= $user->or_id ?>">
 	
@@ -191,10 +189,7 @@
 
 
                                     		<div class="clearfix">
-                                    		
-                                    
-
-
+                                    		&nbsp;
                                     		</div>
 										<button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/Invoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');"  class="btn blue-dark btn-circle btn-xs" title="Invoice">Inv</button></a>&nbsp;-&nbsp;    
 										<button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/dummyInvoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn c-btn-border-1x c-btn-blue-dark btn-circle btn-xs" title="Dummy Invoice">DInv</button></a>&nbsp;-&nbsp;    

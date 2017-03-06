@@ -245,10 +245,7 @@
                                                                  <?php 
                                         $usid = $this->my_func->scpro_encrypt($user->or_id);
                                     ?>
-                                        <a href="<?= site_url('nasty_v2/dashboard/page/a111?view=').$usid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></button></a>&nbsp;-&nbsp;                             
-                                        <a href="<?= site_url('nasty_v2/dashboard/page/a121?edit=').$usid; ?>" name="c3" title="Edit Order"><button type="button" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i></button></a>
-                                        &nbsp;-&nbsp;                                       
-                                        <a onclick = "return onDel();" href="<?= site_url('nasty_v2/dashboard/page/a13?del=').$usid; ?>" name="c5" title="Delete Order"><button type="button" class="btn btn-danger btn-xs"><i class="fa fa-close"></i></button></a>
+                                        <a href="<?= site_url('nasty_v2/dashboard/page/a111?view=').$usid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></button></a>                                        
                                                             </td>
                                                     </tr>
 
@@ -373,15 +370,12 @@
                                                                  <?php 
                                         $usid = $this->my_func->scpro_encrypt($user->or_id);
                                     ?>
-                                        <a href="<?= site_url('nasty_v2/dashboard/page/a111?view=').$usid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></button></a>&nbsp;-&nbsp;                             
-                                        <a href="<?= site_url('nasty_v2/dashboard/page/a121?edit=').$usid; ?>" name="c3" title="Edit Order"><button type="button" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i></button></a>
-                                        &nbsp;-&nbsp;                                       
-                                        <a onclick = "return onDel();" href="<?= site_url('nasty_v2/dashboard/page/a13?del=').$usid; ?>" name="c5" title="Delete Order"><button type="button" class="btn btn-danger btn-xs"><i class="fa fa-close"></i></button></a>
+                                        <a href="<?= site_url('nasty_v2/dashboard/page/a111?view=').$usid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></button></a>                                        
                                                             </td>
                                                     </tr>
 
                                                     <tr class="collapse row<?= $n ?>">
-                                                    <td colspan="6" cellspadding="10" style="background-color: #F1F1F1;">
+                                                    <td colspan="7" cellspadding="10" style="background-color: #F1F1F1;">
                                                     <div class="col-md-2 col-md-offset-1 pull-right">
                                                     <form role="form" method="post" action="<?= site_url('nasty_v2/dashboard/updatePr_id'); ?>" id="user-form">
                                                          <select class="form-control" name="pr_id" id="pr_id">
