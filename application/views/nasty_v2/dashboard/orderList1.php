@@ -148,7 +148,7 @@
                             				<div title="Paid" id="gmbr<?= $n ?>" class="bayar ribbon ribbon-right ribbon-vertical-right ribbon-shadow ribbon-border-dash-vert ribbon-color-success uppercase" >
                             				<div class="ribbon-sub ribbon-bookmark" title="Paid"><i class="fa fa-money"></i></div>
                             				</div>
-                            				<input type="hidden" class="form-control gmbr<?= $n ?>" title = "<?= $user->pi_title; ?>" value="<?= $user->img_url; ?>">
+                            				<input type="hidden" class="form-control gmbr<?= $n ?>" value="<?= $this->my_func->scpro_encrypt($user->or_id); ?>">
                             			<?php } ?>
                             			
                             			
@@ -167,7 +167,7 @@
                                     ?>
 		                            	<a href="<?= site_url('nasty_v2/dashboard/page/a111?v=2&view=').$orid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-info btn-circle btn-xs"><i class="fa fa-eye"></i></button></a>&nbsp;-&nbsp;                            	
 										<a href="<?= site_url('nasty_v2/dashboard/page/a121?v=2&edit=').$orid; ?>" name="c3" title="Edit Order"><button type="button" class="btn btn-warning btn-circle btn-xs"><i class="fa fa-pencil"></i></button></a>
-										<?php if (!$user->or_paid) { ?>&nbsp;-&nbsp; <button type="button" class="btn btn-circle purple-seance btn-xs upPic" id="up<?= $n; ?>"><i class="fa fa-upload"></i></button></a><?php } ?>
+										&nbsp;-&nbsp; <button type="button" class="btn btn-circle purple-seance btn-xs upPic" id="up<?= $n; ?>"><i class="fa fa-upload"></i></button></a>
 										<input type="hidden" class="form-control up<?= $n; ?>" value="<?= $orid; ?>">
 										<?php if($user->pr_id == 3){ ?>
                                     			&nbsp;- &nbsp;<button title = "Print Order" onclick = "window.open('<?= site_url('order/printO1?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" type="button" class="btn btn-default btn-circle btn-info btn-xs"><i class="fa fa-print"></i></button>&nbsp;-&nbsp;
@@ -340,8 +340,6 @@
 			codeOrId = $("."+key+"n").val();
 			$("#inputOrid").val(codeOrId);
 			$("#inputUs_id").val(<?= $us_id; ?>);
-			
-
 		});
 		$('.jari').click(function() {
 			id = $(this).prop('id');pr_id = $("."+id+"1").val();
@@ -364,14 +362,13 @@
 			/*bootbox.alert("Hello world!", function() {
                 //console.log("Alert Callback");
             });*/
-		});
+		});		
 		$(".bayar").click(function() {
 			gbr = $(this).prop("id");
-			imgL = $("."+gbr).val();
-			imgT = $("."+gbr).prop('title');
-			bootbox.dialog({message :
-				'<div align = "center"><img src="<?= base_url().'/'.$this->imgUploc; ?>'+imgL+'" class="img-responsive" alt="Image"></div>'
-			});
+			or_id = $("."+gbr).val();
+			$.post('<?= site_url('nasty_v2/dashboard/getAjaxImg'); ?>', {or_id: or_id}, function(data) {
+				bootbox.dialog({message : data});
+			});			
 		});
 		$('#close').click(function() {
 		    $('#myModal').hide('slow');

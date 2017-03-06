@@ -113,7 +113,14 @@
                                 <i class="fa fa-ship"></i>
                                 <span class="title">Shipping</span>
                             </a>
-                        </li><?php } ?>                        
+                        </li><?php } ?>
+                        <?php if($us_lvl != 2 && $us_lvl != 3 ){?>
+                        <li class="nav-item <?php if (strpos($link, 'k1') !== false) { echo "active open";}else{echo "start";}?>   ">
+                            <a href="<?= site_url('nasty_v2/dashboard/page/k1') ?>" class="nav-link ">
+                                <i class="fa fa-bank"></i>
+                                <span class="title">Acounting</span>
+                            </a>
+                        </li><?php } ?> 
                         <?php if($us_lvl != 2){?>
                         <li class="nav-item start ">
                             <a href="<?= site_url('nasty_v2/dashboard/page/a4') ?>" class="nav-link ">

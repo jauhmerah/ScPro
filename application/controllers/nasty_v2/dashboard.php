@@ -5,7 +5,7 @@
 	
 	   	var $parent_page = "nasty_v2/dashboard";
 	   	var $old_page = "dashboard";
-        var $version = "OrdYs v2.3.5 Alpha";
+        var $version = "OrdYs v2.3.6 Alpha";
         var $imgUploc = "/assets/uploads/img/";
         var $flags = 'asset/flags/flags.png';
 
@@ -1277,6 +1277,102 @@ epul@nastyjuice.com
     				$data['display'] = $this->load->view($this->parent_page.'/addStaff' ,$arr , true);
 		    		$this->_show('display' , $data , $key); 
     				break;
+                case 'k1':
+                    //OrdSys 2.5.6
+                    //Accounting Module
+                    if ($lvl == 2 || $lvl == 3) {
+                        redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
+                    }
+                    if ($this->input->get('page')) {
+                        $p = $this->input->get('page');
+                    }else{
+                        $p = 0;
+                    }
+                    $this->load->library('my_func');
+                    $this->load->library('my_flag');
+                    $this->load->database();
+                    $this->load->model('m_order');
+                    if ($this->input->post("search") && $this->input->post("filter") || $this->input->get("search") && $this->input->get("filter")) {
+                        if ($this->input->get("search") && $this->input->get("filter")) {
+                            $search = $this->input->get("search");
+                            $filter = $this->input->get("filter");
+                        } else {
+                            $search = $this->input->post("search");
+                            $filter = $this->input->post("filter");
+                        }
+                        switch ($filter) {
+                            case '10':
+                                //Client Name
+                                $where = array(
+                                    "cl.cl_name" => $search
+                                );
+                                break;
+                            case '1':
+                                //Order Code
+                                //Hanya Single
+                                if (strpos($search, "#") !== false) {
+                                    $search = str_replace("#", "", $search);
+                                }
+                                if (!is_numeric($search)) {
+                                    $this->session->set_flashdata('warning', 'Please Enter the Correct Order Code');
+                                    redirect(site_url("nasty_v2/dashboard/page/k1"),'refresh');
+                                }
+                                $str = (string)$search;
+                                /*if ($str[1] == '1') {
+                                    $id = $search - 110000;
+                                    $ver = 1;
+                                } else {
+                                    $id = $search - 100000;
+                                    $ver = 0;
+                                }*/
+                                $ver = 2;
+                                $id = $search - 120000;
+                                $where = array(
+                                    "ord.or_id" => $id
+                                );
+                                break;
+                            case '2':
+                                //Sales Person
+                                $where = array(
+                                    "us1.us_username" => $search
+                                );
+                                break;
+                            case '3':
+                                //Order Status
+                                $where = array(
+                                    "pr.pr_desc" => $search
+                                );
+                                break;
+                        }
+                        if (isset($ver)) {
+                            $arr['arr1'] = $this->m_order->listOr($ver , null , null , 0 , $where);
+                        }else{
+                            $arr['arr1'] = $this->m_order->listSearch(2 , null , null , 0 , $where);                        
+                        }
+                    } else {
+                        $ver = $this->m_order->orderCount(2);
+                        $arr['arr1'] = $this->m_order->listOr(2 , 10 , $p);
+                        $result1 = sizeof($arr['arr1']);
+                        //$sizeA = 10 - $result1;
+                        /*if ($sizeA != 0) {
+                            $p1 = $p + 10 - $ver1;
+                            if ($p1 < 10) {
+                                $p2 = 0;
+                            } else {
+                                $p2 = $p1;
+                                $p1 = 10;
+                            }                        
+                            $arr['arr'] = $this->m_order->listOr(0 , $p1 , $p2);
+                            $result1 = $result1 + sizeof($arr['arr']);
+                        }*/
+                        $arr['page'] = $p;
+                        $arr['total'] = $ver;
+                        $arr['row'] = $result1;
+                    }
+                    $data['title'] = '<i class="fa fa-fw fa-edit"></i> Accounting</a>';
+                    $data['display'] = $this->load->view($this->parent_page.'/acc/orderListAc' ,$arr , true);
+                    $this->_show('display' , $data , 'k1');
+                    break;
 
     			default:
     				$this->_show();
@@ -1480,7 +1576,7 @@ epul@nastyjuice.com
                     $this->load->model("m_order");
                     $this->load->model('m_picture');
                     $or_id = $this->my_func->scpro_decrypt($this->input->post('or_id'));
-                    $result = $this->my_func->do_upload('./assets/uploads/img/');
+                    $result = $this->my_func->do_upload('./assets/uploads/img/');                    
                     $pi_id = null;
                     $success = array();
                     if (sizeof($result['success']) != 0) {
@@ -1495,7 +1591,8 @@ epul@nastyjuice.com
                         }
                         $this->m_order->update(array('or_paid' => 1),$or_id);
                         $this->change_pr_id2($or_id);
-                        if ($this->m_picture->getbyne_id($or_id)) {
+                        // this part for replace image if already uploaded.
+                        /*if ($this->m_picture->getbyne_id($or_id)) {
                             $this->load->library('file');
                             $t = $this->m_picture->get(array("ne_id" => $or_id));
                             if (delete_files('./assets/uploads/img/'.$t->img_url)) {
@@ -1504,9 +1601,9 @@ epul@nastyjuice.com
                                 $this->session->set_flashdata('error', 'Ops !! , Unable to Find The old Image');
                                 delete_files('./assets/uploads/img/'.$m_pic['img_url']);
                             }                            
-                        }else{
+                        }else{*/
                             $this->m_picture->insert($m_pic);
-                        }                        
+                        //}                        
                     }
                     $i = sizeof($success);
                     $e = sizeof($result['error']);
@@ -1965,7 +2062,14 @@ epul@nastyjuice.com
         public function getAjaxUpload()
         {
             $this->load->library("my_func");
-            echo $this->load->view('nasty_v2/dashboard/ajax/getAjaxUpload', $this->input->post(), TRUE);
+            $arr = $this->input->post();
+            $this->load->database();
+            $this->load->model('m_picture');
+            $temp = array(
+                "ne_id" => $this->my_func->scpro_decrypt($this->input->post('or_id'))
+            );
+            $arr['img'] = $this->m_picture->getPaid($temp);
+            echo $this->load->view('nasty_v2/dashboard/ajax/getAjaxUpload', $arr , TRUE);
         }
 
         private function emailSendNew($arr = null , $ver = 1)
@@ -2158,8 +2262,12 @@ Order No : #".((10000*$ver)+100000+$or_id)."
 Order Status : Request for Cancel
 Salesman : ".$saleman->us_username."
 
+Reason : ".$this->input->post('msg')."
+
 Click This Link to accept the request.
 ".site_url('order/deleteOrder?del='.$this->input->post('or_id'))."
+
+Print Order Link : ".site_url('order/printOrder1?id='.$this->my_func->scpro_encrypt($or_id))."&ver=".$ver."
 
 Search Order Page : ".site_url()."
 System Login : ".site_url('login')."
@@ -2179,6 +2287,55 @@ epul@nastyjuice.com
             }
             $this->session->set_flashdata('success', 'Success Send the Request');
             redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
+        }
+        public function getAjaxDone()
+        {
+            if ($this->input->post('or_id')) {
+                $this->load->library('my_func');
+                $this->load->database();
+                $or_id = $this->my_func->scpro_decrypt($this->input->post('or_id'));
+                $this->load->model('m_order');
+                $arr = array(
+                    "or_acc" => 1
+                );
+                $this->m_order->update($arr, $or_id);
+            }
+        }
+        public function getAjaxCancel()
+        {
+            if ($this->input->post('or_id')) {
+                $this->load->library('my_func');
+                $this->load->database();
+                $or_id = $this->my_func->scpro_decrypt($this->input->post('or_id'));
+                $this->load->model('m_order');
+                $arr = array(
+                    "or_acc" => 0
+                );
+                $this->m_order->update($arr, $or_id);
+            }
+        }
+        public function getAjaxDelImg()
+        {
+            $pi_id = $this->input->post("pi_id");            
+            $this->load->database();
+            $this->load->model("m_picture");
+            $img = $this->m_picture->get($pi_id);
+            $this->load->helper('file');            
+            if (unlink('./assets/uploads/img/'.$img->img_url)) {
+                $this->m_picture->delete($pi_id);
+                echo "true";
+            }else{
+                echo "false";
+            }            
+        }
+        public function getAjaxImg()
+        {
+            $this->load->library("my_func");
+            $ne_id = $this->my_func->scpro_decrypt($this->input->post("or_id"));            
+            $this->load->database();
+            $this->load->model("m_picture");
+            $arr['img'] = $this->m_picture->getPaid(array("ne_id" => $ne_id));
+            echo $this->load->view('nasty_v2/dashboard/ajax/getAjaxImg', $arr , TRUE);
         }
 	}
 	        

@@ -44,6 +44,25 @@
 	            return false;
 	        }
 	    }
+	    public function getPaid($where = NULL) {
+	        $this->db->select('*');
+	        $this->db->from(self::TABLE_NAME);
+	        if ($where !== NULL) {
+	            if (is_array($where)) {
+	                foreach ($where as $field=>$value) {
+	                    $this->db->where($field, $value);
+	                }
+	            } else {
+	                $this->db->where(self::PRI_INDEX, $where);
+	            }
+	        }
+	        $result = $this->db->get()->result();
+	        if ($result) {
+	            	return $result;	            
+	        } else {
+	            return false;
+	        }
+	    }
 
 	    public function getbyne_id($ne_id = null)
 	    {
