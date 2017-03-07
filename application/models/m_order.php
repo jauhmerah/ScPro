@@ -409,6 +409,34 @@
 			$this->db->from('order ord');
 			return $this->db->count_all_results();
 	    }
+
+	    public function getIncome($currency = 1, $check = -1 ,$ver = 2 )
+	    {
+	    	/* 
+				currency -> 1 myr , 2 usd , 3 GBP
+				check -> 0 net income, 1 confirm income
+	    	*/
+			$this->db->select('MONTH(ord.or_date) as month , YEAR(ord.or_date) as year ,  orex.cu_id , cu.cu_desc , SUM(oi.oi_qty*oi.oi_price) AS sales');
+			$this->db->from('order ord');
+			$filter = array(
+				"orex.cu_id" => $currency,
+				"ord.or_ver" => $ver,
+				"ord.or_del" => 0,
+				"ord.pr_id !=" => 4,
+				"ord.pr_id !=" => 7
+				);
+			if ($check != -1) {
+				$filter["ord.or_acc"] = $check;
+			}
+			$this->db->where($filter);
+			$this->db->join('order_ext orex', 'orex.or_id = ord.or_id', 'left');
+			$this->db->join('order_item oi' , 'oi.orex_id = orex.orex_id' , 'left');
+			$this->db->join('currency cu', 'cu.cu_id = orex.cu_id', 'left');			
+			$this->db->group_by('MONTH(ord.or_date) , YEAR(ord.or_date)');
+			$this->db->order_by('ord.or_date', 'asc');
+			$result = $this->db->get()->result();
+	    	return $result;
+	    }
 	}
 	        
 ?>

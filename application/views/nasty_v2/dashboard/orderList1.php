@@ -198,7 +198,7 @@
 										<input type="hidden" class="form-control <?= $n.'con' ?>" value ="<?= $orid ?>">
 										<input type="hidden" class="form-control <?= $n.'con1' ?>" value ="<?= $user->pr_id ?>">
 										<input type="hidden" class="form-control <?= $n.'cocode' ?>" value ="<?= $id; ?>">     										
-										<?php if($user->pr_id != 5 && $user->pr_id != 7 && $user->pr_id != 3 ){ ?><button type="button" class="btn btn-default btn-circle btn-xs cancelOrd" id="<?= $n.'co' ?>" title="Cancel Order"><i class="fa fa-close"></i></button><?php }else{  ?><a href="<?= site_url('nasty_v2/dashboard/page/a13?del=').$orid; ?>" name="c5" title="Delete Order"><button type="button" class="btn btn-danger btn-circle btn-xs"><i class="fa fa-trash"></i></button></a><?php } ?>
+										<?php if($user->pr_id != 5 && $user->pr_id != 7 && $user->pr_id != 3 ){ ?><button type="button" class="btn btn-default btn-circle btn-xs cancelOrd" id="<?= $n.'co' ?>" title="Cancel Order"><i class="fa fa-close"></i></button><?php }else{  ?><button type="button" class="btn btn-danger btn-circle btn-xs cancelOrd" id="<?= $n.'co' ?>"><i class="fa fa-trash"></i></button><?php } ?>
 		                            </td>	                            
 		                        </tr>		
 		                    			<?php
@@ -280,53 +280,41 @@
     </div></form>
   </div>
 <script>
-
-
-
-
-
-
 	$(document).ready(function() {
-
-
-
 		$(".ROSButton").click(function() {
-       		
-			bootbox.confirm({
-			    message: "Are You Sure?",
-			    buttons: {
-			        confirm: {
-			            label: 'Yes',
-			            className: 'btn-success'
-			           
-			        },
-			        cancel: {
-			            label: 'No',
-			            className: 'btn-danger'
-			        }
-			    },
-			    callback: function (result) {
-			    	if(result == true){
-			    		var elements = document.getElementsByClassName("or_id");
-			    		var orid = elements[0].value;
-			    		//alert(orid);
-			    		$.post('<?= site_url('nasty_v2/dashboard/change_pr_id3'); ?>', {or_id: orid,pr_id: 8}, function(data) {
-			            	alert("Success!!!.");
-			            	$(window).attr("location", "<?= site_url('nasty_v2/dashboard/page/a1new'); ?>");
-			            	
-			            });
+		       		
+					bootbox.confirm({
+					    message: "Are You Sure?",
+					    buttons: {
+					        confirm: {
+					            label: 'Yes',
+					            className: 'btn-success'
+					           
+					        },
+					        cancel: {
+					            label: 'No',
+					            className: 'btn-danger'
+					        }
+					    },
+					    callback: function (result) {
+					    	if(result == true){
+					    		var elements = document.getElementsByClassName("or_id");
+					    		var orid = elements[0].value;
+					    		//alert(orid);
+					    		$.post('<?= site_url('nasty_v2/dashboard/change_pr_id3'); ?>', {or_id: orid,pr_id: 8}, function(data) {
+					            	alert("Success!!!.");
+					            	$(window).attr("location", "<?= site_url('nasty_v2/dashboard/page/a1new'); ?>");
+					            	
+					            });
 
-			    	}
-			    	
-			        
-			    }
-			});
-
-
-    	});
+					    	}
+					    	
+					        
+					    }
+					});
 
 
-		
+		    	});
 		$(".cancelOrd").click(function() {
 			$('#myModal').show('slow');
 			key = $(this).prop('id');

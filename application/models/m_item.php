@@ -102,7 +102,7 @@ class M_item extends CI_Model {
         return $result;
     }
 
-    public function totalByFlavor($year = null , $month = -1 , $client = -1)
+    public function totalByFlavor($year = null , $month = -1 , $client = -1 , $mg = -1)
     {
         $this->db->select('ori.oi_id ,ty2.ty2_id as item_id , MONTH(ord.or_date) as month , YEAR(ord.or_date) as year , ni.ni_mg , ty2.ty2_desc as detail ,ca.* , sum(ori.oi_qty) as total');
         $this->db->from('order_item ori');
@@ -120,6 +120,9 @@ class M_item extends CI_Model {
         }
         if ($client != -1) {
             $this->db->where('ord.cl_id', $client);
+        }
+        if ($mg != -1) {
+            $this->db->where('ni.ni_mg', $mg);
         }
         $this->db->group_by('ori.ty2_id');  
         $this->db->where('ord.or_del', 0);

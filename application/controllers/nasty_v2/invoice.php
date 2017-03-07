@@ -9,6 +9,7 @@ class Invoice extends CI_Controller {
 			{
 				  parent::__construct();
 	        $this->load->library('session');
+	        date_default_timezone_set('Asia/Kuala_Lumpur');
 			}
 
 	
