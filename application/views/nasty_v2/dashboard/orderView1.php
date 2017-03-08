@@ -136,7 +136,7 @@
 					                                    			<th>Item Detail</th>
 					                                    			<th>Price</th>
 					                                    			<th>Qty</th>
-					                                    			<th>Tester</th>
+					                                    			<th colspan="2" class="text-center">Tester</th>
 					                                    		</tr>
 						                                    </thead>
 						                                    <tbody>
@@ -162,7 +162,7 @@
 																					<td><?= $key->oi_price; ?></td>
 																					<td><?= $key->oi_qty; ?></td>
 																					<td><?= $key->oi_tester; ?></td>
-																					
+																					<td><?php if(isset($key->oi_tester2)){ echo $key->oi_tester; }else{ echo '0';}?></td>
 																					</td>
 																				</tr>
 						                                    				</tr>
@@ -171,7 +171,7 @@
 						                                    		}
 						                                    		
 						                                    	?>
-						                                    	<td colspan="5">
+						                                    	<td colspan="6">
 					                                            		<textarea name="note" id="input" class="form-control input-circle input-lg" rows="2" placeholder="#Note" readonly><?= $arr['order']->or_note; ?></textarea>
 					                                            </td>
 						                                    </tbody>

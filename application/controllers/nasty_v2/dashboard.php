@@ -228,6 +228,9 @@
                             $vers = 1;
                         }
                         $arr['arr'] = array_shift($this->m_order->getList_ext($id, $vers));
+                        echo "<pre>";
+                        print_r($arr);
+                        echo "</pre>";
                         $data['title'] = '<i class="fa fa-pencil"></i>Edit Order Detail</a>';
                         $data['display'] = $this->load->view($this->parent_page.'/orderEdit1' ,$arr , true);
                         $this->_show('display' , $data , $key);
@@ -1077,6 +1080,10 @@ epul@nastyjuice.com
                         $this->load->database();
                         $this->load->model('m_order_item');
                         $this->load->model('m_oie');
+                        echo "<pre>";
+                        print_r($arr);
+                        echo "</pre>";
+                        die();
                         if (isset($arr['idE'])) {
                             if (sizeof($arr['idE']) != 0) {
                                 for ($i=0; $i < sizeof($arr['idE']); $i++) { 
@@ -1087,7 +1094,7 @@ epul@nastyjuice.com
                                        'oi_tester' => $arr['testerE'][$i]
                                     );
                                     $this->m_order_item->update($temp , $oi_id);
-                                    if ($arr['testerE2'][$i] != 0 && $arr['testerE2'][$i] != null && $arr['testerE2'][$i] != " ") {
+                                    if ($arr['testerE2'][$i] != null && $arr['testerE2'][$i] != 0) {
                                         if (sizeof($this->m_oie->get(array("oi_id" => $oi_id) )) != 0) {
                                             $this->m_oie->update(array("oi_tester2" => $arr['testerE2'][$i]) , array("oi_id" => $oi_id));
                                         }else{

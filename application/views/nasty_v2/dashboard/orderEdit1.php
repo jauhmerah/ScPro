@@ -192,7 +192,7 @@
 																				<td><input type="number" name="priceE[]" id="inputPrice" min="0" step="any" class="form-control" value="<?= $key->oi_price; ?>" required="required" <?= $mode; ?>></td>
 																				<td><input type="number" name="qtyE[]" id="inputQty" min="0" class="form-control" value="<?= $key->oi_qty; ?>" required="required" <?= $mode; ?>></td>
 																				<td>
-																					<input type="number" name="testerE[]" id="inputTester" min="0" value="<?= $key->oi_tester; ?>" class="form-control" <?= $mode; ?>>
+																					<input type="number" name="testerE[]" id="inputTester" min="0" value="<?= $key->oi_tester; ?>" class="form-control" <?= $mode; ?>><br><div class="input-group input-group-sm"><span class="input-group-addon" id="sizing-addon1"><i class="fa fa-flask"></i> 10 ML</span><input type="number" name="testerE2[]" id="inputTester2" min="0" <?php if(isset($key->oi_tester2)){echo 'value="'.$key->oi_tester2.'"';} ?>" class="form-control input-sm" placeholder="10 ML Tester" <?= $mode; ?>></div>
 																					<input type="hidden" name="idE[]" id="inputIdE" class="form-control" value="<?= $key->oi_id;?>">
 																				</td>	
 																				<?php if($arr['order']->pr_id != 3){?>
