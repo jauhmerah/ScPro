@@ -1,10 +1,7 @@
 <script>
-	function onDel() {		
-		if(confirm('Are You Sure ?')){
-			return true;
-		}else{
-			return false;
-		}
+	function onDel() {
+		return false;
+		//confirm('Are You Sure ?');
 	}
 	$(document).ready(function() {
 
@@ -133,17 +130,35 @@
                                     echo $view;
                                     ?></td>
                                     <td class="mt-element-ribbon">
-                            			<span class="label" style="background-color: <?= $user->pr_color; ?>"><?= $user->pr_desc; ?></span>
+                                    
+                                    	<div class="pull-left"> 
+                                    		<?php if(($user->pr_id==8)||($user->pr_id==9)||($user->pr_id==10)||($user->pr_id==11)||($user->pr_id==12)||($user->pr_id==13)){ ?>
+                                    	
+                                    		<span class="label" style="background-color:#36c6d3;">Complete</span>
+                                    		<div class="clearfix" style="height: 10px;"></div>
+
+                                    	<?php }?>
+
+
+                                    	<span class="label" style="background-color: <?= $user->pr_color; ?>"><?= $user->pr_desc; ?></span>
+                                    	</div>
+                                   
+
                             			<?php if ($user->or_paid) { ?>
                             				<div title="Paid" id="gmbr<?= $n ?>" class="bayar ribbon ribbon-right ribbon-vertical-right ribbon-shadow ribbon-border-dash-vert ribbon-color-success uppercase" >
                             				<div class="ribbon-sub ribbon-bookmark" title="Paid"><i class="fa fa-money"></i></div>
                             				</div>
                             				<input type="hidden" class="form-control gmbr<?= $n ?>" value="<?= $this->my_func->scpro_encrypt($user->or_id); ?>">
                             			<?php } ?>
+                            			
+                            			
+
+
                                     </td>
 		                            <td align="center">
                                     <?php 
                                         $orid = $this->my_func->scpro_encrypt($user->or_id);
+                                        
                                         if ($us_id == $user->us_id) {
                                         	$conf = "jari";
                                         }else{
@@ -157,7 +172,23 @@
 										<?php if($user->pr_id == 3){ ?>
                                     			&nbsp;- &nbsp;<button title = "Print Order" onclick = "window.open('<?= site_url('order/printO1?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" type="button" class="btn btn-default btn-circle btn-info btn-xs"><i class="fa fa-print"></i></button>&nbsp;-&nbsp;
                                     			<button type="button" title = "D.O Form" onclick = "window.open('<?= site_url('order/printDO1?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn btn-success btn-circle btn-xs"><i class="fa fa-truck"></i></button>
-                                    		<?php } ?><br/><div class="clearfix">
+                                    		<?php } ?>
+                                    		
+
+
+                                    		<?php if($user->pr_id == 3){ 
+
+                                    			$orid = $this->my_func->scpro_encrypt($user->or_id);
+                                    			if($user->pr_id != 8){
+                                    			?>
+                                    			&nbsp;-&nbsp;
+                                    			<button type="button" title = "ROS" class="ROSButton btn btn-primary btn-circle btn-xs" id="ros<?= $n; ?>" name="ros<?= $n; ?>"><i class="fa fa-flag-checkered"></i></button>
+                                    			<input type="hidden" class="or_id" name="or_id" id="or_id" value="<?= $user->or_id ?>">
+	
+                                    		 <?php }} ?>
+
+
+                                    		<div class="clearfix">
                                     		&nbsp;
                                     		</div>
 										<button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/Invoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');"  class="btn blue-dark btn-circle btn-xs" title="Invoice">Inv</button></a>&nbsp;-&nbsp;    
@@ -249,7 +280,41 @@
     </div></form>
   </div>
 <script>
-	$(document).ready(function() {		
+	$(document).ready(function() {
+		$(".ROSButton").click(function() {
+		       		
+					bootbox.confirm({
+					    message: "Are You Sure?",
+					    buttons: {
+					        confirm: {
+					            label: 'Yes',
+					            className: 'btn-success'
+					           
+					        },
+					        cancel: {
+					            label: 'No',
+					            className: 'btn-danger'
+					        }
+					    },
+					    callback: function (result) {
+					    	if(result == true){
+					    		var elements = document.getElementsByClassName("or_id");
+					    		var orid = elements[0].value;
+					    		//alert(orid);
+					    		$.post('<?= site_url('nasty_v2/dashboard/change_pr_id3'); ?>', {or_id: orid,pr_id: 8}, function(data) {
+					            	alert("Success!!!.");
+					            	$(window).attr("location", "<?= site_url('nasty_v2/dashboard/page/a1new'); ?>");
+					            	
+					            });
+
+					    	}
+					    	
+					        
+					    }
+					});
+
+
+		    	});
 		$(".cancelOrd").click(function() {
 			$('#myModal').show('slow');
 			key = $(this).prop('id');

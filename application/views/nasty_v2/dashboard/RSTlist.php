@@ -129,7 +129,7 @@
 		<div class="portlet box purple">
 			 <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-user"></i>RST List 
+                    <i class="fa fa-user"></i>RTS List 
                 </div>                
             </div>
 
@@ -139,7 +139,7 @@
                      <ul class="nav nav-tabs">
                         <li class="active"><a data-toggle="tab" href="#home">RTS</a></li>
                         <li><a data-toggle="tab" href="#menu1">Shipped</a></li>
-                        <li><a data-toggle="tab" href="#menu2">Delivered</a></li>
+                        <li><a data-toggle="tab" href="#menu2">Arrived</a></li>
                         <li><a data-toggle="tab" href="#menu3">Return</a></li>
                       </ul>
 
@@ -149,66 +149,93 @@
                         <div id="home" class="tab-pane fade in active">
                          <div class="col-md-12">
                            <h3>RTS List</h3>
-                                <table class="table table-condensed  table-striped flip-content">
-                                    <thead class="flip-content">
-                                        <tr>
-                                            <th>Shipping No.</th>
-                                            <th>Item Quantity</th>
-                                            <th>Placed On</th>
-                                            <th>Shipping To</th>
-                                        
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                       <tr class="clickable" data-toggle="collapse" id="row1" data-target=".row1">
-                                            <td>#100000</td>
-                                            <td>1</td>
-                                            <td>27/04/2017</td>
-                                            <td>Mirun</td>
-                                        </tr>
-
-
-                                            <tr class="collapse row1">
-                                            <td colspan="4" cellspadding="10" style="background-color: #F1F1F1;">
-                                            <div class="col-md-10 col-md-offset-1">
-                                                <table class="table">
-                                                  <thead>
-                                                  <tr class="bg-success">
-                                                    <th>#</th>
-                                                    <th>Product</th>
-                                                    <th>Quantity</th>
-                                                    <th>Tester</th>
-
-                                                    </tr>
-                                                  </thead>
-                                                  <tbody style="background-color: #FFFFFF;">
-                                                    <tr>
-                                                      <td>GDL</td>
-                                                      <td>2,000.00</td>
-                                                      <td>GDL</td>
-                                                      <td>2,000.00</td>
-                                                    </tr>
-                                                    <tr>
-                                                      <td>MCS</td>
-                                                      <td>15,700.61</td>
-                                                      <td>GDL</td>
-                                                      <td>2,000.00</td>
-                                                    </tr>
-                                                  </tbody>
-                                                </table>
-                                           </div>
-                                            </td>
+                                   <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Client Name</th>
+                                                <th>Order Code</th>
+                                                <th>Order Date</th>
+                                                <th>Sales Person</th>
+                                                
+                                                
                                             </tr>
+                                        </thead>
+                                        <tbody>
+                                              <?php
+                                            $n = 0;
+
+                                            if (sizeof($arr1) != 0) { 
+                                                foreach ($arr1 as $user) {
+                                                    if ($user->pr_id == 10){
+                                                        $orid = $this->my_func->scpro_encrypt($user->or_id);
+                                                    $n++;
+                                                    ?>
+
+                                                    <tr class="clickable" data-toggle="collapse" id="row<?= $n ?>" data-target=".row<?= $n ?>" onclick="location.href='<?= site_url('nasty_v2/dashboard/page/a111?v=2&view=').$orid; ?>'" style="cursor: pointer">
+                                                          <td><?= $n; ?></td>
+                                                           <td><?php 
+                                                            $view = ($user->cl_name == null) ? "--Not Set--" : $user->cl_name ;
+                                                            echo $view;
+                                                            ?><span class="pull-right">
+                                                            <?= ucwords($user->cl_country); ?>
+                                                            <?php
+                                                            $fc = $this->my_flag->flag_code(ucwords($user->cl_country));
+                                                            if ($fc != "") {
+                                                                ?>
+                                                                <img class="flag flag-<?= $fc; ?>"/>
+                                                                <?php
+                                                            }
+                                                            ?></span></td>
+                                                            <td><?php 
+                                                            if ($user->or_id) {
+                                                                $id = '#'.(120000+$user->or_id);
+                                                                echo '<span style = "color : #b706d6;"><strong>'.$id.'</strong></span>';
+                                                            } else {
+                                                                echo "--Not Set--";
+                                                            }
+                                                            ?></td>
+                                                            <td><?php 
+                                                                $view = ( $user->or_date == null) ? "--Not Set--" :  date_format(date_create($user->or_date) , 'd-M-Y' ) ;
+                                                                echo $view ;
+                                                                ?></td>
+                                                            <td><?php 
+                                                            $view = ( $user->us_username == null) ? "--Not Set--" :  $user->us_username ;
+                                                            echo $view;
+                                                            ?></td>
+                                                            
+                                                    </tr>
+
+                        
 
 
-                                        <tr>
-                                            <td>#100000</td>
-                                            <td>1</td>
-                                            <td>27/04/2017</td>
-                                            <td>Mirun</td>
-                                        </tr>
-                                    </tbody>
-                                 </table>    
+                                                    <?php 
+                                                            }
+                                                           
+                                                        }
+                                                        if ($n==0){
+
+                                                             ?>
+                                                              <tr>
+                                                                <td colspan="5" style="text-align: center;">--No Data--</td>
+
+                                                            </tr>
+
+                                                          <?php   
+                                                        }
+
+                                                     }
+                                                    
+                                                        ?>
+                                                        
+
+                                                       
+
+                                        </tbody>
+
+
+
+                            </table>
                             </div>
 
                         </div>
@@ -217,222 +244,280 @@
                         <div id="menu1" class="tab-pane fade active">
                           <div class="col-md-12">
                            <h3>Shipped List</h3>
-                                <table class="table table-condensed  table-striped flip-content">
-                                    <thead class="flip-content">
-                                        <tr>
-                                            <th>Shipping No.</th>
-                                            <th>Item Quantity</th>
-                                            <th>Placed On</th>
-                                            <th>Shipping To</th>
-                                        
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                       <tr class="clickable" data-toggle="collapse" id="row2" data-target=".row2">
-                                            <td>#100000</td>
-                                            <td>1</td>
-                                            <td>27/04/2017</td>
-                                            <td>Mirun</td>
-                                        </tr>
-
-
-                                            <tr class="collapse row2">
-                                            <td colspan="4" cellspadding="10" style="background-color: #F1F1F1;">
-                                            <div class="col-md-10 col-md-offset-1">
-                                                <table class="table">
-                                                  <thead>
-                                                  <tr class="bg-success">
-                                                    <th>#</th>
-                                                    <th>Product</th>
-                                                    <th>Quantity</th>
-                                                    <th>Tester</th>
-
-                                                    </tr>
-                                                  </thead>
-                                                  <tbody style="background-color: #FFFFFF;">
-                                                    <tr>
-                                                      <td>GDL</td>
-                                                      <td>2,000.00</td>
-                                                      <td>GDL</td>
-                                                      <td>2,000.00</td>
-                                                    </tr>
-                                                    <tr>
-                                                      <td>MCS</td>
-                                                      <td>15,700.61</td>
-                                                      <td>GDL</td>
-                                                      <td>2,000.00</td>
-                                                    </tr>
-                                                  </tbody>
-                                                </table>
-                                           </div>
-                                            </td>
+                              <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Client Name</th>
+                                                <th>Order Code</th>
+                                                <th>Order Date</th>
+                                                <th>Sales Person</th>
+                                                
+                                                
                                             </tr>
+                                        </thead>
+                                        <tbody>
+                                              <?php
+                                            $n = 0;
+
+                                            if (sizeof($arr1) != 0) { 
+                                                foreach ($arr1 as $user) {
+                                                    if ($user->pr_id == 11){
+                                                        $orid = $this->my_func->scpro_encrypt($user->or_id);
+                                                    $n++;
+                                                    ?>
+
+                                                    <tr class="clickable" data-toggle="collapse" id="row<?= $n ?>" data-target=".row<?= $n ?>" onclick="location.href='<?= site_url('nasty_v2/dashboard/page/a111?v=2&view=').$orid; ?>'" style="cursor: pointer">
+                                                          <td><?= $n; ?></td>
+                                                           <td><?php 
+                                                            $view = ($user->cl_name == null) ? "--Not Set--" : $user->cl_name ;
+                                                            echo $view;
+                                                            ?><span class="pull-right">
+                                                            <?= ucwords($user->cl_country); ?>
+                                                            <?php
+                                                            $fc = $this->my_flag->flag_code(ucwords($user->cl_country));
+                                                            if ($fc != "") {
+                                                                ?>
+                                                                <img class="flag flag-<?= $fc; ?>"/>
+                                                                <?php
+                                                            }
+                                                            ?></span></td>
+                                                            <td><?php 
+                                                            if ($user->or_id) {
+                                                                $id = '#'.(120000+$user->or_id);
+                                                                echo '<span style = "color : #b706d6;"><strong>'.$id.'</strong></span>';
+                                                            } else {
+                                                                echo "--Not Set--";
+                                                            }
+                                                            ?></td>
+                                                            <td><?php 
+                                                                $view = ( $user->or_date == null) ? "--Not Set--" :  date_format(date_create($user->or_date) , 'd-M-Y' ) ;
+                                                                echo $view ;
+                                                                ?></td>
+                                                            <td><?php 
+                                                            $view = ( $user->us_username == null) ? "--Not Set--" :  $user->us_username ;
+                                                            echo $view;
+                                                            ?></td>
+                                                            
+                                                    </tr>
+
+                        
 
 
-                                        <tr>
-                                            <td>#100000</td>
-                                            <td>1</td>
-                                            <td>27/04/2017</td>
-                                            <td>Mirun</td>
-                                        </tr>
-                                    </tbody>
-                                 </table>    
+                                                    <?php 
+                                                            }
+                                                           
+                                                        }
+                                                        if ($n==0){
+
+                                                             ?>
+                                                              <tr>
+                                                                <td colspan="5" style="text-align: center;">--No Data--</td>
+
+                                                            </tr>
+
+                                                          <?php   
+                                                        }
+
+                                                     }
+                                                    
+                                                        ?>
+                                                        
+
+                                                       
+
+                                        </tbody>
+
+
+
+                            </table>
                             </div>
                           
                         </div>
                         <div id="menu2" class="tab-pane fade">
                           <div class="col-md-12">
-                           <h3>Delivered List</h3>
-                                <table class="table table-condensed  table-striped flip-content">
-                                    <thead class="flip-content">
-                                        <tr>
-                                            <th>Shipping No.</th>
-                                            <th>Item Quantity</th>
-                                            <th>Placed On</th>
-                                            <th>Shipping To</th>
-                                        
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                       <tr class="clickable" data-toggle="collapse" id="row3" data-target=".row3">
-                                            <td>#100000</td>
-                                            <td>1</td>
-                                            <td>27/04/2017</td>
-                                            <td>Mirun</td>
-                                        </tr>
-
-
-                                            <tr class="collapse row3">
-                                            <td colspan="4" cellspadding="10" style="background-color: #F1F1F1;">
-                                            <div class="col-md-10 col-md-offset-1">
-                                                <table class="table">
-                                                  <thead>
-                                                  <tr class="bg-success">
-                                                    <th>#</th>
-                                                    <th>Product</th>
-                                                    <th>Quantity</th>
-                                                    <th>Tester</th>
-
-                                                    </tr>
-                                                  </thead>
-                                                  <tbody style="background-color: #FFFFFF;">
-                                                    <tr>
-                                                      <td>GDL</td>
-                                                      <td>2,000.00</td>
-                                                      <td>GDL</td>
-                                                      <td>2,000.00</td>
-                                                    </tr>
-                                                    <tr>
-                                                      <td>MCS</td>
-                                                      <td>15,700.61</td>
-                                                      <td>GDL</td>
-                                                      <td>2,000.00</td>
-                                                    </tr>
-                                                  </tbody>
-                                                </table>
-                                           </div>
-                                            </td>
+                           <h3>Arrived List</h3>
+                               <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Client Name</th>
+                                                <th>Order Code</th>
+                                                <th>Order Date</th>
+                                                <th>Sales Person</th>
+                                                
+                                                
                                             </tr>
+                                        </thead>
+                                        <tbody>
+                                              <?php
+                                            $n = 0;
+
+                                            if (sizeof($arr1) != 0) { 
+                                                foreach ($arr1 as $user) {
+                                                    if ($user->pr_id == 12){
+                                                        $orid = $this->my_func->scpro_encrypt($user->or_id);
+                                                    $n++;
+                                                    ?>
+
+                                                    <tr class="clickable" data-toggle="collapse" id="row<?= $n ?>" data-target=".row<?= $n ?>" onclick="location.href='<?= site_url('nasty_v2/dashboard/page/a111?v=2&view=').$orid; ?>'" style="cursor: pointer">
+                                                          <td><?= $n; ?></td>
+                                                           <td><?php 
+                                                            $view = ($user->cl_name == null) ? "--Not Set--" : $user->cl_name ;
+                                                            echo $view;
+                                                            ?><span class="pull-right">
+                                                            <?= ucwords($user->cl_country); ?>
+                                                            <?php
+                                                            $fc = $this->my_flag->flag_code(ucwords($user->cl_country));
+                                                            if ($fc != "") {
+                                                                ?>
+                                                                <img class="flag flag-<?= $fc; ?>"/>
+                                                                <?php
+                                                            }
+                                                            ?></span></td>
+                                                            <td><?php 
+                                                            if ($user->or_id) {
+                                                                $id = '#'.(120000+$user->or_id);
+                                                                echo '<span style = "color : #b706d6;"><strong>'.$id.'</strong></span>';
+                                                            } else {
+                                                                echo "--Not Set--";
+                                                            }
+                                                            ?></td>
+                                                            <td><?php 
+                                                                $view = ( $user->or_date == null) ? "--Not Set--" :  date_format(date_create($user->or_date) , 'd-M-Y' ) ;
+                                                                echo $view ;
+                                                                ?></td>
+                                                            <td><?php 
+                                                            $view = ( $user->us_username == null) ? "--Not Set--" :  $user->us_username ;
+                                                            echo $view;
+                                                            ?></td>
+                                                            
+                                                    </tr>
+
+                        
 
 
-                                        <tr>
-                                            <td>#100000</td>
-                                            <td>1</td>
-                                            <td>27/04/2017</td>
-                                            <td>Mirun</td>
-                                        </tr>
-                                    </tbody>
-                                 </table>    
+                                                    <?php 
+                                                            }
+                                                           
+                                                        }
+                                                        if ($n==0){
+
+                                                             ?>
+                                                              <tr>
+                                                                <td colspan="5" style="text-align: center;">--No Data--</td>
+
+                                                            </tr>
+
+                                                          <?php   
+                                                        }
+
+                                                     }
+                                                    
+                                                        ?>
+                                                        
+
+                                                       
+
+                                        </tbody>
+
+
+
+                            </table>
                             </div>
                           
                         </div>
-                        <div id="menu2" class="tab-pane fade">
-                          <div class="col-md-12">
-                           <h3>Delivered List</h3>
-                                <table class="table table-condensed table-striped flip-content">
-                                    <thead class="flip-content">
-                                        <tr>
-                                            <th>Shipping No.</th>
-                                            <th>Quantity</th>
-                                            <th>Placed On</th>
-                                            <th>Shipping To</th>
-                                        
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                       <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                    </tbody>
-                                 </table>    
-                            </div>
-                        </div>
+                     
                         <div id="menu3" class="tab-pane fade">
                           <div class="col-md-12">
                            <h3>Return List</h3>
-                                <table class="table table-condensed  table-striped flip-content">
-                                    <thead class="flip-content">
-                                        <tr>
-                                            <th>Shipping No.</th>
-                                            <th>Item Quantity</th>
-                                            <th>Placed On</th>
-                                            <th>Shipping To</th>
-                                        
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                       <tr class="clickable" data-toggle="collapse" id="row4" data-target=".row4">
-                                            <td>#100000</td>
-                                            <td>1</td>
-                                            <td>27/04/2017</td>
-                                            <td>Mirun</td>
-                                        </tr>
-
-
-                                            <tr class="collapse row4">
-                                            <td colspan="4" cellspadding="10" style="background-color: #F1F1F1;">
-                                            <div class="col-md-10 col-md-offset-1">
-                                                <table class="table">
-                                                  <thead>
-                                                  <tr class="bg-success">
-                                                    <th>#</th>
-                                                    <th>Product</th>
-                                                    <th>Quantity</th>
-                                                    <th>Tester</th>
-
-                                                    </tr>
-                                                  </thead>
-                                                  <tbody style="background-color: #FFFFFF;">
-                                                    <tr>
-                                                      <td>GDL</td>
-                                                      <td>2,000.00</td>
-                                                      <td>GDL</td>
-                                                      <td>2,000.00</td>
-                                                    </tr>
-                                                    <tr>
-                                                      <td>MCS</td>
-                                                      <td>15,700.61</td>
-                                                      <td>GDL</td>
-                                                      <td>2,000.00</td>
-                                                    </tr>
-                                                  </tbody>
-                                                </table>
-                                           </div>
-                                            </td>
+                                <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Client Name</th>
+                                                <th>Order Code</th>
+                                                <th>Order Date</th>
+                                                <th>Sales Person</th>
+                                                
+                                                
                                             </tr>
+                                        </thead>
+                                        <tbody>
+                                              <?php
+                                            $n = 0;
+
+                                            if (sizeof($arr1) != 0) { 
+                                                foreach ($arr1 as $user) {
+                                                    if ($user->pr_id == 13){
+                                                        $orid = $this->my_func->scpro_encrypt($user->or_id);
+                                                    $n++;
+                                                    ?>
+
+                                                    <tr class="clickable" data-toggle="collapse" id="row<?= $n ?>" data-target=".row<?= $n ?>" onclick="location.href='<?= site_url('nasty_v2/dashboard/page/a111?v=2&view=').$orid; ?>'" style="cursor: pointer">
+                                                          <td><?= $n; ?></td>
+                                                           <td><?php 
+                                                            $view = ($user->cl_name == null) ? "--Not Set--" : $user->cl_name ;
+                                                            echo $view;
+                                                            ?><span class="pull-right">
+                                                            <?= ucwords($user->cl_country); ?>
+                                                            <?php
+                                                            $fc = $this->my_flag->flag_code(ucwords($user->cl_country));
+                                                            if ($fc != "") {
+                                                                ?>
+                                                                <img class="flag flag-<?= $fc; ?>"/>
+                                                                <?php
+                                                            }
+                                                            ?></span></td>
+                                                            <td><?php 
+                                                            if ($user->or_id) {
+                                                                $id = '#'.(120000+$user->or_id);
+                                                                echo '<span style = "color : #b706d6;"><strong>'.$id.'</strong></span>';
+                                                            } else {
+                                                                echo "--Not Set--";
+                                                            }
+                                                            ?></td>
+                                                            <td><?php 
+                                                                $view = ( $user->or_date == null) ? "--Not Set--" :  date_format(date_create($user->or_date) , 'd-M-Y' ) ;
+                                                                echo $view ;
+                                                                ?></td>
+                                                            <td><?php 
+                                                            $view = ( $user->us_username == null) ? "--Not Set--" :  $user->us_username ;
+                                                            echo $view;
+                                                            ?></td>
+                                                            
+                                                    </tr>
+
+                        
 
 
-                                        <tr>
-                                            <td>#100000</td>
-                                            <td>1</td>
-                                            <td>27/04/2017</td>
-                                            <td>Mirun</td>
-                                        </tr>
-                                    </tbody>
-                                 </table>    
+                                                    <?php 
+                                                            }
+                                                           
+                                                        }
+                                                        if ($n==0){
+
+                                                             ?>
+                                                              <tr>
+                                                                <td colspan="5" style="text-align: center;">--No Data--</td>
+
+                                                            </tr>
+
+                                                          <?php   
+                                                        }
+
+                                                     }
+                                                    
+                                                        ?>
+                                                        
+
+                                                       
+
+                                        </tbody>
+
+
+
+                            </table>   
                             </div>
                           
                         </div>

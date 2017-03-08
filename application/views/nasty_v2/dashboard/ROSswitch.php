@@ -1,4 +1,3 @@
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/css-toggle-switch/latest/toggle-switch.css" />
 <?php 
 	if (!isset($mode)) {
 		$mode = 0;
@@ -130,57 +129,46 @@
 		<div class="portlet box purple">
 			 <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-user"></i>RST Action 
+                    <i class="fa fa-user"></i>ROS Switch 
                 </div>                
             </div>
 
             <div class="portlet-body flip-scroll">
-
-               
-
-
+		            <div class="row">
+		            		<div class="col-lg-6 col-md-6 col-sm-6">
+                            <a class="dashboard-stat dashboard-stat-v2 purple" href="<?= site_url('nasty_v2/dashboard/page/a62') ?>">
+                                <div class="visual">
+                                    <i class="fa fa-shopping-cart"></i>
+                                </div>
+                                <div class="details">
+                                    <div class="number">
                    
-                           <h3>RTS List</h3>
-                                <table class="table table-condensed  table-striped flip-content">
-                                    <thead class="flip-content">
-                                        <tr>
-                                            <th>Shipping No.</th>
-                                            <th>Item Quantity</th>
-                                            <th>Placed On</th>
-                                            <th>Shipping To</th>
-                                        
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                       <tr class="clickable" data-toggle="collapse" id="row1" data-target=".row1" data-style="slow">
-                                            <td>#100000</td>
-                                            <td>1</td>
-                                            <td>27/04/2017</td>
-                                            <td>Mirun</td>
-                                        </tr>
+                                    </div>
+                                    <div class="desc">ROS LIST </div>
+                                </div>
+                            </a>
+                        </div>
 
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <a class="dashboard-stat dashboard-stat-v2 blue" href="<?= site_url('nasty_v2/dashboard/page/a6') ?>">
+                                <div class="visual">
+                                    <i class="fa fa-shopping-cart"></i>
+                                </div>
+                                <div class="details">
+                                    <div class="number">
 
-                                            <tr class="collapse row1">
-                                            <td colspan="4" cellspadding="10" style="background-color: #F1F1F1;">
-                                            
-                                            </td>
-                                            </tr>
+                                    </div>
+                                    <div class="desc">RTS LIST </div>
+                                </div>
+                            </a>
+                        </div>
+		            </div>
+            </div>
 
-
-                                        <tr>
-                                            <td>#100000</td>
-                                            <td>1</td>
-                                            <td>27/04/2017</td>
-                                            <td>Mirun</td>
-                                        </tr>
-                                    </tbody>
-                                 </table>    
-                              
 		</div>
 	</div>
 </div>
 
-<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
 <script type="text/javascript">
