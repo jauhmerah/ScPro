@@ -31,7 +31,7 @@
 			$length = strlen($val1);
 			if ($length % 2 == 0) {
 				$arr = str_split($val1 , ($length/4));
-				$text = $arr[3].$arr[1].$arr[0].$arr[2];
+				$text = $arr[2].$arr[0].$arr[3].$arr[1];
 			}else{
 				$val1 .= "{_}";
 				$length ++;
@@ -55,7 +55,7 @@
 			//$this->load->library("encrypt");
 			if (strpos($text, "{_}") === false) {
 				$arr = str_split( $text , ($length/4));
-				$val1 = $arr[2].$arr[1].$arr[3].$arr[0];
+				$val1 = $arr[1].$arr[3].$arr[0].$arr[2];
 			}else{
 				$arr = explode('{_}', $text);
 				$val1 = $arr[1].$arr[0];

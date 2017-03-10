@@ -3,7 +3,7 @@
 class Order extends CI_Controller {
  	
  	var $parent_page = "order";
- 	var $version = "Nasty Process System v2.3.6 Alpha";
+ 	var $version = "Nasty Process System v2.3.8 Alpha";
 	public function __construct()
 	{
 		date_default_timezone_set('Asia/Kuala_Lumpur');
