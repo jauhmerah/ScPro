@@ -1,13 +1,13 @@
 <div class="row">
 	<div class="col-md-12">
            <div class="tab-pane active" id="tab_1">
-                        <div class="portlet box purple ribbon mt-element-ribbon">
+                        <div class="portlet box blue-steel ribbon mt-element-ribbon">
                             <div class="portlet-title">
                                 <div class="caption">
                                     <img src="<?= base_url(); ?>/assets/cover/favicon2.png"> Order Detail                                     
                                 </div>
                                 <div class="tools">
-                                    <span class="pull-right" style="color:white;"><h3><?php $code = (10000*$arr['order']->or_ver) + 100000 + $arr['order']->or_id; echo "#".$code; ?></h3></span>
+                                    <span class="pull-right" style="color:white;"><h3><?php echo $arr['order']->or_id."-EU".$arr['order']->or_ver; ?></h3></span>
                                 </div>
                             </div>
                             <div class="portlet-body form">
