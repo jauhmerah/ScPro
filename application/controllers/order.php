@@ -41,32 +41,14 @@ class Order extends CI_Controller {
 	function search(){
 		if ($this->input->post('search')) {
 			$search = $this->input->post('search');
-			if (strpos($search, "#") !== false) {
-				$search = str_replace("#", "", $search);
+			if (strpos($search, "-EU2") !== false) {
+				$search = str_replace("-EU2", "", $search);
 			}
 			if (!is_numeric($search)) {
 				$this->session->set_flashdata('warning', 'Please Enter the Correct Order Code');
 				redirect(site_url(),'refresh');
-			}
-			$str = (string)$search;
-			switch ($str[1]) {
-				case '2':
-					$id = $search - 120000;
-					$this->printO1($id , 2);
-					break;
-				case '1':
-					$id = $search - 110000;
-					$this->printO1($id);
-					break;
-				case '0':
-					$id = $search - 100000;
-					$this->printO($id);
-					break;				
-				default:
-					$this->session->set_flashdata('warning', 'Ops!!! Something wrong with System Version');
-					redirect(site_url(),'refresh');
-					break;
-			}					
+			}			
+			$this->printO1($search, 2);								
 		} else {
 			$this->session->set_flashdata('warning', 'Ops!!! Wrong path pal');
 			redirect(site_url(),'refresh');

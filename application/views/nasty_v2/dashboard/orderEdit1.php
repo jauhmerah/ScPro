@@ -13,14 +13,14 @@
 <div class="row">
 	<div class="col-md-12">
            <div class="tab-pane active" id="tab_1">
-                        <div class="portlet box purple ribbon mt-element-ribbon">
+                        <div class="portlet box purple-sharp ribbon mt-element-ribbon">
                             <div class="portlet-title" >
                                 <div class="caption">
                                     <h2><i class="fa fa-pencil"></i>
                                     &nbsp;Edit Order                                     </h2>
                                 </div>
                                 <div class="tools">
-                                    <span class="pull-right" style="color:white;"><h3><?php $code =  (10000*$arr['order']->or_ver) + 100000 + $arr['order']->or_id; echo "#".$code; ?></h3></span>
+                                    <span class="pull-right" style="color:white;"><h3><?php echo $arr['order']->or_id."-EU".$arr['order']->or_ver; ?></h3></span>
                                 </div>
                             </div>
                             <div class="portlet-body form">
@@ -139,9 +139,9 @@
 	                                                <div class="form-group col-md-12">
 	                                                    <label class="control-label">Currency :</label>
 	                                                    <select <?php if($arr['order']->pr_id == 3){echo "disabled";} ?> class="form-control input-circle" name="currency">
-	                                                        <option value="1" <?php if($arr['order']->cu_id == 1){echo "selected";} ?>>MYR</option>
+	                                                        <option value="3" <?php if($arr['order']->cu_id == 3){echo "selected";} ?>>GBP</option>	                                                        
 	                                                        <option value="2" <?php if($arr['order']->cu_id == 2){echo "selected";} ?>>USD</option>
-	                                                        <option value="3" <?php if($arr['order']->cu_id == 3){echo "selected";} ?>>GBP</option>
+	                                                        <option value="1" <?php if($arr['order']->cu_id == 1){echo "selected";} ?>>MYR</option>	                                                        
 	                                                    </select>
 	                                                </div>		                                            
 		                                            <!--/span-->
@@ -279,7 +279,7 @@
                                         <!-- Ship Form -->
                                         <div class="row">
 						                <div class="col-md-12">              
-						                	<div class="portlet box purple">
+						                	<div class="portlet box purple-sharp">
 						                        <div class="portlet-title">
 						                            <div class="caption">
 						                                <i class="fa fa-ship"></i>Shipping Note 
@@ -406,8 +406,7 @@
                                     <div class="form-actions right">
                                     <?php if($arr['order']->or_ver >= 2){?>
                                      <div style="<?php if($arr['order']->pr_id != 4){?>display: none;<?php } ?>" class="riben ribbon ribbon-shadow ribbon-color-warning uppercase"><h2><i class="fa fa-warning" ></i> Unconfirm Order</h2></div>
-                                        <?php } if ($arr['order']->or_ver >= 2) {
-                                         if($arr['order']->pr_id != 4){ ?><button type="button" class="btn btn-success confirm btn-circle">Confirm</button> <?php }else{ ?> <button type="button" class="btn btn-warning confirm btn-circle">Unconfirm</button> <?php }} ?>
+                                        <?php }?>
                                         <a href="<?= site_url('nasty_v2/dashboard/page/a1'); ?>"><button type="button" class="btn default"><?php if($arr['order']->pr_id != 3){?>Cancel<?php }else{echo "Back";}?></button></a>
                                         <?php if($arr['order']->pr_id != 3){?>
                                         <button type="submit" class="btn blue">

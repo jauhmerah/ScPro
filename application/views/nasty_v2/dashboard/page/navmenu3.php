@@ -3,9 +3,9 @@
         <div class="clearfix"> </div>
         <!-- END HEADER & CONTENT DIVIDER -->
         <!-- BEGIN CONTAINER -->
-        <div class="page-container">
+        <div class="page-container ">
             <!-- BEGIN SIDEBAR -->
-            <div class="page-sidebar-wrapper">
+            <div class="page-sidebar-wrapper ">
             <?php
                 $active = 'active open';
             ?>
@@ -30,7 +30,7 @@
                     <?php $us_lvl = $this->my_func->scpro_decrypt($this->session->userdata('us_lvl'));
                      $us_email = $this->session->userdata('us_email');?>
                         <?php if($us_lvl != 2 && $us_lvl != 3 ){?>
-                        <li class="nav-item <?php if (strpos($link, 'a1') !== false) { echo "active open";}else{echo "start";}?>  ">
+                        <li class="nav-item <?php if (strpos($link, 'a1') !== false) { echo $active;}else{echo "start";}?>  ">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <i class="fa fa-cart-plus"></i>
                                 <span class="title"><i class="fa fa-money"></i> Sales Section</span>

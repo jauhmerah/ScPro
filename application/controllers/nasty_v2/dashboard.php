@@ -314,8 +314,8 @@
                             case '1':
                                 //Order Code
                                 //Hanya Single
-                                if (strpos($search, "#") !== false) {
-                                    $search = str_replace("#", "", $search);
+                                if (strpos($search, "-EU2") !== false) {
+                                    $search = str_replace("-EU2", "", $search);
                                 }
                                 if (!is_numeric($search)) {
                                     $this->session->set_flashdata('warning', 'Please Enter the Correct Order Code');
@@ -330,7 +330,7 @@
                                     $ver = 0;
                                 }*/
                                 $ver = 2;
-                                $id = $search - 120000;
+                                $id = $search;
                                 $where = array(
                                     "ord.or_id" => $id
                                 );
