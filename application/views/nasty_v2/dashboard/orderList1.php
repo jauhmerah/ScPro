@@ -28,7 +28,7 @@
 					<script src="<?= base_url(); ?>asset2/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js" type="text/javascript"></script>
 <div class="row">
 	<div class="col-md-12">	
-		<div class="portlet box red-pink">
+		<div class="portlet box blue-steel">
             <div class="portlet-title">
                 <div class="caption">
                     <i class="fa fa-list"></i>Order List EU_17

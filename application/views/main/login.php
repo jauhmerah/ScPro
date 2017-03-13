@@ -82,7 +82,9 @@
 <script>
     $.backstretch([
       "<?php echo base_url();?>asset/slider/bg1.jpg",
-      "<?php echo base_url();?>asset/slider/bg2.jpg"
+      "<?php echo base_url();?>asset/slider/bg2.jpg",
+      "<?php echo base_url();?>asset/slider/bg3.jpg",
+      "<?php echo base_url();?>asset/slider/bg4.jpg"
     ], {
       fade: 850,    //Speed of Fade
       duration: 10000  //Time of image display
