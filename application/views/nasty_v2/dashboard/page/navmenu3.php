@@ -62,65 +62,19 @@
                         <?php if($us_lvl != 4){?> 
                         <li class="nav-item <?php if (strpos($link, 'a2') !== false) { echo "active open";}else{echo "start";}?>  ">
                             <a href="javascript:;" class="nav-link nav-toggle">
-                                <i class="fa fa-industry"></i>
-                                <span class="title">Production Team</span>
+                                <i class="fa fa-archive"></i>
+                                <span class="title">Packaging Module</span>
                                 <span class="arrow"></span>
                             </a>
                             <ul class="sub-menu">
                                 <li class="nav-item start" title="Request Of Shipping">
                                     <a href="<?= site_url('nasty_v2/dashboard/page/a2') ?>" class="nav-link ">                                
-                                        <i class="fa fa-cog fa-spin"></i>
-                                        <span class="title">Order List</span>
+                                        <i class="fa fa-tasks"></i>
+                                        <span class="title">Packaging List</span>
                                     </a>
                                 </li>
                             </ul>
-                        </li> <?php } ?> 
-                        <?php if(($us_lvl != 2) ||  ($us_lvl != 3)  ){?>
-                        <li class="nav-item <?php if (strpos($link, 'y') !== false) { echo "active open";}else{echo "start";}?>  ">
-                            <a href="javascript:;" class="nav-link nav-toggle">
-                                <i class="fa fa-archive"></i>
-                                <span class="title">Distributor</span>
-                                <span class="arrow"></span>
-                            </a>
-                            <ul class="sub-menu">
-                            <?php  if(($us_email == "faeiz@nastyjuice.com")||($us_lvl ==1)){  ?>
-                                <li class="nav-item start" title="Distributor Action">
-                                    <a href="<?= site_url('nasty_v2/dashboard/page/a62') ?>" class="nav-link ">
-                                        <i class="fa fa-flag-checkered"></i>
-                                        <span class="title">Distributor Action</span>
-                                    </a>
-                                </li>
-                                <?php }?>
-                                <li class="nav-item start" title="Ready To Shipping">
-                                    <a href="<?= site_url('nasty_v2/dashboard/page/a6') ?>" class="nav-link ">
-                                        <i class="fa fa-flag"></i>
-                                        <span class="title">Dashboard</span>
-                                        <!--<span class="badge badge-success">1</span>-->
-                                    </a>
-                                </li>
-                                    <!-- <li class="nav-item start" title="Ready To Shipping">
-                                    <a href="<?= site_url('nasty_v2/dashboard/page/a7') ?>" class="nav-link ">
-                                        <i class="fa fa-truck"></i>
-                                        <span class="title">RTS List</span>
-                                        <!--<span class="badge badge-success">1</span>-->
-                                    </a>
-                                </li> -->
-                            </ul>
-                        </li> <?php } ?>                                                
-                        <?php if($us_lvl != 4){?>                     
-                        <li class="nav-item <?php if (strpos($link, 'g') !== false) { echo "active open";}else{echo "start";}?>   ">
-                            <a href="" class="nav-link ">
-                                <i class="fa fa-ship"></i>
-                                <span class="title">Shipping</span>
-                            </a>
-                        </li><?php } ?>
-                        <?php if($us_lvl != 2 && $us_lvl != 3 ){?>
-                        <li class="nav-item <?php if (strpos($link, 'k1') !== false) { echo "active open";}else{echo "start";}?>   ">
-                            <a href="<?= site_url('nasty_v2/dashboard/page/k1') ?>" class="nav-link ">
-                                <i class="fa fa-bank"></i>
-                                <span class="title">Acounting</span>
-                            </a>
-                        </li><?php } ?> 
+                        </li> <?php } ?>  
                         <?php if($us_lvl != 2){?>
                         <li class="nav-item start ">
                             <a href="<?= site_url('nasty_v2/dashboard/page/a4') ?>" class="nav-link ">
