@@ -173,7 +173,7 @@
 							$n++;
 							?>						
 							<tr class="Lorder" id="L<?= $n; ?>">
-								<td><span style = "color:#b706d6;" >#<?= 120000 + $key['order']->or_id; ?></span></td>
+								<td><span class="font-red-pink" ><strong><?= $key['order']->or_id."-EU2"; ?></span></td>
 								<td><?= $key['order']->cl_name; ?></td>
 								
 								<td><?= $key['order']->cl_country; ?></td>
