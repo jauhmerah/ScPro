@@ -68,13 +68,51 @@
                             </a>
                             <ul class="sub-menu">
                                 <li class="nav-item start" title="Request Of Shipping">
-                                    <a href="<?= site_url('nasty_v2/dashboard/page/a2') ?>" class="nav-link ">                                
+                                    <a href="<?= site_url('nasty_v2/dashboard/page/a2') ?>" class="nav-link ">
                                         <i class="fa fa-tasks"></i>
                                         <span class="title">Packaging List</span>
                                     </a>
                                 </li>
                             </ul>
-                        </li> <?php } ?>  
+                        </li> <?php } ?>
+                        <li class="nav-item <?php if (strpos($link, 'i1') !== false || strpos($link, 'i2') !== false) { echo "active open";}else{echo "start";}?>   ">
+                            <a href="" class="nav-link ">
+                                <i class="fa fa-cubes"></i>
+                                <span class="title">Inventory</span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li class="nav-item start">
+                                    <a href="<?= site_url('nasty_v2/dashboard/page/i1') ?>" class="nav-link ">
+                                        <i class="fa fa-bar-chart"></i>
+                                        <span class="title">Dashboard</span>
+                                    </a>
+                                </li>
+                                 <li class="nav-item start">
+                                    <a href="<?= site_url('nasty_v2/dashboard/page/i2') ?>" class="nav-link ">
+                                        <i class="fa fa-plus-square-o"></i>
+                                        <span class="title">Add Shipping</span>
+                                        <!--<span class="badge badge-success">1</span>-->
+                                    </a>
+                                </li>
+                                
+                                <li class="nav-item start">
+                                    <a href="<?= site_url('nasty_v2/dashboard/page/i21') ?>" class="nav-link ">
+                                        <i class="fa fa-th-list"></i>
+                                        <span class="title">Shipping List</span>
+                                        <!--<span class="badge badge-success">1</span>-->
+                                    </a>
+                                </li>
+                                <li class="nav-item start">
+                                    <a href="<?= site_url('nasty_v2/dashboard/page/i3') ?>" class="nav-link ">
+                                        <i class="fa fa-cube"></i>
+                                        <span class="title">Log</span>
+                                        <!--<span class="badge badge-success">1</span>-->
+                                    </a>
+                                </li>
+                               
+                           
+                            </ul>
+                        </li><?php  ?>
                         <?php if($us_lvl != 2){?>
                         <li class="nav-item start ">
                             <a href="<?= site_url('nasty_v2/dashboard/page/a4') ?>" class="nav-link ">
