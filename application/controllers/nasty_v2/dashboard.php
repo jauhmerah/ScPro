@@ -578,8 +578,7 @@ epul@nastyjuice.com
     				break;
 
 
-                    case 'a6':  
-                
+                    case 'a6':                
 
                       //$this->load->library('my_func');
                    /* if ($lvl == 4) {
@@ -2418,6 +2417,15 @@ epul@nastyjuice.com
             $this->load->model("m_picture");
             $arr['img'] = $this->m_picture->getPaid(array("ne_id" => $ne_id));
             echo $this->load->view('nasty_v2/dashboard/ajax/getAjaxImg', $arr , TRUE);
+        }
+
+        public function testqr()
+        {
+            $this->load->library('ciqrcode');
+    
+            header("Content-Type: image/png");
+            $params['data'] = 'This is a text to encode become QR Code';
+            $this->ciqrcode->generate($params);
         }
 	}
 	        
