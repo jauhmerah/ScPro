@@ -1106,6 +1106,7 @@ epul@nastyjuice.com
                     $this->_show('display' , $data , 'i1');
 
                 break;
+                
 
                 case 'c4':
                     //Category

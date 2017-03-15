@@ -302,6 +302,7 @@
 				});
 
 
+
 		$(".shipBtn").click(function() {
 		       		id = $(this).prop('id');
 					shid = $("."+id).val();
