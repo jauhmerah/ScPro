@@ -270,6 +270,26 @@
                         $this->_show('display' , $data , $key);
                         break;
                     }
+                    case 'i111':
+                    //view new
+                    if ($lvl == 2 || $lvl == 3) {
+                        redirect(site_url('nasty_v2/dashboard/page/i21'),'refresh');
+                    }
+                    if($this->input->get('view')){
+                        $id = $this->input->get('view');
+                        //$this->load->library('my_func');
+                        $id = $this->my_func->scpro_decrypt($id);
+                        $this->load->database();
+                        $this->load->model('m_ship');
+                        $arr['arr'] = array_shift($this->m_ship->getList_ext($id , 1));
+                        if (sizeof($arr['arr']) == 0) {
+                            $arr['arr'] = array_shift($this->m_ship->getList_ext($id , 2));
+                        }
+                        $data['title'] = '<i class="fa fa-eye"></i> Inventory Detail</a>';
+                        $data['display'] = $this->load->view($this->parent_page.'/shipView' ,$arr , true);                        
+                        $this->_show('display' , $data , 'i1');
+                        break;
+                    }
                 case 'a1':
                     /*if ($lvl == 2 || $lvl == 3) {
                         redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
@@ -377,6 +397,108 @@
     				$data['display'] = $this->load->view($this->parent_page.'/orderList1' ,$arr , true);
     				$this->_show('display' , $data , 'a1');
     				break;
+
+                case 'i21':
+                     //OrdSys 2.3.0
+                    if ($lvl == 2 || $lvl == 3) {
+                        redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
+                    }
+                    if ($this->input->get('page')) {
+                        $p = $this->input->get('page');
+                    }else{
+                        $p = 0;
+                    }
+                    $this->load->library('my_func');
+                    $this->load->library('my_flag');
+                    $this->load->database();
+                    $this->load->model('m_ship');
+                    if ($this->input->post("search") && $this->input->post("filter") || $this->input->get("search") && $this->input->get("filter")) {
+                        if ($this->input->get("search") && $this->input->get("filter")) {
+                            $search = $this->input->get("search");
+                            $filter = $this->input->get("filter");
+                        } else {
+                            $search = $this->input->post("search");
+                            $filter = $this->input->post("filter");
+                        }
+                        switch ($filter) {
+                            case '10':
+                                //Client Name
+                                $where = array(
+                                    "cl.cl_name" => $search
+                                );
+                                break;
+                            case '1':
+                                //Order Code
+                                //Hanya Single
+                                if (strpos($search, "#") !== false) {
+                                    $search = str_replace("#", "", $search);
+                                }
+                                if (!is_numeric($search)) {
+                                    $this->session->set_flashdata('warning', 'Please Enter the Correct Order Code');
+                                    redirect(site_url("nasty_v2/dashboard/page/i21"),'refresh');
+                                }
+                                $str = (string)$search;
+                                /*if ($str[1] == '1') {
+                                    $id = $search - 110000;
+                                    $ver = 1;
+                                } else {
+                                    $id = $search - 100000;
+                                    $ver = 0;
+                                }*/
+                                $ver = 2;
+                                $id = $search - 120000;
+                                $where = array(
+                                    "ord.sh_id" => $id
+                                );
+                                break;
+                            case '2':
+                                //Sales Person
+                                $where = array(
+                                    "us1.us_username" => $search
+                                );
+                                break;
+                            case '3':
+                                //Order Status
+                                $where = array(
+                                    "pr.pr_desc" => $search
+                                );
+                                break;
+                        }
+                        if (isset($ver)) {
+                            $arr['arr1'] = $this->m_ship->listOr($ver , null , null , 0 , $where);
+                            $arr['arr2'] = $this->m_ship->getList_ext(null ,1, 1 , 2 , 0);
+                        }else{
+                            $arr['arr1'] = $this->m_ship->listSearch(2 , null , null , 0 , $where);
+                            $arr['arr2'] = $this->m_ship->getList_ext(null ,1, 1 , 2 , 0);                        
+                        }
+                    } else {
+                        $ver = $this->m_ship->shipCount(2);
+                        $arr['arr1'] = $this->m_ship->listOr(2 , 10 , $p);
+                        $arr['arr2'] = $this->m_ship->getList_ext(null ,1, 1 , 2 , 0);
+                        $result1 = sizeof($arr['arr1']);
+                        //$sizeA = 10 - $result1;
+                        /*if ($sizeA != 0) {
+                            $p1 = $p + 10 - $ver1;
+                            if ($p1 < 10) {
+                                $p2 = 0;
+                            } else {
+                                $p2 = $p1;
+                                $p1 = 10;
+                            }                        
+                            $arr['arr'] = $this->m_order->listOr(0 , $p1 , $p2);
+                            $result1 = $result1 + sizeof($arr['arr']);
+                        }*/
+                        $arr['page'] = $p;
+                        $arr['total'] = $ver;
+                        $arr['row'] = $result1;
+                    }
+                    $data['title'] = '<i class="fa fa-fw fa-edit"></i> Inventory</a>';
+                    $data['display'] = $this->load->view($this->parent_page.'/shipList' ,$arr , true);
+                    $this->_show('display' , $data , 'i1');
+                    break;
+
+               
+
                 case 'a1old':
                     // Ver 2.2.x
                     if ($lvl == 2 || $lvl == 3) {
@@ -939,6 +1061,35 @@ epul@nastyjuice.com
                     $this->_show('display' , $data , $key);
                     break;
 
+                 case 'i1':
+                   $this->load->database();
+                    $this->load->model('m_order');  
+                    $this->load->library('l_label');
+                    $temp['arr'] = $this->m_order->getList_ext(null ,1, 1 , 1 , 0);
+                    $temp['arr1'] = $this->m_order->getList_ext(null ,1, 1 , 2 , 0);
+                    $temp['arrV'] = $this->m_order->getList_ext(null ,2, 1 , 1 , 0);
+                    $temp['arrV1'] = $this->m_order->getList_ext(null ,2, 1 , 2 , 0);
+                    $temp['arrHold'] = $this->m_order->getList_ext(null ,2, 1 , 7 , 0);
+                    $data['title'] = '<i class="fa fa-fw fa-edit"></i>Inventory</a>';
+                    $data['display'] = $this->load->view($this->parent_page.'/invDashboard', $temp , TRUE);
+                    $this->_show('display' , $data , $key);
+
+                break;
+
+                case 'i2':
+                   $this->load->database();
+                    $this->load->model('m_client');
+                    $this->load->model('m_category');
+                    $this->load->model('m_nico');
+                    $arr['nico'] = $this->m_nico->get();
+                    $arr['cat'] = $this->m_category->get(null , 'asc');
+                    $arr['client'] = $this->m_client->get(null , 'asc');
+                    $data['title'] = '<i class="fa fa-fw fa-edit"></i>Inventory</a>';
+                    $data['display'] = $this->load->view($this->parent_page.'/shipForm', $arr , TRUE);
+                    $this->_show('display' , $data , $key);
+
+                break;
+
                 case 'c4':
                     //Category
                     $this->_loadCrud();
@@ -964,7 +1115,9 @@ epul@nastyjuice.com
                     $output = $crud->render();
                     $data['display'] = $this->load->view('crud' , $output , true);
                     $this->_show('display' , $data , $key); 
-                    break;   			
+                    break; 
+
+
     			case 'c2':
     				//Item
     				$data['title'] = '<i class="fa fa-fw fa-link"></i> Item List';
@@ -1211,6 +1364,84 @@ epul@nastyjuice.com
                         redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
     					break;    				
                     }   
+
+
+
+                    case 'z12':
+                //add order
+                    if ($lvl == 2 || $lvl == 3) {
+                        redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
+                    }
+                    $ver = 2;
+                    if ($this->input->post()) {
+                        $arr = $this->input->post();
+                        $this->load->library('my_func');
+                        $this->load->database();
+                        $this->load->model('m_ship');
+                        if ($arr['client'] == -1) {
+                            $cl = array(
+                                'cl_name' => $arr['name'],
+                                'cl_company' => $arr['company'],
+                                'cl_tel' => $arr['tel'],
+                                'cl_address' => $arr['address'],
+                                'cl_email' => $arr['email'],
+                                'cl_country' => $arr['country'],
+                            );
+                            $this->load->model('m_client');
+                            $arr['client'] = $this->m_client->insert($cl);
+                        }
+
+                        $ship = array(
+                            "cl_id" => $arr['client'],
+                            "us_id" => $this->my_func->scpro_decrypt($this->session->userdata('us_id')),                            
+                            "sh_date" => $arr['orderdate'],
+                            "pr_id" => $arr['pr_id']
+                        );
+                        $sh_id = $this->m_ship->insert($ship);
+                        
+                        $ship_ext = array(
+                            'sh_id' => $sh_id,
+                            'sh_dateline' => $arr['dateline'],
+                            'sh_finishdate' => $arr['finishdate'],
+                            'cu_id' => $arr['currency']
+                            // 'sh_wide' => $arr['wide']
+                            // 'sh_shipcom' => $arr['sh_company'],
+                            // "sh_traking" => $arr['traking'],
+                            // 'sh_shipopt' => $arr['sh_opt'],
+                            // 'dec_id' => $arr['sh_declare']                            
+                        );
+                        $this->load->model('m_ship_ext');                        
+                        $shex_id = $this->m_ship_ext->insert($ship_ext);                        
+                        $this->load->model('m_ship_item');
+                        $sizeArr = sizeof($arr['itemId']);
+                        for ($i=0; $i < $sizeArr ; $i++) { 
+                            $item = array(
+                                'shex_id' => $shex_id,
+                                'ty2_id' => $arr['itemId'][$i],
+                                'ni_id' => $arr['nico'][$i],
+                                'si_price' => $arr['price'][$i],
+                                'si_qty' => $arr['qty'][$i]
+                            );
+                            $this->m_ship_item->insert($item);
+                        }
+                        
+                        if ($arr['pr_id'] != 4) { 
+                        //#email1                           
+                            //$this->load->model('m_user');                            
+                            $sendToMail['us_id'] = $this->my_func->scpro_decrypt($this->session->userdata('us_id'));
+                            $sendToMail['ver'] = $ver;
+                            $sendToMail['sh_id'] = $sh_id;
+                            $this->emailSendNew($sendToMail , $ver);
+                        }                        
+                        $this->session->set_flashdata('success', 'New Shipping Item successfully added');
+                        redirect(site_url('nasty_v2/dashboard/page/i1'),'refresh');
+                        break;                  
+                    }   
+
+
+
+
+
     			case 'z1':
                     if ($lvl == 2 || $lvl == 3) {
                         redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
@@ -1675,8 +1906,50 @@ epul@nastyjuice.com
                     12 - Arrived
                     13 - Return */
                     $this->m_order->updateROS($pr_id, $or_id);
-
+                    $this->session->set_flashdata('success', 'The order status was Updated!!');
                     redirect(site_url('nasty_v2/dashboard/page/a1new'),'refresh');
+
+                // }
+                // else{
+                //     return false;
+                // }
+
+                    
+        }
+
+        public function changeShip_pr_id()
+        {
+                
+                //if ($this->input->post('or_id')){
+                //echo "<script>alert('test');</script>";
+                //$this->load->library('my_func'); 
+                $sh_id = $this->input->post('sh_id');
+                $arr_date=$this->input->post('arr_date');
+                echo "<script>alert('test');</script>";
+                //$or_id = $this->my_func->scpro_decrypt($this->input->post('or_id'));
+                $pr_id = $this->input->post('pr_id');
+                $this->load->database();
+                $this->load->model('m_ship');
+
+               
+/*
+                  1 - New Order
+                    2 - In Progress
+                    3 - Complete
+                    4 - Unconfirm
+                    5 - Cancel
+                    6 - Cancel In Progress
+                    7 - On Hold In Progress
+                    8 - ROS
+                    9 - DOC
+                    10 - RTS
+                    11 - Shipping
+                    12 - Arrived
+                    13 - Return */
+                    $this->m_ship->updateShipment($pr_id, $sh_id,$arr_date);
+                    $this->session->set_flashdata('success', 'The Shipment status was Updated!!');
+
+                    redirect(site_url('nasty_v2/dashboard/page/i21'),'refresh');
 
                 // }
                 // else{
@@ -2065,6 +2338,20 @@ epul@nastyjuice.com
             echo $this->load->view($this->parent_page."/ajax/getAjaxItem", $temp , true);
         }
 
+        public function getAjaxInvItemList()
+        {
+            $arr = $this->input->post();
+            $this->load->database();
+            $this->load->model('m_nico');
+            $this->load->model('m_type2');
+            $this->load->model('m_category');
+            $temp['cat'] = $this->m_category->get($arr['cat']);
+            $temp['nico'] = $this->m_nico->get($arr['nico']);
+            $temp['item'] = $this->m_type2->get($arr['type']);
+            $temp['num'] = $arr['num'];
+            echo $this->load->view($this->parent_page."/ajax/getAjaxInvItem", $temp , true);
+        }
+
         public function getAjaxDelItem()
         {
             $oi_id = $this->input->post('oi_id');
@@ -2087,46 +2374,46 @@ epul@nastyjuice.com
             echo $this->load->view('nasty_v2/dashboard/ajax/getAjaxUpload', $arr , TRUE);
         }
 
-        private function emailSendNew($arr = null , $ver = 1)
-        {
-            //unconfirm to new order;
-            //#email1
-            if ($arr != null) {
-                $this->load->model('m_user');
-                $this->load->library('my_func');
-                $or_id = $arr['or_id'];                
-                $saleman = $this->m_user->getName($arr['us_id']);
-                $email['fromName'] = "Ai System";
-                $email['fromEmail'] = "nstylabc@sirius.sfdns.net";
-                $email['toEmail'] = array("faeiz@nastyjuice.com", "account@nastyjuice.com" , 'hairi@nastyjuice.com' , 'abun@nastyjuice.com');
-                $email['subject'] = "New Order #".((10000*$ver)+100000+$or_id);
-                $email['msg'] = "
-Order Detail
+//         private function emailSendNew($arr = null , $ver = 1)
+//         {
+//             //unconfirm to new order;
+//             //#email1
+//             if ($arr != null) {
+//                 $this->load->model('m_user');
+//                 $this->load->library('my_func');
+//                 $or_id = $arr['or_id'];                
+//                 $saleman = $this->m_user->getName($arr['us_id']);
+//                 $email['fromName'] = "Ai System";
+//                 $email['fromEmail'] = "nstylabc@sirius.sfdns.net";
+//                 $email['toEmail'] = array("faeiz@nastyjuice.com", "account@nastyjuice.com" , 'hairi@nastyjuice.com' , 'abun@nastyjuice.com');
+//                 $email['subject'] = "New Order #".((10000*$ver)+100000+$or_id);
+//                 $email['msg'] = "
+// Order Detail
 
-Order No : #".((10000*$ver)+100000+$or_id)."
-Order Status : New Order
-Salesman : ".$saleman."
+// Order No : #".((10000*$ver)+100000+$or_id)."
+// Order Status : New Order
+// Salesman : ".$saleman."
 
-(#Note : Once this link clicked, the Ai system will automaticaly change the order status into \"Processing Mode\".)
-Print Order Link : ".site_url('order/printOrder1?id='.$this->my_func->scpro_encrypt($or_id))."&ver=".$ver."
-Invoice Form : ".site_url('invoice/Invoice?id='.$this->my_func->scpro_encrypt($or_id))."&ver=".$ver."
+// (#Note : Once this link clicked, the Ai system will automaticaly change the order status into \"Processing Mode\".)
+// Print Order Link : ".site_url('order/printOrder1?id='.$this->my_func->scpro_encrypt($or_id))."&ver=".$ver."
+// Invoice Form : ".site_url('invoice/Invoice?id='.$this->my_func->scpro_encrypt($or_id))."&ver=".$ver."
 
-Search Order Page : ".site_url()."
-System Login : ".site_url('login')."
+// Search Order Page : ".site_url()."
+// System Login : ".site_url('login')."
 
-Sincerely,
-Ai OrdSys System
+// Sincerely,
+// Ai OrdSys System
 
-Programmer
-JauhMerah
-jauhmerah@nastyjuice.com
-Epul
-epul@nastyjuice.com
+// Programmer
+// JauhMerah
+// jauhmerah@nastyjuice.com
+// Epul
+// epul@nastyjuice.com
 
-                ";
-                $this->sendEmail($email);                     
-            }
-        }
+//                 ";
+//                 $this->sendEmail($email);                     
+//             }
+//         }
 
         private function emailSendUnconfirm($arr = null , $ver = 1)
         {

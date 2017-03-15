@@ -76,7 +76,7 @@
                             </ul>
                         </li> <?php } ?> 
                         <?php if(($us_lvl != 2) ||  ($us_lvl != 3)  ){?>
-                        <li class="nav-item <?php if (strpos($link, 'y') !== false) { echo "active open";}else{echo "start";}?>  ">
+                        <li class="nav-item <?php if (strpos($link, 'a62') !== false || strpos($link, 'a6') !== false) { echo "active open";}else{echo "start";}?>  ">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <i class="fa fa-archive"></i>
                                 <span class="title">Distributor</span>
@@ -103,7 +103,7 @@
                                         <i class="fa fa-truck"></i>
                                         <span class="title">RTS List</span>
                                         <!--<span class="badge badge-success">1</span>-->
-                                    </a>
+                                <!--     </a>
                                 </li> -->
                             </ul>
                         </li> <?php } ?>                                                
@@ -120,7 +120,45 @@
                                 <i class="fa fa-bank"></i>
                                 <span class="title">Acounting</span>
                             </a>
-                        </li><?php } ?> 
+                        </li><?php } ?>
+                        <?php ?>
+                        <li class="nav-item <?php if (strpos($link, 'i1') !== false || strpos($link, 'i2') !== false) { echo "active open";}else{echo "start";}?>   ">
+                            <a href="" class="nav-link ">
+                                <i class="fa fa-cubes"></i>
+                                <span class="title">Inventory</span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li class="nav-item start">
+                                    <a href="<?= site_url('nasty_v2/dashboard/page/i1') ?>" class="nav-link ">
+                                        <i class="fa fa-bar-chart"></i>
+                                        <span class="title">Dashboard</span>
+                                    </a>
+                                </li>
+                                 <li class="nav-item start">
+                                    <a href="<?= site_url('nasty_v2/dashboard/page/i2') ?>" class="nav-link ">
+                                        <i class="fa fa-plus-square-o"></i>
+                                        <span class="title">Add Shipping</span>
+                                        <!--<span class="badge badge-success">1</span>-->
+                                    </a>
+                                </li>
+                                <li class="nav-item start">
+                                    <a href="<?= site_url('nasty_v2/dashboard/page/i21') ?>" class="nav-link ">
+                                        <i class="fa fa-th-list"></i>
+                                        <span class="title">Shipping List</span>
+                                        <!--<span class="badge badge-success">1</span>-->
+                                    </a>
+                                </li>
+                                <li class="nav-item start">
+                                    <a href="<?= site_url('nasty_v2/dashboard/page/i2') ?>" class="nav-link ">
+                                        <i class="fa fa-cube"></i>
+                                        <span class="title">Log</span>
+                                        <!--<span class="badge badge-success">1</span>-->
+                                    </a>
+                                </li>
+                               
+                           
+                            </ul>
+                        </li><?php  ?>  
                         <?php if($us_lvl != 2){?>
                         <li class="nav-item start ">
                             <a href="<?= site_url('nasty_v2/dashboard/page/a4') ?>" class="nav-link ">
