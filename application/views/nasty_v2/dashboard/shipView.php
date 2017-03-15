@@ -54,7 +54,7 @@
 		                                        <div class="row">
 		                                            <div class="col-md-6">
 		                                                <div class="form-group">
-		                                                    <label class="control-label">Sales Person : <strong> <?= $arr['staff']->us_username; ?></strong></label>
+		                                                    <label class="control-label"> : <strong> <?= $arr['staff']->us_username; ?></strong></label>
 		                                                </div>
 		                                            </div>
 		                                            <!--/span-->
@@ -77,19 +77,19 @@
                                         	<div class="col-md-4">
                                         		<div class="row">                           
 	                                                <div class="form-group col-md-12">
-	                                                    <label class="control-label">Date Line : <strong> <?php if($arr['ship']->sh_dateline != '0000-00-00 00:00:00'){ echo date_format(date_create($arr['ship']->sh_dateline) , 'd-M-Y' );}else{echo '--Not Set--';} ?></strong></label>
+	                                                  <!--   <label class="control-label">Date Line : <strong> <?php if($arr['ship']->sh_dateline != '0000-00-00 00:00:00'){ echo date_format(date_create($arr['ship']->sh_dateline) , 'd-M-Y' );}else{echo '--Not Set--';} ?></strong></label> -->
 	                                                </div>
 		                                            <!--/span-->
 	                                            </div>
 	                                            <div class="row">	
 	                                                <div class="form-group col-md-12">
-	                                                    <label class="control-label">Order Date : <strong> <?php if($arr['ship']->sh_date != '0000-00-00 00:00:00') { echo date_format(date_create($arr['ship']->sh_date) , 'd-M-Y' ); }else{echo '--Not Set--';} ?></strong></label>
+	                                                    <label class="control-label">Shipping Date : <strong> <?php if($arr['ship']->sh_date != '0000-00-00 00:00:00') { echo date_format(date_create($arr['ship']->sh_date) , 'd-M-Y' ); }else{echo '--Not Set--';} ?></strong></label>
 	                                                </div>		                                            
 		                                            <!--/span-->
 		                                        </div>
 		                                        <div class="row">	
 	                                                <div class="form-group col-md-12">
-	                                                    <label class="control-label">Finish Date : <strong> <?php if($arr['ship']->sh_finishdate != '0000-00-00 00:00:00') { echo date_format(date_create($arr['ship']->sh_finishdate) , 'd-M-Y' ); }else{echo '--Not Set--';} ?></strong></label>
+	                                                    <label class="control-label">Arrived Date : <strong> <?php if($arr['ship']->sh_arrivedate != '0000-00-00 00:00:00') { echo date_format(date_create($arr['ship']->sh_arrivedate) , 'd-M-Y' ); }else{echo '--Not Set--';} ?></strong></label>
 	                                                </div>		                                            
 		                                            <!--/span-->
 		                                        </div>
@@ -170,9 +170,7 @@
 						                                    		}
 						                                    		
 						                                    	?>
-						                                    	<td colspan="5">
-					                                            		<textarea name="note" id="input" class="form-control input-circle input-lg" rows="2" placeholder="#Note" readonly><?= $arr['ship']->sh_note; ?></textarea>
-					                                            </td>
+						                                    
 						                                    </tbody>
 						                                </table>
 				                                    </div>

@@ -162,16 +162,21 @@
                                     </td>
 		                            <td align="center">
                                  	<?php $shid=$this->my_func->scpro_encrypt($user->sh_id); ?>
-		                            	<a href="<?= site_url('nasty_v2/dashboard/page/i111?v=2&view=').$shid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-info btn-circle btn-xs"><i class="fa fa-eye"></i></button></a>&nbsp;-&nbsp;                            	
-										<a href="<?= site_url('nasty_v2/dashboard/page/a121?v=2&edit=').$shid; ?>" name="c3" title="Edit Order">
+		                            	<a href="<?= site_url('nasty_v2/dashboard/page/i111?v=2&view=').$shid; ?>" name="c4" title="Shipment Detail"><button type="button" class="btn btn-info btn-circle btn-xs"><i class="fa fa-eye"></i></button></a>&nbsp;-&nbsp;                            	
+										<a href="<?= site_url('nasty_v2/dashboard/page/a121?v=2&edit=').$shid; ?>" name="c3" title="Edit Shipment">
 										<button type="button" class="btn btn-warning btn-circle btn-xs"><i class="fa fa-pencil"></i></button></a>
-							
-
-                                    		 	&nbsp;-&nbsp;
+										
+										<?php if($user->pr_id==15){?>
+										&nbsp;-&nbsp;
+										<button type="button" class="shipCheck btn btn-primary btn-circle btn-xs" id="<?= $n.'ship' ?>" name="<?= $n.'ship' ?>" title="check Item"><i class="fa fa-clipboard"></i></button>
+                                    	<input type="hidden" class="form-control <?= $n.'ship' ?>" value="<?= $user->sh_id ?>">
+										<?php }?>
+										<?php if($user->pr_id!=15){?>
+                                    	&nbsp;-&nbsp;
                                     	
                                     	<button type="button" class="shipBtn btn btn-success btn-circle btn-xs" id="<?= $n.'ship' ?>" name="<?= $n.'ship' ?>"><i class="fa fa-check"></i></button>
                                     	<input type="hidden" class="form-control <?= $n.'ship' ?>" value="<?= $user->sh_id ?>">
-                                    	
+                                    	<?php }?>
                                     	&nbsp;-&nbsp;   
 										<button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/Invoice?id='.$this->my_func->scpro_encrypt($user->sh_id).'&ver=2'); ?>');"  class="btn blue-dark btn-circle btn-xs" title="Invoice">Inv</button>&nbsp;-&nbsp;    
 										
@@ -180,58 +185,6 @@
 		                            </td>	                            
 		                        </tr>		
 
-
-		                        	<tr class="L<?= $n; ?>" style="display : none;">
-									<td colspan="8" >
-										<div class="row">
-											<div class="col-md-10 col-md-offset-1">
-												<table class="table table-condensed table-hover">
-													<thead>
-														<tr>
-															<th>#</th>
-															<th>Product</th>
-															<th>Quantity</th>
-															<th>Tester</th>
-														</tr>
-													</thead>
-													<tbody>
-													<?php if (sizeof($key['item'] != 0)) {
-															$n2 = 0;
-															foreach ($key['item'] as $key2) { 
-																$n2++; ?>
-																<tr>
-																	<td>
-																		<?= $n2; ?>
-																	</td>
-																	<td><?= $key2->ty2_desc; ?> | 
-																	<span class="label" style="color: black;background-color: <?= $key2->ca_color; ?>; font-size: 75%;" ><strong><?= $key2->ca_desc; ?></strong></span>&nbsp;
-																	<span class="label" style="color: black;font-size: 75%; background-color: <?= $key2->ni_color; ?>;" ><strong><?= $key2->ni_mg; ?> mg</strong></span> 
-																	</td>
-																	<td>
-																		<?= $key2->oi_qty; ?>
-																	</td>
-																	<td>
-																		<?= $key2->oi_tester; ?>
-																	</td>
-																</tr>
-															<?php
-															}
-														?>
-														
-													<?php }else{ ?>
-														<tr>
-															<td align = 'center'>
-																--No Data--
-															</td>
-														</tr>
-													<?php } ?>
-													</tbody>
-												</table>												
-											</div>										
-										</div>
-											
-									</td>
-								</tr>
 
 
 
@@ -244,7 +197,7 @@
 		                    
 
 
-
+		                    	
 
 
 
@@ -323,6 +276,11 @@
       </div>
     </div></form>
   </div>
+
+  <form id="userForm" method="post" style="display: block;">
+  <label>name:</label>
+		<input type="text" name="email" />
+</form>
 <script>
 	$(document).ready(function() {
 
@@ -336,9 +294,12 @@
 			}			
 			//alert("jadi");
 		});
+			$(".shipCheck").click(function() {
 
-
-
+							bootbox.dialog({
+    							message: $('#userForm')
+								});
+				});
 
 
 		$(".shipBtn").click(function() {

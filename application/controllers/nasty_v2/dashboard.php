@@ -466,16 +466,18 @@
                         }
                         if (isset($ver)) {
                             $arr['arr1'] = $this->m_ship->listOr($ver , null , null , 0 , $where);
-                            $arr['arr2'] = $this->m_ship->getList_ext(null ,1, 1 , 2 , 0);
+                            $arr['arr2'] = $this->m_ship->getList_ext(null ,2, 1 , 1 , 0);
+                           
                         }else{
                             $arr['arr1'] = $this->m_ship->listSearch(2 , null , null , 0 , $where);
-                            $arr['arr2'] = $this->m_ship->getList_ext(null ,1, 1 , 2 , 0);                        
+                            $arr['arr2'] = $this->m_ship->getList_ext(null ,2, 1 , 1 , 0);                     
                         }
                     } else {
                         $ver = $this->m_ship->shipCount(2);
                         $arr['arr1'] = $this->m_ship->listOr(2 , 10 , $p);
-                        $arr['arr2'] = $this->m_ship->getList_ext(null ,1, 1 , 2 , 0);
+                        $arr['arr2'] = $this->m_ship->getList_ext(null ,2, 1 , 1 , 0);
                         $result1 = sizeof($arr['arr1']);
+                        $result2 = sizeof($arr['arr2']);
                         //$sizeA = 10 - $result1;
                         /*if ($sizeA != 0) {
                             $p1 = $p + 10 - $ver1;
@@ -491,6 +493,7 @@
                         $arr['page'] = $p;
                         $arr['total'] = $ver;
                         $arr['row'] = $result1;
+                        $arr['item'] = $result1;
                     }
                     $data['title'] = '<i class="fa fa-fw fa-edit"></i> Inventory</a>';
                     $data['display'] = $this->load->view($this->parent_page.'/shipList' ,$arr , true);
@@ -1087,6 +1090,20 @@ epul@nastyjuice.com
                     $data['title'] = '<i class="fa fa-fw fa-edit"></i>Inventory</a>';
                     $data['display'] = $this->load->view($this->parent_page.'/shipForm', $arr , TRUE);
                     $this->_show('display' , $data , $key);
+
+                break;
+
+                case 'i3':
+                $this->load->database();
+                    $this->load->model('m_client');
+                    $this->load->model('m_category');
+                    $this->load->model('m_nico');
+                    $arr['nico'] = $this->m_nico->get();
+                    $arr['cat'] = $this->m_category->get(null , 'asc');
+                    $arr['client'] = $this->m_client->get(null , 'asc');
+                    $data['title'] = '<i class="fa fa-fw fa-edit"></i>Inventory</a>';
+                    $data['display'] = $this->load->view($this->parent_page.'/shipLog', $arr , TRUE);
+                    $this->_show('display' , $data , 'i1');
 
                 break;
 
