@@ -1366,14 +1366,14 @@ epul@nastyjuice.com
                             'cl_id' => $arr['client']
                         );
                         $this->m_shipping_note->insert($shipping_note);*/
-                        if ($arr['pr_id'] != 4) { 
-                        //#email1                           
-                            //$this->load->model('m_user');                            
-                            $sendToMail['us_id'] = $this->my_func->scpro_decrypt($this->session->userdata('us_id'));
-                            $sendToMail['ver'] = $ver;
-                            $sendToMail['or_id'] = $or_id;
-                            $this->emailSendNew($sendToMail , $ver);
-                        }                        
+                        // if ($arr['pr_id'] != 4) { 
+                        // //#email1                           
+                        //     //$this->load->model('m_user');                            
+                        //     $sendToMail['us_id'] = $this->my_func->scpro_decrypt($this->session->userdata('us_id'));
+                        //     $sendToMail['ver'] = $ver;
+                        //     $sendToMail['or_id'] = $or_id;
+                        //     $this->emailSendNew($sendToMail , $ver);
+                        // }                        
                         $this->session->set_flashdata('success', 'New Order successfully added');
                         redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
     					break;    				
@@ -1382,7 +1382,7 @@ epul@nastyjuice.com
 
 
                     case 'z12':
-                //add order
+                //add stock order
                     if ($lvl == 2 || $lvl == 3) {
                         redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
                     }
@@ -1417,17 +1417,19 @@ epul@nastyjuice.com
                             'sh_id' => $sh_id,
                             'sh_dateline' => $arr['dateline'],
                             'sh_finishdate' => $arr['finishdate'],
-                            'cu_id' => $arr['currency']
-                            // 'sh_wide' => $arr['wide']
-                            // 'sh_shipcom' => $arr['sh_company'],
-                            // "sh_traking" => $arr['traking'],
-                            // 'sh_shipopt' => $arr['sh_opt'],
-                            // 'dec_id' => $arr['sh_declare']                            
+                            'cu_id' => $arr['currency'],
+                            'sh_wide' => $arr['wide'],
+                            'sh_shipcom' => $arr['sh_company'],
+                            "sh_traking" => $arr['traking'],
+                            'sh_shipopt' => $arr['sh_opt'],
+                            'dec_id' => $arr['sh_declare']                            
                         );
                         $this->load->model('m_ship_ext');                        
                         $shex_id = $this->m_ship_ext->insert($ship_ext);                        
                         $this->load->model('m_ship_item');
                         $sizeArr = sizeof($arr['itemId']);
+                        $this->load->library('qrgen');
+                        $this->load->library('m_qrs');
                         for ($i=0; $i < $sizeArr ; $i++) { 
                             $item = array(
                                 'shex_id' => $shex_id,
@@ -1436,26 +1438,28 @@ epul@nastyjuice.com
                                 'si_price' => $arr['price'][$i],
                                 'si_qty' => $arr['qty'][$i]
                             );
-                            $this->m_ship_item->insert($item);
+                            $si_id = $this->m_ship_item->insert($item);
+                            // base_url().qr/co?de=xxxxxxxxx; 
+                            $url = $this->qrgen->gen($this->my_func->en($si_id) , date("Ymd").$i);
+                            $this->m_qrs->insert(
+                                array(
+                                    'si_id' => $si_id,
+                                    'qrs_url' => $url
+                                ));
                         }
                         
-                        if ($arr['pr_id'] != 4) { 
-                        //#email1                           
-                            //$this->load->model('m_user');                            
-                            $sendToMail['us_id'] = $this->my_func->scpro_decrypt($this->session->userdata('us_id'));
-                            $sendToMail['ver'] = $ver;
-                            $sendToMail['sh_id'] = $sh_id;
-                            $this->emailSendNew($sendToMail , $ver);
-                        }                        
+                        // if ($arr['pr_id'] != 4) { 
+                        // //#email1                           
+                        //     //$this->load->model('m_user');                            
+                        //     $sendToMail['us_id'] = $this->my_func->scpro_decrypt($this->session->userdata('us_id'));
+                        //     $sendToMail['ver'] = $ver;
+                        //     $sendToMail['sh_id'] = $sh_id;
+                        //     //$this->emailSendNew($sendToMail , $ver);
+                        // }                        
                         $this->session->set_flashdata('success', 'New Shipping Item successfully added');
                         redirect(site_url('nasty_v2/dashboard/page/i1'),'refresh');
                         break;                  
-                    }   
-
-
-
-
-
+                    } 
     			case 'z1':
                     if ($lvl == 2 || $lvl == 3) {
                         redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
@@ -2388,46 +2392,46 @@ epul@nastyjuice.com
             echo $this->load->view('nasty_v2/dashboard/ajax/getAjaxUpload', $arr , TRUE);
         }
 
-//         private function emailSendNew($arr = null , $ver = 1)
-//         {
-//             //unconfirm to new order;
-//             //#email1
-//             if ($arr != null) {
-//                 $this->load->model('m_user');
-//                 $this->load->library('my_func');
-//                 $or_id = $arr['or_id'];                
-//                 $saleman = $this->m_user->getName($arr['us_id']);
-//                 $email['fromName'] = "Ai System";
-//                 $email['fromEmail'] = "nstylabc@sirius.sfdns.net";
-//                 $email['toEmail'] = array("faeiz@nastyjuice.com", "account@nastyjuice.com" , 'hairi@nastyjuice.com' , 'abun@nastyjuice.com');
-//                 $email['subject'] = "New Order #".((10000*$ver)+100000+$or_id);
-//                 $email['msg'] = "
-// Order Detail
+        private function emailSendNew($arr = null , $ver = 1)
+        {
+            //unconfirm to new order;
+            //#email1
+            if ($arr != null) {
+                $this->load->model('m_user');
+                $this->load->library('my_func');
+                $or_id = $arr['or_id'];                
+                $saleman = $this->m_user->getName($arr['us_id']);
+                $email['fromName'] = "Ai System";
+                $email['fromEmail'] = "nstylabc@sirius.sfdns.net";
+                $email['toEmail'] = array("faeiz@nastyjuice.com", "account@nastyjuice.com" , 'hairi@nastyjuice.com' , 'abun@nastyjuice.com');
+                $email['subject'] = "New Order #".((10000*$ver)+100000+$or_id);
+                $email['msg'] = "
+Order Detail
 
-// Order No : #".((10000*$ver)+100000+$or_id)."
-// Order Status : New Order
-// Salesman : ".$saleman."
+Order No : #".((10000*$ver)+100000+$or_id)."
+Order Status : New Order
+Salesman : ".$saleman."
 
-// (#Note : Once this link clicked, the Ai system will automaticaly change the order status into \"Processing Mode\".)
-// Print Order Link : ".site_url('order/printOrder1?id='.$this->my_func->scpro_encrypt($or_id))."&ver=".$ver."
-// Invoice Form : ".site_url('invoice/Invoice?id='.$this->my_func->scpro_encrypt($or_id))."&ver=".$ver."
+(#Note : Once this link clicked, the Ai system will automaticaly change the order status into \"Processing Mode\".)
+Print Order Link : ".site_url('order/printOrder1?id='.$this->my_func->scpro_encrypt($or_id))."&ver=".$ver."
+Invoice Form : ".site_url('invoice/Invoice?id='.$this->my_func->scpro_encrypt($or_id))."&ver=".$ver."
 
-// Search Order Page : ".site_url()."
-// System Login : ".site_url('login')."
+Search Order Page : ".site_url()."
+System Login : ".site_url('login')."
 
-// Sincerely,
-// Ai OrdSys System
+Sincerely,
+Ai OrdSys System
 
-// Programmer
-// JauhMerah
-// jauhmerah@nastyjuice.com
-// Epul
-// epul@nastyjuice.com
+Programmer
+JauhMerah
+jauhmerah@nastyjuice.com
+Epul
+epul@nastyjuice.com
 
-//                 ";
-//                 $this->sendEmail($email);                     
-//             }
-//         }
+                ";
+                $this->sendEmail($email);                     
+            }
+        }
 
         private function emailSendUnconfirm($arr = null , $ver = 1)
         {
@@ -2726,11 +2730,8 @@ epul@nastyjuice.com
 
         public function testqr()
         {
-            $this->load->library('ciqrcode');
-    
-            header("Content-Type: image/png");
-            $params['data'] = 'This is a text to encode become QR Code';
-            $this->ciqrcode->generate($params);
+            $this->load->library('qrgen');
+            echo $this->qrgen->gen("test jauhmerh" , 'jm');            
         }
 	}
 	        

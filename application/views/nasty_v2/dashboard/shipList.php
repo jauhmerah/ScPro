@@ -144,27 +144,16 @@
                                     $view = ( $user->us_username == null) ? "--Not Set--" :  $user->us_username ;
                                     echo $view;
                                     ?></td>
-                                    <td class="mt-element-ribbon">
-                                    
+                                    <td class="mt-element-ribbon">                                    
                                     	<div class="pull-left"> 
-                                    	
-
-
                                     	<span class="label" style="background-color: <?= $user->pr_color; ?>"><?= $user->pr_desc; ?></span>
                                     	</div>
-                                   
-
-                            		
-                            			
-                            			
-
-
                                     </td>
 		                            <td align="center">
                                  	<?php $shid=$this->my_func->scpro_encrypt($user->sh_id); ?>
-		                            	<a href="<?= site_url('nasty_v2/dashboard/page/i111?v=2&view=').$shid; ?>" name="c4" title="Shipment Detail"><button type="button" class="btn btn-info btn-circle btn-xs"><i class="fa fa-eye"></i></button></a>&nbsp;-&nbsp;                            	
+		                            	<a href="<?= site_url('nasty_v2/dashboard/page/i111?v=2&view=').$shid; ?>" name="c4" title="Shipment Detail"><button type="button" class="btn btn-info btn-circle btn-xs"><i class="fa fa-eye"></i></button></a><!--&nbsp;-&nbsp;	
 										<a href="<?= site_url('nasty_v2/dashboard/page/a121?v=2&edit=').$shid; ?>" name="c3" title="Edit Shipment">
-										<button type="button" class="btn btn-warning btn-circle btn-xs"><i class="fa fa-pencil"></i></button></a>
+										<button type="button" class="btn btn-warning btn-circle btn-xs"><i class="fa fa-pencil"></i></button></a>-->
 										
 										<?php if($user->pr_id==15){?>
 										&nbsp;-&nbsp;
@@ -174,7 +163,8 @@
 										<?php if($user->pr_id!=15){?>
                                     	&nbsp;-&nbsp;
                                     	
-                                    	<button type="button" class="shipBtn btn btn-success btn-circle btn-xs" id="<?= $n.'ship' ?>" name="<?= $n.'ship' ?>"><i class="fa fa-check"></i></button>
+                                    	<!--<button type="button" class="shipBtn btn btn-success btn-circle btn-xs" id="<?= $n.'ship' ?>" name="<?= $n.'ship' ?>"><i class="fa fa-check"></i></button>-->
+                                    	<button type="button" class="btn btn-circle purple-sharp btn-xs" id="<?= $n.'ship' ?>" name="<?= $n.'ship' ?>" title = "Print Qrcode List"><i class="fa fa-qrcode"></i></button>
                                     	<input type="hidden" class="form-control <?= $n.'ship' ?>" value="<?= $user->sh_id ?>">
                                     	<?php }?>
                                     	&nbsp;-&nbsp;   
@@ -192,15 +182,6 @@
 		                    		}
 		                    	}
 		                    	?>
-
-
-		                    
-
-
-		                    	
-
-
-
 		                    </tbody>
 		                    <?php if (isset($page)) {?>
 		                    <tfoot>

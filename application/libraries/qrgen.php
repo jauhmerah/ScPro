@@ -23,16 +23,16 @@ class Qrgen
 	
 		$params['data'] = $text;		
 		$params['level'] = 'H';		
-		if (isset($config['level']) {
+		if (isset($config['level'])) {
 			$params['level'] = $config['level'];
 		}
-		if (isset($config['size']) {
+		if (isset($config['size'])) {
 			$params['size'] = $config['size'];
 		}
 		$params['savename'] = FCPATH.$location."/".$title.".png";
 		$ci->ciqrcode->generate($params);
 		
-		return '<img src="'.base_url().$location."/".$title.'.png" />';
+		return base_url().$location."/".$title.'.png';
 	}
 }
 ?>

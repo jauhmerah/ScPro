@@ -120,9 +120,9 @@
 	                                                <div class="form-group col-md-12">
 	                                                    <label class="control-label">Currency :</label>
 	                                                    <select class="form-control input-circle" name="currency">
-	                                                        <option value="1">MYR</option>
-	                                                        <option value="2">USD</option>
 	                                                        <option value="3">GBP</option>
+											                <option value="2">USD</option>
+											                <option value="1">MYR</option>
 	                                                    </select>
 	                                                </div>		                                            
 		                                            <!--/span-->
@@ -224,9 +224,9 @@
                                         </div>
                                         <!-- End Order Note -->
                                         <!-- Ship Form -->
-                                        <!-- <div class="row">
+                                        <div class="row">
 						                <div class="col-md-12">              
-						                	<div class="portlet box purple">
+						                	<div class="portlet box red-pink">
 						                        <div class="portlet-title">
 						                            <div class="caption">
 						                                <i class="fa fa-ship"></i>Shipping Note 
@@ -351,7 +351,7 @@
 						                        </div>
 						                    </div>
 						                </div>
-					                </div>			 -->			                
+					                </div>						                
                                     <div class="form-actions right">
                                     <!--   -->                                    	
                                         <button type="button" class="btn default">Cancel</button>

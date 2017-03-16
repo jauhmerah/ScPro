@@ -113,12 +113,6 @@
                 return false;
             }
         }
-
-
-
-
-
-
 	    public function getList($process = 0 , $del = 0 , $down = 0)
 	    {
 	    	$this->db->select('*');
