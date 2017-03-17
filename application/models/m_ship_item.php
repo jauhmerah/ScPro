@@ -11,7 +11,7 @@ class M_ship_item extends CI_Model {
     /**
      * @name string PRI_INDEX Holds the name of the tables' primary index used in this model
      */
-    const PRI_INDEX = 'oi_id';
+    const PRI_INDEX = 'si_id';
 
     /**
      * Retrieves record(s) from the database

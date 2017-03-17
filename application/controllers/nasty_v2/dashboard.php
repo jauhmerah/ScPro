@@ -19,20 +19,13 @@
 	        $this->page('a1');
 	    }
 
-	    public function testpage()
-	    {
-	    	
-            $this->load->view('test');
-	    }
-          public function dummyInvoice()
-        {
-        
+        public function dummyInvoice()
+        {        
             $html =$this->load->view($this->parent_page.'/orderDummy' , '' , true); 
             echo $html;
         }
-          public function Invoice()
-        {
-        
+        public function Invoice()
+        {        
             $html =$this->load->view($this->parent_page.'/orderInvoice' , '' , true); 
             echo $html;
         }
@@ -1429,7 +1422,7 @@ epul@nastyjuice.com
                         $this->load->model('m_ship_item');
                         $sizeArr = sizeof($arr['itemId']);
                         $this->load->library('qrgen');
-                        $this->load->library('m_qrs');
+                        $this->load->model('m_qrs');
                         for ($i=0; $i < $sizeArr ; $i++) { 
                             $item = array(
                                 'shex_id' => $shex_id,
@@ -1440,7 +1433,7 @@ epul@nastyjuice.com
                             );
                             $si_id = $this->m_ship_item->insert($item);
                             // base_url().qr/co?de=xxxxxxxxx; 
-                            $url = $this->qrgen->gen($this->my_func->en($si_id) , date("Ymd").$i);
+                            $url = $this->qrgen->gen(base_url().'qr/co?de='.$this->my_func->en($si_id) , date("Ymdhis").$i);
                             $this->m_qrs->insert(
                                 array(
                                     'si_id' => $si_id,

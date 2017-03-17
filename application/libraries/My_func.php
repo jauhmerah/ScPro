@@ -66,15 +66,21 @@
 			return $val2;
 		}
 
-		public function en($text)
+		public function en($text , $mode = 0)
 		{
+			if ($mode === 0) {
+				return bin2hex($text);
+			}
 			$ci = $this->obj;
 			$ci->load->library("encrypt");
 			$defaultKey = "jauhmerahAini";
 			return $ci->encrypt->encode($text , $defaultKey);
 		}
-		public function de($text)
+		public function de($text , $mode = 0)
 		{
+			if ($mode === 0) {
+				return pack("H*" , $text);
+			}			
 			$ci = $this->obj;
 			$ci->load->library("encrypt");
 			$defaultKey = "jauhmerahAini";
