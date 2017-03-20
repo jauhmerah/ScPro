@@ -8,7 +8,6 @@
     <link rel="icon" href="<?= base_url(); ?>assets/cover/favicon.png">
 
     <title>Login</title>
-
     <!-- Bootstrap core CSS -->
     <link href="<?= base_url(); ?>asset/css/bootstrap.min.css" rel="stylesheet">
 
@@ -87,17 +86,44 @@ $this->session->set_flashdata('access', 'true');
     </div> <!-- /container -->
 <?php 
 }else{
-?>
-  <div class="container" id = "signin">
-  <div class="col-md-offset-4 col-md-4">
-    <div class="alert alert-info">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      <strong>Access deny!</strong> Please scan the Qr Code
-    </div>
-  </div>    
-  </div>
-<?php 
+  $msg = "Please scan the Qr Code";
 }
-?>    
+?>
+  <div class="container">
+  <div class="col-md-offset-4 col-md-4">
+    <?php 
+      if ($this->session->flashdata('error') || isset($msg)) { 
+        if ($this->session->flashdata('error')) {
+          $msg = $this->session->flashdata('error');
+        }
+        ?>
+        <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <strong>Access deny!</strong> <?= $msg; ?>
+      </div>
+    <?php } ?>
+    <?php 
+      if ($this->session->flashdata('warning')) { ?>
+        <div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <strong>Warning !</strong> <?= $this->session->flashdata('warning'); ?>
+      </div>
+    <?php } ?>
+    <?php 
+      if ($this->session->flashdata('info')) { ?>
+        <div class="alert alert-info">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <strong>Info :</strong> <?= $this->session->flashdata('info'); ?>
+      </div>
+    <?php } ?>
+    <?php 
+      if ($this->session->flashdata('success')) { ?>
+        <div class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <strong>Success :</strong> <?= $this->session->flashdata('success'); ?>
+      </div>
+    <?php } ?>    
+  </div>    
+  </div>   
 </body>
 </html>

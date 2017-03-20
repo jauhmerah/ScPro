@@ -106,7 +106,7 @@ class Order extends CI_Controller {
 					$this->session->set_flashdata('warning', 'Please click "Move to process" before printing !!!');
 					redirect(site_url(),'refresh');	
 				}			
-				$data["T"] = "#".((10000*$ver)+100000+$order['arr']['order']->or_id);	
+				$data["T"] = $order['arr']['order']->or_id."-EU".$ver;	
 				$order["or_code"] = $data["T"];
 				$data['display'] = $this->load->view($this->parent_page."/printForm1" , $order , true);
 				$this->_show($data);				

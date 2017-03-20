@@ -32,7 +32,7 @@ class Qrgen
 		$params['savename'] = FCPATH.$location."/".$title.".png";
 		$ci->ciqrcode->generate($params);
 		
-		return base_url().$location."/".$title.'.png';
+		return $location."/".$title.'.png';
 	}
 }
 ?>

@@ -62,7 +62,7 @@
 		<div class="col-md-4 col-md-offset-4" id="form" align="center">
 			<form action="<?= site_url('order/search') ?>" method="POST" role="form">
 				<div class="form-group">
-					<input type="text" class="form-control" name="search" placeholder="#100xxx Search Order">
+					<input type="text" class="form-control" name="search" placeholder="XXXX-EU2 Search Order">
 				</div>		
 				<button type="submit" class="btn btn-primary">Submit</button>
 			</form>

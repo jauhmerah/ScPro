@@ -35,7 +35,7 @@ class Qr extends CI_Controller {
 
     public function login()
     {
-        $this->_show("login");
+        $this->load->view($this->parent_page."login");
     }
 
     public function signin()
@@ -58,13 +58,25 @@ class Qr extends CI_Controller {
                 $this->load->model('m_ship_item' , "m_si");
                 $arr = $this->m_si->get($si_id);                
                 if(sizeof($arr) !== 0){
-                    $this->m_si->update(array("si_trans" => 1) , $si_id);
-                    $this->load->model('m_qrs');
-                    $qr = $this->m_qrs->get(array("si_id" => $si_id));
-                    if (sizeof($qr) !== 0) {
-                        
-                    }
-
+/*---------------set balik 1*/if($this->m_si->update(array("si_trans" => 1) , $si_id) || true){
+                        $this->load->model('m_qrs');
+                        $qr = $this->m_qrs->get(array("si_id" => $si_id));
+                        echo "<pre>";
+                        print_r($qr);
+                        echo "</pre>";
+                        die();
+                        if (sizeof($qr) !== 0) {
+                            $this->m_qrs->delete($qr->qrs_id);
+                            unlink($qr->qrs_url);                            
+                            //$this->_updateStock($arr);
+                        }else{
+                            //error : #00b2
+                            $this->session->set_flashdata('warning', 'Code Error : #Q-00b2');
+                        }
+                        $this->session->set_flashdata('success', 'Your item was register');
+                    }else{
+                        $this->session->set_flashdata('warning', 'This Item was updated before');
+                    } 
                 }else{
                     $this->session->set_flashdata('msg', 'Item Not Found , code : '.$this->input->post('code').". Send item code to it@nastyjuice.com , to solve the problem.");
                     redirect(site_url('qr/login'),'refresh');
@@ -73,8 +85,7 @@ class Qr extends CI_Controller {
                 $this->session->set_flashdata('msg', 'Wrong email or Password');
                 $this->session->set_flashdata('code', $this->input->post('code'));
                 redirect(site_url('qr/login'),'refresh');
-            }         
-
+            }
         }else{
             redirect(site_url('qr/login'),'refresh');
         }
@@ -93,6 +104,14 @@ class Qr extends CI_Controller {
     		$this->load->library('my_func');
     		echo $this->my_func->de($this->input->get("code"));
     	}
+    }
+
+    private function _updateStock($data = null)
+    {
+        if (is_array($data)) {
+            $this->load->model('m_stock_inventory' , "msi");
+            
+        }
     }
 
     public function test()
