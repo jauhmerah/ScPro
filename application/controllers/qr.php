@@ -58,25 +58,25 @@ class Qr extends CI_Controller {
                 $this->load->model('m_ship_item' , "m_si");
                 $arr = $this->m_si->get($si_id);                
                 if(sizeof($arr) !== 0){
-/*---------------set balik 1*/if($this->m_si->update(array("si_trans" => 1) , $si_id) || true){
+                    if($this->m_si->update(array("si_trans" => 1) , $si_id) ){
                         $this->load->model('m_qrs');
                         $qr = $this->m_qrs->get(array("si_id" => $si_id));
-                        echo "<pre>";
-                        print_r($qr);
-                        echo "</pre>";
-                        die();
-                        if (sizeof($qr) !== 0) {
+                        if (sizeof($qr) != 0) {
                             $this->m_qrs->delete($qr->qrs_id);
-                            unlink($qr->qrs_url);                            
-                            //$this->_updateStock($arr);
+                            unlink(".".$qr->qrs_url);                            
+                            if(!$this->_updateStock($arr)){
+                                //error : #00a1
+                                $this->session->set_flashdata('error', 'Error Code : #00a1. </br>Product Code : '.$this->input->post('code')."</br>Please report to admin, jauhmerah@nastyjuice.com");
+                            }
                         }else{
                             //error : #00b2
                             $this->session->set_flashdata('warning', 'Code Error : #Q-00b2');
                         }
-                        $this->session->set_flashdata('success', 'Your item was register');
+                        $this->session->set_flashdata('success', 'Your item was register');                        
                     }else{
                         $this->session->set_flashdata('warning', 'This Item was updated before');
-                    } 
+                    }
+                    $this->session->set_flashdata('found' , 'true');
                 }else{
                     $this->session->set_flashdata('msg', 'Item Not Found , code : '.$this->input->post('code').". Send item code to it@nastyjuice.com , to solve the problem.");
                     redirect(site_url('qr/login'),'refresh');
@@ -86,9 +86,8 @@ class Qr extends CI_Controller {
                 $this->session->set_flashdata('code', $this->input->post('code'));
                 redirect(site_url('qr/login'),'refresh');
             }
-        }else{
-            redirect(site_url('qr/login'),'refresh');
         }
+        redirect(site_url('qr/login'),'refresh');
     }
     public function qr_en()
     {
@@ -108,10 +107,15 @@ class Qr extends CI_Controller {
 
     private function _updateStock($data = null)
     {
+        /* 
+        ty2_id,ni_id,si_qty 
+        */
         if (is_array($data)) {
+            $this->load->database();        
             $this->load->model('m_stock_inventory' , "msi");
-            
+            return $this->msi->add($data);
         }
+        return false;
     }
 
     public function test()

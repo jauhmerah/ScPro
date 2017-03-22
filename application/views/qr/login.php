@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <link rel="icon" href="<?= base_url(); ?>assets/cover/favicon.png">
 
-    <title>Login</title>
+    <title>Product Registration</title>
     <!-- Bootstrap core CSS -->
     <link href="<?= base_url(); ?>asset/css/bootstrap.min.css" rel="stylesheet">
 
@@ -86,7 +86,11 @@ $this->session->set_flashdata('access', 'true');
     </div> <!-- /container -->
 <?php 
 }else{
-  $msg = "Please scan the Qr Code";
+  if ($this->session->flashdata('found')) {
+    $this->session->flashdata('found');    
+  }else{
+    $msg = "Please scan the Qr Code";
+  }  
 }
 ?>
   <div class="container">

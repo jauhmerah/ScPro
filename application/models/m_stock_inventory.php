@@ -87,6 +87,22 @@
 	        $this->db->delete(self::TABLE_NAME, $where);
 	        return $this->db->affected_rows();
 	    }
+
+	    public function add($arr)
+	    {
+	    	$a = $this->get(array("ty2_id" => $arr->ty2_id));
+	    	if (sizeof($a) != 0) {
+	    		$a->sti_total =+ $arr->si_qty;
+	    		return $this->update(array("sti_total" => $a->sti_total), $a->sti_id);
+	    	}else{
+	    		$b = array(
+	    			"ty2_id" => $arr->ty2_id,
+	    			"ni_id" => $arr->ni_id,
+	    			"sti_total" => $arr->si_qty
+	    		);
+	    		return $this->insert($b);
+	    	}
+	    }
 	}
 	        
 ?>
