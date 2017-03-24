@@ -27,11 +27,6 @@
 <link href="<?= base_url(); ?>asset2/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css" rel="stylesheet" type="text/css">
 					<script src="<?= base_url(); ?>asset2/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js" type="text/javascript"></script>
 
-
-
-
-
-
 <div class="row">
 	<div class="col-md-12">	
 		<div class="portlet box green-haze">
@@ -173,11 +168,7 @@
 										<button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/dummyInvoice?id='.$this->my_func->scpro_encrypt($user->sh_id).'&ver=2'); ?>');" class="btn c-btn-border-1x c-btn-blue-dark btn-circle btn-xs" title="Dummy Invoice">DInv</button>   
 										
 		                            </td>	                            
-		                        </tr>		
-
-
-
-
+		                        </tr>
 		                    	<?php
 		                    		}
 		                    	}
@@ -258,10 +249,7 @@
     </div></form>
   </div>
 
-  <form id="userForm" method="post" style="display: block;">
-  <label>name:</label>
-		<input type="text" name="email" />
-</form>
+ 
 <script>
 	$(document).ready(function() {
 
@@ -281,9 +269,6 @@
     							message: $('#userForm')
 								});
 				});
-
-
-
 		$(".shipBtn").click(function() {
 		       		id = $(this).prop('id');
 					shid = $("."+id).val();
@@ -297,10 +282,6 @@
     				seconds = arrDate.getSeconds()
 
 					arrDate =yyyy+"-"+mm+"-"+dd+" "+hours+":"+minutes+":"+seconds;
-
-
-
-
 					bootbox.confirm({
 					    message: "Are You Sure?",
 					    buttons: {
@@ -333,12 +314,6 @@
 
 
 		    	});
-
-
-
-
-
-
 		$(".cancelOrd").click(function() {
 			$('#myModal').show('slow');
 			key = $(this).prop('id');

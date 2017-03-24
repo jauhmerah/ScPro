@@ -63,16 +63,17 @@ class Qr extends CI_Controller {
                         $qr = $this->m_qrs->get(array("si_id" => $si_id));
                         if (sizeof($qr) != 0) {
                             $this->m_qrs->delete($qr->qrs_id);
-                            unlink(".".$qr->qrs_url);                            
+                            unlink(".".$qr->qrs_url); 
                             if(!$this->_updateStock($arr)){
                                 //error : #00a1
                                 $this->session->set_flashdata('error', 'Error Code : #00a1. </br>Product Code : '.$this->input->post('code')."</br>Please report to admin, jauhmerah@nastyjuice.com");
+                            }else{
+                                $this->session->set_flashdata('success', 'Your item was register');
                             }
                         }else{
                             //error : #00b2
                             $this->session->set_flashdata('warning', 'Code Error : #Q-00b2');
-                        }
-                        $this->session->set_flashdata('success', 'Your item was register');                        
+                        }                                                
                     }else{
                         $this->session->set_flashdata('warning', 'This Item was updated before');
                     }
@@ -113,14 +114,25 @@ class Qr extends CI_Controller {
         if (is_array($data)) {
             $this->load->database();        
             $this->load->model('m_stock_inventory' , "msi");
-            return $this->msi->add($data);
+            if($this->msi->add($data)){
+                return true;
+            }else{
+                return false;
+            }
         }
         return false;
     }
 
     public function test()
     {
-        $this->load->view($this->parent_page."login");
+        // [si_id] => 4 [shex_id] => 4 [ty2_id] => 2 [ni_id] => 1 [si_price] => 1 [si_qty] => 1 [si_trans] => 0 )
+        //redirect(site_url('qr/co?de=34'),'refresh');
+        $this->load->database();       
+        $this->load->model('m_stock_inventory' , "msi");
+        $this->load->model('m_ship_item' , 'm_si');
+        $arr = $this->m_si->get(3);
+        print_r($arr);
+        echo $this->msi->add($arr);
     }
 }
 	        

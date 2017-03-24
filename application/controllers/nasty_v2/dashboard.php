@@ -1055,13 +1055,9 @@ epul@nastyjuice.com
 
                  case 'i1':
                    $this->load->database();
-                    $this->load->model('m_order');  
                     $this->load->library('l_label');
-                    $temp['arr'] = $this->m_order->getList_ext(null ,1, 1 , 1 , 0);
-                    $temp['arr1'] = $this->m_order->getList_ext(null ,1, 1 , 2 , 0);
-                    $temp['arrV'] = $this->m_order->getList_ext(null ,2, 1 , 1 , 0);
-                    $temp['arrV1'] = $this->m_order->getList_ext(null ,2, 1 , 2 , 0);
-                    $temp['arrHold'] = $this->m_order->getList_ext(null ,2, 1 , 7 , 0);
+                    $this->load->model('m_stock_inventory' , 'msi');
+                    $temp['arr'] = $this->msi->get();
                     $data['title'] = '<i class="fa fa-fw fa-edit"></i>Inventory</a>';
                     $data['display'] = $this->load->view($this->parent_page.'/invDashboard', $temp , TRUE);
                     $this->_show('display' , $data , $key);
