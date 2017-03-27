@@ -1053,15 +1053,14 @@ epul@nastyjuice.com
                     $this->_show('display' , $data , $key);
                     break;
 
-                 case 'i1':
+                case 'i1':
                    $this->load->database();
                     $this->load->library('l_label');
                     $this->load->model('m_stock_inventory' , 'msi');
-                    $temp['arr'] = $this->msi->get();
+                    $temp['arr'] = $this->msi->get3();
                     $data['title'] = '<i class="fa fa-fw fa-edit"></i>Inventory</a>';
                     $data['display'] = $this->load->view($this->parent_page.'/invDashboard', $temp , TRUE);
                     $this->_show('display' , $data , $key);
-
                 break;
 
                 case 'i2':
@@ -1089,10 +1088,7 @@ epul@nastyjuice.com
                     $data['title'] = '<i class="fa fa-fw fa-edit"></i>Inventory</a>';
                     $data['display'] = $this->load->view($this->parent_page.'/shipLog', $arr , TRUE);
                     $this->_show('display' , $data , 'i1');
-
                 break;
-                
-
                 case 'c4':
                     //Category
                     $this->_loadCrud();

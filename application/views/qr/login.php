@@ -125,8 +125,22 @@ $this->session->set_flashdata('access', 'true');
         <div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         <strong>Success :</strong> <?= $this->session->flashdata('success'); ?>
+      </div>      
+    <?php } if($this->session->flashdata('msg')){ ?>
+                <div class="alert alert-danger alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+                    <strong><i class="fa fa-times-circle-o"></i> Error!</strong> <?= $this->session->flashdata('msg'); ?> 
+                </div>
+        <?php } ?>
+
+      <div class="clearfix">
+        <br>
       </div>
-    <?php } ?>    
+      <?php
+        if ($this->session->userdata('qr_id')) { ?>
+          <div align="center"><a href="<?= site_url('qr/logout'); ?>"><button type="button" class="btn btn-default">Log Out</button></a></div>
+        <?php }
+      ?>    
   </div>    
   </div>   
 </body>

@@ -44,6 +44,27 @@
 	            return false;
 	        }
 	    }
+
+	    public function get2()
+	    {
+	    	$this->db->select('*');
+	        $this->db->from('stock_inventory sti');
+			$this->db->join('type2 ty2', 'ty2.ty2_id = sti.ty2_id', 'left');
+			$this->db->join('nicotine ni', 'ni.ni_id = sti.ni_id', 'left');     
+			$this->db->join('category cat', 'cat.ca_id = ty2.ca_id', 'left');
+			//$this->db->order_by('field', 'asc');
+	        return $this->db->get()->result();	        
+	    }
+
+	   	public function get3(){
+	   		$this->db->select('ty2.ty2_desc as color , cat.ca_desc as series, sum(sti.sti_total) as total');
+	   		$this->db->from('stock_inventory sti');
+	   		$this->db->join('type2 ty2', 'ty2.ty2_id = sti.ty2_id', 'left');
+	   		$this->db->join('category cat', 'cat.ca_id = ty2.ca_id', 'left');
+	   		$this->db->group_by('ty2.ty2_id');
+	   		$this->db->order_by('ty2.ty2_id', 'asc');
+	   		return $this->db->get()->result();
+	   	}
 	
 	    /**
 	     * Inserts new data into database
@@ -90,7 +111,7 @@
 
 	    public function add($arr)
 	    {
-	    	$a = $this->get(array("ty2_id" => $arr->ty2_id));
+	    	$a = $this->get(array("ty2_id" => $arr->ty2_id , "ni_id" => $arr->ni_id));
 	    	if ($a) {
 	    		$a->sti_total = $arr->si_qty + $a->sti_total;
 	    		return $this->update(array("sti_total" => $a->sti_total), $a->sti_id);

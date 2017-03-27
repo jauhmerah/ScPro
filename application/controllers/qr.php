@@ -27,8 +27,20 @@ class Qr extends CI_Controller {
     {   // base_url().qr/co?de=xxxxxxxxx;
         // localhost/scpro/qr/co?de=32393134
     	if($this->input->get("de")){
-    		$code = $this->input->get("de");
+    		$code = $this->input->get("de");            
             $this->session->set_flashdata('id', $code);
+            if ($this->session->userdata('qr_id')) {
+                $id = $this->session->userdata('qr_id');
+                $id = $this->my_func->de($id , 1);
+                $this->load->database();
+                $this->load->model('m_login');
+                if ($this->m_login->get($id)) {
+                    $this->session->set_flashdata('access', "true");
+                    redirect(site_url('qr/signin'),'refresh');
+                }else{
+                    redirect(site_url('qr/login'),'refresh');
+                }            
+            }
             redirect(site_url('qr/login'),'refresh');
     	}
     }
@@ -41,23 +53,36 @@ class Qr extends CI_Controller {
     public function signin()
     {
         if ($this->session->flashdata('access')) {
-            $this->session->flashdata('access');
             $this->load->database();
-            $this->load->model('m_login');
-            $email = $this->input->post('email');
-            $pass = $this->input->post('pass');
-            $data = $this->m_login->login($email,$pass);
+            $this->session->flashdata('access');
+            if ($this->session->userdata('qr_id')) {
+                $data = "betul";
+            }else{                
+                $this->load->model('m_login');
+                $email = $this->input->post('email');
+                $pass = $this->input->post('pass');
+                $data = $this->m_login->login($email,$pass);
+            }            
             if ($data) {
-                $array = array(
-                    'qr_id' => $this->my_func->en($data->us_id , 1),
-                    'qr_lvl' => $this->my_func->en($data->us_lvl , 1),
-                    'qr_username' => $this->my_func->en($data->us_username , 1)
-                );              
-                $this->session->set_userdata( $array );
-                $si_id = $this->my_func->de($this->input->post('code'));
+                if ($data !== "betul") {
+                    $array = array(
+                        'qr_id' => $this->my_func->en($data->us_id , 1),
+                        'qr_lvl' => $this->my_func->en($data->us_lvl , 1),
+                        'qr_username' => $this->my_func->en($data->us_username , 1)
+                    );              
+                    $this->session->set_userdata( $array );
+                }
+                if ($this->input->post('code')) {
+                    $m = $this->input->post('code');
+                    $si_id = $this->my_func->de($m);
+                }else{
+                    $m = $this->session->flashdata('id');
+                    $si_id = $this->my_func->de($m);
+                }
                 $this->load->model('m_ship_item' , "m_si");
-                $arr = $this->m_si->get($si_id);                
-                if(sizeof($arr) !== 0){
+                $arr = $this->m_si->get($si_id);
+
+                if($arr){
                     if($this->m_si->update(array("si_trans" => 1) , $si_id) ){
                         $this->load->model('m_qrs');
                         $qr = $this->m_qrs->get(array("si_id" => $si_id));
@@ -79,12 +104,12 @@ class Qr extends CI_Controller {
                     }
                     $this->session->set_flashdata('found' , 'true');
                 }else{
-                    $this->session->set_flashdata('msg', 'Item Not Found , code : '.$this->input->post('code').". Send item code to it@nastyjuice.com , to solve the problem.");
+                    $this->session->set_flashdata('msg', 'Item Not Found , code : '.$m.". Send item code to it@nastyjuice.com , to solve the problem.");
                     redirect(site_url('qr/login'),'refresh');
                 }
             }else{
                 $this->session->set_flashdata('msg', 'Wrong email or Password');
-                $this->session->set_flashdata('code', $this->input->post('code'));
+                $this->session->set_flashdata('code', $m);
                 redirect(site_url('qr/login'),'refresh');
             }
         }
@@ -111,28 +136,25 @@ class Qr extends CI_Controller {
         /* 
         ty2_id,ni_id,si_qty 
         */
-        if (is_array($data)) {
+        if ($data != null) {
             $this->load->database();        
             $this->load->model('m_stock_inventory' , "msi");
             if($this->msi->add($data)){
-                return true;
+                return "true";
             }else{
-                return false;
+                return 'false';
             }
         }
-        return false;
+        return 'false';
     }
 
-    public function test()
+    public function logout()
     {
-        // [si_id] => 4 [shex_id] => 4 [ty2_id] => 2 [ni_id] => 1 [si_price] => 1 [si_qty] => 1 [si_trans] => 0 )
-        //redirect(site_url('qr/co?de=34'),'refresh');
-        $this->load->database();       
-        $this->load->model('m_stock_inventory' , "msi");
-        $this->load->model('m_ship_item' , 'm_si');
-        $arr = $this->m_si->get(3);
-        print_r($arr);
-        echo $this->msi->add($arr);
+        $this->session->unset_userdata('qr_id');
+        $this->session->unset_userdata('qr_lvl');
+        $this->session->unset_userdata('qr_username');
+        $this->session->set_flashdata('success', 'Logout Success');
+        redirect(site_url(),'refresh');
     }
 }
 	        
