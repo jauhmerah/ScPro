@@ -137,6 +137,7 @@
 					                                    			<th>Item Detail</th>
 					                                    			<th>Price</th>
 					                                    			<th>Qty</th>
+					                                    			<th>Status</th>
 					                                    			
 					                                    		</tr>
 						                                    </thead>
@@ -162,7 +163,13 @@
 																					<span class="label" style="color: black;font-size: 75%; background-color: <?= $key->ni_color; ?>;" ><strong><?= $key->ni_mg; ?> mg</strong></span></td>
 																					<td><?= $key->si_price; ?></td>
 																					<td><?= $key->si_qty; ?></td>
-																				
+																					<td><?php if($key->si_trans==1){ ?>
+																								<span class="label" style="color: white;background-color: #28A902; font-size: 90%;" >Checked</span>
+																						<?php }else{?>
+
+																								<span class="label" style="color: white;background-color: #E10D0D; font-size: 90%;" >Unchecked</span>
+																						<?php } ?>
+																						</td>
 																					
 																				</tr>
 						                                    				</tr>
