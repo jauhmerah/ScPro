@@ -1,7 +1,4 @@
-
-
-
-             <!-- BEGIN PAGE LEVEL PLUGINS -->
+     <!-- BEGIN PAGE LEVEL PLUGINS -->
         <link href="<?= base_url(); ?>/asset2/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css" rel="stylesheet" type="text/css" />
         <link href="<?= base_url(); ?>/asset2/global/plugins/morris/morris.css" rel="stylesheet" type="text/css" />
         <link href="<?= base_url(); ?>/asset2/global/plugins/fullcalendar/fullcalendar.min.css" rel="stylesheet" type="text/css" />

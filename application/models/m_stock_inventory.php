@@ -52,7 +52,7 @@
 			$this->db->join('type2 ty2', 'ty2.ty2_id = sti.ty2_id', 'left');
 			$this->db->join('nicotine ni', 'ni.ni_id = sti.ni_id', 'left');     
 			$this->db->join('category cat', 'cat.ca_id = ty2.ca_id', 'left');
-			//$this->db->order_by('field', 'asc');
+			$this->db->order_by('sti.ty2_id , sti.ni_id', 'asc');
 	        return $this->db->get()->result();	        
 	    }
 
@@ -65,6 +65,20 @@
 	   		$this->db->order_by('ty2.ty2_id', 'asc');
 	   		return $this->db->get()->result();
 	   	}
+
+	   	public function get4($where = null){
+	   		$this->db->select("ni.ni_mg as nico , sum(sti.sti_total) as total");
+	   		$this->db->from('stock_inventory sti');
+	   		$this->db->join('type2 ty2', 'ty2.ty2_id = sti.ty2_id', 'left');
+	   		$this->db->join('category cat', 'cat.ca_id = ty2.ca_id', 'left');
+	   		$this->db->join('nicotine ni', 'ni.ni_id = sti.ni_id', 'left');
+	   		$this->db->group_by('sti.ni_id');
+	   		if($where != null){
+	   			$this->db->where($where);
+	   		}
+	   		return $this->db->get()->result();
+	   	}
+
 	
 	    /**
 	     * Inserts new data into database

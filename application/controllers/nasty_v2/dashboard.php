@@ -1054,10 +1054,19 @@ epul@nastyjuice.com
                     break;
 
                 case 'i1':
-                   $this->load->database();
+                    $this->load->database();
                     $this->load->library('l_label');
                     $this->load->model('m_stock_inventory' , 'msi');
-                    $temp['arr'] = $this->msi->get3();
+                    $this->load->model('m_nico');
+                    $this->load->model('m_type2');
+                    $temp['color'] = $this->m_type2->get();
+                    $temparr = $this->msi->get2();
+                    foreach ($temparr as $key1) {
+                        $a2[$key1->ty2_id]['color'] = $key1->ty2_desc;
+                        $a2[$key1->ty2_id]['series'] = $key1->ca_desc;
+                        $a2[$key1->ty2_id][$key1->ni_id] = $key1->sti_total;
+                    }
+                    $temp['arr'] =$a2;
                     $data['title'] = '<i class="fa fa-fw fa-edit"></i>Inventory</a>';
                     $data['display'] = $this->load->view($this->parent_page.'/invDashboard', $temp , TRUE);
                     $this->_show('display' , $data , $key);

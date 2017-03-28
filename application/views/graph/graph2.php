@@ -1,18 +1,13 @@
 <script type="text/javascript">
-var chart = AmCharts.makeChart( "g1div", {
+var chart = AmCharts.makeChart( "g2div", {
   "type": "serial",
   "theme": "light",
   "dataProvider": [
 <?php if(sizeof($arr) != 0){ 
   for ($i=0; $i < sizeof($arr); $i++) { 
-    $text = explode("|", $arr[$i]->color);
-    $rep = array('<p>','<strong>','</strong>' , '</p>' , ' ', '"');
-    $text2 = str_replace($rep, '', $text[1]);
-    $text2 = preg_replace( "/\r|\n/", "", $text2 );
-    $text1 = preg_replace( "/\r|\n/", "", $arr[$i]->series );
   ?>
   {
-    "color": "<?= $text2."-".$text1 ; ?>",
+    "color": "<?= $arr[$i]->nico." Mg" ; ?>",
     "total": <?= $arr[$i]->total; ?>
   } 
   <?php 
@@ -57,4 +52,5 @@ var chart = AmCharts.makeChart( "g1div", {
   }
 
 } );
+
 </script>
