@@ -1065,6 +1065,7 @@ epul@nastyjuice.com
                         $a2[$key1->ty2_id]['color'] = $key1->ty2_desc;
                         $a2[$key1->ty2_id]['series'] = $key1->ca_desc;
                         $a2[$key1->ty2_id][$key1->ni_id] = $key1->sti_total;
+                        $a2[$key1->ty2_id]['cseries'] = $key1->ca_color;
                     }
                     $temp['arr'] =$a2;
                     $data['title'] = '<i class="fa fa-fw fa-edit"></i>Inventory</a>';
@@ -1094,7 +1095,7 @@ epul@nastyjuice.com
                     $arr['nico'] = $this->m_nico->get();
                     $arr['cat'] = $this->m_category->get(null , 'asc');
                     $arr['client'] = $this->m_client->get(null , 'asc');
-                    $data['title'] = '<i class="fa fa-fw fa-edit"></i>Inventory</a>';
+                    $data['title'] = '<i class="fa fa-fw fa-cubes"></i> Shipping Log</a>';
                     $data['display'] = $this->load->view($this->parent_page.'/shipLog', $arr , TRUE);
                     $this->_show('display' , $data , 'i1');
                 break;

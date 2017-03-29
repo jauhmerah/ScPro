@@ -272,8 +272,8 @@
           <button type="submit" class="btn btn-danger"  id="send"><i class="fa fa-send"></i> Send</button>
         </div>        
       </div>
-    </div></form>
-  </div>
+    </div></form>    
+</div>
 <script>
 	$(document).ready(function() {
 		$(".ROSButton").click(function() {

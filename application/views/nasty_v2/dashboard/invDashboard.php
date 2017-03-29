@@ -19,7 +19,6 @@
 <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
 <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>  
 <div class="row">
-<pre><?php print_r($arr); ?></pre>
 	<div class="col-md-12 col-sm-12">
         <!-- BEGIN PORTLET-->
         <div class="portlet light ">
@@ -131,26 +130,26 @@
                             $sum = 0;                                
                             ?>
                             <tr>
-                               <td><?= $td['color']; ?></td>
+                               <td><?= $td['color']; ?> - <span class="label" style="color: black;background-color: <?= $td['cseries']; ?>; font-size: 75%;" ><strong><?= $td['series']; ?></strong></span></td>
                                <td><?php if (isset($td[0])) {
                                    echo $td[0];
                                    $sum += $td[0];
                                }else{
-                                    echo "n/a";
+                                    echo "<strong><span class = 'font-red'>n/a</span></strong>";
                                 } ?>                                   
                                </td>
                                <td><?php if (isset($td[1])) {
                                    echo $td[1];
                                    $sum += $td[1];
                                 }else{
-                                    echo "n/a";
+                                    echo "<strong><span class = 'font-red'>n/a</span></strong>";
                                 } ?>                                   
                                </td>
                                <td><?php if (isset($td[2])) {
                                    echo $td[2];
                                    $sum += $td[2];
                                 }else{
-                                    echo "n/a";
+                                    echo "<strong><span class = 'font-red'>n/a</span></strong>";
                                 } ?></td>
                                <td><?= $sum; ?></td>
                            </tr> 
@@ -166,7 +165,7 @@
             </div>                                
         </div>
         <!-- END PORTLET-->
-  ]  </div>
+    </div>
 </div>
 
 <script>

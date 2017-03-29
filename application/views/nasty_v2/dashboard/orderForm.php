@@ -1,3 +1,8 @@
+<style>
+.thead-inverse th {
+    color: #fff;
+    background-color: #292b2c;                       
+</style>
 <div class="row">
 	<div class="col-md-12">
            <div class="tab-pane active" id="tab_1">
@@ -7,7 +12,7 @@
                                     <img src="<?= base_url(); ?>/assets/cover/favicon2.png"> Order Form 2017                                   
                                 </div>
                                 <div class="tools">
-                                	<button type="button" class="btn btn-large btn-block btn-success confirm btn-circle">Confirm</button>
+                                	<!--<button type="button" class="btn btn-large btn-block btn-success confirm btn-circle">Confirm</button>-->
                                 </div>
                                 
                             </div>
@@ -149,23 +154,6 @@
 				                                    <table class="table table-hover table-condensed">
 				                                    	<thead>
 				                                    		<tr>
-				                                    			<th>Item Detail</th>
-				                                    			<th>Price</th>
-				                                    			<th>Qty</th>
-				                                    			<th>Tester</th>
-				                                    			<th>Action</th>
-				                                    		</tr>
-				                                    	</thead>
-				                                    	<tbody id="orderList">				                               
-				                                    	</tbody>
-				                                    		
-				                                    	<tfoot>
-				                                    		<tr>
-				                                    			<td colspan="5">
-				                                    				<textarea name="note" id="input" class="form-control input-circle input-lg" rows="4" placeholder="#Note"></textarea>
-				                                    			</td>
-				                                    		</tr>
-				                                    		<tr>
 				                                    			<td colspan="5">				                                    				
 				                                    				<div class="row">
 				                                    					<div class="col-md-6">
@@ -214,11 +202,33 @@
 				                                    						<div class="clearfix">
 				                                    						&nbsp;
 				                                    						</div>
-				                                    						<span class="pull-right"><span class="pull-left" id="loadingCat" style="display: none;"><i class="fa fa-spinner fa-spin"></i>&nbsp;Be Pat</span><span class="pull-left" id="loadingItem" style="display: none;"><i class="fa fa-spinner fa-spin"></i>&nbsp;Brewing</span>&nbsp;&nbsp;<button type="button" id="addBtn" class="btn btn-success" disabled><i class="fa fa-plus"></i>&nbsp;Add Item</button></span>
+				                                    						<span class="pull-right"><span class="pull-left" id="loadingCat" style="display: none;"><i class="fa fa-spinner fa-spin"></i>&nbsp;Be Patient</span><span class="pull-left" id="loadingItem" style="display: none;"><i class="fa fa-spinner fa-spin"></i>&nbsp;Brewing</span>&nbsp;&nbsp;<button type="button" id="addBtn" class="btn btn-success" disabled><i class="fa fa-plus"></i>&nbsp;Add Item</button></span>
+				                                    					</div>
+				                                    					<div class="clearfix">
+				                                    						&nbsp;
+				                                    					</div>
+				                                    					<div class="clearfix">
+				                                    						&nbsp;
 				                                    					</div>
 				                                    				</div>				                                    				
 				                                    			</td>				     
 				                                    		</tr>
+				                                    		<tr class="thead-inverse">
+				                                    			<th>Item Detail</th>
+				                                    			<th>Price</th>
+				                                    			<th>Qty</th>
+				                                    			<th>Tester</th>
+				                                    			<th>Action</th>
+				                                    		</tr>
+				                                    	</thead>
+				                                    	<tbody id="orderList">				                               
+				                                    	</tbody>				                                    		
+				                                    	<tfoot>
+				                                    		<tr>
+				                                    			<td colspan="5">
+				                                    				<textarea name="note" id="input" class="form-control input-circle input-lg" rows="4" placeholder="#Note"></textarea>
+				                                    			</td>
+				                                    		</tr>				                                    		
 				                                    	</tfoot>
 				                                    </table>
 				                                </div>
@@ -233,8 +243,9 @@
 						                        <div class="portlet-title">
 						                            <div class="caption">
 						                                <i class="fa fa-ship"></i>Shipping Note 
+						                                <input type="hidden" name="wide" id="input" class="form-control" value="1">
 						                            </div>
-						                            <span class="pull-right">	                            	
+						                            <!--<span class="pull-right">	                            	
 						                            <div class="mt-radio-inline">
 					                                    <label class="mt-radio">
 					                                        <input type="radio" name="wide" checked value="0">
@@ -247,8 +258,7 @@
 					                                        <span></span>
 					                                    </label>
 					                                </div>
-						                            </span>
-						                            
+						                            </span> -->						                            
 						                        </div>
 						                        <div class="portlet-body">
 						                            <div class="table-responsive">
@@ -258,7 +268,7 @@
 					                                            	<th>
 					                                            		Shipping Company
 					                                            	</th>
-					                                            	<td colspan="4" >
+					                                            	<td colspan="4">
 					                                            		<div class="mt-radio-inline">
 										                                    <label class="mt-radio">
 										                                        <input type="radio" name="sh_company" checked value="1">
@@ -270,11 +280,11 @@
 											                                		ARAMEX
 										                                        <span></span>
 										                                    </label>
-										                                    <label class="mt-radio">
+										                                    <!--<label class="mt-radio">
 										                                        <input type="radio" name="sh_company" value="3">
 											                                		EMS
 										                                        <span></span>
-										                                    </label>
+										                                    </label>-->
 										                                    <input type="radio" name="sh_company" class="sh_com" value="4">
 											                                		 : <input type="text" class="inputText" id = "sh_com" >
 										                                        <span></span>										                                        
@@ -316,7 +326,8 @@
 										                                </div>
 					                                            	</td>					                                            	
 						                                        </tr>
-						                                        <tr>
+						                                        <input type="hidden" name="sh_declare" id="input" class="form-control" value="4">
+						                                        <!--<tr>
 					                                            	<th>
 					                                            		Declare Item
 					                                            	</th>
@@ -347,7 +358,7 @@
 										                                        <span></span>										                                    
 										                                </div>
 					                                            	</td>					                                            	
-						                                        </tr>						                                                                             
+						                                        </tr>-->						                                                                             
 						                                    </tbody>
 						                                </table>
 						                            </div>
@@ -358,10 +369,8 @@
                                     <div class="form-actions right">
                                     <div style="display: none;" class="riben ribbon ribbon-shadow ribbon-color-warning uppercase"><h2><i class="fa fa-warning" ></i> Unconfirm Order</h2></div>                                    	
                                         <button type="button" class="btn default">Cancel</button>
-                                        <button type="submit" class="btn blue">
+                                        <button type="button" id="chckBtn" class="btn blue">
                                             <i class="fa fa-check"></i> Save</button>
-                                            
-
                                     </div>
                                 </form>
                                 <!-- END FORM-->
@@ -372,7 +381,16 @@
 </div>
 <script>
 	var num = 1;
-	$(document).ready(function() {		
+	$(document).ready(function() {
+		var pro ;
+		$('#chckBtn').click(function() {
+			pro = bootbox.dialog({ 
+				message: '<div class="row"><div class="col-md-12" align="center"><h1><i class="fa fa-repeat fa-spin"></i></br>Calculating</h1></div></div>' ,
+				closeButton: false
+			});
+			
+		});
+				
 		$('#client').change(function() {
 			temp = $(this).val();
 			$.when($('#loadingText').show()).then(function(){
