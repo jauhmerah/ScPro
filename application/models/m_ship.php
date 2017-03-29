@@ -214,6 +214,7 @@
 	    }
 	    public function listOr($ver = 0 , $limit = null , $start = null , $del = 0 , $where = null)
 	    {
+	    	//echo "<script>alert($where{['shp.sh_id' => $id]});</script>";
 	    	$this->db->select('shp.sh_id , shp.us_id , us1.us_username , cl.cl_name, shp.sh_acc , cl.cl_country , shp.sh_date , shp.sh_arrivedate ,shp.pr_id, pr.pr_desc , pr.pr_color, shp.sh_paid ');
 	    	//, pic.img_url , pic.pi_title
 	    	$this->db->from('ship shp');
@@ -231,6 +232,7 @@
 	    	//$this->db->join('picture pic' , 'shp.sh_id = pic.ne_id' , 'left');
 
 	    	if ($where != null) {
+	    		
 	    		$this->db->where($where);
 	    	}
 	    	$result = $this->db->get()->result();
@@ -273,7 +275,7 @@
 	    		$this->db->where('shp.sh_del', $del);
 	    	}
 	    	
-	    	$this->db->ship_by('shp.sh_id', 'desc');
+	    	$this->db->order_by('shp.sh_id', 'desc');
 	    	if ($limit !== null && $start !== null) {
 	    		$this->db->limit($limit, $start);
 	    	}	

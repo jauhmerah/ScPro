@@ -416,21 +416,25 @@
                         switch ($filter) {
                             case '10':
                                 //Client Name
+                                 $str = (string)$search;
                                 $where = array(
                                     "cl.cl_name" => $search
                                 );
+                             
                                 break;
                             case '1':
                                 //Order Code
                                 //Hanya Single
-                                if (strpos($search, "#") !== false) {
-                                    $search = str_replace("#", "", $search);
+                                if (strpos($search, "-SH") !== false) {
+                                    $search = str_replace("-SH", "", $search);
+                                    $num=$search-1000;
                                 }
                                 if (!is_numeric($search)) {
                                     $this->session->set_flashdata('warning', 'Please Enter the Correct Order Code');
                                     redirect(site_url("nasty_v2/dashboard/page/i21"),'refresh');
                                 }
-                                $str = (string)$search;
+                                $str = (string)$num;
+
                                 /*if ($str[1] == '1') {
                                     $id = $search - 110000;
                                     $ver = 1;
@@ -439,9 +443,9 @@
                                     $ver = 0;
                                 }*/
                                 $ver = 2;
-                                $id = $search - 120000;
+                                $id = $num;
                                 $where = array(
-                                    "ord.sh_id" => $id
+                                    "shp.sh_id" => $id
                                 );
                                 break;
                             case '2':
@@ -458,10 +462,12 @@
                                 break;
                         }
                         if (isset($ver)) {
+
                             $arr['arr1'] = $this->m_ship->listOr($ver , null , null , 0 , $where);
                             $arr['arr2'] = $this->m_ship->getList_ext(null ,2, 1 , 1 , 0);
                            
                         }else{
+
                             $arr['arr1'] = $this->m_ship->listSearch(2 , null , null , 0 , $where);
                             $arr['arr2'] = $this->m_ship->getList_ext(null ,2, 1 , 1 , 0);                     
                         }
