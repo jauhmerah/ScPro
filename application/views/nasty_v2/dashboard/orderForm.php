@@ -275,7 +275,7 @@
 										                                        <span></span>
 										                                    </label>
 										                                    <label class="mt-radio">
-										                                        <input type="radio" name="tax"  value="20">
+										                                        <input type="radio" name="tax"  value="0">
 											                                		0 %
 										                                        <span></span>
 										                                    </label>

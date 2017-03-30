@@ -6,10 +6,13 @@
 		$mode = "";
 		$radio = "";
 		$us_id = $this->my_func->scpro_decrypt($this->session->userdata('us_id')) ;
-	}
-
-	
+	}	
 ?>
+<style>
+.thead-inverse th {
+    color: #fff;
+    background-color: #292b2c;                       
+</style>
 <div class="row">
 	<div class="col-md-12">
            <div class="tab-pane active" id="tab_1">
@@ -163,56 +166,9 @@
 				                                </div>
 				                                <div class="portlet-body">
 				                                    <div class="table-responsive">
-				                                        <table class="table table-striped table-bordered table-hover">
+				                                        <table class="table table-striped table-hover table-condensed">
 						                                    <thead>
-						                                        <tr>
-					                                    			<th>Item Detail</th>
-					                                    			<th>Price</th>
-					                                    			<th>Qty</th>
-					                                    			<th>Tester</th>
-					                                    			<?php if($arr['order']->pr_id != 3){?>
-					                                    			<th>Action</th><?php } ?>
-					                                    		</tr>
-						                                    </thead>
-						                                    <tbody id="orderList">
-						                                    	<?php 
-						                                    		if (!isset($arr)) {
-						                                    			?>
-						                                    				<tr>
-						                                    					<td colspan="6" align="center">-- No Data--</td>
-						                                    				</tr>
-						                                    			<?php
-						                                    		} else {
-						                                    			foreach ($arr['item'] as $key) {
-						                                    				?>
-						                                    				<tr id="delEdit_<?= $key->oi_id;?>">						                                    					
-						                                    					<td><?= $key->ty2_desc; ?><br>
-																					<span class="label" style="color: black;background-color: <?= $key->ca_color; ?>; font-size: 75%;" ><strong><?= $key->ca_desc; ?></strong></span>&nbsp;
-																					<span class="label" style="color: black;font-size: 75%; background-color: <?= $key->ni_color; ?>;" ><strong><?= $key->ni_mg; ?> mg</strong></span></td>
-																				<td><input type="number" name="priceE[]" id="inputPrice" min="0" step="any" class="form-control" value="<?= $key->oi_price; ?>" required="required" <?= $mode; ?>></td>
-																				<td><input type="number" name="qtyE[]" id="inputQty" min="0" class="form-control" value="<?= $key->oi_qty; ?>" required="required" <?= $mode; ?>></td>
-																				<td>
-																					<input type="number" name="testerE[]" id="inputTester" min="0" value="<?= $key->oi_tester; ?>" class="form-control" <?= $mode; ?>>
-																					<input type="hidden" name="idE[]" id="inputIdE" class="form-control" value="<?= $key->oi_id;?>">
-																				</td>	
-																				<?php if($arr['order']->pr_id != 3){?>
-																				<td>																					
-																					<span><button type="button" id="<?= $key->oi_id;?>" class="btn btn-danger btn-xs delEdit"><i class="fa fa-trash" ></i></button></span>
-																				</td><?php } ?>
-						                                    				</tr>
-						                                    				<?php
-						                                    			}
-						                                    		}						                                    		
-						                                    	?>						                                    	                                        
-						                                    </tbody>
-						                                    <tfoot>
-						                                    <tr>
-						                                    	<td colspan="5">
-						                                    		<input type="hidden" name="orex_id" id="inputOrex_id" class="form-control" value="<?= $arr['order']->orex_id; ?>">
-					                                            	<textarea name="note" id="input" class="form-control input-circle input-lg" rows="2" placeholder="#Note" <?= $mode; ?>><?= $arr['order']->or_note; ?></textarea>                                            		
-					                                            </td>
-					                                        </tr>
-					                                        <?php if($arr['order']->pr_id != 3){?>
+						                                    	<?php if($arr['order']->pr_id != 3){?>
 					                                            <tr>
 				                                    			<td colspan="5">				                                    				
 				                                    				<div class="row">
@@ -264,10 +220,63 @@
 				                                    						</div>
 				                                    						<span class="pull-right"><button type="button" id="addBtn" class="btn btn-success" disabled><i class="fa fa-plus"></i>&nbsp;Add Item</button></span>
 				                                    					</div>
+				                                    					<div class="clearfix">
+				                                    						&nbsp;
+				                                    					</div>
+				                                    					<div class="clearfix">
+				                                    						&nbsp;
+				                                    					</div>
 				                                    				</div>				                                    				
 				                                    			</td>				     
 				                                    		</tr>
 				                                    		<?php } ?>
+						                                        <tr class="thead-inverse">
+					                                    			<th>Item Detail</th>
+					                                    			<th>Price</th>
+					                                    			<th>Qty</th>
+					                                    			<th>Tester</th>
+					                                    			<?php if($arr['order']->pr_id != 3){?>
+					                                    			<th>Action</th><?php } ?>
+					                                    		</tr>
+						                                    </thead>
+						                                    <tbody id="orderList">
+						                                    	<?php 
+						                                    		if (!isset($arr)) {
+						                                    			?>
+						                                    				<tr>
+						                                    					<td colspan="6" align="center">-- No Data--</td>
+						                                    				</tr>
+						                                    			<?php
+						                                    		} else {
+						                                    			foreach ($arr['item'] as $key) {
+						                                    				?>
+						                                    				<tr id="delEdit_<?= $key->oi_id;?>">						                                    					
+						                                    					<td><?= $key->ty2_desc; ?><br>
+																					<span class="label" style="color: black;background-color: <?= $key->ca_color; ?>; font-size: 75%;" ><strong><?= $key->ca_desc; ?></strong></span>&nbsp;
+																					<span class="label" style="color: black;font-size: 75%; background-color: <?= $key->ni_color; ?>;" ><strong><?= $key->ni_mg; ?> mg</strong></span></td>
+																				<td><input type="number" name="priceE[]" id="inputPrice" min="0" step="any" class="form-control" value="<?= $key->oi_price; ?>" required="required" <?= $mode; ?>></td>
+																				<td><input type="number" name="qtyE[]" id="inputQty" min="0" class="form-control" value="<?= $key->oi_qty; ?>" required="required" <?= $mode; ?>></td>
+																				<td>
+																					<input type="number" name="testerE[]" id="inputTester" min="0" value="<?= $key->oi_tester; ?>" class="form-control" <?= $mode; ?>>
+																					<input type="hidden" name="idE[]" id="inputIdE" class="form-control" value="<?= $key->oi_id;?>">
+																				</td>	
+																				<?php if($arr['order']->pr_id != 3){?>
+																				<td>																					
+																					<span><button type="button" id="<?= $key->oi_id;?>" class="btn btn-danger btn-xs delEdit"><i class="fa fa-trash" ></i></button></span>
+																				</td><?php } ?>
+						                                    				</tr>
+						                                    				<?php
+						                                    			}
+						                                    		}						                                    		
+						                                    	?>						                                    	                                        
+						                                    </tbody>
+						                                    <tfoot>
+						                                    <tr>
+						                                    	<td colspan="5">
+						                                    		<input type="hidden" name="orex_id" id="inputOrex_id" class="form-control" value="<?= $arr['order']->orex_id; ?>">
+					                                            	<textarea name="note" id="input" class="form-control input-circle input-lg" rows="2" placeholder="#Note" <?= $mode; ?>><?= $arr['order']->or_note; ?></textarea>                                            		
+					                                            </td>
+					                                        </tr>					                                        
 						                                    </tfoot>
 						                                </table>
 				                                    </div>
@@ -282,9 +291,10 @@
 						                	<div class="portlet box purple-sharp">
 						                        <div class="portlet-title">
 						                            <div class="caption">
-						                                <i class="fa fa-ship"></i>Shipping Note 
+						                                <i class="fa fa-list-ul"></i>Other Detail 
+						                                <input type="hidden" name="wide" id="input" class="form-control" value="1">
 						                            </div>
-						                            <span class="pull-right">	                            	
+						                            <!--<span class="pull-right">	                            	
 						                            <div class="mt-radio-inline">
 					                                    <label class="mt-radio">
 					                                        <input type="radio" name="wide" <?php if($arr['order']->or_wide == 0){echo "checked";} ?> value="0" <?= $radio; ?>>
@@ -297,34 +307,40 @@
 					                                        <span></span>
 					                                    </label>
 					                                </div>
-						                            </span>
+						                            </span>-->
 						                            
 						                        </div>
 						                        <div class="portlet-body">
 						                            <div class="table-responsive">
 						                                <table class="table table-striped table-condensed table-bordered">	                                    
 						                                    <tbody>
+						                                    	<tr>
+						                                    		<th colspan="3" valign="middle">
+						                                    			<span>Tax Rate</span>
+						                                    		</th>
+						                                    		<td>
+						                                    			<div class="mt-radio-inline">
+										                                    <label class="mt-radio">
+										                                        <input type="radio" name="tax"  value="20" <?php if($arr['order']->or_tax == 20){ echo "checked";} ?>>
+											                                		20 %
+										                                        <span></span>
+										                                    </label>
+										                                    <label class="mt-radio">
+										                                        <input type="radio" name="tax"  value="0" <?php if($arr['order']->or_tax == 0){ echo "checked";} ?>>
+											                                		0 %
+										                                        <span></span>
+										                                    </label>
+										                                    <input type="radio" name="tax" class="cukai" <?php if($arr['order']->or_tax != 0 && $arr['order']->or_tax != 20){ echo "checked value='".$arr['order']->or_tax."'";} ?>>
+											                                		 : <input type="number" class="inputText " id = "cukai" placeholder="Without '%'" value="<?php if($arr['order']->or_tax != 0 && $arr['order']->or_tax != 20){ echo $arr['order']->or_tax;} ?>">										                                        
+										                                </div>
+						                                    		</td>
+						                                    	</tr>
 						                                       	<tr>
 					                                            	<th>
 					                                            		Shipping Company
 					                                            	</th>
-					                                            	<td colspan="4" >
-					                                            		<div class="mt-radio-inline">
-										                                    <label class="mt-radio">
-										                                        <input type="radio" name="sh_company" <?php if($arr['order']->or_shipcom == 1){echo "checked";} ?> value="1" <?= $radio; ?>>
-											                                		DHL
-										                                        <span></span>
-										                                    </label>
-										                                    <label class="mt-radio">
-										                                        <input type="radio" name="sh_company" <?php if($arr['order']->or_shipcom == 2){echo "checked";} ?> value="2" <?= $radio; ?>>
-											                                		ARAMEX
-										                                        <span></span>
-										                                    </label>
-										                                    <label class="mt-radio">
-										                                        <input type="radio" name="sh_company" <?php if($arr['order']->or_shipcom == 3){echo "checked";} ?> value="3" <?= $radio; ?>>
-											                                		EMS
-										                                        <span></span>
-										                                    </label>
+					                                            	<td>
+					                                            		<div class="mt-radio-inline">										                                    
 										                                    <input type="radio" name="sh_company" class="sh_com" <?php $temp = $arr['order']->or_shipcom; $temp2 =""; if($temp != 3 && $temp != 1 && $temp != 2){echo "checked";$temp2 = $temp;} ?> value="<?= $temp; ?>" <?= $radio; ?>>
 											                                		 : <input type="text" class="inputText " id = "sh_com" value="<?= $temp2; ?>" <?= $mode ?> >
 										                                        <span></span>
@@ -337,65 +353,6 @@
 					                                            		<input required <?= $mode; ?> type = "number" min="0" step="any"  name="traking" class="form-control input-circle" value="<?php if($arr['order']->or_traking != null) { echo $arr['order']->or_traking; }else{echo '0';} ?>">
 					                                            	</td>
 						                                        </tr>
-						                                        <tr>
-					                                            	<th>
-					                                            		Shipping Optional
-					                                            	</th>
-					                                            	<td colspan="6" >
-					                                            		<div class="mt-radio-inline">
-										                                    <label class="mt-radio">
-										                                        <input type="radio" name="sh_opt" <?php if($arr['order']->or_shipopt == 1){ echo "checked";} ?> value="1" <?= $radio; ?>>
-											                                		Shop & Ship
-										                                        <span></span>
-										                                    </label>
-										                                    <label class="mt-radio">
-										                                        <input type="radio" name="sh_opt" <?php if($arr['order']->or_shipopt == 2){ echo "checked";} ?> value="2" <?= $radio; ?>>
-											                                		Express
-										                                        <span></span>
-										                                    </label>
-										                                    <label class="mt-radio">
-										                                        <input type="radio" name="sh_opt" <?php if($arr['order']->or_shipopt == 3){ echo "checked";} ?> value="3" <?= $radio; ?>>
-											                                		Buyer Account
-										                                        <span></span>
-										                                    </label>
-										                                    <input type="radio" name="sh_opt" class="sh_opti" <?php $temp = $arr['order']->or_shipopt; $temp2 = ""; if($temp != 3 && $temp != 1 && $temp != 2){echo "checked"; $temp2 = $temp;} ?> value="<?= $temp; ?>" <?= $radio; ?>>
-											                                		 : <input type="text" class="inputText" id = "sh_opti" value="<?= $temp2; ?>" <?= $mode ?>>
-										                                        <span></span>
-										                                </div>
-					                                            	</td>					                                 					                                            	
-						                                        </tr>
-						                                        <tr>
-					                                            	<th>
-					                                            		Declare Item
-					                                            	</th>
-					                                            	<td colspan="6" >
-					                                            		<div class="mt-radio-inline">
-										                                    <label class="mt-radio">
-										                                        <input type="radio" name="sh_declare" <?php if($arr['order']->dec_id == 1){echo "checked";} ?> value="1" <?= $radio; ?>>
-											                                		Aromatherapy
-										                                        <span></span>
-										                                    </label>
-										                                    <label class="mt-radio">
-										                                        <input type="radio" name="sh_declare" <?php if($arr['order']->dec_id == 2){echo "checked";} ?> value="2" <?= $radio; ?>>
-											                                		Beard Oil
-										                                        <span></span>
-										                                    </label>
-										                                    <label class="mt-radio">
-										                                        <input type="radio" name="sh_declare" <?php if($arr['order']->dec_id == 3){echo "checked";} ?> value="3" <?= $radio; ?>>
-											                                		Cake Flavoring
-										                                        <span></span>
-										                                    </label>
-										                                    <label class="mt-radio">
-										                                        <input type="radio" name="sh_declare" <?php if($arr['order']->dec_id == 4){echo "checked";} ?> value="4" <?= $radio; ?>>
-											                                		E-Juice
-										                                        <span></span>
-										                                    </label>
-										                                    <input type="radio" name="sh_declare" class="sh_dec" <?php $temp = $arr['order']->dec_id; $temp2 = ""; if($temp != 3 && $temp != 1 && $temp != 2 && $temp != 4){echo "checked";$temp2 = $temp;} ?> value="<?= $temp; ?>" <?= $radio; ?>>
-											                                		 : <input type="text" class="inputText" id = "sh_dec" value="<?= $temp2; ?>" <?= $mode ?>>
-										                                        <span></span>
-										                                </div>
-					                                            	</td>
-						                                        </tr>	                                        
 						                                    </tbody>
 						                                </table>
 						                            </div>
