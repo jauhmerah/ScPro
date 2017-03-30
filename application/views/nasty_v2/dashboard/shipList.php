@@ -40,6 +40,7 @@
                     </div>
                 </div> -->           
             </div>
+             <?php $us_lvl = $this->my_func->scpro_decrypt($this->session->userdata('us_lvl'));?>
             <div class="portlet-body flip-scroll">
 	            <div class="row tableL">
 	            <form id="formSearch" action="<?= site_url('nasty_v2/dashboard/page/i21'); ?>" method="POST" role="form">
@@ -155,17 +156,21 @@
 										<button type="button" class="shipCheck btn btn-primary btn-circle btn-xs" id="<?= $n.'ship' ?>" name="<?= $n.'ship' ?>" title="check Item"><i class="fa fa-clipboard"></i></button>
                                     	<input type="hidden" class="form-control <?= $n.'ship' ?>" value="<?= $user->sh_id ?>">
 										<?php }?> -->
-										<?php if($user->pr_id!=15){?>
+										<?php if($user->pr_id!=15){
+											if($us_lvl != 9 && $us_lvl != 7){?>
                                     	&nbsp;-&nbsp;
                                     	
                                     	<!--<button type="button" class="shipBtn btn btn-success btn-circle btn-xs" id="<?= $n.'ship' ?>" name="<?= $n.'ship' ?>"><i class="fa fa-check"></i></button>-->
                                     	<button type="button" onclick = "window.open('<?= site_url('qr/qrcode?id='.$this->my_func->scpro_encrypt($user->sh_id).'&ver=2'); ?>');" class="btn btn-circle purple-sharp btn-xs" id="<?= $n.'ship' ?>" name="<?= $n.'ship' ?>" title = "Print Qrcode List"><i class="fa fa-qrcode"></i></button>
                                     	<input type="hidden" class="form-control <?= $n.'ship' ?>" value="<?= $user->sh_id ?>">
-                                    	<?php }?>
-                                    	&nbsp;-&nbsp;   
+                                    	<?php }}?>
+                                    	<?php  if($us_lvl != 9 && $us_lvl != 7){?>   
+                                    	&nbsp;-&nbsp;
+                                    	
 										<button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/shipInvoice?id='.$this->my_func->scpro_encrypt($user->sh_id).'&ver=2'); ?>');"  class="btn blue-dark btn-circle btn-xs" title="Invoice">Inv</button>&nbsp;-&nbsp;    
 										
-										<button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/ShipdummyInvoice?id='.$this->my_func->scpro_encrypt($user->sh_id).'&ver=2'); ?>');" class="btn c-btn-border-1x c-btn-blue-dark btn-circle btn-xs" title="Dummy Invoice">DInv</button>   
+										<button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/ShipdummyInvoice?id='.$this->my_func->scpro_encrypt($user->sh_id).'&ver=2'); ?>');" class="btn c-btn-border-1x c-btn-blue-dark btn-circle btn-xs" title="Dummy Invoice">DInv</button>  
+										<?php } ?> 
 										
 		                            </td>	                            
 		                        </tr>

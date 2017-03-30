@@ -163,7 +163,7 @@
                         $arr['onhold'] = $this->m_order->countOrderType(7 , 2);
                         $arr['vernew'] = $this->m_order->orderCount(2);
                         $arr['verold'] = $this->m_order->orderCount(1) + $this->m_order->orderCount(0);
-                        $arr['totalProfit'] = $this->m_order->totalProfit();
+                        //$arr['totalProfit'] = $this->m_order->totalProfit();
                         $arr['client'] = $this->m_client->get(null , 'asc');
                         $arr['mg'] = $this->m_nico->get();
                         //end added                        $data['title'] = '<i class="fa fa-pencil"></i>Main Page</a>';
@@ -297,9 +297,13 @@
                 break;*/
     			case 'a1new':
                     //OrdSys 2.3.0
-    				if ($lvl == 2 || $lvl == 3) {
+    				if ($lvl == 2 || $lvl == 3 || $lvl == 7) {
                         redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
                     }
+                    if ($lvl == 6) {
+                        redirect(site_url('nasty_v2/dashboard/page/i1'),'refresh');
+                    }
+
                     if ($this->input->get('page')) {
                         $p = $this->input->get('page');
                     }else{

@@ -75,13 +75,13 @@
         }
         //end added
         //start added
-        public function totalProfit(){
+        // public function totalProfit(){
       
-      		$this->db->select_sum('orn_price');
-      		$this->db->from('order_note');
-            $result = $this->db->get()->result();
-            return $result;
-        }
+      		// $this->db->select_sum('orn_price');
+      		// $this->db->from('order_note');
+        //     $result = $this->db->get()->result();
+        //     return $result;
+        // }
         //end added        
 
 
