@@ -13,8 +13,7 @@
                                 </div>
                                 <div class="tools">
                                 	<!--<button type="button" class="btn btn-large btn-block btn-success confirm btn-circle">Confirm</button>-->
-                                </div>
-                                
+                                </div>                                
                             </div>
                             <div class="portlet-body form">
                                 <!-- BEGIN FORM-->
@@ -231,7 +230,7 @@
 				                                    		</tr>				                                    		
 				                                    	</tfoot>
 				                                    </table>
-				                                </div>
+				                                </div>				                                
 				                            </div>
                                         </div>
                                         </div>
@@ -239,10 +238,10 @@
                                         <!-- Ship Form -->
                                         <div class="row">
 						                <div class="col-md-12">              
-						                	<div class="portlet box purple">
+						                	<div class="portlet box grey-mint">
 						                        <div class="portlet-title">
 						                            <div class="caption">
-						                                <i class="fa fa-ship"></i>Shipping Note 
+						                                <i class="fa fa-list-ul"></i>Other Detail 
 						                                <input type="hidden" name="wide" id="input" class="form-control" value="1">
 						                            </div>
 						                            <!--<span class="pull-right">	                            	
@@ -264,14 +263,35 @@
 						                            <div class="table-responsive">
 						                                <table class="table table-striped table-condensed table-bordered">	                                    
 						                                    <tbody>
+						                                    	<tr>
+						                                    		<th colspan="3" valign="middle">
+						                                    			<span>Tax Rate</span>
+						                                    		</th>
+						                                    		<td>
+						                                    			<div class="mt-radio-inline">
+										                                    <label class="mt-radio">
+										                                        <input type="radio" name="tax"  value="20" checked>
+											                                		20 %
+										                                        <span></span>
+										                                    </label>
+										                                    <label class="mt-radio">
+										                                        <input type="radio" name="tax"  value="20">
+											                                		0 %
+										                                        <span></span>
+										                                    </label>
+										                                    <input type="radio" name="tax" class="cukai" value="4">
+											                                		 : <input type="number" class="inputText " id = "cukai" placeholder="Without '%'">										                                        
+										                                </div>
+						                                    		</td>
+						                                    	</tr>
 						                                       	<tr>
 					                                            	<th>
 					                                            		Shipping Company
 					                                            	</th>
-					                                            	<td colspan="4">
+					                                            	<td>
 					                                            		<div class="mt-radio-inline">
-										                                    <label class="mt-radio">
-										                                        <input type="radio" name="sh_company" checked value="1">
+										                                    <!--<label class="mt-radio">
+										                                        <input type="radio" name="sh_company"  value="1">
 											                                		DHL
 										                                        <span></span>
 										                                    </label>
@@ -280,13 +300,13 @@
 											                                		ARAMEX
 										                                        <span></span>
 										                                    </label>
-										                                    <!--<label class="mt-radio">
+										                                    <label class="mt-radio">
 										                                        <input type="radio" name="sh_company" value="3">
 											                                		EMS
 										                                        <span></span>
 										                                    </label>-->
-										                                    <input type="radio" name="sh_company" class="sh_com" value="4">
-											                                		 : <input type="text" class="inputText" id = "sh_com" >
+										                                    <input type="radio" name="sh_company" class="sh_com" checked value="4">
+											                                		 : <input type="text" class="inputText " id = "sh_com" required>
 										                                        <span></span>										                                        
 										                                </div>
 										                                
@@ -298,9 +318,9 @@
 					                                            		<input type = "number" class="form-control input-circle" min="0" step="any" name="traking" required>
 					                                            	</td> 
 						                                        </tr>
-						                                        <tr>
+						                                        <!--<tr>
 					                                            	<th>
-					                                            		Shipping Optional
+					                                            		
 					                                            	</th>
 					                                            	<td colspan="6" >
 					                                            		<div class="mt-radio-inline">
@@ -327,7 +347,7 @@
 					                                            	</td>					                                            	
 						                                        </tr>
 						                                        <input type="hidden" name="sh_declare" id="input" class="form-control" value="4">
-						                                        <!--<tr>
+						                                        <tr>
 					                                            	<th>
 					                                            		Declare Item
 					                                            	</th>
@@ -369,7 +389,7 @@
                                     <div class="form-actions right">
                                     <div style="display: none;" class="riben ribbon ribbon-shadow ribbon-color-warning uppercase"><h2><i class="fa fa-warning" ></i> Unconfirm Order</h2></div>                                    	
                                         <button type="button" class="btn default">Cancel</button>
-                                        <button type="button" id="chckBtn" class="btn blue">
+                                        <button type="submit" id="chckBtn" class="btn blue">
                                             <i class="fa fa-check"></i> Save</button>
                                     </div>
                                 </form>
@@ -382,14 +402,14 @@
 <script>
 	var num = 1;
 	$(document).ready(function() {
-		var pro ;
-		$('#chckBtn').click(function() {
-			pro = bootbox.dialog({ 
-				message: '<div class="row"><div class="col-md-12" align="center"><h1><i class="fa fa-repeat fa-spin"></i></br>Calculating</h1></div></div>' ,
-				closeButton: false
-			});
+		// var pro ;
+		// $('#chckBtn').click(function() {
+		// 	pro = bootbox.dialog({ 
+		// 		message: '<div class="row"><div class="col-md-12" align="center"><h1><i class="fa fa-repeat fa-spin"></i></br>Calculating</h1></div></div>' ,
+		// 		closeButton: false
+		// 	});
 			
-		});
+		// });
 				
 		$('#client').change(function() {
 			temp = $(this).val();
@@ -428,7 +448,7 @@
 			v = $(this).val();
 			$("."+rad).val(v);
 		});
-		$('.confirm').click(function() {
+		/*$('.confirm').click(function() {
 			pr_id = $('#pr_id').val();
 			if (pr_id == 1) {
 				$(this).removeClass('btn-success').addClass('btn-warning');
@@ -441,7 +461,10 @@
 				$('.riben').hide('slow');
 				$('#pr_id').val('1');
 			}
-		});
+		});*/
+		// $('#orderList').on('click', '#inputPrice', function() {
+		// 	alert($(this).val());
+		// });
 	});
 
 </script>

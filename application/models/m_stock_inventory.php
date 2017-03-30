@@ -45,7 +45,7 @@
 	        }
 	    }
 
-	    public function get2()
+	    public function get2($where = null)
 	    {
 	    	$this->db->select('*');
 	        $this->db->from('stock_inventory sti');
@@ -53,6 +53,9 @@
 			$this->db->join('nicotine ni', 'ni.ni_id = sti.ni_id', 'left');     
 			$this->db->join('category cat', 'cat.ca_id = ty2.ca_id', 'left');
 			$this->db->order_by('sti.ty2_id , sti.ni_id', 'asc');
+			if ($where != null) {
+				$this->db->where($where);
+			}			
 	        return $this->db->get()->result();	        
 	    }
 

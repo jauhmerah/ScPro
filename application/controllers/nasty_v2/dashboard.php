@@ -1303,6 +1303,9 @@ epul@nastyjuice.com
                         $arr = $this->input->post();
                         $this->load->library('my_func');
                         $this->load->database();
+                        if (!$this->checkStock($arr['itemId'] , $arr['nico'] , $arr['qty'] , $arr['tester'])) {
+                            redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
+                        }
                         $this->load->model('m_order');
                         if ($arr['client'] == -1) {
                             $cl = array(
@@ -1334,8 +1337,7 @@ epul@nastyjuice.com
                             'or_wide' => $arr['wide'],
                             'or_shipcom' => $arr['sh_company'],
                             "or_traking" => $arr['traking'],
-                            'or_shipopt' => $arr['sh_opt'],
-                            'dec_id' => $arr['sh_declare']                            
+                            'or_tax' => $arr['tax'],                         
                         );
                         $this->load->model('m_order_ext');                        
                         $orex_id = $this->m_order_ext->insert($order_ext);                        
@@ -2017,11 +2019,6 @@ epul@nastyjuice.com
         
         }
 */
-
-
-
-
-
         function change_pr_id(){
             if ($this->input->post('id')) {
                 $this->load->library('my_func' , 'session');
@@ -2727,6 +2724,38 @@ epul@nastyjuice.com
         {
             $this->load->library('qrgen');
             echo $this->qrgen->gen("test jauhmerh" , 'jm');            
+        }
+
+        public function checkStock($id , $nico , $qty , $tester)
+        {
+            $status = true;
+            $this->load->model('m_stock_inventory' , 'msi');
+            echo "<pre>";
+            print_r($id);
+            print_r($nico);
+            print_r($qty);
+            print_r($tester);
+            echo "</pre>";
+            $arr = $this->msi->get2();
+            echo "<pre>";
+            print_r($arr);
+            echo "</pre>";
+            for ($i=0; $i < sizeof($id); $i++) { 
+                $w = array(
+                    'sti.ty2_id' => $id[$i],
+                    'sti.ni_id' => $nico[$i]
+                );
+                $temp = array_shift($this->msi->get2($w));
+                if (sizeof($temp) != 0) {
+                    $qty1 = $qty[$i] + $tester[$i];
+                    if ($temp->sti_total  ) {
+                        # code...
+                    }
+                }else{
+                    $status = false;
+                }
+            }
+            die();
         }
 	}
 	        
