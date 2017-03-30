@@ -141,6 +141,19 @@
 	    		return $this->insert($b);
 	    	}
 	    }
+
+	    public function updateQty($qty , $w)
+	    {
+	    	$this->db->select('*');
+	    	$this->db->from(self::TABLE_NAME);
+	    	$this->db->where($w);
+	    	$arr = array_shift($this->db->get()->result());
+	    	$qty = $arr->sti_total - $qty;
+	    	$a = array(
+	    		'sti_total' => $qty
+	    	);
+	    	$this->update($a , $arr->sti_id);
+	    }
 	}
 	        
 ?>

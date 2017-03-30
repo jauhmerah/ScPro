@@ -1342,6 +1342,7 @@ epul@nastyjuice.com
                         $this->load->model('m_order_ext');                        
                         $orex_id = $this->m_order_ext->insert($order_ext);                        
                         $this->load->model('m_order_item');
+                        $this->load->model('m_stock_inventory' , 'msi');
                         $sizeArr = sizeof($arr['itemId']);
                         for ($i=0; $i < $sizeArr ; $i++) { 
                             $item = array(
@@ -1352,7 +1353,13 @@ epul@nastyjuice.com
                                 'oi_qty' => $arr['qty'][$i],
                                 'oi_tester' => $arr['tester'][$i]
                             );
-                            $this->m_order_item->insert($item);
+                            if($this->m_order_item->insert($item)){
+                                $wh = array(
+                                    'ty2_id' => $arr['itemId'][$i],
+                                    'ni_id' => $arr['nico'][$i]
+                                );
+                                $this->msi->updateQty($arr['qty'][$i]+$arr['tester'][$i] , $wh);
+                            }
                         }
                         /*$this->load->model('m_shipping_note');
                         $shipping_note = array(
@@ -1374,10 +1381,7 @@ epul@nastyjuice.com
                         $this->session->set_flashdata('success', 'New Order successfully added');
                         redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
     					break;    				
-                    }   
-
-
-
+                    } 
                     case 'z12':
                 //add stock order
                     if ($lvl == 2 || $lvl == 3) {
@@ -2728,18 +2732,11 @@ epul@nastyjuice.com
 
         public function checkStock($id , $nico , $qty , $tester)
         {
+            $this->load->library('my_func');
             $status = true;
+            $msg = "";
             $this->load->model('m_stock_inventory' , 'msi');
-            echo "<pre>";
-            print_r($id);
-            print_r($nico);
-            print_r($qty);
-            print_r($tester);
-            echo "</pre>";
             $arr = $this->msi->get2();
-            echo "<pre>";
-            print_r($arr);
-            echo "</pre>";
             for ($i=0; $i < sizeof($id); $i++) { 
                 $w = array(
                     'sti.ty2_id' => $id[$i],
@@ -2748,14 +2745,21 @@ epul@nastyjuice.com
                 $temp = array_shift($this->msi->get2($w));
                 if (sizeof($temp) != 0) {
                     $qty1 = $qty[$i] + $tester[$i];
-                    if ($temp->sti_total  ) {
-                        # code...
+                    if ($temp->sti_total - $qty1 < 0 ) {
+                        // klu qty xckup;
+                        $msg = $msg."<strong>Insufficient Quantity</strong> : ".$temp->ty2_desc." - ".$temp->ca_desc." > ".$temp->ni_mg."mg</br>";
+                        $status = false;
                     }
                 }else{
+                    // klu xda dlm database;
+                    $msg = $msg."<strong>Item Not Registered</strong> : Item Code ".$this->my_func->en($id[$i])." Nico Id ".$nico[$i]."</br>";
                     $status = false;
                 }
             }
-            die();
+            if ($msg != '') {
+                $this->session->set_flashdata('error', $msg);
+            }
+            return $status;
         }
 	}
 	        
