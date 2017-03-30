@@ -115,6 +115,36 @@ class Qr extends CI_Controller {
         }
         redirect(site_url('qr/login'),'refresh');
     }
+         public function qrcode()
+        {
+         if ($this->input->get('id')) {
+                    $sh_id = $this->input->get('id');
+                    //$this->load->library('my_func');
+                    $sh_id = $this->my_func->scpro_decrypt($sh_id);
+                    $this->load->database();
+                    $this->load->model('m_ship');
+                    $this->load->model('m_qrs');
+                    $arr['arr'] = array_shift($this->m_ship->getList_ext($sh_id , 1));
+                        if (sizeof($arr['arr']) == 0) {
+                            $arr['arr'] = array_shift($this->m_ship->getList_ext($sh_id , 2));
+                        }
+                    
+                    $arr['qr'] = $this->m_qrs->get();
+                    $this->load->view($this->parent_page.'printQrcode' ,$arr);                        
+                        //$this->_show('display' , $data , 'i1');
+         //            if ($this->input->get('ver')) {
+         //                $ver = $this->input->get('ver');
+         //            }
+         //            $arr = $this->m_order->getList_ext($or_id , $ver);
+         //            $arr1['arr'] = array_shift($arr);
+         //            $arr1['or_code'] = ((10000*$ver)+100000+$or_id);
+         //            unset($arr);
+                 
+                
+                    //$this->_show($data);
+            }
+        }
+
     public function qr_en()
     {
     	if($this->input->get("code")){

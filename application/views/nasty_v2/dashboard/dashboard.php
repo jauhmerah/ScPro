@@ -129,7 +129,7 @@
                     </div>
                     <div class="clearfix"></div>
                     <!-- END DASHBOARD STATS 1-->
-                    <div class="row">
+                    <!-- <div class="row">
                     <div align="center">
                               <div class="portlet light ">
                                 <div class="portlet-title">
@@ -153,7 +153,7 @@
                                         <div id="sales1" align="center">
                                             <h1><i class="fa fa-repeat fa-spin"></i></h1>
                                         </div>
-                                            <!-- #graph5 -->                     
+                                                                
                                         <div id="site_statistics_content"  >
                                             <div id="paiddiv" class="display-none"> </div>
                                             <div id="paidcode" ></div>
@@ -163,7 +163,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>                        
+                        </div>  -->                       
                         <div class="col-md-12 col-sm-12">
                             <!-- BEGIN PORTLET-->
                             <div class="portlet light ">
@@ -911,12 +911,12 @@ $(document).ready(function() {
             $("#site_statistics_loading").addClass('display-none');
         });
     });
-    $.post('<?= site_url('nasty_v2/dashboard/getAjaxGraph5/paiddiv/1') ?>', {}, function(data) {
-        $.when($('#paidcode').html(data)).then(function(){
-            $("#paiddiv").removeClass('display-none');
-            $("#sales1").addClass('display-none');
-        });
-    });
+    // $.post('<?= site_url('nasty_v2/dashboard/getAjaxGraph5/paiddiv/1') ?>', {}, function(data) {
+    //     $.when($('#paidcode').html(data)).then(function(){
+    //         $("#paiddiv").removeClass('display-none');
+    //         $("#sales1").addClass('display-none');
+    //     });
+    // });
     kelik();   
     $("#flavBtn").click(function() {
         year1 = $('#flavYear').val();

@@ -40,9 +40,10 @@
                     </div>
                 </div> -->           
             </div>
+             <?php $us_lvl = $this->my_func->scpro_decrypt($this->session->userdata('us_lvl'));?>
             <div class="portlet-body flip-scroll">
 	            <div class="row tableL">
-	            <form id="formSearch" action="<?= site_url('nasty_v2/dashboard/page/a1new'); ?>" method="POST" role="form">
+	            <form id="formSearch" action="<?= site_url('nasty_v2/dashboard/page/i21'); ?>" method="POST" role="form">
 	            	<div class="col-md-12">
 	            		 <div class="col-md-2">
 	            			<!--<a href="<?= site_url('nasty_v2/dashboard/page/z1'); ?>"><button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Add Order</button></a>-->
@@ -62,9 +63,9 @@
 	            					<select name="filter" id="inputFilter" class="form-control input-circle">
 	            						<option value="-1">-- Select Filter --</option>
 	            						<option value="10">Client Name</option>
-	            						<option value="1">Order Code</option>
-	            						<option value="2">Sales Person</option>
-	            						<option value="3">Order Status</option>
+	            						<option value="1">Shipping Code</option>
+	            						<option value="2">Checked By</option>
+	            						<option value="3">Status</option>
 	            					</select>
 	            				</div>
 	            			</div>
@@ -87,7 +88,7 @@
 		                            <th>Description</th>
 		                            <th>Shipping ID.</th>
 		                            <th>Shipping Date</th>
-		                            <th>Arrived Date</th>
+		                            <!-- <th>Arrived Date</th> -->
 		                            <th>Checked By</th>
 		                            <th>Status</th>
 		                            <th>Action</th>
@@ -116,11 +117,11 @@
 		                            	echo "--Not Set--";
 		                            }
                                     ?></td>
-		                            <td><?php 
+		                             <td><?php 
                                     $view = ( $user->sh_date == null) ? "--Not Set--" :  date_format(date_create($user->sh_date) , 'd-M-Y' ) ;
                                     echo $view ;
                                     ?></td>
-                                    <td><?php 
+                                    <!--<td><?php 
                                     if($user->sh_arrivedate == "0000-00-00 00:00:00"){
 										echo "--Not Set--";
 
@@ -134,7 +135,7 @@
                                     // $view = ( $user->sh_arrivedate == null) ? "--Not Set--" :  date_format(date_create($user->sh_arrivedate) , 'd-M-Y' ) ;
                                     // echo $view ;
 
-                                    ?></td>
+                                    ?></td> -->
 		                            <td><?php 
                                     $view = ( $user->us_username == null) ? "--Not Set--" :  $user->us_username ;
                                     echo $view;
@@ -150,22 +151,26 @@
 										<a href="<?= site_url('nasty_v2/dashboard/page/a121?v=2&edit=').$shid; ?>" name="c3" title="Edit Shipment">
 										<button type="button" class="btn btn-warning btn-circle btn-xs"><i class="fa fa-pencil"></i></button></a>-->
 										
-										<?php if($user->pr_id==15){?>
+										<!-- <?php if($user->pr_id==15){?>
 										&nbsp;-&nbsp;
 										<button type="button" class="shipCheck btn btn-primary btn-circle btn-xs" id="<?= $n.'ship' ?>" name="<?= $n.'ship' ?>" title="check Item"><i class="fa fa-clipboard"></i></button>
                                     	<input type="hidden" class="form-control <?= $n.'ship' ?>" value="<?= $user->sh_id ?>">
-										<?php }?>
-										<?php if($user->pr_id!=15){?>
+										<?php }?> -->
+										<?php if($user->pr_id!=15){
+											if($us_lvl != 9 && $us_lvl != 7){?>
                                     	&nbsp;-&nbsp;
                                     	
                                     	<!--<button type="button" class="shipBtn btn btn-success btn-circle btn-xs" id="<?= $n.'ship' ?>" name="<?= $n.'ship' ?>"><i class="fa fa-check"></i></button>-->
-                                    	<button type="button" class="btn btn-circle purple-sharp btn-xs" id="<?= $n.'ship' ?>" name="<?= $n.'ship' ?>" title = "Print Qrcode List"><i class="fa fa-qrcode"></i></button>
+                                    	<button type="button" onclick = "window.open('<?= site_url('qr/qrcode?id='.$this->my_func->scpro_encrypt($user->sh_id).'&ver=2'); ?>');" class="btn btn-circle purple-sharp btn-xs" id="<?= $n.'ship' ?>" name="<?= $n.'ship' ?>" title = "Print Qrcode List"><i class="fa fa-qrcode"></i></button>
                                     	<input type="hidden" class="form-control <?= $n.'ship' ?>" value="<?= $user->sh_id ?>">
-                                    	<?php }?>
-                                    	&nbsp;-&nbsp;   
-										<button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/Invoice?id='.$this->my_func->scpro_encrypt($user->sh_id).'&ver=2'); ?>');"  class="btn blue-dark btn-circle btn-xs" title="Invoice">Inv</button>&nbsp;-&nbsp;    
+                                    	<?php }}?>
+                                    	<?php  if($us_lvl != 9 && $us_lvl != 7){?>   
+                                    	&nbsp;-&nbsp;
+                                    	
+										<button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/shipInvoice?id='.$this->my_func->scpro_encrypt($user->sh_id).'&ver=2'); ?>');"  class="btn blue-dark btn-circle btn-xs" title="Invoice">Inv</button>&nbsp;-&nbsp;    
 										
-										<button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/dummyInvoice?id='.$this->my_func->scpro_encrypt($user->sh_id).'&ver=2'); ?>');" class="btn c-btn-border-1x c-btn-blue-dark btn-circle btn-xs" title="Dummy Invoice">DInv</button>   
+										<button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/ShipdummyInvoice?id='.$this->my_func->scpro_encrypt($user->sh_id).'&ver=2'); ?>');" class="btn c-btn-border-1x c-btn-blue-dark btn-circle btn-xs" title="Dummy Invoice">DInv</button>  
+										<?php } ?> 
 										
 		                            </td>	                            
 		                        </tr>
