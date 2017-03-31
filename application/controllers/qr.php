@@ -65,6 +65,10 @@ class Qr extends CI_Controller {
             }            
             if ($data) {
                 if ($data !== "betul") {
+                    if ($data->us_lvl != 1 && $data->us_lvl != 7 && $data->us_lvl != 9) {
+                        $this->session->set_flashdata('warning', 'Only <strong>Admin</strong> or <strong>Packaging Team</strong> are able to Register This item.');
+                        redirect(site_url('qr/login'),'refresh');
+                    }
                     $array = array(
                         'qr_id' => $this->my_func->en($data->us_id , 1),
                         'qr_lvl' => $this->my_func->en($data->us_lvl , 1),

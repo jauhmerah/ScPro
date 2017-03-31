@@ -363,7 +363,7 @@
                             <!- - BEGIN USER LOGIN DROPDOWN - ->
                             <!- - DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte - ->
                             --><li class="dropdown dropdown-user">
-                                <a href="<?= site_url('dashboard/logout'); ?>" >
+                                <a href="<?= site_url('login/logout'); ?>" >
                                     <!--<img alt="" class="img-circle" src="<?= base_url(); ?>asset2/layouts/layout2/img/avatar3_small.jpg" />-->
                                     <span class="">logout</span>
                                     <i class="fa fa-sign-out"></i>

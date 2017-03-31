@@ -3,8 +3,10 @@
 		return false;
 		//confirm('Are You Sure ?');
 	}
+	function underMain(){
+		bootbox.alert("Sorry :This Function Is under development! <br>Any inquiry <a href=\"mailto:jauhmerah@nastyjuice.com\">email us</a> ");
+	}
 	$(document).ready(function() {
-
 		$("#sub").click(function() {
 			if (searchFun()) {
 				$("#formSearch").submit();
@@ -161,7 +163,7 @@
                                         }
                                     ?>
 		                            	<a href="<?= site_url('nasty_v2/dashboard/page/a111?v=2&view=').$orid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-info btn-circle btn-xs"><i class="fa fa-eye"></i></button></a>&nbsp;-&nbsp;                            	
-										<a href="<?= site_url('nasty_v2/dashboard/page/a121?v=2&edit=').$orid; ?>" name="c3" title="Edit Order"><button type="button" class="btn btn-warning btn-circle btn-xs"><i class="fa fa-pencil"></i></button></a>
+										<!--<a href="<?= site_url('nasty_v2/dashboard/page/a121?v=2&edit=').$orid; ?>" name="c3" title="Edit Order">--><a><button type="button" class="btn btn-warning btn-circle btn-xs" onclick="underMain();"><i class="fa fa-pencil"></i></button></a>
 										<!--&nbsp;-&nbsp; <button type="button" class="btn btn-circle purple-seance btn-xs upPic" id="up<?= $n; ?>"><i class="fa fa-upload"></i></button></a> -->
 										<input type="hidden" class="form-control up<?= $n; ?>" value="<?= $orid; ?>">
 										<?php if($user->pr_id == 3){ ?>
@@ -301,23 +303,20 @@
 					            	$(window).attr("location", "<?= site_url('nasty_v2/dashboard/page/a1new'); ?>");
 					            	
 					            });
-
 					    	}
-					    	
-					        
 					    }
 					});
-
-
 		    	});
 		$(".cancelOrd").click(function() {
-			$('#myModal').show('slow');
-			key = $(this).prop('id');
-			codeOr = $("."+key+"code").val();
-			//alert(key);
-			codeOrId = $("."+key+"n").val();
-			$("#inputOrid").val(codeOrId);
-			$("#inputUs_id").val(<?= $us_id; ?>);
+			underMain();
+
+			// $('#myModal').show('slow');
+			// key = $(this).prop('id');
+			// codeOr = $("."+key+"code").val();
+			// //alert(key);
+			// codeOrId = $("."+key+"n").val();
+			// $("#inputOrid").val(codeOrId);
+			// $("#inputUs_id").val(<?= $us_id; ?>);
 		});
 		$('.jari').click(function() {
 			id = $(this).prop('id');pr_id = $("."+id+"1").val();

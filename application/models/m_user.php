@@ -54,9 +54,12 @@
 	    	return $result->us_username;
 	    }
 
-	    public function getLvl(){
+	    public function getLvl($where = null){
 	    	$this->db->select("*");
 	    	$this->db->from('user_level ul');
+	    	if ($where != null) {
+	    		$this->db->where_not_in('ul.ul_id', $where);
+	    	}
 	    	$result = $this->db->get()->result();
 	    	return $result;
 	    }
@@ -74,21 +77,19 @@
 	                $this->db->where(self::PRI_INDEX, $where);
 	            }
 	        }
-	        if (!$all) {
-	        	$this->db->where('us_lvl >', 0);
-	        }	        
+	        if ($all) {
+	        	$this->db->where_not_in('user.us_lvl', $all);
+	        }
+	                
 	        $this->db->join('user_level ul', 'user.us_lvl = ul.ul_id', 'left');
 	        $result = $this->db->get()->result();
 	        if ($result) {
-	            if ($where !== NULL) {
-	                return array_shift($result);
-	            } else {
-	                return $result;
-	            }
+	            return $result;
 	        } else {
 	            return false;
 	        }
 	    }
+
 	
 	    /**
 	     * Inserts new data into database

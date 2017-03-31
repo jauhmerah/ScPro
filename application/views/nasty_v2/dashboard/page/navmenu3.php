@@ -24,14 +24,14 @@
                      $us_email = $this->session->userdata('us_email');?>
                     <ul class="page-sidebar-menu  page-header-fixed page-sidebar-menu-hover-submenu page-sidebar-menu-closed " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
                     <?php if($us_lvl != 6 && $us_lvl != 7){?>
-                    <li class="nav-item <?php if (strpos($link, 'x') !== false) { echo "active open";}else{echo "start";}?>   ">
+                    <li class="nav-item <?php if (strpos($link, 'x1') !== false) { echo "active open";}else{echo "start";}?>   ">
                         <a href="<?= site_url('nasty_v2/dashboard/page/x1') ?>" class="nav-link ">
                             <i class="fa fa-tachometer"></i>
                             <span class="title">Dashboard</span>
                         </a>
                     </li>
                     <?php } ?>
-                        <?php if($us_lvl != 2 && $us_lvl != 3 && $us_lvl != 6 && $us_lvl != 7){?>
+                        <?php if($us_lvl != 3 && $us_lvl != 6 && $us_lvl != 7){?>
                         <li class="nav-item <?php if (strpos($link, 'a1') !== false) { echo $active;}else{echo "start";}?>  ">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <i class="fa fa-cart-plus"></i>
@@ -61,7 +61,7 @@
                                 </li>-->
                             </ul>
                         </li> <?php } ?>
-                        <?php if($us_lvl != 4 && $us_lvl != 6 && $us_lvl != 8){?> 
+                        <?php if($us_lvl != 4 && $us_lvl != 6 && $us_lvl != 8 && $us_lvl != 2 && $us_lvl != 3){?> 
                         <li class="nav-item <?php if (strpos($link, 'a2') !== false) { echo "active open";}else{echo "start";}?>  ">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <i class="fa fa-archive"></i>
@@ -90,7 +90,7 @@
                                         <span class="title">Dashboard</span>
                                     </a>
                                 </li>
-                                <?php if($us_lvl != 9 && $us_lvl != 7){?>
+                                <?php if($us_lvl != 9 && $us_lvl != 7 && $us_lvl != 2){?>
                                  <li class="nav-item start">
                                     <a href="<?= site_url('nasty_v2/dashboard/page/i2') ?>" class="nav-link ">
                                         <i class="fa fa-plus-square-o"></i>
@@ -117,14 +117,14 @@
                            
                             </ul>
                         </li><?php } ?>
-                        <?php if($us_lvl != 2 && $us_lvl != 6 && $us_lvl != 7){?>
+                        <?php if($us_lvl != 6 && $us_lvl != 7 && $us_lvl != 3){?>
                         <li class="nav-item start ">
                             <a href="<?= site_url('nasty_v2/dashboard/page/a4') ?>" class="nav-link ">
                                 <i class="fa fa-group"></i>
                                 <span class="title">Client List</span>
                             </a>
                         </li><?php } ?>
-                        <?php if($us_lvl == 1 || $us_lvl == 5 || $us_lvl == 9){?>
+                        <?php if($us_lvl != 2 && $us_lvl != 3 && $us_lvl != 7 && $us_lvl != 8){?>
                         <li class="nav-item <?php if (strpos($link, 'c') !== false) { echo "active open";}else{echo "start";}?>  ">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                <i class="fa fa-wrench"></i>
@@ -138,6 +138,7 @@
                                         <span class="title">User</span>
                                     </a>
                                 </li>
+                                <?php if($us_lvl != 9){ ?>
                                 <li class="nav-item start">
                                     <a href="<?= site_url('nasty_v2/dashboard/page/c4') ?>" class="nav-link ">
                                         <i class="fa fa-fw fa fa-tag"></i>
@@ -155,7 +156,8 @@
                                         <i class="fa fa-fw fa-tint"></i>
                                         <span class="title">Nicotine</span>
                                     </a>
-                                </li>                                                              
+                                </li>
+                                <?php } ?>                                           
                             </ul>
                         </li> 
                         <?php } ?>                    

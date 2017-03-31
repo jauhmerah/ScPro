@@ -33,9 +33,9 @@
 	   private function _show($page = 'display' , $data = null , $key = 'a1'){
             $link['link'] = $key;
 	    	$link['admin'] = $this->_checkLvl();
-	    	if (!$link['admin']) {
-	    		$link['link'] = 'a2';
-	    	}
+	    	// if (!$link['admin']) {
+	    	// 	$link['link'] = 'a2';
+	    	// }
 	    	if (isset($data['title'])) {
 	    		$T['title'] = $data['title'];
 	    	}else{
@@ -297,7 +297,7 @@
                 break;*/
     			case 'a1new':
                     //OrdSys 2.3.0
-    				if ($lvl == 2 || $lvl == 3 || $lvl == 7) {
+    				if ($lvl == 3 || $lvl == 7) {
                         redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
                     }
                     if ($lvl == 6) {
@@ -689,7 +689,10 @@ epul@nastyjuice.com
                     }
     			case 'a2':  
     				//$this->load->library('my_func');
-                    if ($lvl == 4) {
+                    if ($lvl == 3) {
+                        redirect(site_url('nasty_v2/dashboard/page/i1'),'refresh');
+                    }
+                    if ($lvl == 4 || $lvl == 2 ) {
                         redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
                     }
                     if ($this->input->get('mode')) {
@@ -1199,7 +1202,7 @@ epul@nastyjuice.com
 		    		$this->_show('display' , $data , $key); 
     				break;
     			case 'a4':
-                    if ($lvl == 2 || $lvl == 3) {
+                    if ($lvl == 3) {
                         redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
                     }
     				$data['title'] = '<i class="fa fa-fw fa-link"></i> Client Detail';
@@ -1239,6 +1242,7 @@ epul@nastyjuice.com
 		    		$this->_show('display' , $data , $key); 
     				break;                
                 case 'z121':
+                //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>disabled<<<<<<<<<<<<<<<<<<<<
                     //edit order
                     if ($lvl == 2 || $lvl == 3) {
                         redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
@@ -1248,9 +1252,10 @@ epul@nastyjuice.com
                         $or_id = $this->my_func->scpro_decrypt($this->input->get('key'));
                         $this->load->database();
                         $this->load->model('m_order_item');
+
                         if (isset($arr['idE'])) {
                             if (sizeof($arr['idE']) != 0) {
-                                for ($i=0; $i < sizeof($arr['idE']); $i++) { 
+                                for ($i=0; $i < sizeof($arr['idE']); $i++) {
                                     $oi_id = $arr['idE'][$i];
                                     $temp = array(
                                        'oi_price' => $arr['priceE'][$i],
@@ -1305,7 +1310,7 @@ epul@nastyjuice.com
                     break;
     			case 'z11':
                 //add order
-                    if ($lvl == 2 || $lvl == 3) {
+                    if ($lvl == 3) {
                         redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
                     }
                     $ver = 2;
@@ -1472,7 +1477,7 @@ epul@nastyjuice.com
                         break;                  
                     } 
     			case 'z1':
-                    if ($lvl == 2 || $lvl == 3) {
+                    if ($lvl == 3) {
                         redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
                     }
     				$data['title'] = '<i class="fa fa-file-text"></i> Order Form';
@@ -1516,36 +1521,52 @@ epul@nastyjuice.com
     					$this->load->database();
     					$this->load->model('m_user');
     					$arr['id'] = $this->input->get('edit');
-    					$arr['lvl'] = $this->m_user->getLvl();
-    					$arr['arr'] = $this->m_user->getAll($staffId);
+                        $where = null;
+                        if ($lvl == 5) {
+                            $where = array('7' , '8' , '9' , '1');
+                        }
+                        if ($lvl == 9) {
+                            $where = array('2' , '3' , '5' , '1');
+                        }
+    					$arr['lvl'] = $this->m_user->getLvl($where);
+    					$arr['arr'] = array_shift($this->m_user->getAll($staffId));
     					$data['display'] = $this->load->view($this->parent_page.'/editStaff' , $arr , true);
     					$this->_show('display' , $data , $key); 
     					break;
     				}    				
     			case 'c1':
-                    if ($lvl != 1) {
+                    if ($lvl != 1 && $lvl != 5 && $lvl != 9) {
                         redirect(site_url('order'),'refresh');
                     }
     				$data['title'] = '<i class="fa fa-file-text"></i> User Setting';
+                    $this->load->library('my_func');
     				$this->load->database();
     				$this->load->model("m_user");
     				$this->load->library('my_func');
-    				if (!$this->_checkLvl()) {
-    					$where = array(
-    						'us_lvl !=' => 1
-    						);
-    					$arr['arr'] = $this->m_user->getAll($where);
-    				}else{
-    					$arr['arr'] = $this->m_user->getAll();
-    				}
-    				
+    				$where = null;
+                    $filter = false;
+                    if ($lvl == 5) {
+                        $filter = array('1');
+                    }
+                    if ($lvl == 9) {
+                        $filter = array('2' , '3' , '5' , '1');
+                    }
+
+                    $arr['arr'] = $this->m_user->getAll($where , $filter);
     				$data['display'] = $this->load->view($this->parent_page.'/userlist' , $arr , true);
 		    		$this->_show('display' , $data , $key); 
     				break;
 				case 'c14':
 					$this->load->database();
     				$this->load->model('m_user');
-    				$arr['lvl'] = $this->m_user->getLvl();
+    				$where = null;
+                    if ($lvl == 5) {
+                        $where = array('7' , '8' , '9' , '1');
+                    }
+                    if ($lvl == 9) {
+                        $where = array('2' , '3' , '5' , '1');
+                    }
+                    $arr['lvl'] = $this->m_user->getLvl($where);
     				$data['display'] = $this->load->view($this->parent_page.'/addStaff' ,$arr , true);
 		    		$this->_show('display' , $data , $key); 
     				break;
@@ -1723,13 +1744,19 @@ epul@nastyjuice.com
     			foreach ($arr as $key => $value) {
     				if ($value != null) {
     					if ($key == 'pass') {
+                           if ($value == null || $value == '') {
+                              continue;
+                           }
     						$value = $this->my_func->scpro_encrypt($value);
     					}
+                        if ($key == 'lvl') {
+                            $value = $this->my_func->de($value, 1);
+                        }
     					if ($key == 'id') {
     						$id = $this->my_func->scpro_decrypt($value);
     					}else{
-    						$arr2['us_'.$key] = $value;
-    					}    					
+                            $arr2['us_'.$key] = $value;
+                        }    					
     				}
     			}
     			$result = $this->m_user->update($arr2 , $id);
