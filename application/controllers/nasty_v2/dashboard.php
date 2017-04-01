@@ -1074,6 +1074,7 @@ epul@nastyjuice.com
                     $this->load->model('m_type2');
                     $temp['color'] = $this->m_type2->get();
                     $temparr = $this->msi->get2();
+                    $a2 = null;
                     foreach ($temparr as $key1) {
                         $a2[$key1->ty2_id]['color'] = $key1->ty2_desc;
                         $a2[$key1->ty2_id]['series'] = $key1->ca_desc;
@@ -1724,6 +1725,9 @@ epul@nastyjuice.com
     					if ($key == 'pass') {
     						$value = $this->my_func->scpro_encrypt($value);
     					}
+                        if ($key == 'lvl') {
+                            $value = $this->my_func->de($value , 1);
+                        }
     					$arr2['us_'.$key] = $value;   					
     				}
     			}

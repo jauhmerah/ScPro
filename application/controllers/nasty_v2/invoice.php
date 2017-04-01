@@ -38,7 +38,7 @@ class Invoice extends CI_Controller {
 					}
 					$arr = $this->m_order->getList_ext($or_id , $ver);
 					$arr1['arr'] = array_shift($arr);
-					$arr1['or_code'] = ((10000*$ver)+100000+$or_id);
+					$arr1['or_code'] = $or_id.'-EU'.$ver;
 					unset($arr);
 					$data['display'] = $this->load->view($this->parent_page."/orderDummy" , $arr1 , true);
 					$this->_show($data);
@@ -57,7 +57,7 @@ class Invoice extends CI_Controller {
 					}
 					$arr = $this->m_order->getList_ext($or_id , $ver);
 					$arr1['arr'] = array_shift($arr);
-					$arr1['or_code'] = ((10000*$ver)+100000+$or_id);
+					$arr1['or_code'] = $or_id.'-EU'.$ver;
 					unset($arr);
 					$data['display'] = $this->load->view($this->parent_page."/orderInvoice" , $arr1 , true);
 					$this->_show($data);
