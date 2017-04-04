@@ -147,10 +147,6 @@
                             				</div>
                             				<input type="hidden" class="form-control gmbr<?= $n ?>" value="<?= $this->my_func->scpro_encrypt($user->or_id); ?>">
                             			<?php } ?>
-                            			
-                            			
-
-
                                     </td>
 		                            <td align="center">
                                     <?php 
@@ -163,28 +159,23 @@
                                         }
                                     ?>
 		                            	<a href="<?= site_url('nasty_v2/dashboard/page/a111?v=2&view=').$orid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-info btn-circle btn-xs"><i class="fa fa-eye"></i></button></a>&nbsp;-&nbsp;                            	
-										<!--<a href="<?= site_url('nasty_v2/dashboard/page/a121?v=2&edit=').$orid; ?>" name="c3" title="Edit Order">--><a><button type="button" class="btn btn-warning btn-circle btn-xs" onclick="underMain();"><i class="fa fa-pencil"></i></button></a>
+										<a href="<?= site_url('nasty_v2/dashboard/page/a121?v=2&edit=').$orid; ?>" name="c3" title="Edit Order"><button type="button" class="btn btn-warning btn-circle btn-xs" ><i class="fa fa-pencil"></i></button></a>
 										<!--&nbsp;-&nbsp; <button type="button" class="btn btn-circle purple-seance btn-xs upPic" id="up<?= $n; ?>"><i class="fa fa-upload"></i></button></a> -->
 										<input type="hidden" class="form-control up<?= $n; ?>" value="<?= $orid; ?>">
 										<?php if($user->pr_id == 3){ ?>
                                     			&nbsp;- &nbsp;<button title = "Print Order" onclick = "window.open('<?= site_url('order/printO1?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" type="button" class="btn btn-default btn-circle btn-info btn-xs"><i class="fa fa-print"></i></button>&nbsp;-&nbsp;
                                     			<button type="button" title = "D.O Form" onclick = "window.open('<?= site_url('order/printDO1?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn btn-success btn-circle btn-xs"><i class="fa fa-truck"></i></button>
                                     		<?php } ?>
-                                    		
-
-
                                     		<?php if($user->pr_id == 3){ 
 
                                     			$orid = $this->my_func->scpro_encrypt($user->or_id);
                                     			if($user->pr_id != 8){
                                     			?>
-                                    			&nbsp;-&nbsp;
-                                    			<button type="button" title = "ROS" class="ROSButton btn btn-primary btn-circle btn-xs" id="ros<?= $n; ?>" name="ros<?= $n; ?>"><i class="fa fa-flag-checkered"></i></button>
+                                    			<!--&nbsp;-&nbsp;
+                                    			<button type="button" title = "ROS" class="ROSButton btn btn-primary btn-circle btn-xs" id="ros<?= $n; ?>" name="ros<?= $n; ?>"><i class="fa fa-flag-checkered"></i></button>-->
                                     			<input type="hidden" class="or_id" name="or_id" id="or_id" value="<?= $user->or_id ?>">
 	
                                     		 <?php }} ?>
-
-
                                     		<div class="clearfix">
                                     		&nbsp;
                                     		</div>

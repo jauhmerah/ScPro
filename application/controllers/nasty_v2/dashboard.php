@@ -1253,7 +1253,6 @@ epul@nastyjuice.com
                         $or_id = $this->my_func->scpro_decrypt($this->input->get('key'));
                         $this->load->database();
                         $this->load->model('m_order_item');
-
                         if (isset($arr['idE'])) {
                             if (sizeof($arr['idE']) != 0) {
                                 for ($i=0; $i < sizeof($arr['idE']); $i++) {
@@ -2801,6 +2800,22 @@ epul@nastyjuice.com
                 $this->session->set_flashdata('error', $msg);
             }
             return $status;
+        }
+        public function checkStockUpdate($oi_id = null , $change = null)
+        {
+            // 'oi_price' => $arr['priceE'][$i],
+            // 'oi_qty' => $arr['qtyE'][$i],
+            // 'oi_tester' => $arr['testerE'][$i]
+            $status = true;
+            $this->load->database();
+            $this->load->model('m_order_item' , 'moi');
+            $this->load->model('m_stock_inventory' , 'msi');
+            $data = $this->moi->get($oi_id);
+            $inv = $this->msi->get(array('ty2_id' => $data->ty2_id , 'ni_id' => $data->ni_id));
+            if ($change->oi_qty != $data->oi_qty) {
+                
+            }
+
         }
 	}
 	        
