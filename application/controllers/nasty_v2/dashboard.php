@@ -1249,6 +1249,7 @@ epul@nastyjuice.com
                         redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
                     }
                     if ($this->input->post() && $this->input->get('key')) {
+                        $msg = '';
                         $arr = $this->input->post();
                         $or_id = $this->my_func->scpro_decrypt($this->input->get('key'));
                         $this->load->database();
@@ -1262,7 +1263,11 @@ epul@nastyjuice.com
                                        'oi_qty' => $arr['qtyE'][$i],
                                        'oi_tester' => $arr['testerE'][$i]
                                     );
-                                    $this->m_order_item->update($temp , $oi_id);
+                                    if ($this->_checkStockUpdate($oi_id , $temp)) {
+                                        $this->m_order_item->update($temp , $oi_id);
+                                    }else{
+                                        $msg = $msg . "Item Code Id : ".$this->my_func->en($oi_id)." insufficient Quantity.</br>";
+                                    }                                    
                                 }
                             }
                         }
@@ -1281,7 +1286,6 @@ epul@nastyjuice.com
                                 }
                             }
                         }
-                        
                         $this->load->model('m_order');                        
                         $order = array(
                             "or_note" => $arr['note'],
@@ -2411,6 +2415,13 @@ epul@nastyjuice.com
             $oi_id = $this->input->post('oi_id');
             $this->load->database();
             $this->load->model('m_order_item');
+            $this->load->model('m_stock_inventory' , 'msi');
+            $item = $this->m_order_item->get($oi_id);
+            $inv = $this->msi->get(array('ty2_id' => $item->ty2_id , 'ni_id' => $item->ni_id));
+            $update = array(
+                'sti_total' => ($inv->sti_total + $item->oi_qty + $item->oi_tester)
+            );
+            $this->msi->update($update , $inv->sti_id);
             $row = $this->m_order_item->delete($oi_id);
             echo $row;
         }
@@ -2801,21 +2812,47 @@ epul@nastyjuice.com
             }
             return $status;
         }
-        public function checkStockUpdate($oi_id = null , $change = null)
+        private function _checkStockUpdate($oi_id = null , $change = null)
         {
             // 'oi_price' => $arr['priceE'][$i],
             // 'oi_qty' => $arr['qtyE'][$i],
             // 'oi_tester' => $arr['testerE'][$i]
-            $status = true;
             $this->load->database();
             $this->load->model('m_order_item' , 'moi');
             $this->load->model('m_stock_inventory' , 'msi');
             $data = $this->moi->get($oi_id);
             $inv = $this->msi->get(array('ty2_id' => $data->ty2_id , 'ni_id' => $data->ni_id));
-            if ($change->oi_qty != $data->oi_qty) {
-                
+            if ($change->oi_qty != $data->oi_qty || $change->oi_tester != $data->oi_tester) {
+                $diff = 0 ;
+                $diff += $change->oi_qty - $data->oi_qty; 
+                $diff += $change->oi_tester - $data->oi_tester; 
+                if ($diff == 0) {
+                    return true;
+                }      
+                if ($diff > 0) {
+                    $bal = $inv->sti_total - $diff;
+                    if ($bal >= 0) {
+                        if($this->msi->update(array('sti_total' => $bal) , $inv->sti_id)){
+                            return true;
+                        }else{
+                            echo "Error #a121_1";
+                            die();
+                        }                        
+                    }else{
+                        return false;
+                    }
+                }else{
+                    $bal = $inv->sti_total + (-1 * $diff);
+                    if($this->msi->update(array('sti_total' => $bal) , $inv->sti_id)){
+                        return true;
+                    }else{
+                        echo "Error #a121_2";
+                        die();
+                    }                    
+                }
+            }else{
+                return true;
             }
-
         }
 	}
 	        
