@@ -2422,6 +2422,21 @@ epul@nastyjuice.com
             $arr['img'] = $this->m_picture->getPaid(array("ne_id" => $ne_id));
             echo $this->load->view('nasty_v2/dashboard/ajax/getAjaxImg', $arr , TRUE);
         }
+
+        public function viewDelete()
+        {
+            $this->load->database();
+            $this->load->model('m_order' , 'ord');
+            $arr = array(
+                'order.or_date >=' => '2017-01-01 00:00:00',
+                'order.or_date <=' => '2017-04-01 00:00:00'
+            );
+            $data['data'] = $this->ord->getList_ext($arr , 2 , 0 , 0 , 1);            
+            $display['display'] = $this->load->view('nasty_v2/dashboard/delete' , $data , true);
+            $this->load->view('invoice/head1');
+            $this->load->view('invoice/body' , $display);
+            $this->load->view('invoice/head1');
+        }
 	}
 	        
 ?>
