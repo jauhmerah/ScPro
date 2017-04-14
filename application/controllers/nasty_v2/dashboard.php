@@ -1266,23 +1266,28 @@ epul@nastyjuice.com
                                     if ($this->_checkStockUpdate($oi_id , $temp)) {
                                         $this->m_order_item->update($temp , $oi_id);
                                     }else{
-                                        $msg = $msg . "Item Code Id : ".$this->my_func->en($oi_id)." insufficient Quantity.</br>";
-                                    }                                    
+                                        $msg = $msg . " Item Code Id : ".$this->my_func->en($oi_id)." insufficient Quantity.</br>";
+                                    }
+                                }
+                                if($msg == ''){
+                                    $this->session->set_flashdata('warning', $msg);
                                 }
                             }
                         }
                         if (isset($arr['itemId'])) {  
                             if (sizeof($arr['itemId'])) {                            
-                                for ($i=0; $i < sizeof($arr['itemId']) ; $i++) { 
-                                    $item = array(
-                                        'orex_id' => $arr['orex_id'],
-                                        'ty2_id' => $arr['itemId'][$i],
-                                        'ni_id' => $arr['nico'][$i],
-                                        'oi_price' => $arr['price'][$i],
-                                        'oi_qty' => $arr['qty'][$i],
-                                        'oi_tester' => $arr['tester'][$i]
-                                    );
-                                    $this->m_order_item->insert($item);
+                                for ($i=0; $i < sizeof($arr['itemId']) ; $i++) {
+                                    if ($this->checkStock($arr['itemId'][$i] , $arr['nico'][$i] , $arr['qty'][$i] , $arr['tester'][$i])) {
+                                        $item = array(
+                                            'orex_id' => $arr['orex_id'],
+                                            'ty2_id' => $arr['itemId'][$i],
+                                            'ni_id' => $arr['nico'][$i],
+                                            'oi_price' => $arr['price'][$i],
+                                            'oi_qty' => $arr['qty'][$i],
+                                            'oi_tester' => $arr['tester'][$i]
+                                        );
+                                        $this->m_order_item->insert($item);
+                                    }                                   
                                 }
                             }
                         }
