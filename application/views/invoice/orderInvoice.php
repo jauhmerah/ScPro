@@ -333,11 +333,12 @@ body .ReadOnlyExtrasStatus {
           if ($arr['order']->or_traking == null || $arr['order']->or_traking == '0000-00-00 00:00:00') {
             $arr['order']->or_traking = 0;
           }
+          $total = $total_all;
           $total_all += $arr['order']->or_traking;           
         } ?>
          <tr>
         <td style="color: #000000;text-align: right;" colspan="11"><strong>Total :</strong></td>
-          <td style="color: #000000;"><?= $duit; ?> <?php echo number_format((float)$total_all, 2, '.', ''); ?></td>
+          <td style="color: #000000;"><?= $duit; ?> <?php echo number_format((float)$total, 2, '.', ''); ?></td>
         </tr>
          <tr>
         	  <tr>

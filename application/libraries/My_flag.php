@@ -262,6 +262,7 @@
 				case ("Portugal") :   $code = "pt"; break;
 				case ("Romania") :   $code = "ro"; break;
 				case ("Russian") :
+				case ("Russia") :
 				case ("Rusia") :
 				case ("Russian Federation") :   $code = "ru"; break;
 				case ("San Marino") :   $code = "sm"; break;
