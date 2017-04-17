@@ -38,8 +38,8 @@ License: You must have a valid license purchased only from themeforest(the above
         <link href="<?= base_url(); ?>asset2/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
         <!-- END THEME GLOBAL STYLES -->
         <!-- BEGIN THEME LAYOUT STYLES -->
-        <link href="<?= base_url(); ?>asset2/layouts/layout2/css/layout2.min.css" rel="stylesheet" type="text/css" />
-        <link href="<?= base_url(); ?>asset2/layouts/layout2/css/themes/dark.min.css" rel="stylesheet" type="text/css" id="style_color" />
+        <link href="<?= base_url(); ?>asset2/layouts/layout2/css/layout.min.css" rel="stylesheet" type="text/css" />
+        <link href="<?= base_url(); ?>asset2/layouts/layout2/css/themes/yellow.min.css" rel="stylesheet" type="text/css" id="style_color" />
         <link href="<?= base_url(); ?>asset2/layouts/layout2/css/custom.min.css" rel="stylesheet" type="text/css" />
         
         <!-- BEGIN PAGE LEVEL PLUGINS -->

@@ -5,9 +5,7 @@
             <!-- BEGIN QUICK SIDEBAR -->
             <a href="javascript:;" class="page-quick-sidebar-toggler">
                 <i class="icon-login"></i>
-            </a>
-            <div class="page-quick-sidebar-wrapper" data-close-on-body-click="false">
-            </div>
+            </a>            
             <!-- END QUICK SIDEBAR -->
         </div>
         <!-- END CONTAINER -->

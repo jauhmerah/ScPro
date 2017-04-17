@@ -1,4 +1,4 @@
-<body class="page-header-fixed page-sidebar-closed-hide-logo page-container-bg-solid page-sidebar-closed">
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-container-bg-solid">
         <!-- BEGIN HEADER -->
         <div class="page-header navbar navbar-fixed-top">
             <!-- BEGIN HEADER INNER -->
@@ -6,7 +6,7 @@
                 <!-- BEGIN LOGO -->
                 <div class="page-logo">
                     <a href="<?php site_url('nasty_v2/dashboard'); ?>">
-                        <img src="<?= base_url(); ?>asset2/layouts/layout2/img/logo-default.png" alt="logo" class="logo-default" /> </a>
+                        <img src="<?= base_url(); ?>assets/cover/logo-default.png" alt="logo" class="logo-default" /> </a>
                         <!--<span style="color:white;">Ordering System v2.0</span>-->
                     <div class="menu-toggler sidebar-toggler">
                         <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
