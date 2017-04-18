@@ -30,6 +30,25 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+  <style>
+       .background { 
+  background: url("<?php echo base_url();?>assets/cover/background.jpg"); 
+ /*  position: fixed; 
+  top: 0; 
+  left: 0; */
+  
+  /* Preserve aspet ratio */
+ /* min-width: 100%;*/
+  /*min-height: 100%;*/
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+
+
+  </style>
   <style id="style-1-cropbar-clipper">/* Copyright 2014 Evernote Corporation. All rights reserved. */
 .en-markup-crop-options {
     top: 18px !important;
@@ -40,13 +59,24 @@
     border-radius: 4px !important;
 }
 
+.form-signin {
+  max-width: 380px;
+  padding: 15px 35px 45px;
+  margin: 0 auto;
+  background-color: #fff;
+  border: 1px solid rgba(0,0,0,0.1);  
+
 .en-markup-crop-options div div:first-of-type {
     margin-left: 0px !important;
 }
 
+ 
+
+
 
 </style>
 <script>
+
     $(document).ready(function() {
         $("#signup").hide();
         $(".btn1").click(function() {
@@ -89,51 +119,96 @@
     });
 </script>
   <div class = "container">
+
      <div class="col-lg-offset-5 col-lg-2" align="center">
          <img src="<?= base_url(); ?>assets/cover/logo.png" class="img-responsive" alt="Image">
      </div> 
   </div>
+
     <div class="container" id = "signin">
       <form class="form-signin" method="post" action = "<?= site_url('login/signin'); ?>">
+      <?php if($this->session->flashdata('warning')){?>
+<div class="alert alert-danger alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+                                <strong><i class="fa fa-exclamation-triangle"></i> Warning!</strong> <?= $this->session->flashdata('warning'); ?>
+                            </div>
+<?php } ?>
+  <?php if($this->session->flashdata('success')){ ?>
+                            <div class="alert alert-success alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+                                <strong><i class="fa fa-check"></i>  Success!</strong> <?= $this->session->flashdata('success'); ?>
+                            </div>
+        <?php } ?>
         <h2 class="form-signin-heading">Please sign in</h2>
-        <label for="inputEmail1" class="sr-only">Email address</label>
-        <input type="email" id="inputEmail1" name="email" class="form-control" placeholder="Email address" required="" autofocus="">
-        <label for="inputPassword1" class="sr-only">Password</label>
-        <input type="password" id="inputPassword1" name="pass" class="form-control" placeholder="Password" required="">
-        <div class="checkbox">
-          <!--<input type="checkbox" value="remember-me"> 
-          <a><label class = "btn1 col-sm-5">Sign Up</label></a>
-          <a href="<?= site_url('main'); ?>"><label class = "btn1 col-sm-offset-2" style="text-align: right;" >Back Home</label></a>-->
+        <label for="inputEmail1">Email address</label>
+        <input type="email" id="inputEmail1" name="email" class="form-control" required="" autofocus="">
+         <div class="clearfix">
+        &nbsp;
         </div>
+        <label for="inputPassword1">Password</label>
+        <input type="password" id="inputPassword1" name="pass" class="form-control" required="">
+        <div class="clearfix">
+        </div>
+         <div class="clearfix">
+        &nbsp;
+        </div>
+        <a><label class = "btn1">Forgot Password?</label></a>
+       
         <div class="clearfix">
         &nbsp;
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
       </form>
 
-    </div> <!-- /container -->
+
+       
+
+    </div> 
+
+
+
+
+    <!-- /container -->
     <div class="container" id = "signup">
-      <form class="form-signin" method  = "post" action="<?= site_url('login/signup'); ?>" id = "daftar" >
-        <h2 class="form-signin-heading">Sign up</h2>
-        
-        <label for="inputEmail" class="sr-only">Email Address</label>
-          <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email Address" required="" autofocus="" style="border-bottom-right-radius: 4px; border-bottom-left-radius: 4px;">
-        
-        <label for="inputPassword" class="sr-only">Password</label>
-          <input type="password"  id="pass1" class="form-control" placeholder="Password" required="" autofocus="" style="border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; border-top-left-radius: 4px; border-top-right-radius: 4px; margin-bottom: 0px; margin-top: 10px;">
-        <label for="reinputPassword" class="sr-only">Re-password</label>
-          <input type="password"  id="pass2" class="form-control" placeholder="Re-password" required="" autofocus="">
-        <input type="hidden" value = "null" name = "pass" id = "pass3"><span id = "msg"></span>
-        <div class="checkbox">
-          <!--<input type="checkbox" value="remember-me"> -->
-          <a><label class = "btn2 col-sm-5">Sign In</label></a>
-          <a href="<?= site_url('main'); ?>"><label class = "btn1 col-sm-offset-2" style="text-align: right;" >Back Home</label></a>
+      <form class="form-signin" method  = "post" action="<?= site_url('login/forgot'); ?>" id = "daftar" >
+      <?php if($this->session->flashdata('warning')){?>
+<div class="alert alert-danger alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+                                <strong><i class="fa fa-exclamation-triangle"></i> Warning!</strong> <?= $this->session->flashdata('warning'); ?>
+                            </div>
+<?php } ?>
+        <h2 class="form-signin-heading">Security Question</h2>
+        <div class="clearfix">
+        &nbsp;
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
+        <label for="inputEmail">What is Your Email Address?</label>
+          <input type="email" id="email" name="email" class="form-control" required="" autofocus="" style="border-bottom-right-radius: 4px; border-bottom-left-radius: 4px;">
+        <div class="clearfix">
+        &nbsp;
+        </div>
+        <label for="inputPassword">What is Your Phone No.?</label>
+          <input type="text"  id="phone" name="phone" class="form-control" required="" autofocus="" style="border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; border-top-left-radius: 4px; border-top-right-radius: 4px; margin-bottom: 0px;">
+      
+        
+       <div class="clearfix">
+        &nbsp;
+        </div>
+      <!--   <label for="inputPassword">Email That You Want to Send</label>
+          <input type="email"  id="pass1" class="form-control" required="" autofocus="" style="border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; border-top-left-radius: 4px; border-top-right-radius: 4px; margin-bottom: 0px;">
+      
+         -->
+       <div class="clearfix">
+        &nbsp;
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Send to Email</button>
+            <div class="clearfix">
+        &nbsp;
+        </div>
+          <a><label class = "btn2 col-sm-offset-10" style="text-align: right;" >Back</label></a>
       </form>
       
 
-    </div> <!-- /container -->
+    </div> 
     <div id = "msg2"></div>
 
 
