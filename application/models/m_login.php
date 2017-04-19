@@ -60,12 +60,61 @@
 	    	$this->db->from(self::TABLE_NAME);
 	    	$this->db->where($data);
 	    	$result = $this->db->get()->result();
-	    	if ($result) {
+	    	if ($result) {	
 	    		if ($this->my_func->scpro_decrypt($result[0]->us_pass) === $pass) {
 	    			return array_shift($result);
-	    		}	    		
+	    		}
+
 	    	}
 	    	return false;
+	    }
+	     public function forgot($email,$phone)
+	    {	    	
+	    	//$this->load->library("my_func");
+	    	$us_email = array(
+	    		'us_email' => $email 
+	    	);
+	    	$us_phone = array(
+	    		'us_phone' => $phone 
+	    	);
+
+	    	$this->db->select('*');
+	    	$this->db->from(self::TABLE_NAME);
+	    	$this->db->where($us_email);
+	    	$this->db->where($us_phone);
+	    	$result = $this->db->get()->result();
+	    	if ($result) {	
+	    
+	    			return array_shift($result);
+	    		
+
+	    	}
+	    	return false;
+	    }
+	      public function resetpassword($email)
+	    {	    	
+	    	$this->load->library("my_func");
+	    	$password= random_string('alnum', 8);
+	    	$us_email = array(
+	    		'us_email' => $email 
+	    	);
+	    	$us_pass = array(
+	    		'us_pass' => $this->my_func->scpro_encrypt($password) 
+	    	);
+
+	    	// $this->db->select('*');
+	    	//$this->db->from(self::TABLE_NAME);
+	    	$this->db->where($us_email);
+	    	$this->db->update(self::TABLE_NAME,$us_pass);
+	    	//$this->db->where($us_phone);
+	    	//$result = $this->db->get()->result();
+	    	// if ($result) {	
+	    
+	    	// 		return array_shift($result);
+	    		
+
+	    	// }
+	    	return $password;
 	    }
 	
 	    /**

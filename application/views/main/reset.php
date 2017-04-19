@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="icon" href="<?= base_url(); ?>assets/cover/favicon.png">
 
-    <title>Login</title>
+    <title>Reset Password</title>
 
     <!-- Bootstrap core CSS -->
     <link href="<?= base_url(); ?>asset/css/bootstrap.min.css" rel="stylesheet">
@@ -75,36 +75,7 @@
 
 
 </style>
-<script>
 
-    $(document).ready(function() {
-        $("#signup").hide();
-        $(".btn1").click(function() {
-            $.when($("#signin").fadeOut('fast')).then(function(){
-                $("#signup").fadeIn('fast');
-            });
-        });
-        $(".btn2").click(function() {
-            $.when($("#signup").fadeOut('fast')).then(function(){
-                $("#signin").fadeIn('fast');
-            });
-        });
-
-        $("#daftar").submit(function(event) {
-          var pass1 = $("#pass1").val();
-          var pass2 = $("#pass2").val();
-          if (pass1!=pass2) {
-            $("#msg").text("Password Not Same").show().fadeOut(4000);
-            return false;
-          }
-          if(pass1.length < 8){
-            $("#msg").text("Password length must 8 character or more").show().fadeOut(4000);
-            return false;
-          }
-          $("#pass3").val(pass1);
-        });
-    });
-</script>
 </head>
 
   <body>
@@ -126,7 +97,7 @@
   </div>
 
     <div class="container" id = "signin">
-      <form class="form-signin" method="post" action = "<?= site_url('login/signin'); ?>">
+      <form class="form-signin" method="post" action = "">
       <?php if($this->session->flashdata('warning')){?>
 <div class="alert alert-danger alert-dismissable">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
@@ -139,79 +110,70 @@
                                 <strong><i class="fa fa-check"></i>  Success!</strong> <?= $this->session->flashdata('success'); ?>
                             </div>
         <?php } ?>
-        <h2 class="form-signin-heading">Please sign in</h2>
+        <h2 class="form-signin-heading">New</h2>
         <label for="inputEmail1">Email address</label>
         <input type="email" id="inputEmail1" name="email" class="form-control" required="" autofocus="">
          <div class="clearfix">
         &nbsp;
         </div>
-        <label for="inputPassword1">Password</label>
-        <input type="password" id="inputPassword1" name="pass" class="form-control" required="">
+               <label for="inputPassword" class="sr-only">Password</label>
+          <input type="password"  id="pass1" name="pass1" class="form-control" placeholder="Password" required="" autofocus="" style="border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; border-top-left-radius: 4px; border-top-right-radius: 4px; margin-bottom: 0px; margin-top: 10px;">
+        <label for="reinputPassword" class="sr-only">Re-password</label>
         <div class="clearfix">
+        &nbsp;
         </div>
+          <input type="password"  id="pass2" name="pass2" class="form-control" placeholder="Re-password" required="" autofocus="">
+
          <div class="clearfix">
         &nbsp;
         </div>
-        <a><label class = "btn1">Forgot Password?</label></a>
+        <!-- <a><label class = "btn1">Forgot Password?</label></a> -->
        
-        <div class="clearfix">
+        <!-- <div class="clearfix">
         &nbsp;
-        </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        </div> -->
+        <button class="btn btn-lg btn-primary btn-block" type="submit" name="daftar" id="daftar">Done</button>
       </form>
 
 
        
 
     </div> 
-
-
-
-
-    <!-- /container -->
-    <div class="container" id = "signup">
-      <form class="form-signin" method  = "post" action="<?= site_url('login/forgot'); ?>" id = "daftar" >
-      <?php if($this->session->flashdata('warning')){?>
-<div class="alert alert-danger alert-dismissable">
-                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
-                                <strong><i class="fa fa-exclamation-triangle"></i> Warning!</strong> <?= $this->session->flashdata('warning'); ?>
-                            </div>
-<?php } ?>
-        <h2 class="form-signin-heading">Security Question</h2>
-        <div class="clearfix">
-        &nbsp;
-        </div>
-        <label for="inputEmail">What is Your Email Address?</label>
-          <input type="email" id="email" name="email" class="form-control" required="" autofocus="" style="border-bottom-right-radius: 4px; border-bottom-left-radius: 4px;">
-        <div class="clearfix">
-        &nbsp;
-        </div>
-        <label for="inputPassword">What is Your Phone No.?</label>
-          <input type="text"  id="phone" name="phone" class="form-control" required="" autofocus="" style="border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; border-top-left-radius: 4px; border-top-right-radius: 4px; margin-bottom: 0px;">
-      
-        
-       <div class="clearfix">
-        &nbsp;
-        </div>
-    
-       <div class="clearfix">
-        &nbsp;
-        </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Send to Email</button>
-            <div class="clearfix">
-        &nbsp;
-        </div>
-          <a><label class = "btn2 col-sm-offset-10" style="text-align: right;" >Back</label></a>
-      </form>
-      
-
-    </div> 
-    <div id = "msg2"></div>
-
-
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <!--<script src="<?= base_url(); ?>asset/sign/ie10-viewport-bug-workaround.js"></script>-->
-  
 
 </body>
+<script>
+
+    $(document).ready(function() {
+        //$("#signup").hide();
+        // $(".btn1").click(function() {
+        //     $.when($("#signin").fadeOut('fast')).then(function(){
+        //         $("#signup").fadeIn('fast');
+        //     });
+        // });
+        // $(".btn2").click(function() {
+        //     $.when($("#signup").fadeOut('fast')).then(function(){
+        //         $("#signin").fadeIn('fast');
+        //     });
+        // });
+
+        $("#daftar").click(function(event) {
+         
+          var pass1 = $("#pass1").val();
+          var pass2 = $("#pass2").val();
+          if (pass1!=pass2) {
+            alert("Password Not Same");
+            $("#msg").text("Password Not Same").show().fadeOut(4000);
+            return false;
+          }
+          if(pass1.length < 8){
+            alert("Password length must 8 character or more");
+            $("#msg").text("Password length must 8 character or more").show().fadeOut(4000);
+            return false;
+          }
+          //$("#pass3").val(pass1);
+        });
+
+       // 
+    });
+</script>
 </html>
