@@ -35,6 +35,7 @@
 	    		);
 	    			    		
 	    		$this->session->set_userdata( $array );
+	    		$this->session->set_flashdata('success', 'Your successfully login to this site.');
 	    		redirect(site_url('nasty_v2/dashboard'),'refresh');
 	    	}
 	    	else{
@@ -101,10 +102,11 @@
 	 			$this->email->initialize($config);
 
 	    		$this->email->from($config['smtp_user'],$config['smtp_from_name']);
-				$this->email->to('saiful_amirul93@yahoo.com');
+				$this->email->to($email);
  
 				$this->email->subject('New Password');
 
+				$reset = $this->m_login->resetpassword($email);
 
 				 $msg = "<!DOCTYPE html>
 <html>
@@ -148,8 +150,11 @@
       <div class='panel-body'>
         <center>
         <img src='https://cdn4.iconfinder.com/data/icons/social-communication/142/open_mail_letter-512.png' style='width:30px; height: 30px;''>
-          <p class='desc'>We already reset your password!<br>Click link below to enter your new password.<br><br>
-          <a>New Password</a></p>
+          <p class='desc'>We already reset your password!<br>
+          Your default password is : $reset
+          <br>
+          Click link below to enter your new password.<br><br>
+          <a href='http://localhost/scpro/login'>Login</a></p>
         </center>
         
         <!-- <p class='notice'>Note:<br>Using our <b>social login</b>, you will be ask to add your email address during authentication. This is part of our security policy.</p> -->
@@ -166,6 +171,7 @@
 
             	if ($this->email->send()) 
 				{
+
 				$this->session->set_flashdata('success', 'Your Confirmation is already sent to your email, please check to reset your password.');
 	    		redirect(site_url('login'),'refresh');
 				}
@@ -212,56 +218,81 @@
 	        }
 	    }
 
+	    function reset(){
+	    	// $email = $this->input->post("email");
+	     //    $pass = $this->input->post("pass");
 
-	     public function sendEmail($email = null){            
-            if ($email != null && is_array($email)) {
-                $this->load->library('email');
+	     //    $this->load->library("my_func");
+	     //    $pass = $this->my_func->scpro_encrypt($pass);
+	     //    redirect(site_url('reset'));
 
-                $this->email->from($email['fromEmail'], $email['fromName']);
-                if(isset($email['toEmail'])){
-                    if (is_array($email['toEmail'])) {
-                        foreach ($email['toEmail'] as $key => $toEmail) {
-                            $this->email->to($toEmail);
-                        }
-                    }else{
-                        $this->email->to($email['toEmail']);
-                    }
-                }else{
-                    $this->session->set_flashdata('error', 'Please set to->email');
-                    return false;
-                }
-                if (isset($email['toCc'])) {
-                    if (is_array($email['toCc'])) {
-                        foreach ($email['toCc'] as $key) {
-                            $this->email->cc($key);
-                        }
-                    }else{
-                        $this->email->cc($email['toCc']); 
-                    }
-                }                  
-                if (isset($email['toBcc'])) {
-                    if (is_array($email['toBcc'])) {
-                        foreach ($email['toBcc'] as $key) {
-                            $this->email->bcc($key);
-                        }
-                    }else{
-                        $this->email->bcc($email['toBcc']); 
-                    }
-                }
-                $this->email->subject($email['subject']);
-                $this->email->message($email['msg']);  
+	    	$this->load->view("main/reset");
+	        //echo $email;
+	        //echo $pass;
 
-                if($this->email->send()){
-                    $this->session->set_flashdata('info', "Successfully Send the Notification");
-                }else{
-                    $this->session->set_flashdata('Warning', "Unable To send The email");
-                }
-                //$msg = $this->email->print_debugger();
+	        // $this->load->model("m_login");
+
+	        // $data = array(
+	        // 	"us_email" => $email , 
+	        // 	"us_pass" => $pass
+	        // );
+	        // if (!$this->m_login->insert($data)) {
+	        // 	echo "Not success";
+	        // }else{
+	        // 	echo "success";
+	        // }
+	    }
+
+
+	     // public function sendEmail($email = null){            
+      //       if ($email != null && is_array($email)) {
+      //           $this->load->library('email');
+
+      //           $this->email->from($email['fromEmail'], $email['fromName']);
+      //           if(isset($email['toEmail'])){
+      //               if (is_array($email['toEmail'])) {
+      //                   foreach ($email['toEmail'] as $key => $toEmail) {
+      //                       $this->email->to($toEmail);
+      //                   }
+      //               }else{
+      //                   $this->email->to($email['toEmail']);
+      //               }
+      //           }else{
+      //               $this->session->set_flashdata('error', 'Please set to->email');
+      //               return false;
+      //           }
+      //           if (isset($email['toCc'])) {
+      //               if (is_array($email['toCc'])) {
+      //                   foreach ($email['toCc'] as $key) {
+      //                       $this->email->cc($key);
+      //                   }
+      //               }else{
+      //                   $this->email->cc($email['toCc']); 
+      //               }
+      //           }                  
+      //           if (isset($email['toBcc'])) {
+      //               if (is_array($email['toBcc'])) {
+      //                   foreach ($email['toBcc'] as $key) {
+      //                       $this->email->bcc($key);
+      //                   }
+      //               }else{
+      //                   $this->email->bcc($email['toBcc']); 
+      //               }
+      //           }
+      //           $this->email->subject($email['subject']);
+      //           $this->email->message($email['msg']);  
+
+      //           if($this->email->send()){
+      //               $this->session->set_flashdata('info', "Successfully Send the Notification");
+      //           }else{
+      //               $this->session->set_flashdata('Warning', "Unable To send The email");
+      //           }
+      //           //$msg = $this->email->print_debugger();
                 
-                return true;
-            }
-            return false;         
-        }
+      //           return true;
+      //       }
+      //       return false;         
+      //   }
 	}
 	        
 ?>

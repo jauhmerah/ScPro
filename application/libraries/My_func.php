@@ -23,6 +23,7 @@
 			$data = $ci->m_user->get($userId);
 			return $data;
 		}
+		
 		// public function en($text , $mode = 0)
 	 //    {
 	 //      if ($mode === 0) {

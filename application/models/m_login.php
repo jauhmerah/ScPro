@@ -91,6 +91,31 @@
 	    	}
 	    	return false;
 	    }
+	      public function resetpassword($email)
+	    {	    	
+	    	$this->load->library("my_func");
+	    	$password= random_string('alnum', 8);
+	    	$us_email = array(
+	    		'us_email' => $email 
+	    	);
+	    	$us_pass = array(
+	    		'us_pass' => $this->my_func->scpro_encrypt($password) 
+	    	);
+
+	    	// $this->db->select('*');
+	    	//$this->db->from(self::TABLE_NAME);
+	    	$this->db->where($us_email);
+	    	$this->db->update(self::TABLE_NAME,$us_pass);
+	    	//$this->db->where($us_phone);
+	    	//$result = $this->db->get()->result();
+	    	// if ($result) {	
+	    
+	    	// 		return array_shift($result);
+	    		
+
+	    	// }
+	    	return $password;
+	    }
 	
 	    /**
 	     * Inserts new data into database
