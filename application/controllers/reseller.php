@@ -48,6 +48,27 @@
     				$data['title'] = '<i class="fa fa-cart-plus"></i> Add Order';
     				$this->_show('addorder' , $data , $key);
     				break;
+
+    			case "x1" :// dashboard
+                        //start added
+                        // $this->load->database();
+                        // $this->load->model('m_order');
+                        // $this->load->model('m_client');
+                        // $this->load->model('m_nico');
+                        // $arr['neworder'] = $this->m_order->countOrderType(1 , 2);
+                        // $arr['inprogress'] = $this->m_order->countOrderType(2 , 2);
+                        // $arr['complete'] = $this->m_order->countOrderType(3 , 2);
+                        // $arr['unconfirm'] = $this->m_order->countOrderType(4 , 2);
+                        // $arr['onhold'] = $this->m_order->countOrderType(7 , 2);
+                        // $arr['vernew'] = $this->m_order->orderCount(2);
+                        // $arr['verold'] = $this->m_order->orderCount(1) + $this->m_order->orderCount(0);
+                        // $arr['totalProfit'] = $this->m_order->totalProfit();
+                        // $arr['client'] = $this->m_client->get(null , 'asc');
+                        // $arr['mg'] = $this->m_nico->get();
+                        //end added                        $data['title'] = '<i class="fa fa-pencil"></i>Main Page</a>';
+                        //$data['display'] = $this->load->view($this->parent_page.'/dashboard' ,$arr, true);
+                        $this->_show('dashboard');
+                   break;   
     			default:
     				$this->_show();
     				break;

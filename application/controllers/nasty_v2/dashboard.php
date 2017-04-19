@@ -284,8 +284,8 @@
                 break;*/
     			case 'a1new':
                     //OrdSys 2.3.0
-    				if ($lvl == 2 || $lvl == 3) {
-                        redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
+    				if ($lvl == 8) {
+                        redirect(site_url('reseller'),'refresh');
                     }
                     if ($this->input->get('page')) {
                         $p = $this->input->get('page');
