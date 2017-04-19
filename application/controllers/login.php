@@ -151,13 +151,14 @@
         <center>
         <img src='https://cdn4.iconfinder.com/data/icons/social-communication/142/open_mail_letter-512.png' style='width:30px; height: 30px;''>
           <p class='desc'>We already reset your password!<br>
-          Your default password is : $reset
+          Your default password is :<b> $reset </b>
           <br>
           Click link below to enter your new password.<br><br>
           <a href='http://localhost/scpro/login'>Login</a></p>
-        </center>
+        <br>
         
-        <!-- <p class='notice'>Note:<br>Using our <b>social login</b>, you will be ask to add your email address during authentication. This is part of our security policy.</p> -->
+        <p class='notice'><i>Note:<br>Dear User</b>, we highly recommended you to change your password again after been reset for security purpose.</i></p>
+        </center>
       </div>
   </div>
 </div>
