@@ -13,7 +13,8 @@
 <script src="<?= base_url(); ?>asset2/global/plugins/excanvas.min.js"></script>
 <script src="<?= base_url(); ?>asset2/global/plugins/ie8.fix.min.js"></script> 
 <![endif]-->
-            <!-- BEGIN CORE PLUGINS -->            
+            <!-- BEGIN CORE PLUGINS -->
+            
             <script src="<?= base_url(); ?>asset2/global/plugins/js.cookie.min.js" type="text/javascript"></script>
             <script src="<?= base_url(); ?>asset2/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
             <script src="<?= base_url(); ?>asset2/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>

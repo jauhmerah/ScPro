@@ -1974,7 +1974,6 @@ epul@nastyjuice.com
         public function sendEmail($email = null){            
             if ($email != null && is_array($email)) {
                 $this->load->library('email');
-
                 $this->email->from($email['fromEmail'], $email['fromName']);
                 if(isset($email['toEmail'])){
                     if (is_array($email['toEmail'])) {
@@ -2008,14 +2007,12 @@ epul@nastyjuice.com
                 }
                 $this->email->subject($email['subject']);
                 $this->email->message($email['msg']);  
-
                 if($this->email->send()){
                     $this->session->set_flashdata('info', "Successfully Send the Notification");
                 }else{
                     $this->session->set_flashdata('Warning', "Unable To send The email");
                 }
                 //$msg = $this->email->print_debugger();
-                
                 return true;
             }
             return false;         
