@@ -44,7 +44,10 @@
     		$this->_checkSession();
             $lvl =$this->my_func->scpro_decrypt($this->session->userdata('us_lvl'));
     		switch ($key) {                
-
+    			case 'b1':
+    				$data['title'] = '<i class="fa fa-cart-plus"></i> Add Order';
+    				$this->_show('addorder' , $data , $key);
+    				break;
     			default:
     				$this->_show();
     				break;
