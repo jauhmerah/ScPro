@@ -949,6 +949,7 @@ epul@nastyjuice.com
                     $crud->required_fields('ca_desc','ca_color');
                     $crud->unset_add_fields("ca_date");
                     $crud->unset_edit_fields('ca_date');
+                    $crud->unset_jquery();
                     $crud->callback_add_field('ca_color', function () {
                             return '<input type="color" name="ca_color" id="inputCa_color" value="" title="Pick Color" width = 10px>';
                         });
@@ -978,6 +979,7 @@ epul@nastyjuice.com
                     $crud->required_fields('ty2_desc', 'ca_id');
 		    		$crud->unset_print();
 		    		$crud->unset_export();
+                    $crud->unset_jquery();
                     $crud->callback_column('ca_id',array($this,'callback_col_item'));		    		
                     $crud->callback_add_field('ca_id', function () {
                             $this->load->database();
