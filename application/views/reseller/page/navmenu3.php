@@ -58,6 +58,13 @@
                         </a>
                     </li><?php } ?>
                     <?php if($us_lvl == 1){?>
+                    <li class="nav-item">
+                        <a href="<?= site_url('nasty_v2/dashboard') ?>" class="nav-link ">
+                            <i class="fa fa-exchange"></i>
+                            <span class="title">Switch Mode</span>
+                        </a>
+                    </li><?php } ?>  
+                    <?php if($us_lvl == 1){?>
                     <li class="nav-item <?php if (strpos($link, 'f') !== false) { echo "active open";}else{echo "start";}?>  ">
                         <a href="javascript:;" class="nav-link nav-toggle">
                            <i class="fa fa-wrench"></i>
@@ -91,7 +98,8 @@
                             </li>                                                               
                         </ul>
                     </li> 
-                        <?php } ?>   
+                        <?php } ?>
+                     
                     </ul>
                     <!-- END SIDEBAR MENU -->
                 </div>

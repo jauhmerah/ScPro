@@ -968,6 +968,7 @@ epul@nastyjuice.com
                     break;   			
     			case 'c2':
     				//Item
+                    $this->session->set_flashdata('info', 'Please delete the uploaded image before cancel the "Add New Item Process"');
     				$data['title'] = '<i class="fa fa-fw fa-link"></i> Item List';
     				//$this->path_callback = 'channel';
     				$this->_loadCrud();    		
@@ -975,12 +976,21 @@ epul@nastyjuice.com
 		    		$crud->set_table('type2');
 		    		$crud->set_subject('Item Type');
                     $crud->display_as('ty2_desc','Item Detail')
-                         ->display_as('ca_id','Event Category');
-                    $crud->required_fields('ty2_desc', 'ca_id');
+                         ->display_as('ca_id','Event Category')
+                         ->display_as('ty2_img' , 'Product Image')
+                         ->display_as('ty2_detail' , 'Product Detail');
+                    $crud->required_fields('ty2_desc', 'ca_id' , 'ty2_img' , 'ty2_detail');
 		    		$crud->unset_print();
 		    		$crud->unset_export();
                     $crud->unset_jquery();
-                    $crud->callback_column('ca_id',array($this,'callback_col_item'));		    		
+                    $crud->callback_column('ca_id',array($this,'callback_col_item'));
+                    $crud->callback_column('ty2_img',array($this,'callback_col_img'));
+                    $crud->set_field_upload('ty2_img','assets/uploads/product');
+                    
+                    $crud->callback_add_field('ty2_desc', function () {
+                            $text = '<input type="text" name="ty2_desc" class="form-control" value="" required="required" pattern="" title="">';
+                            return $text;
+                        }); 	    		
                     $crud->callback_add_field('ca_id', function () {
                             $this->load->database();
                             $this->load->model('m_category');
@@ -1427,6 +1437,15 @@ epul@nastyjuice.com
             $cat = $this->m_category->get($value);
             $text = '<span class="label" style="background-color: '.$cat->ca_color.';" ><strong>'.$cat->ca_desc.'</strong></span>';
             return $text ;
+        }
+        public function callback_col_img($value, $primary_key)
+        {
+            if ($value != null) {
+                $text = '<img src="'.base_url().'assets/uploads/product/'.$value.'" class="img-responsive" style = "width : 50px ; height : 50px;" alt="Image Not Found">';
+            }else{
+                $text = "Null";
+            }
+            return $text;
         }
     	private function _loadCrud()
     	{

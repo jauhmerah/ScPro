@@ -7,6 +7,12 @@
             railVisible: true,
             alwaysVisible: true
         });
+        // $('.invoice').slimScroll({
+        //     position: 'bottom',
+        //     height: '600px',
+        //     railVisible: true,
+        //     alwaysVisible: true
+        // });
     });
 </script>
 <div class="row">
@@ -32,7 +38,7 @@
         
         <div class="portlet-body">
         <div class="row mt-element-card mt-element-overlay Page">
-	    	<div class="col-md-4">
+	    	<div class="col-md-4 col-xs-4">
                 <div class="mt-card-item">
                     <div class="mt-card-avatar mt-overlay-1">
                         <img src="<?= base_url(); ?>assets/uploads/product/img1.png">
@@ -65,7 +71,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 col-xs-4">
                 <div class="mt-card-item">
                     <div class="mt-card-avatar mt-overlay-1">
                         <img src="<?= base_url(); ?>assets/uploads/product/img2.png">
@@ -98,7 +104,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 col-xs-4">
                 <div class="mt-card-item">
                     <div class="mt-card-avatar mt-overlay-1">
                         <img src="<?= base_url(); ?>assets/uploads/product/img3.png">
@@ -131,7 +137,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 col-xs-4">
                 <div class="mt-card-item">
                     <div class="mt-card-avatar mt-overlay-1">
                         <img src="<?= base_url(); ?>assets/uploads/product/img4.jpg">
@@ -164,7 +170,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 col-xs-4">
                 <div class="mt-card-item">
                     <div class="mt-card-avatar mt-overlay-1">
                         <img src="<?= base_url(); ?>assets/uploads/product/img5.jpg">
@@ -197,7 +203,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 col-xs-4">
                 <div class="mt-card-item">
                     <div class="mt-card-avatar mt-overlay-1">
                         <img src="<?= base_url(); ?>assets/uploads/product/img6.jpg">
@@ -254,7 +260,7 @@
                     </div>
                 </div>
             </div>
-            <div class="portlet-body">
+            <div class="portlet-body Page">
                 <form action="" method="POST" role="form">
                 	<table class="table table-hover table-striped">
                 		<thead>
@@ -274,14 +280,23 @@
                 			</tr>
                 		</tbody>
                 	</table>
-                	<button type="submit" class="btn btn-primary">Submit</button>
+                	<!--<button type="submit" class="btn btn-primary">Submit</button>-->
                 </form>
             </div>
         </div>		
 	</div>
 </div>
 <div class="row">
-	<div class="col-md-12">
+<div class="input-group col-md-12" align="center">
+    <span class="input-group-btn">
+        <button class="btn btn-circle-left btn-success" type="submit">Proceed Order</button>
+        <button class="btn btn-default">Cancel</button>
+        <button class="btn btn-circle-right red">Reset</button>
+    </span>
+</div></div>
+<div class="row">
+
+	<div class="col-md-12" style="overflow: scroll;">
 		<style>
 
 header {
@@ -411,14 +426,6 @@ body .ReadOnlyExtrasStatus {
 
 }
 </style>
-<div>
-<div class="input-group" align="center">
-    <span class="input-group-btn">
-        <button class="btn btn-circle-left btn-success" type="submit">Proceed Order</button>
-        <button class="btn btn-default">Cancel</button>
-        <button class="btn btn-circle-right red">Reset</button>
-    </span>
-</div></div>
 
      <div class="row-fluid">
               <div id="ReadOnlyView" class="span12 read-only-view">

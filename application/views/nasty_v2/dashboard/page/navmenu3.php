@@ -129,6 +129,13 @@
                             </a>
                         </li><?php } ?>
                         <?php if($us_lvl == 1){?>
+                        <li class="nav-item">
+                            <a href="<?= site_url('reseller') ?>" class="nav-link ">
+                                <i class="fa fa-exchange"></i>
+                                <span class="title">Switch Mode</span>
+                            </a>
+                        </li><?php } ?> 
+                        <?php if($us_lvl == 1){?>
                         <li class="nav-item <?php if (strpos($link, 'c') !== false) { echo "active open";}else{echo "start";}?>  ">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                <i class="fa fa-wrench"></i>
@@ -162,44 +169,7 @@
                                 </li>                                                              
                             </ul>
                         </li> 
-                        <?php } ?>                    
-                                               
-                        <!--<li class="nav-item  active open">
-                            <a href="javascript:;" class="nav-link nav-toggle">
-                                <i class="icon-layers"></i>
-                                <span class="title">Page Layouts</span>
-                                <span class="selected"></span>
-                                <span class="arrow open"></span>
-                            </a>
-                            <ul class="sub-menu">
-                                <li class="nav-item  active open">
-                                    <a href="layout_blank_page.html" class="nav-link ">
-                                        <span class="title">Blank Page</span>
-                                        <span class="selected"></span>
-                                    </a>
-                                </li>
-                                <li class="nav-item  ">
-                                    <a href="layout_ajax_page.html" class="nav-link ">
-                                        <span class="title">Ajax Content Layout</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item  ">
-                                    <a href="layout_language_bar.html" class="nav-link ">
-                                        <span class="title">Header Language Bar</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item  ">
-                                    <a href="layout_footer_fixed.html" class="nav-link ">
-                                        <span class="title">Fixed Footer</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item  ">
-                                    <a href="layout_boxed_page.html" class="nav-link ">
-                                        <span class="title">Boxed Page</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>-->
+                        <?php } ?>
                     </ul>
                     <!-- END SIDEBAR MENU -->
                 </div>
