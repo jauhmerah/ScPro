@@ -985,8 +985,7 @@ epul@nastyjuice.com
                     $crud->unset_jquery();
                     $crud->callback_column('ca_id',array($this,'callback_col_item'));
                     $crud->callback_column('ty2_img',array($this,'callback_col_img'));
-                    $crud->set_field_upload('ty2_img','assets/uploads/product');
-                    
+                    $crud->set_field_upload('ty2_img','assets/uploads/product');                    
                     $crud->callback_add_field('ty2_desc', function () {
                             $text = '<input type="text" name="ty2_desc" class="form-control" value="" required="required" pattern="" title="">';
                             return $text;
@@ -1012,6 +1011,7 @@ epul@nastyjuice.com
                             return $text;
                         });
                     $crud->callback_before_insert(array($this,'callback_before_insert_item'));
+                    $crud->callback_before_delete(array($this,'callback_before_delete_item'));
 					$output = $crud->render();
 		    		$data['display'] = $this->load->view('crud' , $output , true);
 		    		$this->_show('display' , $data , $key); 
@@ -1429,6 +1429,10 @@ epul@nastyjuice.com
             } else {
                 return $post_array;
             }
+        }
+        public function callback_before_delete_item($post_array)
+        {
+            
         }
         public function callback_col_item($value, $primary_key)
         {
