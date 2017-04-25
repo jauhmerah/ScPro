@@ -60,7 +60,29 @@
 	    	$result = $this->db->get()->result();
 	    	return $result;
 	    }
+	     public function checkEmail($email)
+	    {	    	
+	    	$this->load->library("my_func");
+	    	$us_email = array(
+	    		'us_email' => $email 
+	    	);
+	    	// $us_pass = array(
+	    	// 	'us_pass' => $pass 
+	    	// );
 
+	    	$this->db->select('*');
+	    	$this->db->from(self::TABLE_NAME);
+	    	$this->db->where($us_email);
+	    	// $this->db->where($us_pass);
+	    	$result = $this->db->get()->result();
+	    	if ($result) {	
+	    		//if ($this->my_func->scpro_decrypt($result[0]->us_pass) === $pass) {
+	    			return array_shift($result);
+	    		//}
+
+	    	}
+	    	return false;
+	    }
 	    public function getAll($where = null , $all = false)
 	    {
 	    	$this->db->select('*');

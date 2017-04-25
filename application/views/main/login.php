@@ -78,6 +78,9 @@
 <script>
 
     $(document).ready(function() {
+
+    
+
         $("#signup").hide();
         $(".btn1").click(function() {
             $.when($("#signin").fadeOut('fast')).then(function(){
@@ -107,7 +110,7 @@
 </script>
 </head>
 
-  <body>
+  <body onload="prevent();" onpageshow="if (event.persisted) prevent();" onunload="">
 <script src="<?php echo base_url();?>asset/js/jquery.backstretch.js"></script>
 <script>
     $.backstretch([
@@ -214,4 +217,9 @@
   
 
 </body>
+<script language="JavaScript" type="text/javascript">
+
+javascript:window.history.forward(1);
+
+</script> 
 </html>

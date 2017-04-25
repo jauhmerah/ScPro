@@ -14,6 +14,21 @@
      
         <link rel="shortcut icon" href="favicon.ico" />-->
     <!-- END HEAD -->
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="<?= base_url(); ?>/asset/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="<?= base_url(); ?>/asset/Carousel Template for Bootstrap_files/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Custom styles for this template -->
+    <link href="<?= base_url(); ?>/asset/css/carousel.css" rel="stylesheet">
     <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
 <script src="https://www.amcharts.com/lib/3/serial.js"></script>
 <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
@@ -31,6 +46,61 @@
   right: 0;
 }                          
 </style>
+<!-- Carousel
+    ================================================== -->
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+      <?php
+            $n = 0; 
+            if (sizeof($new) != 0) { 
+                 foreach ($new as $news) {
+               
+            ?>
+        <li data-target="#myCarousel" data-slide-to="<?= $n ?>" class="<?php if($n==0){ echo 'active'; } ?>"></li>
+        <?php 
+             $n++;
+            }
+        }
+        ?>
+        <!-- <li data-target="#myCarousel" data-slide-to="2" class=""></li> -->
+      </ol>
+      <div class="carousel-inner" role="listbox">
+        <?php
+            $n = 0; 
+            if (sizeof($new) != 0) { 
+                 foreach ($new as $news) {
+                
+            ?>
+
+        <div class="item <?php if($n==0){ echo 'active'; } ?>">
+          <img class="second-slide" src="<?= base_url(); ?><?= $news->img_background; ?>" alt="Second slide" style="width: 100%;height: auto;">
+          <div class="container">
+            <div class="carousel-caption">
+                <img class="second-slide" src="<?= base_url(); ?><?= $news->img_icon; ?>" alt="Second slide">
+              <h1><?= $news->ne_title; ?>.</h1>
+              <p><?= $news->ne_msg; ?>.</p>
+              <p><a class="btn btn-lg btn-primary" href="https://getbootstrap.com/examples/carousel/#" role="button">More</a></p>
+            </div>
+          </div>
+        </div>
+
+        <?php 
+            $n++;
+            }
+        }
+        ?>
+      
+      </div>
+      <a class="left carousel-control" href="https://getbootstrap.com/examples/carousel/#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control" href="https://getbootstrap.com/examples/carousel/#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div><!-- /.carousel -->
 
                     <div class="row">
                         <div class="col-xs-6 ">
@@ -970,6 +1040,12 @@ function kelik() {
 <![endif]-->
           
              <!-- BEGIN PAGE LEVEL PLUGINS -->
+              <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="<?= base_url(); ?>/asset/Carousel Template for Bootstrap_files/bootstrap.min.js"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <script src="<?= base_url(); ?>/asset/Carousel Template for Bootstrap_files/holder.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="<?= base_url(); ?>/asset/Carousel Template for Bootstrap_files/ie10-viewport-bug-workaround.js"></script>
             <script src="<?= base_url(); ?>/asset2/global/plugins/moment.min.js" type="text/javascript"></script>
             <script src="<?= base_url(); ?>/asset2/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js" type="text/javascript"></script>
             <script src="<?= base_url(); ?>/asset2/global/plugins/morris/morris.min.js" type="text/javascript"></script>

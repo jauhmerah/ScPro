@@ -143,6 +143,12 @@
                                     </a>
                                 </li>
                                 <li class="nav-item start">
+                                    <a href="<?= site_url('nasty_v2/dashboard/page/c5') ?>" class="nav-link ">
+                                        <i class="fa fa-fw fa fa-newspaper-o"></i>
+                                        <span class="title">News</span>
+                                    </a>
+                                </li> 
+                                <li class="nav-item start">
                                     <a href="<?= site_url('nasty_v2/dashboard/page/c4') ?>" class="nav-link ">
                                         <i class="fa fa-fw fa fa-tag"></i>
                                         <span class="title">Category</span>

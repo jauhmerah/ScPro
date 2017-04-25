@@ -58,42 +58,46 @@
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
       <!-- Indicators -->
       <ol class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel" data-slide-to="1" class=""></li>
-        <li data-target="#myCarousel" data-slide-to="2" class=""></li>
+      <?php
+            $n = 0; 
+            if (sizeof($arr) != 0) { 
+                 foreach ($arr as $news) {
+               
+            ?>
+        <li data-target="#myCarousel" data-slide-to="<?= $n ?>" class="<?php if($n==0){ echo 'active'; } ?>"></li>
+        <?php 
+             $n++;
+            }
+        }
+        ?>
+        <!-- <li data-target="#myCarousel" data-slide-to="2" class=""></li> -->
       </ol>
       <div class="carousel-inner" role="listbox">
-        <div class="item active">
-          <img class="first-slide" src="<?= base_url(); ?>assets/cover/background.png" alt="First slide" style="width: 100%;height: auto;"><!-- style="width: auto;height: 100%;" -->
+        <?php
+            $n = 0; 
+            if (sizeof($arr) != 0) { 
+                 foreach ($arr as $news) {
+                
+            ?>
+
+        <div class="item <?php if($n==0){ echo 'active'; } ?>">
+          <img class="second-slide" src="<?= base_url(); ?><?= $news->img_background; ?>" alt="Second slide" style="width: 100%;height: auto;">
           <div class="container">
             <div class="carousel-caption">
-             <img src="<?= base_url(); ?>assets/cover/nstylogo.png" style="width: 285px;height: 146px;">
-              <h1>Example headline.</h1>
-              <p>Note: If you're viewing this page via a <code>file://</code> URL, the "next" and "previous" Glyphicon buttons on the left and right might not load/display properly due to web browser security rules.</p>
-              <p><a class="btn btn-lg btn-primary" href="https://getbootstrap.com/examples/carousel/#" role="button">Sign up today</a></p>
+            <img class="second-slide" src="<?= base_url(); ?><?= $news->img_icon; ?>" alt="Second slide">
+              <h1><?= $news->ne_title; ?>.</h1>
+              <p><?= $news->ne_msg; ?>.</p>
+              <p><a class="btn btn-lg btn-primary" href="https://getbootstrap.com/examples/carousel/#" role="button">More</a></p>
             </div>
           </div>
         </div>
-        <div class="item">
-          <img class="second-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Second slide">
-          <div class="container">
-            <div class="carousel-caption">
-              <h1>Another example headline.</h1>
-              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-              <p><a class="btn btn-lg btn-primary" href="https://getbootstrap.com/examples/carousel/#" role="button">Learn more</a></p>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <img class="third-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Third slide">
-          <div class="container">
-            <div class="carousel-caption">
-              <h1>One more for good measure.</h1>
-              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-              <p><a class="btn btn-lg btn-primary" href="https://getbootstrap.com/examples/carousel/#" role="button">Browse gallery</a></p>
-            </div>
-          </div>
-        </div>
+
+        <?php 
+            $n++;
+            }
+        }
+        ?>
+      
       </div>
       <a class="left carousel-control" href="https://getbootstrap.com/examples/carousel/#myCarousel" role="button" data-slide="prev">
         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
@@ -104,7 +108,140 @@
         <span class="sr-only">Next</span>
       </a>
     </div><!-- /.carousel -->
+<div class="row">
+  <div class="col-md-12">
+                                    <div class="portlet box yellow-gold">
+                                         <div class="portlet-title">
+                                            <div class="caption">
+                                                <i class="fa fa-user"></i>Top 5 Order 
+                                            </div>                
+                                        </div>
 
+                                        <div class="portlet-body flip-scroll">
+                                                <div class="row">
+                                                <div class="col-md-12">
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Client Name</th>
+                                                <th>Order Code</th>
+                                                <th>Order Date</th>
+                                                <th>Sales Person</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+
+                                        </tbody>
+
+
+
+                            </table>
+                                
+                            </div>
+                                                
+                                                </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+        </div>
+
+    <div class="row">
+                       
+
+                             <div class="col-md-12">
+                                    <div class="portlet box yellow-gold" style="color:#ffffff">
+                                         <div class="portlet-title">
+                                            <div class="caption">
+                                                <i class="fa fa-user"></i>User Information 
+                                            </div>                
+                                        </div>
+
+                                        <div class="portlet-body flip-scroll yellow-gold">
+                                                <div class="row">
+                                                <div class="col-md-2">
+                                                    <img src="<?= base_url(); ?>assets/cover/nobody_m.original.jpg" style="width: 169px;height: 169px;"> 
+                                                </div>
+                                                <div class="col-md-4">
+                                                <h2>Company Name</h2>
+                                                Lot 139, Jalan Besar Tampin, 73000 Tampin,
+                                                Negeri Sembilan Darul Khusus,
+                                                Malaysia
+                                                <br>
+                                                +6064410519
+                                                <br>
+                                                hello@nastyjuice.com
+                                                </div>
+                                                <div class="col-md-6">
+                                                <div class="pull-right">
+                                                <h1>Rank 1</h1>
+                                                </div>
+                                                </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                          
+                        </div>
+    </div>
+
+
+    <div class="row">
+                            <div class="col-md-4 col-md-4 col-sm-4">
+                            <a class="dashboard-stat dashboard-stat-v2 yellow-casablanca" id="newO">
+                                <div class="visual pull-right">
+                                    <i class="fa fa-truck"></i>
+                                </div>
+                                <div class="details pull-left">
+                                    <div class="number">
+                   
+                                    </div>
+                                    <div class="desc">New </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-md-4 col-md-4 col-sm-4">
+                            <a class="dashboard-stat dashboard-stat-v2 red" id="proO">
+                                <div class="visual pull-right">
+                                    <i class="fa fa-truck"></i>
+                                </div>
+                                <div class="details pull-left">
+                                    <div class="number">
+
+                                    </div>
+                                    <div class="desc">In-progress </div>
+                                </div>
+                            </a>
+                        </div>
+                         <div class="col-md-4 col-md-4 col-sm-4">
+                            <a class="dashboard-stat dashboard-stat-v2 green" id="proO">
+                                <div class="visual pull-right">
+                                    <i class="fa fa-truck"></i>
+                                </div>
+                                <div class="details pull-left">
+                                    <div class="number">
+
+                                    </div>
+                                    <div class="desc">Completed </div>
+                                </div>
+                            </a>
+                        </div>
+    </div>
+     <div class="row">
+                       
+
+                           
+
+                          
+                        </div>
+    </div>
                     <!-- <div class="row">
                         <div class="col-xs-6 ">
                             <a class="dashboard-stat dashboard-stat-v2 purple" href="<?= site_url(); ?>nasty_v2/dashboard/page/a1new">

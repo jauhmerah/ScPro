@@ -163,6 +163,7 @@
                         $this->load->model('m_order');
                         $this->load->model('m_client');
                         $this->load->model('m_nico');
+                        $this->load->model('m_news');
                         $arr['neworder'] = $this->m_order->countOrderType(1 , 2);
                         $arr['inprogress'] = $this->m_order->countOrderType(2 , 2);
                         $arr['complete'] = $this->m_order->countOrderType(3 , 2);
@@ -173,6 +174,7 @@
                         $arr['totalProfit'] = $this->m_order->totalProfit();
                         $arr['client'] = $this->m_client->get(null , 'asc');
                         $arr['mg'] = $this->m_nico->get();
+                        $arr['new'] = $this->m_news->get(); 
                         //end added                        $data['title'] = '<i class="fa fa-pencil"></i>Main Page</a>';
                         $data['display'] = $this->load->view($this->parent_page.'/dashboard' ,$arr, true);
                         $this->_show('display' , $data, $key);
@@ -938,7 +940,14 @@ epul@nastyjuice.com
                     $data['display'] = $this->load->view($this->parent_page.'/ROSswitch', $temp , TRUE);
                     $this->_show('display' , $data , $key);
                     break;
-
+                    case 'c5':
+                    $this->load->database();
+                    $this->load->model('m_news');
+                    $arr['lvl'] = $this->m_news->get();
+                    $data['title'] = '<i class="fa fa-fw fa-edit"></i>News</a>';
+                    $data['display'] = $this->load->view($this->parent_page.'/addNews' ,$arr , true);
+                    $this->_show('display' , $data , $key); 
+                    break;
                 case 'c4':
                     //Category
                     $this->_loadCrud();
@@ -1004,6 +1013,7 @@ epul@nastyjuice.com
 		    		$data['display'] = $this->load->view('crud' , $output , true);
 		    		$this->_show('display' , $data , $key); 
     				break;
+
     			case 'c3':
     				//Nico
     				$data['title'] = '<i class="fa fa-fw fa-link"></i> Nicotine List';
@@ -1431,6 +1441,89 @@ epul@nastyjuice.com
     		$this->load->database();
     		$this->load->library('grocery_CRUD');
     	}
+        public function addNews()
+        {
+
+
+            if ($this->input->post()) {
+               
+
+                $arr = $this->input->post();                
+                $this->load->database();
+                $this->load->model('m_news');
+                $this->load->library('my_func');
+                $this->load->library('upload');
+               
+
+
+                $config = array(
+                'upload_path' => "./assets/uploads/img_2/",
+                'allowed_types' => "gif|jpg|png|jpeg",
+                'overwrite' => TRUE,
+                'max_size' => "4000", // Can be set to particular file size , here it is 2 MB(2048 Kb)
+                'max_height' => "1600",
+                'max_width' => "1600",
+                'encrypt_name' => true
+                );
+                $this->load->library('upload', $config);
+                $this->upload->initialize($config);
+                
+                $img_icon = $this->input->post('img_icon');
+                $img_background = $this->input->post('img_background');
+
+
+               
+
+                 $result1=$this->upload->do_upload('img_icon');
+                 $data = $this->upload->data();
+                 $icon="assets/uploads/img_2/".$data['raw_name'].$data['file_ext'];
+
+                 $result2=$this->upload->do_upload('img_background');
+                 $data = $this->upload->data();
+                 $background="assets/uploads/img_2/".$data['raw_name'].$data['file_ext'];
+               
+
+                if($this->input->post('ne_active')==1){
+                    $status=1;
+
+                }
+                else{
+                   $status=2; 
+                }
+
+
+
+
+                 $arr2 = array(
+                            "ne_title" => $arr['ne_title'],
+                            "ne_msg" => $arr['ne_msg'],                            
+                            "img_icon" => $icon,
+                            "img_background" => $background,
+                            "ne_timestamp" => $arr['ne_timestamp'],
+                            "ne_active" => $status
+                           
+                        );           
+                
+             
+                $this->m_news->insert($arr2);
+                $this->session->set_flashdata('success' , '<b>Well done!</b> You successfully send the picture.');
+                redirect(site_url('nasty_v2/dashboard/page/x1'),'refresh');
+            }else{
+                $this->session->set_flashdata('warning' , '<b>Uh Crap!</b> You got Error. The image size is to big');
+                redirect(site_url('nasty_v2/dashboard/page/x1'),'refresh');
+            }
+        
+
+
+            
+    
+        }
+    
+
+            // if ($this->input->post()) {
+               
+
+            
     	public function addStaff()
     	{
     		if ($this->input->post()) {
@@ -1589,37 +1682,39 @@ epul@nastyjuice.com
                 if ($key == "betul") {                    
                     $this->load->database();
                     $this->load->model("m_order");
-                    $this->load->model('m_picture');
+                    $this->load->model('m_news');
                     $or_id = $this->my_func->scpro_decrypt($this->input->post('or_id'));
-                    $result = $this->my_func->do_upload('./assets/uploads/img/');                    
+                    $result = $this->my_func->do_upload('./assets/uploads/img/'); 
+                    echo sizeof($result['success']);
+                    echo sizeof($result['error']);                      
                     $pi_id = null;
                     $success = array();
-                    if (sizeof($result['success']) != 0) {
-                        $m_pic = array();
-                        foreach ($result['success'] as $filename => $detail) {   
-                                $m_pic = array(
-                                    'pi_title' => $filename,
-                                    'img_url' => $detail['file_name'],
-                                    'ne_id' => $or_id
-                                );
-                                $success[] = $filename;
-                        }
-                        $this->m_order->update(array('or_paid' => 1),$or_id);
-                        $this->change_pr_id2($or_id);
-                        // this part for replace image if already uploaded.
-                        /*if ($this->m_picture->getbyne_id($or_id)) {
-                            $this->load->library('file');
-                            $t = $this->m_picture->get(array("ne_id" => $or_id));
-                            if (delete_files('./assets/uploads/img/'.$t->img_url)) {
-                                $this->m_picture->update($m_pic , $t->pi_id);
-                            }else{
-                                $this->session->set_flashdata('error', 'Ops !! , Unable to Find The old Image');
-                                delete_files('./assets/uploads/img/'.$m_pic['img_url']);
-                            }                            
-                        }else{*/
-                            $this->m_picture->insert($m_pic);
-                        //}                        
-                    }
+                    // if (sizeof($result['success']) != 0) {
+                    //     $m_pic = array();
+                    //     foreach ($result['success'] as $filename => $detail) {   
+                    //             $m_pic = array(
+                    //                 'pi_title' => $filename,
+                    //                 'img_url' => $detail['file_name'],
+                    //                 'ne_id' => $or_id
+                    //             );
+                    //             $success[] = $filename;
+                    //     }
+                    //     $this->m_order->update(array('or_paid' => 1),$or_id);
+                    //     $this->change_pr_id2($or_id);
+                    //     // this part for replace image if already uploaded.
+                    //     if ($this->m_picture->getbyne_id($or_id)) {
+                    //         $this->load->library('file');
+                    //         $t = $this->m_picture->get(array("ne_id" => $or_id));
+                    //         if (delete_files('./assets/uploads/img/'.$t->img_url)) {
+                    //             $this->m_picture->update($m_pic , $t->pi_id);
+                    //         }else{
+                    //             $this->session->set_flashdata('error', 'Ops !! , Unable to Find The old Image');
+                    //             delete_files('./assets/uploads/img/'.$m_pic['img_url']);
+                    //         }                            
+                    //     }else{
+                    //         $this->m_picture->insert($m_pic);
+                    //     //}                        
+                    // }
                     $i = sizeof($success);
                     $e = sizeof($result['error']);
                     if ($e == 0) {
@@ -1645,6 +1740,74 @@ epul@nastyjuice.com
             }
             redirect('nasty_v2/dashboard/page/a1new','refresh');
         }
+
+         public function uploadPaid2()
+        {
+            if ($this->input->post()) {
+                $this->load->library('my_func');
+                // $key = $this->my_func->scpro_decrypt($this->input->get('key'));
+                // if ($key == "betul") {                    
+                    $this->load->database();
+                    // $this->load->model("m_order");
+                    $this->load->model('m_news');
+                    // $or_id = $this->my_func->scpro_decrypt($this->input->post('or_id'));
+                    $result = $this->my_func->do_upload('./assets/uploads/img/'); 
+                    echo sizeof($result['success']);
+                    echo sizeof($result['error']);                      
+                    $pi_id = null;
+                    $success = array();
+                    // if (sizeof($result['success']) != 0) {
+                    //     $m_pic = array();
+                    //     foreach ($result['success'] as $filename => $detail) {   
+                    //             $m_pic = array(
+                    //                 'pi_title' => $filename,
+                    //                 'img_url' => $detail['file_name'],
+                    //                 'ne_id' => $or_id
+                    //             );
+                    //             $success[] = $filename;
+                    //     }
+                    //     $this->m_order->update(array('or_paid' => 1),$or_id);
+                    //     $this->change_pr_id2($or_id);
+                    //     // this part for replace image if already uploaded.
+                    //     if ($this->m_picture->getbyne_id($or_id)) {
+                    //         $this->load->library('file');
+                    //         $t = $this->m_picture->get(array("ne_id" => $or_id));
+                    //         if (delete_files('./assets/uploads/img/'.$t->img_url)) {
+                    //             $this->m_picture->update($m_pic , $t->pi_id);
+                    //         }else{
+                    //             $this->session->set_flashdata('error', 'Ops !! , Unable to Find The old Image');
+                    //             delete_files('./assets/uploads/img/'.$m_pic['img_url']);
+                    //         }                            
+                    //     }else{
+                    //         $this->m_picture->insert($m_pic);
+                    //     //}                        
+                    // }
+                    // $i = sizeof($success);
+                    // $e = sizeof($result['error']);
+                    // if ($e == 0) {
+                    //     $this->session->set_flashdata('success' , '<b>Well done!</b> You successfully send the picture.');
+                    // }elseif ($i == 0) {
+                    //     $code = "<ul>";
+                    //     foreach ($result['error'] as $filename => $errormsg) {
+                    //         $code .= "<li> ".$filename." : ".$errormsg."
+                    //         </li>";
+                    //     }
+                    //     $code = "<b>Oh snap!</b> Change a few things up and try submitting again.</br>" . $code;
+                    //     $this->session->set_flashdata('error' , $code);
+                    // }else{
+                    //     $code = "<ul>";
+                    //     foreach ($result['error'] as $filename => $errormsg) {
+                    //         $code .= "<li> ".$filename." : ".$errormsg."
+                    //         </li>";
+                    //     }
+                    //     $code = "<b>Warning!</b> You successfully send the news but <b>some your image not looking too good<b>.</br>".$code;
+                    //     $this->session->set_flashdata('warning' , $code);
+                    // }
+                // }
+            }
+            //redirect('nasty_v2/dashboard/page/a1new','refresh');
+        }
+
 
 
          public function change_pr_id3()
@@ -2047,6 +2210,32 @@ epul@nastyjuice.com
             
             echo $this->load->view($this->parent_page."/ajax/getAjaxType", $type , true);
         }
+
+      
+
+        //   public function getAjaxPass()
+        // {
+        //     echo $this->load->view($this->parent_page."/ajax/getAjaxPass" , true);
+        //     // $this->load->database();
+        //     // $temp = $this->input->post('key');
+        //     // $this->load->model('m_user');
+        //     // $data = $this->m_user->checkEmail($temp);
+        //     // if ($data) {
+                    
+        
+        //     //         echo $this->load->view($this->parent_page."/ajax/getAjaxPass", $data , true);
+        //     // }
+        //     // else{
+        //     //          $arr=2;
+        //     //         // $this->load->view("order/searchOrder", $data);
+        //     //         $this->session->set_flashdata('error', "Your Email is not available");
+        //     //          redirect(site_url('').$arr, 'refresh');
+        //     // }
+        
+                    
+            
+            
+        // }
 
         public function getAjaxItemList()
         {

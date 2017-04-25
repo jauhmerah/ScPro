@@ -104,9 +104,11 @@
 			$config['remove_spaces'] = true;
 			$config['encrypt_name'] = true;
 			$ci->load->library('upload', $config);
+			$ci->upload->initialize($config);
 			$error = null;
 			$success = null;
 			foreach ($_FILES as $fileImg) {
+
 				$_FILES['uploadedimage']['name'] = $fileImg['name'];
 		        $_FILES['uploadedimage']['type'] = $fileImg['type'];
 		        $_FILES['uploadedimage']['tmp_name'] = $fileImg['tmp_name'];
@@ -114,17 +116,23 @@
 		        $_FILES['uploadedimage']['size'] = $fileImg['size'];
 		        if (!$ci->upload->do_upload('uploadedimage'))
 				{
+					
 					$error[$fileImg['name']] = $ci->upload->display_errors();
 				}
 				else
 				{
+					
 					$success[$fileImg['name']] =  $ci->upload->data();
+					echo "success";
 				}
 			}
 			$temp['success'] = $success;
 			$temp['error'] = $error;
+
+			
 			return $temp;
 		}
+		
 
 		function errorMsgcrypt($text = null)
 		{

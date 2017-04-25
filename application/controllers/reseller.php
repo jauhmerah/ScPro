@@ -35,7 +35,7 @@
 
         public function index()
         {
-            $this->_show();
+            $this->page('a1');
         }
 
 	    public function page($key)
@@ -49,11 +49,11 @@
     				$this->_show('addorder' , $data , $key);
     				break;
 
-    			case "x1" :// dashboard
+    			case "a1" :// dashboard
                         //start added
-                        // $this->load->database();
-                        // $this->load->model('m_order');
-                        // $this->load->model('m_client');
+                         $this->load->database();
+                         $this->load->model('m_news');
+                         //$this->load->model('news');
                         // $this->load->model('m_nico');
                         // $arr['neworder'] = $this->m_order->countOrderType(1 , 2);
                         // $arr['inprogress'] = $this->m_order->countOrderType(2 , 2);
@@ -65,9 +65,11 @@
                         // $arr['totalProfit'] = $this->m_order->totalProfit();
                         // $arr['client'] = $this->m_client->get(null , 'asc');
                         // $arr['mg'] = $this->m_nico->get();
-                        //end added                        $data['title'] = '<i class="fa fa-pencil"></i>Main Page</a>';
-                        //$data['display'] = $this->load->view($this->parent_page.'/dashboard' ,$arr, true);
-                        $this->_show('dashboard');
+                        //end addeds
+                        $arr['arr'] = $this->m_news->get();                        
+                        $data['title'] = '<i class="fa fa-pencil"></i>Main Page</a>';
+                        $data['display'] = $this->load->view($this->parent_page.'/dashboard' ,$arr, true);
+                        $this->_show('dashboard', $data , $key);
                    break;   
     			default:
     				$this->_show();

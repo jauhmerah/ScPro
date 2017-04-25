@@ -34,7 +34,8 @@
 	            						<option value="0">Name</option>
 	            						<option value="1">Username</option>
 	            						<option value="2">Email</option>
-	            						<option value="3">Role</option>
+	            						<option value="3">Phone No.</option>
+	            						<option value="4">Role</option>
 	            					</select>
 	            				</div>
 	            			</div>
@@ -53,6 +54,7 @@
 		                            <th>Name</th>
 		                            <th>Username</th>
 		                            <th>Email</th>
+		                            <th>Phone No.</th>
 		                            <th>Role</th>
 		                            <th>Action</th>
 		                        </tr>
@@ -84,6 +86,10 @@
                                     ?></td>
 		                            <td><?php 
                                     $view = ( $user->us_email == null) ? "--Not Set--" :  $user->us_email ;
+                                    echo $view;
+                                    ?></td>
+                                    <td><?php 
+                                    $view = ( $user->us_phone == null) ? "--Not Set--" :  $user->us_phone ;
                                     echo $view;
                                     ?></td>
 		                            <td><?php 
