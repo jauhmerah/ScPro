@@ -46,6 +46,12 @@
     		switch ($key) {                
     			case 'b1':
     				$data['title'] = '<i class="fa fa-cart-plus"></i> Add Order';
+    				$this->load->library('my_func');
+    				$this->load->database();
+    				$this->load->model("m_category" , 'm_cat');
+    				$this->load->model('m_type2' , 'mt2');
+    				$data['cat'] = $this->m_cat->get();
+    				$data['type'] = $this->mt2->getProduct();
     				$this->_show('addorder' , $data , $key);
     				break;
     			default:
@@ -78,9 +84,46 @@
                 return true;
             }else{
                 return false;
-            }
+            }			
+		}
+		public function getAjaxProduct(){
+			$this->load->database();
+			$this->load->model('m_type2');
+			$text = '';
+			$this->load->library('my_func');
+			$f = $this->input->post('filter');
+			$s = $this->input->post('series');
+			if ($s != -1) {
+				$s = $this->my_func->de($s);
+			}
+			if ($f == '') {
+				$f = null;
+			}
+			$arr = $this->m_type2->getProduct($f , $s);	
+			if ($arr) {
+				foreach ($arr as $key){
+					$a['arr'] = $key;
+					$text = $text . $this->load->view('reseller/getAjax/getAjaxProduct', $a , true);
+				}
+			} else {
+				$text = '
+                <div align="center">
+                	<br>
+                    <h1><i class="fa fa-flask"></i></h1><br>
+                    <h3><strong>No Data</strong></h3>
+                </div>';
+			}
+			echo $text;
+		}
+
+		public function getAjaxCart()
+		{
+			$this->load->database();
+			$this->load->library('my_func');
+			$mg = $this->input->post('mg');
+			$id = $this->my_func->de($this->input->post('id') , 1);
 			
+
 		}
 	}
-	        
 ?>

@@ -968,7 +968,7 @@ epul@nastyjuice.com
                     break;   			
     			case 'c2':
     				//Item
-                    $this->session->set_flashdata('info', 'Please delete the uploaded image before cancel the "Add New Item Process"');
+                    //$this->session->set_flashdata('info', 'Please delete the uploaded image before cancel the "Add New Item Process"');
     				$data['title'] = '<i class="fa fa-fw fa-link"></i> Item List';
     				//$this->path_callback = 'channel';
     				$this->_loadCrud();    		
@@ -979,7 +979,7 @@ epul@nastyjuice.com
                          ->display_as('ca_id','Event Category')
                          ->display_as('ty2_img' , 'Product Image')
                          ->display_as('ty2_detail' , 'Product Detail');
-                    $crud->required_fields('ty2_desc', 'ca_id' , 'ty2_img' , 'ty2_detail');
+                    $crud->required_fields('ty2_desc', 'ca_id' , 'ty2_img' , 'ty2_detail' , 'ty2_code');
 		    		$crud->unset_print();
 		    		$crud->unset_export();
                     $crud->unset_jquery();
@@ -989,7 +989,13 @@ epul@nastyjuice.com
                     $crud->callback_add_field('ty2_desc', function () {
                             $text = '<input type="text" name="ty2_desc" class="form-control" value="" required="required" pattern="" title="">';
                             return $text;
-                        }); 	    		
+                        });
+                    $crud->callback_add_field('ty2_code', function () {
+                            $text = '<input type="text" name="ty2_code" class="form-control" value="" required="required" pattern="" title="">';
+                            return $text;
+                        });
+                    $crud->callback_edit_field('ty2_desc',array($this,'edit_field_ty2_desc'))
+                            ->callback_edit_field('ty2_code' , array($this,'edit_field_ty2_code'));                     	    		
                     $crud->callback_add_field('ca_id', function () {
                             $this->load->database();
                             $this->load->model('m_category');
@@ -1430,9 +1436,19 @@ epul@nastyjuice.com
                 return $post_array;
             }
         }
-        public function callback_before_delete_item($post_array)
+        public function callback_before_delete_item($pk)
         {
-            
+            $this->load->database();
+            $this->load->model('m_type2');
+            $arr = array_shift($this->m_type2->get($pk));
+            if (sizeof($arr) != 0) {
+                if ($arr->ty2_img != null) {
+                    unlink('./assets/uploads/product/'.$arr->ty2_img);
+                }
+                return true;
+            }else{
+                return false;
+            }
         }
         public function callback_col_item($value, $primary_key)
         {
@@ -2443,6 +2459,15 @@ epul@nastyjuice.com
             $this->load->model("m_picture");
             $arr['img'] = $this->m_picture->getPaid(array("ne_id" => $ne_id));
             echo $this->load->view('nasty_v2/dashboard/ajax/getAjaxImg', $arr , TRUE);
+        }
+
+        public function edit_field_ty2_desc($value, $primary_key)
+        {
+            return '<input type="text" value="'.$value.'" name="ty2_desc">';
+        }
+        public function edit_field_ty2_code($value, $primary_key)
+        {
+            return '<input type="text" value="'.$value.'" name="ty2_code">';
         }
 	}
 	        

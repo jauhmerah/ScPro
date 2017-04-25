@@ -7,15 +7,10 @@
             railVisible: true,
             alwaysVisible: true
         });
-        // $('.invoice').slimScroll({
-        //     position: 'bottom',
-        //     height: '600px',
-        //     railVisible: true,
-        //     alwaysVisible: true
-        // });
     });
 </script>
 <div class="row">
+<pre><?php print_r($type); ?></pre>
 	<div class="col-md-6">
 		<div class="portlet light">
             <div class="portlet-title">
@@ -27,221 +22,54 @@
                 <div class="inputs">
                     <div class="portlet-input input-inline input-medium">
                         <div class="input-group">
-                            <input type="text" class="form-control input-circle-left" placeholder="search...">
+                            <input type="text" id="filter" class="form-control input-circle-left" placeholder="product ID...">
                             <span class="input-group-btn">
                                 <button class="btn btn-circle-right btn-default" type="submit">Go!</button>
                             </span>
                         </div>
                     </div>
                 </div>
-            </div>            
-        
+            </div> 
         <div class="portlet-body">
-        <div class="row mt-element-card mt-element-overlay Page">
-	    	<div class="col-md-4 col-xs-4">
-                <div class="mt-card-item">
-                    <div class="mt-card-avatar mt-overlay-1">
-                        <img src="<?= base_url(); ?>assets/uploads/product/img1.png">
-                        <div class="mt-overlay">
-                            <ul class="mt-info">
-                                <li>
-                                    <a class="btn default btn-outline" href="javascript:;">
-                                        <i class="icon-magnifier"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="btn default btn-outline" href="javascript:;">
-                                        <i class="icon-link"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="mt-card-content">
-                        <h3 class="mt-card-name">Bad Blood</h3>
-                        <p class="mt-card-desc font-grey-mint">ID #bb1<br>Price : RM 20</p>
-                        <div class="mt-card-social">
-                            <div class="btn-group btn-group-xs btn-group-solid">
-                                <button type="button" class="btn red btn-circle-left"><i class="fa fa-tint"> 0</i></button>
-                                <button type="button" class="btn green"><i class="fa fa-tint"> 3</i></button>
-                                <button type="button" class="btn blue btn-circle-right"><i class="fa fa-tint"> 6</i></button>
-                            </div>
-                           	<div class = "clearfix">&nbsp;</div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="input" class="col-sm-2 control-label">Series :</label>
+                        <div class="col-sm-10">
+                            <select name="siri" id="siri" class="form-control input-circle input-sm">
+                                <option value="-1">-- Select All --</option>
+                                <?php 
+                                    foreach ($cat as $key) {
+                                        ?>
+                                        <option value="<?= $this->my_func->en($key->ca_id); ?>"><?= $key->ca_desc; ?></option>
+                                        <?php
+                                    }
+                                ?>
+                            </select>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 col-xs-4">
-                <div class="mt-card-item">
-                    <div class="mt-card-avatar mt-overlay-1">
-                        <img src="<?= base_url(); ?>assets/uploads/product/img2.png">
-                        <div class="mt-overlay">
-                            <ul class="mt-info">
-                                <li>
-                                    <a class="btn default btn-outline" href="javascript:;">
-                                        <i class="icon-magnifier"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="btn default btn-outline" href="javascript:;">
-                                        <i class="icon-link"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="mt-card-content">
-                        <h3 class="mt-card-name">Devil Teeth</h3>
-                        <p class="mt-card-desc font-grey-mint">ID #dt1<br>Price : RM 20</p>
-                        <div class="mt-card-social">
-                            <div class="btn-group btn-group-xs btn-group-solid">
-                                <button type="button" class="btn red btn-circle-left"><i class="fa fa-tint"> 0</i></button>
-                                <button type="button" class="btn green"><i class="fa fa-tint"> 3</i></button>
-                                <button type="button" class="btn blue btn-circle-right"><i class="fa fa-tint"> 6</i></button>
-                            </div>
-                           	<div class = "clearfix">&nbsp;</div>
-                        </div>
-                    </div>
+            <div class="clearfix">
+                &nbsp;
+            </div>
+            <div class="row mt-element-card mt-element-overlay Page" id="pro">	    	
+                <div align="center">
+                    <h1><i class="fa fa-spinner fa-spin"></i></h1><br>
+                    <h3><strong>Brewing In Progress</strong></h3>
                 </div>
             </div>
-            <div class="col-md-4 col-xs-4">
-                <div class="mt-card-item">
-                    <div class="mt-card-avatar mt-overlay-1">
-                        <img src="<?= base_url(); ?>assets/uploads/product/img3.png">
-                        <div class="mt-overlay">
-                            <ul class="mt-info">
-                                <li>
-                                    <a class="btn default btn-outline" href="javascript:;">
-                                        <i class="icon-magnifier"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="btn default btn-outline" href="javascript:;">
-                                        <i class="icon-link"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="mt-card-content">
-                        <h3 class="mt-card-name">Fat Boy</h3>
-                        <p class="mt-card-desc font-grey-mint">ID #fb1<br>Price : RM 20</p>
-                        <div class="mt-card-social">
-                            <div class="btn-group btn-group-xs btn-group-solid">
-                                <button type="button" class="btn red btn-circle-left"><i class="fa fa-tint"> 0</i></button>
-                                <button type="button" class="btn green"><i class="fa fa-tint"> 3</i></button>
-                                <button type="button" class="btn blue btn-circle-right"><i class="fa fa-tint"> 6</i></button>
-                            </div>
-                           	<div class = "clearfix">&nbsp;</div>
-                        </div>
-                    </div>
+            <div style="display: none;" id="loading1">
+                <div align="center">
+                    <h1><i class="fa fa-spinner fa-spin"></i></h1><br>
+                    <h3><strong>Brewing In Progress</strong></h3>
                 </div>
             </div>
-            <div class="col-md-4 col-xs-4">
-                <div class="mt-card-item">
-                    <div class="mt-card-avatar mt-overlay-1">
-                        <img src="<?= base_url(); ?>assets/uploads/product/img4.jpg">
-                        <div class="mt-overlay">
-                            <ul class="mt-info">
-                                <li>
-                                    <a class="btn default btn-outline" href="javascript:;">
-                                        <i class="icon-magnifier"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="btn default btn-outline" href="javascript:;">
-                                        <i class="icon-link"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="mt-card-content">
-                        <h3 class="mt-card-name">Slow Blow</h3>
-                        <p class="mt-card-desc font-grey-mint">ID #sb1<br>Price : RM 20</p>
-                        <div class="mt-card-social">
-                            <div class="btn-group btn-group-xs btn-group-solid">
-                                <button type="button" class="btn red btn-circle-left"><i class="fa fa-tint"> 0</i></button>
-                                <button type="button" class="btn green"><i class="fa fa-tint"> 3</i></button>
-                                <button type="button" class="btn blue btn-circle-right"><i class="fa fa-tint"> 6</i></button>
-                            </div>
-                           	<div class = "clearfix">&nbsp;</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 col-xs-4">
-                <div class="mt-card-item">
-                    <div class="mt-card-avatar mt-overlay-1">
-                        <img src="<?= base_url(); ?>assets/uploads/product/img5.jpg">
-                        <div class="mt-overlay">
-                            <ul class="mt-info">
-                                <li>
-                                    <a class="btn default btn-outline" href="javascript:;">
-                                        <i class="icon-magnifier"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="btn default btn-outline" href="javascript:;">
-                                        <i class="icon-link"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="mt-card-content">
-                        <h3 class="mt-card-name">Wicked Haze</h3>
-                        <p class="mt-card-desc font-grey-mint">ID #wh1<br>Price : RM 20</p>
-                        <div class="mt-card-social">
-                            <div class="btn-group btn-group-xs btn-group-solid">
-                                <button type="button" class="btn red btn-circle-left"><i class="fa fa-tint"> 0</i></button>
-                                <button type="button" class="btn green"><i class="fa fa-tint"> 3</i></button>
-                                <button type="button" class="btn blue btn-circle-right"><i class="fa fa-tint"> 6</i></button>
-                            </div>
-                           	<div class = "clearfix">&nbsp;</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 col-xs-4">
-                <div class="mt-card-item">
-                    <div class="mt-card-avatar mt-overlay-1">
-                        <img src="<?= base_url(); ?>assets/uploads/product/img6.jpg">
-                        <div class="mt-overlay">
-                            <ul class="mt-info">
-                                <li>
-                                    <a class="btn default btn-outline" href="javascript:;">
-                                        <i class="icon-magnifier"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="btn default btn-outline" href="javascript:;">
-                                        <i class="icon-link"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="mt-card-content">
-                        <h3 class="mt-card-name">A$ap Grape</h3>
-                        <p class="mt-card-desc font-grey-mint">ID #ag1<br>Price : RM 20</p>
-                        <div class="mt-card-social">
-                            <div class="btn-group btn-group-xs btn-group-solid">
-                                <button type="button" class="btn red btn-circle-left"><i class="fa fa-tint"> 0</i></button>
-                                <button type="button" class="btn green"><i class="fa fa-tint"> 3</i></button>
-                                <button type="button" class="btn blue btn-circle-right"><i class="fa fa-tint"> 6</i></button>
-                            </div>
-                           	<div class = "clearfix">&nbsp;</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         </div>
         </div>
 	</div>
 	<div class="col-md-6">
-		<div class="portlet light" style="height: 693px">
+		<div class="portlet light" style="height: 746px">
             <div class="portlet-title">
                 <div class="caption">
                     <i class="fa fa-cart-arrow-down font-yellow-casablanca"></i>
@@ -266,16 +94,18 @@
                 		<thead>
                 			<tr>
                 				<th>#</th>
-                				<th>Product ID</th>
+                				<th>Product Detail</th>
+                                <th>Nico</th>
                 				<th>Quantity</th>
                 				<th>Action</th>
                 			</tr>
                 		</thead>
                 		<tbody>
                 			<tr>
-                				<td></td>
-                				<td></td>
-                				<td></td>
+                				<td>#bbL1</td>
+                                <td><strong>Bad Blood</strong></td>
+                				<td>3 Mg</td>
+                				<td><input type="number" name="qty" id="inputQty" class="form-control input-sm input-circle" value="" min='0' max="" step="" required="required" title="Quantity"></td>
                 				<td></td>
                 			</tr>
                 		</tbody>
@@ -568,7 +398,7 @@ body .ReadOnlyExtrasStatus {
           <td colspan="1" style="color: #000000;" style="width:60px;"><?= $key->oi_qty; ?></td>
           <td colspan="1" style="color: #000000;" style="width:60px;"><?= $key->oi_price; ?></td>
           <td colspan="1" style="color: #000000;" style="width:60px;"><?= $key->oi_tester; ?></td>
-          <td colspan="1" style="color: #000000;" style="width:60px;"><?= $duit; ?> <?= number_format((float)$total=$key->oi_qty * $key->oi_price, 2, '.', '');?></td>
+          <td colspan="1" style="color: #000000;" style="width:60px;"><?= $duit; ?> <?= number_format((float)$total=$key->oi_qty * $key->oi_price, 2, '.', ''); ?></td>
         
 
         </tr>
@@ -599,7 +429,36 @@ body .ReadOnlyExtrasStatus {
 </div>
 <!-- invoice end -->
 <script>
-	 	//window.print();	
-	</script>
+    var c = null;
+
+    $(document).ready(function() {
+        onPageLoad(null , -1);
+        $('#siri').change(function() {
+            var siri = $(this).val();
+            var tapis = $('#filter').val();
+            $.when($('#pro').html($('#loading1').html())).then(function(){
+                onPageLoad(tapis , siri);
+            });            
+        });
+        $('#filter').keyup(function() {
+            var siri = $('#siri').val();
+            var tapis = $(this).vsal();
+            $.when($('#pro').html($('#loading1').html())).then(function(){
+                onPageLoad(tapis , siri);
+            });    
+        });
+        $('#pro').on('click', '.mg', function() {
+            var mg = $(this).data('mg');
+            var id = $(this).data('id');
+
+        });    
+    });
+    function onPageLoad(f , s) {
+        $.post('<?= site_url('reseller/getAjaxProduct') ?>', {filter : f , series : s}, function(data) {
+            $("#pro").html(data);
+        });
+    }
+</script>
 	</div>
 </div>
+ 

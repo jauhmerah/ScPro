@@ -41,6 +41,24 @@ class M_type2 extends CI_Model {
         }
     }
 
+    public function getProduct($filter = null , $series = -1){
+        $this->db->select('*');
+        $this->db->from('type2 t2');
+        $this->db->join('category cat', 'cat.ca_id = t2.ca_id', 'left');
+        if ($filter != null) {
+            $this->db->like('t2.ty2_code', $filter);
+        }
+        if ($series != -1) {
+            $this->db->where('cat.ca_id', $series);
+        }
+        $result = $this->db->get()->result();
+        if ($result) {            
+            return $result;            
+        }else {
+            return false;
+        }        
+    }
+
     /**
      * Inserts new data into database
      *
