@@ -1,4 +1,4 @@
-<div class="col-md-4 col-xs-4">
+<div class="col-md-3 col-xs-3">
     <div class="mt-card-item">
         <div class="mt-card-avatar mt-overlay-1">
             <img src="<?= base_url(); ?>assets/uploads/product/<?php if($arr->ty2_img != null){echo $arr->ty2_img ;}else{ echo "400x400.png";} ?>">
@@ -18,7 +18,7 @@
             </div>
         </div>
         <div class="mt-card-content">
-            <h3 class="mt-card-name"><?= $arr->ty2_desc; ?></h3>
+            <h4 class="mt-card-name"><?= $arr->ty2_desc; ?></h4>
             <?php $price = number_format((float)$arr->ty2_price, 2, '.', ''); ?>
             <p class="mt-card-desc font-grey-mint">ID <?= $arr->ty2_code; ?><br>Price : RM <?= $price; ?></p>
             <div class="mt-card-social">

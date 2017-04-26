@@ -163,41 +163,7 @@
 					break;					
 			}
 			return $text;
-		}
-		public function itemIcon($ty_id = 1)
-			{
-				switch ($ty_id) {
-					case 1:
-						$text = base_url().'/assets/nasty/pro1.jpg';
-						break;
-					case 2:
-						$text = base_url().'/assets/nasty/pro2.jpg';
-						break;
-					case 3:
-						$text = base_url().'/assets/nasty/pro3.jpg';
-						break;
-					case 4:
-						$text = base_url().'/assets/nasty/pro4.jpg';
-						break;
-					case 5:
-						$text = base_url().'/assets/nasty/pro5.jpg';
-						break;
-					case 6:
-						$text = base_url().'/assets/nasty/pro6.jpg';
-						break;
-					case 7:
-						$text = base_url().'/assets/nasty/pro7.jpg';
-						break;
-					case 8:
-						$text = base_url().'/assets/nasty/pro8.jpg';
-						break;
-					
-					default:
-						$text = "error";
-						break;
-				}
-				return $text;
-			}	
+		}		
 	}
 	
 	/* End of file my_func.php */

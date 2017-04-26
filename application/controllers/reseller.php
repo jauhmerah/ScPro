@@ -122,8 +122,22 @@
 			$this->load->library('my_func');
 			$mg = $this->input->post('mg');
 			$id = $this->my_func->de($this->input->post('id') , 1);
-			
-
+			$n = $this->input->post('num');
+			$this->load->model('m_type2');
+			$arr['arr'] = array_shift($this->m_type2->get($id));
+			$arr['mg'] = $mg;
+			$arr['n'] =$n;
+			echo $this->load->view('reseller/getAjax/getAjaxCart', $arr , true);
+		}
+		public function getAjaxCartInv()
+		{
+			$this->load->database();
+			$this->load->library('my_func');
+			$mg = $this->input->post('mg');
+			$id = $this->my_func->de($this->input->post('id') , 1);
+			$n = $this->input->post('num');
+			$this->load->model('m_type2');
+			$this->load->model('m_nico');
 		}
 	}
 ?>
