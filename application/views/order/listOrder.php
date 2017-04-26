@@ -1,9 +1,18 @@
-<!-- <style type="text/css">
-	#cont 
-	{
-		disabled
-	}
-</style> -->
+<style type="text/css">
+
+.table-bordered{
+
+}
+
+	thead th {
+    background-color: #006DCC;
+    color: white;
+}
+
+tbody td {
+    background-color: #EEEEEE;
+}
+</style>
 <div class="container-fluid">	
 	<div class="row">
 		<div class="clearfix">
@@ -58,19 +67,28 @@
             </div>
         </div>
 	<div class="row">
-		<div class="col-md-10 col-md-offset-1" id="form" align="center">
-        <button type="button" class="btn btn-success" name="cont" id="cont">Back</button>
-        <div class="clearfix" style="height: 20px"></div>
-			 <table class="table table-bordered table-striped">
-                                        <thead>
+		<div class="col-md-10 col-md-offset-1" id="form" align="center" style="overflow-y: auto;">
+        
+			 <table class="table table-bordered table-striped" style="border-radius: 50px;">
+                                        <thead >
                                             <tr>
-                                                <th>#</th>
-                                                <th>Client Name</th>
+                                                <th>No</th>
+                                                <th>Product</th>
                                                 <th>Order Code</th>
                                                 <th>Order Date</th>
-                                                <th>Sales Person</th>
+                                                <th>Quantity</th>
                                                 <th>Status</th>
-                                                <th>Action</th>
+                                                
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td>No</td>
+                                                <td>Product</td>
+                                                <td>Order Code</td>
+                                                <td>Order Date</td>
+                                                <td>Quantity</td>
+                                                <td>Status</td>
+                                                
                                                 
                                             </tr>
                                         </thead>
@@ -83,6 +101,11 @@
 
                             </table>
 		</div>
+        <div class="clearfix" style="height: 20px"></div>
+        <a href="<?= site_url() ?>" name="c4" title="Back">
+        <button type="button" class="btn btn-success col-md-6 col-md-offset-3" name="cont" id="cont">Back</button>
+        </a>
+        
 	</div>
 
 </div>

@@ -12,6 +12,7 @@
 	    function __construct() {
 	        parent::__construct();
 	        $this->load->library('session');
+
             date_default_timezone_set('Asia/Kuala_Lumpur');
 	    }
 	
@@ -692,7 +693,7 @@ epul@nastyjuice.com
                     break;
 
 
-                     case 'a62':  
+                      case 'a62':  
                     //$this->load->library('my_func');
                    /* if ($lvl == 4) {
                         redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
@@ -700,6 +701,16 @@ epul@nastyjuice.com
                     if ($this->input->get('mode')) {
                         $temp['mode'] = $this->input->get('mode');                 
                     }          */          
+                    if ($this->input->get('page')) {
+                        $p = $this->input->get('page');
+                    }else{
+                        $p = 0;
+                    } 
+                     if ($this->input->get('e')) {
+                        $e = $this->input->get('e');
+                    }else{
+                        $e = 0;
+                    }         
                     $this->load->database();
                     $this->load->library('my_func');
                     $this->load->library('my_flag');
@@ -759,14 +770,23 @@ epul@nastyjuice.com
                                 break;
                         }
                         if (isset($ver)) {
-                            $arr['arr1'] = $this->m_order->listOr($ver , null , null , 0 , $where);
+                            $arr['arr1'] = $this->m_order->listOrROS($ver , 8 , 9 , null , null , null , null , 0 , $where);
+                             $arr['arr2'] = $this->m_order->listOrROS($ver , 10 , 11 , 12 , 13 , null , null , 0 , $where);
                         }else{
-                            $arr['arr1'] = $this->m_order->listSearch(2 , null , null , 0 , $where);                        
+                            $arr['arr1'] = $this->m_order->listSearch(2 , null , null , 0 , $where);
+                            //$arr['arr2'] = $this->m_order->listOr($ver , null , null , 0 , $where);                        
                         }
                     } else {
-                        $ver = $this->m_order->orderCount(2);
-                        $arr['arr1'] = $this->m_order->listOr(2 , 10);
+                        $ver = $this->m_order->orderCountROS(2, 8 , 9, null , null);
+                        $ver2 = $this->m_order->orderCountROS(2, 10 , 11, 12 , 13 );
+                        //$ver = $this->m_order->orderCount(2);
+
+                        //$arr['arr1'] = $this->m_order->listOr(2 , 10 , $p);
+
+                        $arr['arr1'] = $this->m_order->listOrROS(2 , 8 , 9, null , null , 10 , $p);
+                        $arr['arr2'] = $this->m_order->listOrROS(2 , 10 , 11, 12 , 13 , 10 , $p);
                         $result1 = sizeof($arr['arr1']);
+                        $result2 = sizeof($arr['arr2']);
                         //$sizeA = 10 - $result1;
                         /*if ($sizeA != 0) {
                             $p1 = $p + 10 - $ver1;
@@ -779,9 +799,12 @@ epul@nastyjuice.com
                             $arr['arr'] = $this->m_order->listOr(0 , $p1 , $p2);
                             $result1 = $result1 + sizeof($arr['arr']);
                         }*/
-                        //$arr['page'] = $p;
+                        $arr['page'] = $p;
+                        $arr['e'] = $e;
                         $arr['total'] = $ver;
+                        $arr['total2'] = $ver2;
                         $arr['row'] = $result1;
+                        $arr['row2'] = $result2;
                         $arr['lvl'] = $this->m_order_process->getLvl(1);
                         $arr['lvl2'] = $this->m_order_process->getLvl(2);
                     }
@@ -1848,6 +1871,51 @@ epul@nastyjuice.com
 
                     
         }
+        public function change_pr_id4()
+        {
+                
+                //if ($this->input->post('or_id')){
+                //echo "<script>alert('test');</script>";
+                //$this->load->library('my_func'); 
+                $or_id = $this->input->post('or_id');
+                //$or_id = $this->my_func->scpro_decrypt($this->input->post('or_id'));
+                $pr_id = $this->input->post('pr_id');
+                $this->load->database();
+                $this->load->model('m_order');
+
+               
+/*
+                  1 - New Order
+                    2 - In Progress
+                    3 - Complete
+                    4 - Unconfirm
+                    5 - Cancel
+                    6 - Cancel In Progress
+                    7 - On Hold In Progress
+                    8 - ROS
+                    9 - DOC
+                    10 - RTS
+                    11 - Shipping
+                    12 - Arrived
+                    13 - Return */
+                    $result=$this->m_order->updateROS($pr_id, $or_id);
+                    if($result){
+                    $this->session->set_flashdata('success', 'Your order status is updated');
+                    redirect(site_url('nasty_v2/dashboard/page/a62'),'refresh');
+                    }
+                    else
+                    {
+                        $this->session->set_flashdata('error', 'Your order status is not updated');
+                    redirect(site_url('nasty_v2/dashboard/page/a62'),'refresh');
+                    }
+
+                // }
+                // else{
+                //     return false;
+                // }
+
+                    
+        }
 
 
 
@@ -2059,11 +2127,21 @@ epul@nastyjuice.com
 
 		public function logout()
 		{
-			$this->session->unset_userdata('us_id');
-			$this->session->unset_userdata('us_lvl');
-			$this->session->sess_destroy();
+            
+            $this->session->unset_userdata('us_id');
+            $this->session->unset_userdata('us_lvl');
+            $this->session->sess_destroy();
+            
+            $this->output->set_header('Last-Modified:'.gmdate('D, d M Y H:i:s').'GMT');
+            $this->output->set_header('Cache-Control: no-store, no-cache, must-revalidate');
+            $this->output->set_header('Cache-Control: post-check=0, pre-check=0',false);
+            $this->output->set_header('Pragma: no-cache');
+
+            // $this->load->view("main/login");
 			redirect(site_url('login'),'refresh');
 		}
+
+
 
 		function _checkSession()
 		{

@@ -3,7 +3,11 @@
 
 
 
+<script language="JavaScript" type="text/javascript">
 
+javascript:window.history.forward(1);
+
+</script>
 
 <body class="page-header-fixed page-sidebar-closed-hide-logo page-container-bg-solid">
         <!-- BEGIN HEADER -->
@@ -81,7 +85,7 @@
                     <div class="top-menu">
                         <ul class="nav navbar-nav pull-right">
                         <li>
-                            <a href="<?= site_url('dashboard/logout'); ?>" >
+                            <a href="<?= site_url('nasty_v2/dashboard/logout'); ?>" >
                                     <!--<img alt="" class="img-circle" src="<?= base_url(); ?>asset2/layouts/layout2/img/avatar3_small.jpg" />-->
                                     <span class="">logout</span>
                                     <i class="fa fa-sign-out"></i>

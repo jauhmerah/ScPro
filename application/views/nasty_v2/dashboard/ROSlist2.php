@@ -1,12 +1,12 @@
 <?php 
-	if (!isset($mode)) {
-		$mode = 0;
-	}	
+    if (!isset($mode)) {
+        $mode = 0;
+    }   
 ?>
 <script>
-	function moveTo() {
-		return confirm('Are you sure?');
-	}
+    function moveTo() {
+        return confirm('Are you sure?');
+    }
 </script>
 
  <style type="text/css">
@@ -171,18 +171,18 @@
 
 
 <div class="row">
-	<div class="col-md-12">
-		<div class="portlet box purple" id="newOrder" style="display:none;">
-			 <div class="portlet-title">
+    <div class="col-md-12">
+        <div class="portlet box purple" id="newOrder" <?php if($e==1){echo "style=display:block;"; }else{ echo "style=display:none;"; }  ?>  >
+             <div class="portlet-title">
                 <div class="caption">
                     <i class="fa fa-user"></i>ROS List 
                 </div>                
             </div>
 
             <div class="portlet-body flip-scroll">
-		            <div class="row">
-		            		<div class="col-md-12">
-					            	<table class="table table-bordered table-striped">
+                    <div class="row">
+                            <div class="col-md-12">
+                                    <table class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
                                                 <th>#</th>
@@ -200,7 +200,7 @@
                                             $n = 0; 
                                             if (sizeof($arr1) != 0) { 
                                                 foreach ($arr1 as $user) {
-                                                    if (($user->pr_id == 8) or($user->pr_id == 9)){
+                                                    
                                                     $n++;
                                                     ?>
                                                     <tr class="clickable" data-toggle="collapse" id="row<?= $n ?>" data-target=".row<?= $n ?>">
@@ -245,59 +245,77 @@
                                                                  <?php 
                                         $usid = $this->my_func->scpro_encrypt($user->or_id);
                                     ?>
-                                        <a href="<?= site_url('nasty_v2/dashboard/page/a111?view=').$usid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></button></a>                                        
+                                        <a href="<?= site_url('nasty_v2/dashboard/page/a111?view=').$usid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-circle btn-danger btn-xs"><i class="fa fa-eye"></i></button></a> 
+                                        &nbsp;-&nbsp;
+                                        <button title = "Print Order" onclick = "window.open('<?= site_url('order/printO1?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" type="button" class="btn btn-default btn-circle btn-info btn-xs"><i class="fa fa-print"></i></button>
+                                        &nbsp;-&nbsp;
+                                        <button type="button" title = "D.O Form" onclick = "window.open('<?= site_url('order/printDO1?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn btn-success btn-circle btn-xs"><i class="fa fa-truck"></i></button>
+                                          &nbsp;-&nbsp;
+                                        <?php if($user->pr_id==8){ ?>
+                                        <button type="button" title = "DOC" class="DOCButton btn yellow-gold btn-circle btn-xs" id="<?= $n.'doc' ?>" name="<?= $n.'doc' ?>">DOC</button>
+                                        <input type="hidden" class="form-control <?= $n.'doc' ?>" name="or_id" id="or_id" value="<?= $user->or_id ?>">
+                                        &nbsp;-&nbsp;
+                                        <?php }else if($user->pr_id==9){ ?>
+                                        <button type="button" title = "RTS" class="RTSButton btn purple-seance btn-circle btn-xs" id="<?= $n.'rts' ?>" name="<?= $n.'rts' ?>">RTS</button>
+                                        <input type="hidden" class="or_id <?= $n.'rts' ?>" name="or_id" id="or_id" value="<?= $user->or_id ?>">
+                                        &nbsp;-&nbsp; 
+                                        <?php } ?>  
+                                        <button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/Invoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');"  class="btn blue-dark btn-circle btn-xs" title="Invoice">Inv</button>
+                                        &nbsp;-&nbsp;   
+                                        <button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/dummyInvoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn c-btn-border-1x c-btn-blue-dark btn-circle btn-xs" title="Dummy Invoice">DInv</button>    
+
+
                                                             </td>
                                                     </tr>
 
-                                                     <tr class="collapse row<?= $n ?>">
-                                                    <td colspan="7" cellspadding="10" style="background-color: #F1F1F1;">
-                                                    <div class="col-md-2 col-md-offset-1 pull-right">
-                                                    <form role="form" method="post" action="<?= site_url('nasty_v2/dashboard/updatePr_id'); ?>" id="user-form">
-                                                         <select class="form-control" name="pr_id" id="pr_id">
-                                                            <?php foreach ($lvl as $key) {
-                                                                ?>
-                                                                <option value="<?= $key->pr_id; ?>" <?php if($key->pr_id == $user->pr_id){echo " selected ";} ?>> <?= $key->pr_desc; ?></option>
-                                                                <?php
-                                                            } ?>
-                                                            
-                                                        </select>
-                                                        <div class="clear" style="height: 10px"></div>
-                                                    <input type="hidden" name="id" id="id" class="form-control" value="<?= $user->or_id; ?>">
-                                                    <button title = "Save" type="submit" class="submit btn-primary btn-circle btn-info btn-xs">Save</button>
-
-                                                    </form>
-                                                   </div>
-
-                                                   
-                                                    
-                                                    </td>
-                                                    </tr>
-
-                        
-
+                                                
 
                                                     <?php 
-                                                            }
+                                                            
                                                         }
                                                     } ?>
 
                                         </tbody>
-
+                                        <tfoot>
+                                <td colspan="7">
+                                <div class="col-md-5 col-sm-5">
+                                    <div class="dataTables_info" id="sample_1_info" role="status" aria-live="polite">Showing <?= ($page+1); ?> to <?= ($page+$row); ?> of <?= $total; ?> records</div>
+                                </div>
+                                <div class="col-md-7 col-sm-7" align="right">
+                                    <div class="dataTables_paginate paging_bootstrap_full_number" id="sample_1_paginate">
+                                        <ul class="pagination" style="visibility: visible;">
+                                        <?php
+                                        $prev = "";
+                                        $next = "";
+                                            if ($page == 0) {
+                                                $prev = "disabled";
+                                            }
+                                            if ($total <= ($page + 10)) {
+                                                $next = "disabled";
+                                            }
+                                        ?>
+                                            <li class="prev <?= $prev; ?>"><a <?php if($prev!="disabled"){ ?>href="<?= site_url('nasty_v2/dashboard/page/a62?page='.($page-10)); ?>"<?php } ?> title="Prev" ><i class="fa fa-angle-left"></i></a></li>                                            
+                                            <li class="next <?= $next; ?>"><a <?php if($next!="disabled"){ ?>href="<?= site_url('nasty_v2/dashboard/page/a62?page='.($page+10)); ?>"<?php } ?> title="Next"><i class="fa fa-angle-right"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                </td>
+                            </tfoot> 
 
 
                             </table>
-			                    
-			                </div>
-		            </div>
+                                
+                            </div>
+                    </div>
             </div>
 
-		</div>
-	</div>
+        </div>
+    </div>
 </div>
 
 <div class="row">
     <div class="col-md-12">
-        <div class="portlet box blue" id="proOrder" style="display:none;">
+        <div class="portlet box blue" id="proOrder" <?php if($e==2){echo "style=display:block;";}else{ echo "style=display:none;"; }  ?>  >
              <div class="portlet-title">
                 <div class="caption">
                     <i class="fa fa-user"></i>RTS List 
@@ -323,9 +341,9 @@
                                     <tbody>
                                        <?php
                                             $n = 0; 
-                                            if (sizeof($arr1) != 0) { 
-                                                foreach ($arr1 as $user) {
-                                                    if (($user->pr_id == 10) or ($user->pr_id == 11) or ($user->pr_id == 12) or ($user->pr_id == 13)){
+                                            if (sizeof($arr2) != 0) { 
+                                                foreach ($arr2 as $user) {
+                                                  
                                                     $n++;
                                                     ?>
                                                     <tr class="clickable" data-toggle="collapse" id="row<?= $n ?>" data-target=".row<?= $n ?>">
@@ -370,40 +388,72 @@
                                                                  <?php 
                                         $usid = $this->my_func->scpro_encrypt($user->or_id);
                                     ?>
-                                        <a href="<?= site_url('nasty_v2/dashboard/page/a111?view=').$usid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></button></a>                                        
+                                        <a href="<?= site_url('nasty_v2/dashboard/page/a111?view=').$usid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-circle btn-danger btn-info btn-xs"><i class="fa fa-eye"></i></button></a>
+                                         &nbsp;-&nbsp;
+                                        <button title = "Print Order" onclick = "window.open('<?= site_url('order/printO1?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" type="button" class="btn btn-default btn-circle btn-info btn-xs"><i class="fa fa-print"></i></button>
+                                        &nbsp;-&nbsp;
+                                        <button type="button" title = "D.O Form" onclick = "window.open('<?= site_url('order/printDO1?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn btn-success btn-circle btn-xs"><i class="fa fa-truck"></i></button>
+
+                                        &nbsp;-&nbsp;
+
+                                        <?php if($user->pr_id==10){ ?>
+                                        <button type="button" title = "Shipping" class="SHButton btn purple-soft btn-circle btn-xs" id="<?= $n.'sh' ?>" name="<?= $n.'sh' ?>">Shipping</button>
+                                        <input type="hidden" class="form-control <?= $n.'sh' ?>" name="or_id" id="or_id" value="<?= $user->or_id ?>">
+                                        &nbsp;-&nbsp;
+                                        <?php }else if($user->pr_id==11){ ?>
+                                        <button type="button" title = "Arrived" class="ARButton btn red-flamingo btn-circle btn-xs" id="<?= $n.'arr' ?>" name="<?= $n.'arr' ?>">Arrived</button>
+                                        <input type="hidden" class="form-control <?= $n.'arr' ?>" name="or_id" id="or_id" value="<?= $user->or_id ?>">
+                                        &nbsp;-&nbsp; 
+                                        <?php }else if($user->pr_id==12){ ?>
+                                        <button type="button" title = "Return" class="REButton btn green-meadow btn-circle btn-xs" id="<?= $n.'ret' ?>" name="<?= $n.'ret' ?>">Return</button>
+                                        <input type="hidden" class="form-control <?= $n.'ret' ?>" name="or_id" id="or_id" value="<?= $user->or_id ?>">
+                                        &nbsp;-&nbsp; 
+                                         
+                                        <?php } ?>  
+                                      
+                                             
+                                        <button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/Invoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');"  class="btn blue-dark btn-circle btn-xs" title="Invoice">Inv</button>
+                                        &nbsp;-&nbsp;   
+                                        <button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/dummyInvoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn c-btn-border-1x c-btn-blue-dark btn-circle btn-xs" title="Dummy Invoice">DInv</button>                                            
                                                             </td>
                                                     </tr>
 
-                                                    <tr class="collapse row<?= $n ?>">
-                                                    <td colspan="7" cellspadding="10" style="background-color: #F1F1F1;">
-                                                    <div class="col-md-2 col-md-offset-1 pull-right">
-                                                    <form role="form" method="post" action="<?= site_url('nasty_v2/dashboard/updatePr_id'); ?>" id="user-form">
-                                                         <select class="form-control" name="pr_id" id="pr_id">
-                                                            <?php foreach ($lvl2 as $key) {
-                                                                ?>
-                                                                <option value="<?= $key->pr_id; ?>" <?php if($key->pr_id == $user->pr_id){echo " selected ";} ?>> <?= $key->pr_desc; ?></option>
-                                                                <?php
-                                                            } ?>
-                                                            
-                                                        </select>
-                                                        <div class="clear" style="height: 10px"></div>
-                                                    <input type="hidden" name="id" id="id" class="form-control" value="<?= $user->or_id; ?>">
-                                                    <button title = "Save" type="submit" class="submit btn-primary btn-circle btn-info btn-xs">Save</button>
-
-                                                    </form>
-                                                   </div>
-
-                                                   
-                                                    
-                                                    </td>
-                                                    </tr>
+                                                  
 
 
                                                     <?php 
-                                                            }
+                                                            
                                                         }
                                                     } ?>
                                     </tbody>
+                                    <?php if (isset($page)) {?>
+                            <tfoot>
+                                <td colspan="7">
+                                <div class="col-md-5 col-sm-5">
+                                    <div class="dataTables_info" id="sample_1_info" role="status" aria-live="polite">Showing <?= ($page+1); ?> to <?= ($page+$row2); ?> of <?= $total2; ?> records</div>
+                                </div>
+                                <div class="col-md-7 col-sm-7" align="right">
+                                    <div class="dataTables_paginate paging_bootstrap_full_number" id="sample_1_paginate">
+                                        <ul class="pagination" style="visibility: visible;">
+                                        <?php
+                                        $prev = "";
+                                        $next = "";
+                                            if ($page == 0) {
+                                                $prev = "disabled";
+                                            }
+                                            if ($total2 <= ($page + 10)) {
+                                                $next = "disabled";
+                                            }
+                                        ?>
+                                            <li class="prev <?= $prev; ?>"><a <?php if($prev!="disabled"){ ?>href="<?= site_url('nasty_v2/dashboard/page/a62?page='.($page-10)."&e=2"); ?>"<?php } ?> title="Prev" ><i class="fa fa-angle-left"></i></a></li>                                            
+                                            <li class="next <?= $next; ?>"><a <?php if($next!="disabled"){ ?>href="<?= site_url('nasty_v2/dashboard/page/a62?page='.($page+10)."&e=2"); ?>"<?php } ?> title="Next"><i class="fa fa-angle-right"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                </td>
+                            </tfoot> 
+                            <?php 
+                            } ?>
                                  </table>    
                               
         </div>
@@ -413,6 +463,169 @@
 
 <script>
     $(document).ready(function() {
+
+        $(".DOCButton").click(function() {
+
+                    id = $(this).prop('id');
+                    orid = $("."+id).val();
+                        
+                    bootbox.confirm({
+                        message: "Are you sure that you want to proceed?",
+                        buttons: {
+                            confirm: {
+                                label: 'Yes',
+                                className: 'btn-success'
+                               
+                            },
+                            cancel: {
+                                label: 'No',
+                                className: 'btn-danger'
+                            }
+                        },
+                        callback: function (result) {
+                            if(result == true){
+                                
+                                $.post('<?= site_url('nasty_v2/dashboard/change_pr_id4'); ?>', {or_id: orid,pr_id: 9}, function(data) {
+                                    
+                                    $(window).attr("location", "<?= site_url('nasty_v2/dashboard/page/a62'); ?>");
+                                    
+                                });
+
+                            }
+                            
+                            
+                        }
+                    });
+
+
+                });
+
+
+        $(".SHButton").click(function() {
+
+                    id = $(this).prop('id');
+                    orid = $("."+id).val();
+                        
+                    bootbox.confirm({
+                        message: "Are you sure that you want to proceed?",
+                        buttons: {
+                            confirm: {
+                                label: 'Yes',
+                                className: 'btn-success'
+                               
+                            },
+                            cancel: {
+                                label: 'No',
+                                className: 'btn-danger'
+                            }
+                        },
+                        callback: function (result) {
+                            if(result == true){
+                                
+                                $.post('<?= site_url('nasty_v2/dashboard/change_pr_id4'); ?>', {or_id: orid,pr_id: 11}, function(data) {
+                                    
+                                    $(window).attr("location", "<?= site_url('nasty_v2/dashboard/page/a62'); ?>");
+                                    
+                                });
+
+                            }
+                            
+                            
+                        }
+                    });
+
+
+                });
+
+         $(".ARButton").click(function() {
+
+                    id = $(this).prop('id');
+                    orid = $("."+id).val();
+                        
+                    bootbox.confirm({
+                        message: "Are you sure that you want to proceed?",
+                        buttons: {
+                            confirm: {
+                                label: 'Yes',
+                                className: 'btn-success'
+                               
+                            },
+                            cancel: {
+                                label: 'No',
+                                className: 'btn-danger'
+                            }
+                        },
+                        callback: function (result) {
+                            if(result == true){
+                                
+                                $.post('<?= site_url('nasty_v2/dashboard/change_pr_id4'); ?>', {or_id: orid,pr_id: 12}, function(data) {
+                                    
+                                    $(window).attr("location", "<?= site_url('nasty_v2/dashboard/page/a62'); ?>");
+                                    
+                                });
+
+                            }
+                            
+                            
+                        }
+                    });
+
+
+                });
+
+        $(".RTSButton").click(function() {
+
+                    id = $(this).prop('id');
+                    orid = $("."+id).val();
+                        
+
+                    bootbox.prompt({
+                        title: "Enter the tracking Number :",
+                        inputType: 'number',
+                        callback: function (result) {
+                            //alert(result);
+                            if(result){
+                            $.post('<?= site_url('nasty_v2/dashboard/change_pr_id4'); ?>', {or_id: orid,pr_id: 10}, function(data) {
+                                    
+                                    $(window).attr("location", "<?= site_url('nasty_v2/dashboard/page/a62'); ?>");
+                                    
+                                });
+                            }
+                            //console.log(result);
+                        }
+                    });
+
+               
+
+
+                });
+
+        $(".REButton").click(function() {
+
+                    id = $(this).prop('id');
+                    orid = $("."+id).val();
+                        
+
+                    bootbox.prompt({
+                        title: "Please state the reason :",
+                        inputType: 'textarea',
+                        callback: function (result) {
+                            //alert(result);
+                            if(result){
+                            $.post('<?= site_url('nasty_v2/dashboard/change_pr_id4'); ?>', {or_id: orid,pr_id: 13}, function(data) {
+                                    
+                                    $(window).attr("location", "<?= site_url('nasty_v2/dashboard/page/a62'); ?>");
+                                    
+                                });
+                            }
+                            //console.log(result);
+                        }
+                    });
+
+               
+
+
+                });
 
         $('#proO').click(function() {
             $("#newOrder").hide('slow');
