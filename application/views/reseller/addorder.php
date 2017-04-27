@@ -7,25 +7,16 @@
                     <i class="fa fa-cubes font-yellow-casablanca"></i>
                     <span class="caption-subject bold font-yellow-casablanca uppercase"> Product List </span>
                     <span class="caption-helper">more samples...</span>
-                </div>
-                <div>
-                    <div class="portlet-input input-inline input-medium">
-                        <div class="input-group">
-                                <input type="text" class="form-control">
-                                <div class="input-group-btn form-group">
-                                    <button type="button" class="btn green" tabindex="-1">Action</button>
-                                    <select name="" id="input" class="form-control">
-                                        <option value="">-- Select One --</option>
-                                    </select>                                   
-                                </div>
-                            </div>
-                    </div>
-                </div>
+                </div>                
             </div> 
         <div class="portlet-body">
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="form-group">
+            <div class="row">                
+                <div class="form-group">
+                    <div class="col-md-6">
+                    <div class="form-group form-inline">
+                        <input type="text" name="" id="input" class="form-control" value="" required="required" pattern="" title="">
+                        <input type="text" name="" id="input" class="form-control" value="" required="required" pattern="" title="">  
+                    </div>
                         <label for="input" class="col-sm-2 control-label">Series :</label>
                         <div class="col-sm-10">
                             <select name="siri" id="siri" class="form-control input-circle input-sm">
