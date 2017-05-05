@@ -21,13 +21,8 @@
             <h4 class="mt-card-name"><?= $arr->ty2_desc; ?></h4>
             <?php $price = number_format((float)$arr->ty2_price, 2, '.', ''); ?>
             <p class="mt-card-desc font-grey-mint">ID <?= $arr->ty2_code; ?><br>Price : RM <?= $price; ?></p>
-            <div class="mt-card-social">
-                <div class="btn-group btn-group-xs btn-group-solid">
-                <?php $id = $this->my_func->en($arr->ty2_id , 1); ?>
-                    <button type="button" class="btn red btn-circle-left mg" data-mg = '0' data-id = '<?= $id; ?>'><i class="fa fa-tint"> 0</i></button>
-                    <button type="button" class="btn green mg" data-mg = '3' data-id = '<?= $id; ?>'><i class="fa fa-tint"> 3</i></button>
-                    <button type="button" class="btn blue btn-circle-right mg" data-mg = '6' data-id = '<?= $id; ?>'><i class="fa fa-tint"> 6</i></button>
-                </div>
+            <div class="mt-card-social">                
+                    <button type="button" class="btn btn-block yellow-gold">SELECT</button>
                	<div class = "clearfix">&nbsp;</div>
             </div>
         </div>
