@@ -24,9 +24,8 @@ License: You must have a valid license purchased only from themeforest(the above
         <title><?php if(isset($ver)){echo $ver;}else{echo "Nasty Process System v2.1 Alpha";} ?></title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
-        <meta Http-Equiv="Cache-Control" Content="no-cache">
-<meta Http-Equiv="Pragma" Content="no-cache">
-<meta Http-Equiv="Expires" Content="0"> 
+        <META HTTP-EQUIV="Pragma" CONTENT="private">
+<META HTTP-EQUIV="Cache-Control" CONTENT="private, max-age=5400, pre-check=5400">
         <meta content="" name="description" />
         <meta content="" name="author" />
         <!-- BEGIN GLOBAL MANDATORY STYLES -->

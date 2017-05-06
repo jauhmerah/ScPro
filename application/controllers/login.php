@@ -6,18 +6,15 @@
 		var $version = "Nasty Process System v2.3.7 Alpha";
 	    function __construct() {
 	        parent::__construct();
-	        
+	       	$this->output->set_header('Last-Modified: ' . gmdate("D, d M Y H:i:s") . ' GMT');
+       		$this->output->set_header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
+        	$this->output->set_header('Pragma: no-cache');
+        	$this->output->set_header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+        
 	        $this->load->library('session' , 'my_func');
 	    }
 	
 	    function index() {
-	    	$this->output->set_header("HTTP/1.0 200 OK");
-                $this->output->set_header("HTTP/1.1 200 OK");
-                $this->output->set_header('Expires: Sat, 26 Jul 1997 05:00:00 GMT');
-                $this->output->set_header('Last-Modified: '.gmdate('D, d M Y H:i:s', time()).' GMT');
-                $this->output->set_header("Cache-Control: no-store, no-cache, must-revalidate");
-                $this->output->set_header("Cache-Control: post-check=0, pre-check=0");
-                $this->output->set_header("Pragma: no-cache");
 
 	        $this->load->view("main/login");
 	    }

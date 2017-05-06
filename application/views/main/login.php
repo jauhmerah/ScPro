@@ -3,9 +3,12 @@
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta Http-Equiv="Cache-Control" Content="no-cache">
-<meta Http-Equiv="Pragma" Content="no-cache">
-<meta Http-Equiv="Expires" Content="0"> 
+    <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE, NO-STORE, must-revalidate">
+    <META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE">
+    <META HTTP-EQUIV="EXPIRES" CONTENT=0>
+
+    <?php header("Cache-Control: no-store, no-cache, must-revalidate"); ?>
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
@@ -33,6 +36,12 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+
+<script language=”javascript” type=”text/javascript”>
+window.history.back();
+</script>
+
   <style>
        .background { 
   background: url("<?php echo base_url();?>assets/cover/background.jpg"); 
@@ -126,12 +135,22 @@
 </script>
   <div class = "container">
 
-     <div class="col-lg-offset-5 col-lg-2" align="center">
+    <!--  <div class="col-lg-offset-5 col-lg-2" align="center">
          <img src="<?= base_url(); ?>assets/cover/logo.png" class="img-responsive" alt="Image">
-     </div> 
+     </div>  -->
   </div>
 
     <div class="container" id = "signin">
+    <div class="row">
+      <div class="col-lg-6" align="center">
+         <img src="<?= base_url(); ?>assets/cover/logo.png" class="img-responsive" alt="Image">
+     </div> 
+     <div class="col-lg-6" align="center">
+         <img src="<?= base_url(); ?>assets/cover/logo.png" class="img-responsive" alt="Image">
+     </div> 
+    </div>
+    
+    <div class="pull-left col-lg-6">
       <form class="form-signin" method="post" action = "<?= site_url('login/signin'); ?>">
       <?php if($this->session->flashdata('warning')){?>
 <div class="alert alert-danger alert-dismissable">
@@ -145,7 +164,7 @@
                                 <strong><i class="fa fa-check"></i>  Success!</strong> <?= $this->session->flashdata('success'); ?>
                             </div>
         <?php } ?>
-        <h2 class="form-signin-heading">Please sign in</h2>
+        <h2 class="form-signin-heading">OrdYs Login</h2>
         <label for="inputEmail1">Email address</label>
         <input type="email" id="inputEmail1" name="email" class="form-control" required="" autofocus="">
          <div class="clearfix">
@@ -158,16 +177,49 @@
          <div class="clearfix">
         &nbsp;
         </div>
-        <a><label class = "btn1">Forgot Password?</label></a>
+        <!-- <a><label class = "btn1">Forgot Password?</label></a> -->
        
         <div class="clearfix">
         &nbsp;
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
       </form>
-
-
+      </div>
+      <div class="pull-right col-lg-6">
+<form class="form-signin" method="post" action = "http://oem.nastyjuice.com/login/signin">
+      <?php if($this->session->flashdata('warning')){?>
+<div class="alert alert-danger alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+                                <strong><i class="fa fa-exclamation-triangle"></i> Warning!</strong> <?= $this->session->flashdata('warning'); ?>
+                            </div>
+<?php } ?>
+  <?php if($this->session->flashdata('success')){ ?>
+                            <div class="alert alert-success alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+                                <strong><i class="fa fa-check"></i>  Success!</strong> <?= $this->session->flashdata('success'); ?>
+                            </div>
+        <?php } ?>
+        <h2 class="form-signin-heading">OEM Login</h2>
+        <label for="inputEmail1">Email address</label>
+        <input type="email" id="inputEmail1" name="email" class="form-control" required="" autofocus="">
+         <div class="clearfix">
+        &nbsp;
+        </div>
+        <label for="inputPassword1">Password</label>
+        <input type="password" id="inputPassword1" name="pass" class="form-control" required="">
+        <div class="clearfix">
+        </div>
+         <div class="clearfix">
+        &nbsp;
+        </div>
+        <!-- <a><label class = "btn1">Forgot Password?</label></a> -->
        
+        <div class="clearfix">
+        &nbsp;
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      </form>
+       </div>
 
     </div> 
 
@@ -175,7 +227,7 @@
 
 
     <!-- /container -->
-    <div class="container" id = "signup">
+   <!--  <div class="container" id = "signup">
       <form class="form-signin" method  = "post" action="<?= site_url('login/forgot'); ?>" id = "daftar" >
       <?php if($this->session->flashdata('warning')){?>
 <div class="alert alert-danger alert-dismissable">
@@ -211,7 +263,7 @@
       </form>
       
 
-    </div> 
+    </div>  -->
     <div id = "msg2"></div>
 
 
@@ -220,10 +272,5 @@
   
 
 </body>
-<script language="JavaScript" type="text/javascript">
 
-window.history.forward();
-    function noBack() { window.history.forward(); }
-
-</script> 
 </html>

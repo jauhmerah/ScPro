@@ -8,7 +8,12 @@
 
 	    function __construct() {
 	        parent::__construct();
+            $this->output->set_header('Last-Modified: ' . gmdate("D, d M Y H:i:s") . ' GMT');
+            $this->output->set_header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
+            $this->output->set_header('Pragma: no-cache');
+            $this->output->set_header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
 	        $this->load->library('session');
+
             date_default_timezone_set('Asia/Kuala_Lumpur');
 	    }
 
@@ -70,7 +75,16 @@
                         $data['title'] = '<i class="fa fa-pencil"></i>Main Page</a>';
                         $data['display'] = $this->load->view($this->parent_page.'/dashboard' ,$arr, true);
                         $this->_show('dashboard', $data , $key);
-                   break;   
+                   break;
+                   case "t1" :// tracking
+                        $data['title'] = '<i class="fa fa-cart-plus"></i> Tracking';
+                    $this->_show('tracking' , $data , $key);
+                    break;
+                    case "r1" :// ranking
+                        $data['title'] = '<i class="fa fa-cart-plus"></i> Ranking';
+                    $this->_show('ranklist' , $data , $key);
+                    break;
+
     			default:
     				$this->_show();
     				break;

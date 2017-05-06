@@ -44,8 +44,8 @@
                     </li><?php } ?>                          
 
                     <?php if($us_lvl != 4){?>                     
-                    <li class="nav-item <?php if (strpos($link, 'd') !== false) { echo "active open";}else{echo "start";}?>   ">
-                        <a href="" class="nav-link ">
+                    <li class="nav-item <?php if (strpos($link, 't') !== false) { echo "active open";}else{echo "start";}?>   ">
+                        <a href="<?= site_url('reseller/page/t1') ?>" class="nav-link ">
                             <i class="fa fa-search"></i>
                             <span class="title">Tracking</span>
                         </a>

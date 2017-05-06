@@ -1,3 +1,4 @@
+<link href="<?= base_url(); ?>/asset/css/strength.css" rel="stylesheet" type="text/css" />
 <div class="row">
 	<div class="col-md-12">
 		<div class="portlet box purple">
@@ -56,7 +57,7 @@
                             <label class="col-md-3 control-label">New Password :</label>
                             <div class="col-md-4">
                                 <div class="input-group">
-                                    <input type="password" name="pass" id = "pass1" class="form-control input-circle-left" placeholder="New Password">
+                                    <input type="password" name="pass" id = "password" class="form-control input-circle-left" placeholder="New Password">
                                     <span class="input-group-addon input-circle-right">
                                         <i class="fa fa-key"></i>
                                     </span>
@@ -67,6 +68,12 @@
                             <label class="col-md-3 control-label">Re-password :</label>
                             <div class="col-md-4">
                                     <input type="password" id = "pass2" class="form-control input-circle" placeholder="Re-password">                                    
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                        <label class="col-md-3 control-label"></label>
+                        <div id="pwd-container" class="col-md-4">
+                            <div class="pwstrength_viewport_progress"></div>
                             </div>
                         </div>
                          <input type="hidden" name="id" id="inputId" class="form-control" value="<?= $id; ?>">
@@ -83,9 +90,10 @@
                 <!-- END FORM-->
             </div>
         </div>
+        <script src="<?= base_url(); ?>/asset/js/strength.js"></script>
 		<script>
 			$(document).ready(function() {
-				$('#pass1').keyup(function() {
+				$('#password').keyup(function() {
 					if ($(this).val() == "") {
 						$("#p1").prop('class', 'form-group');
 						$("#pass2").val("");

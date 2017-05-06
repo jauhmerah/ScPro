@@ -12,7 +12,10 @@
 	    function __construct() {
 	        parent::__construct();
 	        $this->load->library('session');
-
+            $this->output->set_header('Last-Modified: ' . gmdate("D, d M Y H:i:s") . ' GMT');
+            $this->output->set_header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
+            $this->output->set_header('Pragma: no-cache');
+            $this->output->set_header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
             date_default_timezone_set('Asia/Kuala_Lumpur');
 	    }
 	
@@ -1708,36 +1711,35 @@ epul@nastyjuice.com
                     $this->load->model('m_news');
                     $or_id = $this->my_func->scpro_decrypt($this->input->post('or_id'));
                     $result = $this->my_func->do_upload('./assets/uploads/img/'); 
-                    echo sizeof($result['success']);
-                    echo sizeof($result['error']);                      
+                                       
                     $pi_id = null;
                     $success = array();
-                    // if (sizeof($result['success']) != 0) {
-                    //     $m_pic = array();
-                    //     foreach ($result['success'] as $filename => $detail) {   
-                    //             $m_pic = array(
-                    //                 'pi_title' => $filename,
-                    //                 'img_url' => $detail['file_name'],
-                    //                 'ne_id' => $or_id
-                    //             );
-                    //             $success[] = $filename;
-                    //     }
-                    //     $this->m_order->update(array('or_paid' => 1),$or_id);
-                    //     $this->change_pr_id2($or_id);
-                    //     // this part for replace image if already uploaded.
-                    //     if ($this->m_picture->getbyne_id($or_id)) {
-                    //         $this->load->library('file');
-                    //         $t = $this->m_picture->get(array("ne_id" => $or_id));
-                    //         if (delete_files('./assets/uploads/img/'.$t->img_url)) {
-                    //             $this->m_picture->update($m_pic , $t->pi_id);
-                    //         }else{
-                    //             $this->session->set_flashdata('error', 'Ops !! , Unable to Find The old Image');
-                    //             delete_files('./assets/uploads/img/'.$m_pic['img_url']);
-                    //         }                            
-                    //     }else{
-                    //         $this->m_picture->insert($m_pic);
-                    //     //}                        
-                    // }
+                    if (sizeof($result['success']) != 0) {
+                        $m_pic = array();
+                        foreach ($result['success'] as $filename => $detail) {   
+                                $m_pic = array(
+                                    'pi_title' => $filename,
+                                    'img_url' => $detail['file_name'],
+                                    'ne_id' => $or_id
+                                );
+                                $success[] = $filename;
+                        }
+                        $this->m_order->update(array('or_paid' => 1),$or_id);
+                        $this->change_pr_id2($or_id);
+                        // this part for replace image if already uploaded.
+                        if ($this->m_picture->getbyne_id($or_id)) {
+                            $this->load->library('file');
+                            $t = $this->m_picture->get(array("ne_id" => $or_id));
+                            if (delete_files('./assets/uploads/img/'.$t->img_url)) {
+                                $this->m_picture->update($m_pic , $t->pi_id);
+                            }else{
+                                $this->session->set_flashdata('error', 'Ops !! , Unable to Find The old Image');
+                                delete_files('./assets/uploads/img/'.$m_pic['img_url']);
+                            }                            
+                        }else{
+                            $this->m_picture->insert($m_pic);
+                        //}                        
+                    }
                     $i = sizeof($success);
                     $e = sizeof($result['error']);
                     if ($e == 0) {
@@ -2128,17 +2130,28 @@ epul@nastyjuice.com
 		public function logout()
 		{
             
+            
+            //$this->session->sess_destroy();
             $this->session->unset_userdata('us_id');
             $this->session->unset_userdata('us_lvl');
-            $this->session->sess_destroy();
             
-            $this->output->set_header('Last-Modified:'.gmdate('D, d M Y H:i:s').'GMT');
-            $this->output->set_header('Cache-Control: no-store, no-cache, must-revalidate');
-            $this->output->set_header('Cache-Control: post-check=0, pre-check=0',false);
-            $this->output->set_header('Pragma: no-cache');
+            
 
+
+
+            $this->load->driver('cache');
+            $this->session->sess_destroy();
+            $this->cache->clean();
             // $this->load->view("main/login");
-			redirect(site_url('login'),'refresh');
+
+            $this->output->set_header('Last-Modified: ' . gmdate("D, d M Y H:i:s") . ' GMT');
+            $this->output->set_header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
+            $this->output->set_header('Pragma: no-cache');
+            $this->output->set_header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+
+            redirect(site_url('login'),'refresh');
+        
+			
 		}
 
 

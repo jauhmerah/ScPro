@@ -180,6 +180,8 @@
                                                 <div class="col-md-6">
                                                 <div class="pull-right">
                                                 <h1>Rank 1</h1>
+                                                <a href="<?= site_url('reseller/page/r1') ?>" name="c4" title="Order Detail">
+                                                <button type="button" title = "Shipping" class="SHButton btn purple-medium btn-circle">Ranking List</button></a>
                                                 </div>
                                                 </div>
                                         </div>
