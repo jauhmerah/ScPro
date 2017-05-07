@@ -1,5 +1,6 @@
 <div class="col-md-3 col-xs-3">
     <div class="mt-card-item">
+    <pre><?php print_r($arr); ?></pre>
         <div class="mt-card-avatar mt-overlay-1">
             <img src="<?= base_url(); ?>assets/uploads/product/<?php if($arr->ty2_img != null){echo $arr->ty2_img ;}else{ echo "400x400.png";} ?>">
             <div class="mt-overlay">
