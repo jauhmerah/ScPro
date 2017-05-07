@@ -1263,21 +1263,22 @@ epul@nastyjuice.com
                                        'oi_qty' => $arr['qtyE'][$i],
                                        'oi_tester' => $arr['testerE'][$i]
                                     );
-                                    if ($this->_checkStockUpdate($oi_id , $temp)) {
-                                        $this->m_order_item->update($temp , $oi_id);
-                                    }else{
-                                        $msg = $msg . " Item Code Id : ".$this->my_func->en($oi_id)." insufficient Quantity.</br>";
-                                    }
+                                    $this->m_order_item->update($temp , $oi_id);//<- remove inventory
+                                    // if ($this->_checkStockUpdate($oi_id , $temp)) {
+                                    //     $this->m_order_item->update($temp , $oi_id);
+                                    // }else{
+                                    //     $msg = $msg . " Item Code Id : ".$this->my_func->en($oi_id)." insufficient Quantity.</br>";
+                                    // }
                                 }
-                                if($msg == ''){
-                                    $this->session->set_flashdata('warning', $msg);
-                                }
+                                // if($msg != ''){
+                                //     $this->session->set_flashdata('warning', $msg);
+                                // }
                             }
                         }
                         if (isset($arr['itemId'])) {  
                             if (sizeof($arr['itemId'])) {                            
                                 for ($i=0; $i < sizeof($arr['itemId']) ; $i++) {
-                                    if ($this->checkStock($arr['itemId'][$i] , $arr['nico'][$i] , $arr['qty'][$i] , $arr['tester'][$i])) {
+                                    // if ($this->checkStock($arr['itemId'][$i] , $arr['nico'][$i] , $arr['qty'][$i] , $arr['tester'][$i])) { <- remove inventory
                                         $item = array(
                                             'orex_id' => $arr['orex_id'],
                                             'ty2_id' => $arr['itemId'][$i],
@@ -1287,7 +1288,7 @@ epul@nastyjuice.com
                                             'oi_tester' => $arr['tester'][$i]
                                         );
                                         $this->m_order_item->insert($item);
-                                    }                                   
+                                    // }                                   
                                 }
                             }
                         }
@@ -1303,8 +1304,6 @@ epul@nastyjuice.com
                             'or_wide' => $arr['wide'],
                             'or_finishdate' => $arr['finishdate'],
                             'or_shipcom' => $arr['sh_company'],
-                            'or_shipopt' => $arr['sh_opt'],
-                            'dec_id' => $arr['sh_declare'],
                             'or_traking' => $arr['traking']
                         );
                         if (isset($arr['currency'])) {
@@ -1327,9 +1326,9 @@ epul@nastyjuice.com
                         $arr = $this->input->post();
                         $this->load->library('my_func');
                         $this->load->database();
-                        if (!$this->checkStock($arr['itemId'] , $arr['nico'] , $arr['qty'] , $arr['tester'])) {
-                            redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
-                        }
+                        // if (!$this->checkStock($arr['itemId'] , $arr['nico'] , $arr['qty'] , $arr['tester'])) {
+                        //     redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
+                        // }
                         $this->load->model('m_order');
                         if ($arr['client'] == -1) {
                             $cl = array(
@@ -1377,13 +1376,14 @@ epul@nastyjuice.com
                                 'oi_qty' => $arr['qty'][$i],
                                 'oi_tester' => $arr['tester'][$i]
                             );
-                            if($this->m_order_item->insert($item)){
-                                $wh = array(
-                                    'ty2_id' => $arr['itemId'][$i],
-                                    'ni_id' => $arr['nico'][$i]
-                                );
-                                $this->msi->updateQty($arr['qty'][$i]+$arr['tester'][$i] , $wh);
-                            }
+                            $this->m_order_item->insert($item);//<- edit remove inventory
+                            // if($this->m_order_item->insert($item)){
+                            //     $wh = array(
+                            //         'ty2_id' => $arr['itemId'][$i],
+                            //         'ni_id' => $arr['nico'][$i]
+                            //     );
+                            //     $this->msi->updateQty($arr['qty'][$i]+$arr['tester'][$i] , $wh);
+                            // }
                         }
                         /*$this->load->model('m_shipping_note');
                         $shipping_note = array(
