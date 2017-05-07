@@ -84,12 +84,93 @@
                         $data['title'] = '<i class="fa fa-cart-plus"></i> Ranking';
                     $this->_show('ranklist' , $data , $key);
                     break;
+                     case "s1" :// uesr detail
+                        $staffId = $this->my_func->scpro_decrypt($this->session->userdata('us_id'));
+                        $this->load->database();
+                        $this->load->model('m_user');                       
+                        $arr['arr'] = $this->m_user->getAll($staffId);
+                        
+                        $data['title'] = '<i class="fa fa-user"></i> User';
+                        $data['display'] = $this->load->view($this->parent_page.'/staffView' , $arr , true);
+                        $this->_show('display' , $data , $key);
+                        //$this->_show('staffView' , $data , $key);
+                    break;
+
+                    case "s12" :// uesr detail
+                        $staffId = $this->my_func->scpro_decrypt($this->session->userdata('us_id'));
+                        $this->load->database();
+                        $this->load->model('m_user');                       
+                        $arr['arr'] = $this->m_user->getAll($staffId);
+                        
+                        $data['title'] = '<i class="fa fa-home"></i> Address';
+                        $data['display'] = $this->load->view($this->parent_page.'/address' , $arr , true);
+                        $this->_show('display' , $data , $key);
+                        //$this->_show('staffView' , $data , $key);
+                    break;
+
+                    case 'c11':
+                    //edit
+                    $data['title'] = '<i class="fa fa-user"></i> User Edit';
+                    if ($this->input->get('edit')) {
+                        $staffId = $this->my_func->scpro_decrypt($this->input->get('edit'));
+                        //echo $staffId;
+                        $this->load->database();
+                        $this->load->model('m_user');
+                        $arr['id'] = $this->input->get('edit');
+                        $arr['lvl'] = $this->m_user->getLvl();
+                        $arr['arr'] = $this->m_user->getAll($staffId);
+                        $data['display'] = $this->load->view($this->parent_page.'/editStaff' , $arr , true);
+                        $this->_show('display' , $data , $key); 
+                        break;
+                    }  
+
+                    case 'c12':
+                    //edit
+                    $data['title'] = '<i class="fa fa-home"></i> Address Edit';
+                    if ($this->input->get('edit')) {
+                        $staffId = $this->my_func->scpro_decrypt($this->input->get('edit'));
+                        //echo $staffId;
+                        $this->load->database();
+                        $this->load->model('m_user');
+                        $arr['id'] = $this->input->get('edit');
+                        $arr['lvl'] = $this->m_user->getLvl();
+                        $arr['arr'] = $this->m_user->getAll($staffId);
+                        $data['display'] = $this->load->view($this->parent_page.'/editAddress' , $arr , true);
+                        $this->_show('display' , $data , $key); 
+                        break;
+                    }  
 
     			default:
     				$this->_show();
     				break;
     		}
     	}
+
+        public function updateStaff()
+        {
+            if ($this->input->post()) {
+                $arr = $this->input->post();                
+                $this->load->database();
+                $this->load->model('m_user');
+                $this->load->library('my_func');
+                foreach ($arr as $key => $value) {
+                    if ($value != null) {
+                        if ($key == 'pass') {
+                            $value = $this->my_func->scpro_encrypt($value);
+                        }
+                        if ($key == 'id') {
+                            $id = $this->my_func->scpro_decrypt($value);
+                        }else{
+                            $arr2['us_'.$key] = $value;
+                        }                       
+                    }
+                }
+                $result = $this->m_user->update($arr2 , $id);
+                redirect(site_url('reseller/page/s1'),'refresh');
+            }else{
+                redirect(site_url('reseller/page/s1'),'refresh');
+            }
+        }
 
     	function _checkSession()
 		{

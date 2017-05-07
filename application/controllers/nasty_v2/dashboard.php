@@ -1325,6 +1325,7 @@ epul@nastyjuice.com
     				$data['display'] = $this->load->view($this->parent_page.'/addStaff' ,$arr , true);
 		    		$this->_show('display' , $data , $key); 
     				break;
+                    
                 case 'k1':
                     //OrdSys 2.5.6
                     //Accounting Module
@@ -1765,6 +1766,7 @@ epul@nastyjuice.com
             }
             redirect('nasty_v2/dashboard/page/a1new','refresh');
         }
+    }
 
          public function uploadPaid2()
         {
