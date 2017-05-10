@@ -1,6 +1,6 @@
 <div class="col-md-3 col-xs-3">
     <div class="mt-card-item">
-    <pre><?php print_r($arr); ?></pre>
+    
         <div class="mt-card-avatar mt-overlay-1">
             <img src="<?= base_url(); ?>assets/uploads/product/<?php if($arr->ty2_img != null){echo $arr->ty2_img ;}else{ echo "400x400.png";} ?>">
             <div class="mt-overlay">
@@ -9,17 +9,16 @@
                         <a class="btn default btn-outline" href="javascript:;">
                             <i class="icon-magnifier"></i>
                         </a>
-                    </li>
-                    <li>
-                        <a class="btn default btn-outline" href="javascript:;">
-                            <i class="icon-link"></i>
-                        </a>
-                    </li>
+                    </li>                   
                 </ul>
             </div>
         </div>
         <div class="mt-card-content">
             <h4 class="mt-card-name"><?= $arr->ty2_desc; ?></h4>
+            <span class="label" style="color: black;background-color: <?= $arr->ca_color; ?>; font-size: 75%;" ><strong><?= $arr->ca_desc; ?></strong></span>
+            <div class="clearfix">
+            &nbsp;
+            </div>
             <?php $price = number_format((float)$arr->ty2_price, 2, '.', ''); ?>
             <p class="mt-card-desc font-grey-mint">ID <?= $arr->ty2_code; ?><br>Price : RM <?= $price; ?></p>
             <div class="mt-card-social">                

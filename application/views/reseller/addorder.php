@@ -54,6 +54,14 @@
 	</div>
 </div>
 
+<div>
+    <div class="row">
+        <div class="col-lg-8">
+            
+        </div>
+    </div>
+</div>
+
 <!-- invoice end -->
 <script>
     var c = null;
