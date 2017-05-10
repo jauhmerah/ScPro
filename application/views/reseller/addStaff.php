@@ -4,57 +4,40 @@
 		<div class="portlet box purple">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-user"></i>Address Edit</div>
+                    <i class="fa fa-user"></i>User Edit</div>
                 
             </div>
             <div class="portlet-body form">
                 <!-- BEGIN FORM-->
                 <form  action="<?= site_url('reseller/updateStaff') ?>" method = 'post' class="form-horizontal">
                     <div class="form-body">
-                    	<h3 class="form-section">Address Detail</h3>
+                    	<h3 class="form-section">Staff Detail</h3>
                         <div class="form-group">
-                            <label class="col-md-3 control-label">Company Name :</label>
+                            <label class="col-md-3 control-label">First Name :</label>
                             <div class="col-md-4">
                                 <input type="text" name="fname" class="form-control input-circle" placeholder="<?= $arr->us_fname; ?>">
                             </div>
                         </div>
-                       
                         <div class="form-group">
-                            <label class="col-md-3 control-label">Address :</label>
+                            <label class="col-md-3 control-label">Last Name :</label>
+                            <div class="col-md-4">
+                                <input type="text" name="lname" class="form-control input-circle" placeholder="<?= $arr->us_lname; ?>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Username :</label>
                            <div class="col-md-4">
-                                <textarea name="username" class="form-control input-circle"></textarea>
+                                <input type="text" name="username" class="form-control input-circle" placeholder="<?= $arr->us_username; ?>">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-3 control-label">Town</label>
+                            <label class="col-md-3 control-label">Email Address</label>
                             <div class="col-md-4">
                                 <div class="input-group">
-                                    
-                                    <input type="text" name="email" class="form-control input-circle-left" placeholder="<?= $arr->us_email; ?>"> 
-
-                                     <span class="input-group-addon input-circle-right">
-                                        <i class="fa fa-angle-down"></i>
+                                    <span class="input-group-addon input-circle-left">
+                                        <i class="fa fa-envelope"></i>
                                     </span>
-                                    </div>
-                            </div>
-                        </div>
-                         <div class="form-group">
-                            <label class="col-md-3 control-label">Poscode</label>
-                             <div class="col-md-4">
-                                <input type="text" name="fname" class="form-control input-circle" placeholder="<?= $arr->us_fname; ?>">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-3 control-label">State</label>
-                            <div class="col-md-4">
-                                <div class="input-group">
-                                    
-                                    <input type="text" name="email" class="form-control input-circle-left" placeholder="<?= $arr->us_email; ?>"> 
-
-                                     <span class="input-group-addon input-circle-right">
-                                        <i class="fa fa-angle-down"></i>
-                                    </span>
-                                    </div>
+                                    <input type="email" name="email" class="form-control input-circle-right" placeholder="<?= $arr->us_email; ?>"> </div>
                             </div>
                         </div>
                         <!-- <div class="form-group">
@@ -69,7 +52,7 @@
                         </select>
                             </div>
                         </div> -->
-                        <!-- <h3 class="form-section">New Password</h3>
+                        <h3 class="form-section">New Password</h3>
                         <div class="form-group" id="p1">
                             <label class="col-md-3 control-label">New Password :</label>
                             <div class="col-md-4">
@@ -80,19 +63,19 @@
                                     </span>
                                 </div>
                             </div>
-                        </div> -->
-                        <!-- <div class="form-group" id="p2">
+                        </div>
+                        <div class="form-group" id="p2">
                             <label class="col-md-3 control-label">Re-password :</label>
                             <div class="col-md-4">
                                     <input type="password" id = "pass2" class="form-control input-circle" placeholder="Re-password">                                    
                             </div>
-                        </div> -->
-                        <!-- <div class="row form-group">
+                        </div>
+                        <div class="row form-group">
                         <label class="col-md-3 control-label"></label>
                         <div id="pwd-container" class="col-md-4">
                             <div class="pwstrength_viewport_progress"></div>
                             </div>
-                        </div> -->
+                        </div>
                          <input type="hidden" name="id" id="inputId" class="form-control" value="<?= $id; ?>">
                     </div>
                     <div class="form-actions">

@@ -4,57 +4,60 @@
 		<div class="portlet box purple">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-user"></i>Address Edit</div>
+                    <i class="fa fa-user"></i>Add Address</div>
                 
             </div>
             <div class="portlet-body form">
                 <!-- BEGIN FORM-->
-                <form  action="<?= site_url('reseller/updateStaff') ?>" method = 'post' class="form-horizontal">
+                <form  action="<?= site_url('reseller/addAddress') ?>" method = 'post' class="form-horizontal">
                     <div class="form-body">
                     	<h3 class="form-section">Address Detail</h3>
                         <div class="form-group">
                             <label class="col-md-3 control-label">Company Name :</label>
                             <div class="col-md-4">
-                                <input type="text" name="fname" class="form-control input-circle" placeholder="<?= $arr->us_fname; ?>">
+                                <input type="text" name="company_name" class="form-control input-circle" placeholder="" required>
                             </div>
                         </div>
                        
                         <div class="form-group">
                             <label class="col-md-3 control-label">Address :</label>
                            <div class="col-md-4">
-                                <textarea name="username" class="form-control input-circle"></textarea>
+                                <textarea name="address" class="form-control input-circle" required></textarea>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-3 control-label">Town</label>
                             <div class="col-md-4">
-                                <div class="input-group">
+                                
                                     
-                                    <input type="text" name="email" class="form-control input-circle-left" placeholder="<?= $arr->us_email; ?>"> 
+                                    <input type="text" name="town" class="form-control input-circle" placeholder="" required> 
 
-                                     <span class="input-group-addon input-circle-right">
+                                     <!-- <span class="input-group-addon input-circle-right">
                                         <i class="fa fa-angle-down"></i>
-                                    </span>
-                                    </div>
+                                    </span> -->
+                                    
                             </div>
                         </div>
                          <div class="form-group">
                             <label class="col-md-3 control-label">Poscode</label>
-                             <div class="col-md-4">
-                                <input type="text" name="fname" class="form-control input-circle" placeholder="<?= $arr->us_fname; ?>">
+                             <div class="col-md-2">
+                                <input type="text" name="poscode" class="form-control input-circle" placeholder="" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-3 control-label">State</label>
                             <div class="col-md-4">
-                                <div class="input-group">
+                                
                                     
-                                    <input type="text" name="email" class="form-control input-circle-left" placeholder="<?= $arr->us_email; ?>"> 
-
-                                     <span class="input-group-addon input-circle-right">
-                                        <i class="fa fa-angle-down"></i>
-                                    </span>
-                                    </div>
+                                    <select name="state" class="form-control input-circle" placeholder="" required> 
+                                        <?php 
+                                                    foreach ($arr as $key) { ?>
+                                                        <option value="<?= $key->state_id; ?>"> <?= $key->state_name; ?> </option>
+                                                    <?php }
+                                                    ?>
+                                     
+                                    </select>
+                                    
                             </div>
                         </div>
                         <!-- <div class="form-group">
@@ -93,7 +96,7 @@
                             <div class="pwstrength_viewport_progress"></div>
                             </div>
                         </div> -->
-                         <input type="hidden" name="id" id="inputId" class="form-control" value="<?= $id; ?>">
+                         <input type="hidden" name="us_id" id="us_id" class="form-control" value="<?= $this->my_func->scpro_decrypt($this->session->userdata('us_id')) ?>">
                     </div>
                     <div class="form-actions">
                         <div class="row">

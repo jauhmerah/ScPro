@@ -99,14 +99,16 @@
                     case "s12" :// uesr detail
                         $staffId = $this->my_func->scpro_decrypt($this->session->userdata('us_id'));
                         $this->load->database();
-                        $this->load->model('m_user');                       
-                        $arr['arr'] = $this->m_user->getAll($staffId);
-                        
+                        $this->load->model('m_address');                       
+                        $arr['arr'] = $this->m_address->getAll();
+                       
                         $data['title'] = '<i class="fa fa-home"></i> Address';
                         $data['display'] = $this->load->view($this->parent_page.'/address' , $arr , true);
                         $this->_show('display' , $data , $key);
                         //$this->_show('staffView' , $data , $key);
                     break;
+
+                    
 
                     case 'c11':
                     //edit
@@ -138,13 +140,56 @@
                         $data['display'] = $this->load->view($this->parent_page.'/editAddress' , $arr , true);
                         $this->_show('display' , $data , $key); 
                         break;
-                    }  
+                    } 
+                     
+                    case 'f1':
+                    //edit
+                    $data['title'] = '<i class="fa fa-cart-plus"></i> Feedback';
+                    $this->_show('feedback' , $data , $key);
+                    break;
+
+                    case 's14':
+                    //add
+
+                        $this->load->database();
+                        $this->load->model('m_state');
+                        $arr['arr'] = $this->m_state->get();
+                        
+                         $data['title'] = '<i class="fa fa-home"></i> Add Address';
+                        $data['display'] = $this->load->view($this->parent_page.'/addAddress', $arr , true);
+                        $this->_show('display' , $data , $key); 
+                        break;
+                    
 
     			default:
     				$this->_show();
     				break;
     		}
     	}
+
+        public function addAddress()
+        {
+            if ($this->input->post()) {
+                $arr = $this->input->post();                
+                $this->load->database();
+                $this->load->model('m_address');
+                $this->load->library('my_func');
+                foreach ($arr as $key => $value) {
+                    if ($value != null) {
+                        if ($key == 'pass') {
+                            $value = $this->my_func->scpro_encrypt($value);
+                        }
+                        $arr2[$key] = $value;                     
+                    }
+                }
+                $result = $this->m_address->insert($arr2);
+                $this->session->set_flashdata('success', 'Succesfully Added');
+                redirect(site_url('reseller/page/s12'),'refresh');
+            }else{
+                $this->session->set_flashdata('error', 'Not Succesfully Added');
+                redirect(site_url('reseller/page/s12'),'refresh');
+            }
+        }
 
         public function updateStaff()
         {

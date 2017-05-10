@@ -93,7 +93,7 @@
                                         <button type="button" class="btn green">
                                             <i class="fa fa-pencil"></i> Edit
                                         </button></a>
-                                        <a href="<?= site_url('nasty_v2/dashboard/page/c1');?>"><button type="button" class="btn default">Cancel</button></a>
+                                        <a href="<?= site_url('reseller/page/a1');?>"><button type="button" class="btn default">Cancel</button></a>
                                     </div>
                                 </div>
                             </div>

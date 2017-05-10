@@ -84,7 +84,7 @@
                                 </a>
                             </li>
                             <li class="nav-item start">
-                                <a href="<?= site_url('nasty_v2/dashboard/page/f4') ?>" class="nav-link ">
+                                <a href="<?= site_url('reseller/page/f1') ?>" class="nav-link ">
                                     <i class="fa fa-fw fa-bullhorn"></i>
                                     <span class="title">Feedback Form</span>
                                 </a>

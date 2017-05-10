@@ -1280,7 +1280,8 @@ epul@nastyjuice.com
     					$staffId = $this->my_func->scpro_decrypt($this->input->get('delete'));
     					$this->load->model('m_user');
     					$this->m_user->delete($staffId);
-    					//redirect(site_url('nasty_v2/dashboard/page/c1'),'refresh');
+                        $this->session->set_flashdata('success', 'Successfully deleted');
+    					redirect(site_url('nasty_v2/dashboard/page/c1'),'refresh');
     					break;
     				}    			
     			case 'c11':

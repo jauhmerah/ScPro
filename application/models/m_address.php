@@ -1,17 +1,17 @@
 <?php
 	if (!defined('BASEPATH')) exit('No direct script access allowed');
 	
-	class M_user extends CI_Model {
+	class M_address extends CI_Model {
 	
 	    /**
 	     * @name string TABLE_NAME Holds the name of the table in use by this model
 	     */
-	    const TABLE_NAME = 'user';
+	    const TABLE_NAME = 'address';
 	
 	    /**
 	     * @name string PRI_INDEX Holds the name of the tables' primary index used in this model
 	     */
-	    const PRI_INDEX = 'us_id';
+	    const PRI_INDEX = 'add_id';
 	
 	    /**
 	     * Retrieves record(s) from the database
@@ -97,9 +97,9 @@
 	            }
 	        }
 	        if (!$all) {
-	        	$this->db->where('us_lvl >', 0);
+	        	$this->db->where('state >', 0);
 	        }	        
-	        $this->db->join('user_level ul', 'user.us_lvl = ul.ul_id', 'left');
+	        $this->db->join('state', 'state = state_id', 'left');
 	        $result = $this->db->get()->result();
 	        if ($result) {
 	            if ($where !== NULL) {
