@@ -54,14 +54,6 @@
 	</div>
 </div>
 
-<div>
-    <div class="row">
-        <div class="col-lg-8">
-            
-        </div>
-    </div>
-</div>
-
 <!-- invoice end -->
 <script>
     var c = null;
@@ -82,15 +74,12 @@
                 onPageLoad(tapis , siri);
             });    
         });
-        $('#pro').on('click', '.mg', function() {
-            var mg = $(this).data('mg');
-            var id = $(this).data('id');
-            num ++;
-            $.post('<?= site_url('reseller/getAjaxCart') ?>', {mg : mg , id : id , num : num}, function(data) {
-                $('#ordlist').append(data);
-            });
-            $.post('<?= site_url('reseller/getAjaxCartInv') ?>', {mg : mg , id : id , num : num}, function(data) {
-                $('#ordlist').append(data);
+        $('#pro').on('click', '.kanta', function() {
+            var id = $(this).data('item');
+            $.post('<?= site_url('reseller/getAjaxProductDetail') ?>', {id: id}, function(data) {
+                var detail = bootbox.dialog({
+                    message : data
+                });
             });
         });
         $('#ordlist').on('click', '.cancelList', function() {

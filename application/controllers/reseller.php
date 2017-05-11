@@ -139,5 +139,20 @@
 			$this->load->model('m_type2');
 			$this->load->model('m_nico');
 		}
+
+		public function getAjaxProductDetail(){
+			if($this->input->post('id')){
+				$this->load->database();
+				$this->load->model('m_type2');
+				$this->load->library('my_func');
+				$id = $this->my_func->de($this->input->post('id') , 1);
+				$data['data'] = array_shift($this->m_type2->get($id));
+				if (sizeof($data) != 0) {
+					echo $this->load->view("reseller/getAjax/getAjaxProductDetail" , $data , true);
+				}else{
+					echo "<h2>No Data</h2>";
+				}
+			}
+		}
 	}
 ?>
