@@ -35,6 +35,7 @@
 
         public function index()
         {
+            $this->_checkSession();
             $this->_show();
         }
 
@@ -50,8 +51,11 @@
     				$this->load->database();
     				$this->load->model("m_category" , 'm_cat');
     				$this->load->model('m_type2' , 'mt2');
+    				$this->load->model('m_order_item_package' , 'oip');
+    				$data['packNum'] = $this->oip->count();
     				$data['cat'] = $this->m_cat->get();
     				$data['type'] = $this->mt2->getProduct();
+    				$data['itemNum'] = sizeof($data['type']);
     				$this->_show('addorder' , $data , $key);
     				break;
     			default:
@@ -88,18 +92,30 @@
 		}
 		public function getAjaxProduct(){
 			$this->load->database();
-			$this->load->model('m_type2');
+			
 			$text = '';
 			$this->load->library('my_func');
 			$f = $this->input->post('filter');
 			$s = $this->input->post('series');
+			$t = $this->input->post('type');
 			if ($s != -1) {
 				$s = $this->my_func->de($s);
 			}
 			if ($f == '') {
 				$f = null;
 			}
-			$arr = $this->m_type2->getProduct($f , $s);	
+			switch ($t) {
+				case '1':
+					$this->load->model('m_type2');
+					$arr = $this->m_type2->getProduct($f , $s);	
+					break;
+				
+				default:
+					# code...
+					break;
+			}
+			
+
 			if ($arr) {
 				foreach ($arr as $key){
 					$a['arr'] = $key;

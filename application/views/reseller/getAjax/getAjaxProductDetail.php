@@ -1,6 +1,6 @@
 <div>
     <div class="row">
-        <div><pre><?php print_r($data); ?></pre>
+        <div>
             <div align="center">
                 <img src="<?= base_url(); ?>assets/uploads/product/<?= $data->ty2_img; ?>" alt="No Data" style="width: 400px; height: auto; display: block;">
                 <div >

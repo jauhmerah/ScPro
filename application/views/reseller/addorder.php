@@ -1,7 +1,6 @@
 
 <div class="row">
-	<div class="col-md-12">
-        <pre></pre>
+	<div class="col-md-12">        
 		<div class="portlet light">
             <div class="portlet-title">
                 <div class="caption">
@@ -11,15 +10,69 @@
                 </div>                
             </div> 
         <div class="portlet-body">
-            <div class="row">                
-                <div class="form-group">
-                    <div class="col-md-6">
-                    <div class="form-group form-inline">
-                        <input type="text" name="" id="input" class="form-control" value="" required="required" pattern="" title="">
-                        <input type="text" name="" id="input" class="form-control" value="" required="required" pattern="" title="">  
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="col-xs-4">
+                        <a class="dashboard-stat dashboard-stat-v2" style=" border: 2px solid #337ab7;" href="javascript:productList(1);">
+                            <div class="visual">
+                                <i class="fa fa-cube"></i>
+                            </div>
+                            <div class="details">
+                                <div class="number">
+                                    <span data-counter="counterup" data-value="<?= $itemNum ?>">0</span>
+                                </div>
+                                <div class="desc">À la carte</div>
+                            </div>
+                        </a>
                     </div>
-                        <label for="input" class="col-sm-2 control-label">Series :</label>
+                    <div class="col-xs-4">
+                        <a class="dashboard-stat dashboard-stat-v2" style=" border: 2px solid #337ab7;" href="javascript:productList(2);">
+                            <div class="visual">
+                                <i class="fa fa-cubes"></i>
+                            </div>
+                            <div class="details">
+                                <div class="number">
+                                    <span data-counter="counterup" data-value="<?= $packNum; ?>">0</span>
+                                </div>
+                                <div class="desc">Package</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-xs-4">
+                        <a class="dashboard-stat dashboard-stat-v2" style=" border: 2px solid #337ab7;" href="javascript:productList(3);">
+                            <div class="visual">
+                                <i class="fa fa-briefcase"></i>
+                            </div>
+                            <div class="details">
+                                <div class="number">
+                                    <span data-counter="counterup" data-value="1349">0</span>
+                                </div>
+                                <div class="desc">Merchandise</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix">
+                <br>
+            </div>
+            <div class="row">
+                    <div class="col-xs-6">
+                        <h2><strong><span id="listTitle"><i class="fa fa-cube"></i> À la carte</span></strong></h2>
+                    </div>
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label for="input" class="col-sm-2 control-label">Search :</label>
                         <div class="col-sm-10">
+                            <input type="text" name="" id="input" class="form-control input-circle input-sm" value="" placeholder="# Item Code">
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        &nbsp;
+                    </div>
+                     <div class="form-group">                 
+                        <label for="input" class="col-sm-2 control-label">Series :</label>
+                        <div class="col-sm-10">                            
                             <select name="siri" id="siri" class="form-control input-circle input-sm">
                                 <option value="-1">-- Select All --</option>
                                 <?php 
@@ -30,7 +83,7 @@
                                     }
                                 ?>
                             </select>
-                        </div>
+                        </div>                        
                     </div>
                 </div>
             </div>
@@ -59,7 +112,7 @@
     var c = null;
     var num = 0;
     $(document).ready(function() {
-        onPageLoad(null , -1);
+        onStartPage(null , -1 );
         $('#siri').change(function() {
             var siri = $(this).val();
             var tapis = $('#filter').val();
@@ -89,10 +142,45 @@
             $('#ordlist').find('#'+li).remove();
         });
     });
-    function onPageLoad(f , s) {
-        $.post('<?= site_url('reseller/getAjaxProduct') ?>', {filter : f , series : s}, function(data) {
+    function onStartPage(f , s) {
+        $.post('<?= site_url('reseller/getAjaxProduct') ?>', {filter : f , series : s , type : 1}, function(data) {
             $("#pro").html(data);
+            showProduct();
         });
+    }
+    function productList(t) {
+        $.when(hideProduct()).then(
+            function(){
+                $("#listTitle").html(listTitle(t));
+                $.post('<?= site_url('reseller/getAjaxProduct') ?>', {filter : f , series : s , type : t}, function(data) {
+                    $("#pro").html(data);
+                    showProduct();
+                });
+            }
+        );     
+    }    
+    function listTitle(x) {
+        switch (x){
+            case 1 : return 'À la carte';break;
+            case 2 : return 'Bundle Package';break;
+            case 3 : return 'Merchandise';break;
+            default : return 'Error : #b1v1';
+        }
+    }
+    function showProduct() {
+        var x = $("#pro").children('.product:hidden');
+        if (x.length) {
+            x.first().show('fast');
+            setTimeout(showProduct,50);
+        }     
+    }
+    function hideProduct() {
+        var x = $("#pro").children('.product:visible');
+        if (x.length) {
+            $.when(x.hide('fast')).then(function(){
+                $(this).remove();
+            });            
+        }        
     }
 </script>
 	</div>
