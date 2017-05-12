@@ -57,8 +57,8 @@
                             <span class="title">Bank Payment</span>
                         </a>
                     </li><?php } ?>
-                    <?php if($us_lvl == 1){?>
-                    <li class="nav-item <?php if (strpos($link, 'f') !== false) { echo "active open";}else{echo "start";}?>  ">
+               
+                    <li class="nav-item <?php if (strpos($link, 's') !== false) { echo "active open";}else{echo "start";}?>  ">
                         <a href="javascript:;" class="nav-link nav-toggle">
                            <i class="fa fa-wrench"></i>
                             <span class="title">Setting</span>
@@ -78,20 +78,20 @@
                                 </a>
                             </li> 
                             <li class="nav-item start">
-                                <a href="<?= site_url('nasty_v2/dashboard/page/f3') ?>" class="nav-link ">
+                                <a href="<?= site_url('reseller/page/s17') ?>" class="nav-link ">
                                     <i class="fa fa-fw fa-building"></i>
                                     <span class="title">Shop Detail</span>
                                 </a>
                             </li>
                             <li class="nav-item start">
-                                <a href="<?= site_url('reseller/page/f1') ?>" class="nav-link ">
+                                <a href="<?= site_url('reseller/page/s15') ?>" class="nav-link ">
                                     <i class="fa fa-fw fa-bullhorn"></i>
                                     <span class="title">Feedback Form</span>
                                 </a>
                             </li>                                                               
                         </ul>
                     </li> 
-                        <?php } ?>   
+                   
                     </ul>
                     <!-- END SIDEBAR MENU -->
                 </div>

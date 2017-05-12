@@ -164,19 +164,25 @@
 
                                         <div class="portlet-body flip-scroll yellow-gold">
                                                 <div class="row">
+                                                <?php  if($arr1!=null){  ?>
                                                 <div class="col-md-2">
-                                                    <img src="<?= base_url(); ?>assets/cover/nobody_m.original.jpg" style="width: 169px;height: 169px;"> 
+                                                   <img src="<?= base_url(); ?><?= $arr1->logo; ?>" width="169" height="169"> 
                                                 </div>
                                                 <div class="col-md-4">
-                                                <h2>Company Name</h2>
-                                                Lot 139, Jalan Besar Tampin, 73000 Tampin,
-                                                Negeri Sembilan Darul Khusus,
-                                                Malaysia
+                                                <h2> <?php $text = ($arr1->sh_name == null) ? "Not Set" : $arr1->sh_name ; echo $text; ?></h2>
+                                                 <?php  if($arr2!=null){  ?>
+                                                <?= $arr2->address; ?>
                                                 <br>
-                                                +6064410519
+                                                <?= $arr2->town; ?>,<?= $arr2->poscode; ?>
                                                 <br>
-                                                hello@nastyjuice.com
+                                                <?= $arr2->state_name; ?>
+                                                <?php } ?>
+                                                <br>
+                                                <?= $arr1->phone_no; ?>
+                                                <br>
+                                                <?= $arr1->email; ?>
                                                 </div>
+                                                
                                                 <div class="col-md-6">
                                                 <div class="pull-right">
                                                 <h1>Rank 1</h1>
@@ -184,6 +190,7 @@
                                                 <button type="button" title = "Shipping" class="SHButton btn purple-medium btn-circle">Ranking List</button></a>
                                                 </div>
                                                 </div>
+                                                <?php } ?>
                                         </div>
 
                                     </div>

@@ -15,7 +15,7 @@
 	            <div class="row">
 	            	<div class="col-md-12">
 	            		<div class="col-md-2">
-	            			<a href="<?= site_url('nasty_v2/dashboard/page/c14') ?>"><button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Add Staff</button></a>
+	            			<a href="<?= site_url('nasty_v2/dashboard/page/c14') ?>"><button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Add User</button></a>
 	            		</div>
 	            		<div class="col-md-5">
 	            			<div class="form-group">

@@ -4,7 +4,7 @@
 		<div class="portlet box purple">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-user"></i>Address Edit</div>
+                    <i class="fa fa-user"></i>View Address</div>
                 
             </div>
             <div class="portlet-body form">
@@ -15,14 +15,14 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label">Company Name :</label>
                             <div class="col-md-4">
-                                <input type="text" name="fname" class="form-control input-circle" placeholder="<?= $arr->us_fname; ?>">
+                                <input type="text" name="fname" class="form-control input-circle" placeholder="<?= $arr->company_name; ?>">
                             </div>
                         </div>
                        
                         <div class="form-group">
                             <label class="col-md-3 control-label">Address :</label>
                            <div class="col-md-4">
-                                <textarea name="username" class="form-control input-circle"></textarea>
+                                <textarea name="username" class="form-control input-circle"><?= $arr->address; ?></textarea>
                             </div>
                         </div>
                         <div class="form-group">
@@ -30,7 +30,7 @@
                             <div class="col-md-4">
                                 <div class="input-group">
                                     
-                                    <input type="text" name="email" class="form-control input-circle-left" placeholder="<?= $arr->us_email; ?>"> 
+                                    <input type="text" name="email" class="form-control input-circle-left" placeholder="<?= $arr->town; ?>"> 
 
                                      <span class="input-group-addon input-circle-right">
                                         <i class="fa fa-angle-down"></i>
@@ -41,7 +41,7 @@
                          <div class="form-group">
                             <label class="col-md-3 control-label">Poscode</label>
                              <div class="col-md-4">
-                                <input type="text" name="fname" class="form-control input-circle" placeholder="<?= $arr->us_fname; ?>">
+                                <input type="text" name="fname" class="form-control input-circle" placeholder="<?= $arr->poscode; ?>">
                             </div>
                         </div>
                         <div class="form-group">
@@ -49,7 +49,7 @@
                             <div class="col-md-4">
                                 <div class="input-group">
                                     
-                                    <input type="text" name="email" class="form-control input-circle-left" placeholder="<?= $arr->us_email; ?>"> 
+                                    <input type="text" name="email" class="form-control input-circle-left" placeholder="<?= $arr->state_name; ?>"> 
 
                                      <span class="input-group-addon input-circle-right">
                                         <i class="fa fa-angle-down"></i>
@@ -93,13 +93,13 @@
                             <div class="pwstrength_viewport_progress"></div>
                             </div>
                         </div> -->
-                         <input type="hidden" name="id" id="inputId" class="form-control" value="<?= $id; ?>">
+                         <!-- <input type="hidden" name="id" id="inputId" class="form-control" value="<?= $id; ?>"> -->
                     </div>
                     <div class="form-actions">
                         <div class="row">
                             <div class="col-md-offset-3 col-md-9">
-                                <button type="submit" id="btnSubmit" class="btn btn-circle green">Save</button>
-                                <a href="<?= site_url('reseller/page/s1');?>"><button type="button" class="btn btn-circle grey-salsa btn-outline">Cancel</button></a>
+                                <!-- <button type="submit" id="btnSubmit" class="btn btn-circle green">Save</button> -->
+                                <a href="<?= site_url('reseller/page/s12');?>"><button type="button" class="btn btn-circle green">Back</button></a>
                             </div>
                         </div>
                     </div>
