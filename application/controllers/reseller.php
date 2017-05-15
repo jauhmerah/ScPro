@@ -109,6 +109,10 @@
 					$this->load->model('m_type2');
 					$arr = $this->m_type2->getProduct($f , $s);	
 					break;
+				case '2':
+					$this->load->model('m_order_item_package' , 'moip');
+					$arr = $this->moip->getProduct($f);	
+					break;
 				
 				default:
 					# code...

@@ -39,13 +39,13 @@
                         </a>
                     </div>
                     <div class="col-xs-4">
-                        <a class="dashboard-stat dashboard-stat-v2" style=" border: 2px solid #337ab7;" href="javascript:productList(3);">
+                        <a class="dashboard-stat dashboard-stat-v2" style=" border: 2px solid #337ab7;" href="javascript:;">
                             <div class="visual">
                                 <i class="fa fa-briefcase"></i>
                             </div>
                             <div class="details">
                                 <div class="number">
-                                    <span data-counter="counterup" data-value="1349">0</span>
+                                    <span data-counter="counterup" data-value="0">0</span>
                                 </div>
                                 <div class="desc">Merchandise</div>
                             </div>
@@ -149,6 +149,8 @@
         });
     }
     function productList(t) {
+        var s = $('#siri').val();
+        var f = $('#filter').val();
         $.when(hideProduct()).then(
             function(){
                 $("#listTitle").html(listTitle(t));
@@ -161,8 +163,8 @@
     }    
     function listTitle(x) {
         switch (x){
-            case 1 : return 'À la carte';break;
-            case 2 : return 'Bundle Package';break;
+            case 1 : return '<i class="fa fa-cube"></i> À la carte';break;
+            case 2 : return '<i class="fa fa-cubes"></i> Bundle Package';break;
             case 3 : return 'Merchandise';break;
             default : return 'Error : #b1v1';
         }

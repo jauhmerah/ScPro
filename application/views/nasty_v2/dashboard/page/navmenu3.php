@@ -166,7 +166,13 @@
                                         <i class="fa fa-fw fa-tint"></i>
                                         <span class="title">Nicotine</span>
                                     </a>
-                                </li>                                                              
+                                </li>
+                                <li class="nav-item start">
+                                    <a href="<?= site_url('nasty_v2/dashboard/page/c5') ?>" class="nav-link ">
+                                        <i class="fa fa-fw fa-cubes"></i>
+                                        <span class="title">Bundle Package</span>
+                                    </a>
+                                </li>                                                          
                             </ul>
                         </li> 
                         <?php } ?>

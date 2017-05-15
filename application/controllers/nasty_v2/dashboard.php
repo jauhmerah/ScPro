@@ -1279,7 +1279,32 @@ epul@nastyjuice.com
     					$data['display'] = $this->load->view($this->parent_page.'/editStaff' , $arr , true);
     					$this->_show('display' , $data , $key); 
     					break;
-    				}    				
+    				}
+                case 'c5':
+                    //Bundle Package;
+                    $data['title'] = '<i class="fa fa-cubes"></i> Bundle Package Setting';
+                    $this->_loadCrud();
+                    $crud = new grocery_CRUD();
+                    //$crud->set_theme('twitter-bootstrap-new');            
+                    $crud->set_table('order_item_package');
+                    $crud->set_subject('Bundle Package Table');
+                    $crud->unset_export();
+                    $crud->unset_print();
+                    $crud->unset_jquery();
+                    $crud->display_as('oip_desc','Bundle Title')
+                        ->display_as('oip_code' , 'Bundle Code')
+                        ->display_as('oip_img' , 'Bundle Image')
+                        ->display_as('oip_price' , 'Bundle Price')
+                        ->display_as('oip_size' , 'Bundle Quantity Size')
+                        ->display_as('oip_detail' , 'Bundle Detail')
+                        ->display_as('oip_lvl' , 'Bundle Lvl');                       
+                    $crud->unset_texteditor('oip_desc','full_text')
+                        ->unset_texteditor('oip_code' ,'full_text');                    
+                    $crud->set_field_upload('oip_img','assets/uploads/product');
+                    $output = $crud->render();
+                    $data['display'] = $this->load->view('crud' , $output , true);
+                    $this->_show('display' , $data , $key); 
+                    break;    				
     			case 'c1':
                     if ($lvl != 1) {
                         redirect(site_url('order'),'refresh');
