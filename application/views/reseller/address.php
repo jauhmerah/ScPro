@@ -3,6 +3,8 @@
 <link href="<?= base_url(); ?>asset2/global/plugins/bootstrap-switch/css/bootstrap-switch.css" rel="stylesheet" type="text/css">
 <script src="<?= base_url(); ?>asset2/global/plugins/bootstrap-switch/js/bootstrap-switch.js" type="text/javascript"></script>
 
+<link href="<?= base_url(); ?>asset2/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css">
+<script src="<?= base_url(); ?>asset2/global/plugins/bootstrap-switch/js/bootstrap-switc.min.js" type="text/javascript"></script>
 <div class="row">
     <div class="col-md-12">
         <div class="portlet box purple">
@@ -17,6 +19,7 @@
                         <div class="col-md-2">
                             <a href="<?= site_url('reseller/page/s14') ?>"><button type="button" class="btn btn-primary"><i class="fa fa-home"></i> Add Address</button></a>
                         </div>
+                        <!-- <input type="heckbox" class="make-switch pull-right" name="ne_active" checked data-on-text="YES" data-off-text="NO"> -->
                         <!-- <div class="col-md-5">
                             <div class="form-group">
                                 <label for="input" class="col-sm-2 control-label">Search :</label>
@@ -50,7 +53,7 @@
                         <table class="table table-bordered table-striped flip-content">
                             <thead class="flip-content">
                                 <tr>
-                                    <th>Select Shipping Address</th>
+                                    <th>Shipping Address</th>
                                     <th>Address</th>
                                     
                                     <th>Action</th>
@@ -72,8 +75,11 @@
                                         $n++;
                                         ?>
                                 <tr>
-                                    <td> <input type="radio" class="status make-switch pull-right" id="<?= $n.'sta' ?>" name="status" data-on-text="YES" data-off-text="NO" data-size="mini" data-on-color="info" data-off-color="warning" <?php if($key->status==1){echo "checked";}?>>
-                                    <input type="hidden" class="form-control <?= $n.'sta' ?>" name="add_id" id="add_id" value="<?= $key->add_id ?>"></td>
+                                    <td> 
+     <input type="radio" class="status make-switch pull-right" id="<?= $n.'sta' ?>" name="status" data-on-text="YES" data-off-text="NO" data-size="mini" data-on-color="info" data-off-color="warning" <?php if($key->status==1){echo "checked";}?>>
+                                    <input type="hidden" class="form-control <?= $n.'sta' ?>" name="add_id" id="add_id" value="<?= $key->add_id ?>">
+                                    
+                                  </td>
                                     <td>
                                     <strong><?= $key->company_name ?></strong><br>
                                     <?= $key->address ?><br>
@@ -88,7 +94,6 @@
                                     ?> -->
                                         
                                     </td>
-                                 
                                     <td>
                                     <?php 
                                         $add_id = $this->my_func->scpro_encrypt($key->add_id);

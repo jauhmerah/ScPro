@@ -15,7 +15,9 @@
                 <form class="form-horizontal" role="form">
                     <div class="form-body">
                         <h2 class="margin-bottom-20"> User Info - <?php $text = ($arr->us_fname == null || $arr->us_lname == null) ? "Name Not Set" : $arr->us_fname." ".$arr->us_lname ; echo $text; ?> </h2>
-                        <img src="<?= base_url(); ?>assets/cover/default-logo.png"> 
+                        <?php if($arr1!=null){ ?>
+                        <img src="<?= base_url(); ?><?= $arr1->logo; ?>"> 
+                        <?php } ?>
                         <h3 class="form-section">Person Info</h3>
                         <div class="row">
                             <div class="col-md-6">

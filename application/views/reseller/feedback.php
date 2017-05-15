@@ -9,33 +9,33 @@
             </div>
             <div class="portlet-body form">
                 <!-- BEGIN FORM-->
-                <form  action="<?= site_url('reseller/updateStaff') ?>" method = 'post' class="form-horizontal">
+                <form  action="<?= site_url('reseller/addFeedback') ?>" method = 'post' class="form-horizontal">
                     <div class="form-body">
                         <h3 class="form-section">Feedback Detials</h3>
                         <div class="form-group">
                             <label class="col-md-3 control-label">Your Name :</label>
                             <div class="col-md-4">
-                                <input type="text" name="fname" class="form-control input-circle" placeholder="">
+                                <input type="text" name="fe_name" class="form-control input-circle" placeholder="">
                             </div>
                         </div>
                        
                         <div class="form-group">
                             <label class="col-md-3 control-label">Email Address :</label>
                            <div class="col-md-4">
-                                 <input type="email" name="fname" class="form-control input-circle" placeholder="">
+                                 <input type="email" name="fe_email" class="form-control input-circle" placeholder="">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-3 control-label">Phone No. :</label>
                             <div class="col-md-4">
-                                 <input type="text" name="fname" class="form-control input-circle" placeholder="">
+                                 <input type="text" name="fe_phone" class="form-control input-circle" placeholder="">
                             </div>
                         </div>
                        
                         <div class="form-group">
                             <label class="col-md-3 control-label">Message :</label>
                                <div class="col-md-4">
-                                <textarea name="username" class="form-control input-circle"></textarea>
+                                <textarea name="fe_message" class="form-control input-circle"></textarea>
                             </div>
                         </div>
                         <!-- <div class="form-group">
@@ -74,12 +74,13 @@
                             <div class="pwstrength_viewport_progress"></div>
                             </div>
                         </div> -->
-                        <!--  <input type="hidden" name="id" id="inputId" class="form-control" value="<?= $id; ?>"> -->
+                        <?php $id = $this->my_func->scpro_decrypt($this->session->userdata('us_id')); ?>
+                         <input type="hidden" name="us_id" id="inputId" class="form-control" value="<?= $id; ?>">
                     </div>
                     <div class="form-actions">
                         <div class="row">
                             <div class="col-md-offset-3 col-md-9">
-                                <button type="submit" id="btnSubmit" class="btn btn-circle green">Save</button>
+                                <button type="submit" id="btnSubmit" class="btn btn-circle green">Send</button>
                                 <a href="<?= site_url('reseller/page/s1');?>"><button type="button" class="btn btn-circle grey-salsa btn-outline">Cancel</button></a>
                             </div>
                         </div>

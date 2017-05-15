@@ -190,7 +190,15 @@
                                                 <button type="button" title = "Shipping" class="SHButton btn purple-medium btn-circle">Ranking List</button></a>
                                                 </div>
                                                 </div>
-                                                <?php } ?>
+                                                <?php }
+                                                else{ ?>
+                                                  <center>
+                                                     <a href="<?= site_url('reseller/page/s18') ?>">
+                                                                              
+                                                      <button type="button" class="btn green btn-lg">
+                                                         <i class="fa fa-plus"></i> Add Shop Detail
+                                                    </button></a></center>
+                                                 <?php   } ?>
                                         </div>
 
                                     </div>

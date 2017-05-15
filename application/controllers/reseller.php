@@ -92,8 +92,10 @@
                      case "s1" :// uesr detail
                         $staffId = $this->my_func->scpro_decrypt($this->session->userdata('us_id'));
                         $this->load->database();
-                        $this->load->model('m_user');                       
+                        $this->load->model('m_user');
+                        $this->load->model('m_detail');                        
                         $arr['arr'] = $this->m_user->getAll($staffId);
+                        $arr['arr1'] = $this->m_detail->getAll($staffId);
                         
                         $data['title'] = '<i class="fa fa-user"></i> User';
                         $data['display'] = $this->load->view($this->parent_page.'/staffView' , $arr , true);
@@ -101,18 +103,7 @@
                         //$this->_show('staffView' , $data , $key);
                     break;
 
-                    case "s12" :// uesr detail
-                        $staffId = $this->my_func->scpro_decrypt($this->session->userdata('us_id'));
-                       
-                        $this->load->database();
-                        $this->load->model('m_address');                       
-                        $arr['arr'] = $this->m_address->getAll();
-                       
-                        $data['title'] = '<i class="fa fa-home"></i> Address';
-                        $data['display'] = $this->load->view($this->parent_page.'/address' , $arr , true);
-                        $this->_show('display' , $data , $key);
-                        $this->_show('staffView' , $data , $key);
-                    break;
+                  
 
                     
 
@@ -139,6 +130,18 @@
                     $this->_show('feedback' , $data , $key);
                     break;
 
+                      case "s12" :// uesr detail
+                        $userId = $this->my_func->scpro_decrypt($this->session->userdata('us_id'));
+                       
+                        $this->load->database();
+                        $this->load->model('m_address');                       
+                        $arr['arr'] = $this->m_address->getAll2();
+                       
+                        $data['title'] = '<i class="fa fa-home"></i> Address';
+                        $data['display'] = $this->load->view($this->parent_page.'/address' , $arr , true);
+                        $this->_show('display' , $data , $key);
+                    
+                    break;
                     case 's14':
                     //add
 
@@ -286,6 +289,72 @@
                 $this->session->set_flashdata('error', 'Not Succesfully Added');
                 redirect(site_url('reseller/page/s17'),'refresh');
             }
+        }
+
+        function addFeedback(){
+            if ($this->input->post()) {
+                    $arr = $this->input->post(); 
+                    $this->load->database();
+                    $this->load->model('m_feedback');
+
+                    $this->load->library('email');
+
+                    $this->email->set_newline("\r\n");
+
+                $config['protocol'] = 'smtp';
+                $config['smtp_host'] = 'ssl://moon.sfdns.net';
+                $config['smtp_port'] = '465';
+                $config['smtp_user'] = 'reseller@nastyjuice.com';
+                $config['smtp_from_name'] = $arr['fe_name'];
+                $config['smtp_pass'] = 'reseller@2017';
+                $config['charset'] = 'utf-8';
+                $config['wordwrap'] = TRUE;
+                $config['newline'] = "\r\n";
+                $config['mailtype'] = 'html'; 
+
+            }
+
+            
+            $data = $this->m_feedback->insert($arr);
+                
+     if ($data) {
+                $this->email->initialize($config);
+                $this->email->from($arr['fe_email'], $arr['fe_name']);
+                $this->email->to('reseller@nastyjuice.com');
+                $this->email->cc('epul@nastyjuice.com');
+                //$this->email->bcc('them@their-example.com');
+
+                $this->email->subject($arr['fe_name'].' send you a feedback on '. @date('Y-m-d H:i:s'));
+                $this->email->message($arr['fe_message']);
+
+            
+
+                if ($this->email->send()) 
+                {
+
+                $this->session->set_flashdata('success', 'Your feeback is already sent.');
+                redirect(site_url('reseller/page/s15'),'refresh');
+                }
+                else 
+                {
+                //echo "sending failed";
+                show_error($this->email->print_debugger());     
+                $this->session->set_flashdata('warning', 'Your feeback is not succesfully sent.');
+                redirect(site_url('reseller/page/s15'),'refresh');
+                // exit;
+                }
+
+                    
+                //$this->session->set_userdata( $array );
+
+                
+            }
+            else{
+
+                $this->session->set_flashdata('warning', 'Your Email is Not Available');
+                redirect(site_url('login'));
+            }
+         
         }
 
         public function updateStaff()

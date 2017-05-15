@@ -1,17 +1,17 @@
 <?php
 	if (!defined('BASEPATH')) exit('No direct script access allowed');
 	
-	class M_address extends CI_Model {
+	class M_feedback extends CI_Model {
 	
 	    /**
 	     * @name string TABLE_NAME Holds the name of the table in use by this model
 	     */
-	    const TABLE_NAME = 'address';
+	    const TABLE_NAME = 'feedback';
 	
 	    /**
 	     * @name string PRI_INDEX Holds the name of the tables' primary index used in this model
 	     */
-	    const PRI_INDEX = 'add_id';
+	    const PRI_INDEX = 'us_id';
 	
 	    /**
 	     * Retrieves record(s) from the database
@@ -93,75 +93,13 @@
 	                    $this->db->where($field, $value);
 	                }
 	            } else {
-	                $this->db->where(self::PRI_INDEX, $where);
-	            }
-	        }
-	        if (!$all) {
-	        	$this->db->where('state >', 0);
-	        }	        
-	        $this->db->join('state', 'state = state_id', 'left');
-	        $result = $this->db->get()->result();
-	        if ($result) {
-	            if ($where !== NULL) {
-	                return array_shift($result);
-	            } else {
-	                return $result;
-	            }
-	        } else {
-	            return false;
-	        }
-	    }
-	     public function getAll2($where = null )
-	    {
-	    	$userId = $this->my_func->scpro_decrypt($this->session->userdata('us_id'));
-	    	$this->db->select('*');
-	        $this->db->from(self::TABLE_NAME);
-	        
-	        // if ($where != NULL) {
-	        //     if (is_array($where)) {
-	        //         foreach ($where as $field=>$value) {
-	        //             $this->db->where($field, $value);
-	        //         }
-	        //     } else {
-	                $this->db->where('us_id',$userId);
-	        //     }
-	        // }
-	        // if (!$all) {
-	        $this->db->where('state >', 0);
-	        // }	        
-	        $this->db->join('state', 'state = state_id', 'left');
-	        $result = $this->db->get()->result();
-	       
-	        if ($result) {
-	            if ($where !== NULL) {
-	                return array_shift($result);
-	            } else {
-	                return $result;
-	            }
-	        } else {
-	            return false;
-	        }
-	    }
-	     public function getAdd($where = null , $status = null)
-	    {
-	    	$this->db->select('*');
-	        $this->db->from(self::TABLE_NAME);
-	        if ($where !== NULL) {
-	            if (is_array($where)) {
-	                foreach ($where as $field=>$value) {
-	                    $this->db->where($field, $value);
-	                }
-	            } else {
 	                $this->db->where('us_id', $where);
-	                if($status !== NULL){
-	                $this->db->where('status', $status);
-	            	}
 	            }
 	        }
-	        
-	        	$this->db->where('state >', 0);
-	               
-	        $this->db->join('state', 'state = state_id', 'left');
+	        // if (!$all) {
+	        // 	$this->db->where('us_lvl >', 0);
+	        // }	        
+	        // $this->db->join('user_level ul', 'user.us_lvl = ul.ul_id', 'left');
 	        $result = $this->db->get()->result();
 	        if ($result) {
 	            if ($where !== NULL) {
@@ -173,26 +111,6 @@
 	            return false;
 	        }
 	    }
-
-	       public function resetStat($where = array()) {
-            if (!is_array($where)) {
-                $where =array('us_id' => $where);
-                $status =array('status' => 0);
-            }
-	        $this->db->update(self::TABLE_NAME, $status, $where);
-	        return $this->db->affected_rows();
-	    }
-	
-
-	       public function updateStat($data = array(), $where = array()) {
-            if (!is_array($where)) {
-                $where =array(self::PRI_INDEX => $where);
-                $pr_id =array('status' => $data);
-            }
-	        $this->db->update(self::TABLE_NAME, $pr_id, $where);
-	        return $this->db->affected_rows();
-	    }
-	
 	
 	    /**
 	     * Inserts new data into database
