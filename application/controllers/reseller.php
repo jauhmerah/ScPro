@@ -81,6 +81,97 @@
                         $data['display'] = $this->load->view($this->parent_page.'/dashboard' ,$arr, true);
                         $this->_show('dashboard', $data , $key);
                    break;
+                   case "e1" :// uesr detail
+                        if ($this->input->get('page')) {
+                        $p = $this->input->get('page');
+                    }else{
+                        $p = 0;
+                    }
+                    $this->load->library('my_func');
+                    $this->load->library('my_flag');
+                    $this->load->database();
+                    $this->load->model('m_order');
+                    if ($this->input->post("search") && $this->input->post("filter") || $this->input->get("search") && $this->input->get("filter")) {
+                        if ($this->input->get("search") && $this->input->get("filter")) {
+                            $search = $this->input->get("search");
+                            $filter = $this->input->get("filter");
+                        } else {
+                            $search = $this->input->post("search");
+                            $filter = $this->input->post("filter");
+                        }
+                        switch ($filter) {
+                            case '10':
+                                //Client Name
+                                $where = array(
+                                    "cl.cl_name" => $search
+                                );
+                                break;
+                            case '1':
+                                //Order Code
+                                //Hanya Single
+                                if (strpos($search, "#") !== false) {
+                                    $search = str_replace("#", "", $search);
+                                }
+                                if (!is_numeric($search)) {
+                                    $this->session->set_flashdata('warning', 'Please Enter the Correct Order Code');
+                                    redirect(site_url("nasty_v2/dashboard/page/a1"),'refresh');
+                                }
+                                $str = (string)$search;
+                                /*if ($str[1] == '1') {
+                                    $id = $search - 110000;
+                                    $ver = 1;
+                                } else {
+                                    $id = $search - 100000;
+                                    $ver = 0;
+                                }*/
+                                $ver = 2;
+                                $id = $search - 120000;
+                                $where = array(
+                                    "ord.or_id" => $id
+                                );
+                                break;
+                            case '2':
+                                //Sales Person
+                                $where = array(
+                                    "us1.us_username" => $search
+                                );
+                                break;
+                            case '3':
+                                //Order Status
+                                $where = array(
+                                    "pr.pr_desc" => $search
+                                );
+                                break;
+                        }
+                        if (isset($ver)) {
+                            $arr['arr1'] = $this->m_order->listOr($ver , null , null , 0 , $where);
+                        }else{
+                            $arr['arr1'] = $this->m_order->listSearch(2 , null , null , 0 , $where);                        
+                        }
+                    } else {
+                        $ver = $this->m_order->orderCount(2);
+                        $arr['arr1'] = $this->m_order->listOr(2 , 10 , $p);
+                        $result1 = sizeof($arr['arr1']);
+                        //$sizeA = 10 - $result1;
+                        /*if ($sizeA != 0) {
+                            $p1 = $p + 10 - $ver1;
+                            if ($p1 < 10) {
+                                $p2 = 0;
+                            } else {
+                                $p2 = $p1;
+                                $p1 = 10;
+                            }                        
+                            $arr['arr'] = $this->m_order->listOr(0 , $p1 , $p2);
+                            $result1 = $result1 + sizeof($arr['arr']);
+                        }*/
+                        $arr['page'] = $p;
+                        $arr['total'] = $ver;
+                        $arr['row'] = $result1;
+                    }
+                    $data['title'] = '<i class="fa fa-credit-card"></i> Bank</a>';
+                    $data['display'] = $this->load->view($this->parent_page.'/bankPayment' ,$arr , true);
+                    $this->_show('display' , $data , 'e1');
+                    break;
                    case "t1" :// tracking
                         $data['title'] = '<i class="fa fa-cart-plus"></i> Tracking';
                     $this->_show('tracking' , $data , $key);
