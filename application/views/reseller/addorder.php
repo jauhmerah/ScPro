@@ -1,4 +1,3 @@
-
 <div class="row">
 	<div class="col-md-12">        
 		<div class="portlet light">
@@ -60,7 +59,7 @@
                     <div class="col-xs-6">
                         <h2><strong><span id="listTitle"><i class="fa fa-cube"></i> À la carte</span></strong></h2>
                     </div>
-                <div class="col-xs-6">
+                <div class="col-xs-6 hidden">
                     <div class="form-group">
                         <label for="input" class="col-sm-2 control-label">Search :</label>
                         <div class="col-sm-10">
@@ -70,7 +69,7 @@
                     <div class="clearfix">
                         &nbsp;
                     </div>
-                     <div class="form-group">                 
+                     <div class="form-group ">                 
                         <label for="input" class="col-sm-2 control-label">Series :</label>
                         <div class="col-sm-10">                            
                             <select name="siri" id="siri" class="form-control input-circle input-sm">
@@ -90,7 +89,7 @@
             <div class="clearfix">
                 &nbsp;
             </div>
-            <div class="row mt-element-card mt-element-overlay Page" id="pro">	    	
+            <div class="row mt-element-card mt-element-overlay Page" id="pro">
                 <div align="center">
                     <h1><i class="fa fa-spinner fa-spin"></i></h1><br>
                     <h3><strong>Brewing In Progress</strong></h3>
@@ -129,7 +128,8 @@
         });
         $('#pro').on('click', '.kanta', function() {
             var id = $(this).data('item');
-            $.post('<?= site_url('reseller/getAjaxProductDetail') ?>', {id: id}, function(data) {
+            var ty = $(this).data('type');
+            $.post('<?= site_url('reseller/getAjaxProductDetail') ?>', {id: id , ty : ty}, function(data) {
                 var detail = bootbox.dialog({
                     message : data
                 });

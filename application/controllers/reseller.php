@@ -44,7 +44,12 @@
     		//$arr = $this->input->get();
     		$this->_checkSession();
             $lvl =$this->my_func->scpro_decrypt($this->session->userdata('us_lvl'));
-    		switch ($key) {                
+    		switch ($key) {
+
+    			case 'b11':
+                	$data['title'] = '<i class="fa fa-cart-plus"></i> Add Order';
+                	$this->_show('addorderview' , '' , $key);
+                	break;                
     			case 'b1':
     				$data['title'] = '<i class="fa fa-cart-plus"></i> Add Order';
     				$this->load->library('my_func');
@@ -62,6 +67,11 @@
     				$this->_show();
     				break;
     		}
+    	}
+
+    	public function test()
+    	{
+    		$this->_show('test');
     	}
 
     	function _checkSession()
@@ -115,7 +125,6 @@
 					break;
 				
 				default:
-					# code...
 					break;
 			}
 			
@@ -123,7 +132,7 @@
 			if ($arr) {
 				foreach ($arr as $key){
 					$a['arr'] = $key;
-					$text = $text . $this->load->view('reseller/getAjax/getAjaxProduct', $a , true);
+					$text = $text . $this->load->view('reseller/getAjax/getAjaxProduct', $a , true);	
 				}
 			} else {
 				$text = '
@@ -163,10 +172,22 @@
 		public function getAjaxProductDetail(){
 			if($this->input->post('id')){
 				$this->load->database();
-				$this->load->model('m_type2');
 				$this->load->library('my_func');
 				$id = $this->my_func->de($this->input->post('id') , 1);
-				$data['data'] = array_shift($this->m_type2->get($id));
+				$ty = $this->input->post('ty');
+				switch ($ty) {
+					case '1':						
+						$this->load->model('m_type2');					
+						$data['data'] = array_shift($this->m_type2->get($id));
+						break;
+					case '2':
+						$this->load->model('m_order_item_package' , 'moip');
+						$data['data'] = $this->moip->get($id);
+						break;					
+					default:
+						# code...
+						break;
+				}
 				if (sizeof($data) != 0) {
 					echo $this->load->view("reseller/getAjax/getAjaxProductDetail" , $data , true);
 				}else{

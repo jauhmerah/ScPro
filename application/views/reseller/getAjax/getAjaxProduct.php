@@ -6,7 +6,7 @@
             <div class="mt-overlay">
                 <ul class="mt-info">
                     <li>
-                        <a class="btn default btn-outline kanta" href="javascript:;" data-item ='<?= $this->my_func->en($arr->ty2_id , 1); ?>'>
+                        <a class="btn default btn-outline kanta" href="javascript:;" data-type = '1' data-item ='<?= $this->my_func->en($arr->ty2_id , 1); ?>'>
                             <i class="icon-magnifier"></i>
                         </a>
                     </li>                   
@@ -32,12 +32,12 @@
 <?php if(isset($arr->oip_id)){ ?>
 <div class="col-md-3 col-xs-3 product" style="display: none;">
     <div class="mt-card-item">    
-        <div class="mt-card-avatar mt-overlay-1">
+        <div class="mt-card-avatar mt-overlay-1"> 
             <img src="<?= base_url(); ?>assets/uploads/product/<?php if($arr->oip_img != null){echo $arr->oip_img ;}else{ echo "400x400.png";} ?>">
             <div class="mt-overlay">
                 <ul class="mt-info">
                     <li>
-                        <a class="btn default btn-outline kanta" href="javascript:;" data-item ='<?= $this->my_func->en($arr->oip_id , 1); ?>'>
+                        <a class="btn default btn-outline kanta" href="javascript:;" data-type = '2' data-item ='<?= $this->my_func->en($arr->oip_id , 1); ?>'>
                             <i class="icon-magnifier"></i>
                         </a>
                     </li>                   
