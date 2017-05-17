@@ -91,6 +91,7 @@
                     $this->load->library('my_flag');
                     $this->load->database();
                     $this->load->model('m_order');
+                    $staffId = $this->my_func->scpro_decrypt($this->session->userdata('us_id'));
                     if ($this->input->post("search") && $this->input->post("filter") || $this->input->get("search") && $this->input->get("filter")) {
                         if ($this->input->get("search") && $this->input->get("filter")) {
                             $search = $this->input->get("search");
@@ -149,8 +150,9 @@
                             $arr['arr1'] = $this->m_order->listSearch(2 , null , null , 0 , $where);                        
                         }
                     } else {
-                        $ver = $this->m_order->orderCount(2);
-                        $arr['arr1'] = $this->m_order->listOr(2 , 10 , $p);
+                        $ver = $this->m_order->orderCount1(2,$staffId);
+                        $arr['arr1'] = $this->m_order->listOr1(2 , 10 , $p ,0, $staffId);
+                         $arr['arr'] = $this->m_order->getItem();
                         $result1 = sizeof($arr['arr1']);
                         //$sizeA = 10 - $result1;
                         /*if ($sizeA != 0) {

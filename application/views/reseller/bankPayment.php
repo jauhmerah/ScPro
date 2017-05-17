@@ -137,10 +137,23 @@
 
 
                                     </td>
-                                    <td><?php 
-                                    $view = ( $user->us_username == null) ? "--Not Set--" :  $user->us_username ;
-                                    echo $view;
-                                    ?></td>
+                                    <td>
+                                        <?php foreach ($arr as $item) {
+                                            if($user->or_id == $item->orex_id){
+                                                ?>
+                                                <?= $item->ty2_desc; ?>
+                                                <span class="label" style="color: black;background-color: <?= $item->ca_color; ?>; font-size: 75%;" ><strong><?= $item->ca_desc; ?></strong></span>&nbsp;
+                                                <span class="label" style="color: black;font-size: 75%; background-color: <?= $item->ni_color; ?>;" ><strong><?= $item->ni_mg; ?> mg</strong></span> 
+                                                <br><br>
+                                        <?php
+                                            }
+                                           
+                                        }
+
+                                            ?>
+
+
+                                    </td>
                                     <td class="mt-element-ribbon">
                                        <?php if ($user->or_paid) { ?>
                                             <div title="Paid" id="gmbr<?= $n ?>" class="bayar ribbon ribbon-right ribbon-vertical-right ribbon-shadow ribbon-border-dash-vert ribbon-color-success uppercase" >
@@ -205,8 +218,8 @@
                                                 $next = "disabled";
                                             }
                                         ?>
-                                            <li class="prev <?= $prev; ?>"><a <?php if($prev!="disabled"){ ?>href="<?= site_url('nasty_v2/dashboard/page/a1new?page='.($page-10)); ?>"<?php } ?> title="Prev" ><i class="fa fa-angle-left"></i></a></li>                                            
-                                            <li class="next <?= $next; ?>"><a <?php if($next!="disabled"){ ?>href="<?= site_url('nasty_v2/dashboard/page/a1new?page='.($page+10)); ?>"<?php } ?> title="Next"><i class="fa fa-angle-right"></i></a></li>
+                                            <li class="prev <?= $prev; ?>"><a <?php if($prev!="disabled"){ ?>href="<?= site_url('reseller/page/e1?page='.($page-10)); ?>"<?php } ?> title="Prev" ><i class="fa fa-angle-left"></i></a></li>                                            
+                                            <li class="next <?= $next; ?>"><a <?php if($next!="disabled"){ ?>href="<?= site_url('reseller/page/e1?page='.($page+10)); ?>"<?php } ?> title="Next"><i class="fa fa-angle-right"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
