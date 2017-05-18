@@ -47,8 +47,13 @@
     		switch ($key) {
 
     			case 'b11':
-                	$data['title'] = '<i class="fa fa-cart-plus"></i> Add Order';
-                	$this->_show('addorderview' , '' , $key);
+                	//if ($this->input->get('key')) {
+                		$data['title'] = '<i class="fa fa-cart-plus"></i> Add Order';
+                		$this->load->model('m_order_item_package' , 'moip');
+                		$data['arr'] = $this->moip->get(1);
+                		$this->_show('addorderview' , $data , $key);
+
+                	//}                	
                 	break;                
     			case 'b1':
     				$data['title'] = '<i class="fa fa-cart-plus"></i> Add Order';

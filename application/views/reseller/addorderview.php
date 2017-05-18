@@ -1,17 +1,17 @@
 <div class="row">
 <div class= "col-xs-12">
 <div>
+<pre><?php print_r($arr); ?></pre>
 
         <!-- Portfolio Item Heading -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Portfolio Item
-                    <small>Item Subheading</small>
+                <h1 class="page-header"><?= $arr->oip_desc; ?>
+                    <small><?= $arr->oip_code; ?></small>
                 </h1>
             </div>
         </div>
         <!-- /.row -->
-
         <!-- Portfolio Item Row -->
         <div class="row">
 
