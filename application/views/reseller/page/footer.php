@@ -23,7 +23,8 @@
             
             <script src="<?= base_url(); ?>asset2/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
             <script src="<?= base_url(); ?>asset2/global/plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
-
+            
+           
             <!-- END CORE PLUGINS -->
             <script src="<?= base_url(); ?>/asset2/global/plugins/counterup/jquery.waypoints.min.js" type="text/javascript"></script>
 <script src="<?= base_url(); ?>/asset2/global/plugins/counterup/jquery.counterup.min.js" type="text/javascript"></script>

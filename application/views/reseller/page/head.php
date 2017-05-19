@@ -24,6 +24,8 @@ License: You must have a valid license purchased only from themeforest(the above
         <title><?php if(isset($ver)){echo $ver;}else{echo "Nasty Process System v2.1 Alpha";} ?></title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <META HTTP-EQUIV="Pragma" CONTENT="private">
+<META HTTP-EQUIV="Cache-Control" CONTENT="private, max-age=5400, pre-check=5400">
         <meta content="" name="description" />
         <meta content="" name="author" />
         <!-- BEGIN GLOBAL MANDATORY STYLES -->
@@ -45,6 +47,8 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-- BEGIN PAGE LEVEL PLUGINS -->
         <link href="<?= base_url(); ?>asset2/global/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css">
         <link href="<?= base_url(); ?>asset2/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css">
+
+         
         <!-- END THEME LAYOUT STYLES -->
         <!-- Flag Css -->
         <link href="<?= base_url(); ?>asset/flags/flags.css" rel="stylesheet" type="text/css">

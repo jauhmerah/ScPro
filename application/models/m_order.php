@@ -437,6 +437,63 @@
 			$result = $this->db->get()->result();
 	    	return $result;
 	    }
+ public function listOrROS($ver = 0 ,$st1 =null,$st2 =null,$st3 =null,$st4 =null, $limit = null , $start = null , $del = 0 , $where = null)
+	    {
+	    	
+	    	$this->db->select('ord.or_id , ord.us_id , us1.us_username , cl.cl_name, ord.or_acc , cl.cl_country , ord.or_date ,ord.pr_id, pr.pr_desc , pr.pr_color, ord.or_paid ');
+	    	//, pic.img_url , pic.pi_title
+	    	$this->db->from('order ord');
+	    	
+	    	if($del != 3){	    		
+	    		$this->db->where('ord.or_del', $del);
+	    	}	    	
+	    	$this->db->order_by('ord.or_id', 'desc');
+	    	if ($limit !== null && $start !== null) {
+	    		$this->db->limit($limit, $start);
+	    	}	
+	    	
+	    	$this->db->where('ord.or_ver', $ver);
+	    	$this->db->join('client cl', 'ord.cl_id = cl.cl_id', 'left');
+	    	$this->db->join('user us1' , 'ord.us_id = us1.us_id' , 'left');
+	    	$this->db->join('process pr' , 'ord.pr_id = pr.pr_id' , 'left');
+	    	//$this->db->join('picture pic' , 'ord.or_id = pic.ne_id' , 'left');
+	    	if(($st1 == 8) || ($st2 == 9)){	    		
+	    		$this->db->where('ord.pr_id', $st1);
+	    		$this->db->or_where("ord.pr_id",$st2);
+	    	}
+	    	else if(($st1 == 10) || ($st2 == 11) || ($st3 == 12) || ($st4 == 13)){
+	    		$this->db->where('ord.pr_id', $st1);
+	    		$this->db->or_where("ord.pr_id",$st2);
+	    		$this->db->or_where("ord.pr_id",$st3);
+	    		$this->db->or_where("ord.pr_id",$st4);
+	    		}	
+	    	// if ($where != null) {
+	    	// 	$this->db->where($where);
+	    	// }
+	    	$result = $this->db->get()->result();
+	    	return $result;
+	    }
+
+	    public function orderCountROS($ver = -1,$st1 =null,$st2 =null,$st3 =null,$st4 =null)
+	    {
+	    	$this->db->like('ord.or_del', 0);
+	    	if ($ver != -1) {
+	    		$this->db->like('ord.or_ver', $ver);
+	    	}	    	
+			$this->db->from('order ord');
+			if(($st1 == 8) || ($st2 == 9)){	    		
+	    		$this->db->where('ord.pr_id', $st1);
+	    		$this->db->or_where("ord.pr_id",$st2);
+
+	    	}
+	    	else if(($st1 == 10) || ($st2 == 11) || ($st2 == 12)|| ($st2 == 13)){
+	    		$this->db->where('ord.pr_id', $st1);
+	    		$this->db->or_where("ord.pr_id",$st2);
+	    		$this->db->or_where("ord.pr_id",$st3);
+	    		$this->db->or_where("ord.pr_id",$st4);
+	    	}
+			return $this->db->count_all_results();
+	    }
 	}
 	        
 ?>

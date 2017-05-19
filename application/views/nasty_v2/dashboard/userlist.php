@@ -15,7 +15,7 @@
 	            <div class="row">
 	            	<div class="col-md-12">
 	            		<div class="col-md-2">
-	            			<a href="<?= site_url('nasty_v2/dashboard/page/c14') ?>"><button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Add Staff</button></a>
+	            			<a href="<?= site_url('nasty_v2/dashboard/page/c14') ?>"><button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Add User</button></a>
 	            		</div>
 	            		<div class="col-md-5">
 	            			<div class="form-group">
@@ -34,7 +34,8 @@
 	            						<option value="0">Name</option>
 	            						<option value="1">Username</option>
 	            						<option value="2">Email</option>
-	            						<option value="3">Role</option>
+	            						<option value="3">Phone No.</option>
+	            						<option value="4">Role</option>
 	            					</select>
 	            				</div>
 	            			</div>
@@ -53,6 +54,7 @@
 		                            <th>Name</th>
 		                            <th>Username</th>
 		                            <th>Email</th>
+		                            <th>Phone No.</th>
 		                            <th>Role</th>
 		                            <th>Action</th>
 		                        </tr>
@@ -84,6 +86,10 @@
                                     ?></td>
 		                            <td><?php 
                                     $view = ( $user->us_email == null) ? "--Not Set--" :  $user->us_email ;
+                                    echo $view;
+                                    ?></td>
+                                    <td><?php 
+                                    $view = ( $user->us_phone == null) ? "--Not Set--" :  $user->us_phone ;
                                     echo $view;
                                     ?></td>
 		                            <td><?php 

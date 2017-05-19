@@ -1,3 +1,11 @@
+
+
+<!-- <script language="JavaScript" type="text/javascript">
+
+window.history.forward();
+    function noBack() { window.history.forward(); }
+
+</script>  -->
 <!-- BEGIN FOOTER -->
         <div class="page-footer">
             <div class="page-footer-inner"> 2017 &copy; MyNastyRS By

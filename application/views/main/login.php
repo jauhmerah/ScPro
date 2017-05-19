@@ -3,6 +3,9 @@
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta Http-Equiv="Cache-Control" Content="no-cache">
+<meta Http-Equiv="Pragma" Content="no-cache">
+<meta Http-Equiv="Expires" Content="0"> 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
@@ -78,6 +81,9 @@
 <script>
 
     $(document).ready(function() {
+
+    
+
         $("#signup").hide();
         $(".btn1").click(function() {
             $.when($("#signin").fadeOut('fast')).then(function(){
@@ -107,7 +113,7 @@
 </script>
 </head>
 
-  <body>
+  <body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
 <script src="<?php echo base_url();?>asset/js/jquery.backstretch.js"></script>
 <script>
     $.backstretch([
@@ -214,4 +220,10 @@
   
 
 </body>
+<script language="JavaScript" type="text/javascript">
+
+window.history.forward();
+    function noBack() { window.history.forward(); }
+
+</script> 
 </html>

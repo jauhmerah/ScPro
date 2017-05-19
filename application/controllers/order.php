@@ -23,7 +23,8 @@ class Order extends CI_Controller {
 
 	public function index()
 	{
-		$data['display'] = $this->load->view($this->parent_page."/searchOrder", '', TRUE);
+		$arr['arr'] = -1;
+		$data['display'] = $this->load->view($this->parent_page."/searchOrder",$arr, TRUE);
 		$this->_show($data);
 	}
 
@@ -72,6 +73,28 @@ class Order extends CI_Controller {
 			redirect(site_url(),'refresh');
 		}		
 	}
+	  public function checkEmail(){
+
+            $this->load->database();
+            $email = $this->input->post('email');
+            $pass = $this->input->post('pass');
+            $this->load->model('m_user');
+            $data = $this->m_user->checkEmail($email,$pass);
+            if ($data) {
+                    $arr1['arr'] = -1;
+                    $arr['display'] = $this->load->view($this->parent_page.'/listOrder',$arr1, TRUE);
+                    $this->_show($arr);
+                    // $this->session->set_flashdata('success', "Your Order is available");
+                    // redirect(site_url(''), 'refresh');
+                    
+            }
+            else{
+                    
+                    // $this->load->view("order/searchOrder", $data);
+                    $this->session->set_flashdata('error', "Your Email or Password is Incorrect");
+                     redirect(site_url(''), 'refresh');
+            }
+        }
 
 	function printO($or_id = null){
 		//production print email
