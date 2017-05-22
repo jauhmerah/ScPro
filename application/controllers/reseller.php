@@ -41,7 +41,7 @@
         public function index()
         {
             $this->_checkSession();
-            $this->_show();
+            $this->page('a1');
         }
 
 	    public function page($key)
@@ -55,6 +55,8 @@
                 	//if ($this->input->get('key')) {
                 		$data['title'] = '<i class="fa fa-cart-plus"></i> Add Order';
                 		$this->load->model('m_order_item_package' , 'moip');
+                        $this->load->model('m_nico' , 'mn');
+                        $data['nico'] = $this->mn->get();
                 		$data['arr'] = $this->moip->get(1);
                 		$this->_show('addorderview' , $data , $key);
 
