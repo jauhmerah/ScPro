@@ -24,29 +24,26 @@
                             <div class="progress-bar progress-bar-danger" style="width: 19%">
                                 <span class="sr-only"> Deny </span>
                             </div>
-                            <div class="progress-bar purple-plum" style="width: 22%">
+                            <div class="progress-bar yellow-gold" style="width: 22%">
                                 <span class="sr-only"> 20 - 40 pcs </span>
                             </div>
-                            <div class="progress-bar progress-bar-warning" style="width: 19%">
+                            <div class="progress-bar grey-silver" style="width: 19%">
                                 <span class="sr-only"> 41 - 60 pcs</span>
                             </div>
-                            <div class="progress-bar progress-bar-success" style="width: 40%">
+                            <div class="progress-bar dark" style="width: 40%">
                                 <span class="sr-only"> 61 - 100 pcs </span>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <span class="label label-danger">Deny</span> <= 19 pcs <span class="label bg-purple-plum bg-font-purple-plum">RM 17.50</span> : 20-40 pcs <span class="label label-warning">RM 17.00</span> : 41-60 pcs <span class="label label-success">RM 16.50</span> : 61-100 pcs
-                    </div>                    
+                    </div>             
                     </div>
                     <div class="col-xs-4">
-                        <a class="dashboard-stat dashboard-stat-v2" style=" border: 2px solid #337ab7;">
+                        <a class="dashboard-stat dashboard-stat-v2 blue-madison" href="javascript:priceRate();" title="Price Rate">
                             <div class="visual">
-                                <i>RM</i>
+                                <i class="fa fa-money"></i>
                             </div>
                             <div class="details">
                                 <div class="number">
-                                    <span data-counter="counterup" data-value="17.50">0</span>
+                                    RM <span data-counter="counterup" data-value="17.50">0</span>
                                 </div>
                                 <div class="desc">Price Rate</div>
                             </div>
@@ -68,7 +65,7 @@
                             <label for="input" class="col-sm-2 control-label">Series :</label>
                             <div class="col-sm-10">
                                 <select id="cat" class="form-control input-circle">
-                                    <option value="<?= $this->my_func->en(-1); ?>">-- Select One --</option>
+                                    <option value="-1">-- Select One --</option>
                                     <?php foreach ($cat as $key) { ?>
                                         <option style="background-color: <?= $key->ca_color; ?>;" value="<?= $this->my_func->en($key->ca_id); ?>"><?= $key->ca_desc; ?></option>
                                     <?php } ?>
@@ -82,9 +79,9 @@
                     <div class="row">
                         <div class="form-group">
                             <label for="input" class="col-sm-2 control-label">Flavor :</label>
-                            <div class="col-sm-10">
+                            <div class="col-sm-10" id="flav">
                                 <select id="flav" class="form-control input-circle" disabled>
-                                    <option value="<?= $this->my_func->en(-1); ?>">-- Select One --</option>
+                                    <option value="-1">-- Select One --</option>
                                 </select>
                             </div>
                         </div>
@@ -156,4 +153,43 @@
         </div>
     </dir>    
 </div>
+<div hidden>
+<div id="priceRate">
+<div class="row">    
+    <div class="col-md-8 col-md-offset-2" >
+    <div class="panel">
+    <div class="panel-body">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Price Rate</th>
+                    <th>Quantity Range</th>
+                    <th>Detail</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>RM 17.50</td>
+                    <td>20 <i class="fa fa-arrow-right"></i> 40</td>
+                    <td><span class="label bg-yellow-gold bg-font-yellow-gold">Gold</span></td>
+                </tr>
+                <tr>
+                    <td>RM 17.00</td>
+                    <td>41 <i class="fa fa-arrow-right"></i> 60</td>
+                    <td><span class="label bg-grey-silver bg-font-grey-silver">Premium</span></td>
+                </tr>
+                <tr>
+                    <td>RM 16.50</td>
+                    <td>61 <i class="fa fa-arrow-right"></i> 100</td>
+                    <td><span class="label bg-dark bg-font-dark">Platinum</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>        
+    </div>        
+    </div>
+    </div>
+</div>
+</div>
 
+<script type="text/javascript" src= "<?= base_url(); ?>assets/nastyjs/order.js"></script>
