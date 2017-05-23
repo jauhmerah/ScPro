@@ -65,35 +65,17 @@
     				$this->load->library('my_func');
     				$this->load->database();
     				$this->load->model("m_category" , 'm_cat');
-    				$this->load->model('m_type2' , 'mt2');
-    				$this->load->model('m_order_item_package' , 'oip');
-    				$data['packNum'] = $this->oip->count();
     				$data['cat'] = $this->m_cat->get();
-    				$data['type'] = $this->mt2->getProduct();
-    				$data['itemNum'] = sizeof($data['type']);
     				$this->_show('addorder' , $data , $key);
     				break;
 
     			case "a1" :// dashboard
                         //start added
-                         $this->load->database();
-                         $this->load->model('m_news');
-                         $this->load->model('m_detail');  
-                         $this->load->model('m_address');   
-                         //$this->load->model('news');
-                        // $this->load->model('m_nico');
-                        // $arr['neworder'] = $this->m_order->countOrderType(1 , 2);
-                        // $arr['inprogress'] = $this->m_order->countOrderType(2 , 2);
-                        // $arr['complete'] = $this->m_order->countOrderType(3 , 2);
-                        // $arr['unconfirm'] = $this->m_order->countOrderType(4 , 2);
-                        // $arr['onhold'] = $this->m_order->countOrderType(7 , 2);
-                        // $arr['vernew'] = $this->m_order->orderCount(2);
-                        // $arr['verold'] = $this->m_order->orderCount(1) + $this->m_order->orderCount(0);
-                        // $arr['totalProfit'] = $this->m_order->totalProfit();
-                        // $arr['client'] = $this->m_client->get(null , 'asc');
-                        // $arr['mg'] = $this->m_nico->get();
-                        //end addeds
-                         $staffId = $this->my_func->scpro_decrypt($this->session->userdata('us_id'));
+                        $this->load->database();
+                        $this->load->model('m_news');
+                        $this->load->model('m_detail');  
+                        $this->load->model('m_address');                         
+                        $staffId = $this->my_func->scpro_decrypt($this->session->userdata('us_id'));
                         $arr['arr'] = $this->m_news->get();
                         $arr['arr1'] = $this->m_detail->getAll($staffId);
                         $arr['arr2'] = $this->m_address->getAdd($staffId,1);                          
@@ -122,11 +104,6 @@
                         $this->_show('display' , $data , $key);
                         //$this->_show('staffView' , $data , $key);
                     break;
-
-                  
-
-                    
-
                     case 'c11':
                     //edit
                     $data['title'] = '<i class="fa fa-user"></i> User Edit';
@@ -467,100 +444,6 @@
                 return false;
             }			
 		}
-		public function getAjaxProduct(){
-			$this->load->database();
-			
-			$text = '';
-			$this->load->library('my_func');
-			$f = $this->input->post('filter');
-			$s = $this->input->post('series');
-			$t = $this->input->post('type');
-			if ($s != -1) {
-				$s = $this->my_func->de($s);
-			}
-			if ($f == '') {
-				$f = null;
-			}
-			switch ($t) {
-				case '1':
-					$this->load->model('m_type2');
-					$arr = $this->m_type2->getProduct($f , $s);	
-					break;
-				case '2':
-					$this->load->model('m_order_item_package' , 'moip');
-					$arr = $this->moip->getProduct($f);	
-					break;
-				
-				default:
-					break;
-			}
-			
-
-			if ($arr) {
-				foreach ($arr as $key){
-					$a['arr'] = $key;
-					$text = $text . $this->load->view('reseller/getAjax/getAjaxProduct', $a , true);	
-				}
-			} else {
-				$text = '
-                <div align="center">
-                	<br>
-                    <h1><i class="fa fa-flask"></i></h1><br>
-                    <h3><strong>No Data</strong></h3>
-                </div>';
-			}
-			echo $text;
-		}
-
-		public function getAjaxCart()
-		{
-			$this->load->database();
-			$this->load->library('my_func');
-			$mg = $this->input->post('mg');
-			$id = $this->my_func->de($this->input->post('id') , 1);
-			$n = $this->input->post('num');
-			$this->load->model('m_type2');
-			$arr['arr'] = array_shift($this->m_type2->get($id));
-			$arr['mg'] = $mg;
-			$arr['n'] =$n;
-			echo $this->load->view('reseller/getAjax/getAjaxCart', $arr , true);
-		}
-		public function getAjaxCartInv()
-		{
-			$this->load->database();
-			$this->load->library('my_func');
-			$mg = $this->input->post('mg');
-			$id = $this->my_func->de($this->input->post('id') , 1);
-			$n = $this->input->post('num');
-			$this->load->model('m_type2');
-			$this->load->model('m_nico');
-		}
-
-		public function getAjaxProductDetail(){
-			if($this->input->post('id')){
-				$this->load->database();
-				$this->load->library('my_func');
-				$id = $this->my_func->de($this->input->post('id') , 1);
-				$ty = $this->input->post('ty');
-				switch ($ty) {
-					case '1':						
-						$this->load->model('m_type2');					
-						$data['data'] = array_shift($this->m_type2->get($id));
-						break;
-					case '2':
-						$this->load->model('m_order_item_package' , 'moip');
-						$data['data'] = $this->moip->get($id);
-						break;					
-					default:
-						# code...
-						break;
-				}
-				if (sizeof($data) != 0) {
-					echo $this->load->view("reseller/getAjax/getAjaxProductDetail" , $data , true);
-				}else{
-					echo "<h2>No Data</h2>";
-				}
-			}
-		}
+		
 	}
 ?>

@@ -1,6 +1,3 @@
-<div>
-    
-</div>
 <div class="row">
 	<div class="col-md-12">        
 		<div class="portlet light">
@@ -70,8 +67,11 @@
                         <div class="form-group">
                             <label for="input" class="col-sm-2 control-label">Series :</label>
                             <div class="col-sm-10">
-                                <select name="" id="input" class="form-control input-circle">
-                                    <option value="">-- Select One --</option>
+                                <select id="cat" class="form-control input-circle">
+                                    <option value="<?= $this->my_func->en(-1); ?>">-- Select One --</option>
+                                    <?php foreach ($cat as $key) { ?>
+                                        <option style="background-color: <?= $key->ca_color; ?>;" value="<?= $this->my_func->en($key->ca_id); ?>"><?= $key->ca_desc; ?></option>
+                                    <?php } ?>
                                 </select>
                             </div>
                         </div>
@@ -83,8 +83,8 @@
                         <div class="form-group">
                             <label for="input" class="col-sm-2 control-label">Flavor :</label>
                             <div class="col-sm-10">
-                                <select name="" id="input" class="form-control input-circle">
-                                    <option value="">-- Select One --</option>
+                                <select id="flav" class="form-control input-circle" disabled>
+                                    <option value="<?= $this->my_func->en(-1); ?>">-- Select One --</option>
                                 </select>
                             </div>
                         </div>
@@ -103,7 +103,8 @@
                         <br>
                     </div>
                     <div class="row">
-                        <span class="pull-left" style="padding-top: 15px;"><i class="fa fa-spinner fa-spin"></i> <i class="fa fa-flask"></i> Brewing In Progress</span><span class="pull-right"><button type="button" class="btn btn-primary btn-circle"><i class="fa fa-plus"></i> Add</button></span>
+                        <span class="pull-left" style="padding-top: 15px;"><i class="fa fa-spinner fa-spin"></i> <i class="fa fa-flask"></i> Brewing In Progress</span><span class="pull-right">
+                        <button type="button" class="btn btn-primary btn-circle"><i class="fa fa-plus"></i> Add</button></span>
                     </div>
                 </div>
                 <div class="clearfix">
@@ -116,9 +117,9 @@
                 <table class="table table-condensed table-hover">
                     <thead>
                         <tr>
-                            <th>Flavor Detail</th>
-                            <th>Quantity</th>
-                            <th>Action</th>
+                            <th width="50%">Flavor Detail</th>
+                            <th width="30%">Quantity</th>
+                            <th width="20%">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -128,91 +129,31 @@
                             <td><span class="pull-right"><button type="button" class="btn btn-danger btn-circle "><i class="fa fa-trash"></i></button></span></td>
                         </tr>
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>
+                                <span class="pull-right"></span>
+                            </td>
+                            <td>
+                                Total : <span id="totalQty">0</span>
+                            </td>
+                            <td>
+                                Total Price : RM <span id="totalPrice">0.00</span>
+                            </td>
+                        </tr>
+                    </tfoot>
                 </table>
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                <div class="col-md-12">
+                    <span class="pull-right">                        
+                        <button type="button" class="btn btn-circle yellow-gold" disabled><i class="fa fa-shopping-cart"></i> Checkout</button>
+                    </span>
+                </div>                    
+                </div>                
             </div>
         </div>
     </dir>    
 </div>
 
-<!-- invoice end -->
-<script>
-    var c = null;
-    var num = 0;
-    $(document).ready(function() {
-        onStartPage(null , -1 );
-        $('#siri').change(function() {
-            var siri = $(this).val();
-            var tapis = $('#filter').val();
-            $.when($('#pro').html($('#loading1').html())).then(function(){
-                onPageLoad(tapis , siri);
-            });            
-        });
-        $('#filter').keyup(function() {
-            var siri = $('#siri').val();
-            var tapis = $(this).vsal();
-            $.when($('#pro').html($('#loading1').html())).then(function(){
-                onPageLoad(tapis , siri);
-            });    
-        });
-        $('#pro').on('click', '.kanta', function() {
-            var id = $(this).data('item');
-            var ty = $(this).data('type');
-            $.post('<?= site_url('reseller/getAjaxProductDetail') ?>', {id: id , ty : ty}, function(data) {
-                var detail = bootbox.dialog({
-                    message : data
-                });
-            });
-        });
-        $('#ordlist').on('click', '.cancelList', function() {
-            var li = $(this).data('row');
-            var inv = $(this).data('inv');
-            alert(li+inv);
-            $('#ordlist').find('#'+li).remove();
-        });
-    });
-    function onStartPage(f , s) {
-        $.post('<?= site_url('reseller/getAjaxProduct') ?>', {filter : f , series : s , type : 1}, function(data) {
-            $("#pro").html(data);
-            showProduct();
-        });
-    }
-    function productList(t) {
-        var s = $('#siri').val();
-        var f = $('#filter').val();
-        $.when(hideProduct()).then(
-            function(){
-                $("#listTitle").html(listTitle(t));
-                $.post('<?= site_url('reseller/getAjaxProduct') ?>', {filter : f , series : s , type : t}, function(data) {
-                    $("#pro").html(data);
-                    showProduct();
-                });
-            }
-        );     
-    }    
-    function listTitle(x) {
-        switch (x){
-            case 1 : return '<i class="fa fa-cube"></i> À la carte';break;
-            case 2 : return '<i class="fa fa-cubes"></i> Bundle Package';break;
-            case 3 : return 'Merchandise';break;
-            default : return 'Error : #b1v1';
-        }
-    }
-    function showProduct() {
-        var x = $("#pro").children('.product:hidden');
-        if (x.length) {
-            x.first().show('fast');
-            setTimeout(showProduct,50);
-        }     
-    }
-    function hideProduct() {
-        var x = $("#pro").children('.product:visible');
-        if (x.length) {
-            $.when(x.hide('fast')).then(function(){
-                $(this).remove();
-            });            
-        }        
-    }
-</script>
-	</div>
-</div>
- 
