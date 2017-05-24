@@ -79,7 +79,7 @@
                     <div class="row">
                         <div class="form-group">
                             <label for="input" class="col-sm-2 control-label">Flavor :</label>
-                            <div class="col-sm-10" id="flav">
+                            <div class="col-sm-10" id="flavDiv">
                                 <select id="flav" class="form-control input-circle" disabled>
                                     <option value="-1">-- Select One --</option>
                                 </select>
@@ -100,8 +100,8 @@
                         <br>
                     </div>
                     <div class="row">
-                        <span class="pull-left" style="padding-top: 15px;"><i class="fa fa-spinner fa-spin"></i> <i class="fa fa-flask"></i> Brewing In Progress</span><span class="pull-right">
-                        <button type="button" class="btn btn-primary btn-circle"><i class="fa fa-plus"></i> Add</button></span>
+                        <span id="loading" hidden class="pull-left" style="padding-top: 15px;"><i class="fa fa-spinner fa-spin"></i> <i class="fa fa-flask"></i> Brewing In Progress</span><span class="pull-right">
+                        <button id="addBtn" disabled type="button" class="btn btn-primary btn-circle"><i class="fa fa-plus"></i> Add</button></span>
                     </div>
                 </div>
                 <div class="clearfix">
@@ -119,17 +119,13 @@
                             <th width="20%">Action</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>Bad Blood</td>
-                            <td><input type="number" name="qty" id="inputQty" class="form-control input-circle" min="1" max="100" step="1" required="required" title="Quantity"></td>
-                            <td><span class="pull-right"><button type="button" class="btn btn-danger btn-circle "><i class="fa fa-trash"></i></button></span></td>
-                        </tr>
+                    <tbody id="orderList">
+                        
                     </tbody>
                     <tfoot>
                         <tr>
                             <td>
-                                <span class="pull-right"></span>
+                                <span class="pull-left">Limit left: <span>100</span> pcs</span>
                             </td>
                             <td>
                                 Total : <span id="totalQty">0</span>
@@ -191,5 +187,7 @@
     </div>
 </div>
 </div>
-
-<script type="text/javascript" src= "<?= base_url(); ?>assets/nastyjs/order.js"></script>
+<script type="text/javascript">
+    var urlsite = "<?= site_url(); ?>reseller/";
+</script>
+<script type="text/javascript" src = "<?= base_url();?>assets/nastyjs/order.js"></script>

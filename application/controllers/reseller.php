@@ -449,21 +449,33 @@
             if ($this->input->post('m')) {
                 $m = $this->input->post('m');
                 if ($m == -1) {
-                    echo $this->view($this->parent_page."/getAjax/getAjaxFlavor" , array("m" => -1) , true);
+                    echo $this->load->view($this->parent_page."/getAjax/getAjaxFlavor" , array("m" => -1) , true);
                     return;
                 }
+                $this->load->database();
                 $this->load->library("my_func");
                 $this->load->model('m_type2' , 'mt2');
                 $cat = $this->my_func->de($m);
                 $data['flav'] = $this->mt2->get(array("ca_id" => $cat));
-                if (sizeof($data['flav'] == 0)) {
-                    echo $this->view($this->parent_page."/getAjax/getAjaxFlavor" , array("m" => -2) , true);
+                if (sizeof($data['flav']) == 0) {
+                    echo $this->load->view($this->parent_page."/getAjax/getAjaxFlavor" , array("m" => -2) , true);
                     return;
                 }else{
-                    $data['m'] = -2;
-                    echo $this->view($this->parent_page."/getAjax/getAjaxFlavor" , $data , true);
+                    echo $this->load->view($this->parent_page."/getAjax/getAjaxFlavor" , $data , true);
                     return;
                 }
+            }
+        }
+        public function getAjaxItem()
+        {
+            if ($this->input->post('id')) {
+                $id = $this->input->post('id');
+                $this->load->database();
+                $this->load->model('m_type2' , 'mt2');
+                $this->load->library('my_func');
+                $id = $this->my_func->de($id);
+                $data['arr'] = array_shift($this->mt2->getItem($id));
+                echo $this->load->view($this->parent_page."/getAjax/getAjaxItem" , $data , false);
             }
         }
 	}

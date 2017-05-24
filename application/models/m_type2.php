@@ -59,6 +59,19 @@ class M_type2 extends CI_Model {
         }        
     }
 
+    public function getItem($id){
+        $this->db->select('*');
+        $this->db->from('type2 t2');
+        $this->db->join('category cat', 'cat.ca_id = t2.ca_id', 'left');
+        $this->db->where('ty2_id' , $id);
+        $result = $this->db->get()->result();
+        if ($result) {            
+            return $result;            
+        }else {
+            return false;
+        }        
+    }
+
     /**
      * Inserts new data into database
      *

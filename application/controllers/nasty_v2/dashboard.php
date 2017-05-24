@@ -1010,6 +1010,7 @@ epul@nastyjuice.com
 		    		$crud = new grocery_CRUD();    		
 		    		$crud->set_table('type2');
 		    		$crud->set_subject('Item Type');
+                    $crud->unset_fields('ty2_price');
                     $crud->display_as('ty2_desc','Item Detail')
                          ->display_as('ca_id','Event Category')
                          ->display_as('ty2_img' , 'Product Image')
