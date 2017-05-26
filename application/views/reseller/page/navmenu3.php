@@ -52,7 +52,7 @@
                     </li><?php } ?>
                     <?php if($us_lvl != 2 && $us_lvl != 3 ){?>
                     <li class="nav-item <?php if (strpos($link, 'e') !== false) { echo "active open";}else{echo "start";}?>   ">
-                        <a href="<?= site_url('nasty_v2/dashboard/page/e1') ?>" class="nav-link ">
+                        <a href="<?= site_url('reseller/page/e1') ?>" class="nav-link ">
                             <i class="fa fa-bank"></i>
                             <span class="title">Bank Payment</span>
                         </a>

@@ -1778,6 +1778,7 @@ epul@nastyjuice.com
                     $this->load->database();
                     $this->load->model("m_order");
                     $this->load->model('m_news');
+                    $this->load->model('m_picture');
                     $or_id = $this->my_func->scpro_decrypt($this->input->post('or_id'));
                     $result = $this->my_func->do_upload('./assets/uploads/img/'); 
                                        
