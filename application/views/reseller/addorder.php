@@ -14,14 +14,14 @@
                     <div class="col-xs-8">
                     <div class="row">
                         <div class="progress progress-striped active" style="height: 40px;">
-                            <div class="progress-bar" role="progressbar" style="width: 19%">
-                                <span class="sr-only"> 40% Complete (success) </span>
+                            <div class="progress-bar" id="qtyBar" role="progressbar" style="width: 0%">
+                                <span class="sr-only">Quantity</span>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="progress">
-                            <div class="progress-bar progress-bar-danger" style="width: 19%">
+                            <div class="progress-bar red" style="width: 19%">
                                 <span class="sr-only"> Deny </span>
                             </div>
                             <div class="progress-bar yellow-gold" style="width: 22%">
@@ -43,7 +43,7 @@
                             </div>
                             <div class="details">
                                 <div class="number">
-                                    RM <span data-counter="counterup" data-value="17.50">0</span>
+                                    RM <span id="priceTag">xx.xx</span>
                                 </div>
                                 <div class="desc">Price Rate</div>
                             </div>
@@ -110,8 +110,8 @@
                 </div>
                 <div class="clearfix">
                     <br>
-                </div>
-                <table class="table table-condensed table-hover">
+                </div><form method="post" action="<?= site_url('reseller/page/b11'); ?>">
+                    <table class="table table-condensed table-hover">
                     <thead>
                         <tr>
                             <th width="50%">Flavor Detail</th>
@@ -119,13 +119,15 @@
                             <th width="20%">Action</th>
                         </tr>
                     </thead>
-                    <tbody id="orderList">
-                        
-                    </tbody>
+                    
+                    <input type="hidden" name="key" value="<?= $this->my_func->en('betul' , 1); ?>">
+                        <tbody id="orderList">
+                            
+                        </tbody>                        
                     <tfoot>
                         <tr>
                             <td>
-                                <span class="pull-left">Limit left: <span>100</span> pcs</span>
+                                <span class="pull-left">Limit left: <span id="limit">100</span> pcs</span>
                             </td>
                             <td>
                                 Total : <span id="totalQty">0</span>
@@ -136,12 +138,14 @@
                         </tr>
                     </tfoot>
                 </table>
+                <input type="submit" id="go" hidden>
+                    </form>
             </div>
             <div class="panel-footer">
                 <div class="row">
                 <div class="col-md-12">
                     <span class="pull-right">                        
-                        <button type="button" class="btn btn-circle yellow-gold" disabled><i class="fa fa-shopping-cart"></i> Checkout</button>
+                        <button type="button" id="proceedBtn" onclick="$('#go').trigger('click');" class="btn btn-circle yellow-gold" disabled><i class="fa fa-shopping-cart"></i> Checkout</button>
                     </span>
                 </div>                    
                 </div>                
@@ -187,7 +191,9 @@
     </div>
 </div>
 </div>
-<script type="text/javascript">
+<script type = "text/javascript">
     var urlsite = "<?= site_url(); ?>reseller/";
+    var list = $("#orderList");
+    var price;    
 </script>
-<script type="text/javascript" src = "<?= base_url();?>assets/nastyjs/order.js"></script>
+<script type="text/javascript" src = "<?= base_url();?>assets/nastyjs/order.js?batch=<?php echo uniqid(); ?>"></script>

@@ -40,8 +40,7 @@
 
         public function index()
         {
-            $this->_checkSession();
-            $this->_show();
+            $this->page('a1');
         }
 
 	    public function page($key)
@@ -50,16 +49,26 @@
     		$this->_checkSession();
             $lvl =$this->my_func->scpro_decrypt($this->session->userdata('us_lvl'));
     		switch ($key) {
-
     			case 'b11':
-                	//if ($this->input->get('key')) {
-                		$data['title'] = '<i class="fa fa-cart-plus"></i> Add Order';
-                		$this->load->model('m_order_item_package' , 'moip');
-                		$data['arr'] = $this->moip->get(1);
-                		$this->_show('addorderview' , $data , $key);
+                	if ($this->input->post('key')) {
+                        $this->load->library('my_func');
+                	    if ($this->my_func->de($this->input->post('key') , 1) == "betul") {                           
+                            $qty = $this->input->post('qty');
+                            $id = $this->input->post('id');
+                            $sum = 0;
+                            foreach ($qty as $key => $value) {
+                                $sum =+ $value;
+                            }
+                            if ($sum < 20) {
+                                $this->session->set_flashdata('warning', '<strong>Warning <i class="fa fa-exclamation-triangle"></i></strong> : Order Quantity lower than 20');
+                            }elseif ($sum > 100) {
+                                $this->session->set_flashdata('error', '<strong>Warning <i class="fa fa-exclamation-triangle"></i></strong> : Order Quantity more than 100');
+                            }else{
 
-                	//}                	
-                	break;                
+                            }
+                            break;
+                        }
+                	}
     			case 'b1':
     				$data['title'] = '<i class="fa fa-cart-plus"></i> Add Order';
     				$this->load->library('my_func');
@@ -470,6 +479,7 @@
         {
             if ($this->input->post('id')) {
                 $id = $this->input->post('id');
+                $data['num'] = $this->input->post('num');
                 $this->load->database();
                 $this->load->model('m_type2' , 'mt2');
                 $this->load->library('my_func');
@@ -477,6 +487,32 @@
                 $data['arr'] = array_shift($this->mt2->getItem($id));
                 echo $this->load->view($this->parent_page."/getAjax/getAjaxItem" , $data , false);
             }
+        }
+
+        public function getAjaxPriceRate()
+        {
+            if ($this->input->post('qty')) {
+                $qty = $this->input->post('qty');                
+                if ($qty < 20) {
+                    echo '-1';
+                }elseif ($qty >= 20 && $qty <= 40) {
+                    echo '17.50';
+                }elseif ($qty > 40 && $qty <= 60) {
+                    echo '17.00';
+                }elseif ($qty > 60 && $qty <= 100) {
+                    echo "16.50";
+                }else{
+                    echo "-1";
+                }
+            }else{
+                echo "0.00";
+            }
+        }
+
+        private function _addOrder($id , $qty)
+        {
+            $this->load->library('my_func');
+            
         }
 	}
 ?>
