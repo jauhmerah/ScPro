@@ -73,25 +73,25 @@
                         </a>
                         <ul class="sub-menu">
                             <li class="nav-item start">
-                                <a href="<?= site_url('nasty_v2/dashboard/page/f1') ?>" class="nav-link ">
+                                <a href="<?= site_url('reseller/page/s1') ?>" class="nav-link ">
                                     <i class="fa fa-user"></i>
                                     <span class="title">User Profile</span>
                                 </a>
                             </li>
                             <li class="nav-item start">
-                                <a href="<?= site_url('nasty_v2/dashboard/page/f2') ?>" class="nav-link ">
+                                <a href="<?= site_url('reseller/page/s12') ?>" class="nav-link ">
                                     <i class="fa fa-map-marker"></i>
                                     <span class="title">Delivery Address</span>
                                 </a>
                             </li> 
                             <li class="nav-item start">
-                                <a href="<?= site_url('nasty_v2/dashboard/page/f3') ?>" class="nav-link ">
+                                <a href="<?= site_url('reseller/page/s17') ?>" class="nav-link ">
                                     <i class="fa fa-fw fa-building"></i>
                                     <span class="title">Shop Detail</span>
                                 </a>
                             </li>
                             <li class="nav-item start">
-                                <a href="<?= site_url('nasty_v2/dashboard/page/f4') ?>" class="nav-link ">
+                                <a href="<?= site_url('reseller/page/s15') ?>" class="nav-link ">
                                     <i class="fa fa-fw fa-bullhorn"></i>
                                     <span class="title">Feedback Form</span>
                                 </a>

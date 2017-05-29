@@ -32,7 +32,7 @@
     											</select>
 		                                	</div>
 		                                	<span class="pull-left" id="loadingText" style="display: none;"><i class="fa fa-spinner fa-spin"></i>&nbsp;Loading</span>
-		                                </div>		                                                               
+		                               	 	</div>		                                                               
                                     	</div>                                    	 
                                         <h3 class="form-section">Client Info</h3>
                                         <div class="row" id = "clientInfo">

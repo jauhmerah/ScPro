@@ -26,7 +26,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-3 control-label">Town</label>
+                            <label class="col-md-3 control-label">City</label>
                             <div class="col-md-4">
                                 
                                     
@@ -38,8 +38,8 @@
                                     
                             </div>
                         </div>
-                         <div class="form-group">
-                            <label class="col-md-3 control-label">Poscode</label>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Postcode</label>
                              <div class="col-md-2">
                                 <input type="text" name="poscode" class="form-control input-circle" placeholder="" required>
                             </div>
@@ -47,56 +47,25 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label">State</label>
                             <div class="col-md-4">
-                                
-                                    
                                     <select name="state" class="form-control input-circle" placeholder="" required> 
                                         <?php 
                                                     foreach ($arr as $key) { ?>
                                                         <option value="<?= $key->state_id; ?>"> <?= $key->state_name; ?> </option>
                                                     <?php }
                                                     ?>
-                                     
                                     </select>
-                                    
                             </div>
                         </div>
-                        <!-- <div class="form-group">
-                            <label class="col-md-3 control-label">Membership :</label>
-                            <div class="col-md-4">
-                                <select name="lvl" id="input" class="form-control input-circle">
-                        	<?php foreach ($lvl as $key) {
-                        		?>
-								<option value="<?= $key->ul_id; ?>" <?php if($key->ul_id == $arr->us_lvl){echo " selected ";} ?> > <?= $key->ul_desc; ?></option>
-                        		<?php
-                        	} ?>
-                        </select>
-                            </div>
-                        </div> -->
-                        <!-- <h3 class="form-section">New Password</h3>
-                        <div class="form-group" id="p1">
-                            <label class="col-md-3 control-label">New Password :</label>
-                            <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Mobile Number</label>
+                             <div class="col-md-2">
                                 <div class="input-group">
-                                    <input type="password" name="pass" id = "password" class="form-control input-circle-left" placeholder="New Password">
-                                    <span class="input-group-addon input-circle-right">
-                                        <i class="fa fa-key"></i>
+                                    <span class="input-group-addon input-circle-left input-sm ">
+                                        <i>+60</i>
                                     </span>
-                                </div>
+                                    <input name="add_mnum" type="text" class="form-control input-circle-right" required="required"> </div>
                             </div>
-                        </div> -->
-                        <!-- <div class="form-group" id="p2">
-                            <label class="col-md-3 control-label">Re-password :</label>
-                            <div class="col-md-4">
-                                    <input type="password" id = "pass2" class="form-control input-circle" placeholder="Re-password">                                    
-                            </div>
-                        </div> -->
-                        <!-- <div class="row form-group">
-                        <label class="col-md-3 control-label"></label>
-                        <div id="pwd-container" class="col-md-4">
-                            <div class="pwstrength_viewport_progress"></div>
-                            </div>
-                        </div> -->
-                         <input type="hidden" name="us_id" id="us_id" class="form-control" value="<?= $this->my_func->scpro_decrypt($this->session->userdata('us_id')) ?>">
+                        </div>                        
                     </div>
                     <div class="form-actions">
                         <div class="row">
@@ -109,33 +78,6 @@
                 </form>
                 <!-- END FORM-->
             </div>
-        </div>
-        <script src="<?= base_url(); ?>/asset/js/strength.js"></script>
-		<script>
-			$(document).ready(function() {
-				$('#password').keyup(function() {
-					if ($(this).val() == "") {
-						$("#p1").prop('class', 'form-group');
-						$("#pass2").val("");
-						$("#p2").prop('class', 'form-group');
-						$("#btnSubmit").removeProp('disabled');
-					}else{
-						$("#p1").prop('class', 'form-group has-warning');
-						$("#btnSubmit").prop('disabled', 'disabled');
-					}
-				});
-				$('#pass2').keyup(function() {
-					if ($(this).val() == "" || $(this).val() != $('#pass1').val()) {
-						$("#p1").prop('class', 'form-group has-warning');
-						$("#p2").prop('class', 'form-group has-error');
-						$("#btnSubmit").prop('disabled', 'disabled');
-					}else{
-						$("#p1").prop('class', 'form-group has-success');
-						$("#p2").prop('class', 'form-group has-success');
-						$("#btnSubmit").removeProp('disabled');
-					}
-				});
-			});
-		</script>
+        </div>        
 	</div>
 </div>
