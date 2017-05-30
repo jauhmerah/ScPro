@@ -22,8 +22,7 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label">Shop Logo:</label>
                                 <div class="fileinput fileinput-new col-md-2 " data-provides="fileinput">
-                                    <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 190px; height: 140px; line-height: 150px;"></div>
-                                   
+                                    <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 190px; height: 140px; line-height: 150px;"></div>                                   
                                         <span class="btn red btn-outline btn-file">
                                             <span class="fileinput-new"> Select image </span>
                                             <span class="fileinput-exists"> Change </span>

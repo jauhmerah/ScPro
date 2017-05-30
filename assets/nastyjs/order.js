@@ -90,6 +90,47 @@ function totalCount(x) {
             $('#priceTag').html(price);
             $('#qtyBar').css('width', sum+'%');
         }
+    });    
+}
+function checkAll() {
+    var tot = 0;
+    list.find('.inputQty').each(function() {
+        n = $(this).val();
+        if (n != null && n != '') {
+            tot += parseInt(n);
+        }
     });
-    
+    list.find('.inputQty').each(function() {
+        n = $(this).val();
+        if (n == null || n == ''  || n == 0) {
+            ob = $(this);
+            $.when($(this).addClass('red')).then(function(){
+                setTimeout(function() {
+                    ob.removeClass('red');
+                }, 1000);
+            });            
+            $(this).focus();
+            return false;
+        }        
+    });
+    if (tot > 19) {
+        bootbox.confirm({
+            message: "Confirm ?",
+            buttons: {
+                confirm: {
+                    label: 'Yes',
+                    className: 'btn-success'
+                },
+                cancel: {
+                    label: 'No',
+                    className: 'btn-danger'
+                }
+            },
+            callback: function (result) {
+                alert(result);
+            }
+        });
+    }else{
+        return false;
+    }
 }

@@ -60,8 +60,7 @@
                                     <td>
                                     <?php 
                                         $add_id = $this->my_func->scpro_encrypt($key->add_id);
-                                    ?>
-                                        <a href="<?= site_url('reseller/page/s16?view=').$add_id; ?>" name="c4" title="Address Detail"><button type="button" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></button></a>&nbsp;-&nbsp;                                                                      
+                                    ?>                                                
                                         <a href="<?= site_url('reseller/page/s17?delete=').$add_id; ?>" name="c5" title="Delete User"><button type="button" class="btn btn-danger btn-xs"><i class="fa fa-close"></i></button></a>
                                     </td>                                   
                                 </tr>       

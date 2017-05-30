@@ -9,20 +9,20 @@
             </div>
             <div class="portlet-body form">
                 <!-- BEGIN FORM-->
-                <form  action="<?= site_url('reseller/updateStaff') ?>" method = 'post' class="form-horizontal">
+                <form class="form-horizontal">
                     <div class="form-body">
                     	<h3 class="form-section">Address Detail</h3>
                         <div class="form-group">
                             <label class="col-md-3 control-label">Company Name :</label>
                             <div class="col-md-4">
-                                <input type="text" name="fname" class="form-control input-circle" placeholder="<?= $arr->company_name; ?>">
+                                <input type="text" name="fname" class="form-control input-circle" disabled placeholder="<?= $arr->company_name; ?>">
                             </div>
                         </div>
                        
                         <div class="form-group">
                             <label class="col-md-3 control-label">Address :</label>
                            <div class="col-md-4">
-                                <textarea name="username" class="form-control input-circle" disabled><?= $arr->address; ?></textarea>
+                                <textarea name="username" class="form-control input-circle" disabled placeholder="<?= $arr->address; ?>"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
@@ -30,7 +30,7 @@
                             <div class="col-md-4">
                                 <div class="input-group">
                                     
-                                    <input type="text" name="email" class="form-control input-circle" placeholder="<?= $arr->town; ?>"> 
+                                    <input type="text" name="email" class="form-control input-circle" disabled placeholder="<?= $arr->town; ?>"> 
                                     
                                     </div>
                             </div>
@@ -38,7 +38,7 @@
                          <div class="form-group">
                             <label class="col-md-3 control-label">Poscode</label>
                              <div class="col-md-4">
-                                <input type="text" name="fname" class="form-control input-circle" placeholder="<?= $arr->poscode; ?>">
+                                <input type="text" name="fname" class="form-control input-circle" disabled placeholder="<?= $arr->poscode; ?>">
                             </div>
                         </div>
                         <div class="form-group">
@@ -46,7 +46,7 @@
                             <div class="col-md-4">
                                 <div class="input-group">
                                     
-                                    <input type="text" name="email" class="form-control input-circle" placeholder="<?= $arr->state_name; ?>"> 
+                                    <input type="text" name="email" class="form-control input-circle" disabled placeholder="<?= $arr->state_name; ?>"> 
 
                                     </div>
                             </div>
@@ -55,7 +55,7 @@
                             <label class="col-md-3 control-label">Mobile Number</label>
                             <div class="col-md-4">
                                 <div class="input-group">                                    
-                                    <input type="text" name="email" class="form-control input-circle" placeholder="<?= '+60'.$arr->add_mnum; ?>"> 
+                                    <input type="text" name="email" class="form-control input-circle" disabled placeholder="<?= '+60'.$arr->add_mnum; ?>"> 
                                     </div>
                             </div>
                         </div>                       

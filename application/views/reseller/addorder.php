@@ -110,7 +110,7 @@
                 </div>
                 <div class="clearfix">
                     <br>
-                </div><form method="post" action="<?= site_url('reseller/page/b11'); ?>">
+                </div><form method="post" id="myForm" onsubmit="return checkAll();" action="<?= site_url('reseller/page/b11'); ?>">
                     <table class="table table-condensed table-hover">
                     <thead>
                         <tr>
@@ -194,6 +194,6 @@
 <script type = "text/javascript">
     var urlsite = "<?= site_url(); ?>reseller/";
     var list = $("#orderList");
-    var price;    
+    var price;
 </script>
 <script type="text/javascript" src = "<?= base_url();?>assets/nastyjs/order.js?batch=<?php echo uniqid(); ?>"></script>
