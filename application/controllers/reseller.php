@@ -228,9 +228,19 @@
                         $data['display'] = $this->load->view($this->parent_page.'/editStaff' , $arr , true);
                         $this->_show('display' , $data , $key); 
                         break;
-                    }  
-
-                   
+                    }
+                    case 's17':
+                        if ($this->input->get('delete')) {
+                            $this->load->database();
+                            $this->load->library('my_func');
+                            $this->load->model('m_address', 'madd');
+                            if($this->madd->delete($this->my_func->scpro_decrypt($this->input->get('delete')))){
+                                $this->session->set_flashdata('success', 'Delete Done');
+                            }else{
+                                $this->session->set_flashdata('warning', 'Error #res1201, Address Not found');
+                            }
+                            redirect(site_url('reseller/page/s12'),'refresh');
+                        }  break;
                     case 's15':
                     //edit
                     $data['title'] = '<i class="fa fa-cart-plus"></i> Feedback';
@@ -313,13 +323,14 @@
                 $this->load->database();
                 $this->load->model('m_address');
                 $this->load->library('my_func');
-                $arr['us_id'] = $this->my_func->scpro_decrypt($arr['us_id']);
+                $arr['us_id'] = $this->my_func->scpro_decrypt($this->session->userdata('us_id'));
                 foreach ($arr as $key => $value) {
                     if ($value != null) {                        
                         $arr2[$key] = $value;                     
                     }
                 }
                 $result = $this->m_address->insert($arr2);
+                die();
                 $this->session->set_flashdata('success', 'Succesfully Added');
                 redirect(site_url('reseller/page/s12'),'refresh');
             }else{
