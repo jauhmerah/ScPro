@@ -142,9 +142,9 @@
 	    	}
 	    }
 
-	    public function updateQty($qty , $w, $orex_id, $us_id)
+	    public function updateQty($qty , $w, $orex_id=null , $us_id)
 	    {
-	    	$date_added=date("Y-m-d h:i:s");
+	    	$date_added=date("Y-m-d H:i:s");
 	    	$this->db->select('*');
 	    	$this->db->from(self::TABLE_NAME);
 	    	$this->db->where($w);
@@ -168,7 +168,42 @@
 	    		'date_added' => $date_added,
 	    		'log_status' => 1,
 	    		'us_id' => $us_id,
-	    		'us_id' => $orex_id,
+	    		'orex_id' => $orex_id,
+
+	    	);
+
+	    	$this->db->insert('ship_log', $arr1);
+
+
+	    }
+
+	     public function updateQty1($qty , $w , $us_id)
+	    {
+	    	$date_added=date("Y-m-d H:i:s");
+	    	$this->db->select('*');
+	    	$this->db->from(self::TABLE_NAME);
+	    	$this->db->where($w);
+	    	$arr = array_shift($this->db->get()->result());
+	    	$qty = $arr->sti_total + $qty;
+	    	$a = array(
+	    		'sti_total' => $qty
+	    	);
+	    	$this->update($a , $arr->sti_id);
+
+	    	$diff=$qty-$arr->sti_total;	
+
+
+
+	    	$arr1 = array(
+	    		'ty2_id' => $arr->ty2_id,
+	    		'ni_id' => $arr->ni_id,
+	    		'fromqty' => $arr->sti_total,
+	    		'toqty' => $qty,
+	    		'diff' => $diff,
+	    		'date_added' => $date_added,
+	    		'log_status' => 0,
+	    		'us_id' => $us_id
+	    		
 
 	    	);
 

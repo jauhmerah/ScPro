@@ -1090,14 +1090,16 @@ epul@nastyjuice.com
 
                 case 'i2':
                    $this->load->database();
-                    $this->load->model('m_client');
-                    $this->load->model('m_category');
-                    $this->load->model('m_nico');
-                    $arr['nico'] = $this->m_nico->get();
-                    $arr['cat'] = $this->m_category->get(null , 'asc');
-                    $arr['client'] = $this->m_client->get(null , 'asc');
+                    // $this->load->model('m_client');
+                    // $this->load->model('m_category');
+                    // $this->load->model('m_nico');
+                    $this->load->model('m_stock_inventory' , 'msi');
+                    $arr['arr'] = $this->msi->get2();
+                    // $arr['nico'] = $this->m_nico->get();
+                    // $arr['cat'] = $this->m_category->get(null , 'asc');
+                    // $arr['client'] = $this->m_client->get(null , 'asc');
                     $data['title'] = '<i class="fa fa-fw fa-edit"></i>Inventory</a>';
-                    $data['display'] = $this->load->view($this->parent_page.'/shipForm', $arr , TRUE);
+                    $data['display'] = $this->load->view($this->parent_page.'/itemList', $arr , TRUE);
                     $this->_show('display' , $data , $key);
 
                 break;
@@ -1785,6 +1787,33 @@ epul@nastyjuice.com
     			redirect(site_url('nasty_v2/dashboard/page/c1'),'refresh');
     		}
     	}
+
+
+        public function updateQty1()
+        {
+            //redirect(site_url('nasty_v2/dashboard/page/i2'),'refresh');
+            if ($this->input->post()) {
+                
+                 $sti_id = $this->input->post('sti_id'); 
+                  $qty = $this->input->post('qty');                   
+                $this->load->database();
+                
+                $this->load->library('my_func');
+                $this->load->model('m_stock_inventory' , 'msi');
+                $us_id = $this->my_func->scpro_decrypt($this->session->userdata('us_id'));
+                $wh = array(
+                                    'sti_id' => $sti_id
+                            
+                                );
+                //$result = $this->m_user->update($arr2 , $id);
+                $this->msi->updateQty1($qty , $wh,$us_id);
+                $this->session->set_flashdata('success', 'The order status was Updated!!');
+                redirect(site_url('nasty_v2/dashboard/page/i2'),'refresh');
+            }else{
+                 $this->session->set_flashdata('error', 'The order status was not Updated!! Please check agai');
+                redirect(site_url('nasty_v2/dashboard/page/i2'),'refresh');
+            }
+        }
 
 
         public function updatePr_id()
