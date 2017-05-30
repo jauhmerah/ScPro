@@ -1,17 +1,17 @@
 <?php 
 	if (!defined('BASEPATH')) exit('No direct script access allowed');
 	
-	class M_stock_inventory extends CI_Model {
+	class M_log extends CI_Model {
 	
 	    /**
 	     * @name string TABLE_NAME Holds the name of the table in use by this model
 	     */
-	    const TABLE_NAME = 'stock_inventory';
+	    const TABLE_NAME = 'ship_log';
 	
 	    /**
 	     * @name string PRI_INDEX Holds the name of the tables' primary index used in this model
 	     */
-	    const PRI_INDEX = 'sti_id';
+	    const PRI_INDEX = 'log_id';
 	
 	    /**
 	     * Retrieves record(s) from the database
@@ -44,15 +44,21 @@
 	            return false;
 	        }
 	    }
+	   
 
-	    public function get2($where = null)
+
+	    public function get2($where = null, $limit = null , $start = null)
 	    {
 	    	$this->db->select('*');
-	        $this->db->from('stock_inventory sti');
+	        $this->db->from('ship_log sti');
 			$this->db->join('type2 ty2', 'ty2.ty2_id = sti.ty2_id', 'left');
-			$this->db->join('nicotine ni', 'ni.ni_id = sti.ni_id', 'left');     
+			$this->db->join('nicotine ni', 'ni.ni_id = sti.ni_id', 'left'); 
+			$this->db->join('user us', 'us.us_id = sti.us_id', 'left');     
 			$this->db->join('category cat', 'cat.ca_id = ty2.ca_id', 'left');
-			$this->db->order_by('sti.ty2_id , sti.ni_id', 'asc');
+			$this->db->order_by('sti.date_added', 'desc');
+			if ($limit !== null && $start !== null) {
+	    		$this->db->limit($limit, $start);
+	    	}	
 			if ($where != null) {
 				$this->db->where($where);
 			}			
@@ -142,9 +148,8 @@
 	    	}
 	    }
 
-	    public function updateQty($qty , $w, $orex_id, $us_id)
+	    public function updateQty($qty , $w)
 	    {
-	    	$date_added=date("Y-m-d h:i:s");
 	    	$this->db->select('*');
 	    	$this->db->from(self::TABLE_NAME);
 	    	$this->db->where($w);
@@ -154,27 +159,81 @@
 	    		'sti_total' => $qty
 	    	);
 	    	$this->update($a , $arr->sti_id);
+	    }
 
-	    	$diff=$qty-$arr->sti_total;	
+	    public function updateQty2($qty , $w)
+	    {
+	    	$this->db->select('*');
+	    	$this->db->from(self::TABLE_NAME);
+
+	    	$sti_id = array(
+	    			"sti_id" => $w
+	    		);
 
 
+	    	$this->db->where($sti_id);
+	    	$arr = array_shift($this->db->get()->result());
+	    	$qty = $arr->sti_total + $qty;
+	    	$a = array(
+	    		'sti_total' => $qty
+	    	);
+	    	$this->update($a , $arr->sti_id);
+	    }
 
-	    	$arr1 = array(
+	     public function new_log($qty , $w ,$us_id, $stat)
+	    {
+
+	    	$date_added = date('Y-m-d H:i:s');
+
+	    	$this->db->select('*');
+	    	$this->db->from(self::TABLE_NAME);
+
+	    	$sti_id = array(
+	    			"sti_id" => $w
+	    		);
+
+
+	    	$this->db->where($sti_id);
+	    	$arr = array_shift($this->db->get()->result());
+
+	    	$diff= $arr->sti_total - $qty;
+
+
+	    	$qty = $arr->sti_total + $qty;
+
+	    	$data = array(
 	    		'ty2_id' => $arr->ty2_id,
 	    		'ni_id' => $arr->ni_id,
 	    		'fromqty' => $arr->sti_total,
 	    		'toqty' => $qty,
 	    		'diff' => $diff,
 	    		'date_added' => $date_added,
-	    		'log_status' => 1,
+	    		'log_status' => $stat,
 	    		'us_id' => $us_id,
-	    		'us_id' => $orex_id,
-
 	    	);
 
-	    	$this->db->insert('ship_log', $arr1);
+
+	    	 if ($this->db->insert('ship_log', $data)) {
+	            return $this->db->insert_id();
+	        } else {
+	            return false;
+	        }
 
 
+	    	
+	    	// $a = array(
+	    	// 	'sti_total' => $qty
+	    	// );
+	    	// $this->update($a , $arr->sti_id);
+	    }
+	      public function logCount()
+	    {
+	    	// $this->db->like('shp.sh_del', 0);
+	    	// if ($ver != -1) {
+	    	// 	$this->db->like('shp.sh_ver', $ver);
+	    	// }	    	
+			$this->db->from('ship_log');
+			return $this->db->count_all_results();
 	    }
 	}
 	        

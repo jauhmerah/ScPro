@@ -409,6 +409,7 @@
                     $this->load->library('my_flag');
                     $this->load->database();
                     $this->load->model('m_ship');
+                    $this->load->model('m_log');
                     if ($this->input->post("search") && $this->input->post("filter") || $this->input->get("search") && $this->input->get("filter")) {
                         if ($this->input->get("search") && $this->input->get("filter")) {
                             $search = $this->input->get("search");
@@ -467,20 +468,20 @@
                         }
                         if (isset($ver)) {
 
-                            $arr['arr1'] = $this->m_ship->listOr($ver , null , null , 0 , $where);
-                            $arr['arr2'] = $this->m_ship->getList_ext(null ,2, 1 , 1 , 0);
+                            $arr['arr1'] = $this->m_log->listOr($ver , null , null , 0 , $where);
+                            //$arr['arr2'] = $this->m_ship->getList_ext(null ,2, 1 , 1 , 0);
                            
                         }else{
 
                             $arr['arr1'] = $this->m_ship->listSearch(2 , null , null , 0 , $where);
-                            $arr['arr2'] = $this->m_ship->getList_ext(null ,2, 1 , 1 , 0);                     
+                            //$arr['arr2'] = $this->m_ship->getList_ext(null ,2, 1 , 1 , 0);                     
                         }
                     } else {
-                        $ver = $this->m_ship->shipCount(2);
-                        $arr['arr1'] = $this->m_ship->listOr(2 , 10 , $p);
-                        $arr['arr2'] = $this->m_ship->getList_ext(null ,2, 1 , 1 , 0);
+                        $ver = $this->m_log->logCount();
+                        $arr['arr1'] = $this->m_log->get2(null , 10 , $p);
+                        //$arr['arr2'] = $this->m_ship->getList_ext(null ,2, 1 , 1 , 0);
                         $result1 = sizeof($arr['arr1']);
-                        $result2 = sizeof($arr['arr2']);
+                        // $result2 = sizeof($arr['arr2']);
                         //$sizeA = 10 - $result1;
                         /*if ($sizeA != 0) {
                             $p1 = $p + 10 - $ver1;
@@ -1252,6 +1253,7 @@ epul@nastyjuice.com
                         $msg = '';
                         $arr = $this->input->post();
                         $or_id = $this->my_func->scpro_decrypt($this->input->get('key'));
+                        $us_id=$this->my_func->scpro_decrypt($this->session->userdata('us_id'));
                         $this->load->database();
                         $this->load->model('m_order_item');
                         if (isset($arr['idE'])) {
@@ -1277,7 +1279,7 @@ epul@nastyjuice.com
                         if (isset($arr['itemId'])) {  
                             if (sizeof($arr['itemId'])) {                            
                                 for ($i=0; $i < sizeof($arr['itemId']) ; $i++) {
-                                    if ($this->checkStock($arr['itemId'][$i] , $arr['nico'][$i] , $arr['qty'][$i] , $arr['tester'][$i])) {
+                                    if ($this->checkStock2($arr['itemId'][$i] , $arr['nico'][$i] , $arr['qty'][$i] , $arr['tester'][$i])) {
                                         $item = array(
                                             'orex_id' => $arr['orex_id'],
                                             'ty2_id' => $arr['itemId'][$i],
@@ -1287,6 +1289,11 @@ epul@nastyjuice.com
                                             'oi_tester' => $arr['tester'][$i]
                                         );
                                         $this->m_order_item->insert($item);
+                                        $wh = array(
+                                    'ty2_id' => $arr['itemId'][$i],
+                                    'ni_id' => $arr['nico'][$i]
+                                );
+                                $this->msi->updateQty($arr['qty'][$i]+$arr['tester'][$i] , $wh,$arr['orex_id'],$us_id);
                                     }                                   
                                 }
                             }
@@ -1303,8 +1310,8 @@ epul@nastyjuice.com
                             'or_wide' => $arr['wide'],
                             'or_finishdate' => $arr['finishdate'],
                             'or_shipcom' => $arr['sh_company'],
-                            'or_shipopt' => $arr['sh_opt'],
-                            'dec_id' => $arr['sh_declare'],
+                            // 'or_shipopt' => $arr['sh_opt'],
+                            // 'dec_id' => $arr['sh_declare'],
                             'or_traking' => $arr['traking']
                         );
                         if (isset($arr['currency'])) {
@@ -1327,6 +1334,7 @@ epul@nastyjuice.com
                         $arr = $this->input->post();
                         $this->load->library('my_func');
                         $this->load->database();
+                        $us_id=$this->my_func->scpro_decrypt($this->session->userdata('us_id'));
                         if (!$this->checkStock($arr['itemId'] , $arr['nico'] , $arr['qty'] , $arr['tester'])) {
                             redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
                         }
@@ -1382,7 +1390,7 @@ epul@nastyjuice.com
                                     'ty2_id' => $arr['itemId'][$i],
                                     'ni_id' => $arr['nico'][$i]
                                 );
-                                $this->msi->updateQty($arr['qty'][$i]+$arr['tester'][$i] , $wh);
+                                $this->msi->updateQty($arr['qty'][$i]+$arr['tester'][$i] , $wh,$us_id);
                             }
                         }
                         /*$this->load->model('m_shipping_note');
@@ -2817,6 +2825,37 @@ epul@nastyjuice.com
             }
             return $status;
         }
+         public function checkStock2($id , $nico , $qty , $tester)
+        {
+            $this->load->library('my_func');
+            $status = true;
+            $msg = "";
+            $this->load->model('m_stock_inventory' , 'msi');
+            $arr = $this->msi->get2();
+            for ($i=0; $i < sizeof($id); $i++) { 
+                $w = array(
+                    'sti.ty2_id' => $id,
+                    'sti.ni_id' => $nico
+                );
+                $temp = array_shift($this->msi->get2($w));
+                if (sizeof($temp) != 0) {
+                    $qty1 = $qty[$i] + $tester[$i];
+                    if ($temp->sti_total - $qty1 < 0 ) {
+                        // klu qty xckup;
+                        $msg = $msg."<strong>Insufficient Quantity</strong> : ".$temp->ty2_desc." - ".$temp->ca_desc." > ".$temp->ni_mg."mg</br>";
+                        $status = false;
+                    }
+                }else{
+                    // klu xda dlm database;
+                    $msg = $msg."<strong>Item Not Registered</strong> : Item Code ".$this->my_func->en($id[$i])." Nico Id ".$nico[$i]."</br>";
+                    $status = false;
+                }
+            }
+            if ($msg != '') {
+                $this->session->set_flashdata('error', $msg);
+            }
+            return $status;
+        }
         private function _checkStockUpdate($oi_id = null , $change = null)
         {
             // 'oi_price' => $arr['priceE'][$i],
@@ -2827,10 +2866,10 @@ epul@nastyjuice.com
             $this->load->model('m_stock_inventory' , 'msi');
             $data = $this->moi->get($oi_id);
             $inv = $this->msi->get(array('ty2_id' => $data->ty2_id , 'ni_id' => $data->ni_id));
-            if ($change->oi_qty != $data->oi_qty || $change->oi_tester != $data->oi_tester) {
+            if ($change['oi_qty'] != $data->oi_qty || $change['oi_qty'] != $data->oi_tester) {
                 $diff = 0 ;
-                $diff += $change->oi_qty - $data->oi_qty; 
-                $diff += $change->oi_tester - $data->oi_tester; 
+                $diff += $change['oi_qty'] - $data->oi_qty; 
+                $diff += $change['oi_tester'] - $data->oi_tester; 
                 if ($diff == 0) {
                     return true;
                 }      

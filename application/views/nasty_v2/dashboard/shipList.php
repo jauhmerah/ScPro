@@ -32,7 +32,7 @@
 		<div class="portlet box green-haze">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-list"></i>New Shipping EU_17
+                    <i class="fa fa-list"></i>Logs
                 </div>
                 <!-- <div class="actions">
                     <div class="btn-group btn-group-devided" data-toggle="buttons">
@@ -85,13 +85,16 @@
 		                    <thead class="flip-content">
 		                        <tr>
 		                            <th>#</th>
-		                            <th>Description</th>
-		                            <th>Shipping ID.</th>
-		                            <th>Shipping Date</th>
+		                            <th>Item</th>
+		                            <th>Strength</th>
+		                            <th>From</th>
+		                            <th>To</th>
 		                            <!-- <th>Arrived Date</th> -->
-		                            <th>Checked By</th>
+		                            <th>Diff</th>
+		                            <th>User</th>
+		                            <th>Date</th>
 		                            <th>Status</th>
-		                            <th>Action</th>
+		                            
 		                        </tr>
 		                    </thead>
 		                    <tbody>
@@ -105,21 +108,21 @@
 		                    		<tr class="Lorder" id="L<?= $n; ?>">
 		                            <td><?= $n; ?></td>
 		                            <td><?php 
-                                    $view = ($user->cl_name == null) ? "--Not Set--" : $user->cl_name ;
+                                    $view = ($user->ty2_desc == null) ? "--Not Set--" : $user->ty2_desc ;
                                     echo $view;
                                     ?>
                                  </td>
 		                            <td><?php 
-		                            if ($user->sh_id) {
-		                            	$id = (1000+$user->sh_id).'-SH';
-		                            	echo '<span style = "color : #b706d6;"><strong>'.$id.'</strong></span>';
-		                            } else {
-		                            	echo "--Not Set--";
-		                            }
+                                    $view = ($user->ni_mg == null) ? "--Not Set--" : $user->ni_mg ;
+                                    echo $view;
+                                    ?> mg</td>
+                                    <td><?php 
+                                    $view = ($user->fromqty == null) ? "--Not Set--" : $user->fromqty ;
+                                    echo $view;
                                     ?></td>
 		                             <td><?php 
-                                    $view = ( $user->sh_date == null) ? "--Not Set--" :  date_format(date_create($user->sh_date) , 'd-M-Y' ) ;
-                                    echo $view ;
+                                    $view = ($user->toqty == null) ? "--Not Set--" : $user->toqty ;
+                                    echo $view;
                                     ?></td>
                                     <!--<td><?php 
                                     if($user->sh_arrivedate == "0000-00-00 00:00:00"){
@@ -137,30 +140,29 @@
 
                                     ?></td> -->
 		                            <td><?php 
-                                    $view = ( $user->us_username == null) ? "--Not Set--" :  $user->us_username ;
+                                    $view = ($user->diff == null) ? "--Not Set--" : $user->diff ;
                                     echo $view;
                                     ?></td>
-                                    <td class="mt-element-ribbon">                                    
-                                    	<div class="pull-left"> 
-                                    	<span class="label" style="background-color: <?= $user->pr_color; ?>"><?= $user->pr_desc; ?></span>
-                                    	</div>
-                                    </td>
-		                            <td align="center">
-                                 	<?php $shid=$this->my_func->scpro_encrypt($user->sh_id); ?>
-		                            	<a href="<?= site_url('nasty_v2/dashboard/page/i111?v=2&view=').$shid; ?>" name="c4" title="Shipment Detail"><button type="button" class="btn btn-info btn-circle btn-xs"><i class="fa fa-eye"></i></button></a><!--&nbsp;-&nbsp;	
+                                     <td>
+                                     <?php 
+                                    $view = ( $user->us_username == null) ? "--Not Set--" :  $user->us_username ;
+                                    echo $view;
+                                    ?>
+                                 	<!-- <?php $shid=$this->my_func->scpro_encrypt($user->sh_id); ?>
+		                            	<a href="<?= site_url('nasty_v2/dashboard/page/i111?v=2&view=').$shid; ?>" name="c4" title="Shipment Detail"><button type="button" class="btn btn-info btn-circle btn-xs"><i class="fa fa-eye"></i></button></a>&nbsp;-&nbsp;	
 										<a href="<?= site_url('nasty_v2/dashboard/page/a121?v=2&edit=').$shid; ?>" name="c3" title="Edit Shipment">
-										<button type="button" class="btn btn-warning btn-circle btn-xs"><i class="fa fa-pencil"></i></button></a>-->
+										<button type="button" class="btn btn-warning btn-circle btn-xs"><i class="fa fa-pencil"></i></button></a>
 										
-										<!-- <?php if($user->pr_id==15){?>
+										<?php if($user->pr_id==15){?>
 										&nbsp;-&nbsp;
 										<button type="button" class="shipCheck btn btn-primary btn-circle btn-xs" id="<?= $n.'ship' ?>" name="<?= $n.'ship' ?>" title="check Item"><i class="fa fa-clipboard"></i></button>
                                     	<input type="hidden" class="form-control <?= $n.'ship' ?>" value="<?= $user->sh_id ?>">
-										<?php }?> -->
+										<?php }?>
 										<?php if($user->pr_id!=15){
 											if($us_lvl != 9 && $us_lvl != 7){?>
                                     	&nbsp;-&nbsp;
                                     	
-                                    	<!--<button type="button" class="shipBtn btn btn-success btn-circle btn-xs" id="<?= $n.'ship' ?>" name="<?= $n.'ship' ?>"><i class="fa fa-check"></i></button>-->
+                                    	<button type="button" class="shipBtn btn btn-success btn-circle btn-xs" id="<?= $n.'ship' ?>" name="<?= $n.'ship' ?>"><i class="fa fa-check"></i></button>
                                     	<button type="button" onclick = "window.open('<?= site_url('qr/qrcode?id='.$this->my_func->scpro_encrypt($user->sh_id).'&ver=2'); ?>');" class="btn btn-circle purple-sharp btn-xs" id="<?= $n.'ship' ?>" name="<?= $n.'ship' ?>" title = "Print Qrcode List"><i class="fa fa-qrcode"></i></button>
                                     	<input type="hidden" class="form-control <?= $n.'ship' ?>" value="<?= $user->sh_id ?>">
                                     	<?php }}?>
@@ -170,9 +172,23 @@
 										<button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/shipInvoice?id='.$this->my_func->scpro_encrypt($user->sh_id).'&ver=2'); ?>');"  class="btn blue-dark btn-circle btn-xs" title="Invoice">Inv</button>&nbsp;-&nbsp;    
 										
 										<button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/ShipdummyInvoice?id='.$this->my_func->scpro_encrypt($user->sh_id).'&ver=2'); ?>');" class="btn c-btn-border-1x c-btn-blue-dark btn-circle btn-xs" title="Dummy Invoice">DInv</button>  
-										<?php } ?> 
+										<?php } ?>  -->
 										
-		                            </td>	                            
+		                            </td>
+		                            <td><?php 
+                                    $view = ($user->date_added == null) ? "--Not Set--" : $user->date_added ;
+                                    echo $view;
+                                    ?></td>	           
+                                    <td class="mt-element-ribbon">                                    
+                                    	<div class="pull-left"> 
+                                    	<?php if($user->log_status==0){?>
+                                    	<span class="label" style="background-color: #50A3A2 ">Check In</span>
+                                    	<?php }else if($user->log_status==1){ ?>
+                                    	<span class="label" style="background-color: #4BD621 ">Check Out</span>
+                                    	<?php }?>
+                                    	</div>
+                                    </td>
+		                                            
 		                        </tr>
 		                    	<?php
 		                    		}
@@ -181,7 +197,7 @@
 		                    </tbody>
 		                    <?php if (isset($page)) {?>
 		                    <tfoot>
-		                    	<td colspan="8">
+		                    	<td colspan="9">
 			                	<div class="col-md-5 col-sm-5">
 			                		<div class="dataTables_info" id="sample_1_info" role="status" aria-live="polite">Showing <?= ($page+1); ?> to <?= ($page+$row); ?> of <?= $total; ?> records</div>
 			                	</div>

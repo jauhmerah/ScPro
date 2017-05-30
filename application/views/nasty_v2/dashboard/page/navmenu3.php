@@ -94,7 +94,7 @@
                                  <li class="nav-item start">
                                     <a href="<?= site_url('nasty_v2/dashboard/page/i2') ?>" class="nav-link ">
                                         <i class="fa fa-plus-square-o"></i>
-                                        <span class="title">Add Shipping</span>
+                                        <span class="title">Check-In</span>
                                         <!--<span class="badge badge-success">1</span>-->
                                     </a>
                                 </li>
@@ -102,17 +102,17 @@
                                 <li class="nav-item start">
                                     <a href="<?= site_url('nasty_v2/dashboard/page/i21') ?>" class="nav-link ">
                                         <i class="fa fa-th-list"></i>
-                                        <span class="title">Shipping List</span>
+                                        <span class="title">Logs</span>
                                         <!--<span class="badge badge-success">1</span>-->
                                     </a>
                                 </li>
-                                <li class="nav-item start">
+                               <!--  <li class="nav-item start">
                                     <a href="<?= site_url('nasty_v2/dashboard/page/i3') ?>" class="nav-link ">
                                         <i class="fa fa-cube"></i>
                                         <span class="title">Log</span>
-                                        <!--<span class="badge badge-success">1</span>-->
+                                       
                                     </a>
-                                </li>
+                                </li> -->
                                
                            
                             </ul>
