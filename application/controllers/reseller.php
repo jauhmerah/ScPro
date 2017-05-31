@@ -50,33 +50,55 @@
             $lvl =$this->my_func->scpro_decrypt($this->session->userdata('us_lvl'));
     		switch ($key) {
     			case 'b11':
-                    $this->load->database();
-                    $this->load->model('m_state');
-                    $arr['arr'] = $this->m_state->get();
-                    $this->_show('checkout' , $arr , $key);
-                    break;
-                	if ($this->input->post('key')) {
-                        $this->load->library('my_func');
-                	    if ($this->my_func->de($this->input->post('key') , 1) == "betul") {
-                            $qty = $this->input->post('qty');
-                            $id = $this->input->post('id');
-                            $sum = 0;
-                            echo "<pre>";
-                            print_r($this->input->post());
-                            echo "</pre>";
-                            foreach ($qty as $key => $value) {
-                                $sum =+ $value;
-                            }
-                            if ($sum < 20) {
-                                $this->session->set_flashdata('warning', '<strong>Warning <i class="fa fa-exclamation-triangle"></i></strong> : Order Quantity lower than 20');
-                            }elseif ($sum > 100) {
-                                $this->session->set_flashdata('error', '<strong>Warning <i class="fa fa-exclamation-triangle"></i></strong> : Order Quantity more than 100');
+                    $this->load->library('my_func');
+                    if ($this->my_func->de($this->input->post('key') , 1) == 'betul') {
+                        $this->load->database();
+                        $this->load->model('m_state');                        
+                        $this->load->model('m_type2', 'mty2');
+                        $arr['state'] = $this->m_state->get();                        
+                        $temp = $this->input->post();
+                        $arr['qty'] = $temp['qty'];                    
+                        // Double Check Order Quantity limitation.
+                        $tQty = 0;
+                        foreach ($temp['qty'] as $key) {
+                            $tQty += $key;
+                        }
+                        $m = false;
+                        if ($tQty < 20) {
+                            $m = true;
+                            $this->session->set_flashdata('warning', 'Warning : Quantity Less than 20 pcs');                        
+                        }elseif ( $tQty > 100) {
+                            $m = true;
+                            $this->session->set_flashdata('warning', 'Warning : Quantity More than 100 pcs');                        
+                        }else{
+                            if ($tQty >= 20 && $tQty <= 40) {
+                                $arr['price'] = 17.5;
+                            }elseif ($tQty >= 41 && $tQty <= 60) {
+                                $arr['price'] = 17;
                             }else{
-
+                                $arr['price'] = 16.5;
                             }
+                        }                
+                        if ($m) {
+                            redirect(site_url('reseller/page/b1'),'refresh');
                             break;
                         }
-                	}
+                        // End Double Check Order Quantity limitation.
+                        $berat = 0;
+                        for ($i=0; $i < sizeof($temp['id']); $i++) { 
+                            $arr['data'][$i] = array_shift($this->mty2->getItem($this->my_func->scpro_decrypt($temp['id'][$i])));
+                            $berat += $arr['data'][$i]->ty2_weight;
+                        }
+                        // Get total Shipping price
+                        $arr['shippingPrice'] = $this->_shippingPrice($berat);
+                        $this->load->model('m_address');
+                        $where = array( "us_id" => $this->my_func->scpro_decrypt($this->session->userdata('us_id')));
+                        $arr['address']= $this->m_address->getBy($where);
+                        // End Get total Shipping price
+                        $this->session->set_userdata( $temp );
+                        $this->_show('checkout' , $arr , $key);
+                        break;                     
+                    }               	
     			case 'b1':
     				$data['title'] = '<i class="fa fa-cart-plus"></i> Add Order';
     				$this->load->library('my_func');
@@ -85,7 +107,6 @@
     				$data['cat'] = $this->m_cat->get();
     				$this->_show('addorder' , $data , $key);
     				break;
-
     			case "a1" :// dashboard
                         //start added
                         $this->load->database();
@@ -248,8 +269,7 @@
                     break;
 
                     case "s12" :// Address detail
-                        $userId = $this->my_func->scpro_decrypt($this->session->userdata('us_id'));
-                       
+                        $userId = $this->my_func->scpro_decrypt($this->session->userdata('us_id'));                       
                         $this->load->database();
                         $this->load->model('m_address');                       
                         $arr['arr'] = $this->m_address->getAll2();
@@ -619,10 +639,21 @@
             }
         }
 
-        private function _addOrder($id , $qty)
+        private function _shippingPrice($berat)
         {
-            $this->load->library('my_func');
-            
+            $price = 11.5;
+            $sBal = $berat-3000;
+            if ($sBal <= 0) {
+                return $price;
+            }else {
+                $extr = (int)(sBal/1000);
+                $price += $extr * 1.5;
+                $extrBal = sBal - ($extr*1000);
+                if ($extrBal > 0) {
+                    $price += 1.5;
+                }
+                return $price;
+            }
         }
 	}
 ?>

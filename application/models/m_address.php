@@ -44,6 +44,26 @@
 	            return false;
 	        }
 	    }
+	    public function getBy($where = NULL) {
+	        $this->db->select('*');
+	        $this->db->from(self::TABLE_NAME);
+	        if ($where !== NULL) {
+	            if (is_array($where)) {
+	                foreach ($where as $field=>$value) {
+	                    $this->db->where($field, $value);
+	                }
+	            } else {
+	                $this->db->where(self::PRI_INDEX, $where);
+	            }
+	        }
+	        $this->db->join('state st', 'st.state_id = address.state', 'left');
+	        $result = $this->db->get()->result();
+	        if ($result) {
+	            return $result;
+	        } else {
+	            return false;
+	        }
+	    }
 	    public function getName($id = null)
 	    {
 	    	$this->db->select('us_username');
@@ -116,19 +136,8 @@
 	    	$userId = $this->my_func->scpro_decrypt($this->session->userdata('us_id'));
 	    	$this->db->select('*');
 	        $this->db->from(self::TABLE_NAME);
-	        
-	        // if ($where != NULL) {
-	        //     if (is_array($where)) {
-	        //         foreach ($where as $field=>$value) {
-	        //             $this->db->where($field, $value);
-	        //         }
-	        //     } else {
-	                $this->db->where('us_id',$userId);
-	        //     }
-	        // }
-	        // if (!$all) {
-	        $this->db->where('state >', 0);
-	        // }	        
+	        $this->db->where('us_id',$userId);
+	        $this->db->where('state >', 0);	        
 	        $this->db->join('state', 'state = state_id', 'left');
 	        $result = $this->db->get()->result();
 	       

@@ -92,7 +92,7 @@ function totalCount(x) {
         }
     });    
 }
-function checkAll() {
+function checkAll(x) {
     var tot = 0;
     list.find('.inputQty').each(function() {
         n = $(this).val();
@@ -108,28 +108,13 @@ function checkAll() {
                 setTimeout(function() {
                     ob.removeClass('red');
                 }, 1000);
-            });            
+            });
             $(this).focus();
             return false;
         }        
     });
     if (tot > 19) {
-        bootbox.confirm({
-            message: "Confirm ?",
-            buttons: {
-                confirm: {
-                    label: 'Yes',
-                    className: 'btn-success'
-                },
-                cancel: {
-                    label: 'No',
-                    className: 'btn-danger'
-                }
-            },
-            callback: function (result) {
-                alert(result);
-            }
-        });
+        return confirm("Are you sure?");
     }else{
         return false;
     }

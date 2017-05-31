@@ -1,4 +1,8 @@
 <div class="row">
+<pre><?php print_r($this->session->all_userdata()); ?><?= print_r($address); ?>
+	
+
+</pre>
 <div class="col-md-12">
 	<div class="panel panel-default">
 		<div class="panel-heading">
@@ -16,10 +20,22 @@
 			        		</tr>
 			        	</thead>
 			        	<tbody>
+			        	<?php			        	 
+			        		foreach ($address as $key) {			        		
+			        	?>
 			        		<tr>
-			        			<td></td>
-			        			<td>alamat kat sini</td>
+			        			<td align="center"><span class="font-green"><i class="fa fa-check"></i></span></td>
+			        			<td>
+				        			<strong><?= $key->company_name; ?></strong><br>
+				        			<?= $key->address; ?><br>
+				        			<?= $key->town; ?>
+				        			<?= $key->poscode; ?><br>
+				        			<?= $key->state_name; ?>
+			        			</td>
 			        		</tr>
+			        	<?php 
+			        		}
+			        	?>
 			        		<tr>
 			        			<td width="5%">
 			        				<span class="pull-right"><i class="fa fa-plus-circle"></i></span>
@@ -80,7 +96,7 @@
                                                     </span>
                                                     <select name="state" class="input-sm form-control input-circle-right" placeholder="" required> 
                                         			<?php 
-	                                                    foreach ($arr as $key) { ?>
+	                                                    foreach ($state as $key) { ?>
 	                                                        <option value="<?= $key->state_id; ?>"> <?= $key->state_name; ?> </option>
                                                     <?php }
                                                     ?>
@@ -103,7 +119,7 @@
 				<table class="table table-condensed table-hover table-bordered">
 		        	<thead>
 		        		<tr>
-		        			<th colspan="2">Order Summary</th>
+		        			<th colspan="2">Order Summary <span class="pull-right">RM <?= number_format((float)$price, 2, '.', '');?> / pcs</span></th>
 		        		</tr>
 		        	</thead>
 		        	<tbody>
@@ -113,15 +129,26 @@
 		        						<tr>
 		        							<th><span class="font-xs">PRODUCT</span></th>
 		        							<th><span class="font-xs">QUANTITY</span></th>
-		        							<th><span class="font-xs">PRICE(RM)</span></th>	        							
+		        							<th><span class="font-xs">PRICE<br></span></th>	        							
 		        						</tr>
 		        					</thead>
 		        					<tbody>
+		        					<?php $tot = 0;
+		        					foreach ($data as $key => $val) { 
+		        						$harga = (float)($price * $qty[$key]);
+		        						$tot += $harga;
+		        					?>
 		        						<tr>
-		        							<td><span class="font-xs"></span></td>
-		        							<td><span class="font-xs"></span></td>
-		        							<td><span class="font-xs"></span></td>
+		        							<td>
+		        							<span class="font-xs">
+	        									<strong><?= $val->ty2_desc; ?></strong><br>
+	        									<?= $val->ty2_detail; ?><br></span>
+	        									<h6><span class="label circle" style="background-color: <?= $val->ca_color; ?>;color: black;"><strong><?= $val->ca_desc; ?></strong></span> <span class="label circle bg-green bg-font-green"><strong>6 Mg</strong></span></h6>		        								
+		        							</td>
+		        							<td><span class="font-xs"><?= $qty[$key]; ?></span></td>
+		        							<td><span class="font-xs">Rm <?= number_format((float)$harga, 2, '.', '');?></span></td>
 		        						</tr>
+		        					<?php } ?>
 		        					</tbody>
 		        				</table>			        			
 		        			</td>
@@ -129,15 +156,15 @@
 		        	</tbody>
 		        	<tfoot >
 		        		<tr >
-		        			<td colspan="2"><span class="font-xs">Subtotal</span><span class="font-xs pull-right">RM 12312</span></td>		        		
+		        			<td colspan="2"><span class="font-xs">Subtotal</span><span class="font-xs pull-right">RM <strong><?= number_format((float)$tot, 2, '.', '');?></strong></span></td>		        		
 		        		</tr>
 		        		<tr>
-		        			<td class="font-green-jungle" colspan="2" ><span class="font-xs">Shipping Fee</span><span class="font-xs pull-right">Free</span></td>
+		        			<td class="font-green-jungle" colspan="2" ><span class="font-xs">Shipping Fee</span><span class="font-xs pull-right">Rm <?= number_format((float)$shippingPrice, 2, '.', '');?></span></td>
 		        		</tr>
 		        		<tr>
 		        			<td colspan="2">
 		        				<strong>Total</strong>
-		        				<span class="pull-right font-yellow-gold">RM 23.33</span><br>
+		        				<span class="pull-right font-yellow-gold">RM <?= number_format((float)($tot+$shippingPrice), 2, '.', '');?></span><br>
 		        				<span class="font-xs font-grey-salsa">(GST applied where applicable)</span>
 		        			</td>
 		        		</tr>
