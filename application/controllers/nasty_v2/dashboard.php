@@ -331,8 +331,8 @@
                             case '1':
                                 //Order Code
                                 //Hanya Single
-                                if (strpos($search, "-EU2") !== false) {
-                                    $search = str_replace("-EU2", "", $search);
+                                 if (strpos($search, "#") !== false) {
+                                    $search = str_replace("#", "", $search);
                                 }
                                 if (!is_numeric($search)) {
                                     $this->session->set_flashdata('warning', 'Please Enter the Correct Order Code');
@@ -1258,6 +1258,8 @@ epul@nastyjuice.com
                         $us_id=$this->my_func->scpro_decrypt($this->session->userdata('us_id'));
                         $this->load->database();
                         $this->load->model('m_order_item');
+                        $this->load->model('m_log');
+                        $this->load->model('m_stock_inventory' , 'msi');
                         if (isset($arr['idE'])) {
                             if (sizeof($arr['idE']) != 0) {
                                 for ($i=0; $i < sizeof($arr['idE']); $i++) {
@@ -1267,12 +1269,52 @@ epul@nastyjuice.com
                                        'oi_qty' => $arr['qtyE'][$i],
                                        'oi_tester' => $arr['testerE'][$i]
                                     );
-                                    if ($this->_checkStockUpdate($oi_id , $temp)) {
-                                        $this->m_order_item->update($temp , $oi_id);
-                                    }else{
-                                        $msg = $msg . " Item Code Id : ".$this->my_func->en($oi_id)." insufficient Quantity.</br>";
+                                  
+                                    $arr2=$this->m_order_item->get($oi_id);
+                                   
+
+
+
+
+                                    if($arr2->oi_qty != $arr['qtyE'][$i]){
+                                        echo "jadi";
                                     }
+
+
+                                    
+                                    // if ($this->_checkStockUpdate($oi_id , $temp)) {
+
+
+
+                                        //$this->m_order_item->update($temp , $oi_id);
+
+                                       
+
+
+
+                                         // $wh1 = array(
+                                         //        'sti.ty2_id' => $arr['itemIdE'][$i],
+                                         //        'sti.ni_id' => $arr['nicoE'][$i]
+                                         //    );
+                                         //   $arr1 = $this->m_log->get6($wh1);
+                                         //   print_r($wh1);
+                                         //  print_r($arr1); 
+
+                                          
+
+                                         //     $wh = array(
+                                         //        'ty2_id' => $arr['itemIdE'][$i],
+                                         //        'ni_id' => $arr['nicoE'][$i]
+                                         //    );
+                                         //    $this->msi->updateQty($arr['qtyE'][$i]+$arr['testerE'][$i] , $wh,$arr['orex_id'],$us_id);
+                                                                              
+
+
+                                    // }else{
+                                    //     $msg = $msg . " Item Code Id : ".$this->my_func->en($oi_id)." insufficient Quantity.</br>";
+                                    // }
                                 }
+
                                 if($msg == ''){
                                     $this->session->set_flashdata('warning', $msg);
                                 }
@@ -1312,19 +1354,23 @@ epul@nastyjuice.com
                             'or_wide' => $arr['wide'],
                             'or_finishdate' => $arr['finishdate'],
                             'or_shipcom' => $arr['sh_company'],
-                            // 'or_shipopt' => $arr['sh_opt'],
-                            // 'dec_id' => $arr['sh_declare'],
+                            'or_shipopt' => $arr['sh_opt'],
+                            'dec_id' => $arr['sh_declare'],
                             'or_traking' => $arr['traking']
                         );
                         if (isset($arr['currency'])) {
                             $order_ext['cu_id'] = $arr['currency'];
                         }                        
-                        $this->load->model('m_order_ext');                        
-                        $orex_id = $this->m_order_ext->update($order_ext , array('or_id' => $or_id));
+                        $this->load->model('m_order_ext');  
+
+
+
+
+                        //$orex_id = $this->m_order_ext->update($order_ext , array('or_id' => $or_id));
                         //echo "<br>Update => ".$orex_id;                         
                     }
-                    $this->session->set_flashdata('success', 'Update Success');
-                    redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
+                    // $this->session->set_flashdata('success', 'Update Success');
+                    // redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
                     break;
     			case 'z11':
                 //add order

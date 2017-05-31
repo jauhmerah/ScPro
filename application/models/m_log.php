@@ -86,8 +86,27 @@
 	   			$this->db->where($where);
 	   		}
 	   		return $this->db->get()->result();
+
 	   	}
 
+
+	   	public function get6($where = null)
+	    {
+	    	
+	    	$this->db->select('fromqty');
+			//$this->db->select_max('date_added');
+	        $this->db->from('ship_log sti');
+			$this->db->join('type2 ty2', 'ty2.ty2_id = sti.ty2_id', 'left');
+			$this->db->join('nicotine ni', 'ni.ni_id = sti.ni_id', 'left'); 
+			$this->db->join('user us', 'us.us_id = sti.us_id', 'left');     
+			$this->db->join('category cat', 'cat.ca_id = ty2.ca_id', 'left');
+			$this->db->order_by('sti.date_added', 'desc');
+			
+			if ($where != null) {
+				$this->db->where($where);
+			}			
+	        return $this->db->get()->first_row();	        
+	    }
 	
 	    /**
 	     * Inserts new data into database

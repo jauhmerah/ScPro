@@ -112,7 +112,7 @@
                                     ?></span></td>
 		                            <td><?php 
 		                            if ($user->or_id) {
-		                            	$id = $user->or_id."-EU2";
+		                            	$id = '#'.(120000+$user->or_id);
 		                            	echo '<span style = "color : #ff3399;"><strong>'.$id.'</strong></span>';
 		                            } else {
 		                            	echo "--Not Set--";
