@@ -223,7 +223,7 @@
 	    	$a = array(
 	    		'sti_total' => $qty
 	    	);
-	    	// $this->update($a , $arr->sti_id);
+	    	$this->update($a , $arr->sti_id);
 
 	    	$diff=$qty-$fromqty;	
 
@@ -242,8 +242,8 @@
 	    		
 
 	    	);
-	    	return $arr1;
-	    	// $this->db->insert('ship_log', $arr1);
+	    	//return $arr1;
+	    	$this->db->insert('ship_log', $arr1);
 
 
 	    }

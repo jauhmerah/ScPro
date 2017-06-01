@@ -62,10 +62,10 @@
 	            				<div class="col-sm-10">
 	            					<select name="filter" id="inputFilter" class="form-control input-circle">
 	            						<option value="-1">-- Select Filter --</option>
-	            						<option value="10">Client Name</option>
-	            						<option value="1">Shipping Code</option>
-	            						<option value="2">Checked By</option>
-	            						<option value="3">Status</option>
+	            						<option value="1">Item Name</option>
+	            						<option value="2">Username</option>
+	            						<option value="3">Date</option>
+	            						<option value="4">Status</option>
 	            					</select>
 	            				</div>
 	            			</div>

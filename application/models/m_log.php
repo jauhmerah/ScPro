@@ -65,6 +65,31 @@
 	        return $this->db->get()->result();	        
 	    }
 
+	    public function listSearch( $limit = null , $start = null , $where = null)
+	    {
+	    	$this->db->select('sti.log_id, sti.us_id , us.us_username ,ty2.ty2_desc, sti.date_added, ni.ni_mg, sti.fromqty, sti.toqty, sti.diff, sti.log_status');
+	    	$this->db->from('ship_log sti');
+	    
+	    	
+	    	$this->db->order_by('sti.date_added', 'desc');
+	    	if ($limit !== null && $start !== null) {
+	    		$this->db->limit($limit, $start);
+	    	}	
+	    	
+	    	$this->db->join('type2 ty2', 'ty2.ty2_id = sti.ty2_id', 'left');
+			$this->db->join('nicotine ni', 'ni.ni_id = sti.ni_id', 'left'); 
+			$this->db->join('user us', 'us.us_id = sti.us_id', 'left');     
+			$this->db->join('category cat', 'cat.ca_id = ty2.ca_id', 'left');
+	    	if ($where != null) {
+	    		$this->db->like($where);
+	    	}
+	    	$result = $this->db->get()->result();
+	    	return $result;
+	    }
+
+
+
+
 	   	public function get3(){
 	   		$this->db->select('ty2.ty2_desc as color , cat.ca_desc as series, sum(sti.sti_total) as total');
 	   		$this->db->from('stock_inventory sti');

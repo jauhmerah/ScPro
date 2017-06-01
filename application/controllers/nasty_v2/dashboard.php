@@ -428,54 +428,49 @@
                              
                                 break;
                             case '1':
-                                //Order Code
-                                //Hanya Single
-                                if (strpos($search, "-SH") !== false) {
-                                    $search = str_replace("-SH", "", $search);
-                                    $num=$search-1000;
-                                }
-                                if (!is_numeric($search)) {
-                                    $this->session->set_flashdata('warning', 'Please Enter the Correct Order Code');
-                                    redirect(site_url("nasty_v2/dashboard/page/i21"),'refresh');
-                                }
-                                $str = (string)$num;
-
-                                /*if ($str[1] == '1') {
-                                    $id = $search - 110000;
-                                    $ver = 1;
-                                } else {
-                                    $id = $search - 100000;
-                                    $ver = 0;
-                                }*/
-                                $ver = 2;
-                                $id = $num;
+                            //item name
                                 $where = array(
-                                    "shp.sh_id" => $id
+                                    "ty2.ty2_desc" => $search
                                 );
                                 break;
                             case '2':
-                                //Sales Person
+                                //Username
                                 $where = array(
-                                    "us1.us_username" => $search
+                                    "us.us_username" => $search
                                 );
                                 break;
-                            case '3':
+                                 case '3':
                                 //Order Status
                                 $where = array(
                                     "pr.pr_desc" => $search
                                 );
                                 break;
-                        }
-                        if (isset($ver)) {
+                            case '4':
+                                //inventory Status
+                                if($search=="Check-In"){
+                                    $stat=0;
 
-                            $arr['arr1'] = $this->m_log->listOr($ver , null , null , 0 , $where);
+                                }
+                                else if($search=="Check-Out"){
+                                    $stat=1;
+                                }
+
+
+                                $where = array(
+                                    "sti.log_status" => $stat
+                                );
+                                break;
+                        }
+                        // if (isset($ver)) {
+
+                            // $arr['arr1'] = $this->m_log->listOr($ver , null , null , 0 , $where);
                             //$arr['arr2'] = $this->m_ship->getList_ext(null ,2, 1 , 1 , 0);
                            
-                        }else{
+                        // }else{
 
-                            $arr['arr1'] = $this->m_ship->listSearch(2 , null , null , 0 , $where);
+                            $arr['arr1'] = $this->m_log->listSearch(null , null , $where);
                             //$arr['arr2'] = $this->m_ship->getList_ext(null ,2, 1 , 1 , 0);                     
-                        }
+                        // }
                     } else {
                         $ver = $this->m_log->logCount();
                         $arr['arr1'] = $this->m_log->get2(null , 10 , $p);
