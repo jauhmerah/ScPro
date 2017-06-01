@@ -1276,43 +1276,42 @@ epul@nastyjuice.com
 
 
 
-                                    if($arr2->oi_qty != $arr['qtyE'][$i]){
-                                        echo "jadi";
-                                    }
+                                    
 
 
                                     
-                                    // if ($this->_checkStockUpdate($oi_id , $temp)) {
+                                    if ($this->_checkStockUpdate($oi_id , $temp)) {
 
 
 
-                                        //$this->m_order_item->update($temp , $oi_id);
+                                        $this->m_order_item->update($temp , $oi_id);
 
+                                          $wh = array(
+                                                'ty2_id' => $arr['itemIdE'][$i],
+                                                'ni_id' => $arr['nicoE'][$i]
+                                            );
+
+                                        if($arr2->oi_qty != $arr['qtyE'][$i]){
+
+                                          $wh1 = array(
+                                                'sti.ty2_id' => $arr['itemIdE'][$i],
+                                                'sti.ni_id' => $arr['nicoE'][$i]
+                                            );
+                                           $arr1 = $this->m_log->get6($wh1);
+                                           print_r($wh1);
+                                           echo "<br>";
+                                          print_r($arr1->fromqty); 
+                                          echo "<br>";
+                                          $res=$this->msi->updateQty2($arr['qtyE'][$i]+$arr['testerE'][$i] , $wh, $arr['orex_id'], $us_id, $arr1->fromqty);
+                                            print_r($res);
+                                       }
                                        
+                                                                            
 
 
-
-                                         // $wh1 = array(
-                                         //        'sti.ty2_id' => $arr['itemIdE'][$i],
-                                         //        'sti.ni_id' => $arr['nicoE'][$i]
-                                         //    );
-                                         //   $arr1 = $this->m_log->get6($wh1);
-                                         //   print_r($wh1);
-                                         //  print_r($arr1); 
-
-                                          
-
-                                         //     $wh = array(
-                                         //        'ty2_id' => $arr['itemIdE'][$i],
-                                         //        'ni_id' => $arr['nicoE'][$i]
-                                         //    );
-                                         //    $this->msi->updateQty($arr['qtyE'][$i]+$arr['testerE'][$i] , $wh,$arr['orex_id'],$us_id);
-                                                                              
-
-
-                                    // }else{
-                                    //     $msg = $msg . " Item Code Id : ".$this->my_func->en($oi_id)." insufficient Quantity.</br>";
-                                    // }
+                                    }else{
+                                        $msg = $msg . " Item Code Id : ".$this->my_func->en($oi_id)." insufficient Quantity.</br>";
+                                    }
                                 }
 
                                 if($msg == ''){

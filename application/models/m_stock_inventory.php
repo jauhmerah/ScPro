@@ -211,6 +211,42 @@
 
 
 	    }
+
+	        public function updateQty2($qty , $w , $orex_id=null, $us_id, $fromqty)
+	    {
+	    	$date_added=date("Y-m-d H:i:s");
+	    	$this->db->select('*');
+	    	$this->db->from(self::TABLE_NAME);
+	    	$this->db->where($w);
+	    	$arr = array_shift($this->db->get()->result());
+	    	$qty = $fromqty - $qty;
+	    	$a = array(
+	    		'sti_total' => $qty
+	    	);
+	    	// $this->update($a , $arr->sti_id);
+
+	    	$diff=$qty-$fromqty;	
+
+
+
+	    	$arr1 = array(
+	    		'ty2_id' => $arr->ty2_id,
+	    		'ni_id' => $arr->ni_id,
+	    		'fromqty' => $fromqty,
+	    		'toqty' => $qty,
+	    		'diff' => $diff,
+	    		'date_added' => $date_added,
+	    		'log_status' => 1,
+	    		'us_id' => $us_id,
+	    		'orex_id' => $orex_id,
+	    		
+
+	    	);
+	    	return $arr1;
+	    	// $this->db->insert('ship_log', $arr1);
+
+
+	    }
 	}
 	        
 ?>

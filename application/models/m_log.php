@@ -93,7 +93,7 @@
 	   	public function get6($where = null)
 	    {
 	    	
-	    	$this->db->select('fromqty');
+	    	$this->db->select('fromqty, date_added');
 			//$this->db->select_max('date_added');
 	        $this->db->from('ship_log sti');
 			$this->db->join('type2 ty2', 'ty2.ty2_id = sti.ty2_id', 'left');
