@@ -238,13 +238,12 @@
                                         <!-- Ship Form -->
                                         <div class="row">
 						                <div class="col-md-12">              
-						                	<div class="portlet box grey-mint">
+						                	<div class="portlet box purple">
 						                        <div class="portlet-title">
 						                            <div class="caption">
-						                                <i class="fa fa-list-ul"></i>Other Detail 
-						                                <input type="hidden" name="wide" id="input" class="form-control" value="1">
+						                                <i class="fa fa-ship"></i>Shipping Note 
 						                            </div>
-						                            <!--<span class="pull-right">	                            	
+						                            <span class="pull-right">	                            	
 						                            <div class="mt-radio-inline">
 					                                    <label class="mt-radio">
 					                                        <input type="radio" name="wide" checked value="0">
@@ -257,41 +256,21 @@
 					                                        <span></span>
 					                                    </label>
 					                                </div>
-						                            </span> -->						                            
+						                            </span>
+						                            
 						                        </div>
 						                        <div class="portlet-body">
 						                            <div class="table-responsive">
 						                                <table class="table table-striped table-condensed table-bordered">	                                    
 						                                    <tbody>
-						                                    	<tr>
-						                                    		<th colspan="3" valign="middle">
-						                                    			<span>Tax Rate</span>
-						                                    		</th>
-						                                    		<td>
-						                                    			<div class="mt-radio-inline">
-										                                    <label class="mt-radio">
-										                                        <input type="radio" name="tax"  value="20" checked>
-											                                		20 %
-										                                        <span></span>
-										                                    </label>
-										                                    <label class="mt-radio">
-										                                        <input type="radio" name="tax"  value="0">
-											                                		0 %
-										                                        <span></span>
-										                                    </label>
-										                                    <input type="radio" name="tax" class="cukai" value="4">
-											                                		 : <input type="number" class="inputText " id = "cukai" placeholder="Without '%'">										                                        
-										                                </div>
-						                                    		</td>
-						                                    	</tr>
 						                                       	<tr>
 					                                            	<th>
 					                                            		Shipping Company
 					                                            	</th>
-					                                            	<td>
+					                                            	<td colspan="4" >
 					                                            		<div class="mt-radio-inline">
-										                                    <!--<label class="mt-radio">
-										                                        <input type="radio" name="sh_company"  value="1">
+										                                    <label class="mt-radio">
+										                                        <input type="radio" name="sh_company" checked value="1">
 											                                		DHL
 										                                        <span></span>
 										                                    </label>
@@ -304,9 +283,9 @@
 										                                        <input type="radio" name="sh_company" value="3">
 											                                		EMS
 										                                        <span></span>
-										                                    </label>-->
-										                                    <input type="radio" name="sh_company" class="sh_com" checked value="4">
-											                                		 : <input type="text" class="inputText " id = "sh_com" required>
+										                                    </label>
+										                                    <input type="radio" name="sh_company" class="sh_com" value="4">
+											                                		 : <input type="text" class="inputText" id = "sh_com" >
 										                                        <span></span>										                                        
 										                                </div>
 										                                
@@ -318,9 +297,9 @@
 					                                            		<input type = "number" class="form-control input-circle" min="0" step="any" name="traking" required>
 					                                            	</td> 
 						                                        </tr>
-						                                        <!--<tr>
+						                                        <tr>
 					                                            	<th>
-					                                            		
+					                                            		Shipping Optional
 					                                            	</th>
 					                                            	<td colspan="6" >
 					                                            		<div class="mt-radio-inline">
@@ -346,7 +325,6 @@
 										                                </div>
 					                                            	</td>					                                            	
 						                                        </tr>
-						                                        <input type="hidden" name="sh_declare" id="input" class="form-control" value="4">
 						                                        <tr>
 					                                            	<th>
 					                                            		Declare Item
@@ -378,7 +356,7 @@
 										                                        <span></span>										                                    
 										                                </div>
 					                                            	</td>					                                            	
-						                                        </tr>-->						                                                                             
+						                                        </tr>						                                                                             
 						                                    </tbody>
 						                                </table>
 						                            </div>

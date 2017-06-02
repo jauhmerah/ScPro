@@ -144,10 +144,10 @@ body .ReadOnlyExtrasStatus {
 
 
 
-<pre>
+<!-- <pre>
   <?php print_r($arr); ?>
 </pre>
-
+ -->
 <div class="readonly-payment-information__nav-actions">
                   
   <?php
@@ -182,18 +182,21 @@ body .ReadOnlyExtrasStatus {
    
   	<div class="pull-right" style="text-align: right;">
       <h1><big>INVOICE</big></h1>
-      <strong>NASTY EUROPE</strong>
+      <strong>NSTY WORLDWIDE SDN BHD</strong>
       
         <div class="contemporary-template__header__info__address">
           
-      292-294 St Helens RA,<br>
-      Bolton,
-      BL3 3RR<br>
-      United Kingdom<br>
+      Lot 139, 1st Floor, Jalan Besar Tampin,<br>
+      Tampin,
+      Negeri Sembilan  73000<br>
+      Malaysia<br>
+
 
     <br>
 
-     Phone:  07523168909<br>
+     Phone:  +6012 3437638<br>
+
+     Mobile: +6013 6777791<br>
 
      
         <span class="wrappable">www.nastyjuice.com<br></span>

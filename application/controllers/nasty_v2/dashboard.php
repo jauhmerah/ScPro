@@ -442,7 +442,7 @@
                                  case '3':
                                 //Order Status
                                 $where = array(
-                                    "pr.pr_desc" => $search
+                                    "sti.date_added" => $search
                                 );
                                 break;
                             case '4':
@@ -1360,11 +1360,11 @@ epul@nastyjuice.com
 
 
 
-                        //$orex_id = $this->m_order_ext->update($order_ext , array('or_id' => $or_id));
+                        $orex_id = $this->m_order_ext->update($order_ext , array('or_id' => $or_id));
                         //echo "<br>Update => ".$orex_id;                         
                     }
-                    // $this->session->set_flashdata('success', 'Update Success');
-                    // redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
+                    $this->session->set_flashdata('success', 'Update Success');
+                    redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
                     break;
     			case 'z11':
                 //add order
@@ -1410,8 +1410,8 @@ epul@nastyjuice.com
                             'cu_id' => $arr['currency'],
                             'or_wide' => $arr['wide'],
                             'or_shipcom' => $arr['sh_company'],
-                            "or_traking" => $arr['traking'],
-                            'or_tax' => $arr['tax'],                         
+                            "or_traking" => $arr['traking']
+                            // 'or_tax' => $arr['tax'],                         
                         );
                         $this->load->model('m_order_ext');                        
                         $orex_id = $this->m_order_ext->insert($order_ext);                        
@@ -1432,7 +1432,7 @@ epul@nastyjuice.com
                                     'ty2_id' => $arr['itemId'][$i],
                                     'ni_id' => $arr['nico'][$i]
                                 );
-                                $this->msi->updateQty($arr['qty'][$i]+$arr['tester'][$i] , $wh,$us_id);
+                                $this->msi->updateQty($arr['qty'][$i]+$arr['tester'][$i] , $wh,$orex_id,$us_id);
                             }
                         }
                         /*$this->load->model('m_shipping_note');
