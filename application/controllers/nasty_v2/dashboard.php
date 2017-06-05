@@ -1293,10 +1293,7 @@ epul@nastyjuice.com
                                                 'sti.ni_id' => $arr['nicoE'][$i]
                                             );
                                            $arr1 = $this->m_log->get6($wh1);
-                                           print_r($wh1);
-                                           echo "<br>";
-                                          print_r($arr1->fromqty); 
-                                          echo "<br>";
+                                          
                                           $res=$this->msi->updateQty2($arr['qtyE'][$i]+$arr['testerE'][$i] , $wh, $arr['orex_id'], $us_id, $arr1->fromqty);
                                             print_r($res);
                                        }

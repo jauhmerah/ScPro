@@ -216,7 +216,7 @@ body .ReadOnlyExtrasStatus {
         
    
           
-        <img class="contemporary-template__business-logo" src="https://d13urdz427oqex.cloudfront.net/uploads/invoices/business_logos/34ebad66-06d6-4bd2-88c7-2ed1618ed501.png" width="314" height="161"/>
+       <img class="contemporary-template__business-logo" src="<?= base_url(); ?>assets/nasty/Drizz Logo.png" width="352" height="158"/>
       
    
   	<div class="pull-right" style="text-align: right;">
@@ -231,9 +231,7 @@ body .ReadOnlyExtrasStatus {
       Malaysia<br>
     <br>
 
-     Phone:  +6012 3437638<br>
-
-     Mobile: +6013 6777791<br>
+     Phone (Office):  +606-441 0519/443 3360<br>
      
         <span class="wrappable">www.nastyjuice.com<br></span>
         </div>

@@ -176,9 +176,13 @@ body .ReadOnlyExtrasStatus {
 <div id="NextContemporary" class="export-template">
  
    
+       
+
+        <img class="contemporary-template__business-logo" src="<?= base_url(); ?>assets/nasty/Drizz Logo.png" width="352" height="158"/>
           
-        <img class="contemporary-template__business-logo" src="<?= base_url(); ?>assets/cover/nstylogo.png" width="314" height="161"/>
-      
+
+       
+        
    
   	<div class="pull-right" style="text-align: right;">
       <h1><big>INVOICE</big></h1>
@@ -194,9 +198,9 @@ body .ReadOnlyExtrasStatus {
 
     <br>
 
-     Phone:  +6012 3437638<br>
+     Phone (Office):  +606-441 0519/443 3360<br>
 
-     Mobile: +6013 6777791<br>
+    
 
      
         <span class="wrappable">www.nastyjuice.com<br></span>
@@ -337,11 +341,11 @@ body .ReadOnlyExtrasStatus {
         <td style="color: #000000;text-align: right;" colspan="11"><strong>Total :</strong></td>
           <td style="color: #000000;"><?= $duit; ?> <?php echo number_format((float)$total_all, 2, '.', ''); ?></td>
         </tr>
-        <tr>
+       <!--  <tr>
         <td style="color: #000000;text-align: right;" colspan="11"><strong>Tax <?= $arr['order']->or_tax; ?>&#37; :</strong></td>
           <td style="color: #000000;"><?= $duit; ?> <?php $tax = number_format((float)($total_all * $arr['order']->or_tax / 100), 2, '.', ''); echo $tax; ?></td>
         </tr>
-        <?php
+ -->        <?php
           if ($arr['order']->or_traking == null || $arr['order']->or_traking == '0000-00-00 00:00:00') {
             $arr['order']->or_traking = 0;
           }

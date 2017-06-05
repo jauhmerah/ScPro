@@ -106,13 +106,7 @@
                                         <!--<span class="badge badge-success">1</span>-->
                                     </a>
                                 </li>
-                               <!--  <li class="nav-item start">
-                                    <a href="<?= site_url('nasty_v2/dashboard/page/i3') ?>" class="nav-link ">
-                                        <i class="fa fa-cube"></i>
-                                        <span class="title">Log</span>
-                                       
-                                    </a>
-                                </li> -->
+                             
                                
                            
                             </ul>

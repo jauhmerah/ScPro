@@ -141,7 +141,15 @@
                                     ?></td> -->
 		                            <td><?php 
                                     $view = ($user->diff == null) ? "--Not Set--" : $user->diff ;
-                                    echo $view;
+
+                                    if($view>=0){
+                                    	echo '+'.$view;
+                                    }
+                                    else{
+                                    	echo $view;
+                                    }
+
+                                    
                                     ?></td>
                                      <td>
                                      <?php 

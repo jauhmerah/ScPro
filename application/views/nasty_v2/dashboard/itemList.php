@@ -12,12 +12,13 @@
 
 
                            	<div class="table-responsive">
+                           	<div class="col-md-12">
 					<table class="table table-hover">
 						<thead>
 							<tr>
 								<th>#</th>
 								<th>Item</th>
-								<th>Strength</th>
+								<!-- <th>Strength</th> -->
 								<th>Total</th>
 								<th>Action</th>
 							</tr>
@@ -31,9 +32,9 @@
 								?>		
 								<tr>
 									<td><?= $n; ?></td>
-									<td><?= $key->ty2_desc; ?></td>
+									<td><?= $key->ty2_desc; ?> | <?= $key->ni_mg; ?> mg</td>
 									
-									<td><?= $key->ni_mg; ?> mg</td>
+									<!-- <td></td> -->
 								
 									<td><?= $key->sti_total; ?></td>
 									<td>
@@ -70,6 +71,7 @@
 						 
 						</tbody>
 					</table>
+					</div>
 				</div>
 
 
