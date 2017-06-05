@@ -87,7 +87,7 @@
                         $berat = 0;
                         for ($i=0; $i < sizeof($temp['id']); $i++) { 
                             $arr['data'][$i] = array_shift($this->mty2->getItem($this->my_func->scpro_decrypt($temp['id'][$i])));
-                            $berat += $arr['data'][$i]->ty2_weight;
+                            $berat += (int)($arr['data'][$i]->ty2_weight * $arr['qty'][$i]);                            
                         }
                         // Get total Shipping price
                         $arr['shippingPrice'] = $this->_shippingPrice($berat);
@@ -350,7 +350,6 @@
                     }
                 }
                 $result = $this->m_address->insert($arr2);
-                die();
                 $this->session->set_flashdata('success', 'Succesfully Added');
                 redirect(site_url('reseller/page/s12'),'refresh');
             }else{
@@ -642,13 +641,13 @@
         private function _shippingPrice($berat)
         {
             $price = 11.5;
-            $sBal = $berat-3000;
+            $sBal = (int)$berat-3000;
             if ($sBal <= 0) {
-                return $price;
+                return $price; //$price;
             }else {
-                $extr = (int)(sBal/1000);
+                $extr = (int)($sBal/1000);
                 $price += $extr * 1.5;
-                $extrBal = sBal - ($extr*1000);
+                $extrBal = $sBal - ($extr*1000);
                 if ($extrBal > 0) {
                     $price += 1.5;
                 }

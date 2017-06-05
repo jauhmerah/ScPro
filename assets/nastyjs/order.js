@@ -7,8 +7,7 @@ function addBtn() {
     $('#addBtn').attr('disabled', 'disabled');
 }
 var num = 0;
-$(document).ready(function() {
-    
+$(document).ready(function() {    
     $('#flavDiv').on('change', '#flav', function() {
         if ($(this).val() != -1) {
             $('#addBtn').removeProp('disabled');
@@ -47,8 +46,12 @@ $(document).ready(function() {
     list.on('change', '.inputQty', function() {    
         totalCount();       
     });
-
-
+    $('.shipClick').click(function(event) {
+        var c = $(this).data('c');
+        var id = $(this).data('add_id');
+        var trS = $("#add_id").data('tr');
+        var 
+    });
 
 });
 
