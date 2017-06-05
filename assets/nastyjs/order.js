@@ -46,13 +46,6 @@ $(document).ready(function() {
     list.on('change', '.inputQty', function() {    
         totalCount();       
     });
-    $('.shipClick').click(function(event) {
-        var c = $(this).data('c');
-        var id = $(this).data('add_id');
-        var trS = $("#add_id").data('tr');
-        var 
-    });
-
 });
 
 function totalCount(x) {
@@ -117,8 +110,15 @@ function checkAll(x) {
         }        
     });
     if (tot > 19) {
+        if (tot > 100) {
+            bootbox.alert("Quantity must lower than 100 pcs!!!");
+            return false;
+        }else{
+            
+        }
         return confirm("Are you sure?");
     }else{
+        bootbox.alert("Quantity must more than 20 pcs!!!");
         return false;
     }
 }

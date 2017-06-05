@@ -552,7 +552,6 @@
                 // else{
                 //     return false;
                 // }
-
                     
         }
 
@@ -653,6 +652,11 @@
                 }
                 return $price;
             }
+        }
+
+        public function getAjaxAddShipment()
+        {
+            echo $this->load->view($this->parent_page."/getAjax/getAjaxCOAddress", '', false);
         }
 	}
 ?>

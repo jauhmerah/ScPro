@@ -1,8 +1,4 @@
 <div class="row">
-<pre><?php print_r($this->session->all_userdata()); ?><?= print_r($data); ?>
-	
-
-</pre>
 <div class="col-md-12">
 	<div class="panel panel-default">
 		<div class="panel-heading">
@@ -20,7 +16,7 @@
 							$add_id = $address[0]->add_id;
 						}
 					?>
-					<input type="hidden" name="add_id" id="add_id" class="form-control" value="<?= $this->my_func->en($add_id , 1); ?>" data-tr = "tr1">
+					<input type="hidden" name="add_id" id="add_id" class="form-control" value="<?= $this->my_func->en($add_id , 1); ?>" data-tr = "tr0">
 					<table class="table table-condensed table-hover table-bordered table-striped">
 			        	<thead>
 			        		<tr>
@@ -33,7 +29,7 @@
 			        		foreach ($address as $key) {
 			        		$n++;			        		
 			        	?>
-			        		<tr class="shipClick" id="tr<?= $n; ?>" data-c = 'td<?= $n; ?>' <?php if($n == 0){echo 'class="success"';} ?> data-add_id = "<?= $this->my_func->en($key->add_id , 1); ?>">
+			        		<tr class="shipClick <?php if($n == 0){echo 'success';} ?>" id="tr<?= $n; ?>" data-c = 'td<?= $n; ?>' data-add_id = "<?= $this->my_func->en($key->add_id , 1); ?>">
 			        			<td id="td<?= $n; ?>" style="vertical-align: middle;"><?php if ($n == 0) { ?>
 			        			<span class="font-green"><button class="btn btn-circle btn-xs"><i class="fa fa-check"></i></button></span><?php } ?></td>
 			        			<td>
@@ -47,7 +43,7 @@
 			        	<?php 
 			        		}
 			        	?>
-			        		<tr>
+			        		<tr id="add_new_address">
 			        			<td width="5%" align="center">
 			        				<button class="btn btn-circle btn-xs"><i class="fa fa-plus-circle"></i></button>
 			        			</td>
@@ -137,3 +133,7 @@
 	</div>
 </div>			
 </div>
+<script type = "text/javascript">
+    var urlsite = "<?= site_url(); ?>reseller/";
+</script>
+<script type="text/javascript" src = "<?= base_url();?>assets/nastyjs/checkout.js?batch=<?php echo uniqid(); ?>"></script>
