@@ -43,7 +43,7 @@ $(document).ready(function() {
         totalCount();
     });
     
-    list.on('change', '.inputQty', function() {    
+    list.on('keyup', '.inputQty', function() {    
         totalCount();       
     });
 });
@@ -80,7 +80,7 @@ function totalCount(x) {
             $('#proceedBtn').attr('disabled', 'disabled');
 
         }else{
-            temp = parseFloat(price)*parseFloat(sum);
+            temp = Number(Math.round((parseFloat(price*sum))+'e2')+'e-2');
             $('#proceedBtn').removeAttr('disabled');
             $('#totalPrice').html(temp);
             $('#priceTag').html(price);

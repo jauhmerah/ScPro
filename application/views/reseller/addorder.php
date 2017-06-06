@@ -24,14 +24,17 @@
                             <div class="progress-bar red" style="width: 19%">
                                 <span class="sr-only"> Deny </span>
                             </div>
-                            <div class="progress-bar yellow-gold" style="width: 22%">
+                            <div class="progress-bar yellow" style="width: 21%">
                                 <span class="sr-only"> 20 - 40 pcs </span>
                             </div>
-                            <div class="progress-bar grey-silver" style="width: 19%">
+                            <div class="progress-bar yellow-gold" style="width: 20%">
                                 <span class="sr-only"> 41 - 60 pcs</span>
+                            </div>                            
+                            <div class="progress-bar  grey-silver" style="width: 20%">
+                                <span class="sr-only"> 61 - 80 pcs </span>
                             </div>
-                            <div class="progress-bar dark" style="width: 40%">
-                                <span class="sr-only"> 61 - 100 pcs </span>
+                            <div class="progress-bar dark" style="width: 20%">
+                                <span class="sr-only"> 81 - 100 pcs </span>
                             </div>
                         </div>
                     </div>             
@@ -169,18 +172,23 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>RM 17.50</td>
+                    <td>RM 17.45</td>
                     <td>20 <i class="fa fa-arrow-right"></i> 40</td>
+                    <td><span class="label bg-yellow bg-font-yellow">Bronze</span></td>
+                </tr>                
+                <tr>
+                    <td>RM 16.95</td>
+                    <td>41 <i class="fa fa-arrow-right"></i> 60</td>
+                    <td><span class="label bg-grey-silver bg-font-grey-silver">Silver</span></td>
+                </tr>
+                <tr>
+                    <td>RM 16.45</td>
+                    <td>61 <i class="fa fa-arrow-right"></i> 80</td>
                     <td><span class="label bg-yellow-gold bg-font-yellow-gold">Gold</span></td>
                 </tr>
                 <tr>
-                    <td>RM 17.00</td>
-                    <td>41 <i class="fa fa-arrow-right"></i> 60</td>
-                    <td><span class="label bg-grey-silver bg-font-grey-silver">Premium</span></td>
-                </tr>
-                <tr>
-                    <td>RM 16.50</td>
-                    <td>61 <i class="fa fa-arrow-right"></i> 100</td>
+                    <td>RM 15.96</td>
+                    <td>81 <i class="fa fa-arrow-right"></i> 100</td>
                     <td><span class="label bg-dark bg-font-dark">Platinum</span></td>
                 </tr>
             </tbody>

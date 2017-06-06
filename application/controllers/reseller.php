@@ -72,17 +72,22 @@
                             $this->session->set_flashdata('warning', 'Warning : Quantity More than 100 pcs');                        
                         }else{
                             if ($tQty >= 20 && $tQty <= 40) {
-                                $arr['price'] = 17.5;
+                                $arr['price'] = 17.45;
                             }elseif ($tQty >= 41 && $tQty <= 60) {
-                                $arr['price'] = 17;
+                                $arr['price'] = 16.95;
+                            }elseif ($tQty >= 61 && $tQty <= 80) {
+                                $arr['price'] = 16.45;
                             }else{
-                                $arr['price'] = 16.5;
+                                $arr['price'] = 15.96;
                             }
-                        }                
+                        }
                         if ($m) {
                             redirect(site_url('reseller/page/b1'),'refresh');
                             break;
                         }
+                        // Round off decimal
+                            
+                        // End Round off decimal
                         // End Double Check Order Quantity limitation.
                         $berat = 0;
                         for ($i=0; $i < sizeof($temp['id']); $i++) { 
@@ -624,11 +629,13 @@
                 if ($qty < 20) {
                     echo '-1';
                 }elseif ($qty >= 20 && $qty <= 40) {
-                    echo '17.50';
+                    echo '17.45';
                 }elseif ($qty > 40 && $qty <= 60) {
-                    echo '17.00';
-                }elseif ($qty > 60 && $qty <= 100) {
-                    echo "16.50";
+                    echo '16.95';
+                }elseif ($qty > 60 && $qty <= 80) {
+                    echo "16.45";
+                }elseif ($qty > 80 && $qty <= 100) {
+                    echo "15.96";
                 }else{
                     echo "-1";
                 }
