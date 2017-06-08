@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- saved from url=(0040)http://getbootstrap.com/examples/signin/ -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -256,7 +255,7 @@
 </body>
 <div id="menu" hidden>
 <div class="row">
-  <div class="col-xs-4">
+  <div class="col-xs-12">
     <div class="panel panel-default">
       <div class="panel-body">
         <div class="col-xs-4"><a href="http://www.drizz.nastyjuice.com/login"><button type="button" class="btn btn-default"><img src="<?= base_url('assets/cover/drizz.png'); ?>" class="img-responsive" alt="Image"></button></a></div>
@@ -266,8 +265,14 @@
 </div>
 </div>
 <script type="text/javascript">
-
-bootbox.alert('haha');
+$(document).ready(function() {
+  $("#more").click(function() {
+    var menu = $("#menu").html();
+    var dialog = bootbox.dialog({
+        message: menu
+    });
+  });  
+});
   
 </script>
 </html>
