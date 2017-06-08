@@ -13,6 +13,7 @@
 
                            	<div class="table-responsive">
                            	<div class="col-md-12">
+                           	<?php $us_lvl=$this->my_func->scpro_decrypt($this->session->userdata('us_lvl')); ?>
 					<table class="table table-hover">
 						<thead>
 							<tr>
@@ -20,7 +21,9 @@
 								<th>Item</th>
 								<!-- <th>Strength</th> -->
 								<th>Total</th>
+								<?php if($us_lvl != 8 && $us_lvl != 9 && $us_lvl != 10){ ?>
 								<th>Action</th>
+								<?php } ?>
 							</tr>
 						</thead>
 						<tbody>
@@ -36,10 +39,12 @@
 									
 									<!-- <td></td> -->
 								
-									<td><?= $key->sti_total; ?></td>
+									<td><strong><big><?= $key->sti_total; ?></big></strong></td>
+									<?php if($us_lvl != 8 && $us_lvl != 9 && $us_lvl != 10){ ?>
 									<td>
 								 <button type="button" class="Lorder bg-green-jungle btn-circle btn-xs" id="L<?= $n; ?>" title="Check-In"><i class="fa fa-arrow-down"></i></button>
 									</td>
+									<?php } ?>
 								</tr>
 								<tr class="L<?= $n; ?>" style="display : none;">
 									<td colspan="5" >

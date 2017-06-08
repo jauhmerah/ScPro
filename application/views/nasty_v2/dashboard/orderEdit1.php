@@ -348,7 +348,7 @@
 					                                            		Shiping Price
 					                                            	</th>
 					                                            	<td>
-					                                            		<input required <?= $mode; ?> type = "number" min="0" step="any"  name="traking" class="form-control input-circle" value="<?php if($arr['order']->or_traking != null) { echo $arr['order']->or_traking; }else{echo '0';} ?>">
+					                                            		<input required <?= $mode; ?> type = "text" min="0" step="any"  name="traking" class="form-control input-circle" value="<?php if($arr['order']->or_traking != null) { echo $arr['order']->or_traking; }else{echo '0';} ?>">
 					                                            	</td>
 						                                        </tr>
 						                                        <tr>

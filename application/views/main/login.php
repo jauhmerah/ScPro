@@ -30,7 +30,7 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-  <style id="style-1-cropbar-clipper">/* Copyright 2014 Evernote Corporation. All rights reserved. */
+<!--   <style id="style-1-cropbar-clipper">/* Copyright 2014 Evernote Corporation. All rights reserved. */
 .en-markup-crop-options {
     top: 18px !important;
     left: 50% !important;
@@ -45,7 +45,7 @@
 }
 
 
-</style>
+</style> -->
 <script>
     $(document).ready(function() {
         $("#signup").hide();
@@ -77,29 +77,27 @@
 </script>
 </head>
 
-  <body>
+  <body style="background-color: #fff">
 <script src="<?php echo base_url();?>asset/js/jquery.backstretch.js"></script>
 <script>
     $.backstretch([
-      "<?php echo base_url();?>asset/slider/bg1.jpg",
-      "<?php echo base_url();?>asset/slider/bg2.jpg",
-      "<?php echo base_url();?>asset/slider/bg3.jpg",
-      "<?php echo base_url();?>asset/slider/bg4.jpg"
-    ], {
-      fade: 850,    //Speed of Fade
-      duration: 10000  //Time of image display
-    });
+      // "<?php echo base_url();?>asset/slider/bg1.jpg",
+      // "<?php echo base_url();?>asset/slider/bg2.jpg",
+      // "<?php echo base_url();?>asset/slider/bg3.jpg",
+      "<?php echo base_url();?>asset/slider/bg5.jpg"
+    ]);
 </script>
   <div class = "container">
-     <div class="col-lg-offset-5 col-lg-2" align="center">
-         <img src="<?= base_url(); ?>assets/cover/logo.png" class="img-responsive" alt="Image">
+     <div class="col-lg-offset-3 col-lg-6" align="center">
+         <img src="<?= base_url(); ?>assets/cover/Drizz Logo.png" class="img-responsive" alt="Image">
      </div> 
   </div>
     <div class="container" id = "signin">
       <form class="form-signin" method="post" action = "<?= site_url('login/signin'); ?>">
-        <h2 class="form-signin-heading">Please sign in</h2>
+        <h2 class="form-signin-heading" align="center">Login</h2>
         <label for="inputEmail1" class="sr-only">Email address</label>
         <input type="email" id="inputEmail1" name="email" class="form-control" placeholder="Email address" required="" autofocus="">
+        <div class="clearfix" style="height: 10px"></div>
         <label for="inputPassword1" class="sr-only">Password</label>
         <input type="password" id="inputPassword1" name="pass" class="form-control" placeholder="Password" required="">
         <div class="checkbox">

@@ -685,9 +685,9 @@ epul@nastyjuice.com
                     }
     			case 'a2':  
     				//$this->load->library('my_func');
-                    if ($lvl == 3) {
-                        redirect(site_url('nasty_v2/dashboard/page/i1'),'refresh');
-                    }
+                    // if ($lvl == 3) {
+                    //     redirect(site_url('nasty_v2/dashboard/page/i1'),'refresh');
+                    // }
                     if ($lvl == 4 || $lvl == 2 ) {
                         redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
                     }

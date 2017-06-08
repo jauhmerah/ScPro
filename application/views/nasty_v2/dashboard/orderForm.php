@@ -127,7 +127,7 @@
 	                                                <div class="form-group col-md-12">
 	                                                    <label class="control-label">Currency :</label>
 	                                                    <select class="form-control input-circle" name="currency">
-	                                                        <option value="3">GBP</option>
+	                                                        <!-- <option value="3">GBP</option> -->
 											                <option value="2">USD</option>
 											                <option value="1">MYR</option>                                                         
 	                                                    </select>

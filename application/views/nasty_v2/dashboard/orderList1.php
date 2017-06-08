@@ -33,7 +33,7 @@
 		<div class="portlet box blue-steel">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-list"></i>Order List EU_17
+                    <i class="fa fa-list"></i>Order List Drizz
                 </div>                        
             </div>
             <div class="portlet-body flip-scroll">
@@ -299,15 +299,13 @@
 					});
 		    	});
 		$(".cancelOrd").click(function() {
-			underMain();
-
-			// $('#myModal').show('slow');
-			// key = $(this).prop('id');
-			// codeOr = $("."+key+"code").val();
-			// //alert(key);
-			// codeOrId = $("."+key+"n").val();
-			// $("#inputOrid").val(codeOrId);
-			// $("#inputUs_id").val(<?= $us_id; ?>);
+			$('#myModal').show('slow');
+			key = $(this).prop('id');
+			codeOr = $("."+key+"code").val();
+			//alert(key);
+			codeOrId = $("."+key+"n").val();
+			$("#inputOrid").val(codeOrId);
+			$("#inputUs_id").val(<?= $us_id; ?>);
 		});
 		$('.jari').click(function() {
 			id = $(this).prop('id');pr_id = $("."+id+"1").val();

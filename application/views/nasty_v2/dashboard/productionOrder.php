@@ -39,12 +39,14 @@
         </div>		
 	</div>
 </div>
+<?php $us_lvl=$this->my_func->scpro_decrypt($this->session->userdata('us_lvl')); ?>
 <div class="row" >
 	<div class="col-lg-12">
 		<div class="panel panel-success" id="newOrder" <?php if($mode != 1){ echo 'style="display:none;"';} ?>>
 			<div class="panel-heading"><h2 class="panel-title">New Order List</h2></div>
 			<div class="panel-body" align="center">
 				<!--<h1>No Order ...</h1>-->
+				
 				<div class="table-responsive">
 					<table class="table table-hover">
 						<thead>
@@ -53,13 +55,19 @@
 								<th>Client Name</th>
 								<th>Country</th>
 								<th>Due Date</th>
+								<?php if($us_lvl != 8){ ?>
 								<th>Action</th>
+								<?php } ?>
 							</tr>
 						</thead>
 						<tbody>
 						<?php
 						$n=0;
 						// vvvvvvvvvvvvvvv OrdYs 2.3.0 vvvvvvvvvvvvvvv
+
+						
+
+
 							foreach ($arrV as $key) { 
 								$n++;
 								?>						
@@ -75,10 +83,13 @@
 	                                	}
 	                                ?>
 									<td><?= $date; ?></td>
+									<?php if($us_lvl != 8){ ?>
 									<td>
 									<?php $usid = $this->my_func->scpro_encrypt($key['order']->or_id); ?>
 										<a onclick="return moveTo();" href="<?= site_url('nasty_v2/dashboard/page/a21?move=').$usid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-info"><i class="fa fa-share-square-o"></i> Move To Packaging Mode</button></a>
 									</td>
+									<?php } ?>
+
 								</tr>
 								<tr class="L<?= $n; ?>" style="display : none;">
 									<td colspan="5" >
@@ -163,7 +174,9 @@
 								<th>Client Name</th>
 								<th>Country</th>
 								<th>Due Date</th>
+								<?php if($us_lvl != 8){ ?>
 								<th>Action</th>
+								<?php }?>
 							</tr>
 						</thead>						
 						<tbody>
@@ -184,10 +197,13 @@
                                 	}
                                 ?>
 								<td><?= $date; ?></td>
+								<?php if($us_lvl != 8){ ?>
+
 								<td>
 								<?php $usid = $this->my_func->scpro_encrypt($key['order']->or_id); ?>
 									<a onclick="return moveTo();" href="<?= site_url('nasty_v2/dashboard/page/a221?done=').$usid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-success"><i class="fa fa-check"></i> Done All</button></a>&nbsp;- &nbsp;<button type="button" onclick = "window.open('<?= site_url('order/printO1?id='.$this->my_func->scpro_encrypt($key['order']->or_id)); ?>&ver=2');" class="btn btn-info"><i class="fa fa-print"></i></button>
 								</td>
+								<?php } ?>
 							</tr>
 							<tr class="L<?= $n; ?>" style="display : none;">
 								<td colspan="5" >

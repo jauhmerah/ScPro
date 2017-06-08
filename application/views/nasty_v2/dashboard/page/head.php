@@ -21,7 +21,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
     <head>
         <meta charset="utf-8" />
-        <title><?php if(isset($ver)){echo $ver;}else{echo "Nasty Process System v2.1 Alpha";} ?></title>
+        <title>Drizz OrdYs v1.0</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta content="" name="description" />
@@ -39,7 +39,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-- END THEME GLOBAL STYLES -->
         <!-- BEGIN THEME LAYOUT STYLES -->
         <link href="<?= base_url(); ?>asset2/layouts/layout2/css/layout.min.css" rel="stylesheet" type="text/css" />
-        <link href="<?= base_url(); ?>asset2/layouts/layout2/css/themes/blue.min.css" rel="stylesheet" type="text/css" id="style_color" />
+        <link href="<?= base_url(); ?>asset2/layouts/layout2/css/themes/green.min.css" rel="stylesheet" type="text/css" id="style_color" />
         <link href="<?= base_url(); ?>asset2/layouts/layout2/css/custom.min.css" rel="stylesheet" type="text/css" />
         
         <!-- BEGIN PAGE LEVEL PLUGINS -->

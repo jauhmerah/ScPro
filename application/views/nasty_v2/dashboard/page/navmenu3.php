@@ -61,11 +61,11 @@
                                 </li>-->
                             </ul>
                         </li> <?php } ?>
-                        <?php if($us_lvl != 4 && $us_lvl != 6 && $us_lvl != 8 && $us_lvl != 2 && $us_lvl != 3){?> 
+                        <?php if($us_lvl != 4 && $us_lvl !=9  && $us_lvl != 10){?> 
                         <li class="nav-item <?php if (strpos($link, 'a2') !== false) { echo "active open";}else{echo "start";}?>  ">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <i class="fa fa-archive"></i>
-                                <span class="title">Packaging Module</span>
+                                <span class="title">Production</span>
                                 <span class="arrow"></span>
                             </a>
                             <ul class="sub-menu">
@@ -77,7 +77,7 @@
                                 </li>
                             </ul>
                         </li> <?php } ?>
-                        <?php if($us_lvl != 8){?> 
+                        <?php if($us_lvl != 3 && $us_lvl != 4){?> 
                         <li class="nav-item <?php if (strpos($link, 'i1') !== false || strpos($link, 'i2') !== false) { echo "active open";}else{echo "start";}?>   ">
                             <a href="" class="nav-link ">
                                 <i class="fa fa-cubes"></i>
@@ -90,15 +90,15 @@
                                         <span class="title">Dashboard</span>
                                     </a>
                                 </li>
-                                <?php if($us_lvl != 9 && $us_lvl != 7 && $us_lvl != 2){?>
+                                <?php if($us_lvl != 7 && $us_lvl != 2){?>
                                  <li class="nav-item start">
                                     <a href="<?= site_url('nasty_v2/dashboard/page/i2') ?>" class="nav-link ">
                                         <i class="fa fa-plus-square-o"></i>
-                                        <span class="title">Check-In</span>
+                                        <span class="title">Items</span>
                                         <!--<span class="badge badge-success">1</span>-->
                                     </a>
                                 </li>
-                                <?php } ?>
+                                <?php }?>
                                 <li class="nav-item start">
                                     <a href="<?= site_url('nasty_v2/dashboard/page/i21') ?>" class="nav-link ">
                                         <i class="fa fa-th-list"></i>
@@ -107,18 +107,18 @@
                                     </a>
                                 </li>
                              
-                               
+                             
                            
                             </ul>
                         </li><?php } ?>
-                        <?php if($us_lvl != 6 && $us_lvl != 7 && $us_lvl != 3){?>
+                        <?php if($us_lvl != 6 && $us_lvl != 7 && $us_lvl != 3 && $us_lvl != 8 && $us_lvl != 10){?>
                         <li class="nav-item start ">
                             <a href="<?= site_url('nasty_v2/dashboard/page/a4') ?>" class="nav-link ">
                                 <i class="fa fa-group"></i>
                                 <span class="title">Client List</span>
                             </a>
                         </li><?php } ?>
-                        <?php if($us_lvl != 2 && $us_lvl != 3 && $us_lvl != 7 && $us_lvl != 8){?>
+                        <?php if($us_lvl != 2 && $us_lvl != 3 && $us_lvl != 7 && $us_lvl != 8 && $us_lvl != 6 && $us_lvl != 10){?>
                         <li class="nav-item <?php if (strpos($link, 'c') !== false) { echo "active open";}else{echo "start";}?>  ">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                <i class="fa fa-wrench"></i>
