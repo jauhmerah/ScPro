@@ -8,7 +8,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="<?= base_url(); ?>assets/cover/favicon.png">
-
+    <link href="<?= base_url(); ?>asset2/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>asset2/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
     <title>Login</title>
 
     <!-- Bootstrap core CSS -->
@@ -24,6 +25,10 @@
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <script src="<?= base_url(); ?>asset/sign/ie-emulation-modes-warning.js"></script>
     <script src="<?= base_url(); ?>asset/js/jquery.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="<?= base_url(); ?>asset/js/bootstrap.min.js"></script>
+ <script src="<?= base_url(); ?>asset2/global/plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -78,68 +83,191 @@
 </head>
 
   <body>
+<?php 
+  $temp = array_slice(scandir('./asset/slider'), 2);
+  if (sizeof($temp) != 0) {
+    ?>
 <script src="<?php echo base_url();?>asset/js/jquery.backstretch.js"></script>
 <script>
     $.backstretch([
-      "<?php echo base_url();?>asset/slider/bg1.jpg",
-      "<?php echo base_url();?>asset/slider/bg2.jpg"
+      <?php for ($i=0; $i < sizeof($temp); $i++) { ?>
+        "<?= base_url();?>asset/slider/<?= $temp[$i]; ?>"<?php if($i != sizeof($temp)-1){ echo ",";} ?>
+
+      <?php } ?>
     ], {
       fade: 850,    //Speed of Fade
       duration: 10000  //Time of image display
     });
 </script>
-  <div class = "container">
-     <div class="col-lg-offset-5 col-lg-2" align="center">
-         <img src="<?= base_url(); ?>assets/cover/logo.png" class="img-responsive" alt="Image">
-     </div> 
-  </div>
+    <?php
+  }
+?>
+
+  <nav class="navbar navbar-fixed-top" role="navigation">
+    <div class="container">
+      <ul class="nav pull-right">        
+        <li>
+          <a><button id="more" type="button" class="btn btn-default"><span class="icon-grid"></span></button></a>
+        </li>
+      </ul>
+    </div>
+  </nav>   
+
     <div class="container" id = "signin">
-      <form class="form-signin" method="post" action = "<?= site_url('login/signin'); ?>">
-        <h2 class="form-signin-heading">Please sign in</h2>
-        <label for="inputEmail1" class="sr-only">Email address</label>
-        <input type="email" id="inputEmail1" name="email" class="form-control" placeholder="Email address" required="" autofocus="">
-        <label for="inputPassword1" class="sr-only">Password</label>
-        <input type="password" id="inputPassword1" name="pass" class="form-control" placeholder="Password" required="">
-        <div class="checkbox">
-          <!--<input type="checkbox" value="remember-me"> 
-          <a><label class = "btn1 col-sm-5">Sign Up</label></a>
-          <a href="<?= site_url('main'); ?>"><label class = "btn1 col-sm-offset-2" style="text-align: right;" >Back Home</label></a>-->
+    <div class="row">
+    <div class="col-xs-4" align="center">
+    <div class="clearfix">
+      <br><br>
+    </div>
+         <img src="http://ordereu.nastyjuice.com/assets/cover/logo.png" class="img-responsive" alt="Image"><br>
+         <form class="form-signin" method="post" action = "http://ordereu.nastyjuice.com/login/signin">
+      <?php if($this->session->flashdata('warning')){?>
+<div class="alert alert-danger alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+                                <strong><i class="fa fa-exclamation-triangle"></i> Warning!</strong> <?= $this->session->flashdata('warning'); ?>
+                            </div>
+<?php } ?>
+  <?php if($this->session->flashdata('success')){ ?>
+                            <div class="alert alert-success alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+                                <strong><i class="fa fa-check"></i>  Success!</strong> <?= $this->session->flashdata('success'); ?>
+                            </div>
+        <?php } ?>
+        <h2 class="form-signin-heading">Europe Ordys</h2>
+        <label for="inputEmail1">Email address</label>
+        <input type="email" id="inputEmail1" name="email" class="form-control" required="" autofocus="">
+         <div class="clearfix">
+        &nbsp;
         </div>
+        <label for="inputPassword1">Password</label>
+        <input type="password" id="inputPassword1" name="pass" class="form-control" required="">
+        <div class="clearfix">
+        </div>
+         <div class="clearfix">
+        &nbsp;
+        </div>
+        <!-- <a><label class = "btn1">Forgot Password?</label></a> -->
+       
         <div class="clearfix">
         &nbsp;
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
       </form>
-
-    </div> <!-- /container -->
-    <div class="container" id = "signup">
-      <form class="form-signin" method  = "post" action="<?= site_url('login/signup'); ?>" id = "daftar" >
-        <h2 class="form-signin-heading">Sign up</h2>
-        
-        <label for="inputEmail" class="sr-only">Email Address</label>
-          <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email Address" required="" autofocus="" style="border-bottom-right-radius: 4px; border-bottom-left-radius: 4px;">
-        
-        <label for="inputPassword" class="sr-only">Password</label>
-          <input type="password"  id="pass1" class="form-control" placeholder="Password" required="" autofocus="" style="border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; border-top-left-radius: 4px; border-top-right-radius: 4px; margin-bottom: 0px; margin-top: 10px;">
-        <label for="reinputPassword" class="sr-only">Re-password</label>
-          <input type="password"  id="pass2" class="form-control" placeholder="Re-password" required="" autofocus="">
-        <input type="hidden" value = "null" name = "pass" id = "pass3"><span id = "msg"></span>
-        <div class="checkbox">
-          <!--<input type="checkbox" value="remember-me"> -->
-          <a><label class = "btn2 col-sm-5">Sign In</label></a>
-          <a href="<?= site_url('main'); ?>"><label class = "btn1 col-sm-offset-2" style="text-align: right;" >Back Home</label></a>
+     </div> 
+      <div class="col-xs-4" align="center">
+         <img src="<?= base_url(); ?>assets/cover/logo.png" class="img-responsive" alt="Image"><br>
+         <form class="form-signin" method="post" action = "<?= site_url('login/signin'); ?>">
+      <?php if($this->session->flashdata('warning')){?>
+<div class="alert alert-danger alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+                                <strong><i class="fa fa-exclamation-triangle"></i> Warning!</strong> <?= $this->session->flashdata('warning'); ?>
+                            </div>
+<?php } ?>
+  <?php if($this->session->flashdata('success')){ ?>
+                            <div class="alert alert-success alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+                                <strong><i class="fa fa-check"></i>  Success!</strong> <?= $this->session->flashdata('success'); ?>
+                            </div>
+        <?php } ?>
+        <h2 class="form-signin-heading">OrdYs Login</h2>
+        <label for="inputEmail1">Email address</label>
+        <input type="email" id="inputEmail1" name="email" class="form-control" required="" autofocus="">
+         <div class="clearfix">
+        &nbsp;
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
+        <label for="inputPassword1">Password</label>
+        <input type="password" id="inputPassword1" name="pass" class="form-control" required="">
+        <div class="clearfix">
+        </div>
+         <div class="clearfix">
+        &nbsp;
+        </div>
+        <!-- <a><label class = "btn1">Forgot Password?</label></a> -->
+       
+        <div class="clearfix">
+        &nbsp;
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
       </form>
+     </div> 
+     <div class="col-xs-4" align="center">
+     <div class="clearfix">
+      <br><br>
+    </div>
+         <img src="<?= base_url(); ?>assets/cover/logo3.png" class="img-responsive" alt="Image"><br>
+         <form class="form-signin" method="post" action = "http://oem.nastyjuice.com/login/signin">
+      <?php if($this->session->flashdata('warning')){?>
+<div class="alert alert-danger alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+                                <strong><i class="fa fa-exclamation-triangle"></i> Warning!</strong> <?= $this->session->flashdata('warning'); ?>
+                            </div>
+<?php } ?>
+  <?php if($this->session->flashdata('success')){ ?>
+          <div class="alert alert-success alert-dismissable">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+              <strong><i class="fa fa-check"></i>  Success!</strong> <?= $this->session->flashdata('success'); ?>
+          </div>
+        <?php } ?>
+        <h2 class="form-signin-heading">OEM Login</h2>
+        <label for="inputEmail1">Email address</label>
+        <input type="email" id="inputEmail1" name="email" class="form-control" required="" autofocus="">
+         <div class="clearfix">
+        &nbsp;
+        </div>
+        <label for="inputPassword1">Password</label>
+        <input type="password" id="inputPassword1" name="pass" class="form-control" required="">
+        <div class="clearfix">
+        </div>
+         <div class="clearfix">
+        &nbsp;
+        </div>
+       
+        <div class="clearfix">
+        &nbsp;
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      </form>
+     </div> 
+    </div>
+    </div>  <!-- /container -->
+    <!--<div class="container" id = "signup">-->
+    <!--  <form class="form-signin" method  = "post"  id = "daftar" >-->
+    <!--    <h2 class="form-signin-heading">Sign up</h2>-->
+        
+    <!--    <label for="inputEmail" class="sr-only">Email Address</label>-->
+    <!--      <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email Address" required="" autofocus="" style="border-bottom-right-radius: 4px; border-bottom-left-radius: 4px;">-->
+        
+    <!--    <label for="inputPassword" class="sr-only">Password</label>-->
+    <!--      <input type="password"  id="pass1" class="form-control" placeholder="Password" required="" autofocus="" style="border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; border-top-left-radius: 4px; border-top-right-radius: 4px; margin-bottom: 0px; margin-top: 10px;">-->
+    <!--    <label for="reinputPassword" class="sr-only">Re-password</label>-->
+    <!--      <input type="password"  id="pass2" class="form-control" placeholder="Re-password" required="" autofocus="">-->
+    <!--    <input type="hidden" value = "null" name = "pass" id = "pass3"><span id = "msg"></span>-->
+    <!--    <div class="checkbox">-->
+          <!--<input type="checkbox" value="remember-me"> -->
+    <!--      <a><label class = "btn2 col-sm-5">Sign In</label></a>-->
+    <!--      <a href=""><label class = "btn1 col-sm-offset-2" style="text-align: right;" >Back Home</label></a>-->
+    <!--    </div>-->
+    <!--    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>-->
+    <!--  </form>-->
       
 
-    </div> <!-- /container -->
+    <!--</div> /container-->
     <div id = "msg2"></div>
-
-
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <!--<script src="<?= base_url(); ?>asset/sign/ie10-viewport-bug-workaround.js"></script>-->
-  
-
 </body>
+<div id="menu" hidden>
+<div class="row">
+  <div class="col-xs-4">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="col-xs-4"><a href="http://www.drizz.nastyjuice.com/login"><button type="button" class="btn btn-default"><img src="<?= base_url('assets/cover/drizz.png'); ?>" class="img-responsive" alt="Image"></button></a></div>
+      </div>
+    </div>   
+  </div>  
+</div>
+</div>
+<script type="text/javascript">
+
+bootbox.alert('haha');
+  
+</script>
 </html>
