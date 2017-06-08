@@ -84,7 +84,33 @@
         }
         //end added        
 
-
+        public function getIncome($currency = 1, $check = -1 ,$ver = 2 )
+	    {
+	    	/* 
+				currency -> 1 myr , 2 usd , 3 GBP
+				check -> 0 net income, 1 confirm income
+	    	*/
+			$this->db->select('MONTH(ord.or_date) as month , YEAR(ord.or_date) as year ,  orex.cu_id , cu.cu_desc , SUM(oi.oi_qty*oi.oi_price) AS sales');
+			$this->db->from('order ord');
+			$filter = array(
+				"orex.cu_id" => $currency,
+				"ord.or_ver" => $ver,
+				"ord.or_del" => 0,
+				"ord.pr_id !=" => 4,
+				"ord.pr_id !=" => 7
+				);
+			if ($check != -1) {
+				$filter["ord.or_acc"] = $check;
+			}
+			$this->db->where($filter);
+			$this->db->join('order_ext orex', 'orex.or_id = ord.or_id', 'left');
+			$this->db->join('order_item oi' , 'oi.orex_id = orex.orex_id' , 'left');
+			$this->db->join('currency cu', 'cu.cu_id = orex.cu_id', 'left');			
+			$this->db->group_by('MONTH(ord.or_date) , YEAR(ord.or_date)');
+			$this->db->order_by('ord.or_date', 'asc');
+			$result = $this->db->get()->result();
+	    	return $result;
+	    }
          public function getAll($where = null , $all = false)
         {
             $this->db->select('*');
@@ -201,7 +227,6 @@
 				 	$this->db->join('type2 ty2', 'ty2.ty2_id = oi.ty2_id', 'left');
 				 	$this->db->join('category ca', 'ca.ca_id = ty2.ca_id', 'left');
 				 	$this->db->join('nicotine nic', 'nic.ni_id = oi.ni_id', 'left');
-				 	$this->db->join('order_item_ext oie' , 'oie.oi_id = oi.oi_id' , 'left');
 				 	$this->db->order_by('ty2.ca_id', 'asc');
 				}
 				$this->db->where('orex_id', $key->orex_id); 
@@ -240,6 +265,42 @@
 	    	if ($where != null) {
 	    		$this->db->where($where);
 	    	}
+	    	$result = $this->db->get()->result();
+	    	return $result;
+	    }
+	     public function listOrROS($ver = 0 ,$st1 =null,$st2 =null,$st3 =null,$st4 =null, $limit = null , $start = null , $del = 0 , $where = null)
+	    {
+	    	
+	    	$this->db->select('ord.or_id , ord.us_id , us1.us_username , cl.cl_name, ord.or_acc , cl.cl_country , ord.or_date ,ord.pr_id, pr.pr_desc , pr.pr_color, ord.or_paid ');
+	    	//, pic.img_url , pic.pi_title
+	    	$this->db->from('order ord');
+	    	
+	    	if($del != 3){	    		
+	    		$this->db->where('ord.or_del', $del);
+	    	}	    	
+	    	$this->db->order_by('ord.or_id', 'desc');
+	    	if ($limit !== null && $start !== null) {
+	    		$this->db->limit($limit, $start);
+	    	}	
+	    	
+	    	$this->db->where('ord.or_ver', $ver);
+	    	$this->db->join('client cl', 'ord.cl_id = cl.cl_id', 'left');
+	    	$this->db->join('user us1' , 'ord.us_id = us1.us_id' , 'left');
+	    	$this->db->join('process pr' , 'ord.pr_id = pr.pr_id' , 'left');
+	    	//$this->db->join('picture pic' , 'ord.or_id = pic.ne_id' , 'left');
+	    	if(($st1 == 8) || ($st2 == 9)){	    		
+	    		$this->db->where('ord.pr_id', $st1);
+	    		$this->db->or_where("ord.pr_id",$st2);
+	    	}
+	    	else if(($st1 == 10) || ($st2 == 11) || ($st3 == 12) || ($st4 == 13)){
+	    		$this->db->where('ord.pr_id', $st1);
+	    		$this->db->or_where("ord.pr_id",$st2);
+	    		$this->db->or_where("ord.pr_id",$st3);
+	    		$this->db->or_where("ord.pr_id",$st4);
+	    		}	
+	    	// if ($where != null) {
+	    	// 	$this->db->where($where);
+	    	// }
 	    	$result = $this->db->get()->result();
 	    	return $result;
 	    }
@@ -411,32 +472,25 @@
 			return $this->db->count_all_results();
 	    }
 
-	    public function getIncome($currency = 1, $check = -1 ,$ver = 2 )
+	    public function orderCountROS($ver = -1,$st1 =null,$st2 =null,$st3 =null,$st4 =null)
 	    {
-	    	/* 
-				currency -> 1 myr , 2 usd , 3 GBP
-				check -> 0 net income, 1 confirm income
-	    	*/
-			$this->db->select('MONTH(ord.or_date) as month , YEAR(ord.or_date) as year ,  orex.cu_id , cu.cu_desc , SUM(oi.oi_qty*oi.oi_price) AS sales');
+	    	$this->db->like('ord.or_del', 0);
+	    	if ($ver != -1) {
+	    		$this->db->like('ord.or_ver', $ver);
+	    	}	    	
 			$this->db->from('order ord');
-			$filter = array(
-				"orex.cu_id" => $currency,
-				"ord.or_ver" => $ver,
-				"ord.or_del" => 0,
-				"ord.pr_id !=" => 4,
-				"ord.pr_id !=" => 7
-				);
-			if ($check != -1) {
-				$filter["ord.or_acc"] = $check;
-			}
-			$this->db->where($filter);
-			$this->db->join('order_ext orex', 'orex.or_id = ord.or_id', 'left');
-			$this->db->join('order_item oi' , 'oi.orex_id = orex.orex_id' , 'left');
-			$this->db->join('currency cu', 'cu.cu_id = orex.cu_id', 'left');			
-			$this->db->group_by('MONTH(ord.or_date) , YEAR(ord.or_date)');
-			$this->db->order_by('ord.or_date', 'asc');
-			$result = $this->db->get()->result();
-	    	return $result;
+			if(($st1 == 8) || ($st2 == 9)){	    		
+	    		$this->db->where('ord.pr_id', $st1);
+	    		$this->db->or_where("ord.pr_id",$st2);
+
+	    	}
+	    	else if(($st1 == 10) || ($st2 == 11) || ($st2 == 12)|| ($st2 == 13)){
+	    		$this->db->where('ord.pr_id', $st1);
+	    		$this->db->or_where("ord.pr_id",$st2);
+	    		$this->db->or_where("ord.pr_id",$st3);
+	    		$this->db->or_where("ord.pr_id",$st4);
+	    	}
+			return $this->db->count_all_results();
 	    }
 	}
 	        

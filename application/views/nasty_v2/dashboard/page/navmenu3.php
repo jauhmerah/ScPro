@@ -28,8 +28,8 @@
                         </a>
                     </li>
                     <?php $us_lvl = $this->my_func->scpro_decrypt($this->session->userdata('us_lvl'));
-                     $us_email = $this->session->userdata('us_email');?>
-                        <?php if($us_lvl != 2 && $us_lvl != 3 ){?>
+                     $us_email = $this->my_func->scpro_decrypt($this->session->userdata('us_id'));?>
+                        <?php if($us_lvl != 2 && $us_lvl != 3 && $us_lvl != 5 ){?>
                         <li class="nav-item <?php if (strpos($link, 'a1') !== false) { echo "active open";}else{echo "start";}?>  ">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <i class="fa fa-cart-plus"></i>
@@ -59,7 +59,7 @@
                                 </li>-->
                             </ul>
                         </li> <?php } ?>
-                        <?php if($us_lvl != 4){?> 
+                        <?php if($us_lvl != 4 && $us_lvl != 5){?> 
                         <li class="nav-item <?php if (strpos($link, 'a2') !== false) { echo "active open";}else{echo "start";}?>  ">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <i class="fa fa-industry"></i>
@@ -83,7 +83,7 @@
                                 <span class="arrow"></span>
                             </a>
                             <ul class="sub-menu">
-                            <?php  if(($us_email == "faeiz@nastyjuice.com")||($us_lvl ==1)){  ?>
+                            <?php  if(($us_lvl == 5)||($us_lvl == 1)){  ?>
                                 <li class="nav-item start" title="Distributor Action">
                                     <a href="<?= site_url('nasty_v2/dashboard/page/a62') ?>" class="nav-link ">
                                         <i class="fa fa-flag-checkered"></i>
@@ -107,21 +107,21 @@
                                 </li> -->
                             </ul>
                         </li> <?php } ?>                                                
-                        <?php if($us_lvl != 4){?>                     
+                        <?php if($us_lvl != 4 && $us_lvl != 5){?>                     
                         <li class="nav-item <?php if (strpos($link, 'g') !== false) { echo "active open";}else{echo "start";}?>   ">
                             <a href="" class="nav-link ">
                                 <i class="fa fa-ship"></i>
                                 <span class="title">Shipping</span>
                             </a>
                         </li><?php } ?>
-                        <?php if($us_lvl != 2 && $us_lvl != 3 ){?>
+                        <?php if($us_lvl != 2 && $us_lvl != 3 && $us_lvl != 5){?>
                         <li class="nav-item <?php if (strpos($link, 'k1') !== false) { echo "active open";}else{echo "start";}?>   ">
                             <a href="<?= site_url('nasty_v2/dashboard/page/k1') ?>" class="nav-link ">
                                 <i class="fa fa-bank"></i>
                                 <span class="title">Acounting</span>
                             </a>
                         </li><?php } ?> 
-                        <?php if($us_lvl != 2){?>
+                        <?php if($us_lvl != 2 && $us_lvl != 5){?>
                         <li class="nav-item start ">
                             <a href="<?= site_url('nasty_v2/dashboard/page/a4') ?>" class="nav-link ">
                                 <i class="fa fa-group"></i>

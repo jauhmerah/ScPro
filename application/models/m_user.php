@@ -61,7 +61,7 @@
 	    	return $result;
 	    }
 
-	    public function getAll($where = null , $all = false)
+	    public function getAll($where = null)
 	    {
 	    	$this->db->select('*');
 	        $this->db->from(self::TABLE_NAME);
@@ -74,9 +74,6 @@
 	                $this->db->where(self::PRI_INDEX, $where);
 	            }
 	        }
-	        if (!$all) {
-	        	$this->db->where('us_lvl >', 0);
-	        }	        
 	        $this->db->join('user_level ul', 'user.us_lvl = ul.ul_id', 'left');
 	        $result = $this->db->get()->result();
 	        if ($result) {

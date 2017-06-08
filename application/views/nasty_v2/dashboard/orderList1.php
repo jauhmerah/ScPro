@@ -169,8 +169,8 @@
 										<a href="<?= site_url('nasty_v2/dashboard/page/a121?v=2&edit=').$orid; ?>" name="c3" title="Edit Order"><button type="button" class="btn btn-warning btn-circle btn-xs"><i class="fa fa-pencil"></i></button></a>
 										&nbsp;-&nbsp; <button type="button" class="btn btn-circle purple-seance btn-xs upPic" id="up<?= $n; ?>"><i class="fa fa-upload"></i></button></a>
 										<input type="hidden" class="form-control up<?= $n; ?>" value="<?= $orid; ?>">
-										<?php if($user->pr_id == 3){ ?>
-                                    			&nbsp;- &nbsp;<button title = "Print Order" onclick = "window.open('<?= site_url('order/printO1?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" type="button" class="btn btn-default btn-circle btn-info btn-xs"><i class="fa fa-print"></i></button>&nbsp;-&nbsp;
+										<?php if($user->pr_id == 3 || $user->pr_id >= 8 || $user->pr_id == 2){ ?>
+                                    			&nbsp;- &nbsp;<button title = "Print Order" onclick = "window.open('<?= site_url('order/printO1?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" type="button" class="btn btn-default btn-circle btn-info btn-xs"><i class="fa fa-print"></i></button> <?php } if($user->pr_id == 3 || $user->pr_id >= 8){ ?>&nbsp;-&nbsp;
                                     			<button type="button" title = "D.O Form" onclick = "window.open('<?= site_url('order/printDO1?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn btn-success btn-circle btn-xs"><i class="fa fa-truck"></i></button>
                                     		<?php } ?>
                                     		
@@ -182,8 +182,8 @@
                                     			if($user->pr_id != 8){
                                     			?>
                                     			&nbsp;-&nbsp;
-                                    			<button type="button" title = "ROS" class="ROSButton btn btn-primary btn-circle btn-xs" id="ros<?= $n; ?>" name="ros<?= $n; ?>"><i class="fa fa-flag-checkered"></i></button>
-                                    			<input type="hidden" class="or_id" name="or_id" id="or_id" value="<?= $user->or_id ?>">
+                                    			<button type="button" title = "ROS" class="ROSButton btn btn-primary btn-circle btn-xs" id="<?= $n.'ros' ?>" name="<?= $n.'ros' ?>"><i class="fa fa-flag-checkered"></i></button>
+                                    			<input type="hidden" class="form-control <?= $n.'ros' ?>" value="<?= $user->or_id ?>">
 	
                                     		 <?php }} ?>
 
@@ -282,7 +282,10 @@
 <script>
 	$(document).ready(function() {
 		$(".ROSButton").click(function() {
-		       		
+
+					id = $(this).prop('id');
+					orid = $("."+id).val();
+		       			
 					bootbox.confirm({
 					    message: "Are You Sure?",
 					    buttons: {
@@ -298,11 +301,9 @@
 					    },
 					    callback: function (result) {
 					    	if(result == true){
-					    		var elements = document.getElementsByClassName("or_id");
-					    		var orid = elements[0].value;
-					    		//alert(orid);
+					    		
 					    		$.post('<?= site_url('nasty_v2/dashboard/change_pr_id3'); ?>', {or_id: orid,pr_id: 8}, function(data) {
-					            	alert("Success!!!.");
+					            	
 					            	$(window).attr("location", "<?= site_url('nasty_v2/dashboard/page/a1new'); ?>");
 					            	
 					            });

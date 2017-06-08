@@ -26,12 +26,7 @@
                 <div class="caption">
                     <i class="fa fa-list"></i>Order List 
                 </div>                
-                <div class="actions">
-	                <div class="btn-group btn-group-devided" data-toggle="buttons">
-	                    <button type="button" onclick="window.location.href='<?= site_url('nasty_v2/dashboard/page/a1'); ?>'" class="btn purple btn-circle btn-sm">2017 Order List</button>
-	                </div>
-	            </div>
-            </div>            
+            </div>
             <div class="portlet-body flip-scroll">
 	            <div class="row">
 	            <form id="formSearch" action="<?= site_url('nasty_v2/dashboard/page/a1old'); ?>" method="POST" role="form">

@@ -172,7 +172,7 @@
 
 <div class="row">
 	<div class="col-md-12">
-		<div class="portlet box purple" id="newOrder" style="display:none;">
+		<div class="portlet box purple" id="newOrder" <?php if($e==1){echo "style=display:block;"; }else{ echo "style=display:none;"; }  ?>  >
 			 <div class="portlet-title">
                 <div class="caption">
                     <i class="fa fa-user"></i>ROS List 
@@ -200,7 +200,7 @@
                                             $n = 0; 
                                             if (sizeof($arr1) != 0) { 
                                                 foreach ($arr1 as $user) {
-                                                    if (($user->pr_id == 8) or($user->pr_id == 9)){
+                                                    
                                                     $n++;
                                                     ?>
                                                     <tr class="clickable" data-toggle="collapse" id="row<?= $n ?>" data-target=".row<?= $n ?>">
@@ -245,7 +245,17 @@
                                                                  <?php 
                                         $usid = $this->my_func->scpro_encrypt($user->or_id);
                                     ?>
-                                        <a href="<?= site_url('nasty_v2/dashboard/page/a111?view=').$usid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></button></a>                                        
+                                        <a href="<?= site_url('nasty_v2/dashboard/page/a111?view=').$usid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-circle btn-danger btn-xs"><i class="fa fa-eye"></i></button></a> 
+                                        &nbsp;-&nbsp;
+                                        <button title = "Print Order" onclick = "window.open('<?= site_url('order/printO1?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" type="button" class="btn btn-default btn-circle btn-info btn-xs"><i class="fa fa-print"></i></button>
+                                        &nbsp;-&nbsp;
+                                        <button type="button" title = "D.O Form" onclick = "window.open('<?= site_url('order/printDO1?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn btn-success btn-circle btn-xs"><i class="fa fa-truck"></i></button>
+                                        &nbsp;-&nbsp;   
+                                        <button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/Invoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');"  class="btn blue-dark btn-circle btn-xs" title="Invoice">Inv</button>
+                                        &nbsp;-&nbsp;   
+                                        <button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/dummyInvoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn c-btn-border-1x c-btn-blue-dark btn-circle btn-xs" title="Dummy Invoice">DInv</button>    
+
+
                                                             </td>
                                                     </tr>
 
@@ -277,12 +287,36 @@
 
 
                                                     <?php 
-                                                            }
+                                                            
                                                         }
                                                     } ?>
 
                                         </tbody>
-
+                                        <tfoot>
+                                <td colspan="7">
+                                <div class="col-md-5 col-sm-5">
+                                    <div class="dataTables_info" id="sample_1_info" role="status" aria-live="polite">Showing <?= ($page+1); ?> to <?= ($page+$row); ?> of <?= $total; ?> records</div>
+                                </div>
+                                <div class="col-md-7 col-sm-7" align="right">
+                                    <div class="dataTables_paginate paging_bootstrap_full_number" id="sample_1_paginate">
+                                        <ul class="pagination" style="visibility: visible;">
+                                        <?php
+                                        $prev = "";
+                                        $next = "";
+                                            if ($page == 0) {
+                                                $prev = "disabled";
+                                            }
+                                            if ($total <= ($page + 10)) {
+                                                $next = "disabled";
+                                            }
+                                        ?>
+                                            <li class="prev <?= $prev; ?>"><a <?php if($prev!="disabled"){ ?>href="<?= site_url('nasty_v2/dashboard/page/a62?page='.($page-10)); ?>"<?php } ?> title="Prev" ><i class="fa fa-angle-left"></i></a></li>                                            
+                                            <li class="next <?= $next; ?>"><a <?php if($next!="disabled"){ ?>href="<?= site_url('nasty_v2/dashboard/page/a62?page='.($page+10)); ?>"<?php } ?> title="Next"><i class="fa fa-angle-right"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                </td>
+                            </tfoot> 
 
 
                             </table>
@@ -297,7 +331,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        <div class="portlet box blue" id="proOrder" style="display:none;">
+        <div class="portlet box blue" id="proOrder" <?php if($e==2){echo "style=display:block;";}else{ echo "style=display:none;"; }  ?>  >
              <div class="portlet-title">
                 <div class="caption">
                     <i class="fa fa-user"></i>RTS List 
@@ -323,9 +357,9 @@
                                     <tbody>
                                        <?php
                                             $n = 0; 
-                                            if (sizeof($arr1) != 0) { 
-                                                foreach ($arr1 as $user) {
-                                                    if (($user->pr_id == 10) or ($user->pr_id == 11) or ($user->pr_id == 12) or ($user->pr_id == 13)){
+                                            if (sizeof($arr2) != 0) { 
+                                                foreach ($arr2 as $user) {
+                                                  
                                                     $n++;
                                                     ?>
                                                     <tr class="clickable" data-toggle="collapse" id="row<?= $n ?>" data-target=".row<?= $n ?>">
@@ -370,7 +404,15 @@
                                                                  <?php 
                                         $usid = $this->my_func->scpro_encrypt($user->or_id);
                                     ?>
-                                        <a href="<?= site_url('nasty_v2/dashboard/page/a111?view=').$usid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></button></a>                                        
+                                        <a href="<?= site_url('nasty_v2/dashboard/page/a111?view=').$usid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-circle btn-danger btn-info btn-xs"><i class="fa fa-eye"></i></button></a>
+                                         &nbsp;-&nbsp;
+                                        <button title = "Print Order" onclick = "window.open('<?= site_url('order/printO1?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" type="button" class="btn btn-default btn-circle btn-info btn-xs"><i class="fa fa-print"></i></button>
+                                        &nbsp;-&nbsp;
+                                        <button type="button" title = "D.O Form" onclick = "window.open('<?= site_url('order/printDO1?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn btn-success btn-circle btn-xs"><i class="fa fa-truck"></i></button>
+                                        &nbsp;-&nbsp;   
+                                        <button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/Invoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');"  class="btn blue-dark btn-circle btn-xs" title="Invoice">Inv</button>
+                                        &nbsp;-&nbsp;   
+                                        <button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/dummyInvoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn c-btn-border-1x c-btn-blue-dark btn-circle btn-xs" title="Dummy Invoice">DInv</button>                                            
                                                             </td>
                                                     </tr>
 
@@ -400,10 +442,38 @@
 
 
                                                     <?php 
-                                                            }
+                                                            
                                                         }
                                                     } ?>
                                     </tbody>
+                                    <?php if (isset($page)) {?>
+                            <tfoot>
+                                <td colspan="7">
+                                <div class="col-md-5 col-sm-5">
+                                    <div class="dataTables_info" id="sample_1_info" role="status" aria-live="polite">Showing <?= ($page+1); ?> to <?= ($page+$row2); ?> of <?= $total2; ?> records</div>
+                                </div>
+                                <div class="col-md-7 col-sm-7" align="right">
+                                    <div class="dataTables_paginate paging_bootstrap_full_number" id="sample_1_paginate">
+                                        <ul class="pagination" style="visibility: visible;">
+                                        <?php
+                                        $prev = "";
+                                        $next = "";
+                                            if ($page == 0) {
+                                                $prev = "disabled";
+                                            }
+                                            if ($total2 <= ($page + 10)) {
+                                                $next = "disabled";
+                                            }
+                                        ?>
+                                            <li class="prev <?= $prev; ?>"><a <?php if($prev!="disabled"){ ?>href="<?= site_url('nasty_v2/dashboard/page/a62?page='.($page-10)."&e=2"); ?>"<?php } ?> title="Prev" ><i class="fa fa-angle-left"></i></a></li>                                            
+                                            <li class="next <?= $next; ?>"><a <?php if($next!="disabled"){ ?>href="<?= site_url('nasty_v2/dashboard/page/a62?page='.($page+10)."&e=2"); ?>"<?php } ?> title="Next"><i class="fa fa-angle-right"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                </td>
+                            </tfoot> 
+                            <?php 
+                            } ?>
                                  </table>    
                               
         </div>

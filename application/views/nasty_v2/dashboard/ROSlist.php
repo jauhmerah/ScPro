@@ -217,7 +217,7 @@
                                                 </div>
 
                                                 <div class="task-footer">
-                                                    <div class="task-date">Due: <?php 
+                                                    <div class="task-date">Date: <?php 
                                                                 $view = ( $user->or_date == null) ? "--Not Set--" :  date_format(date_create($user->or_date) , 'd-M-Y' ) ;
                                                                 echo $view ;
                                                                 ?></div>
@@ -303,7 +303,7 @@
                                                 </div>
 
                                                 <div class="task-footer">
-                                                    <div class="task-date">Due: <?php 
+                                                    <div class="task-date">Date: <?php 
                                                                 $view = ( $user->or_date == null) ? "--Not Set--" :  date_format(date_create($user->or_date) , 'd-M-Y' ) ;
                                                                 echo $view ;
                                                                 ?></div>
@@ -388,7 +388,7 @@
                                                 </div>
 
                                                 <div class="task-footer">
-                                                    <div class="task-date">Due: <?php 
+                                                    <div class="task-date">Date: <?php 
                                                                 $view = ( $user->or_date == null) ? "--Not Set--" :  date_format(date_create($user->or_date) , 'd-M-Y' ) ;
                                                                 echo $view ;
                                                                 ?></div>
@@ -495,7 +495,7 @@
                                                 </div>
 
                                                 <div class="task-footer">
-                                                    <div class="task-date">Due: <?php 
+                                                    <div class="task-date">Date: <?php 
                                                                 $view = ( $user->or_date == null) ? "--Not Set--" :  date_format(date_create($user->or_date) , 'd-M-Y' ) ;
                                                                 echo $view ;
                                                                 ?></div>
@@ -542,7 +542,9 @@
                                             if (sizeof($arr1) != 0) { 
                                                 foreach ($arr1 as $user) {
                                                     if ($user->pr_id == 12){
+                                                      if(strtotime('-12 day') < strtotime($user->or_date) ){
                                                         $orid = $this->my_func->scpro_encrypt($user->or_id);
+                                                    
                                                     $n++ ?>
                                             <div style="opacity: 1;" class="todo-task col-lg-11">
                                                 <div class="task-header">
@@ -581,7 +583,7 @@
                                                 </div>
 
                                                 <div class="task-footer">
-                                                    <div class="task-date">Due: <?php 
+                                                    <div class="task-date">Date: <?php 
                                                                 $view = ( $user->or_date == null) ? "--Not Set--" :  date_format(date_create($user->or_date) , 'd-M-Y' ) ;
                                                                 echo $view ;
                                                                 ?></div>
@@ -590,6 +592,7 @@
 
 
                                                     <?php 
+                                                              }
                                                             }   
                                                         }
                                                         if ($n==0){
@@ -666,7 +669,7 @@
                                                 </div>
 
                                                 <div class="task-footer">
-                                                    <div class="task-date">Due: <?php 
+                                                    <div class="task-date">Date: <?php 
                                                                 $view = ( $user->or_date == null) ? "--Not Set--" :  date_format(date_create($user->or_date) , 'd-M-Y' ) ;
                                                                 echo $view ;
                                                                 ?></div>

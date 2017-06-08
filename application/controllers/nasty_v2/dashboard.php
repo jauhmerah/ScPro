@@ -228,9 +228,6 @@
                             $vers = 1;
                         }
                         $arr['arr'] = array_shift($this->m_order->getList_ext($id, $vers));
-                        echo "<pre>";
-                        print_r($arr);
-                        echo "</pre>";
                         $data['title'] = '<i class="fa fa-pencil"></i>Edit Order Detail</a>';
                         $data['display'] = $this->load->view($this->parent_page.'/orderEdit1' ,$arr , true);
                         $this->_show('display' , $data , $key);
@@ -290,6 +287,10 @@
     				if ($lvl == 2 || $lvl == 3) {
                         redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
                     }
+                    else if($lvl == 5) {
+                            redirect(site_url('nasty_v2/dashboard/page/a62'),'refresh');
+                            
+                        }
                     if ($this->input->get('page')) {
                         $p = $this->input->get('page');
                     }else{
@@ -701,6 +702,16 @@ epul@nastyjuice.com
                     if ($this->input->get('mode')) {
                         $temp['mode'] = $this->input->get('mode');                 
                     }          */          
+                    if ($this->input->get('page')) {
+                        $p = $this->input->get('page');
+                    }else{
+                        $p = 0;
+                    } 
+                     if ($this->input->get('e')) {
+                        $e = $this->input->get('e');
+                    }else{
+                        $e = 0;
+                    }         
                     $this->load->database();
                     $this->load->library('my_func');
                     $this->load->library('my_flag');
@@ -760,14 +771,23 @@ epul@nastyjuice.com
                                 break;
                         }
                         if (isset($ver)) {
-                            $arr['arr1'] = $this->m_order->listOr($ver , null , null , 0 , $where);
+                            $arr['arr1'] = $this->m_order->listOrROS($ver , 8 , 9 , null , null , null , null , 0 , $where);
+                             $arr['arr2'] = $this->m_order->listOrROS($ver , 10 , 11 , 12 , 13 , null , null , 0 , $where);
                         }else{
-                            $arr['arr1'] = $this->m_order->listSearch(2 , null , null , 0 , $where);                        
+                            $arr['arr1'] = $this->m_order->listSearch(2 , null , null , 0 , $where);
+                            //$arr['arr2'] = $this->m_order->listOr($ver , null , null , 0 , $where);                        
                         }
                     } else {
-                        $ver = $this->m_order->orderCount(2);
-                        $arr['arr1'] = $this->m_order->listOr(2 , 10);
+                        $ver = $this->m_order->orderCountROS(2, 8 , 9, null , null);
+                        $ver2 = $this->m_order->orderCountROS(2, 10 , 11, 12 , 13 );
+                        //$ver = $this->m_order->orderCount(2);
+
+                        //$arr['arr1'] = $this->m_order->listOr(2 , 10 , $p);
+
+                        $arr['arr1'] = $this->m_order->listOrROS(2 , 8 , 9, null , null , 10 , $p);
+                        $arr['arr2'] = $this->m_order->listOrROS(2 , 10 , 11, 12 , 13 , 10 , $p);
                         $result1 = sizeof($arr['arr1']);
+                        $result2 = sizeof($arr['arr2']);
                         //$sizeA = 10 - $result1;
                         /*if ($sizeA != 0) {
                             $p1 = $p + 10 - $ver1;
@@ -780,9 +800,12 @@ epul@nastyjuice.com
                             $arr['arr'] = $this->m_order->listOr(0 , $p1 , $p2);
                             $result1 = $result1 + sizeof($arr['arr']);
                         }*/
-                        //$arr['page'] = $p;
+                        $arr['page'] = $p;
+                        $arr['e'] = $e;
                         $arr['total'] = $ver;
+                        $arr['total2'] = $ver2;
                         $arr['row'] = $result1;
+                        $arr['row2'] = $result2;
                         $arr['lvl'] = $this->m_order_process->getLvl(1);
                         $arr['lvl2'] = $this->m_order_process->getLvl(2);
                     }
@@ -1079,11 +1102,6 @@ epul@nastyjuice.com
                         $or_id = $this->my_func->scpro_decrypt($this->input->get('key'));
                         $this->load->database();
                         $this->load->model('m_order_item');
-                        $this->load->model('m_oie');
-                        echo "<pre>";
-                        print_r($arr);
-                        echo "</pre>";
-                        die();
                         if (isset($arr['idE'])) {
                             if (sizeof($arr['idE']) != 0) {
                                 for ($i=0; $i < sizeof($arr['idE']); $i++) { 
@@ -1094,20 +1112,6 @@ epul@nastyjuice.com
                                        'oi_tester' => $arr['testerE'][$i]
                                     );
                                     $this->m_order_item->update($temp , $oi_id);
-                                    if ($arr['testerE2'][$i] != null && $arr['testerE2'][$i] != 0) {
-                                        if (sizeof($this->m_oie->get(array("oi_id" => $oi_id) )) != 0) {
-                                            $this->m_oie->update(array("oi_tester2" => $arr['testerE2'][$i]) , array("oi_id" => $oi_id));
-                                        }else{
-                                            $this->m_oie->insert(array(
-                                                "oi_id" => $oi_id,
-                                                "oi_tester2" => $arr['testerE2'][$i]
-                                            ));
-                                        }
-                                    }else{
-                                        if (sizeof($this->m_oie->get(array("oi_id" => $oi_id))) != 0) {
-                                            $this->m_oie->delete(array("oi_id" => $oi_id));
-                                        }                                       
-                                    }
                                 }
                             }
                         }                        
@@ -1122,16 +1126,11 @@ epul@nastyjuice.com
                                         'oi_qty' => $arr['qty'][$i],
                                         'oi_tester' => $arr['tester'][$i]
                                     );
-                                    $oi_id = $this->m_order_item->insert($item);
-                                    if ($arr['tester2'][$i] != 0 && $arr['tester2'][$i] != null && $arr['tester2'][$i] != " ") {
-                                        $this->m_oie->insert(array(
-                                            "oi_id" => $oi_id,
-                                            "oi_tester2" => $arr['tester2'][$i]
-                                        ));
-                                    }
+                                    $this->m_order_item->insert($item);
                                 }
                             }
-                        }                        
+                        }
+                        
                         $this->load->model('m_order');                        
                         $order = array(
                             "or_note" => $arr['note'],
@@ -1181,6 +1180,7 @@ epul@nastyjuice.com
                             $this->load->model('m_client');
                             $arr['client'] = $this->m_client->insert($cl);
                         }
+
                         $order = array(
                             "cl_id" => $arr['client'],
                             "us_id" => $this->my_func->scpro_decrypt($this->session->userdata('us_id')),                            
@@ -1205,7 +1205,6 @@ epul@nastyjuice.com
                         $orex_id = $this->m_order_ext->insert($order_ext);                        
                         $this->load->model('m_order_item');
                         $sizeArr = sizeof($arr['itemId']);
-                        $this->load->model('m_oie');
                         for ($i=0; $i < $sizeArr ; $i++) { 
                             $item = array(
                                 'orex_id' => $orex_id,
@@ -1215,14 +1214,8 @@ epul@nastyjuice.com
                                 'oi_qty' => $arr['qty'][$i],
                                 'oi_tester' => $arr['tester'][$i]
                             );
-                            $oi_id = $this->m_order_item->insert($item);
-                            if ($arr['tester2'][$i] != 0 && $arr['tester2'][$i] != null && $arr['tester2'][$i] != " ") {
-                                $this->m_oie->insert(array(
-                                    "oi_id" => $oi_id,
-                                    "oi_tester2" => $arr['tester2'][$i]
-                                ));
-                            }
-                        }                        
+                            $this->m_order_item->insert($item);
+                        }
                         /*$this->load->model('m_shipping_note');
                         $shipping_note = array(
                             'sn_company' => $arr['sh_company'],
@@ -2103,9 +2096,7 @@ epul@nastyjuice.com
             $oi_id = $this->input->post('oi_id');
             $this->load->database();
             $this->load->model('m_order_item');
-            $this->load->model('m_oie');
             $row = $this->m_order_item->delete($oi_id);
-            $this->m_oie->delete(array('oi_id' => $oi_id));
             echo $row;
         }
 
@@ -2456,6 +2447,21 @@ epul@nastyjuice.com
             $this->load->model("m_picture");
             $arr['img'] = $this->m_picture->getPaid(array("ne_id" => $ne_id));
             echo $this->load->view('nasty_v2/dashboard/ajax/getAjaxImg', $arr , TRUE);
+        }
+
+        public function viewDelete()
+        {
+            $this->load->database();
+            $this->load->model('m_order' , 'ord');
+            $arr = array(
+                'order.or_date >=' => '2017-01-01 00:00:00',
+                'order.or_date <=' => '2017-04-01 00:00:00'
+            );
+            $data['data'] = $this->ord->getList_ext($arr , 2 , 0 , 0 , 1);            
+            $display['display'] = $this->load->view('nasty_v2/dashboard/delete' , $data , true);
+            $this->load->view('invoice/head1');
+            $this->load->view('invoice/body' , $display);
+            $this->load->view('invoice/head1');
         }
 	}
 	        

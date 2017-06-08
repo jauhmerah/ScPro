@@ -24,14 +24,14 @@ var chart = AmCharts.makeChart("<?= $box; ?>", {
     }],
     "startDuration": 1,
     "graphs": [{
-        "balloonText": "Net Sales [[category]] : <b>MYR [[value]]</b>",
+        "balloonText": "Net Sales [[category]] : <b>[[value]]</b>",
         "fillAlphas": 0.9,
         "lineAlpha": 0.2,
         "title": "Net Sales",
         "type": "column",
         "valueField": "net"
     }, {
-        "balloonText": "Approved Income [[category]] : <b>MYR [[value]]</b>",
+        "balloonText": "Approved Income [[category]] : <b>[[value]]</b>",
         "fillAlphas": 0.9,
         "lineAlpha": 0.2,
         "title": "Approved Income",

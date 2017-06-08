@@ -136,7 +136,7 @@
 					                                    			<th>Item Detail</th>
 					                                    			<th>Price</th>
 					                                    			<th>Qty</th>
-					                                    			<th colspan="2" class="text-center">Tester</th>
+					                                    			<th>Tester</th>
 					                                    		</tr>
 						                                    </thead>
 						                                    <tbody>
@@ -162,7 +162,7 @@
 																					<td><?= $key->oi_price; ?></td>
 																					<td><?= $key->oi_qty; ?></td>
 																					<td><?= $key->oi_tester; ?></td>
-																					<td><?php if(isset($key->oi_tester2)){ echo $key->oi_tester; }else{ echo '0';}?></td>
+																					
 																					</td>
 																				</tr>
 						                                    				</tr>
@@ -171,7 +171,7 @@
 						                                    		}
 						                                    		
 						                                    	?>
-						                                    	<td colspan="6">
+						                                    	<td colspan="5">
 					                                            		<textarea name="note" id="input" class="form-control input-circle input-lg" rows="2" placeholder="#Note" readonly><?= $arr['order']->or_note; ?></textarea>
 					                                            </td>
 						                                    </tbody>
@@ -203,6 +203,7 @@
 						                            	?></strong>	
 					                                </div>
 						                            </span>
+						                            
 						                        </div>
 						                        <div class="portlet-body">
 						                            <div class="table-responsive">
@@ -263,7 +264,7 @@
 					                                            	?></strong>					                                            		
 					                                            	</td>
 					                                            	<td colspan="2" align="right"><?php if($arr['order']->or_ver >= 2){?>
-					                 								<a href="<?= site_url('nasty_v2/invoice/Invoice?id='.$this->my_func->scpro_encrypt($arr['order']->or_id).'&ver=2'); ?>" target="_blank"> <button type="button" class="btn green" ><i class="fa fa-print"></i>&nbsp;&nbsp;Invoice</button></a><?php } ?>
+					                 <a href="<?= site_url('nasty_v2/invoice/Invoice?id='.$this->my_func->scpro_encrypt($arr['order']->or_id).'&ver=2'); ?>" target="_blank"> <button type="button" class="btn green" ><i class="fa fa-print"></i>&nbsp;&nbsp;Invoice</button></a><?php } ?>
 					                                            	</td>
 						                                        </tr>
 						                                        <tr>
@@ -293,7 +294,8 @@
 					                                            	?>	</strong>				                                            		
 					                                            	</td>
 					                                            	<td colspan="2" align="right"><?php if($arr['order']->or_ver >= 2){?>	
-					       <a href="<?= site_url('nasty_v2/invoice/dummyInvoice?id='.$this->my_func->scpro_encrypt($arr['order']->or_id).'&ver=2'); ?>" target="_blank"> <button type="button" class="btn blue" ><i class="fa fa-print"></i>&nbsp;&nbsp;Dummy Invoice</button></a> <?php } ?>					                                            		
+					       <a href="<?= site_url('nasty_v2/invoice/dummyInvoice?id='.$this->my_func->scpro_encrypt($arr['order']->or_id).'&ver=2'); ?>" target="_blank"> <button type="button" class="btn blue" ><i class="fa fa-print"></i>&nbsp;&nbsp;Dummy Invoice</button></a> <?php } ?>
+					                                            		
 					                                            	</td>
 						                                        </tr>	                                        
 						                                    </tbody>
