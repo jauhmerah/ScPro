@@ -187,7 +187,7 @@
                     <td><span class="label bg-yellow-gold bg-font-yellow-gold">Gold</span></td>
                 </tr>
                 <tr>
-                    <td>RM 15.96</td>
+                    <td>RM 15.95</td>
                     <td>81 <i class="fa fa-arrow-right"></i> 100</td>
                     <td><span class="label bg-dark bg-font-dark">Platinum</span></td>
                 </tr>

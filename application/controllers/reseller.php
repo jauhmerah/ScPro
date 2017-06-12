@@ -52,11 +52,10 @@
     			case 'b11':
                     $this->load->library('my_func');
                     if ($this->my_func->de($this->input->post('key') , 1) == 'betul') {
-                        $this->load->database();
-                        $this->load->model('m_state');                        
-                        $this->load->model('m_type2', 'mty2');
-                        $arr['state'] = $this->m_state->get();                        
+                        $this->load->database();                       
+                        $this->load->model('m_type2', 'mty2');                       
                         $temp = $this->input->post();
+
                         $arr['qty'] = $temp['qty'];                    
                         // Double Check Order Quantity limitation.
                         $tQty = 0;
@@ -78,7 +77,7 @@
                             }elseif ($tQty >= 61 && $tQty <= 80) {
                                 $arr['price'] = 16.45;
                             }else{
-                                $arr['price'] = 15.96;
+                                $arr['price'] = 15.95;
                             }
                         }
                         if ($m) {
@@ -86,16 +85,18 @@
                             break;
                         }
                         // Round off decimal
-                            
+                        // not yet
                         // End Round off decimal
                         // End Double Check Order Quantity limitation.
                         $berat = 0;
                         for ($i=0; $i < sizeof($temp['id']); $i++) { 
                             $arr['data'][$i] = array_shift($this->mty2->getItem($this->my_func->scpro_decrypt($temp['id'][$i])));
-                            $berat += (int)($arr['data'][$i]->ty2_weight * $arr['qty'][$i]);                            
+                            $berat += (int)($arr['data'][$i]->ty2_weight * $arr['qty'][$i]); 
+                            $temp['qty'][$i] = $this->my_func->en($temp['qty'][$i]);                   
                         }
                         // Get total Shipping price
                         $arr['shippingPrice'] = $this->_shippingPrice($berat);
+                        $temp['shippingPrice'] = $this->my_func->scpro_encrypt($arr['shippingPrice']);
                         $this->load->model('m_address');
                         $where = array( "us_id" => $this->my_func->scpro_decrypt($this->session->userdata('us_id')));
                         $arr['address']= $this->m_address->getBy($where);
@@ -106,6 +107,10 @@
                     }               	
     			case 'b1':
     				$data['title'] = '<i class="fa fa-cart-plus"></i> Add Order';
+                    $this->session->unset_userdata('key');
+                    $this->session->unset_userdata('qty');                    
+                    $this->session->unset_userdata('shippingPrice');
+                    $this->session->unset_userdata('sub_tot');
     				$this->load->library('my_func');
     				$this->load->database();
     				$this->load->model("m_category" , 'm_cat');
@@ -332,9 +337,6 @@
                         $this->_show('display' , $data , $key);
                         //$this->_show('staffView' , $data , $key);
                     break;
-                     
-                     
-
     			default:
     				$this->_show();
     				break;
@@ -635,7 +637,7 @@
                 }elseif ($qty > 60 && $qty <= 80) {
                     echo "16.45";
                 }elseif ($qty > 80 && $qty <= 100) {
-                    echo "15.96";
+                    echo "15.95";
                 }else{
                     echo "-1";
                 }

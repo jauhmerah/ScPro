@@ -105,8 +105,15 @@
 		        		</tr>		        		
 		        	</tbody>
 		        	<tfoot >
-		        		<tr >
-		        			<td colspan="2"><span class="font-xs">Subtotal</span><span class="font-xs pull-right">RM <strong><?= number_format((float)$tot, 2, '.', '');?></strong></span></td>		        		
+		        		<tr ><?php 
+		        		$tot = number_format((float)$tot, 2, '.', '');
+		        		$a = array(
+		        			'sub_tot' => $this->my_func->scpro_encrypt($tot)
+		        		);		        		
+		        		$this->session->set_userdata( $a );
+		        		unset($a);
+		        		?>
+		        			<td colspan="2"><span class="font-xs">Subtotal</span><span class="font-xs pull-right">RM <strong><?= $tot ;?></strong></span></td>		        		
 		        		</tr>
 		        		<tr>
 		        			<td class="font-green-jungle" colspan="2" ><span class="font-xs">Shipping Fee</span><span class="font-xs pull-right">Rm <?= number_format((float)$shippingPrice, 2, '.', '');?></span></td>
@@ -131,6 +138,7 @@
 			<div align="center"><span class="font-sm">Need Help? <a href="mailto:custumerservice@nastyjuice.com">custumerservice@nastyjuice.com</a></span></div>
 		</div>
 	</div>
+	<pre><?= print_r($this->session->all_userdata()) ?></pre>
 </div>			
 </div>
 <script type = "text/javascript">
