@@ -1,83 +1,27 @@
-<style type="text/css">
-	*, *:before, *:after {box-sizing:  border-box !important;}
+<?php 
+	include "./asset/maybank/m2upay_backend/M2UPay.php";
+	use M2U\M2UPay;
 
+	//Pass in required parameters 
+	$m2u_json= array(
+	  'amount'=> 100.00,
+	  'accountNumber'=>"A12345", //This “accountNumber” field is for you to pass the purchase ref number / invoice number/ bill number. Maybank will pass the same purchase ref number / invoice number/ bill number back to you (under parameters 'AcctId') to match the transaction status when Maybank send you the  Realtime Payment Notification (RPN).  
+	  'payeeCode'=>"123456"
+	);
 
-.rowMasory {
- -moz-column-width: 18em;
- -webkit-column-width: 18em;
- -moz-column-gap: 1em;
- -webkit-column-gap:1em; 
-  
-}
+	$envType = 0; 
+	$M2UPay = new M2UPay();
+	$encrypt_json = $M2UPay->getEncryptionString($m2u_json, $envType);
 
-.item {
- display: inline-block;
- padding:  .25rem;
- width:  100%; 
-}
+?>
 
-.well {
- position:relative;
- display: block;
-}
-</style>
+<div id="m2upay"></div>
 
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-	
-<div class="container">
-  <h1>Masonry CSS with Bootstrap</h1>
-<div class="row">
-    <div class="item">
-      <div class="well"> 
-        1 blah blah blah
-      </div>
-    </div>
- 	<div class="item">
-        <div class="well"> 
-        2 blah blah blah blah blah blah blah blah blah blah blah blahblah blah blah blah blah blah
-        </div>
-    </div>
-    <div class="item">
-        <div class="well"> 
-        3 blah blah blah blah blah blah blah blah h
-        </div>
-    </div>
-    <div class="item">
-        <div class="well">
-        blah blah blah blah 
-        </div>
-    </div>
-    <div class="item">
-        <div class="well"> 
-          blah blah blah. The container inside the item must be position:relative
-        </div>
-    </div>
- 	<div class="item">
-        <div class="well"> 
-        blah blah blah blah blah blah blah blah blah blah blah blahblah blah blah blah blah blah
-        </div>
-    </div>
-    <div class="item">
-        <div class="well">
-        blah blah blah blah blah blah blah blah h
-        </div>
-    </div>
-    <div class="item">
-        <div class="well"> 
-        blah blah blah blah
-        </div>
-    </div>
-    <div class="item">
-        <div class="well"> 
-        blah blah blah blah blah blah blah blah blah blah blah blah
-        </div>
-    </div>
-    <div class="item">
-        <div class="well"> 
-          blah blah blah. The container inside the item must be position:relative
-        </div>
-    </div>
-</div>
-</div>
+<script type="text/javascript" src="<?= base_url('asset/maybank/m2upay_frontend'); ?>/m2upay_frontend.js"></script>
 
-</div>
+<script>
+  //TO BE PASS FROM getEncryptionString function.
+  var encrypt_json = <?php echo $encrypt_json; ?>
+
+  m2upay.initPayment(encrypt_json.encryptedString,encrypt_json.actionUrl, 'OT');
+</script>

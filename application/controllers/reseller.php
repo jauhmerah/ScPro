@@ -43,12 +43,24 @@
             $this->page('a1');
         }
 
+        public function test()
+        {
+            $this->load->view($this->parent_page."/test");
+        }
+        public function test1()
+        {
+            $this->load->view($this->parent_page."/test1");
+        }
+
 	    public function page($key)
     	{
     		//$arr = $this->input->get();
     		$this->_checkSession();
             $lvl =$this->my_func->scpro_decrypt($this->session->userdata('us_lvl'));
     		switch ($key) {
+                case 'b12':
+                    
+                    break;
     			case 'b11':
                     $this->load->library('my_func');
                     if ($this->my_func->de($this->input->post('key') , 1) == 'betul') {
