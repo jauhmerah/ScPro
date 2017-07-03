@@ -189,12 +189,17 @@ body .ReadOnlyExtrasStatus {
       <strong>NSTY WORLDWIDE SDN BHD</strong>
       
         <div class="contemporary-template__header__info__address">
-          
-      Lot 139, 1st Floor, Jalan Besar Tampin,<br>
+      
+        P.O 545235 1st Floor Building<br>
+        346 Road 1705 Block 317 Diplomatic Area,<br>
+        Manama Bahrain.<br>
+
+
+    <!--   Lot 139, 1st Floor, Jalan Besar Tampin,<br>
       Tampin,
       Negeri Sembilan  73000<br>
       Malaysia<br>
-
+ -->
 
     <br>
 

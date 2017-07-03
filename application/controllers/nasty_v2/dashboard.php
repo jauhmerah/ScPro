@@ -1620,7 +1620,7 @@ epul@nastyjuice.com
                         $where = array('7' , '8' , '9' , '1');
                     }
                     if ($lvl == 9) {
-                        $where = array('2' , '3' , '5' , '1');
+                        $where = array('2' , '3' , '5' , '1', '6', '8', '4');
                     }
                     $arr['lvl'] = $this->m_user->getLvl($where);
     				$data['display'] = $this->load->view($this->parent_page.'/addStaff' ,$arr , true);

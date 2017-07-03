@@ -1,6 +1,6 @@
 <style type="text/css">
 	body {
-		background-image: url("<?= base_url();?>asset/slider/bg3.jpg");
+		background-image: url("<?= base_url();?>asset/slider/bg5.jpg");
 		background-repeat: no-repeat;
 	    background-attachment: fixed;
 	    background-position: center; 

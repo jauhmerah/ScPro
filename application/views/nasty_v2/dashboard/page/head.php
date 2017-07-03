@@ -49,6 +49,6 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-- Flag Css -->
         <link href="<?= base_url(); ?>asset/flags/flags.css" rel="stylesheet" type="text/css">
         <!-- End Flag Css -->
-        <link rel="icon" href="<?= base_url(); ?>assets/cover/favicon2.png"> 
+        <link rel="icon" href="<?= base_url(); ?>assets/cover/Drizz Logo2.png"> 
         <script src="<?= base_url(); ?>asset/js/jquery-1.11.1.js"></script>        <script src="<?= base_url(); ?>asset/js/bootstrap.min.js"></script>
     </head><!-- END HEAD -->

@@ -101,7 +101,7 @@
 			}else{
 				$("."+temp).show('slow');
 			}			
-			//alert("jadi");
+	
 		});
 
 

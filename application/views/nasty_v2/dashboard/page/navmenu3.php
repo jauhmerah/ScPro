@@ -32,7 +32,7 @@
                     </li>
                     <?php } ?>
                         <?php if($us_lvl != 3 && $us_lvl != 6 && $us_lvl != 7){?>
-                        <li class="nav-item <?php if (strpos($link, 'a1') !== false) { echo $active;}else{echo "start";}?>  ">
+                        <li class="nav-item <?php if (strpos($link, 'a1') !== false || strpos($link, 'z1') !== false) { echo $active;}else{echo "start";}?>  ">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <i class="fa fa-cart-plus"></i>
                                 <span class="title"><i class="fa fa-money"></i> Sales Section</span>
@@ -112,7 +112,7 @@
                             </ul>
                         </li><?php } ?>
                         <?php if($us_lvl != 6 && $us_lvl != 7 && $us_lvl != 3 && $us_lvl != 8 && $us_lvl != 10){?>
-                        <li class="nav-item start ">
+                        <li class="nav-item start <?php if (strpos($link, 'a4') !== false) { echo "active open";}else{echo "start";}?>">
                             <a href="<?= site_url('nasty_v2/dashboard/page/a4') ?>" class="nav-link ">
                                 <i class="fa fa-group"></i>
                                 <span class="title">Client List</span>
