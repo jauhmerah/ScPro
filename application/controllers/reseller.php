@@ -59,7 +59,15 @@
             $lvl =$this->my_func->scpro_decrypt($this->session->userdata('us_lvl'));
     		switch ($key) {
                 case 'b12':
-                    
+                    echo "<pre>";
+                    print_r($this->input->post());
+                    print_r($this->session->all_userdata());
+                    echo "</pre>";
+                    $form = $this->input->post();
+                    $itemId = $this->session->userdata('id');
+                    //$this->session->unset_userdata('id');
+                    $itemQty = $this->session->userdata('qty');
+                    //$this->session->unset_userdata('qty');
                     break;
     			case 'b11':
                     $this->load->library('my_func');
@@ -67,7 +75,6 @@
                         $this->load->database();                       
                         $this->load->model('m_type2', 'mty2');                       
                         $temp = $this->input->post();
-
                         $arr['qty'] = $temp['qty'];                    
                         // Double Check Order Quantity limitation.
                         $tQty = 0;
@@ -677,7 +684,10 @@
 
         public function getAjaxAddShipment()
         {
-            echo $this->load->view($this->parent_page."/getAjax/getAjaxCOAddress", '', false);
+            $this->load->database();
+            $this->load->model('m_state');
+            $data['state'] = $this->m_state->get();
+            echo $this->load->view($this->parent_page."/getAjax/getAjaxCOAddress",$data , true);
         }
 	}
 ?>

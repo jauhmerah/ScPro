@@ -6,6 +6,8 @@
 		</div>
 		<div class="panel-body">
 			<div class="col-md-8">
+				
+				<form action="<?= site_url('reseller/page/b12') ?>" id='myform' method="POST" role="form">
 				<div class="row">
 				<div class="col-xs-12">					
 				<!-- Billing Address -->
@@ -15,7 +17,7 @@
 						}else{
 							$add_id = $address[0]->add_id;
 						}
-					?>
+					?>					
 					<input type="hidden" name="add_id" id="add_id" class="form-control" value="<?= $this->my_func->en($add_id , 1); ?>" data-tr = "tr0">
 					<table class="table table-condensed table-hover table-bordered table-striped">
 			        	<thead>
@@ -53,6 +55,7 @@
 			        		</tr>
 			        	</tbody>
 			        </table>
+					
 			    <!-- End Billing Address -->
 		        </div>
 				</div>
@@ -60,9 +63,9 @@
 		        			        	
 		        </div>
 		        <div class="row"><div class="col-xs-12">
-		        	<button type="button" class="btn btn-success yellow-gold btn-circle">Continue</button>
-		        </div></div>                                 
-			</div>
+		        	<button type="button" class="btn btn-success yellow-gold btn-circle" onclick="javascript : $('#myform').submit();">Continue</button>
+		        </div></div>                                
+			</div></form> 
 			<div class="col-md-4">
 				<!-- Order Summary -->
 				<div class="row">
@@ -135,7 +138,7 @@
 			</div>
 		</div>
 		<div class="panel-footer">
-			<div align="center"><span class="font-sm">Need Help? <a href="mailto:custumerservice@nastyjuice.com">custumerservice@nastyjuice.com</a></span></div>
+			<div align="center"><span class="font-sm">Need Help? <a href="mailto:custumerservice@nastyjuice.com">customerservice@nastyjuice.com</a></span></div>
 		</div>
 	</div>
 	<pre><?= print_r($this->session->all_userdata()) ?></pre>
