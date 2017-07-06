@@ -4,12 +4,12 @@
                                     <form role="form">
                                         <div class="form-body">
                                             <div class="form-group">
-                                                <label>Name</label>
+                                                <label>Company Name</label>
                                                 <div class="input-group ">
                                                     <span class="input-group-addon input-circle-left">
                                                         <i class="fa fa-user "></i>
                                                     </span>
-                                                    <input name="name" type="text" class="input-sm form-control input-circle-right" placeholder="Name" required="required"> </div>
+                                                    <input name="company_name" type="text" class="input-sm form-control input-circle-right" placeholder="Name" required="required"> </div>
                                             </div>
                                         	<div class="form-group">
                                                 <label>Address</label>

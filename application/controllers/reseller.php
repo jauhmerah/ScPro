@@ -45,29 +45,39 @@
 
         public function test()
         {
-            $this->load->view($this->parent_page."/test");
-        }
-        public function test1()
-        {
-            $this->load->view($this->parent_page."/test1");
+            $this->load->view($this->parent_page."/orderInvoice");
         }
 
 	    public function page($key)
     	{
     		//$arr = $this->input->get();
     		$this->_checkSession();
-            $lvl =$this->my_func->scpro_decrypt($this->session->userdata('us_lvl'));
+            $lvl = $this->my_func->scpro_decrypt($this->session->userdata('us_lvl'));
     		switch ($key) {
                 case 'b12':
                     echo "<pre>";
                     print_r($this->input->post());
                     print_r($this->session->all_userdata());
                     echo "</pre>";
+                    $this->load->library('my_func');
                     $form = $this->input->post();
-                    $itemId = $this->session->userdata('id');
-                    //$this->session->unset_userdata('id');
-                    $itemQty = $this->session->userdata('qty');
-                    //$this->session->unset_userdata('qty');
+                    if ($this->my_func->de($this->session->userdata('key') , 1) === 'betul') {
+                        $itemId = $this->session->userdata('id');
+                        //$this->session->unset_userdata('id');
+                        $itemQty = $this->session->userdata('qty');
+                        //$this->session->unset_userdata('qty');
+                        $shippingPrice = $this->my_func->scpro_decrypt($this->session->userdata('shippingPrice'));
+                        //$this->session->unset_userdata('shippingPrice');
+                        $sub_tot = $this->session->userdata('sub_tot');
+                        //$this->session->unset_userdata('sub_tot');
+                        $us_id = $this->my_func->scpro_decrypt($this->session->userdata('us_id'));                        
+                        if ($form['add_id'] == -1) {
+                            
+                        }else{
+                            $add_id = $this->my_func->de($form['add_id'] , 1); 
+                        }
+                        echo $this->my_func->de($this->session->userdata('key') , 1);
+                    }                    
                     break;
     			case 'b11':
                     $this->load->library('my_func');
