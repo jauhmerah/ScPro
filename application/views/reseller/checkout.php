@@ -36,10 +36,11 @@
 			        			<span class="font-green"><button class="btn btn-circle btn-xs"><i class="fa fa-check"></i></button></span><?php } ?></td>
 			        			<td>
 				        			<strong><?= $key->company_name; ?></strong><br>
+				        			<?= $key->add_mnum; ?><br>
 				        			<?= $key->address; ?><br>
 				        			<?= $key->town; ?>
-				        			<?= $key->poscode; ?><br>
-				        			<?= $key->state_name; ?>
+				        			<?= $key->postcode; ?><br>
+				        			<?= $key->state_name; ?>				        			
 			        			</td>
 			        		</tr>
 			        	<?php 
@@ -63,7 +64,7 @@
 		        			        	
 		        </div>
 		        <div class="row"><div class="col-xs-12">
-		        	<button type="button" class="btn btn-success yellow-gold btn-circle" onclick="javascript : $('#myform').submit();">Continue</button>
+		        	<button type="submit" class="btn btn-success yellow-gold btn-circle">Continue</button>
 		        </div></div>                                
 			</div></form> 
 			<div class="col-md-4">

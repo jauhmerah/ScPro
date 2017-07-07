@@ -1,7 +1,6 @@
 <div class="col-md-12">
 		        		<div class="portlet light">                                
                                 <div class="portlet-body form">
-                                    <form role="form">
                                         <div class="form-body">
                                             <div class="form-group">
                                                 <label>Company Name</label>
@@ -10,6 +9,14 @@
                                                         <i class="fa fa-user "></i>
                                                     </span>
                                                     <input name="company_name" type="text" class="input-sm form-control input-circle-right" placeholder="Name" required="required"> </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Phone Number</label>
+                                                <div class="input-group ">
+                                                    <span class="input-group-addon input-circle-left">
+                                                        <i class="fa fa-user "></i>
+                                                    </span>
+                                                    <input name="mnum" type="number" class="input-sm form-control input-circle-right" placeholder="Phone Number" required="required"> </div>
                                             </div>
                                         	<div class="form-group">
                                                 <label>Address</label>
@@ -52,7 +59,6 @@
                                     			</div>
                                             </div>
                                         </div>
-                                    </form>
                                 </div>
                             </div>
 		        	</div>

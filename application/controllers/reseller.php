@@ -58,7 +58,7 @@
                     echo "<pre>";
                     print_r($this->input->post());
                     print_r($this->session->all_userdata());
-                    echo "</pre>";
+                    echo "</pre>";die();
                     $this->load->library('my_func');
                     $form = $this->input->post();
                     if ($this->my_func->de($this->session->userdata('key') , 1) === 'betul') {
@@ -68,14 +68,31 @@
                         //$this->session->unset_userdata('qty');
                         $shippingPrice = $this->my_func->scpro_decrypt($this->session->userdata('shippingPrice'));
                         //$this->session->unset_userdata('shippingPrice');
-                        $sub_tot = $this->session->userdata('sub_tot');
+                        $sub_tot = $this->my_func->scpro_decrypt($this->session->userdata('sub_tot'));
                         //$this->session->unset_userdata('sub_tot');
+                        $price = $this->my_func->scpro_decrypt($this->session->userdata('p'));
                         $us_id = $this->my_func->scpro_decrypt($this->session->userdata('us_id'));                        
                         if ($form['add_id'] == -1) {
-                            
+                            $add = array(
+                                'company_name' => $form['company_name'],
+                                'address' => $form['address'],
+                                'town' => $form['city'],
+                                'postcode' => $form['postcode'],
+                                'state' => $form['state'],
+                                'add_mnum' => $form['mnum']
+                            );
+                            $this->load->model('m_address');
+                            $add_id = $this->m_address->insert($add);
                         }else{
                             $add_id = $this->my_func->de($form['add_id'] , 1); 
                         }
+                        $order = array(
+                            'add_id' => $add_id,
+                            'us_id' => $us_id,
+                            'or_totalPrice' => $sub_tot,
+                            'or_shipping_price' => $shippingPrice
+                            'or_price' => $price
+                        );
                         echo $this->my_func->de($this->session->userdata('key') , 1);
                     }                    
                     break;
@@ -112,7 +129,10 @@
                         if ($m) {
                             redirect(site_url('reseller/page/b1'),'refresh');
                             break;
-                        }
+                        }                        
+                        $this->session->set_userdata(array(
+                            'p' => $this->my_func->scpro_encrypt($arr['price'])
+                        ));
                         // Round off decimal
                         // not yet
                         // End Round off decimal
