@@ -33,6 +33,7 @@
 	                $this->db->where(self::PRI_INDEX, $where);
 	            }
 	        }
+	        $this->db->join('state st', 'st.state_id = address.state', 'left');
 	        $result = $this->db->get()->result();
 	        if ($result) {
 	            if ($where !== NULL) {

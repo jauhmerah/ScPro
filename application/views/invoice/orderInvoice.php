@@ -129,22 +129,13 @@ body .ReadOnlyExtrasStatus {
 </style>
 
 
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>OrdYs v2.3.0 Alpha</title>
-
-		<!-- Bootstrap CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-	</head>
-	<body style="background-color:#EAEDED">
+<body style="background-color:#EAEDED">
 
 
 
-
+<pre>
+  <?= print_r($arr); ?>
+</pre>
 
 <div class="readonly-payment-information__nav-actions">
                   
@@ -204,31 +195,14 @@ body .ReadOnlyExtrasStatus {
 
 
   <div class="contemporary-template__divider contemporary-template__divider--full-width"></div>
-
-  <?php switch ($arr['order']->cu_id) {
-    case '1':
-      $duit = "MYR";
-      break;
-    case '2':
-      $duit = "USD";
-      break;
-    case '3':
-      $duit = "GBP";
-      break;
-    
-    default:
-      $duit = "Currency Error!!!<br>";
-      break;
-  } ?>
+  
   <section class="contemporary-template__metadata">
     <div class="pull-left">
       <div class="contemporary-template__metadata__customer--billing">
         <div class="contemporary-template__metadata__customer__address-header">BILL TO :</div>
-        <strong><?= $arr['order']->cl_name; ?></strong>
-        
+        <strong><?= $arr['order']->us_fname; ?> <?= $arr['order']->us_lname; ?></strong>        
           <div class="contemporary-template__metadata__customer__address">
   			<br>
-
 				  <table style="width:200px;">
         <tr>
         <td>
@@ -363,7 +337,7 @@ body .ReadOnlyExtrasStatus {
 <script>
 
     
-	 	window.print();
+	 	//window.print();
 
 	
 	</script>

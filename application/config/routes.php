@@ -40,8 +40,7 @@
 
 $route['default_controller'] = "order";
 $route['404_override'] = '';
-$route['cachecontroller'] = 'Cache_controller'; 
-$route['cachecontroller/delete'] = 'Cache_controller/delete_file_cache';
+$route['invoice'] = "invoice/Invoice";
 
 
 /* End of file routes.php */

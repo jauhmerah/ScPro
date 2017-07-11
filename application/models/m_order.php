@@ -186,7 +186,7 @@
 	    	return $result;
 	    }
 
-	    public function getList_ext($where = null ,$ver = 0, $up = 0 , $process = 0 , $del = -1)
+	    public function getDetail($where = null ,$ver = 0, $up = 0 , $process = 0 , $del = -1)
 	    {
 	    	$this->db->select('*');
 	        $this->db->from(self::TABLE_NAME);
@@ -204,8 +204,8 @@
 	    	}
 	    	$this->db->where(self::TABLE_NAME.'.or_ver', $ver);
 	    	$this->db->join('process pr', self::TABLE_NAME.'.pr_id = pr.pr_id', 'left');	    	
-	       	$this->db->join('client', self::TABLE_NAME.'.cl_id = client.cl_id', 'left');
-	       	$this->db->join('order_ext' , self::TABLE_NAME.'.or_id = order_ext.or_id' , 'left');
+	       	$this->db->join('user', self::TABLE_NAME.'.us_id = user.us_id', 'left');	       	
+			$this->db->join('address ad', self::TABLE_NAME.'.add_id = ad.add_id', 'left');       	
 	       	if ($process !== 0) {
 	       		$this->db->where(self::TABLE_NAME.'.pr_id', $process);
 	       	}	       	
@@ -216,30 +216,19 @@
 	    	 	case 1:
 	    	 		$this->db->where(self::TABLE_NAME.'.or_del', 1);
 	    	 		break;
-	    	 } 
+	    	} 
 	        $result = $this->db->get()->result();
-	        //return $result;
 	        $data = array();
 	        foreach ($result as $key) {
 				$this->db->select('*');
-				if ($ver == 0) {
-				 	$this->db->from('order_note');
-				} else {
-				 	$this->db->from('order_item oi');
-				 	$this->db->join('type2 ty2', 'ty2.ty2_id = oi.ty2_id', 'left');
-				 	$this->db->join('category ca', 'ca.ca_id = ty2.ca_id', 'left');
-				 	$this->db->join('nicotine nic', 'nic.ni_id = oi.ni_id', 'left');
-				 	$this->db->order_by('ty2.ca_id', 'asc');
-				}
-				$this->db->where('orex_id', $key->orex_id); 
+			 	$this->db->from('order_item oi');
+			 	$this->db->join('type2 ty2', 'ty2.ty2_id = oi.ty2_id', 'left');
+			 	$this->db->join('category ca', 'ca.ca_id = ty2.ca_id', 'left');
+			 	$this->db->join('nicotine nic', 'nic.ni_id = oi.ni_id', 'left');
+			 	$this->db->order_by('ty2.ca_id', 'asc');				
+				$this->db->where('or_id', $key->or_id); 
 				$res2 = $this->db->get()->result();
-				$this->db->select("us_username");
-				$this->db->from('user');
-				$this->db->where('us_id', $key->us_id);
-				$res3 = $this->db->get()->result();
-				$res3 = array_shift($res3);
 				$data[] = array(
-					'staff' => $res3,
 					'order' => $key,
 					'item' => $res2
 				);

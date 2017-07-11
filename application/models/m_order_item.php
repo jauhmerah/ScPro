@@ -33,13 +33,10 @@ class M_order_item extends CI_Model {
                 $this->db->where(self::PRI_INDEX, $where);
             }
         }
+        $this->db->join('type2 ty2', 'ty2.ty2_id = order_item.ty2_id', 'left');
         $result = $this->db->get()->result();
         if ($result) {
-            if ($where !== NULL) {
-                return array_shift($result);
-            } else {
                 return $result;
-            }
         } else {
             return false;
         }
