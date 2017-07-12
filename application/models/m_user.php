@@ -46,12 +46,11 @@
 	    }
 	    public function getName($id = null)
 	    {
-	    	$this->db->select('us_username');
+	    	$this->db->select('us_fname , us_lname , us_email , us_phone');
 	    	$this->db->from('user');
 	    	$this->db->where('us_id', $id);
 	    	$result = $this->db->get()->result();
-	    	$result = array_shift($result);
-	    	return $result->us_username;
+	    	return array_shift($result);
 	    }
 
 	    public function getLvl(){

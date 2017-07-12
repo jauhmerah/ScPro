@@ -132,11 +132,6 @@ body .ReadOnlyExtrasStatus {
 <body style="background-color:#EAEDED">
 
 
-
-<pre>
-  <?= print_r($arr); ?>
-</pre>
-
 <div class="readonly-payment-information__nav-actions">
                   
   <?php
@@ -206,13 +201,13 @@ body .ReadOnlyExtrasStatus {
 				  <table style="width:200px;">
         <tr>
         <td>
-         <?= $arr['order']->cl_address; ?>
+         <?= $arr['order']->address; ?>
          </td>
          </tr>
          </table>
           <br>
-          <?= $arr['order']->cl_tel; ?><br>
-         <?= $arr['order']->cl_email; ?><br>
+          <?= $arr['order']->us_phone; ?><br>
+         <?= $arr['order']->us_email; ?><br>
 				</div>
         
       </div>
@@ -227,13 +222,13 @@ body .ReadOnlyExtrasStatus {
           </td>
           <td></td>
           <td class="wv-table__cell" style="text-align: right;">
-            <span> <?= "INV-".$or_code; ?></span><br>
+            <span> <?= "MY-".$or_code.'-INV'; ?></span><br>
           </td>
         </tr>
         
         <tr class="wv-table__row">
           <td class="wv-table__cell" style="text-align: right;">
-            <strong class="wv-text--strong">Invoice Date : </strong>
+            <strong class="wv-text--strong">Invoice Created Date : </strong>
           </td>
           <td></td>
           <td class="wv-table__cell" style="text-align: right;">
@@ -242,18 +237,21 @@ body .ReadOnlyExtrasStatus {
           ?>
             <span><?= date_format($temp,"Y-m-d"); ?></span><br>
           </td>
-        </tr>
-        <tr class="wv-table__row">
-          <td class="wv-table__cell" style="text-align: right;">
-            <strong class="wv-text--strong">Sales Person : </strong>
-          </td>
-          <td></td>
-          <td class="wv-table__cell" style="text-align: right;">          
-            <span><?= $arr['staff']->us_username; ?></span><br>
-          </td>
-        </tr>
-     
+        </tr>        
       </table>
+      <h3>Payment Details:</h3>
+            <ul class="list-unstyled">
+                <li>
+                    <a href="http://www.maybank2u.com.my/" target="_blank"><img src="<?= base_url('asset/maybank/maybank2u_logo.png'); ?>" class="img-responsive" alt="Image"></a>
+                <li>
+                    <strong>Recipient Ref: </strong>MY-<?= $or_code; ?> </li>
+                <li>
+                    <strong>Recipient Bank: </strong>Maybank Bank Berhad </li>
+                <li>
+                    <strong>Account Number: </strong>45454DEMO545DEMO </li>
+                <li>
+                    <strong>Account Name: </strong>Nsty Worldwide </li>
+            </ul>      
    </div>
   </section>
 <div class="clear" style="height: 100px;"></div>
@@ -262,10 +260,9 @@ body .ReadOnlyExtrasStatus {
     <table class="table">
       <thead style="background-color: #FFFFFF;">
         <tr>
-          <th colspan="8" style="color: #000000;" align="center">Item Details</th>
+          <th style="color: #000000;" align="center">Item Details</th>
           <th style="color: #000000;" align="center">Quantity</th>
-          <th style="color: #000000;" align="center">Price</th>
-          <th style="color: #000000;">Tester</th> 
+          <th style="color: #000000;" align="center">Price</th> 
           <th style="color: #000000;" align="center">Amount</th>
         </tr>
       </thead>
@@ -274,29 +271,25 @@ body .ReadOnlyExtrasStatus {
           if (!isset($arr)) {
           ?>
          <tr>
-          <td colspan="11" align="center">-- No Data--</td>
+          <td align="center">-- No Data--</td>
           </tr>
           <?php
           } else {  
               $n = 0;
               $total_all=0.0;
               foreach ($arr['item'] as $key) {
-                
-              
               $n++;
-             
             ?>
 
          <tr>
-          <td colspan="8" style="color: #000000;">
+          <td style="color: #000000;">
           	<strong><?= $key->ty2_desc; ?></strong>
           	<br>
 			     <?= $key->ca_desc; ?> | <?= $key->ni_mg; ?>mg
           </td>
-          <td colspan="1" style="color: #000000;" style="width:60px;"><?= $key->oi_qty; ?></td>
-          <td colspan="1" style="color: #000000;" style="width:60px;"><?= $key->oi_price; ?></td>
-          <td colspan="1" style="color: #000000;" style="width:60px;"><?= $key->oi_tester; ?></td>
-          <td colspan="1" style="color: #000000;" style="width:60px;"><?= $duit; ?> <?= number_format((float)$total=$key->oi_qty * $key->oi_price, 2, '.', '');?></td>
+          <td style="color: #000000;" style="width:60px;"><?= $key->oi_qty; ?></td>
+          <td style="color: #000000;" style="width:60px;"><?= $arr['order']->or_price; ?></td>          
+          <td style="color: #000000;" style="width:60px;">RM <?= number_format((float)$total=$key->oi_qty * $arr['order']->or_price, 2, '.', '');?></td>
         
 
         </tr>
@@ -304,22 +297,20 @@ body .ReadOnlyExtrasStatus {
         <?php 
            $total_all=$total_all+$total; 
           }
-          if ($arr['order']->or_traking == null || $arr['order']->or_traking == '0000-00-00 00:00:00') {
-            $arr['order']->or_traking = 0;
-          }
-          $total_all += $arr['order']->or_traking;           
+          $subTot = $total_all;
+          $total_all += $arr['order']->or_shipping_price;           
         } ?>
          <tr>
-        <td style="color: #000000;text-align: right;" colspan="11"><strong>Total :</strong></td>
-          <td style="color: #000000;"><?= $duit; ?> <?php echo number_format((float)$total_all, 2, '.', ''); ?></td>
+        <td style="color: #000000;text-align: right;" colspan="3"><strong>Total :</strong></td>
+          <td style="color: #000000;">RM <?php echo number_format((float)$subTot, 2, '.', ''); ?></td>
         </tr>
          <tr>
         	  <tr>
-        <td style="color: #000000;text-align: right;" colspan="11">Shipping :</td>
-          <td style="color: #000000;"><?= $duit; ?> <?= number_format((float)$arr['order']->or_traking, 2, '.', '');?></td>
+        <td style="color: #000000;text-align: right;" colspan="3">Shipping :</td>
+          <td style="color: #000000;">RM <?= number_format((float)$arr['order']->or_shipping_price, 2, '.', '');?></td>
         </tr>
-          <td style="color: #000000;text-align: right;" colspan="11"> <strong>Amount Due :</strong></td>
-          <td style="color: #000000;"><strong><?= $duit; ?> <?php echo  number_format((float)$total_all, 2, '.', ''); ?></strong></td>
+          <td style="color: #000000;text-align: right;" colspan="3"> <strong>Amount Due :</strong></td>
+          <td style="color: #000000;"><strong>RM <?php echo  number_format((float)$total_all, 2, '.', ''); ?></strong></td>
         </tr>      
       </tbody>
     </table>
@@ -328,16 +319,8 @@ body .ReadOnlyExtrasStatus {
 <!-- invoice end -->
 <footer>
 <div class="clear" style="height: 100px;"></div>
-		<!-- jQuery 
-		<script src="//code.jquery.com/jquery.js"></script>-->
-		<!-- Bootstrap JavaScript 
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>-->
 	</body>
 </html>
-<script>
-
-    
-	 	//window.print();
-
-	
-	</script>
+<script>    
+	 	window.print();	
+</script>

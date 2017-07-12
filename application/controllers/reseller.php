@@ -13,7 +13,6 @@
             $this->output->set_header('Pragma: no-cache');
             $this->output->set_header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
 	        $this->load->library('session');
-
             date_default_timezone_set('Asia/Kuala_Lumpur');
 	    }
 
@@ -50,18 +49,23 @@
 
 	    public function page($key)
     	{
-    		//$arr = $this->input->get();
     		$this->_checkSession();
             $lvl = $this->my_func->scpro_decrypt($this->session->userdata('us_lvl'));
     		switch ($key) {
                 case 'b13':
-                    $or_id = 1;
+                    $or_id = null;
+                    if ($this->input->get('key')) {
+                        $or_id = $this->my_func->scpro_decrypt($this->input->get('key'));
+                    }else{
+                        show_404();
+                        die();
+                    }
                     $this->load->database();
                     $this->load->model('m_order');
                     $this->load->model('m_order_item' , 'moi');
                     $this->load->model('m_address' , 'ma');
-                    $this->load->model('m_user' , 'mu');
-                    $data['order'] = $this->m_order->get($or_id);
+                    $this->load->model('m_user' , 'mu');                    
+                    $data['order'] = $this->m_order->get($or_id);                                       
                     $data['item'] = $this->moi->get(array(
                         'or_id' => $or_id
                     ));
@@ -69,24 +73,23 @@
                         'us_id' => $data['order']->us_id
                     ));
                     $us_id = $data['order']->us_id;
-                    $data['user'] = $this->mu->get($us_id);
+                    $data['user'] = $this->mu->getName($us_id);
                     $this->_show('invoice_CO' , $data , $key);                    
                     break;
-                case 'b12':
-                    $this->load->library('my_func');
-                    $form = $this->input->post();
+                case 'b12':                    
                     if ($this->my_func->de($this->session->userdata('key') , 1) === 'betul') {
                         $this->session->unset_userdata('key');
+                        $form = $this->input->post();
                         $itemId = $this->session->userdata('id');
-                        //$this->session->unset_userdata('id');
+                        $this->session->unset_userdata('id');
                         $itemQty = $this->session->userdata('qty');
-                        //$this->session->unset_userdata('qty');
+                        $this->session->unset_userdata('qty');
                         $shippingPrice = $this->my_func->scpro_decrypt($this->session->userdata('shippingPrice'));
-                        //$this->session->unset_userdata('shippingPrice');
+                        $this->session->unset_userdata('shippingPrice');
                         $sub_tot = $this->my_func->scpro_decrypt($this->session->userdata('sub_tot'));
-                        //$this->session->unset_userdata('sub_tot');
+                        $this->session->unset_userdata('sub_tot');
                         $price = $this->my_func->scpro_decrypt($this->session->userdata('p'));
-                        //$this->session->unset_userdata('p');
+                        $this->session->unset_userdata('p');
                         $us_id = $this->my_func->scpro_decrypt($this->session->userdata('us_id'));
                         $this->load->database();
                         if ($form['add_id'] == -1) {
@@ -100,7 +103,7 @@
                                 'us_id' => $us_id
                             );
                             $this->load->model('m_address');
-                            //$add_id = $this->m_address->insert($add);
+                            $add_id = $this->m_address->insert($add);
                         }else{
                             $add_id = $this->my_func->de($form['add_id'] , 1); 
                         }
@@ -112,18 +115,20 @@
                             'or_price' => $price
                         );
                         $this->load->model('m_order');
-                        // $or_id = $this->m_order->insert($order);
-                        // $this->load->model('m_order_item' , 'moi');
-                        // for ($i=0; $i < sizeof($itemId); $i++) { 
-                        //     $item = array(
-                        //         'or_id' => $or_id,
-                        //         'ty2_id' => $this->my_func->scpro_decrypt($itemId[$i]),
-                        //         'oi_qty' => $this->my_func->de($itemQty[$i])
-                        //     );
-                        //     $this->moi->insert($item);
-                        // }
-                        // $this->_show('invoice_CO' , '' , $key);
-                    }                    
+                        $or_id = $this->m_order->insert($order);                        
+                        $this->load->model('m_order_item' , 'moi');
+                        for ($i=0; $i < sizeof($itemId); $i++) { 
+                            $item = array(
+                                'or_id' => $or_id,
+                                'ty2_id' => $this->my_func->scpro_decrypt($itemId[$i]),
+                                'oi_qty' => $this->my_func->de($itemQty[$i])
+                            );
+                            $this->moi->insert($item);
+                        }
+                        redirect(site_url('reseller/page/b13?key='.$this->my_func->scpro_encrypt($or_id)),'refresh');
+                    }else{
+                        show_404();
+                    }                   
                     break;
     			case 'b11':
                     $this->load->library('my_func');
@@ -182,7 +187,9 @@
                         $this->session->set_userdata( $temp );
                         $this->_show('checkout' , $arr , $key);
                         break;                     
-                    }               	
+                    }else{
+                        show_404();
+                    }            	
     			case 'b1':
     				$data['title'] = '<i class="fa fa-cart-plus"></i> Add Order';
                     $this->session->unset_userdata('key');

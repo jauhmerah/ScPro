@@ -149,3 +149,13 @@
     var urlsite = "<?= site_url(); ?>reseller/";
 </script>
 <script type="text/javascript" src = "<?= base_url();?>assets/nastyjs/checkout.js?batch=<?php echo uniqid(); ?>"></script>
+<script type="text/javascript">
+	window.onbeforeunload = function(e) {
+        var text = "This is one time session only, are you sure to proceed?";
+        e.returnValue = text;
+        return text;
+	};
+    $(document).on('submit', 'form', function() {
+        window.onbeforeunload = null;
+    });
+</script>

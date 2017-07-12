@@ -3,12 +3,6 @@
     <div class="col-xs-12">
 <div class="invoice">
     <div class="row invoice-logo">
-    <pre>
-        <?= print_r($order); ?>
-        <?= print_r($item); ?>
-        <?= print_r($address); ?>
-        <?= print_r($user); ?>
-    </pre>
         <div class="col-xs-4 invoice-logo-space">
             <img src="<?= base_url('assets/cover/nstylogo.png'); ?>" class="img-responsive" width data-pin-nopin="true"> </div>
         <div class="col-xs-6 col-xs-offset-2">
