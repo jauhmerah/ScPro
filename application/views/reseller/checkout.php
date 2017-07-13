@@ -5,8 +5,7 @@
 			<h3>Shipping Detail</h3>
 		</div>
 		<div class="panel-body">
-			<div class="col-md-8">
-				
+			<div class="col-md-8">				
 				<form action="<?= site_url('reseller/page/b12') ?>" id='myform' method="POST" role="form">
 				<div class="row">
 				<div class="col-xs-12">					
@@ -142,7 +141,6 @@
 			<div align="center"><span class="font-sm">Need Help? <a href="mailto:custumerservice@nastyjuice.com">customerservice@nastyjuice.com</a></span></div>
 		</div>
 	</div>
-	<pre><?= print_r($this->session->all_userdata()) ?></pre>
 </div>			
 </div>
 <script type = "text/javascript">

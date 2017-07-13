@@ -216,6 +216,84 @@
                         $data['display'] = $this->load->view($this->parent_page.'/dashboard' ,$arr, true);
                         $this->_show('dashboard', $data , $key);
                    break;
+                case 'c1':
+                    if ($this->input->get('page')) {
+                        $p = $this->input->get('page');
+                    }else{
+                        $p = 0;
+                    }
+                    $this->load->library('my_func');
+                    $this->load->library('my_flag');
+                    $this->load->database();
+                    $this->load->model('m_order');
+                    $us_id = $this->my_func->scpro_decrypt($this->session->userdata('us_id'));
+                    if ($this->input->post("search") && $this->input->post("filter") || $this->input->get("search") && $this->input->get("filter")) {
+                        if ($this->input->get("search") && $this->input->get("filter")) {
+                            $search = $this->input->get("search");
+                            $filter = $this->input->get("filter");
+                        } else {
+                            $search = $this->input->post("search");
+                            $filter = $this->input->post("filter");
+                        }
+                        switch ($filter) {
+                            case '10':
+                                //Client Name
+                                $where = array(
+                                    "cl.cl_name" => $search
+                                );
+                                break;
+                            case '1':
+                                //Order Code
+                                //Hanya Single
+                                if (strpos($search, "#") !== false) {
+                                    $search = str_replace("#", "", $search);
+                                }
+                                if (!is_numeric($search)) {
+                                    $this->session->set_flashdata('warning', 'Please Enter the Correct Order Code');
+                                    redirect(site_url("nasty_v2/dashboard/page/a1"),'refresh');
+                                }
+                                $str = (string)$search;
+                                /*if ($str[1] == '1') {
+                                    $id = $search - 110000;
+                                    $ver = 1;
+                                } else {
+                                    $id = $search - 100000;
+                                    $ver = 0;
+                                }*/
+                                $ver = 2;
+                                $id = $search - 120000;
+                                $where = array(
+                                    "ord.or_id" => $id
+                                );
+                                break;
+                            case '2':
+                                //Sales Person
+                                $where = array(
+                                    "us1.us_username" => $search
+                                );
+                                break;
+                            case '3':
+                                //Order Status
+                                $where = array(
+                                    "pr.pr_desc" => $search
+                                );
+                                break;
+                        }
+                            $arr['arr1'] = $this->m_order->listOr($ver , null , null , 0 , $where);
+                    } else {
+                        $ver = $this->m_order->orderCount(0);
+                        $arr['arr1'] = $this->m_order->listOr(0 , 10 , $p);
+                        $result1 = sizeof($arr['arr1']);
+                        $arr['page'] = $p;
+                        $arr['total'] = $ver;
+                        $arr['row'] = $result1;
+                    }
+                    $data['title'] = '<i class="fa fa-fw fa-edit"></i> Production</a>';
+                    $data['display'] = $this->load->view($this->parent_page.'/orderList' ,$arr , true);
+                    $this->_show('display' , $data , $key);
+                    break;
+
+                    break;
                    case "e1" :// uesr detail
                         if ($this->input->get('page')) {
                         $p = $this->input->get('page');

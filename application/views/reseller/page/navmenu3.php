@@ -37,7 +37,7 @@
                     </li><?php } ?> 
                     <?php if($us_lvl != 4){?>                     
                     <li class="nav-item <?php if (strpos($link, 'c') !== false) { echo "active open";}else{echo "start";}?>   ">
-                        <a href="" class="nav-link ">
+                        <a href="<?= site_url('reseller/page/c1') ?>" class="nav-link ">
                             <i class="fa fa-outdent"></i>
                             <span class="title">Order List</span>
                         </a>

@@ -73,12 +73,6 @@
                     <!-- BEGIN TOP NAVIGATION MENU -->
                     <div class="top-menu">
                         <ul class="nav navbar-nav pull-right">
-                            <li class="dropdown dropdown-extended dropdown-inbox" id="header_inbox_bar">
-                                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                        <i class="icon-basket"></i>
-                                        <span class="badge badge-default"> 4 </span>
-                                    </a>                                
-                                </li>
                             <li>
                                 <a href="<?= site_url('dashboard/logout'); ?>" >
                                         <!--<img alt="" class="img-circle" src="<?= base_url(); ?>asset2/layouts/layout2/img/avatar3_small.jpg" />-->

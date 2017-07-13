@@ -90,8 +90,15 @@
                             <span class="pull-right">Total Qty :</span>
                         </td>
                         <td class="hidden-xs"><?= $qty; ?></td>
-                        <td><span class="pull-right">Total Amount :</span></td>
-                        <td>RM <?= number_format((float)$tot, 2, '.', ''); ?></td>
+                        <td><span class="pull-right">Sub Total :</span><br>
+                        <span class="pull-right font-yellow-gold">Shipping Fee :</span><br>
+                        <span class="pull-right">Total :</span>
+                        </td>
+                        <td>RM <?= number_format((float)$tot, 2, '.', ''); ?><br>
+                            <span class="font-yellow-gold">RM <?= number_format((float)$order->or_shipping_price, 2, '.', ''); ?></span><br>
+                        <?php $tot += $order->or_shipping_price; ?>
+                            RM <?= number_format((float)$tot, 2, '.', ''); ?>
+                        </td>
                     </tr>
                 </tfoot>
             </table>
@@ -112,7 +119,7 @@
                 </address>
             </div>
         </div>
-        <div class="col-xs-8 invoice-block">
+        <div class="col-xs-8 invoice-block">            
             <ul class="list-unstyled amounts">
                 <li>
                     <h1>Total amount:  <strong>RM <?= number_format((float)$tot, 2, '.', ''); ?></strong> </li></h1>
