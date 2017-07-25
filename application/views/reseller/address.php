@@ -52,10 +52,9 @@
                                     <td>
                                     <strong><?= $key->company_name ?></strong><br>
                                     <?= $key->address ?><br>
-                                    <?= $key->poscode ?>, <?= $key->town ?><br>
+                                    <?= $key->postcode ?>, <?= $key->town ?><br>
                                     <?= $key->state_name ?><br>
                                     <?= '+60'.$key->add_mnum; ?>
-
                                     </td>
                                     <td>
                                     <?php 
