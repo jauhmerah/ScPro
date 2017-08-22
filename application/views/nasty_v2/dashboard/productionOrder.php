@@ -261,9 +261,19 @@
 						</thead>						
 						<tbody>
 						<?php
-						$n=0;
+						$n=0;$date = null;
 						foreach ($arrV1 as $key) { 
 							$n++;
+							$date2 = strtotime($key['order']->or_date);
+							$date2 = date("d:M:Y" , $date2);
+							if ($date == null || $date != $date2) {
+								$date = $date2;
+								?>
+								<tr style="background-color:#828990; color: #fff;">
+									<td align="center" colspan="5">---- <strong><?= $date; ?></strong> ----</td>
+								</tr>
+								<?php
+							}
 							?>						
 							<tr class="Lorder" id="L<?= $n; ?>">
 								<td><span style = "color:#b706d6;" >#<?= 120000 + $key['order']->or_id; ?></span></td>

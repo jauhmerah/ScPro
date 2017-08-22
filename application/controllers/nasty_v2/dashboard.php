@@ -1214,20 +1214,17 @@ epul@nastyjuice.com
     			case 'z1':
                     if ($lvl == 2 || $lvl == 3) {
                         redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
-                    }                    
+                    }
+                                    
                     // Time Freeze
                         $cuTime = time();
-                        $start = strtotime('01:00am');
+                        $start = strtotime('1:00am');
                         $end = strtotime('12:00pm');                        
-                        if ((int)$start < $cuTime < $end ) {
-                            echo "true";
-                        }else{
-                            echo "false";
+                        if ((int)$start <= (int)$cuTime && (int)$cuTime <= (int)$end ) {
+                            $data['title'] = '<i class="fa fa-file-text"></i> Order Form';
+                            $this->_show('/downsystem/downtime' , $data , $key); 
+                            break;   
                         }
-                        echo $start."</br>".$end.'</br>';
-                        echo $cuTime;die();
-                        
-                        
                     // End Time Freeze
     				$data['title'] = '<i class="fa fa-file-text"></i> Order Form';
     				$this->load->database();
