@@ -24,6 +24,11 @@
 	    	
             $this->load->view('test');
 	    }
+        public function mail()
+        {
+            
+            $this->load->view('mail/payment_email');
+        }
           public function dummyInvoice()
         {
         
@@ -1232,7 +1237,48 @@ epul@nastyjuice.com
                             $sendToMail['ver'] = $ver;
                             $sendToMail['or_id'] = $or_id;
                             $this->emailSendNew($sendToMail , $ver);
-                        }                        
+                        }  
+
+                         // $this->load->library('email');
+                         //  $this->email->set_newline("\r\n");
+                         //  $config['protocol'] = 'smtp';
+                         //  $config['smtp_host'] = 'ssl://moon.sfdns.net';
+                         //  $config['smtp_port'] = '465';
+                         //  $config['smtp_user'] = 'epul@nastyjuice.com';
+                         //  $config['smtp_from_name'] = 'epul@nastyjuice.com';
+                         //  $config['smtp_pass'] = 'selasih2014';
+                         //  $config['charset'] = 'utf-8';
+                         //  $config['wordwrap'] = TRUE;
+                         //  $config['newline'] = "\r\n";
+                         //  $config['mailtype'] = 'html'; 
+                          
+                         //  $this->email->initialize($config);
+                         //  $this->email->from($config['smtp_user'],$config['smtp_from_name']);
+                         //  $this->email->to('epul@nastyjuice.com');
+
+                          $arr['arr'] = array(
+                            
+                            "id" => $orex_id,
+                             "username" => $this->my_func->scpro_decrypt($this->session->userdata('us_username')),                    
+                        );   
+                         
+                            $email['fromName'] = "Nasty OrdYs System";
+                            $email['fromEmail'] = "noreply@nastyjuice.com";
+                            $email['toEmail'] = array(' finance@nastyjuice.com , zul@nastyjuice.com , it@nastyjuice.com');;
+                            $email['subject'] = 'New Purchase Order #'.(120000+$or_id);
+                            $email['html'] = true;
+                            $content=$this->load->view('/mail/send_email',$arr,true);
+                            $email['msg'] =$content;
+                         
+
+                            $result=$this->sendEmail($email);
+                          // $this->email->subject('New Purchase Order #'.(120000+$or_id));
+                          // $content=$this->load->view('/mail/send_email',$arr,true);
+                          // $this->email->message($content);
+                          // $this->email->send();
+
+
+
                         $this->session->set_flashdata('success', 'New Order successfully added');
                         redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
     					break;    				
@@ -1650,6 +1696,58 @@ epul@nastyjuice.com
                     $e = sizeof($result['error']);
                     if ($e == 0) {
                         $this->session->set_flashdata('success' , '<b>Well done!</b> You successfully send the picture.');
+
+
+                        $this->load->library('email');
+                          $this->email->set_newline("\r\n");
+                          $config['protocol'] = 'smtp';
+                          $config['smtp_host'] = 'ssl://moon.sfdns.net';
+                          $config['smtp_port'] = '465';
+                          $config['smtp_user'] = 'epul@nastyjuice.com';
+                          $config['smtp_from_name'] = 'epul@nastyjuice.com';
+                          $config['smtp_pass'] = 'selasih2014';
+                          $config['charset'] = 'utf-8';
+                          $config['wordwrap'] = TRUE;
+                          $config['newline'] = "\r\n";
+                          $config['mailtype'] = 'html'; 
+                          
+                          $this->email->initialize($config);
+                          $this->email->from($config['smtp_user'],$config['smtp_from_name']);
+                          $this->email->to('epul@nastyjuice.com');
+
+                        //   $arr['arr'] = array(
+                            
+                        //     "id" => $or_id,
+                        //     "img_url" => $result['success']
+                                                
+                        // );   
+                         foreach ($result['success'] as $filename => $detail) {   
+                                $arr['arr']  = array(
+                                    'id' => $or_id,
+                                    'img_url' => $detail['file_name'],
+                                    
+                                );
+                              
+                        }
+                         
+                            // $email['fromName'] = "Nasty OrdYs System";
+                            // $email['fromEmail'] = "noreply@nastyjuice.com";
+                            // $email['toEmail'] = array(' finance@nastyjuice.com , zul@nastyjuice.com , it@nastyjuice.com');;
+                            // $email['subject'] = 'New Purchase Order #'.(120000+$or_id);
+                            // $email['html'] = true;
+                            // $content=$this->load->view('/mail/send_email',$arr,true);
+                            // $email['msg'] =$content;
+                         
+
+                            //$result=$this->sendEmail($email);
+
+                          
+
+                          $this->email->subject('Payment are already uploaded for Purchase Order #'.(120000+$or_id));
+                          $content=$this->load->view('/mail/payment_email',$arr,true);
+                          $this->email->message($content);
+                          $this->email->send();
+                          
                     }elseif ($i == 0) {
                         $code = "<ul>";
                         foreach ($result['error'] as $filename => $errormsg) {
@@ -1669,7 +1767,10 @@ epul@nastyjuice.com
                     }
                 }
             }
-            redirect('nasty_v2/dashboard/page/a1new','refresh');
+
+                        
+                        
+                        redirect('nasty_v2/dashboard/page/a1new','refresh');
         }
 
 
