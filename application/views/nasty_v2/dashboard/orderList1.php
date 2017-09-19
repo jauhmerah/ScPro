@@ -71,7 +71,7 @@
 	            			</div>
 	            		</div>
 	            		<div class="col-md-2">
-	            			<button type="button" class="btn btn-default " id="sub"><i class="fa fa-search"></i> Search</button><!--  -->
+	            			<button type="button" class="btn btn-default " id="sub"><i class="fa fa-search"></i> Search</button>
 	            		</div>
 	            	</div>
 	            </form>
