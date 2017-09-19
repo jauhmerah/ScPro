@@ -218,12 +218,7 @@
      text-align:left;
   }
 
-  /**
-  * @tab Page
-  * @section heading 3
-  * @tip Set the styling for all third-level headings in your emails.
-  * @style heading 3
-  */
+
   h3{
      color:#545454;
     display:block;

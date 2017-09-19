@@ -353,9 +353,7 @@
 					$.when($("#fileUp").html(data)).then(function(){$("#fileUp").fadeIn("fast");});
 				});				
 			});
-			/*bootbox.alert("Hello world!", function() {
-                //console.log("Alert Callback");
-            });*/
+		
 		});		
 		$(".bayar").click(function() {
 			gbr = $(this).prop("id");

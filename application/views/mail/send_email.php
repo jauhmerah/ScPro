@@ -130,7 +130,7 @@
   td ul li {
     font-size: 16px;
   }
-  /* /\/\/\/\/\/\/\/\/ RESET STYLES /\/\/\/\/\/\/\/\/ */
+
   body{margin:0; padding:0;}
   img{
     max-width:100%;

@@ -1231,7 +1231,7 @@ epul@nastyjuice.com
                         );
                         $this->m_shipping_note->insert($shipping_note);*/
                         if ($arr['pr_id'] != 4) { 
-                        //#email1                           
+                        //#email1l                           
                                                        
                             $sendToMail['us_id'] = $this->my_func->scpro_decrypt($this->session->userdata('us_id'));
                             $sendToMail['ver'] = $ver;
