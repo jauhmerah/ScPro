@@ -1239,8 +1239,6 @@ epul@nastyjuice.com
                             $this->emailSendNew($sendToMail , $ver);
                         }  
 
-                        
-
                           $arr['arr'] = array(
                             "id" => $orex_id,
                              "username" => $this->my_func->scpro_decrypt($this->session->userdata('us_username')),                    

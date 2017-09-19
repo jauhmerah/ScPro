@@ -190,7 +190,6 @@
 	
                                     		 <?php }} ?>
 
-
                                     		<div class="clearfix">
                                     		&nbsp;
                                     		</div>

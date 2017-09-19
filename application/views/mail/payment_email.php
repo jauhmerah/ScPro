@@ -201,12 +201,7 @@
      text-align:left;
   }
 
-  /**
-  * @tab Page
-  * @section heading 2
-  * @tip Set the styling for all second-level headings in your emails.
-  * @style heading 2
-  */
+
   h2{
      color:#2e2e2e;
     display:block;
