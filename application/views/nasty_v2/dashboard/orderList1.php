@@ -153,8 +153,6 @@
                             				<input type="hidden" class="form-control gmbr<?= $n ?>" value="<?= $this->my_func->scpro_encrypt($user->or_id); ?>">
                             			<?php } ?>
                             			
-                            			
-
 
                                     </td>
 		                            <td align="center">

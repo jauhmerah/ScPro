@@ -184,12 +184,7 @@
     border-spacing: 0;
   }
 
-  /**
-  * @tab Page
-  * @section heading 1
-  * @tip Set the styling for all first-level headings in your emails. These should be the largest of your headings.
-  * @style heading 1
-  */
+
   h1{
      color:#2e2e2e;
     display:block;

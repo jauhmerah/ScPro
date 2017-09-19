@@ -1242,7 +1242,6 @@ epul@nastyjuice.com
                         
 
                           $arr['arr'] = array(
-                            
                             "id" => $orex_id,
                              "username" => $this->my_func->scpro_decrypt($this->session->userdata('us_username')),                    
                         );   

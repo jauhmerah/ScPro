@@ -126,7 +126,7 @@
   .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {line-height: 100%;} /* Force Hotmail to display normal line spacing */
   body, table, td, p, a, li, blockquote{-webkit-text-size-adjust:100%; -ms-text-size-adjust:100%;} /* Prevent WebKit and Windows mobile changing default text sizes */
   table, td{mso-table-lspace:0pt; mso-table-rspace:0pt;} /* Remove spacing between tables in Outlook 2007 and up */
-  img{-ms-interpolation-mode:bicubic;max-width:100%;} /* Allow smoother rendering of resized image in Internet Explorer */
+  img{-ms-interpolation-mode:bicubic;max-width:100%;} 
   td ul li {
     font-size: 16px;
   }
