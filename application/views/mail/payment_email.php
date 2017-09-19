@@ -24,11 +24,7 @@
 <table width="100%"  border="0" cellpadding="10" cellspacing="0">
 <tbody><tr>
   <td>
-    <!--[if (gte mso 9)|(IE)]>
-      <table width="600" align="center" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td>
-    <![endif]-->
+    
     <table bgcolor="#ffffff" class="content" style="background-color:#ffffff" align="center" cellpadding="0" cellspacing="0" border="0">
 			<tbody><tr>
 				<td valign="top" mc:edit="headerBrand" id="templateContainerHeader">

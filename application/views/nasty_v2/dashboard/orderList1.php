@@ -22,6 +22,7 @@
 </script>
 <?php
 	$us_id = $this->my_func->scpro_decrypt($this->session->userdata('us_id'));
+
 	$us_lvl = $this->my_func->scpro_decrypt($this->session->userdata('us_lvl'));
 	$us_name = $this->my_func->scpro_decrypt($this->session->userdata('us_username'));
 	?>
@@ -159,7 +160,6 @@
 		                            <td align="center">
                                     <?php 
                                         $orid = $this->my_func->scpro_encrypt($user->or_id);
-                                        
                                         if ($us_id == $user->us_id) {
                                         	$conf = "jari";
                                         }else{
@@ -204,12 +204,12 @@
 										<input type="hidden" class="form-control <?= $n.'con1' ?>" value ="<?= $user->pr_id ?>">
 										<input type="hidden" class="form-control <?= $n.'cocode' ?>" value ="<?= $id; ?>">     										
 										<?php if($user->pr_id != 5 && $user->pr_id != 7 && $user->pr_id != 3 ){ 
-										if(($us_lvl == 1) ||($us_lvl == 2) || ($us_lvl == 6)){	
+										if(($us_lvl == 1) || ($us_lvl == 4)){	
 
 											?>
 											 &nbsp;-&nbsp; 
 										<button type="button" class="btn btn-default btn-circle btn-xs cancelOrd" id="<?= $n.'co' ?>" title="Cancel Order"><i class="fa fa-close"></i></button>
-										<?php }}else{ if(($us_lvl == 1) ||($us_lvl == 2) || ($us_lvl == 6)){ ?>
+										<?php }}else{ if(($us_lvl == 1) || ($us_lvl == 4)){ ?>
 										&nbsp;-&nbsp; <button type="button" class="btn btn-danger btn-circle btn-xs cancelOrd" id="<?= $n.'co' ?>"><i class="fa fa-trash"></i></button>
 										<?php } }?>
 		                            </td>	                            
