@@ -1,4 +1,4 @@
-<?php 
+<?php
 	if ($arr['order']->pr_id == 3) {
 		$mode = "readonly";
 		$radio = "disabled";
@@ -8,7 +8,7 @@
 		$us_id = $this->my_func->scpro_decrypt($this->session->userdata('us_id')) ;
 	}
 
-	
+
 ?>
 <div class="row">
 	<div class="col-md-12">
@@ -30,7 +30,7 @@
                                     <div class="ribbon-sub ribbon-clip ribbon-right"></div><i class="fa fa-warning" ></i> Unconfirm Order </div>
                                 <?php } ?>
                                 <form action="<?= site_url('nasty_v2/dashboard/page/z121?key=').$this->my_func->scpro_encrypt($arr['order']->or_id); ?>" method = "post" class="horizontal-form">
-                                    <div class="form-body">    
+                                    <div class="form-body">
                                     <input type="hidden" name="pr_id" id="pr_id" class="form-control" value="<?= $arr['order']->pr_id; ?>">
                                         <h3 class="form-section">Client Info</h3>
                                         <div class="row" id = "clientInfo">
@@ -91,15 +91,15 @@
 													        <label class="control-label">Address :</label>
 													        <textarea id="input" readonly class="form-control input-circle" rows="3"><?= $arr['order']->cl_address; ?></textarea>
 													    </div>
-													</div> 
+													</div>
 													<!--/span-->
 												</div>
                                         	</div>
                                         	<div class="col-md-4">
-                                        		<div class="row">		                                            
+                                        		<div class="row">
 	                                                <div class="form-group col-md-12">
 	                                                    <label class="control-label">Date Line :</label>
-	                                                    <?php if($arr['order']->or_dateline != '0000-00-00 00:00:00'){ 
+	                                                    <?php if($arr['order']->or_dateline != '0000-00-00 00:00:00'){
 	                                                    	$date = date_format(date_create($arr['order']->or_dateline) , 'Y-m-d' );
 	                                                    	}else{
 	                                                    		$date = '';
@@ -109,33 +109,33 @@
 	                                                </div>
 		                                            <!--/span-->
 	                                            </div>
-	                                            <div class="row">	
+	                                            <div class="row">
 	                                                <div class="form-group col-md-12">
 	                                                    <label class="control-label">Order Date :</label>
-	                                                    <?php if($arr['order']->or_date != '0000-00-00 00:00:00'){ 
+	                                                    <?php if($arr['order']->or_date != '0000-00-00 00:00:00'){
 	                                                    	$date = date_format(date_create($arr['order']->or_date) , 'Y-m-d' );
 	                                                    	}else{
 	                                                    		$date = '';
 	                                                    	}
 	                                                    ?>
 	                                                    <input type="date" readonly id="orderdate" name="orderdate" value = "<?= $date; ?>" class="form-control input-circle">
-	                                                </div>		                                            
+	                                                </div>
 		                                            <!--/span-->
 		                                        </div>
-		                                        <div class="row">	
+		                                        <div class="row">
 	                                                <div class="form-group col-md-12">
 	                                                    <label class="control-label">Finish Date :</label>
-	                                                    <?php if($arr['order']->or_finishdate != '0000-00-00 00:00:00'){ 
+	                                                    <?php if($arr['order']->or_finishdate != '0000-00-00 00:00:00'){
 	                                                    	$date = date_format(date_create($arr['order']->or_finishdate) , 'Y-m-d' );
 	                                                    	}else{
 	                                                    		$date = '';
 	                                                    	}
 	                                                    ?>
 	                                                    <input type="date" id="finishdate" name="finishdate" <?= $mode ?> value = "<?= $date; ?>" class="form-control input-circle">
-	                                                </div>		                                            
+	                                                </div>
 		                                            <!--/span-->
 		                                        </div>
-		                                        <div class="row">	
+		                                        <div class="row">
 	                                                <div class="form-group col-md-12">
 	                                                    <label class="control-label">Currency :</label>
 	                                                    <select <?php if($arr['order']->pr_id == 3){echo "disabled";} ?> class="form-control input-circle" name="currency">
@@ -143,7 +143,7 @@
 	                                                        <option value="2" <?php if($arr['order']->cu_id == 2){echo "selected";} ?>>USD</option>
 	                                                        <option value="3" <?php if($arr['order']->cu_id == 3){echo "selected";} ?>>GBP</option>
 	                                                    </select>
-	                                                </div>		                                            
+	                                                </div>
 		                                            <!--/span-->
 		                                        </div>
                                         	</div>
@@ -159,7 +159,7 @@
 				                                <div class="portlet-title"  style="background-color: #3246d2;">
 				                                    <div class="caption">
 				                                        <i class="fa fa-cogs"></i>Order Note </div>
-				                                    
+
 				                                </div>
 				                                <div class="portlet-body">
 				                                    <div class="table-responsive">
@@ -175,7 +175,7 @@
 					                                    		</tr>
 						                                    </thead>
 						                                    <tbody id="orderList">
-						                                    	<?php 
+						                                    	<?php
 						                                    		if (!isset($arr)) {
 						                                    			?>
 						                                    				<tr>
@@ -185,36 +185,38 @@
 						                                    		} else {
 						                                    			foreach ($arr['item'] as $key) {
 						                                    				?>
-						                                    				<tr id="delEdit_<?= $key->oi_id;?>">						                                    					
+						                                    				<tr id="delEdit_<?= $key->oi_id;?>">
 						                                    					<td><?= $key->ty2_desc; ?><br>
 																					<span class="label" style="color: black;background-color: <?= $key->ca_color; ?>; font-size: 75%;" ><strong><?= $key->ca_desc; ?></strong></span>&nbsp;
-																					<span class="label" style="color: black;font-size: 75%; background-color: <?= $key->ni_color; ?>;" ><strong><?= $key->ni_mg; ?> mg</strong></span></td>
+																					<?php if ($key->ni_mg != -1) { ?>
+																						<span class="label" style="color: black;font-size: 75%; background-color: <?= $key->ni_color; ?>;" ><strong><?= $key->ni_mg; ?> mg</strong></span></td>
+																					<?php } ?>
 																				<td><input type="number" name="priceE[]" id="inputPrice" min="0" step="any" class="form-control" value="<?= $key->oi_price; ?>" required="required" <?= $mode; ?>></td>
 																				<td><input type="number" name="qtyE[]" id="inputQty" min="0" class="form-control" value="<?= $key->oi_qty; ?>" required="required" <?= $mode; ?>></td>
 																				<td>
-																					<input type="number" name="testerE[]" id="inputTester" min="0" value="<?= $key->oi_tester; ?>" class="form-control" <?= $mode; ?>><br><div class="input-group input-group-sm"><span class="input-group-addon" id="sizing-addon1"><i class="fa fa-flask"></i> 10 ML</span><input type="number" name="testerE2[]" id="inputTester2" min="0" <?php if(isset($key->oi_tester2)){echo 'value="'.$key->oi_tester2.'"';} ?>" class="form-control input-sm" placeholder="10 ML Tester" <?= $mode; ?>></div>
+																					 <input type="number" name="testerE[]" id="inputTester" min="0" value="<?= $key->oi_tester; ?>" class="form-control" <?= $mode; ?>><!--<br><div class="input-group input-group-sm"><span class="input-group-addon" id="sizing-addon1"><i class="fa fa-flask"></i> 10 ML</span><input type="number" name="testerE2[]" id="inputTester2" min="0" <?php if(isset($key->oi_tester2)){echo 'value="'.$key->oi_tester2.'"';} ?>" class="form-control input-sm" placeholder="10 ML Tester" <?= $mode; ?>></div> -->
 																					<input type="hidden" name="idE[]" id="inputIdE" class="form-control" value="<?= $key->oi_id;?>">
-																				</td>	
+																				</td>
 																				<?php if($arr['order']->pr_id != 3){?>
-																				<td>																					
+																				<td>
 																					<span><button type="button" id="<?= $key->oi_id;?>" class="btn btn-danger btn-xs delEdit"><i class="fa fa-trash" ></i></button></span>
 																				</td><?php } ?>
 						                                    				</tr>
 						                                    				<?php
 						                                    			}
-						                                    		}						                                    		
-						                                    	?>						                                    	                                        
+						                                    		}
+						                                    	?>
 						                                    </tbody>
 						                                    <tfoot>
 						                                    <tr>
 						                                    	<td colspan="5">
 						                                    		<input type="hidden" name="orex_id" id="inputOrex_id" class="form-control" value="<?= $arr['order']->orex_id; ?>">
-					                                            	<textarea name="note" id="input" class="form-control input-circle input-lg" rows="2" placeholder="#Note" <?= $mode; ?>><?= $arr['order']->or_note; ?></textarea>                                            		
+					                                            	<textarea name="note" id="input" class="form-control input-circle input-lg" rows="2" placeholder="#Note" <?= $mode; ?>><?= $arr['order']->or_note; ?></textarea>
 					                                            </td>
 					                                        </tr>
 					                                        <?php if($arr['order']->pr_id != 3){?>
 					                                            <tr>
-				                                    			<td colspan="5">				                                    				
+				                                    			<td colspan="5">
 				                                    				<div class="row">
 				                                    					<div class="col-md-6">
 				                                    						<div class="form-group">
@@ -222,7 +224,7 @@
 				                                    							<div class="col-sm-8">
 				                                    								<select id="cat" class="form-control input-circle">
 				                                    									<option value="-1">-- Select Category --</option>
-				                                    									<?php 
+				                                    									<?php
 											                                			foreach ($cat as $key) { ?>
 											                                				<option style="background-color: <?= $key->ca_color; ?>" value="<?= $key->ca_id; ?>"> <?= $key->ca_desc; ?> </option>
 											                                			<?php }
@@ -248,11 +250,15 @@
 				                                    							<div class="col-sm-5">
 				                                    								<select id="inputNico" class="form-control input-circle">
 																						<option value="-1" selected>-- Select One --</option>
-																						<?php 
-																							foreach ($nico as $mg) {?>
+																						<?php
+																							foreach ($nico as $mg) {
+																								if ($mg->ni_mg == -1) { ?>
+																								<option style = "background-color: <?= $mg->ni_color; ?> ;" value="<?= $mg->ni_id; ?>">-- No Mg --</option>
+																							<?php	}else{
+																							?>
 																								<option style = "background-color: <?= $mg->ni_color; ?> ;" value="<?= $mg->ni_id; ?>"><?= $mg->ni_mg; ?> Mg</option>
-																							<?php }
-																						?>											
+																							<?php }}
+																						?>
 																					</select>
 				                                    							</div>
 				                                    						</div>
@@ -264,8 +270,8 @@
 				                                    						</div>
 				                                    						<span class="pull-right"><button type="button" id="addBtn" class="btn btn-success" disabled><i class="fa fa-plus"></i>&nbsp;Add Item</button></span>
 				                                    					</div>
-				                                    				</div>				                                    				
-				                                    			</td>				     
+				                                    				</div>
+				                                    			</td>
 				                                    		</tr>
 				                                    		<?php } ?>
 						                                    </tfoot>
@@ -278,13 +284,13 @@
                                         <!-- End Order Note -->
                                         <!-- Ship Form -->
                                         <div class="row">
-						                <div class="col-md-12">              
+						                <div class="col-md-12">
 						                	<div class="portlet box purple">
 						                        <div class="portlet-title">
 						                            <div class="caption">
-						                                <i class="fa fa-ship"></i>Shipping Note 
+						                                <i class="fa fa-ship"></i>Shipping Note
 						                            </div>
-						                            <span class="pull-right">	                            	
+						                            <span class="pull-right">
 						                            <div class="mt-radio-inline">
 					                                    <label class="mt-radio">
 					                                        <input type="radio" name="wide" <?php if($arr['order']->or_wide == 0){echo "checked";} ?> value="0" <?= $radio; ?>>
@@ -298,11 +304,11 @@
 					                                    </label>
 					                                </div>
 						                            </span>
-						                            
+
 						                        </div>
 						                        <div class="portlet-body">
 						                            <div class="table-responsive">
-						                                <table class="table table-striped table-condensed table-bordered">	                                    
+						                                <table class="table table-striped table-condensed table-bordered">
 						                                    <tbody>
 						                                       	<tr>
 					                                            	<th>
@@ -329,7 +335,7 @@
 											                                		 : <input type="text" class="inputText " id = "sh_com" value="<?= $temp2; ?>" <?= $mode ?> >
 										                                        <span></span>
 										                                </div>
-					                                            	</td> 
+					                                            	</td>
 					                                            	<th>
 					                                            		Shiping Price
 					                                            	</th>
@@ -362,7 +368,7 @@
 											                                		 : <input type="text" class="inputText" id = "sh_opti" value="<?= $temp2; ?>" <?= $mode ?>>
 										                                        <span></span>
 										                                </div>
-					                                            	</td>					                                 					                                            	
+					                                            	</td>
 						                                        </tr>
 						                                        <tr>
 					                                            	<th>
@@ -395,14 +401,14 @@
 										                                        <span></span>
 										                                </div>
 					                                            	</td>
-						                                        </tr>	                                        
+						                                        </tr>
 						                                    </tbody>
 						                                </table>
 						                            </div>
 						                        </div>
 						                    </div>
 						                </div>
-					                </div>						                
+					                </div>
                                     <div class="form-actions right">
                                     <?php if($arr['order']->or_ver >= 2){?>
                                      <div style="<?php if($arr['order']->pr_id != 4){?>display: none;<?php } ?>" class="riben ribbon ribbon-shadow ribbon-color-warning uppercase"><h2><i class="fa fa-warning" ></i> Unconfirm Order</h2></div>
@@ -418,14 +424,14 @@
                                 </form>
                                 <!-- END FORM-->
                             </div>
-                        </div>                       
+                        </div>
                     </div>
         </div>
 </div>
 <script>
 
 	var num = 1;
-	$(document).ready(function() {	
+	$(document).ready(function() {
 		$('#client').change(function() {
 			temp = $(this).val();
 			$.when($('#loadingText').show()).then(function(){
@@ -449,7 +455,7 @@
 			type = $("#itemType").val();
 			nic = $("#inputNico").val();
 			cat = $("#cat").val();
-			//alert(type + " " + nic + " " + cat);				
+			//alert(type + " " + nic + " " + cat);
 			num ++;
 			$.post('<?= site_url("nasty_v2/dashboard/getAjaxItemList") ?>', {type : type , nico : nic , cat : cat , num : num}, function(data) {
 				$("#orderList").append(data);
@@ -464,8 +470,8 @@
 					} else {
 						$("#delEdit_"+oi_id).remove();
 					}
-				});				
-			}			
+				});
+			}
 		});
 		$(".inputText").keyup(function() {
 			rad = $(this).prop('id');
@@ -493,6 +499,6 @@
 			$('.confirm').click(function() {
 			alert("Warning !!!, Only the salesPerson able to change the order confirmation status. Tq.");
 			});
-		<?php } ?>		
+		<?php } ?>
 	});
 </script>

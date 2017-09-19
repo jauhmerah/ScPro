@@ -147,7 +147,7 @@ body .ReadOnlyExtrasStatus {
 
 
 <div class="readonly-payment-information__nav-actions">
-                  
+
   <?php
   if ($arr['order']->or_paid) { ?>
     <div class="ReadOnlyExtrasStatus paid">
@@ -159,31 +159,31 @@ body .ReadOnlyExtrasStatus {
   </div>
   <?php }
   ?>
-  
-</div> 
+
+</div>
 <div class="clear" style="height: 30px;"></div>
 
 
      <div class="row-fluid">
               <div id="ReadOnlyView" class="span12 read-only-view">
-                
+
 
 
 <!-- invoice start -->
 <div class="clear" style="height: 40px;"></div>
 <div id="NextContemporary" class="export-template">
- 
-   
-          
+
+
+
         <img class="contemporary-template__business-logo" src="<?= base_url(); ?>assets/cover/nstylogo.png" width="314" height="161"/>
-      
-   
+
+
   	<div class="pull-right" style="text-align: right;">
-      <h1><big>INVOICE</big></h1>
+      <h1><big>PURCHASE ORDER</big></h1>
       <strong>NSTY WORLDWIDE SDN BHD</strong>
-      
+
         <div class="contemporary-template__header__info__address">
-          
+
 		  Lot 139, 1st Floor, Jalan Besar Tampin,<br>
 		  Tampin,
 		  Negeri Sembilan  73000<br>
@@ -197,8 +197,8 @@ body .ReadOnlyExtrasStatus {
   			<span class="wrappable">www.nastyjuice.com<br></span>
         </div>
         </div>
-      
-    
+
+
     <div class="clear" style="height: 70px;"></div>
 <hr>
 
@@ -215,7 +215,7 @@ body .ReadOnlyExtrasStatus {
     case '3':
       $duit = "GBP";
       break;
-    
+
     default:
       $duit = "Currency Error!!!<br>";
       break;
@@ -225,7 +225,7 @@ body .ReadOnlyExtrasStatus {
       <div class="contemporary-template__metadata__customer--billing">
         <div class="contemporary-template__metadata__customer__address-header">BILL TO :</div>
         <strong><?= $arr['order']->cl_name; ?></strong>
-        
+
           <div class="contemporary-template__metadata__customer__address">
   			<br>
 
@@ -240,9 +240,9 @@ body .ReadOnlyExtrasStatus {
           <?= $arr['order']->cl_tel; ?><br>
          <?= $arr['order']->cl_email; ?><br>
 				</div>
-        
+
       </div>
-      
+
     </div>
 
     <div class="pull-right">
@@ -256,14 +256,14 @@ body .ReadOnlyExtrasStatus {
             <span> <?= "INV-".$or_code; ?></span><br>
           </td>
         </tr>
-        
+
         <tr class="wv-table__row">
           <td class="wv-table__cell" style="text-align: right;">
             <strong class="wv-text--strong">Invoice Date : </strong>
           </td>
           <td></td>
           <td class="wv-table__cell" style="text-align: right;">
-          <?php 
+          <?php
             $temp = date_create($arr['order']->or_date);
           ?>
             <span><?= date_format($temp,"Y-m-d"); ?></span><br>
@@ -274,11 +274,11 @@ body .ReadOnlyExtrasStatus {
             <strong class="wv-text--strong">Sales Person : </strong>
           </td>
           <td></td>
-          <td class="wv-table__cell" style="text-align: right;">          
+          <td class="wv-table__cell" style="text-align: right;">
             <span><?= $arr['staff']->us_username; ?></span><br>
           </td>
         </tr>
-     
+
       </table>
    </div>
   </section>
@@ -291,50 +291,50 @@ body .ReadOnlyExtrasStatus {
           <th colspan="8" style="color: #000000;" align="center">Item Details</th>
           <th style="color: #000000;" align="center">Quantity</th>
           <th style="color: #000000;" align="center">Price</th>
-          <th style="color: #000000;">Tester</th> 
+          <th style="color: #000000;">Tester</th>
           <th style="color: #000000;" align="center">Amount</th>
         </tr>
       </thead>
       <tbody>
-         <?php 
+         <?php
           if (!isset($arr)) {
           ?>
          <tr>
           <td colspan="11" align="center">-- No Data--</td>
           </tr>
           <?php
-          } else {  
+          } else {
               $n = 0;
               $total_all=0.0;
               foreach ($arr['item'] as $key) {
-                
-              
+
+
               $n++;
-             
+
             ?>
 
          <tr>
           <td colspan="8" style="color: #000000;">
           	<strong><?= $key->ty2_desc; ?></strong>
           	<br>
-			     <?= $key->ca_desc; ?> | <?= $key->ni_mg; ?>mg
+			     <?= $key->ca_desc; if($key->ni_mg != -1){echo "| ".$key->ni_mg."mg";}; ?>
           </td>
           <td colspan="1" style="color: #000000;" style="width:60px;"><?= $key->oi_qty; ?></td>
           <td colspan="1" style="color: #000000;" style="width:60px;"><?= $key->oi_price; ?></td>
           <td colspan="1" style="color: #000000;" style="width:60px;"><?= $key->oi_tester; ?></td>
           <td colspan="1" style="color: #000000;" style="width:60px;"><?= $duit; ?> <?= number_format((float)$total=$key->oi_qty * $key->oi_price, 2, '.', '');?></td>
-        
+
 
         </tr>
-      
-        <?php 
-           $total_all=$total_all+$total; 
+
+        <?php
+           $total_all=$total_all+$total;
           }
           if ($arr['order']->or_traking == null || $arr['order']->or_traking == '0000-00-00 00:00:00') {
             $arr['order']->or_traking = 0;
           }
           $total = $total_all;
-          $total_all += $arr['order']->or_traking;           
+          $total_all += $arr['order']->or_traking;
         } ?>
          <tr>
         <td style="color: #000000;text-align: right;" colspan="11"><strong>Total :</strong></td>
@@ -347,7 +347,7 @@ body .ReadOnlyExtrasStatus {
         </tr>
           <td style="color: #000000;text-align: right;" colspan="11"> <strong>Amount Due :</strong></td>
           <td style="color: #000000;"><strong><?= $duit; ?> <?php echo  number_format((float)$total_all, 2, '.', ''); ?></strong></td>
-        </tr>      
+        </tr>
       </tbody>
     </table>
   </div>
@@ -355,16 +355,16 @@ body .ReadOnlyExtrasStatus {
 <!-- invoice end -->
 <footer>
 <div class="clear" style="height: 100px;"></div>
-		<!-- jQuery 
+		<!-- jQuery
 		<script src="//code.jquery.com/jquery.js"></script>-->
-		<!-- Bootstrap JavaScript 
+		<!-- Bootstrap JavaScript
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>-->
 	</body>
 </html>
 <script>
 
-    
+
 	 	window.print();
 
-	
+
 	</script>

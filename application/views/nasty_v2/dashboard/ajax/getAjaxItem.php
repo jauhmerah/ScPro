@@ -1,7 +1,9 @@
 <tr class="list_<?= $num; ?>">
 	<td><?= $item[0]->ty2_desc; ?><br>
 	<span class="label" style="color: black;background-color: <?= $cat->ca_color; ?>; font-size: 75%;" ><strong><?= $cat->ca_desc; ?></strong></span>&nbsp;
-	<span class="label" style="color: black;font-size: 75%; background-color: <?= $nico->ni_color; ?>;" ><strong><?= $nico->ni_mg; ?> mg</strong></span></td>
+	<?php if ($nico->ni_mg != -1) { ?>
+		<span class="label" style="color: black;font-size: 75%; background-color: <?= $nico->ni_color; ?>;" ><strong><?= $nico->ni_mg; ?> mg</strong></span></td>
+	<?php } ?>
 	<td><input type="number" name="price[]" id="inputPrice" min="0" step="any" class="form-control" value="" required="required"></td>
 	<td><input type="number" name="qty[]" id="inputQty" min="0" class="form-control" required="required"></td>
 	<td><input type="number" name="tester[]" id="inputTester" min="0" class="form-control"></td>
@@ -13,7 +15,7 @@
 		$(document).ready(function() {
 			$('.delBtn<?= $num; ?>').click(function() {
 				$(".list_<?= $num; ?>").remove();
-			});	
+			});
 		});
 	</script>
 </tr>
