@@ -1340,6 +1340,32 @@ epul@nastyjuice.com
     				$data['display'] = $this->load->view($this->parent_page.'/addStaff' ,$arr , true);
 		    		$this->_show('display' , $data , $key); 
     				break;
+
+                case 'f1':
+                    if ($this->input->get('page')) {
+                        $p = $this->input->get('page');
+                    }else{
+                        $p = 0;
+                    }   
+                    $this->load->database('anotherdb',TRUE);
+                    $this->load->model('m_item2');
+                    $this->load->model('m_category2');
+                    $this->load->model('m_subcat');
+
+                    $ver = $this->m_item2->orderCount();
+                    $arr['arr'] = $this->m_item2->getAll2(10 , $p);
+                    $arr['lvl'] = $this->m_category2->getLvl();
+                    $arr['mg'] = $this->m_subcat->getLvl();
+                    $result1 = sizeof($arr['arr']);
+
+
+                    $arr['page'] = $p;
+                    $arr['total'] = $ver;
+                    $arr['row'] = $result1;
+
+                    $data['display'] = $this->load->view($this->parent_page.'/finishList' ,$arr, true);
+                    $this->_show('display' , $data , 'f1'); 
+                break;
                 case 'k1':
                     //OrdSys 2.5.6
                     //Accounting Module
@@ -2353,6 +2379,40 @@ epul@nastyjuice.com
             $arr = $this->input->post();
             echo $this->load->view($this->parent_page.'/ajax/getAjaxGraph4', $arr, false);
         }
+
+
+         public function getAjaxTable2()
+              {
+                 
+                  if ($this->input->post()) {
+
+                    if ($this->input->get('page')) {
+                        $p = $this->input->get('page');
+                        }else{
+                            $p = 0;
+                        }
+
+
+                  $cat_id = $this->input->post('cat_id');
+                  $ni_id = $this->input->post('ni_id');
+                   $this->load->database();
+
+                  $this->load->model('m_item2');
+                  $this->load->library('my_func');
+               
+                      
+                      $ver = $this->m_item2->orderCount2(0,$cat_id,$ni_id);
+                      $arr['arr'] = $this->m_item2->getAll4($ver, $p,0, $cat_id , $ni_id);
+
+                      $result1 = sizeof($arr['arr']);
+                        $arr['page'] = $p;
+                        $arr['total'] = $ver;
+                        $arr['row'] = $result1;
+
+                   
+                  $this->load->view($this->parent_page."/ajax/getAjaxTable2",$arr );
+                }
+              }
 
         public function getAjaxGraph5($box = null , $cu = 1)
         {

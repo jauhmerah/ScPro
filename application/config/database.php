@@ -54,7 +54,7 @@ $db['default']['password'] = '';
 $db['default']['database'] = 'db_scpro';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
-$db['default']['pconnect'] = TRUE;
+$db['default']['pconnect'] = FALSE;
 $db['default']['db_debug'] = TRUE;
 $db['default']['cache_on'] = FALSE;
 $db['default']['cachedir'] = '';
@@ -63,6 +63,23 @@ $db['default']['dbcollat'] = 'utf8_general_ci';
 $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
+
+
+$db['anotherdb']['hostname'] = 'localhost';
+$db['anotherdb']['username'] = 'root';
+$db['anotherdb']['password'] = '';
+$db['anotherdb']['database'] = 'nstylabc_finish';
+$db['anotherdb']['dbdriver'] = 'mysql';
+$db['anotherdb']['dbprefix'] = '';
+$db['anotherdb']['pconnect'] = FALSE;
+$db['anotherdb']['db_debug'] = TRUE;
+$db['anotherdb']['cache_on'] = FALSE;
+$db['anotherdb']['cachedir'] = '';
+$db['anotherdb']['char_set'] = 'utf8';
+$db['anotherdb']['dbcollat'] = 'utf8_general_ci';
+$db['anotherdb']['swap_pre'] = '';
+$db['anotherdb']['autoinit'] = TRUE;
+$db['anotherdb']['stricton'] = FALSE;
 
 
 /* End of file database.php */

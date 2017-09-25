@@ -98,15 +98,28 @@
                                         <!--<span class="badge badge-success">1</span>-->
                                     </a>
                                 </li>
-                                    <!-- <li class="nav-item start" title="Ready To Shipping">
-                                    <a href="<?= site_url('nasty_v2/dashboard/page/a7') ?>" class="nav-link ">
-                                        <i class="fa fa-truck"></i>
-                                        <span class="title">RTS List</span>
-                                        <!--<span class="badge badge-success">1</span>-->
+                                   
                                     </a>
-                                </li> -->
+                                </li>
                             </ul>
-                        </li> <?php } ?>                                                
+                        </li> <?php } ?> 
+                        <li class="nav-item <?php if (strpos($link, 'f1') !== false) { echo "active open";}else{echo "start";}?>   ">
+                            <a href="javascript:;" class="nav-link ">
+                                <i class="fa fa-bar-chart"></i>
+                                <span class="title">Finish Inventory</span>
+                            </a>
+                            <ul class="sub-menu">
+                          
+                                <li class="nav-item start" title="Finish Inventory">
+                                    <a href="<?= site_url('nasty_v2/dashboard/page/f1') ?>" class="nav-link ">
+                                        <i class="fa fa-cubes"></i>
+                                        <span class="title">Dashboard</span>
+                                        
+                                    </a>
+                                </li>   
+                            </ul>
+                        </li>
+
                         <?php if($us_lvl != 4 && $us_lvl != 5){?>                     
                         <li class="nav-item <?php if (strpos($link, 'g') !== false) { echo "active open";}else{echo "start";}?>   ">
                             <a href="" class="nav-link ">
