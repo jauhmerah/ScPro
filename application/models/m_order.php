@@ -271,14 +271,14 @@
 	     public function listOrROS($ver = 0 ,$st1 =null,$st2 =null,$st3 =null,$st4 =null, $limit = null , $start = null , $del = 0 , $where = null)
 	    {
 	    	
-	    	$this->db->select('ord.or_id , ord.us_id , us1.us_username , cl.cl_name, ord.or_acc , cl.cl_country , ord.or_date ,ord.pr_id, pr.pr_desc , pr.pr_color, ord.or_paid ');
+	    	$this->db->select('ord.or_id , ord.us_id , us1.us_username , cl.cl_name, ord.or_acc , cl.cl_country , ord.or_date , orex.or_finishdate ,ord.pr_id, pr.pr_desc , pr.pr_color, ord.or_paid ');
 	    	//, pic.img_url , pic.pi_title
 	    	$this->db->from('order ord');
 	    	
 	    	if($del != 3){	    		
 	    		$this->db->where('ord.or_del', $del);
 	    	}	    	
-	    	$this->db->order_by('ord.or_id', 'desc');
+	    	//$this->db->order_by('ord.or_id', 'desc');
 	    	if ($limit !== null && $start !== null) {
 	    		$this->db->limit($limit, $start);
 	    	}	
@@ -287,6 +287,7 @@
 	    	$this->db->join('client cl', 'ord.cl_id = cl.cl_id', 'left');
 	    	$this->db->join('user us1' , 'ord.us_id = us1.us_id' , 'left');
 	    	$this->db->join('process pr' , 'ord.pr_id = pr.pr_id' , 'left');
+	    	$this->db->join('order_ext orex', 'orex.or_id = ord.or_id', 'left');
 	    	//$this->db->join('picture pic' , 'ord.or_id = pic.ne_id' , 'left');
 	    	if(($st1 == 8) || ($st2 == 9)){	    		
 	    		$this->db->where('ord.pr_id', $st1);
@@ -301,6 +302,7 @@
 	    	// if ($where != null) {
 	    	// 	$this->db->where($where);
 	    	// }
+	    	$this->db->order_by('orex.or_finishdate', 'asc');
 	    	$result = $this->db->get()->result();
 	    	return $result;
 	    }

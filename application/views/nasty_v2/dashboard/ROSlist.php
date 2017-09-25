@@ -606,11 +606,6 @@
                                                      }
                                                     
                                                         ?>
-
-
-
-
-
                                             </div>
                                         </div>
                                 </div>
@@ -710,7 +705,9 @@
 
 
 </div>
-
+<pre>
+  <?= print_r($arr1); ?>
+</pre>
 
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 

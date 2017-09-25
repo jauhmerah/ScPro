@@ -820,8 +820,6 @@ epul@nastyjuice.com
                     $this->_show('display' , $data , $key);
                     break;
 
-
-
                     case 'a7':  
                     //$this->load->library('my_func');
                    /* if ($lvl == 4) {
@@ -1775,18 +1773,20 @@ epul@nastyjuice.com
 
 
          public function change_pr_id3()
-        {
-                
-                //if ($this->input->post('or_id')){
-                //echo "<script>alert('test');</script>";
-                //$this->load->library('my_func'); 
+        {       
                 $or_id = $this->input->post('or_id');
                 //$or_id = $this->my_func->scpro_decrypt($this->input->post('or_id'));
                 $pr_id = $this->input->post('pr_id');
                 $this->load->database();
                 $this->load->model('m_order');
-
-               
+                $this->load->model('m_order_ext' , 'morex');
+                $finish = date('Y-m-d'); 
+                $arr = array(
+                    'or_finishdate' => $finish
+                );              
+                $where = array(
+                    'or_id' => $or_id
+                );
 /*
                   1 - New Order
                     2 - In Progress
@@ -1802,15 +1802,9 @@ epul@nastyjuice.com
                     12 - Arrived
                     13 - Return */
                     $this->m_order->updateROS($pr_id, $or_id);
+                    $this->morex->update($arr , $where);
 
                     redirect(site_url('nasty_v2/dashboard/page/a1new'),'refresh');
-
-                // }
-                // else{
-                //     return false;
-                // }
-
-                    
         }
 
 
