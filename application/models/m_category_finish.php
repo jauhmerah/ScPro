@@ -1,17 +1,17 @@
 <?php 
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class M_category extends CI_Model {
+class M_category_finish extends CI_Model {
 
     /**
      * @name string TABLE_NAME Holds the name of the table in use by this model
      */
-    const TABLE_NAME = 'category';
+    const TABLE_NAME = 'category_finish';
 
     /**
      * @name string PRI_INDEX Holds the name of the tables' primary index used in this model
      */
-    const PRI_INDEX = 'ca_id';
+    const PRI_INDEX = 'cf_id';
 
     /**
      * Retrieves record(s) from the database
@@ -47,10 +47,10 @@ class M_category extends CI_Model {
             return false;
         }
     }
-    public function getName($where = NULL) {
+    public function getID($where = NULL) {
         // echo "<script>alert($where);</script>";
 
-        $this->db->select("ca_desc");
+        $this->db->select("ct_id");
         $this->db->from(self::TABLE_NAME);
         $this->db->where('ca_id', $where);
         $result = $this->db->get()->result();

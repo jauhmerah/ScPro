@@ -1,17 +1,17 @@
-<?php 
+<?php
 	if (!defined('BASEPATH')) exit('No direct script access allowed');
 	
-	class M_client extends CI_Model {
+	class M_user_finish extends CI_Model {
 	
 	    /**
 	     * @name string TABLE_NAME Holds the name of the table in use by this model
 	     */
-	    const TABLE_NAME = 'client';
+	    const TABLE_NAME = 'user_finish';
 	
 	    /**
 	     * @name string PRI_INDEX Holds the name of the tables' primary index used in this model
 	     */
-	    const PRI_INDEX = 'cl_id';
+	    const PRI_INDEX = 'uf_id';
 	
 	    /**
 	     * Retrieves record(s) from the database
@@ -21,7 +21,7 @@
 	     *                      If string, value will be used to match against PRI_INDEX
 	     * @return mixed Single record if ID is given, or array of results
 	     */
-	    public function get($where = NULL, $asc = false) {
+	    public function get($where = NULL) {
 	        $this->db->select('*');
 	        $this->db->from(self::TABLE_NAME);
 	        if ($where !== NULL) {
@@ -32,9 +32,6 @@
 	            } else {
 	                $this->db->where(self::PRI_INDEX, $where);
 	            }
-	        }
-	        if ($asc != false) {
-	        	$this->db->order_by('cl_name', $asc);
 	        }
 	        $result = $this->db->get()->result();
 	        if ($result) {
@@ -47,18 +44,60 @@
 	            return false;
 	        }
 	    }
-	
-	    public function getNation($where = NULL) {
-       
-	    $this->db->distinct("cl_country");
-        $this->db->select("cl_country");
+	    public function getName($id = null)
+	    {
+	    	$this->db->select('us_username');
+	    	$this->db->from('user');
+	    	$this->db->where('us_id', $id);
+	    	$result = $this->db->get()->result();
+	    	$result = array_shift($result);
+	    	return $result->us_username;
+	    }
+
+	    public function getID($where = NULL) {
+
+        $this->db->select("id");
         $this->db->from(self::TABLE_NAME);
-        $this->db->order_by('cl_country', 'asc');
+        $this->db->where('us_id', $where);
         $result = $this->db->get()->result();
-        return $result;
+
+        return array_shift($result);
 
     }
 
+	    public function getLvl(){
+	    	$this->db->select("*");
+	    	$this->db->from('user_level ul');
+	    	$result = $this->db->get()->result();
+	    	return $result;
+	    }
+
+	    public function getAll($where = null)
+	    {
+	    	$this->db->select('*');
+	        $this->db->from(self::TABLE_NAME);
+	        if ($where !== NULL) {
+	            if (is_array($where)) {
+	                foreach ($where as $field=>$value) {
+	                    $this->db->where($field, $value);
+	                }
+	            } else {
+	                $this->db->where(self::PRI_INDEX, $where);
+	            }
+	        }
+	        $this->db->join('user_level ul', 'user.us_lvl = ul.ul_id', 'left');
+	        $result = $this->db->get()->result();
+	        if ($result) {
+	            if ($where !== NULL) {
+	                return array_shift($result);
+	            } else {
+	                return $result;
+	            }
+	        } else {
+	            return false;
+	        }
+	    }
+	
 	    /**
 	     * Inserts new data into database
 	     *

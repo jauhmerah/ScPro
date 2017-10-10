@@ -53,6 +53,7 @@
 								<th>Client Name</th>
 								<th>Country</th>
 								<th>Due Date</th>
+								<th>Payment Status</th>
 								<th>Action</th>
 							</tr>
 						</thead>
@@ -75,6 +76,25 @@
 	                                	}
 	                                ?>
 									<td><?= $date; ?></td>
+									<td>
+										<?php 
+											if($key['order']->or_paid == 1)
+											{
+												?>
+										<span class="label" style="background-color:#36D357;">Paid</span>
+											
+											<?php 
+											}
+											else
+											{ ?>
+											<span class="label" style="background-color:#D33636;">Unpaid</span>
+												
+											<?php
+											}
+
+										?>
+
+									</td>
 									<td>
 									<?php $usid = $this->my_func->scpro_encrypt($key['order']->or_id); ?>
 										<a onclick="return moveTo();" href="<?= site_url('nasty_v2/dashboard/page/a21?move=').$usid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-info"><i class="fa fa-share-square-o"></i> Move To Process</button></a>

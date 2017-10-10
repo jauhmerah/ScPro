@@ -8,7 +8,7 @@
 		return confirm('Are you sure?');
 	}
 </script>
-<
+
  <style type="text/css">
             .task-contain{
              background-color: white;

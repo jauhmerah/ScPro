@@ -45,6 +45,18 @@ class M_nico extends CI_Model {
         }
     }
 
+    public function getName($where = NULL) {
+        // echo "<script>alert($where);</script>";
+
+        $this->db->select("ni_mg");
+        $this->db->from(self::TABLE_NAME);
+        $this->db->where('ni_id', $where);
+        $result = $this->db->get()->result();
+
+        return array_shift($result);
+
+    }
+
     /**
      * Inserts new data into database
      *

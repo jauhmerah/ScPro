@@ -65,7 +65,16 @@
 			$val2 = $ci->encrypt->decode($val1);
 			return $val2;
 		}
-
+		public function en($text , $mode = 0)
+		{
+			if ($mode === 0) {
+				return bin2hex($text);
+			}
+			$ci = $this->obj;
+			$ci->load->library("encrypt");
+			$defaultKey = "jauhmerahAini";
+			return $ci->encrypt->encode($text , $defaultKey);
+		}
 		function do_upload($path = './assets/uploads/files/', $config = null , $type = 'gif|jpg|png|jpeg')
 		{	
 			$ci = $this->obj;	

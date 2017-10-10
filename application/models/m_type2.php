@@ -41,6 +41,18 @@ class M_type2 extends CI_Model {
         }
     }
 
+    public function getName($where = NULL) {
+        // echo "<script>alert($where);</script>";
+
+        $this->db->select("ty2_desc");
+        $this->db->from(self::TABLE_NAME);
+        $this->db->where('ty2_id', $where);
+        $result = $this->db->get()->result();
+
+        return array_shift($result);
+
+    }
+
     /**
      * Inserts new data into database
      *

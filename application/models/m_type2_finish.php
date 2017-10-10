@@ -1,17 +1,17 @@
-<?php 
+<?php
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class M_category extends CI_Model {
+class M_type2_finish extends CI_Model {
 
     /**
      * @name string TABLE_NAME Holds the name of the table in use by this model
      */
-    const TABLE_NAME = 'category';
+    const TABLE_NAME = 'type2_finish';
 
     /**
      * @name string PRI_INDEX Holds the name of the tables' primary index used in this model
      */
-    const PRI_INDEX = 'ca_id';
+    const PRI_INDEX = 'tf_id';
 
     /**
      * Retrieves record(s) from the database
@@ -21,7 +21,7 @@ class M_category extends CI_Model {
      *                      If string, value will be used to match against PRI_INDEX
      * @return mixed Single record if ID is given, or array of results
      */
-    public function get($where = NULL , $asc = null) {
+    public function get($where = NULL) {
         $this->db->select('*');
         $this->db->from(self::TABLE_NAME);
         if ($where !== NULL) {
@@ -33,26 +33,26 @@ class M_category extends CI_Model {
                 $this->db->where(self::PRI_INDEX, $where);
             }
         }
-        if ($asc != null) {
-        	$this->db->order_by('ca_date', $asc);
-        }
         $result = $this->db->get()->result();
-        if ($result) {
-            if ($where !== NULL) {
-                return array_shift($result);
-            } else {
-                return $result;
-            }
+        if ($result) {            
+            return $result;            
         } else {
             return false;
         }
     }
-    public function getName($where = NULL) {
+
+    public function getID($it = NULL, $cat = NULL , $nico = NULL) {
         // echo "<script>alert($where);</script>";
 
-        $this->db->select("ca_desc");
+        $this->db->select("it_id");
         $this->db->from(self::TABLE_NAME);
-        $this->db->where('ca_id', $where);
+
+        $this->db->where('ty2_id', $it);
+
+        $this->db->where('ct_category', $cat);
+
+        $this->db->where('ni_id', $nico);
+
         $result = $this->db->get()->result();
 
         return array_shift($result);

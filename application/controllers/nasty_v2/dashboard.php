@@ -144,7 +144,7 @@
             $this->load->database();
             $this->load->model('m_item');
             $this->load->model('m_nico');
-            $arr['arr'] = $this->m_item->totalByFlavor($arr1['year1'] , $arr1['month1'] , $arr1['client'] , $arr1['mg']);                      
+            $arr['arr'] = $this->m_item->totalByFlavor($arr1['year1'] , $arr1['month1'] , $arr1['client'] , $arr1['mg'], $arr1['country']);                      
             /*echo "<pre>";
             print_r($arr);
             echo "</pre>";*/
@@ -177,6 +177,8 @@
                         $arr['verold'] = $this->m_order->orderCount(1) + $this->m_order->orderCount(0);
                         $arr['totalProfit'] = $this->m_order->totalProfit();
                         $arr['client'] = $this->m_client->get(null , 'asc');
+                        $arr['nation'] = $this->m_client->getNation();
+
                         $arr['mg'] = $this->m_nico->get();
                         //end added                        $data['title'] = '<i class="fa fa-pencil"></i>Main Page</a>';
                         $data['display'] = $this->load->view($this->parent_page.'/dashboard' ,$arr, true);
@@ -989,10 +991,15 @@ epul@nastyjuice.com
                         ->display_as('ca_note' , 'Event Note')
                         ->display_as('ca_date' , 'Event Date Created');
                     $crud->callback_column('ca_color',array($this,'callback_col_cat'));
+                    $crud->callback_after_insert(array($this, 'cat_finish_after_insert'));
+                    $crud->callback_after_update(array($this, 'cat_finish_after_update'));
+                    
                     $crud->callback_edit_field('ca_color',array($this,'edit_field_callback_cat'));
                     $output = $crud->render();
+                    
                     $data['display'] = $this->load->view('crud' , $output , true);
-                    $this->_show('display' , $data , $key); 
+
+                    $this->_show('display' , $data , $key);
                     break;   			
     			case 'c2':
     				//Item
@@ -1029,6 +1036,11 @@ epul@nastyjuice.com
                             return $text;
                         });
                     $crud->callback_before_insert(array($this,'callback_before_insert_item'));
+
+                    $crud->callback_after_insert(array($this, 'item_finish_after_insert'));
+
+                    //$crud->callback_after_update(array($this, 'item_finish_after_update'));
+
 					$output = $crud->render();
 		    		$data['display'] = $this->load->view('crud' , $output , true);
 		    		$this->_show('display' , $data , $key); 
@@ -1101,10 +1113,18 @@ epul@nastyjuice.com
                         redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
                     }
                     if ($this->input->post() && $this->input->get('key')) {
+                        $msg = '';
                         $arr = $this->input->post();
                         $or_id = $this->my_func->scpro_decrypt($this->input->get('key'));
+                        $us_id=$this->my_func->scpro_decrypt($this->session->userdata('us_id'));
                         $this->load->database();
                         $this->load->model('m_order_item');
+                        $this->load->model('m_category_finish');
+                        $this->load->model('m_type2_finish');
+                        $this->load->model('m_user_finish');
+
+                        $this->load->model('m_log');
+                        $this->load->model('m_item2' , 'it2');
                         if (isset($arr['idE'])) {
                             if (sizeof($arr['idE']) != 0) {
                                 for ($i=0; $i < sizeof($arr['idE']); $i++) { 
@@ -1114,7 +1134,44 @@ epul@nastyjuice.com
                                        'oi_qty' => $arr['qtyE'][$i],
                                        'oi_tester' => $arr['testerE'][$i]
                                     );
-                                    $this->m_order_item->update($temp , $oi_id);
+
+                                    $arr2=$this->m_order_item->get($oi_id);
+                                    
+                                    if ($this->_checkStockUpdate($oi_id , $temp)) {
+
+                                        $this->m_order_item->update($temp , $oi_id);
+
+                                        $cat = $this->m_category_finish->getID($arr['cat'][$i]);
+                                        $it = $this->m_type2_finish->getID($arr['cat'][$i], $cat->ct_id ,$arr['nico'][$i]);
+                                        
+                                          $wh = array(
+                                            'it_id' => $it->it_id,
+                                            'ct_category' => $cat->ct_id,
+                                            'ni_id' => $arr['nico'][$i],
+                                            );
+
+
+                                        if($arr2->oi_qty != $arr['qtyE'][$i]){
+
+                                          $wh1 = array(
+                                                'lg.lg_item' => $it->it_id,
+                                                'lg.cat_id' => $cat->ct_id,
+                                                'lg.ni_id' => $arr['nico'][$i],
+                                            );
+
+                                            $arr1 = $this->m_log->get6($wh1);
+                                            $us = $this->m_user_finish->getID($us_id);
+                                          $res=$this->it2->updateQty2($arr['qtyE'][$i]+$arr['testerE'][$i] , $wh, $us->id, 2 , $arr1->lg_fromqty);
+                                            
+                                       }
+                                       
+                                    }else{
+                                        
+                                        $msg = $msg . " Item Code Id : ".$this->my_func->en($oi_id)." insufficient Quantity.</br>";
+                                    }
+                                }
+                                  if($msg != ''){
+                                    $this->session->set_flashdata('warning', $msg);
                                 }
                             }
                         }                        
@@ -1170,6 +1227,12 @@ epul@nastyjuice.com
                         $arr = $this->input->post();
                         $this->load->library('my_func');
                         $this->load->database();
+
+                        
+                         if (!$this->checkStock($arr['itemId'] ,$arr['cat'] , $arr['nico'] , $arr['qty'] , $arr['tester'])) {
+                            redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
+                        }
+
                         $this->load->model('m_order');
                         if ($arr['client'] == -1) {
                             $cl = array(
@@ -1205,19 +1268,45 @@ epul@nastyjuice.com
                             'dec_id' => $arr['sh_declare']                            
                         );
                         $this->load->model('m_order_ext');                        
-                        $orex_id = $this->m_order_ext->insert($order_ext);                        
+                        $orex_id = $this->m_order_ext->insert($order_ext);  
+
                         $this->load->model('m_order_item');
+                        $this->load->model('m_item2' , 'it');
+                        $this->load->model('m_type2_finish');
+                        $this->load->model('m_category_finish');
+                        $this->load->model('m_user_finish');
+
+
+                        $us_id=$this->my_func->scpro_decrypt($this->session->userdata('us_id'));
+
                         $sizeArr = sizeof($arr['itemId']);
                         for ($i=0; $i < $sizeArr ; $i++) { 
                             $item = array(
                                 'orex_id' => $orex_id,
                                 'ty2_id' => $arr['itemId'][$i],
+                                'ct_id' => $arr['cat'][$i],
                                 'ni_id' => $arr['nico'][$i],
                                 'oi_price' => $arr['price'][$i],
                                 'oi_qty' => $arr['qty'][$i],
                                 'oi_tester' => $arr['tester'][$i]
                             );
-                            $this->m_order_item->insert($item);
+                            
+                            
+
+                            if($this->m_order_item->insert($item))
+                            {
+                                $cat = $this->m_category_finish->getID($arr['cat'][$i]);
+                                $it = $this->m_type2_finish->getID($arr['cat'][$i], $cat->ct_id ,$arr['nico'][$i]);
+                                $us = $this->m_user_finish->getID($us_id);
+
+                                $wh = array(
+                                    'it_id' => $it->it_id,
+                                    'ct_category' => $cat->ct_id,
+                                    'ni_id' => $arr['nico'][$i],
+                                );
+                                $this->it->updateQty1($arr['qty'][$i]+$arr['tester'][$i] , $wh , $us->id , 2);
+                            }
+
                         }
                         /*$this->load->model('m_shipping_note');
                         $shipping_note = array(
@@ -1225,7 +1314,7 @@ epul@nastyjuice.com
                             'sn_opt' => $arr['sh_opt'],
                             'sn_declare' => $arr['sh_declare'],
                             'sn_wide' => $arr['wide'],
-                            'cl_id' => $arr['client']
+                            'cl_id' => $arr['client'] 
                         );
                         $this->m_shipping_note->insert($shipping_note);*/
                         if ($arr['pr_id'] != 4) { 
@@ -1244,7 +1333,7 @@ epul@nastyjuice.com
                          
                             $email['fromName'] = "Nasty OrdYs System";
                             $email['fromEmail'] = "noreply@nastyjuice.com";
-                            $email['toEmail'] = array(' finance@nastyjuice.com , zul@nastyjuice.com , it@nastyjuice.com');;
+                            $email['toEmail'] = array('finance@nastyjuice.com , zul@nastyjuice.com , it@nastyjuice.com');;
                             $email['subject'] = 'New Purchase Order #'.(120000+$or_id);
                             $email['html'] = true;
                             $content=$this->load->view('/mail/send_email',$arr,true);
@@ -1933,6 +2022,169 @@ epul@nastyjuice.com
                 }
             }
         }
+
+        function cat_finish_after_insert($post_array,$primary_key)
+        {
+       
+        $this->load->database();
+        $this->load->model('m_category2');
+
+        $this->load->model('m_category');
+
+        $this->load->model('m_category_finish');
+
+        $cat = $this->m_category->get($primary_key);
+         
+        $arr = array(
+        "ct_name" => $cat->ca_desc,
+        "ct_descrp" => $cat->ca_note,
+        "ct_color" => $cat->ca_color
+        );
+        
+        $ct_id = $this->m_category2->insert($arr);
+
+        $arr = array(
+        "ca_id" => $primary_key,
+        "ct_id" => $ct_id
+        );
+        
+        $this->m_category_finish->insert($arr);
+
+        return true;
+        }
+
+        function cat_finish_after_update($post_array,$primary_key)
+        {
+       
+        $this->load->database();
+
+        $this->load->model('m_category2');
+
+        $this->load->model('m_category');
+
+        $this->load->model('m_category_finish');
+
+        $cat = $this->m_category->get($primary_key);
+
+        $it= $this->m_category_finish->getID($cat->ca_id);
+
+        $arr = array(
+        "ct_name" => $cat->ca_desc,
+        "ct_descrp" => $cat->ca_note,
+        "ct_color" => $cat->ca_color
+        );
+        
+         $this->m_category2->update($arr , $it->ct_id);
+         
+        return true;
+        }
+
+        function item_finish_after_insert($post_array,$primary_key)
+        {
+       
+        $this->load->database();
+
+        $this->load->model('m_item2');
+
+        $this->load->model('m_type2');
+
+        // $this->load->model('m_type2_finish');
+
+        $this->load->model('m_category_finish');
+
+        $it = $this->m_type2->get($primary_key);
+
+        $cat = $this->m_category_finish->getID($it->ca_id);
+
+            $arr = array(
+            "it_name" => $it->ty2_desc,
+            "ct_category" => $cat->ct_id  
+            );
+            
+         $this->m_item2->insert($arr);
+
+
+
+        // for($num=0;$num<=6;$num=$num+3)
+        // {
+        //     $arr = array(
+        //     "it_name" => $it->ty2_desc,
+        //     "ct_category" => $cat->ct_id,
+        //     "ni_id" => $num
+        //     );
+            
+        //     $it_id = $this->m_item2->insert($arr);
+
+        //     // $arr1 = array(
+        //     // "ty2_id" => $it->ty2_id,
+        //     // "it_id" => $it_id,
+        //     // "ct_category" => $cat->ct_id
+        //     // // "ni_id" => $num
+
+        //     // ); 
+
+        //     //$this->m_type2_finish->insert($arr1);
+
+        // } 
+        
+        return true;
+        }
+
+        function item_finish_after_update($post_array,$primary_key)
+        {
+       
+        $this->load->database();
+
+        $this->load->model('m_item2');
+
+        $this->load->model('m_type2');
+
+        $this->load->model('m_item_finish');
+
+        $this->load->model('m_category_finish');
+
+
+        $it = $this->m_type2->get($primary_key);
+
+        $cat = $this->m_category_finish->getID($it->ca_id);
+
+        $arr = array(
+            "it_name" => $it->ty2_desc
+            // "ct_category" => $cat->ct_id,
+            // "ni_id" => 0
+            );
+            
+            $it_id = $this->m_item2->insert($arr);
+
+
+
+        // for($num=0;$num<=6;$num=$num+3)
+        // {
+        //     $arr = array(
+        //     "it_name" => $it->ty2_desc,
+        //     "ct_category" => $cat->ct_id,
+        //     "ni_id" => $num
+        //     );
+            
+        //     $it_id = $this->m_item2->insert($arr);
+
+        //     $arr1 = array(
+        //     "ty2_id" => $primary_key,
+        //     "it_id" => $it_id,
+        //     "ct_category" => $cat->ct_id,
+        //     "ni_id" => $num
+
+        //     );
+        //     $this->m_item_finish->insert($arr1);
+
+        // } 
+        
+         
+        return true;
+        }
+
+        
+
 		function callbackGalary($pk , $row)
 		{	
 			$this->load->library('my_func');
@@ -2186,6 +2438,26 @@ epul@nastyjuice.com
             echo $this->load->view($this->parent_page."/ajax/getAjaxItem", $temp , true);
         }
 
+        public function getAjaxNoti()
+        {
+            $arr = $this->input->post();
+            $this->load->database();
+           
+            $this->load->model('m_type2_finish');
+
+            $this->load->model('m_category_finish');
+
+            $this->load->model('m_item2'); 
+
+
+            $cat = $this->m_category_finish->getID($arr['cat']);
+            $it = $this->m_type2_finish->getID($arr['type'], $cat->ct_id ,$arr['nico']);
+           
+            $arr1['arr'] = $this->m_item2->getAll($it->it_id) ;
+            
+            echo $this->load->view($this->parent_page."/ajax/getAjaxNoti",$arr1, true);
+        }
+
         public function getAjaxDelItem()
         {
             $oi_id = $this->input->post('oi_id');
@@ -2408,6 +2680,51 @@ epul@nastyjuice.com
                 }
               }
 
+        public function checkStock($id , $cat ,  $nico , $qty , $tester)
+        {
+            $this->load->library('my_func');
+            $status = true;
+            $msg = "";
+            $this->load->model('m_item2' , 'it');
+
+            $this->load->model('m_type2_finish');
+
+            $this->load->model('m_category_finish');
+
+            $arr = $this->it->get2();
+
+           
+            for ($i=0; $i < sizeof($id); $i++) { 
+
+                $cat = $this->m_category_finish->getID($cat[$i]);
+                $it = $this->m_type2_finish->getID($id[$i], $cat->ct_id ,$nico[$i]);
+
+
+                $w = array(
+                    'it.it_id' => $it->it_id,
+                    'it.ni_id' => $nico[$i]
+                );
+                $temp = array_shift($this->it->get2($w));
+                if (sizeof($temp) != 0) {
+                    $qty1 = $qty[$i] + $tester[$i];
+                    if ($temp->it_qty - $qty1 < 0 ) {
+                        // klu qty xckup;
+                        $msg = $msg."<strong>Insufficient Quantity</strong> : ".$temp->it_name." - ".$temp->ct_name." > ".$temp->ni_mg."mg</br>";
+                        $status = false;
+                    }
+                }else{
+                    // klu xda dlm database;
+                    $msg = $msg."<strong>Item Not Registered</strong> : Item Code ".$this->my_func->en($id[$i])." Nico Id ".$nico[$i]."</br>";
+                    $status = false;
+                }
+            }
+            if ($msg != '') {
+                $this->session->set_flashdata('error', $msg);
+            }
+            return $status;
+        }
+
+
         public function getAjaxGraph5($box = null , $cu = 1)
         {
             //#graph5
@@ -2591,6 +2908,53 @@ epul@nastyjuice.com
             $this->load->view('invoice/head1');
             $this->load->view('invoice/body' , $display);
             $this->load->view('invoice/head1');
+        }
+
+        private function _checkStockUpdate($oi_id = null , $change = null)
+        {
+           
+            $this->load->database();
+            $this->load->model('m_order_item' , 'moi');
+            $this->load->model('m_item2' , 'it2');
+            $this->load->model('m_category_finish');
+            $this->load->model('m_type2_finish');
+            $data = $this->moi->get($oi_id);
+
+            $cat = $this->m_category_finish->getID($data->ty2_id);
+            $it = $this->m_type2_finish->getID($data->ty2_id, $cat->ct_id ,$data->ni_id);
+
+            $inv = $this->it2->get(array('it_id' => $it->it_id , 'ni_id' => $data->ni_id));
+            if ($change['oi_qty'] != $data->oi_qty || $change['oi_qty'] != $data->oi_tester) {
+                $diff = 0 ;
+                $diff += $change['oi_qty'] - $data->oi_qty; 
+                $diff += $change['oi_tester'] - $data->oi_tester; 
+                if ($diff == 0) {
+                    return true;
+                }      
+                if ($diff > 0) {
+                    $bal = $inv->it_qty - $diff;
+                    if ($bal >= 0) {
+                        if($this->it2->update(array('it_qty' => $bal) , $inv->it_id)){
+                            return true;
+                        }else{
+                            echo "Error #a121_1";
+                            die();
+                        }                        
+                    }else{
+                        return false;
+                    }
+                }else{
+                    $bal = $inv->it_qty + (-1 * $diff);
+                    if($this->it2->update(array('it_qty' => $bal) , $inv->it_id)){
+                        return true;
+                    }else{
+                        echo "Error #a121_2";
+                        die();
+                    }                    
+                }
+            }else{
+                return true;
+            }
         }
 	}
 	        

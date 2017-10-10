@@ -253,7 +253,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div class= "col-lg-4 col-lg-offset-1">
+                                            <div class= "col-lg-3 col-lg-offset-1">
                                                 <div class="form-group">
                                                     <select name="client" id="client" class="input-circle form-control input-sm select2-multiple select2-hidden-accessible" tabindex="-1" aria-hidden="true">
                                                     <option value="-1">--All Client--</option>
@@ -265,7 +265,7 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-6">
+                                            <div class="col-lg-3">
                                                 <div class="form-group">
                                                     <select name="mg" id="nicomg" class="input-circle form-control input-sm select2-multiple select2-hidden-accessible" tabindex="-1" aria-hidden="true">
                                                     <option value="-1">--All MG--</option>
@@ -275,6 +275,20 @@
                                                         <?php }
                                                         ?>
                                                     </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="form-group">
+                                                   
+                                                <select name="country" id="country" class="input-circle form-control input-sm select2-multiple select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                                                <option value="-1">--All Country--</option>
+                                                    <?php
+                                                    foreach ($nation as $key) { ?>
+                                                        <option value="<?= $key->cl_country; ?>"> <?= $key->cl_country; ?> </option>
+                                                    <?php }
+                                                    ?>
+                                                </select>
+                                        
                                                 </div>
                                             </div>
                                         </div>
@@ -926,6 +940,8 @@ $(document).ready(function() {
         month1 = $('#flavMonth').val();
         client = $('#client').val();
         mg = $('#nicomg').val();
+        country1 = $('#country').val();
+
         if (mg != -1) {
             $('#mgL').html("("+mg+" MG)");
         }else{
@@ -937,7 +953,7 @@ $(document).ready(function() {
         }else{
             //alert(month1);
             $.when($("#site_statistics_loading2").removeClass('display-none')).then(function(){        
-                $.post('<?= site_url('nasty_v2/dashboard/getAjaxGraph2') ?>', {year1 : year1 , month1 : month1 , client : client , mg : mg}, function(data) {
+                $.post('<?= site_url('nasty_v2/dashboard/getAjaxGraph2') ?>', {year1 : year1 , month1 : month1 , client : client , mg : mg , country : country1}, function(data) {
                     $.when($('#flavcode').html(data)).then(function(){
                         $("#flavdiv").removeClass('display-none');
                         $("#site_statistics_loading2").addClass('display-none');
@@ -952,8 +968,9 @@ function kelik() {
     month1 = $('#flavMonth').val();
     client = $('#client').val();
     mg = $('#nicomg').val();
+    country1 = $('#country').val();
     $.when($("#site_statistics_loading2").removeClass('display-none')).then(function(){        
-        $.post('<?= site_url('nasty_v2/dashboard/getAjaxGraph2') ?>', {year1 : year1 , month1 : month1 , client : client , mg : mg}, function(data) {
+        $.post('<?= site_url('nasty_v2/dashboard/getAjaxGraph2') ?>', {year1 : year1 , month1 : month1 , client : client , mg : mg , country : country1}, function(data) {
             $.when($('#flavcode').html(data)).then(function(){
                 $("#flavdiv").removeClass('display-none');
                 $("#site_statistics_loading2").addClass('display-none');

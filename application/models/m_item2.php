@@ -27,16 +27,16 @@ class M_item2 extends CI_Model {
         $this->db = $CI->load->database('anotherdb',TRUE);
         $this->db->select('*');
         $this->db->from(self::TABLE_NAME);
-         $this->db->where(self::PRI_INDEX, $where);
-        // if ($where !== NULL) {
-        //     if (is_array($where)) {
-        //         foreach ($where as $field=>$value) {
-        //             $this->db->where($field, $value);
-        //         }
-        //     } else {
-        //         $this->db->where(self::PRI_INDEX, $where);
-        //     }
-        // }
+         // $this->db->where(self::PRI_INDEX, $where);
+        if ($where !== NULL) {
+            if (is_array($where)) {
+                foreach ($where as $field=>$value) {
+                    $this->db->where($field, $value);
+                }
+            } else {
+                $this->db->where(self::PRI_INDEX, $where);
+            }
+        }
         $result = $this->db->get()->result();
 
         if ($result) {
@@ -49,6 +49,26 @@ class M_item2 extends CI_Model {
             return false;
         }
     }
+
+    public function get2($where = null)
+        {
+            $CI = &get_instance();
+
+            $this->db = $CI->load->database('anotherdb',TRUE);
+            $this->db->select('*');
+            $this->db->from('invento_items it');
+
+            $this->db->join('invento_categories cat', 'it.ct_category = cat.ct_id', 'left');
+
+            $this->db->join('nicotine sub', 'it.ni_id = sub.ni_id', 'left');
+
+            $this->db->order_by('it.it_id , it.ni_id', 'asc');
+            if ($where != null) {
+                $this->db->where($where);
+            }           
+            return $this->db->get()->result();          
+        }
+
      public function getList($where = NULL) {
         $CI = &get_instance();
 
@@ -126,8 +146,8 @@ class M_item2 extends CI_Model {
      */
     public function insert(Array $data) {
             $CI = &get_instance();
-
             $this->db = $CI->load->database('anotherdb',TRUE);
+            
         if ($this->db->insert(self::TABLE_NAME, $data)) {
             return $this->db->insert_id();
         } else {
@@ -142,7 +162,7 @@ class M_item2 extends CI_Model {
         $this->db = $CI->load->database('anotherdb',TRUE);
         $this->db->select('*');
         $this->db->from(self::TABLE_NAME);
-        $this->db->where(self::PRI_INDEX, $wh);
+        $this->db->where($wh);
         $result=$this->db->get()->result();
         $arr=array_shift($result);
 
@@ -181,6 +201,39 @@ class M_item2 extends CI_Model {
 
         return true;
       }
+
+        public function updateQty2($qty , $w , $id , $st=null , $fromqty)
+        {
+            $date_added=date("Y-m-d H:i:s");
+            $this->db->select('*');
+            $this->db->from(self::TABLE_NAME);
+            $this->db->where($w);
+            $arr = array_shift($this->db->get()->result());
+            $qty = $fromqty - $qty;
+            $a = array(
+                'it_qty' => $qty
+            );
+            $this->update($a , $arr->it_id);
+
+            $diff=$qty-$fromqty;    
+
+
+
+             $arr1 = array(
+                  'cat_id' => $arr->ct_category,
+                  'lg_type' => $st,
+                  'lg_item' => $arr->it_id,
+                  'lg_fromqty' =>$fromqty,
+                  'lg_toqty' => $qty,
+                  'lg_qtyDiff' => $diff,
+                  'us_user' => $id
+
+                );
+            //return $arr1;
+            $this->db->insert('invento_logs', $arr1);
+
+
+        }
 
     /**
      * Updates selected record in the database
@@ -414,7 +467,7 @@ class M_item2 extends CI_Model {
                 return false;
             }
         }
-        public function getAll4($limit = null , $start = null, $st = 0,$cat_id =null , $ni_id=null , $all = false, $del = 0 )
+        public function getAll4($limit = null , $start = null, $st = 0,$cat_id =null  , $ni_id=null , $del = 0 )
         {
             $CI = &get_instance();
 
@@ -442,9 +495,7 @@ class M_item2 extends CI_Model {
             if($st != 0){              
                $this->db->where('it_qty <= it_danger');
             }   
-            if (!$all) {
-                $this->db->where('it.it_id >', 0);
-            }   
+           
 
             $this->db->join('invento_categories cat', 'it.ct_category = cat.ct_id', 'left');
 

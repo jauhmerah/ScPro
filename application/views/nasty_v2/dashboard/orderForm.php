@@ -220,6 +220,13 @@
 				                                    						</div>
 				                                    						<span class="pull-right"><span class="pull-left" id="loadingCat" style="display: none;"><i class="fa fa-spinner fa-spin"></i>&nbsp;Be Pat</span><span class="pull-left" id="loadingItem" style="display: none;"><i class="fa fa-spinner fa-spin"></i>&nbsp;Brewing</span>&nbsp;&nbsp;<button type="button" id="addBtn" class="btn btn-success" disabled><i class="fa fa-plus"></i>&nbsp;Add Item</button></span>
 				                                    					</div>
+				                                    					<div class="clearfix">
+				                                    						&nbsp;
+				                                    						</div>
+				                                    					<div id="notification">
+				                                    							
+				                                    					</div>	
+						                                    			
 				                                    				</div>
 				                                    			</td>
 				                                    		</tr>
@@ -403,9 +410,18 @@
 				cat = $("#cat").val();
 				num ++;
 				$.post('<?= site_url("nasty_v2/dashboard/getAjaxItemList") ?>', {type : type , nico : nic , cat : cat , num : num}, function(data) {
+
 					$.when($("#orderList").append(data)).then(function(){
 						$('#loadingItem').hide();
 					});
+
+				});
+
+				$.post('<?= site_url("nasty_v2/dashboard/getAjaxNoti") ?>', {type : type , nico : nic , cat : cat}, function(data) {
+					
+					$("#notification").append(data);
+					
+
 				});
 			});
 		});

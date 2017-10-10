@@ -44,7 +44,7 @@
 	            						<option value="-1" >Select Category</option>
                                                             <?php foreach ($lvl as $key) {
                                                                 ?>
-                                                                <option value="<?= $key->ct_id; ?>" > <?= $key->ct_name; ?></option>
+                                                                <option style="background-color: <?= $key->ct_color; ?>" value="<?= $key->ct_id; ?>" > <?= $key->ct_name; ?></option>
                                                                 <?php
                                                             } ?>
 	            					</select>
@@ -57,16 +57,28 @@
 	            				<div class="col-sm-10">
 	            					<select name="subcategory" id="subcategory" class="form-control input-circle">
 	            						 <option value="-1">Select Nicotine</option>
-                                       <?php foreach ($mg as $key) {
-                                                                ?>
-                                                                <option value="<?= $key->ni_id; ?>" > <?= $key->ni_mg; ?></option>
-                                                                <?php
-                                                            } ?>
-	            						
+                                      <?php
+										foreach ($mg as $key) {
+											if ($key->ni_mg == -1) { ?>
+											<option style = "background-color: <?= $key->ni_color; ?> ;" value="<?= $key->ni_id; ?>">-- No Mg --</option>
+									<?php	}else{ ?>
+											<option style = "background-color: <?= $key->ni_color; ?> ;" value="<?= $key->ni_id; ?>"><?= $key->ni_mg; ?> Mg</option>
+									<?php }} ?>
 	            					</select>
 	            				</div>
 	            			</div>
 	            		</div>
+
+
+
+
+
+
+
+
+
+
+
 	            		<div class="col-md-2">
 	            			<button type="button" class="btn btn-default " id="sub"><i class="fa fa-search"></i> Search</button>
 	            		</div>

@@ -10,6 +10,7 @@
 	<td><span><button type="button" class="btn btn-danger btn-xs delBtn<?= $num; ?>"><i class="fa fa-trash" ></i></button></span>
 	<input type="hidden" name="itemId[]" id="inputItemId[]" class="form-control" value="<?= $item[0]->ty2_id; ?>">
 	<input type="hidden" name="nico[]" id="inputNico[]" class="form-control" value="<?= $nico->ni_id; ?>">
+	<input type="hidden" name="cat[]" id="inputCat[]" class="form-control" value="<?= $cat->ca_id; ?>">
 	</td>
 	<script>
 		$(document).ready(function() {
