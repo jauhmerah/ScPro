@@ -795,18 +795,7 @@ epul@nastyjuice.com
                         $arr['arr2'] = $this->m_order->listOrROS(2 , 10 , 11, 12 , 13 , 10 , $p);
                         $result1 = sizeof($arr['arr1']);
                         $result2 = sizeof($arr['arr2']);
-                        //$sizeA = 10 - $result1;
-                        /*if ($sizeA != 0) {
-                            $p1 = $p + 10 - $ver1;
-                            if ($p1 < 10) {
-                                $p2 = 0;
-                            } else {
-                                $p2 = $p1;
-                                $p1 = 10;
-                            }                        
-                            $arr['arr'] = $this->m_order->listOr(0 , $p1 , $p2);
-                            $result1 = $result1 + sizeof($arr['arr']);
-                        }*/
+                       
                         $arr['page'] = $p;
                         $arr['e'] = $e;
                         $arr['total'] = $ver;

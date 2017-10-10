@@ -188,7 +188,7 @@
                                                 <th>#</th>
                                                 <th>Client Name</th>
                                                 <th>Order Code</th>
-                                                <th>Finish Date</th>
+                                                <th>Order Date</th>
                                                 <th>Sales Person</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
@@ -227,7 +227,7 @@
                                                             }
                                                             ?></td>
                                                             <td><?php 
-                                                                $view = ( $user->or_finishdate == null) ? "--Not Set--" :  date_format(date_create($user->or_finishdate) , 'd-M-Y' ) ;
+                                                                $view = ( $user->or_date == null) ? "--Not Set--" :  date_format(date_create($user->or_date) , 'd-M-Y' ) ;
                                                                 echo $view ;
                                                                 ?></td>
                                                             <td><?php 
@@ -274,10 +274,18 @@
                                                         <div class="clear" style="height: 10px"></div>
                                                     <input type="hidden" name="id" id="id" class="form-control" value="<?= $user->or_id; ?>">
                                                     <button title = "Save" type="submit" class="submit btn-primary btn-circle btn-info btn-xs">Save</button>
+
                                                     </form>
                                                    </div>
+
+                                                   
+                                                    
                                                     </td>
                                                     </tr>
+
+                        
+
+
                                                     <?php 
                                                             
                                                         }
@@ -339,10 +347,11 @@
                                                 <th>#</th>
                                                 <th>Client Name</th>
                                                 <th>Order Code</th>
-                                                <th>Finish Date</th>
+                                                <th>Order Date</th>
                                                 <th>Sales Person</th>
                                                 <th>Status</th>
-                                                <th>Action</th>                                        
+                                                <th>Action</th>
+                                        
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -377,7 +386,7 @@
                                                             }
                                                             ?></td>
                                                             <td><?php 
-                                                                $view = ( $user->or_finishdate == null) ? "--Not Set--" :  date_format(date_create($user->or_finishdate) , 'd-M-Y' ) ;
+                                                                $view = ( $user->or_date == null) ? "--Not Set--" :  date_format(date_create($user->or_date) , 'd-M-Y' ) ;
                                                                 echo $view ;
                                                                 ?></td>
                                                             <td><?php 
@@ -470,12 +479,7 @@
         </div>
     </div>
 </div>
-<pre>
-    <?= print_r($arr1); ?>
-</pre>
-<pre>
-    <?= print_r($arr2); ?>
-</pre>
+
 
 <script>
     $(document).ready(function() {
