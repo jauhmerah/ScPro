@@ -778,21 +778,21 @@ epul@nastyjuice.com
                                 break;
                         }
                         if (isset($ver)) {
-                            $arr['arr1'] = $this->m_order->listOrROS($ver , 8 , 9 , null , null , null , null , 0 , $where);
-                             $arr['arr2'] = $this->m_order->listOrROS($ver , 10 , 11 , 12 , 13 , null , null , 0 , $where);
+                            $arr['arr1'] = $this->m_order->listOrROS($ver , 1 , null , null , 0 , $where);
+                             $arr['arr2'] = $this->m_order->listOrROS($ver , 2 , null , null , 0 , $where);
                         }else{
                             $arr['arr1'] = $this->m_order->listSearch(2 , null , null , 0 , $where);
                             //$arr['arr2'] = $this->m_order->listOr($ver , null , null , 0 , $where);                        
                         }
                     } else {
-                        $ver = $this->m_order->orderCountROS(2, 8 , 9, null , null);
-                        $ver2 = $this->m_order->orderCountROS(2, 10 , 11, 12 , 13 );
+                        $ver = $this->m_order->orderCountROS(2, 1);
+                        $ver2 = $this->m_order->orderCountROS(2, 2);
                         //$ver = $this->m_order->orderCount(2);
 
                         //$arr['arr1'] = $this->m_order->listOr(2 , 10 , $p);
 
-                        $arr['arr1'] = $this->m_order->listOrROS(2 , 8 , 9, null , null , 10 , $p);
-                        $arr['arr2'] = $this->m_order->listOrROS(2 , 10 , 11, 12 , 13 , 10 , $p);
+                        $arr['arr1'] = $this->m_order->listOrROS(2 , 1 , 10 , $p);
+                        $arr['arr2'] = $this->m_order->listOrROS(2 , 2 , 10 , $p);
                         $result1 = sizeof($arr['arr1']);
                         $result2 = sizeof($arr['arr2']);
                        

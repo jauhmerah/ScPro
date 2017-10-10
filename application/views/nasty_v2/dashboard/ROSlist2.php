@@ -310,8 +310,8 @@
                                                 $next = "disabled";
                                             }
                                         ?>
-                                            <li class="prev <?= $prev; ?>"><a <?php if($prev!="disabled"){ ?>href="<?= site_url('nasty_v2/dashboard/page/a62?page='.($page-10)); ?>"<?php } ?> title="Prev" ><i class="fa fa-angle-left"></i></a></li>                                            
-                                            <li class="next <?= $next; ?>"><a <?php if($next!="disabled"){ ?>href="<?= site_url('nasty_v2/dashboard/page/a62?page='.($page+10)); ?>"<?php } ?> title="Next"><i class="fa fa-angle-right"></i></a></li>
+                                            <li class="prev <?= $prev; ?>"><a <?php if($prev!="disabled"){ ?>href="<?= site_url('nasty_v2/dashboard/page/a62?page='.($page-10)."&e=1"); ?>"<?php } ?> title="Prev" ><i class="fa fa-angle-left"></i></a></li>                                            
+                                            <li class="next <?= $next; ?>"><a <?php if($next!="disabled"){ ?>href="<?= site_url('nasty_v2/dashboard/page/a62?page='.($page+10)."&e=1"); ?>"<?php } ?> title="Next"><i class="fa fa-angle-right"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -328,7 +328,7 @@
 		</div>
 	</div>
 </div>
-
+<!-- <pre><?php print_r($arr1) ?></pre> -->
 <div class="row">
     <div class="col-md-12">
         <div class="portlet box blue" id="proOrder" <?php if($e==2){echo "style=display:block;";}else{ echo "style=display:none;"; }  ?>  >
