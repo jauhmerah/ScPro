@@ -1003,7 +1003,7 @@ epul@nastyjuice.com
                     $crud->required_fields('ty2_desc', 'ca_id');
 		    		$crud->unset_print();
 		    		$crud->unset_export();
-                    $crud->callback_column('ca_id',array($this,'callback_col_item'));		    		
+                    $crud->callback_column('ca_id',array($this,'callback_col_item'));
                     $crud->callback_add_field('ca_id', function () {
                             $this->load->database();
                             $this->load->model('m_category');
@@ -1024,11 +1024,13 @@ epul@nastyjuice.com
                             ';
                             return $text;
                         });
+
+
                     $crud->callback_before_insert(array($this,'callback_before_insert_item'));
 
                     $crud->callback_after_insert(array($this, 'item_finish_after_insert'));
 
-                    //$crud->callback_after_update(array($this, 'item_finish_after_update'));
+                    $crud->callback_after_update(array($this, 'item_finish_after_update'));
 
 					$output = $crud->render();
 		    		$data['display'] = $this->load->view('crud' , $output , true);
@@ -1589,8 +1591,10 @@ epul@nastyjuice.com
     		if ($this->input->post()) {
     			$arr = $this->input->post();    			
     			$this->load->database();
-    			$this->load->model('m_user');
-    			$this->load->library('my_func');
+                $this->load->model('m_user');
+    			$this->load->model('m_user_2');
+                $this->load->library('my_func');
+    			$this->load->library('my_func2');
     			foreach ($arr as $key => $value) {
     				if ($value != null) {
     					if ($key == 'pass') {
@@ -1599,7 +1603,19 @@ epul@nastyjuice.com
     					$arr2['us_'.$key] = $value;   					
     				}
     			}
-    			$result = $this->m_user->insert($arr2);
+
+                $arr3 = array(
+                            "username" => $arr['username'],
+                            "password" => $this->my_func->scpro_encrypt($arr['pass']),                      
+                            "name" => $arr['fname'],
+                            "email" => $arr['email'],
+                            "role" => 6
+                        );
+
+                $result = $this->m_user->insert($arr2);
+
+    			$result = $this->m_user_2->insert($arr3);
+
     			redirect(site_url('nasty_v2/dashboard/page/c1'),'refresh');
     		}else{
     			redirect(site_url('nasty_v2/dashboard/page/c1'),'refresh');
@@ -2077,7 +2093,7 @@ epul@nastyjuice.com
 
         $this->load->model('m_type2');
 
-        // $this->load->model('m_type2_finish');
+        $this->load->model('m_type2_finish');
 
         $this->load->model('m_category_finish');
 
@@ -2085,36 +2101,28 @@ epul@nastyjuice.com
 
         $cat = $this->m_category_finish->getID($it->ca_id);
 
+        for($num=-1;$num<=2;$num++)
+        {
             $arr = array(
             "it_name" => $it->ty2_desc,
-            "ct_category" => $cat->ct_id  
+            "ct_category" => $cat->ct_id,
+            "ni_id" => $num
             );
             
-         $this->m_item2->insert($arr);
+            $it_id = $this->m_item2->insert($arr);
 
+            $arr1 = array(
+            "ty2_id" => $it->ty2_id,
+            "it_id" => $it_id,
+            "ca_id" => $it->ca_id,
+            "ct_category" => $cat->ct_id,
+            "ni_id" => $num
 
+            ); 
 
-        // for($num=0;$num<=6;$num=$num+3)
-        // {
-        //     $arr = array(
-        //     "it_name" => $it->ty2_desc,
-        //     "ct_category" => $cat->ct_id,
-        //     "ni_id" => $num
-        //     );
-            
-        //     $it_id = $this->m_item2->insert($arr);
+            $this->m_type2_finish->insert($arr1);
 
-        //     // $arr1 = array(
-        //     // "ty2_id" => $it->ty2_id,
-        //     // "it_id" => $it_id,
-        //     // "ct_category" => $cat->ct_id
-        //     // // "ni_id" => $num
-
-        //     // ); 
-
-        //     //$this->m_type2_finish->insert($arr1);
-
-        // } 
+        } 
         
         return true;
         }

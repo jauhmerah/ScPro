@@ -34,8 +34,12 @@ class M_type2 extends CI_Model {
             }
         }
         $result = $this->db->get()->result();
-        if ($result) {            
-            return $result;            
+        if ($result) {
+            if ($where !== NULL) {
+                return array_shift($result);
+            } else {
+                return $result;
+            }
         } else {
             return false;
         }
