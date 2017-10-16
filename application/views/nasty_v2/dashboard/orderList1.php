@@ -90,6 +90,7 @@
 		                            <th>Order Date</th>
 		                            <th>Sales Person</th>
 		                            <th>Status</th>
+		                            <th>Tracking No.</th>
 		                            <th>Action</th>
 		                        </tr>
 		                    </thead>
@@ -155,6 +156,43 @@
                             			
 
                                     </td>
+                                    <?php 
+									if($user->or_shipcom == 1){
+										$comp="dhl";
+									}
+									elseif($user->or_shipcom == 2){
+										$comp="aramex";
+									}
+									elseif($user->or_shipcom == 3){
+										$comp="malaysia-post";
+									}
+									elseif($user->or_shipcom == 5){
+										$comp="gdex";
+									}
+									elseif($user->or_shipcom == 6){
+										$comp="ups";
+									}
+									elseif($user->or_shipcom == 7){
+										$comp="poslaju";
+									}
+									elseif($user->or_shipcom == 8){
+										$comp="fedex";
+									}
+									else{
+										$comp="";
+									}	                                    
+
+                                    ?>
+                                    <td>
+                                    <?php if($comp!=null){ ?> 
+                                    	<span style = "color : #0671D6;"><strong><big><a target="_blank" href="https://track.aftership.com/<?= $comp ?>/<?= $user->or_trackno ?>" title="click here to know about order shipment status."><?= $user->or_trackno ?></a></big></strong></span>
+                                    <?php }else{ ?>
+                                    	<span style = "color : #0671D6;"><strong><big><?= $user->or_trackno ?></big></strong></span>
+                                    
+                                    <?php } ?>
+
+                                    </td>
+
 		                            <td align="center">
                                     <?php 
                                         $orid = $this->my_func->scpro_encrypt($user->or_id);
@@ -217,7 +255,7 @@
 		                    </tbody>
 		                    <?php if (isset($page)) {?>
 		                    <tfoot>
-		                    	<td colspan="7">
+		                    	<td colspan="8">
 			                	<div class="col-md-5 col-sm-5">
 			                		<div class="dataTables_info" id="sample_1_info" role="status" aria-live="polite">Showing <?= ($page+1); ?> to <?= ($page+$row); ?> of <?= $total; ?> records</div>
 			                	</div>
@@ -293,8 +331,7 @@
 	$(document).ready(function() {
 		$(".ROSButton").click(function() {
 
-					id = $(this).prop('id');
-					orid = $("."+id).val();
+				
 		       			
 					bootbox.confirm({
 					    message: "Are You Sure?",

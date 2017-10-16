@@ -286,6 +286,29 @@
 											                                		EMS
 										                                        <span></span>
 										                                    </label>
+										                                    <label class="mt-radio">
+										                                        <input type="radio" name="sh_company" value="5">
+											                                		GDex
+										                                        <span></span>
+										                                    </label>
+										                                    <div class="clearfix" style="height: 20px"></div>
+
+										                                    <label class="mt-radio">
+										                                        <input type="radio" name="sh_company" value="6">
+											                                		UPS
+										                                        <span></span>
+										                                    </label>
+										                                    <label class="mt-radio">
+										                                        <input type="radio" name="sh_company" value="7">
+											                                		POSLAJU
+										                                        <span></span>
+										                                    </label>
+										                                    <label class="mt-radio">
+										                                        <input type="radio" name="sh_company" value="8">
+											                                		FEDex
+										                                        <span></span>
+										                                    </label>
+
 										                                    <input type="radio" name="sh_company" class="sh_com" value="4">
 											                                		 : <input type="text" class="inputText" id = "sh_com" >
 										                                        <span></span>

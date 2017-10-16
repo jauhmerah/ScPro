@@ -246,7 +246,7 @@
 	    }
 	    public function listOr($ver = 0 , $limit = null , $start = null , $del = 0 , $where = null)
 	    {
-	    	$this->db->select('ord.or_id , ord.us_id , us1.us_username , cl.cl_name, ord.or_acc , cl.cl_country , ord.or_date ,ord.pr_id, pr.pr_desc , pr.pr_color, ord.or_paid ');
+	    	$this->db->select('ord.or_id , ord.us_id , us1.us_username , cl.cl_name, ord.or_acc , cl.cl_country , ord.or_date ,ord.pr_id, pr.pr_desc , pr.pr_color, ord.or_paid , orex.or_trackno , orex.or_shipcom');
 	    	//, pic.img_url , pic.pi_title
 	    	$this->db->from('order ord');
 	    	if($del != 3){	    		
@@ -257,6 +257,7 @@
 	    		$this->db->limit($limit, $start);
 	    	}	
 	    	$this->db->where('ord.or_ver', $ver);
+	    	$this->db->join('order_ext orex', 'ord.or_id = orex.or_id', 'left');
 	    	$this->db->join('client cl', 'ord.cl_id = cl.cl_id', 'left');
 	    	$this->db->join('user us1' , 'ord.us_id = us1.us_id' , 'left');
 	    	$this->db->join('process pr' , 'ord.pr_id = pr.pr_id' , 'left');
@@ -296,12 +297,15 @@
 	    	$this->db->join('order_ext orex', 'orex.or_id = ord.or_id', 'left');
 	    	   	
 	    	if($st1 == 1){	   		
-	    		$this->db->where('ord.pr_id >=', 8);
-	    		$this->db->where("ord.pr_id <=", 9);
+	    		$this->db->where('ord.pr_id', 8);
+	    		
 	    	}
 	    	else if($st1 == 2){
 	    	  	
 	    		$this->db->where('ord.pr_id >=', 10);	
+	    	}else if($st1 == 3){
+	    	  	
+	    		$this->db->where('ord.pr_id', 9);	
 	    	}
 
 	    	
@@ -496,8 +500,8 @@
 
 	    	if($st1 == 1){
 				    		
-	    		$this->db->where('ord.pr_id >=', 8);
-	    		$this->db->where("ord.pr_id <=", 9);
+	    		$this->db->where('ord.pr_id', 8);
+	    		
 
 	    	}
 	    	else if($st1 == 2){
@@ -505,7 +509,11 @@
 	    		$this->db->where('ord.pr_id >=', 10);
 	    		
 	    	}
-
+	    	else if($st1 == 3){
+  
+	    		$this->db->where('ord.pr_id', 9);
+	    		
+	    	}
 	    	
 
 	    		  

@@ -15,6 +15,7 @@
 <![endif]-->
             <!-- BEGIN CORE PLUGINS -->            
             <script src="<?= base_url(); ?>asset2/global/plugins/js.cookie.min.js" type="text/javascript"></script>
+            <script src="<?= base_url(); ?>asset2/global/plugins/knockout-3.2.0.js" type="text/javascript"></script>
             <script src="<?= base_url(); ?>asset2/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
             <script src="<?= base_url(); ?>asset2/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
             

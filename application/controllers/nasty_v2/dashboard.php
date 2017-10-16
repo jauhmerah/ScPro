@@ -702,13 +702,7 @@ epul@nastyjuice.com
 
 
                      case 'a62':  
-                    //$this->load->library('my_func');
-                   /* if ($lvl == 4) {
-                        redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
-                    }
-                    if ($this->input->get('mode')) {
-                        $temp['mode'] = $this->input->get('mode');                 
-                    }          */          
+                          
                     if ($this->input->get('page')) {
                         $p = $this->input->get('page');
                     }else{
@@ -718,7 +712,29 @@ epul@nastyjuice.com
                         $e = $this->input->get('e');
                     }else{
                         $e = 0;
-                    }         
+                    }
+
+                    if ($this->input->get('page2')) {
+                        $p2 = $this->input->get('page2');
+                    }else{
+                        $p2 = 0;
+                    } 
+                     if ($this->input->get('e2')) {
+                        $e2 = $this->input->get('e2');
+                    }else{
+                        $e2 = 0;
+                    }  
+
+                    if ($this->input->get('page3')) {
+                        $p3 = $this->input->get('page3');
+                    }else{
+                        $p3 = 0;
+                    } 
+                     if ($this->input->get('e3')) {
+                        $e3 = $this->input->get('e3');
+                    }else{
+                        $e3 = 0;
+                    }           
                     $this->load->database();
                     $this->load->library('my_func');
                     $this->load->library('my_flag');
@@ -780,6 +796,8 @@ epul@nastyjuice.com
                         if (isset($ver)) {
                             $arr['arr1'] = $this->m_order->listOrROS($ver , 1 , null , null , 0 , $where);
                              $arr['arr2'] = $this->m_order->listOrROS($ver , 2 , null , null , 0 , $where);
+                             $arr['arr3'] = $this->m_order->listOrROS($ver , 3 , null , null , 0 , $where);
+
                         }else{
                             $arr['arr1'] = $this->m_order->listSearch(2 , null , null , 0 , $where);
                             //$arr['arr2'] = $this->m_order->listOr($ver , null , null , 0 , $where);                        
@@ -787,23 +805,33 @@ epul@nastyjuice.com
                     } else {
                         $ver = $this->m_order->orderCountROS(2, 1);
                         $ver2 = $this->m_order->orderCountROS(2, 2);
-                        //$ver = $this->m_order->orderCount(2);
-
-                        //$arr['arr1'] = $this->m_order->listOr(2 , 10 , $p);
+                        $ver3 = $this->m_order->orderCountROS(2, 3);
 
                         $arr['arr1'] = $this->m_order->listOrROS(2 , 1 , 10 , $p);
-                        $arr['arr2'] = $this->m_order->listOrROS(2 , 2 , 10 , $p);
+                        $arr['arr2'] = $this->m_order->listOrROS(2 , 2 , 10 , $p2);
+                        $arr['arr3'] = $this->m_order->listOrROS(2 , 3 , 10 , $p3);
                         $result1 = sizeof($arr['arr1']);
                         $result2 = sizeof($arr['arr2']);
+                        $result3 = sizeof($arr['arr3']);
                        
                         $arr['page'] = $p;
                         $arr['e'] = $e;
+                        $arr['page2'] = $p2;
+                        $arr['e2'] = $e2;
+                        $arr['page3'] = $p3;
+                        $arr['e3'] = $e3;
+
                         $arr['total'] = $ver;
                         $arr['total2'] = $ver2;
+                        $arr['total3'] = $ver3;
+
                         $arr['row'] = $result1;
                         $arr['row2'] = $result2;
+                        $arr['row3'] = $result3;
                         $arr['lvl'] = $this->m_order_process->getLvl(1);
-                        $arr['lvl2'] = $this->m_order_process->getLvl(2);
+                        $arr['lvl2'] = $this->m_order_process->getLvl(3);
+                        $arr['lvl3'] = $this->m_order_process->getLvl(2);
+
                     }
                     //$arr['arr'] = $this->m_order->getAll();
                     $data['title'] = '<i class="fa fa-fw fa-edit"></i>Distributor</a>';
@@ -1655,28 +1683,40 @@ epul@nastyjuice.com
                 $arr = $this->input->post();                
                 $this->load->database();
                 $this->load->model('m_order');
-                //$this->load->library('my_func');
-                foreach ($arr as $key => $value) {
-                    if ($value != null) {
-                        // if ($key == 'pass') {
-                        //     $value = $this->my_func->scpro_encrypt($value);
-                        // }
-                        if ($key == 'id') {
-                            $id = $value;
-                        }else{
-                            $arr2[$key] = $value;
-                        }                       
-                    }
+                $this->load->model('m_order_ext');
+
+                $id=$arr['id'];
+
+                $arr2 = array(
+
+                    "pr_id" => $arr['pr_id']
+
+                );
+
+                if(isset($arr['no']))
+                {
+                    $arr3 = array(
+
+                    "or_trackno" => $arr['no']
+
+                    );
+
+                    $result1 = $this->m_order_ext->update($arr3 , $id);
                 }
+        
                 $result = $this->m_order->update($arr2 , $id);
-               
-                  
+                
+
+                $this->session->set_flashdata('success', 'Order are successfully updated');   
                 redirect(site_url('nasty_v2/dashboard/page/a62'),'refresh');
             }else{
+                $this->session->set_flashdata('error', 'Order are not updated');
+
                 redirect(site_url('nasty_v2/dashboard/page/a62'),'refresh');
             }
         }
 
+       
       
 
     	public function uploadPic()
