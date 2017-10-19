@@ -118,8 +118,8 @@
     <div class="clearfix">
       <br><br>
     </div>
-         <img src="http://ordereu.nastyjuice.com/assets/cover/logo.png" class="img-responsive" alt="Image"><br>
-         <form class="form-signin" method="post" action = "http://ordereu.nastyjuice.com/login/signin">
+         <img src="<?= base_url(); ?>assets/cover/logo-bigtimejuice.png" class="img-responsive" alt="Image"><br>
+         <form class="form-signin" method="post" action = "http://order.bigtimejuice.com/login/signin">
       <?php if($this->session->flashdata('warning')){?>
 <div class="alert alert-danger alert-dismissable">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
@@ -132,7 +132,7 @@
                                 <strong><i class="fa fa-check"></i>  Success!</strong> <?= $this->session->flashdata('success'); ?>
                             </div>
         <?php } ?>
-        <h2 class="form-signin-heading">Europe Ordys</h2>
+        <h2 class="form-signin-heading">BigTime Juice Ordys</h2>
         <label for="inputEmail1">Email address</label>
         <input type="email" id="inputEmail1" name="email" class="form-control" required="" autofocus="">
          <div class="clearfix">
@@ -168,6 +168,8 @@
                                 <strong><i class="fa fa-check"></i>  Success!</strong> <?= $this->session->flashdata('success'); ?>
                             </div>
         <?php } ?>
+         <div class="clearfix" style="height: 52px"> 
+    </div>
         <h2 class="form-signin-heading">OrdYs Login</h2>
         <label for="inputEmail1">Email address</label>
         <input type="email" id="inputEmail1" name="email" class="form-control" required="" autofocus="">
@@ -207,6 +209,8 @@
               <strong><i class="fa fa-check"></i>  Success!</strong> <?= $this->session->flashdata('success'); ?>
           </div>
         <?php } ?>
+        <div class="clearfix" style="height: 10px"> 
+    </div>
         <h2 class="form-signin-heading">OEM Login</h2>
         <label for="inputEmail1">Email address</label>
         <input type="email" id="inputEmail1" name="email" class="form-control" required="" autofocus="">
@@ -259,8 +263,11 @@
     <div class="panel panel-default">
       <div class="panel-body">
         <div class="col-xs-4"><a href="http://www.drizz.nastyjuice.com/login"><button type="button" class="btn btn-default"><img src="<?= base_url('assets/cover/drizz.png'); ?>" class="img-responsive" alt="Image"></button></a></div>
+        <div class="col-xs-4"><a href="http://www.ordereu.nastyjuice.com/login"><button type="button" class="btn btn-default"><img src="http://ordereu.nastyjuice.com/assets/cover/logo.png" class="img-responsive" alt="Image"></button></a></div>
+        
       </div>
-    </div>   
+    </div>  
+  
   </div>  
 </div>
 </div>
