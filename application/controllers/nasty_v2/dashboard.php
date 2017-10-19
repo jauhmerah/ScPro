@@ -2137,7 +2137,7 @@ epul@nastyjuice.com
 
         $this->load->model('m_category_finish');
 
-        $it = $this->m_type2->get($primary_key);
+        $it = $this->m_type2->get1($primary_key);
 
         $cat = $this->m_category_finish->getID($it->ca_id);
 
@@ -2176,47 +2176,29 @@ epul@nastyjuice.com
 
         $this->load->model('m_type2');
 
-        $this->load->model('m_item_finish');
+        $this->load->model('m_type2_finish');
 
         $this->load->model('m_category_finish');
 
 
-        $it = $this->m_type2->get($primary_key);
+        $it = $this->m_type2->get1($primary_key);
+
+        $item = $this->m_type2_finish->getID($it->ty2_id);
 
         $cat = $this->m_category_finish->getID($it->ca_id);
 
+        for($num=-1;$num<=2;$num++)
+        {
+
         $arr = array(
-            "it_name" => $it->ty2_desc
-            // "ct_category" => $cat->ct_id,
-            // "ni_id" => 0
+            "it_name" => $it->ty2_desc,
+            "ct_category" => $cat->ct_id,
+            "ni_id" => $num
             );
             
-            $it_id = $this->m_item2->insert($arr);
+        $it_id = $this->m_item2->update($arr , $item->it_id);
 
-
-
-        // for($num=0;$num<=6;$num=$num+3)
-        // {
-        //     $arr = array(
-        //     "it_name" => $it->ty2_desc,
-        //     "ct_category" => $cat->ct_id,
-        //     "ni_id" => $num
-        //     );
-            
-        //     $it_id = $this->m_item2->insert($arr);
-
-        //     $arr1 = array(
-        //     "ty2_id" => $primary_key,
-        //     "it_id" => $it_id,
-        //     "ct_category" => $cat->ct_id,
-        //     "ni_id" => $num
-
-        //     );
-        //     $this->m_item_finish->insert($arr1);
-
-        // } 
-        
-         
+        }
         return true;
         }
 

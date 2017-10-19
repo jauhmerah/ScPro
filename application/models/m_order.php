@@ -346,7 +346,7 @@
 
 	    public function listSearch($ver = 0 , $limit = null , $start = null , $del = 0 , $where = null)
 	    {
-	    	$this->db->select('ord.or_id , ord.us_id , us1.us_username , cl.cl_name ,cl.cl_country, ord.or_acc ,ord.or_date ,ord.pr_id, pr.pr_desc , pr.pr_color, ord.or_paid');
+	    	$this->db->select('ord.or_id , ord.us_id , us1.us_username , cl.cl_name ,cl.cl_country, ord.or_acc ,ord.or_date ,ord.pr_id, pr.pr_desc , pr.pr_color, ord.or_paid , orex.or_trackno , orex.or_shipcom');
 	    	$this->db->from('order ord');
 	    	if($del != 3){	    		
 	    		$this->db->where('ord.or_del', $del);
@@ -357,6 +357,7 @@
 	    		$this->db->limit($limit, $start);
 	    	}	
 	    	$this->db->where('ord.or_ver', $ver);
+	    	$this->db->join('order_ext orex', 'ord.or_id = orex.or_id', 'left');
 	    	$this->db->join('client cl', 'ord.cl_id = cl.cl_id', 'left');
 	    	$this->db->join('user us1' , 'ord.us_id = us1.us_id' , 'left');
 	    	$this->db->join('process pr' , 'ord.pr_id = pr.pr_id' , 'left');

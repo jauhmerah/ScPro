@@ -41,17 +41,47 @@ class M_type2_finish extends CI_Model {
         }
     }
 
+    public function get1($where = NULL) {
+        $this->db->select('*');
+        $this->db->from(self::TABLE_NAME);
+        if ($where !== NULL) {
+            if (is_array($where)) {
+                foreach ($where as $field=>$value) {
+                    $this->db->where($field, $value);
+                }
+            } else {
+                $this->db->where(self::PRI_INDEX, $where);
+            }
+        }
+        $result = $this->db->get()->result();
+        if ($result) {
+            if ($where !== NULL) {
+                return array_shift($result);
+            } else {
+                return $result;
+            }
+        } else {
+            return false;
+        }
+    }
+
     public function getID($it = NULL, $cat = NULL , $nico = NULL) {
         // echo "<script>alert($where);</script>";
 
         $this->db->select("it_id");
         $this->db->from(self::TABLE_NAME);
 
-        $this->db->where('ty2_id', $it);
-
+        if($it!=null){
+          $this->db->where('ty2_id', $it);  
+        }
+        if($cat!=null){
         $this->db->where('ct_category', $cat);
 
-        $this->db->where('ni_id', $nico);
+        }
+        if($nico!=null){
+        $this->db->where('ni_id', $nico);   
+        }
+
 
         $result = $this->db->get()->result();
 

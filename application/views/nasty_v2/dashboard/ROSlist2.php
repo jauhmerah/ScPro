@@ -640,8 +640,8 @@
                                                 $next = "disabled";
                                             }
                                         ?>
-                                            <li class="prev <?= $prev; ?>"><a <?php if($prev!="disabled"){ ?>href="<?= site_url('nasty_v2/dashboard/page/a62?page2='.($page-10)."&e2=2"); ?>"<?php } ?> title="Prev" ><i class="fa fa-angle-left"></i></a></li>                                            
-                                            <li class="next <?= $next; ?>"><a <?php if($next!="disabled"){ ?>href="<?= site_url('nasty_v2/dashboard/page/a62?page2='.($page+10)."&e2=2"); ?>"<?php } ?> title="Next"><i class="fa fa-angle-right"></i></a></li>
+                                            <li class="prev <?= $prev; ?>"><a <?php if($prev!="disabled"){ ?>href="<?= site_url('nasty_v2/dashboard/page/a62?page2='.($page2-10)."&e2=2"); ?>"<?php } ?> title="Prev" ><i class="fa fa-angle-left"></i></a></li>                                            
+                                            <li class="next <?= $next; ?>"><a <?php if($next!="disabled"){ ?>href="<?= site_url('nasty_v2/dashboard/page/a62?page2='.($page2+10)."&e2=2"); ?>"<?php } ?> title="Next"><i class="fa fa-angle-right"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>

@@ -351,7 +351,7 @@
 										                                    </label>
 										                                    <label class="mt-radio">
 										                                        <input type="radio" name="sh_company" <?php if($arr['order']->or_shipcom == 8){echo "checked";} ?>  value="8" <?= $radio; ?>>
-											                                		FEDex
+											                                		FeDex
 										                                        <span></span>
 										                                    </label>
 										                                    <input type="radio" name="sh_company" class="sh_com" <?php $temp = $arr['order']->or_shipcom; $temp2 =""; if($temp != 3 && $temp != 1 && $temp != 2 && $temp != 5 && $temp != 6 && $temp != 7 && $temp != 8){echo "checked";$temp2 = $temp;} ?> value="<?= $temp; ?>" <?= $radio; ?>>

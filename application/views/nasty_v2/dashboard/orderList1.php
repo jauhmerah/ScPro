@@ -173,21 +173,37 @@
 										$comp="ups";
 									}
 									elseif($user->or_shipcom == 7){
-										$comp="poslaju";
+										$comp="malaysia-post";
 									}
 									elseif($user->or_shipcom == 8){
 										$comp="fedex";
 									}
 									else{
-										$comp="";
+
+										if(strtolower($user->or_shipcom) == "gdex")
+										{
+											$comp="gdex";
+										}
+										elseif (strtolower($user->or_shipcom) == "ups") {
+											$comp="ups";
+										}
+										elseif (strtolower($user->or_shipcom) == "poslaju") {
+											$comp="malaysia-post";
+										}
+										elseif (strtolower($user->or_shipcom) == "fedex") {
+											$comp="fedex";
+										}
+										else{
+											$comp="";
+										}
 									}	                                    
 
                                     ?>
                                     <td>
                                     <?php if($comp!=null){ ?> 
-                                    	<span style = "color : #0671D6;"><strong><big><a target="_blank" href="https://track.aftership.com/<?= $comp ?>/<?= $user->or_trackno ?>" title="click here to know about order shipment status."><?= $user->or_trackno ?></a></big></strong></span>
+                                    	<span style = "color : #0671D6;"><strong><a target="_blank" href="https://track.aftership.com/<?= $comp ?>/<?= $user->or_trackno ?>" title="click here to know about order shipment status."><?= $user->or_trackno ?></a></strong></span>
                                     <?php }else{ ?>
-                                    	<span style = "color : #0671D6;"><strong><big><?= $user->or_trackno ?></big></strong></span>
+                                    	<span style = "color : #0671D6;"><strong><?= $user->or_trackno ?></strong></span>
                                     
                                     <?php } ?>
 
