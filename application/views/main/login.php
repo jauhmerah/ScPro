@@ -119,7 +119,7 @@
       <br><br>
     </div>
          <img src="<?= base_url(); ?>assets/cover/logo-bigtimejuice.png" class="img-responsive" alt="Image"><br>
-         <form class="form-signin" method="post" action = "http://order.bigtimejuice.com/login/signin">
+         <form class="form-signin" method="post" action = "http://order.bigtimejuice.nstylab.com/login/signin">
       <?php if($this->session->flashdata('warning')){?>
 <div class="alert alert-danger alert-dismissable">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>

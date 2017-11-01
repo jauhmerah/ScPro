@@ -2141,28 +2141,30 @@ epul@nastyjuice.com
 
         $cat = $this->m_category_finish->getID($it->ca_id);
 
-        for($num=-1;$num<=2;$num++)
-        {
-            $arr = array(
-            "it_name" => $it->ty2_desc,
-            "ct_category" => $cat->ct_id,
-            "ni_id" => $num
-            );
+
             
-            $it_id = $this->m_item2->insert($arr);
+                    for($num=0;$num<=2;$num++)
+                    {
+                        $arr = array(
+                                "it_name" => $it->ty2_desc,
+                                "ct_category" => $cat->ct_id,
+                                "ni_id" => $num
+                        );
+                        
+                        $it_id = $this->m_item2->insert($arr);
 
-            $arr1 = array(
-            "ty2_id" => $it->ty2_id,
-            "it_id" => $it_id,
-            "ca_id" => $it->ca_id,
-            "ct_category" => $cat->ct_id,
-            "ni_id" => $num
+                        $arr1 = array(
+                                "ty2_id" => $it->ty2_id,
+                                "it_id" => $it_id,
+                                "ca_id" => $it->ca_id,
+                                "ct_category" => $cat->ct_id,
+                                "ni_id" => $num
+                        ); 
 
-            ); 
+                        $this->m_type2_finish->insert($arr1);
 
-            $this->m_type2_finish->insert($arr1);
-
-        } 
+                    }
+                 
         
         return true;
         }
