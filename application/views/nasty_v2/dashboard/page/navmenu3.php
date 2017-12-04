@@ -1,4 +1,4 @@
-    
+
         <!-- BEGIN HEADER & CONTENT DIVIDER -->
         <div class="clearfix"> </div>
         <!-- END HEADER & CONTENT DIVIDER -->
@@ -59,7 +59,7 @@
                                 </li>-->
                             </ul>
                         </li> <?php } ?>
-                        <?php if($us_lvl != 4 && $us_lvl != 5){?> 
+                        <?php if($us_lvl != 4 && $us_lvl != 5){?>
                         <li class="nav-item <?php if (strpos($link, 'a2') !== false) { echo "active open";}else{echo "start";}?>  ">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <i class="fa fa-industry"></i>
@@ -68,17 +68,17 @@
                             </a>
                             <ul class="sub-menu">
                                 <li class="nav-item start" title="Request Of Shipping">
-                                    <a href="<?= site_url('nasty_v2/dashboard/page/a2') ?>" class="nav-link ">                                
+                                    <a href="<?= site_url('nasty_v2/dashboard/page/a2') ?>" class="nav-link ">
                                         <i class="fa fa-cog fa-spin"></i>
                                         <span class="title">Order List</span>
                                     </a>
                                 </li>
                             </ul>
-                        </li> <?php } ?> 
+                        </li> <?php } ?>
                         <?php if(($us_lvl != 2) ||  ($us_lvl != 3)  ){?>
                         <li class="nav-item <?php if (strpos($link, 'y') !== false) { echo "active open";}else{echo "start";}?>  ">
                             <a href="javascript:;" class="nav-link nav-toggle">
-                                <i class="fa fa-archive"></i>
+                                <i class="fa fa-cogs"></i>
                                 <span class="title">Distributor</span>
                                 <span class="arrow"></span>
                             </a>
@@ -98,16 +98,16 @@
                                         <!--<span class="badge badge-success">1</span>-->
                                     </a>
                                 </li>
-                                    <!-- <li class="nav-item start" title="Ready To Shipping">
-                                    <a href="<?= site_url('nasty_v2/dashboard/page/a7') ?>" class="nav-link ">
-                                        <i class="fa fa-truck"></i>
-                                        <span class="title">RTS List</span>
+                                <li class="nav-item start" title="Ready To Shipping">
+                                    <a href="<?= site_url('nasty_v2/dashboard/page/a6') ?>" class="nav-link ">
+                                        <i class="fa fa-archive" aria-hidden="true"></i>
+                                        <span class="title">Parcel Management</span>
                                         <!--<span class="badge badge-success">1</span>-->
                                     </a>
-                                </li> -->
+                                </li>
                             </ul>
-                        </li> <?php } ?>                                                
-                        <?php if($us_lvl != 4 && $us_lvl != 5){?>                     
+                        </li> <?php } ?>
+                        <?php if($us_lvl != 4 && $us_lvl != 5){?>
                         <li class="nav-item <?php if (strpos($link, 'g') !== false) { echo "active open";}else{echo "start";}?>   ">
                             <a href="" class="nav-link ">
                                 <i class="fa fa-ship"></i>
@@ -120,7 +120,7 @@
                                 <i class="fa fa-bank"></i>
                                 <span class="title">Acounting</span>
                             </a>
-                        </li><?php } ?> 
+                        </li><?php } ?>
                         <?php if($us_lvl != 2 && $us_lvl != 5){?>
                         <li class="nav-item start ">
                             <a href="<?= site_url('nasty_v2/dashboard/page/a4') ?>" class="nav-link ">
@@ -147,23 +147,23 @@
                                         <i class="fa fa-fw fa fa-tag"></i>
                                         <span class="title">Category</span>
                                     </a>
-                                </li> 
+                                </li>
                                 <li class="nav-item start">
                                     <a href="<?= site_url('nasty_v2/dashboard/page/c2') ?>" class="nav-link ">
                                         <i class="fa fa-fw fa-suitcase"></i>
                                         <span class="title">Item Detail</span>
                                     </a>
-                                </li> 
+                                </li>
                                 <li class="nav-item start">
                                     <a href="<?= site_url('nasty_v2/dashboard/page/c3') ?>" class="nav-link ">
                                         <i class="fa fa-fw fa-tint"></i>
                                         <span class="title">Nicotine</span>
                                     </a>
-                                </li>                                                              
+                                </li>
                             </ul>
-                        </li> 
-                        <?php } ?>                    
-                                               
+                        </li>
+                        <?php } ?>
+
                         <!--<li class="nav-item  active open">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <i class="icon-layers"></i>
