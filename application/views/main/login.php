@@ -82,7 +82,7 @@
 </head>
 
   <body>
-<?php 
+<?php
   $temp = array_slice(scandir('./asset/slider'), 2);
   if (sizeof($temp) != 0) {
     ?>
@@ -104,13 +104,13 @@
 
   <nav class="navbar navbar-fixed-top" role="navigation">
     <div class="container">
-      <ul class="nav pull-right">        
+      <ul class="nav pull-right">
         <li>
           <a><button id="more" type="button" class="btn btn-default"><span class="icon-grid"></span></button></a>
         </li>
       </ul>
     </div>
-  </nav>   
+  </nav>
 
     <div class="container" id = "signin">
     <div class="row">
@@ -118,8 +118,8 @@
     <div class="clearfix">
       <br><br>
     </div>
-         <img src="http://ordereu.nastyjuice.com/assets/cover/logo.png" class="img-responsive" alt="Image"><br>
-         <form class="form-signin" method="post" action = "http://ordereu.nastyjuice.com/login/signin">
+         <img src="<?= base_url(); ?>assets/cover/logo-bigtimejuice.png" class="img-responsive" alt="Image"><br>
+         <form class="form-signin" method="post" action = "https://order.bigtimejuice.nstylab.com/login/signin">
       <?php if($this->session->flashdata('warning')){?>
 <div class="alert alert-danger alert-dismissable">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
@@ -132,7 +132,7 @@
                                 <strong><i class="fa fa-check"></i>  Success!</strong> <?= $this->session->flashdata('success'); ?>
                             </div>
         <?php } ?>
-        <h2 class="form-signin-heading">Europe Ordys</h2>
+        <h2 class="form-signin-heading">BigTime Juice Ordys</h2>
         <label for="inputEmail1">Email address</label>
         <input type="email" id="inputEmail1" name="email" class="form-control" required="" autofocus="">
          <div class="clearfix">
@@ -146,13 +146,13 @@
         &nbsp;
         </div>
         <!-- <a><label class = "btn1">Forgot Password?</label></a> -->
-       
+
         <div class="clearfix">
         &nbsp;
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
       </form>
-     </div> 
+     </div>
       <div class="col-xs-4" align="center">
          <img src="<?= base_url(); ?>assets/cover/logo.png" class="img-responsive" alt="Image"><br>
          <form class="form-signin" method="post" action = "<?= site_url('login/signin'); ?>">
@@ -168,6 +168,8 @@
                                 <strong><i class="fa fa-check"></i>  Success!</strong> <?= $this->session->flashdata('success'); ?>
                             </div>
         <?php } ?>
+         <div class="clearfix" style="height: 52px">
+    </div>
         <h2 class="form-signin-heading">OrdYs Login</h2>
         <label for="inputEmail1">Email address</label>
         <input type="email" id="inputEmail1" name="email" class="form-control" required="" autofocus="">
@@ -182,19 +184,19 @@
         &nbsp;
         </div>
         <!-- <a><label class = "btn1">Forgot Password?</label></a> -->
-       
+
         <div class="clearfix">
         &nbsp;
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
       </form>
-     </div> 
+     </div>
      <div class="col-xs-4" align="center">
      <div class="clearfix">
       <br><br>
     </div>
          <img src="<?= base_url(); ?>assets/cover/logo3.png" class="img-responsive" alt="Image"><br>
-         <form class="form-signin" method="post" action = "http://oem.nastyjuice.com/login/signin">
+         <form class="form-signin" method="post" action = "https://oem.nastyjuice.com/login/signin">
       <?php if($this->session->flashdata('warning')){?>
 <div class="alert alert-danger alert-dismissable">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
@@ -207,6 +209,8 @@
               <strong><i class="fa fa-check"></i>  Success!</strong> <?= $this->session->flashdata('success'); ?>
           </div>
         <?php } ?>
+        <div class="clearfix" style="height: 10px">
+    </div>
         <h2 class="form-signin-heading">OEM Login</h2>
         <label for="inputEmail1">Email address</label>
         <input type="email" id="inputEmail1" name="email" class="form-control" required="" autofocus="">
@@ -220,37 +224,15 @@
          <div class="clearfix">
         &nbsp;
         </div>
-       
+
         <div class="clearfix">
         &nbsp;
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
       </form>
-     </div> 
+     </div>
     </div>
-    </div>  <!-- /container -->
-    <!--<div class="container" id = "signup">-->
-    <!--  <form class="form-signin" method  = "post"  id = "daftar" >-->
-    <!--    <h2 class="form-signin-heading">Sign up</h2>-->
-        
-    <!--    <label for="inputEmail" class="sr-only">Email Address</label>-->
-    <!--      <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email Address" required="" autofocus="" style="border-bottom-right-radius: 4px; border-bottom-left-radius: 4px;">-->
-        
-    <!--    <label for="inputPassword" class="sr-only">Password</label>-->
-    <!--      <input type="password"  id="pass1" class="form-control" placeholder="Password" required="" autofocus="" style="border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; border-top-left-radius: 4px; border-top-right-radius: 4px; margin-bottom: 0px; margin-top: 10px;">-->
-    <!--    <label for="reinputPassword" class="sr-only">Re-password</label>-->
-    <!--      <input type="password"  id="pass2" class="form-control" placeholder="Re-password" required="" autofocus="">-->
-    <!--    <input type="hidden" value = "null" name = "pass" id = "pass3"><span id = "msg"></span>-->
-    <!--    <div class="checkbox">-->
-          <!--<input type="checkbox" value="remember-me"> -->
-    <!--      <a><label class = "btn2 col-sm-5">Sign In</label></a>-->
-    <!--      <a href=""><label class = "btn1 col-sm-offset-2" style="text-align: right;" >Back Home</label></a>-->
-    <!--    </div>-->
-    <!--    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>-->
-    <!--  </form>-->
-      
-
-    <!--</div> /container-->
+    </div>
     <div id = "msg2"></div>
 </body>
 <div id="menu" hidden>
@@ -258,10 +240,13 @@
   <div class="col-xs-12">
     <div class="panel panel-default">
       <div class="panel-body">
-        <div class="col-xs-4"><a href="http://www.drizz.nastyjuice.com/login"><button type="button" class="btn btn-default"><img src="<?= base_url('assets/cover/drizz.png'); ?>" class="img-responsive" alt="Image"></button></a></div>
+        <div class="col-xs-4"><a href="https://www.drizz.nastyjuice.com/login"><button type="button" class="btn btn-default"><img src="<?= base_url('assets/cover/drizz.png'); ?>" class="img-responsive" alt="Image"></button></a></div>
+        <div class="col-xs-4"><a href="https://www.ordereu.nastyjuice.com/login"><button type="button" class="btn btn-default"><img src="https://ordereu.nastyjuice.com/assets/cover/logo.png" class="img-responsive" alt="Image"></button></a></div>
+
       </div>
-    </div>   
-  </div>  
+    </div>
+
+  </div>
 </div>
 </div>
 <script type="text/javascript">
@@ -271,8 +256,8 @@ $(document).ready(function() {
     var dialog = bootbox.dialog({
         message: menu
     });
-  });  
+  });
 });
-  
+
 </script>
 </html>

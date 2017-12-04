@@ -24,7 +24,12 @@
 <table width="100%"  border="0" cellpadding="10" cellspacing="0">
 <tbody><tr>
   <td>
-       <table bgcolor="#ffffff" class="content" style="background-color:#ffffff" align="center" cellpadding="0" cellspacing="0" border="0">
+    <!--[if (gte mso 9)|(IE)]>
+      <table width="600" align="center" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td>
+    <![endif]-->
+    <table bgcolor="#ffffff" class="content" style="background-color:#ffffff" align="center" cellpadding="0" cellspacing="0" border="0">
 			<tbody><tr>
 				<td valign="top" mc:edit="headerBrand" id="templateContainerHeader">
 
@@ -115,22 +120,26 @@
 			</tr>
 
     </tbody></table>
- 
+    <!--[if (gte mso 9)|(IE)]>
+          </td>
+        </tr>
+    </table>
+    <![endif]-->
     </td>
   </tr>
 </tbody></table>
 <style type="text/css">
-
+  /* /\/\/\/\/\/\/\/\/ CLIENT-SPECIFIC STYLES /\/\/\/\/\/\/\/\/ */
   #outlook a{padding:0;} /* Force Outlook to provide a "view in browser" message */
   .ReadMsgBody{width:100%;} .ExternalClass{width:100%;} /* Force Hotmail to display emails at full width */
   .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {line-height: 100%;} /* Force Hotmail to display normal line spacing */
   body, table, td, p, a, li, blockquote{-webkit-text-size-adjust:100%; -ms-text-size-adjust:100%;} /* Prevent WebKit and Windows mobile changing default text sizes */
   table, td{mso-table-lspace:0pt; mso-table-rspace:0pt;} /* Remove spacing between tables in Outlook 2007 and up */
-  img{-ms-interpolation-mode:bicubic;max-width:100%;} 
+  img{-ms-interpolation-mode:bicubic;max-width:100%;} /* Allow smoother rendering of resized image in Internet Explorer */
   td ul li {
     font-size: 16px;
   }
-
+  /* /\/\/\/\/\/\/\/\/ RESET STYLES /\/\/\/\/\/\/\/\/ */
   body{margin:0; padding:0;}
   img{
     max-width:100%;

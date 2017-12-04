@@ -1,18 +1,18 @@
-<?php 
+<?php
 	if (!defined('BASEPATH')) exit('No direct script access allowed');
-	
+
 	class M_order extends CI_Model {
-	
+
 	    /**
 	     * @name string TABLE_NAME Holds the name of the table in use by this model
 	     */
 	    const TABLE_NAME = 'order';
-	
+
 	    /**
 	     * @name string PRI_INDEX Holds the name of the tables' primary index used in this model
 	     */
 	    const PRI_INDEX = 'or_id';
-	
+
 	    /**
 	     * Retrieves record(s) from the database
 	     *
@@ -45,7 +45,7 @@
 	            return false;
 	        }
 	    }
-	    /* 
+	    /*
 			$process
 			view all = 0
 			view new order = 1
@@ -55,7 +55,7 @@
 
 		//start added
 		 public function countOrderType($num = 0 , $ver = -1){
-      
+
       		if($num != 0){
             $this->db->where('pr_id', $num);
         	$this->db->from('order');
@@ -76,17 +76,17 @@
         //end added
         //start added
         public function totalProfit(){
-      
+
       		$this->db->select_sum('orn_price');
       		$this->db->from('order_note');
             $result = $this->db->get()->result();
             return $result;
         }
-        //end added        
+        //end added
 
         public function getIncome($currency = 1, $check = -1 ,$ver = 2 )
 	    {
-	    	/* 
+	    	/*
 				currency -> 1 myr , 2 usd , 3 GBP
 				check -> 0 net income, 1 confirm income
 	    	*/
@@ -105,7 +105,7 @@
 			$this->db->where($filter);
 			$this->db->join('order_ext orex', 'orex.or_id = ord.or_id', 'left');
 			$this->db->join('order_item oi' , 'oi.orex_id = orex.orex_id' , 'left');
-			$this->db->join('currency cu', 'cu.cu_id = orex.cu_id', 'left');			
+			$this->db->join('currency cu', 'cu.cu_id = orex.cu_id', 'left');
 			$this->db->group_by('MONTH(ord.or_date) , YEAR(ord.or_date)');
 			$this->db->order_by('ord.or_date', 'asc');
 			$result = $this->db->get()->result();
@@ -126,7 +126,7 @@
             }
        /*     if (!$all) {
                 $this->db->where('us_lvl >', 0);
-            }           
+            }
             $this->db->join('user_level ul', 'user.us_lvl = ul.ul_id', 'left');*/
             $result = $this->db->get()->result();
             if ($result) {
@@ -160,7 +160,7 @@
 	    		case 3:
 	    			$this->db->where('pr_id', 3);
 	    			break;
-	    	}   	
+	    	}
 	    	switch ($del) {
 	    		case '1':
 	    			$this->db->where('or_del', 1);
@@ -171,9 +171,9 @@
 	    	if ($down == 1) {
 	    		$this->db->order_by('or_id', 'desc');
 	    	}
-	    	
+
 	    	$result = $this->db->get()->result();
-	    	for ($i=0; $i < sizeof($result); $i++) { 
+	    	for ($i=0; $i < sizeof($result); $i++) {
 	    		$this->db->select("*");
 	    		$this->db->from('item');
 	    		$this->db->where('or_id', $result[$i]->or_id);
@@ -201,12 +201,12 @@
 	    		$this->db->order_by(self::TABLE_NAME.'.or_id', 'desc');
 	    	}
 	    	$this->db->where(self::TABLE_NAME.'.or_ver', $ver);
-	    	$this->db->join('process pr', self::TABLE_NAME.'.pr_id = pr.pr_id', 'left');	    	
+	    	$this->db->join('process pr', self::TABLE_NAME.'.pr_id = pr.pr_id', 'left');
 	       	$this->db->join('client', self::TABLE_NAME.'.cl_id = client.cl_id', 'left');
 	       	$this->db->join('order_ext' , self::TABLE_NAME.'.or_id = order_ext.or_id' , 'left');
 	       	if ($process !== 0) {
 	       		$this->db->where(self::TABLE_NAME.'.pr_id', $process);
-	       	}	       	
+	       	}
 	    	switch ($del) {
 	    	 	case 0:
 	    	 		$this->db->where(self::TABLE_NAME.'.or_del', 0);
@@ -214,7 +214,7 @@
 	    	 	case 1:
 	    	 		$this->db->where(self::TABLE_NAME.'.or_del', 1);
 	    	 		break;
-	    	 } 
+	    	 }
 	        $result = $this->db->get()->result();
 	        //return $result;
 	        $data = array();
@@ -229,7 +229,7 @@
 				 	$this->db->join('nicotine nic', 'nic.ni_id = oi.ni_id', 'left');
 				 	$this->db->order_by('ty2.ca_id', 'asc');
 				}
-				$this->db->where('orex_id', $key->orex_id); 
+				$this->db->where('orex_id', $key->orex_id);
 				$res2 = $this->db->get()->result();
 				$this->db->select("us_username");
 				$this->db->from('user');
@@ -246,17 +246,18 @@
 	    }
 	    public function listOr($ver = 0 , $limit = null , $start = null , $del = 0 , $where = null)
 	    {
-	    	$this->db->select('ord.or_id , ord.us_id , us1.us_username , cl.cl_name, ord.or_acc , cl.cl_country , ord.or_date ,ord.pr_id, pr.pr_desc , pr.pr_color, ord.or_paid ');
+	    	$this->db->select('ord.or_id , ord.us_id , us1.us_username , cl.cl_id , cl.cl_name, ord.or_acc , cl.cl_country , ord.or_date ,ord.pr_id, pr.pr_desc , pr.pr_color, ord.or_paid , orex.or_trackno , orex.or_shipcom');
 	    	//, pic.img_url , pic.pi_title
 	    	$this->db->from('order ord');
-	    	if($del != 3){	    		
+	    	if($del != 3){
 	    		$this->db->where('ord.or_del', $del);
-	    	}	    	
+	    	}
 	    	$this->db->order_by('ord.or_id', 'desc');
 	    	if ($limit !== null && $start !== null) {
 	    		$this->db->limit($limit, $start);
-	    	}	
+	    	}
 	    	$this->db->where('ord.or_ver', $ver);
+	    	$this->db->join('order_ext orex', 'ord.or_id = orex.or_id', 'left');
 	    	$this->db->join('client cl', 'ord.cl_id = cl.cl_id', 'left');
 	    	$this->db->join('user us1' , 'ord.us_id = us1.us_id' , 'left');
 	    	$this->db->join('process pr' , 'ord.pr_id = pr.pr_id' , 'left');
@@ -268,56 +269,66 @@
 	    	$result = $this->db->get()->result();
 	    	return $result;
 	    }
-	     public function listOrROS($ver = 0 ,$st1 =null,$st2 =null,$st3 =null,$st4 =null, $limit = null , $start = null , $del = 0 , $where = null)
+	       public function listOrROS($ver = -1 ,$st1 =null, $limit = null , $start = null , $del = 0 , $where = null)
 	    {
-	    	
-	    	$this->db->select('ord.or_id , ord.us_id , us1.us_username , cl.cl_name, ord.or_acc , cl.cl_country , ord.or_date , orex.or_finishdate ,ord.pr_id, pr.pr_desc , pr.pr_color, ord.or_paid ');
-	    	//, pic.img_url , pic.pi_title
+
+	    	$date = date("Y-m-01", strtotime("-2 months"));
+	    	$date2 = date("Y-m-d");
+
+	    	$this->db->select('ord.or_id , ord.us_id , us1.us_username , cl.cl_id , cl.cl_name, ord.or_acc , cl.cl_country , ord.or_date , orex.or_finishdate ,ord.pr_id, pr.pr_desc , pr.pr_color, ord.or_paid ');
+
 	    	$this->db->from('order ord');
-	    	
-	    	if($del != 3){	    		
+
+	    	if($del != 3){
 	    		$this->db->where('ord.or_del', $del);
-	    	}	    	
-	    	//$this->db->order_by('ord.or_id', 'desc');
+	    	}
+			// NOTE: Kena Uncommend balik
+	    	// if ($ver != -1) {
+	    	// 	$this->db->where('ord.or_ver', $ver);
+	    	// 	$this->db->where('DATE(ord.or_date) >=',$date);
+	    	// }
+
 	    	if ($limit !== null && $start !== null) {
 	    		$this->db->limit($limit, $start);
-	    	}	
-	    	
-	    	$this->db->where('ord.or_ver', $ver);
+	    	}
+
 	    	$this->db->join('client cl', 'ord.cl_id = cl.cl_id', 'left');
 	    	$this->db->join('user us1' , 'ord.us_id = us1.us_id' , 'left');
 	    	$this->db->join('process pr' , 'ord.pr_id = pr.pr_id' , 'left');
 	    	$this->db->join('order_ext orex', 'orex.or_id = ord.or_id', 'left');
-	    	//$this->db->join('picture pic' , 'ord.or_id = pic.ne_id' , 'left');
-	    	if(($st1 == 8) || ($st2 == 9)){	    		
-	    		$this->db->where('ord.pr_id', $st1);
-	    		$this->db->or_where("ord.pr_id",$st2);
+
+	    	if($st1 == 1){
+	    		$this->db->where('ord.pr_id', 8);
+
 	    	}
-	    	else if(($st1 == 10) || ($st2 == 11) || ($st3 == 12) || ($st4 == 13)){
-	    		$this->db->where('ord.pr_id', $st1);
-	    		$this->db->or_where("ord.pr_id",$st2);
-	    		$this->db->or_where("ord.pr_id",$st3);
-	    		$this->db->or_where("ord.pr_id",$st4);
-	    		}	
-	    	// if ($where != null) {
-	    	// 	$this->db->where($where);
-	    	// }
-	    	$this->db->order_by('orex.or_finishdate', 'asc');
+	    	else if($st1 == 2){
+
+	    		$this->db->where('ord.pr_id >=', 10);
+	    	}else if($st1 == 3){
+
+	    		$this->db->where('ord.pr_id', 9);
+	    	}
+
+
+
+
+	    	$this->db->order_by('ord.or_date', 'desc');
 	    	$result = $this->db->get()->result();
 	    	return $result;
 	    }
+
 
 	    public function listOr_ext($ver = 0 , $limit = null , $start = null , $del = 0 , $where = null)
 	    {
 	    	$this->db->select('ord.or_id , ord.us_id , us1.us_username , cl.cl_name, cl.cl_country , ord.or_date ,ord.pr_id, pr.pr_desc , pr.pr_color, ord.or_paid , pic.img_url , pic.pi_title');
 	    	$this->db->from('order ord');
-	    	if($del != 3){	    		
+	    	if($del != 3){
 	    		$this->db->where('ord.or_del', $del);
-	    	}	    	
+	    	}
 	    	$this->db->order_by('ord.or_id', 'desc');
 	    	if ($limit !== null && $start !== null) {
 	    		$this->db->limit($limit, $start);
-	    	}	
+	    	}
 	    	$this->db->where('ord.or_ver', $ver);
 	    	$this->db->join('client cl', 'ord.cl_id = cl.cl_id', 'left');
 	    	$this->db->join('user us1' , 'ord.us_id = us1.us_id' , 'left');
@@ -337,17 +348,18 @@
 
 	    public function listSearch($ver = 0 , $limit = null , $start = null , $del = 0 , $where = null)
 	    {
-	    	$this->db->select('ord.or_id , ord.us_id , us1.us_username , cl.cl_name ,cl.cl_country, ord.or_acc ,ord.or_date ,ord.pr_id, pr.pr_desc , pr.pr_color, ord.or_paid');
+	    	$this->db->select('ord.or_id , ord.us_id , us1.us_username , cl.cl_id , cl.cl_name ,cl.cl_country, ord.or_acc ,ord.or_date ,ord.pr_id, pr.pr_desc , pr.pr_color, ord.or_paid , orex.or_trackno , orex.or_shipcom');
 	    	$this->db->from('order ord');
-	    	if($del != 3){	    		
+	    	if($del != 3){
 	    		$this->db->where('ord.or_del', $del);
 	    	}
-	    	
+
 	    	$this->db->order_by('ord.or_id', 'desc');
 	    	if ($limit !== null && $start !== null) {
 	    		$this->db->limit($limit, $start);
-	    	}	
+	    	}
 	    	$this->db->where('ord.or_ver', $ver);
+	        $this->db->join('order_ext orex', 'ord.or_id = orex.or_id', 'left');
 	    	$this->db->join('client cl', 'ord.cl_id = cl.cl_id', 'left');
 	    	$this->db->join('user us1' , 'ord.us_id = us1.us_id' , 'left');
 	    	$this->db->join('process pr' , 'ord.pr_id = pr.pr_id' , 'left');
@@ -371,7 +383,7 @@
 	            return false;
 	        }
 	    }
-	
+
 	    /**
 	     * Updates selected record in the database
 	     *
@@ -405,7 +417,7 @@
 	        $this->db->update(self::TABLE_NAME, $pr_id, $where);
 	        return $this->db->affected_rows();
 	    }
-	
+
 	    /**
 	     * Deletes specified record from the database
 	     *
@@ -428,7 +440,7 @@
 	    	$arr = $this->get($or_id);
 	    	$this->db->delete('item' , array('or_id' => $or_id));
 	    	$this->db->delete('client' , array('cl_id' => $arr->cl_id));
-	    	$where = array(self::PRI_INDEX => $or_id);	    	
+	    	$where = array(self::PRI_INDEX => $or_id);
 	    	$this->db->delete(self::TABLE_NAME, $where);
 	    	return true;
 	    }
@@ -454,7 +466,7 @@
 	    		$this->db->from('item');
 	    		$this->db->where('or_id', $or_id);
 	    		$this->db->where('pr_id', 2);
-	    		
+
 	    		$result = $this->db->get()->result();
 	    		if(sizeof($result) == 0){
 	    			$this->update(array('pr_id'=>3) , $or_id);
@@ -469,31 +481,50 @@
 	    	$this->db->like('ord.or_del', 0);
 	    	if ($ver != -1) {
 	    		$this->db->like('ord.or_ver', $ver);
-	    	}	    	
+	    	}
 			$this->db->from('order ord');
 			return $this->db->count_all_results();
 	    }
 
-	    public function orderCountROS($ver = -1,$st1 =null,$st2 =null,$st3 =null,$st4 =null)
+	     public function orderCountROS($ver = -1,$st1 =null)
 	    {
+
+
+	    	$date = date("Y-m-01", strtotime("-2 months"));
+	    	$date2 = date("Y-m-d");
 	    	$this->db->like('ord.or_del', 0);
-	    	if ($ver != -1) {
-	    		$this->db->like('ord.or_ver', $ver);
-	    	}	    	
+
 			$this->db->from('order ord');
-			if(($st1 == 8) || ($st2 == 9)){	    		
-	    		$this->db->where('ord.pr_id', $st1);
-	    		$this->db->or_where("ord.pr_id",$st2);
+
+			if ($ver != -1) {
+	    		$this->db->like('ord.or_ver', $ver);
+	    		$this->db->where('DATE(ord.or_date) >=',$date);
+	    	}
+
+	        if($st1 == 1){
+
+	    		$this->db->where('ord.pr_id', 8);
+
 
 	    	}
-	    	else if(($st1 == 10) || ($st2 == 11) || ($st2 == 12)|| ($st2 == 13)){
-	    		$this->db->where('ord.pr_id', $st1);
-	    		$this->db->or_where("ord.pr_id",$st2);
-	    		$this->db->or_where("ord.pr_id",$st3);
-	    		$this->db->or_where("ord.pr_id",$st4);
+	    	else if($st1 == 2){
+
+	    		$this->db->where('ord.pr_id >=', 10);
+
 	    	}
+	    	else if($st1 == 3){
+
+	    		$this->db->where('ord.pr_id', 9);
+
+	    	}
+
+
+
+
+
+	    	$date = "";
 			return $this->db->count_all_results();
 	    }
 	}
-	        
+
 ?>

@@ -47,7 +47,17 @@
 	            return false;
 	        }
 	    }
-	
+	    
+	    public function getNation($where = NULL) {
+       
+	    $this->db->distinct("cl_country");
+        $this->db->select("cl_country");
+        $this->db->from(self::TABLE_NAME);
+        $this->db->order_by('cl_country', 'asc');
+        $result = $this->db->get()->result();
+        return $result;
+
+         }
 	    /**
 	     * Inserts new data into database
 	     *

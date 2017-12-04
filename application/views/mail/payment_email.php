@@ -24,7 +24,11 @@
 <table width="100%"  border="0" cellpadding="10" cellspacing="0">
 <tbody><tr>
   <td>
-    
+    <!--[if (gte mso 9)|(IE)]>
+      <table width="600" align="center" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td>
+    <![endif]-->
     <table bgcolor="#ffffff" class="content" style="background-color:#ffffff" align="center" cellpadding="0" cellspacing="0" border="0">
 			<tbody><tr>
 				<td valign="top" mc:edit="headerBrand" id="templateContainerHeader">
@@ -125,7 +129,11 @@
 			</tr>
 
     </tbody></table>
-   
+    <!--[if (gte mso 9)|(IE)]>
+          </td>
+        </tr>
+    </table>
+    <![endif]-->
     </td>
   </tr>
 </tbody></table>
@@ -184,7 +192,12 @@
     border-spacing: 0;
   }
 
-
+  /**
+  * @tab Page
+  * @section heading 1
+  * @tip Set the styling for all first-level headings in your emails. These should be the largest of your headings.
+  * @style heading 1
+  */
   h1{
      color:#2e2e2e;
     display:block;
@@ -201,7 +214,12 @@
      text-align:left;
   }
 
-
+  /**
+  * @tab Page
+  * @section heading 2
+  * @tip Set the styling for all second-level headings in your emails.
+  * @style heading 2
+  */
   h2{
      color:#2e2e2e;
     display:block;
@@ -218,7 +236,12 @@
      text-align:left;
   }
 
-
+  /**
+  * @tab Page
+  * @section heading 3
+  * @tip Set the styling for all third-level headings in your emails.
+  * @style heading 3
+  */
   h3{
      color:#545454;
     display:block;

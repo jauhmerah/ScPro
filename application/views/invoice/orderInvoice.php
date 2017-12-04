@@ -306,6 +306,7 @@ body .ReadOnlyExtrasStatus {
           } else {
               $n = 0;
               $total_all=0.0;
+              $total_qty=0;
               foreach ($arr['item'] as $key) {
 
 
@@ -328,6 +329,8 @@ body .ReadOnlyExtrasStatus {
         </tr>
 
         <?php
+           $total_qty=$total_qty+$key->oi_qty ;
+
            $total_all=$total_all+$total;
           }
           if ($arr['order']->or_traking == null || $arr['order']->or_traking == '0000-00-00 00:00:00') {
@@ -337,15 +340,21 @@ body .ReadOnlyExtrasStatus {
           $total_all += $arr['order']->or_traking;
         } ?>
          <tr>
-        <td style="color: #000000;text-align: right;" colspan="11"><strong>Total :</strong></td>
+         <td colspan="8" style="text-align: right;"><strong>Total Quantity :</strong></td>
+         <td><?= $total_qty ?></td>
+         <td style="text-align: right;"><p>&nbsp;</p></td>
+        <td style="color: #000000;text-align: right;"><strong>Total :</strong></td>
           <td style="color: #000000;"><?= $duit; ?> <?php echo number_format((float)$total, 2, '.', ''); ?></td>
         </tr>
          <tr>
         	  <tr>
-        <td style="color: #000000;text-align: right;" colspan="11">Shipping :</td>
+         <td colspan="10"></td>
+
+        <td style="color: #000000;text-align: right;" >Shipping :</td>
           <td style="color: #000000;"><?= $duit; ?> <?= number_format((float)$arr['order']->or_traking, 2, '.', '');?></td>
         </tr>
-          <td style="color: #000000;text-align: right;" colspan="11"> <strong>Amount Due :</strong></td>
+         <td colspan="10"></td>
+          <td style="color: #000000;text-align: right;"> <strong>Amount Due :</strong></td>
           <td style="color: #000000;"><strong><?= $duit; ?> <?php echo  number_format((float)$total_all, 2, '.', ''); ?></strong></td>
         </tr>
       </tbody>
@@ -364,7 +373,7 @@ body .ReadOnlyExtrasStatus {
 <script>
 
 
-	 	window.print();
+	 	// window.print();
 
 
 	</script>

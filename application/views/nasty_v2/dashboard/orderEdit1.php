@@ -331,7 +331,28 @@
 											                                		EMS
 										                                        <span></span>
 										                                    </label>
-										                                    <input type="radio" name="sh_company" class="sh_com" <?php $temp = $arr['order']->or_shipcom; $temp2 =""; if($temp != 3 && $temp != 1 && $temp != 2){echo "checked";$temp2 = $temp;} ?> value="<?= $temp; ?>" <?= $radio; ?>>
+										                                    <label class="mt-radio">
+										                                        <input type="radio" name="sh_company" <?php if($arr['order']->or_shipcom == 5){echo "checked";} ?> value="5" <?= $radio; ?>>
+											                                		GDex
+										                                        <span></span>
+										                                    </label>
+										                                    <div class="clearfix" style="height: 20px"></div>
+										                                     <label class="mt-radio">
+										                                        <input type="radio" name="sh_company" <?php if($arr['order']->or_shipcom == 6){echo "checked";} ?>  value="6" <?= $radio; ?>>
+											                                		UPS
+										                                        <span></span>
+										                                    </label>
+										                                    <label class="mt-radio">
+										                                        <input type="radio" name="sh_company" <?php if($arr['order']->or_shipcom == 7){echo "checked";} ?>  value="7" <?= $radio; ?>>
+											                                		POSLAJU
+										                                        <span></span>
+										                                    </label>
+										                                    <label class="mt-radio">
+										                                        <input type="radio" name="sh_company" <?php if($arr['order']->or_shipcom == 8){echo "checked";} ?>  value="8" <?= $radio; ?>>
+											                                		FeDex
+										                                        <span></span>
+										                                    </label>
+										                                    <input type="radio" name="sh_company" class="sh_com" <?php $temp = $arr['order']->or_shipcom; $temp2 =""; if($temp != 3 && $temp != 1 && $temp != 2 && $temp != 5 && $temp != 6 && $temp != 7 && $temp != 8){echo "checked";$temp2 = $temp;} ?> value="<?= $temp; ?>" <?= $radio; ?>>
 											                                		 : <input type="text" class="inputText " id = "sh_com" value="<?= $temp2; ?>" <?= $mode ?> >
 										                                        <span></span>
 										                                </div>
