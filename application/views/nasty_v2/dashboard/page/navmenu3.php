@@ -99,7 +99,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item start" title="Ready To Shipping">
-                                    <a href="<?= site_url('nasty_v2/dashboard/page/a6') ?>" class="nav-link ">
+                                    <a href="<?= site_url('nasty_v2/dashboard/page/e1') ?>" class="nav-link ">
                                         <i class="fa fa-archive" aria-hidden="true"></i>
                                         <span class="title">Parcel Management</span>
                                         <!--<span class="badge badge-success">1</span>-->

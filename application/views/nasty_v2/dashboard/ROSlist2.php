@@ -1,7 +1,7 @@
-<?php 
+<?php
 	if (!isset($mode)) {
 		$mode = 0;
-	}	
+	}
 ?>
 <script>
 	function moveTo() {
@@ -12,9 +12,9 @@
  <style type="text/css">
             .task-contain{
              background-color: white;
-                border-left: 2px solid #D8D8DC;   
+                border-left: 2px solid #D8D8DC;
                 border-right: 2px solid #D8D8DC;
-                border-top: 3px solid #D8D8DC;   
+                border-top: 3px solid #D8D8DC;
                 border-bottom: 3px solid #D8D8DC;
                 box-shadow: 0 1px 1px 0 rgba(50, 50, 50, 0.75);
                 float: left;
@@ -36,9 +36,9 @@
 
             .task-list {
                 background-color: white;
-                border-left: 2px solid #D8D8DC;   
+                border-left: 2px solid #D8D8DC;
                 border-right: 2px solid #D8D8DC;
-                border-top: 3px solid #D8D8DC;   
+                border-top: 3px solid #D8D8DC;
                 border-bottom: 3px solid #D8D8DC;
                 box-shadow: 0 1px 1px 0 rgba(50, 50, 50, 0.75);
                 float: left;
@@ -67,7 +67,7 @@
             }
 
             .task-body {
-                background-color: #EBEBEB;   
+                background-color: #EBEBEB;
                 width: 100%;
                 min-height:40px;
                 clear: both;
@@ -128,8 +128,8 @@
         <div class="portlet box green">
              <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-user"></i>Distributor Switch 
-                </div>                
+                    <i class="fa fa-user"></i>Distributor Switch
+                </div>
             </div>
 
             <div class="portlet-body flip-scroll">
@@ -141,7 +141,7 @@
                                 </div>
                                 <div class="details pull-left">
                                     <div class="number">
-                   
+
                                     </div>
                                     <div class="desc">ROS LIST </div>
                                 </div>
@@ -186,8 +186,8 @@
 		<div class="portlet box purple" id="newOrder" <?php if($e==1){echo "style=display:block;"; }else{ echo "style=display:none;"; }  ?>  >
 			 <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-user"></i>ROS List 
-                </div>                
+                    <i class="fa fa-user"></i>ROS List
+                </div>
             </div>
 
             <div class="portlet-body flip-scroll">
@@ -203,21 +203,21 @@
                                                 <th>Sales Person</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
-                                                
+
                                             </tr>
                                         </thead>
                                         <tbody>
                                               <?php
-                                            $n = 0; 
-                                            if (sizeof($arr1) != 0) { 
+                                            $n = 0;
+                                            if (sizeof($arr1) != 0) {
                                                 foreach ($arr1 as $user) {
-                                                    
+
                                                     $n++;
                                                     ?>
                                                     <tr class="clickable" data-toggle="collapse" id="row<?= $n ?>" data-target=".row<?= $n ?>">
                                                           <td><?= $n; ?></td>
                                                            <td><span class="pull-left">
-		                            <?php 
+		                            <?php
                                     $view = ($user->cl_name == null) ? "--Not Set--" : $user->cl_name ;
                                     echo $view;
 
@@ -231,7 +231,7 @@
                                     }
                                     ?>
                                     <strong><?= $client; ?></strong>
-                                    
+
                                     </span><span class="pull-right">
                                                             <?= ucwords($user->cl_country); ?>
                                                             <?php
@@ -242,7 +242,7 @@
                                                                 <?php
                                                             }
                                                             ?></span></td>
-                                                            <td><?php 
+                                                            <td><?php
                                                             if ($user->or_id) {
                                                                 $id = '#'.(120000+$user->or_id);
                                                                 echo '<span style = "color : #b706d6;"><strong>'.$id.'</strong></span>';
@@ -250,34 +250,34 @@
                                                                 echo "--Not Set--";
                                                             }
                                                             ?></td>
-                                                            <td><?php 
+                                                            <td><?php
                                                                 $view = ( $user->or_date == null) ? "--Not Set--" :  date_format(date_create($user->or_date) , 'd-M-Y' ) ;
                                                                 echo $view ;
                                                                 ?></td>
-                                                            <td><?php 
+                                                            <td><?php
                                                             $view = ( $user->us_username == null) ? "--Not Set--" :  $user->us_username ;
                                                             echo $view;
                                                             ?></td>
                                                             <td class="mt-element-ribbon">
                                                         <span class="label" style="background-color: <?= $user->pr_color; ?>"><?= $user->pr_desc; ?></span>
-                                               
+
                                                             <div class="clear" style="height: 10px"></div>
-                                                               
+
 
                                                             </td>
                                                             <td>
-                                                                 <?php 
+                                                                 <?php
                                         $usid = $this->my_func->scpro_encrypt($user->or_id);
                                     ?>
-                                        <a href="<?= site_url('nasty_v2/dashboard/page/a111?view=').$usid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-circle btn-danger btn-xs"><i class="fa fa-eye"></i></button></a> 
+                                        <a href="<?= site_url('nasty_v2/dashboard/page/a111?view=').$usid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-circle btn-danger btn-md"><i class="fa fa-eye"></i></button></a>
                                         &nbsp;-&nbsp;
-                                        <button title = "Print Order" onclick = "window.open('<?= site_url('order/printO1?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" type="button" class="btn btn-default btn-circle btn-info btn-xs"><i class="fa fa-print"></i></button>
+                                        <button title = "Print Order" onclick = "window.open('<?= site_url('order/printO1?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" type="button" class="btn btn-default btn-circle btn-info btn-md"><i class="fa fa-print"></i></button>
                                         &nbsp;-&nbsp;
-                                        <button type="button" title = "D.O Form" onclick = "window.open('<?= site_url('order/printDO1?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn btn-success btn-circle btn-xs"><i class="fa fa-truck"></i></button>
-                                        &nbsp;-&nbsp;   
-                                        <button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/Invoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');"  class="btn blue-dark btn-circle btn-xs" title="Invoice">Inv</button>
-                                        &nbsp;-&nbsp;   
-                                        <button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/dummyInvoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn c-btn-border-1x c-btn-blue-dark btn-circle btn-xs" title="Dummy Invoice">DInv</button>    
+                                        <button type="button" title = "D.O Form" onclick = "window.open('<?= site_url('order/printDO1?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn btn-success btn-circle btn-md"><i class="fa fa-truck"></i></button>
+                                        &nbsp;-&nbsp;
+                                        <button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/Invoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');"  class="btn blue-dark btn-circle btn-md" title="Invoice">Inv</button>
+                                        &nbsp;-&nbsp;
+                                        <button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/dummyInvoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn c-btn-border-1x c-btn-blue-dark btn-circle btn-md" title="Dummy Invoice">DInv</button>
 
 
                                                             </td>
@@ -286,32 +286,32 @@
                                                      <tr class="collapse row<?= $n ?>">
                                                     <td colspan="7" cellspadding="10" style="background-color: #F1F1F1;">
                                                     <div class="col-md-2 col-md-offset-1 pull-right">
-                                                    
+
                                                          <select class="form-control status<?= $n.'ros' ?>" name="pr_id" id="pr_id">
                                                             <?php foreach ($lvl as $key) {
                                                                 ?>
                                                                 <option value="<?= $key->pr_id; ?>" <?php if($key->pr_id == $user->pr_id){echo " selected ";} ?>> <?= $key->pr_desc; ?></option>
                                                                 <?php
                                                             } ?>
-                                                            
+
                                                         </select>
                                                         <div class="clear" style="height: 10px"></div>
                                                     <input type="hidden" name="id" id="id" class="form-control <?= $n.'ros' ?>" value="<?= $user->or_id; ?>">
                                                     <button title = "Save" type="button" class="btnROS btn-primary btn-circle btn-info btn-xs" id="<?= $n.'ros' ?>" name="<?= $n.'ros' ?>">Save</button>
 
-                                                   
+
                                                    </div>
 
-                                                   
-                                                    
+
+
                                                     </td>
                                                     </tr>
 
-                        
 
 
-                                                    <?php 
-                                                            
+
+                                                    <?php
+
                                                         }
                                                     } ?>
 
@@ -334,17 +334,17 @@
                                                 $next = "disabled";
                                             }
                                         ?>
-                                            <li class="prev <?= $prev; ?>"><a <?php if($prev!="disabled"){ ?>href="<?= site_url('nasty_v2/dashboard/page/a62?page='.($page-10)."&e=1"); ?>"<?php } ?> title="Prev" ><i class="fa fa-angle-left"></i></a></li>                                            
+                                            <li class="prev <?= $prev; ?>"><a <?php if($prev!="disabled"){ ?>href="<?= site_url('nasty_v2/dashboard/page/a62?page='.($page-10)."&e=1"); ?>"<?php } ?> title="Prev" ><i class="fa fa-angle-left"></i></a></li>
                                             <li class="next <?= $next; ?>"><a <?php if($next!="disabled"){ ?>href="<?= site_url('nasty_v2/dashboard/page/a62?page='.($page+10)."&e=1"); ?>"<?php } ?> title="Next"><i class="fa fa-angle-right"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
                                 </td>
-                            </tfoot> 
+                            </tfoot>
 
 
                             </table>
-			                    
+
 			                </div>
 		            </div>
             </div>
@@ -358,8 +358,8 @@
         <div class="portlet box red" id="oldOrder" <?php if($e3==3){echo "style=display:block;"; }else{ echo "style=display:none;"; }  ?>  >
              <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-user"></i>DOC List 
-                </div>                
+                    <i class="fa fa-user"></i>DOC List
+                </div>
             </div>
 
             <div class="portlet-body flip-scroll">
@@ -375,21 +375,21 @@
                                                 <th>Sales Person</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
-                                                
+
                                             </tr>
                                         </thead>
                                         <tbody>
                                               <?php
-                                            $n = 0; 
-                                            if (sizeof($arr3) != 0) { 
+                                            $n = 0;
+                                            if (sizeof($arr3) != 0) {
                                                 foreach ($arr3 as $user) {
-                                                    
+
                                                     $n++;
                                                     ?>
                                                     <tr class="clickable" data-toggle="collapse" id="row2<?= $n ?>" data-target=".row2<?= $n ?>">
                                                           <td><?= $n; ?></td>
                                                            <td><span class="pull-left">
-		                            <?php 
+		                            <?php
                                     $view = ($user->cl_name == null) ? "--Not Set--" : $user->cl_name ;
                                     echo $view;
 
@@ -403,7 +403,7 @@
                                     }
                                     ?>
                                     <strong><?= $client; ?></strong>
-                                    
+
                                     </span><span class="pull-right">
                                                             <?= ucwords($user->cl_country); ?>
                                                             <?php
@@ -414,7 +414,7 @@
                                                                 <?php
                                                             }
                                                             ?></span></td>
-                                                            <td><?php 
+                                                            <td><?php
                                                             if ($user->or_id) {
                                                                 $id = '#'.(120000+$user->or_id);
                                                                 echo '<span style = "color : #b706d6;"><strong>'.$id.'</strong></span>';
@@ -422,34 +422,36 @@
                                                                 echo "--Not Set--";
                                                             }
                                                             ?></td>
-                                                            <td><?php 
+                                                            <td><?php
                                                                 $view = ( $user->or_date == null) ? "--Not Set--" :  date_format(date_create($user->or_date) , 'd-M-Y' ) ;
                                                                 echo $view ;
                                                                 ?></td>
-                                                            <td><?php 
+                                                            <td><?php
                                                             $view = ( $user->us_username == null) ? "--Not Set--" :  $user->us_username ;
                                                             echo $view;
                                                             ?></td>
                                                             <td class="mt-element-ribbon">
                                                         <span class="label" style="background-color: <?= $user->pr_color; ?>"><?= $user->pr_desc; ?></span>
-                                               
+
                                                             <div class="clear" style="height: 10px"></div>
-                                                               
+
 
                                                             </td>
                                                             <td>
-                                                                 <?php 
+                                                                 <?php
                                         $usid = $this->my_func->scpro_encrypt($user->or_id);
                                     ?>
-                                        <a href="<?= site_url('nasty_v2/dashboard/page/a111?view=').$usid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-circle btn-danger btn-xs"><i class="fa fa-eye"></i></button></a> 
+                                        <a href="<?= site_url('nasty_v2/dashboard/page/a111?view=').$usid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-circle dark btn-md"><i class="fa fa-eye"></i></button></a>
                                         &nbsp;-&nbsp;
-                                        <button title = "Print Order" onclick = "window.open('<?= site_url('order/printO1?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" type="button" class="btn btn-default btn-circle btn-info btn-xs"><i class="fa fa-print"></i></button>
+                                        <button title = "Print Order" onclick = "window.open('<?= site_url('order/printO1?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" type="button" class="btn btn-default btn-circle btn-info btn-md"><i class="fa fa-print"></i></button>
                                         &nbsp;-&nbsp;
-                                        <button type="button" title = "D.O Form" onclick = "window.open('<?= site_url('order/printDO1?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn btn-success btn-circle btn-xs"><i class="fa fa-truck"></i></button>
-                                        &nbsp;-&nbsp;   
-                                        <button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/Invoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');"  class="btn blue-dark btn-circle btn-xs" title="Invoice">Inv</button>
-                                        &nbsp;-&nbsp;   
-                                        <button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/dummyInvoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn c-btn-border-1x c-btn-blue-dark btn-circle btn-xs" title="Dummy Invoice">DInv</button>    
+                                        <button type="button" title = "D.O Form" onclick = "window.open('<?= site_url('order/printDO1?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn btn-success btn-circle btn-md"><i class="fa fa-truck"></i></button>
+                                        &nbsp;-&nbsp;
+                                        <button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/Invoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');"  class="btn blue-dark btn-circle btn-md" title="Invoice">Inv</button>
+                                        &nbsp;-&nbsp;
+                                        <button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/dummyInvoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn c-btn-border-1x c-btn-blue-dark btn-circle btn-md" title="Dummy Invoice">DInv</button>
+										&nbsp;-&nbsp;
+                                        <button type="button" onclick = "window.open('<?= site_url('nasty_v2/dashboard/page/e2?id='.$this->my_func->scpro_encrypt($user->or_id)); ?>');" title = "Parcel Setting" class="btn red-mint btn-circle btn-md"><i class="fa fa-archive"></i></button>
 
 
                                                             </td>
@@ -458,32 +460,32 @@
                                                      <tr class="collapse row2<?= $n ?>">
                                                     <td colspan="7" cellspadding="10" style="background-color: #F1F1F1;">
                                                     <div class="col-md-2 col-md-offset-1 pull-right">
-                                                   
+
                                                          <select class="form-control status<?= $n.'doc' ?>" name="status" id="status">
                                                             <?php foreach ($lvl3 as $key) {
                                                                 ?>
                                                                 <option value="<?= $key->pr_id; ?>" <?php if($key->pr_id == $user->pr_id){echo " selected ";} ?>> <?= $key->pr_desc; ?></option>
                                                                 <?php
                                                             } ?>
-                                                            
+
                                                         </select>
                                                         <div class="clear" style="height: 10px"></div>
                                                     <input type="hidden" name="id" id="id" class="form-control <?= $n.'doc' ?>" value="<?= $user->or_id; ?>">
                                                     <button title = "Save" type="button" class="btnDOC btn-primary btn-circle btn-info btn-xs" id="<?= $n.'doc' ?>" name="<?= $n.'doc' ?>">Save</button>
 
-                                                    
+
                                                    </div>
 
-                                                   
-                                                    
+
+
                                                     </td>
                                                     </tr>
 
-                        
 
 
-                                                    <?php 
-                                                            
+
+                                                    <?php
+
                                                         }
                                                     } ?>
 
@@ -506,17 +508,16 @@
                                                 $next = "disabled";
                                             }
                                         ?>
-                                            <li class="prev <?= $prev; ?>"><a <?php if($prev!="disabled"){ ?>href="<?= site_url('nasty_v2/dashboard/page/a62?page3='.($page3-10)."&e3=3"); ?>"<?php } ?> title="Prev" ><i class="fa fa-angle-left"></i></a></li>                                            
+                                            <li class="prev <?= $prev; ?>"><a <?php if($prev!="disabled"){ ?>href="<?= site_url('nasty_v2/dashboard/page/a62?page3='.($page3-10)."&e3=3"); ?>"<?php } ?> title="Prev" ><i class="fa fa-angle-left"></i></a></li>
                                             <li class="next <?= $next; ?>"><a <?php if($next!="disabled"){ ?>href="<?= site_url('nasty_v2/dashboard/page/a62?page3='.($page3+10)."&e3=3"); ?>"<?php } ?> title="Next"><i class="fa fa-angle-right"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
                                 </td>
-                            </tfoot> 
-
+                            </tfoot>
 
                             </table>
-                                
+
                             </div>
                     </div>
             </div>
@@ -535,13 +536,13 @@
         <div class="portlet box blue" id="proOrder" <?php if($e2==2){echo "style=display:block;";}else{ echo "style=display:none;"; }  ?>  >
              <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-user"></i>RTS List 
-                </div>                
+                    <i class="fa fa-user"></i>RTS List
+                </div>
             </div>
 
             <div class="portlet-body flip-scroll">
 
-               
+
                                 <table class="table table-condensed  table-striped flip-content">
                                     <thead class="flip-content">
                                         <tr>
@@ -552,21 +553,21 @@
                                                 <th>Sales Person</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
-                                        
+
                                         </tr>
                                     </thead>
                                     <tbody>
                                        <?php
-                                            $n = 0; 
-                                            if (sizeof($arr2) != 0) { 
+                                            $n = 0;
+                                            if (sizeof($arr2) != 0) {
                                                 foreach ($arr2 as $user) {
-                                                  
+
                                                     $n++;
                                                     ?>
                                                     <tr class="clickable" data-toggle="collapse" id="row3<?= $n ?>" data-target=".row3<?= $n ?>">
                                                           <td><?= $n; ?></td>
                                                            <td><span class="pull-left">
-		                            <?php 
+		                            <?php
                                     $view = ($user->cl_name == null) ? "--Not Set--" : $user->cl_name ;
                                     echo $view;
 
@@ -580,7 +581,7 @@
                                     }
                                     ?>
                                     <strong><?= $client; ?></strong>
-                                    
+
                                     </span><span class="pull-right">
                                                             <?= ucwords($user->cl_country); ?>
                                                             <?php
@@ -591,7 +592,7 @@
                                                                 <?php
                                                             }
                                                             ?></span></td>
-                                                            <td><?php 
+                                                            <td><?php
                                                             if ($user->or_id) {
                                                                 $id = '#'.(120000+$user->or_id);
                                                                 echo '<span style = "color : #b706d6;"><strong>'.$id.'</strong></span>';
@@ -599,64 +600,64 @@
                                                                 echo "--Not Set--";
                                                             }
                                                             ?></td>
-                                                            <td><?php 
+                                                            <td><?php
                                                                 $view = ( $user->or_date == null) ? "--Not Set--" :  date_format(date_create($user->or_date) , 'd-M-Y' ) ;
                                                                 echo $view ;
                                                                 ?></td>
-                                                            <td><?php 
+                                                            <td><?php
                                                             $view = ( $user->us_username == null) ? "--Not Set--" :  $user->us_username ;
                                                             echo $view;
                                                             ?></td>
                                                             <td class="mt-element-ribbon">
                                                         <span class="label" style="background-color: <?= $user->pr_color; ?>"><?= $user->pr_desc; ?></span>
-                                               
+
                                                             <div class="clear" style="height: 10px"></div>
-                                                               
+
 
                                                             </td>
                                                             <td>
-                                                                 <?php 
+                                                                 <?php
                                         $usid = $this->my_func->scpro_encrypt($user->or_id);
                                     ?>
-                                        <a href="<?= site_url('nasty_v2/dashboard/page/a111?view=').$usid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-circle btn-danger btn-info btn-xs"><i class="fa fa-eye"></i></button></a>
+                                        <a href="<?= site_url('nasty_v2/dashboard/page/a111?view=').$usid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-circle dark btn-info btn-md"><i class="fa fa-eye"></i></button></a>
                                          &nbsp;-&nbsp;
-                                        <button title = "Print Order" onclick = "window.open('<?= site_url('order/printO1?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" type="button" class="btn btn-default btn-circle btn-info btn-xs"><i class="fa fa-print"></i></button>
+                                        <button title = "Print Order" onclick = "window.open('<?= site_url('order/printO1?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" type="button" class="btn btn-default btn-circle btn-info btn-md"><i class="fa fa-print"></i></button>
                                         &nbsp;-&nbsp;
-                                        <button type="button" title = "D.O Form" onclick = "window.open('<?= site_url('order/printDO1?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn btn-success btn-circle btn-xs"><i class="fa fa-truck"></i></button>
-                                        &nbsp;-&nbsp;   
-                                        <button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/Invoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');"  class="btn blue-dark btn-circle btn-xs" title="Invoice">Inv</button>
-                                        &nbsp;-&nbsp;   
-                                        <button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/dummyInvoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn c-btn-border-1x c-btn-blue-dark btn-circle btn-xs" title="Dummy Invoice">DInv</button>                                            
+                                        <button type="button" title = "D.O Form" onclick = "window.open('<?= site_url('order/printDO1?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn btn-success btn-circle btn-md"><i class="fa fa-truck"></i></button>
+                                        &nbsp;-&nbsp;
+                                        <button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/Invoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');"  class="btn blue-dark btn-circle btn-md" title="Invoice">Inv</button>
+                                        &nbsp;-&nbsp;
+                                        <button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/dummyInvoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn c-btn-border-1x c-btn-blue-dark btn-circle btn-md" title="Dummy Invoice">DInv</button>
                                                             </td>
                                                     </tr>
 
                                                     <tr class="collapse row3<?= $n ?>">
                                                     <td colspan="7" cellspadding="10" style="background-color: #F1F1F1;">
                                                     <div class="col-md-2 col-md-offset-1 pull-right">
-                                                    
+
                                                          <select class="form-control status<?= $n.'rts' ?>" name="pr_id" id="pr_id">
                                                             <?php foreach ($lvl2 as $key) {
                                                                 ?>
                                                                 <option value="<?= $key->pr_id; ?>" <?php if($key->pr_id == $user->pr_id){echo " selected ";} ?>> <?= $key->pr_desc; ?></option>
                                                                 <?php
                                                             } ?>
-                                                            
+
                                                         </select>
                                                         <div class="clear" style="height: 10px"></div>
                                                     <input type="hidden" name="id" id="id" class="form-control <?= $n.'rts' ?>" value="<?= $user->or_id; ?>">
                                                     <button title = "Save" type="button" class="btnRTS btn-primary btn-circle btn-info btn-xs" id="<?= $n.'rts' ?>" name="<?= $n.'rts' ?>">Save</button>
 
-                                                    
+
                                                    </div>
 
-                                                   
-                                                    
+
+
                                                     </td>
                                                     </tr>
 
 
-                                                    <?php 
-                                                            
+                                                    <?php
+
                                                         }
                                                     } ?>
                                     </tbody>
@@ -679,17 +680,17 @@
                                                 $next = "disabled";
                                             }
                                         ?>
-                                            <li class="prev <?= $prev; ?>"><a <?php if($prev!="disabled"){ ?>href="<?= site_url('nasty_v2/dashboard/page/a62?page2='.($page2-10)."&e2=2"); ?>"<?php } ?> title="Prev" ><i class="fa fa-angle-left"></i></a></li>                                            
+                                            <li class="prev <?= $prev; ?>"><a <?php if($prev!="disabled"){ ?>href="<?= site_url('nasty_v2/dashboard/page/a62?page2='.($page2-10)."&e2=2"); ?>"<?php } ?> title="Prev" ><i class="fa fa-angle-left"></i></a></li>
                                             <li class="next <?= $next; ?>"><a <?php if($next!="disabled"){ ?>href="<?= site_url('nasty_v2/dashboard/page/a62?page2='.($page2+10)."&e2=2"); ?>"<?php } ?> title="Next"><i class="fa fa-angle-right"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
                                 </td>
-                            </tfoot> 
-                            <?php 
+                            </tfoot>
+                            <?php
                             } ?>
-                                 </table>    
-                              
+                                 </table>
+
         </div>
 
     </div>
@@ -736,7 +737,7 @@
                             confirm: {
                                 label: 'Yes',
                                 className: 'btn-success'
-                               
+
                             },
                             cancel: {
                                 label: 'No',
@@ -745,16 +746,16 @@
                         },
                         callback: function (result) {
                      if(result == true){
-                                
+
                                 $.post('<?= site_url('nasty_v2/dashboard/updatePr_id'); ?>', {id: orid, pr_id: prid}, function(data) {
-                                    
+
                                     $(window).attr("location", "<?= site_url('nasty_v2/dashboard/page/a62'); ?>");
-                                    
+
                                 });
 
                             }
-                            
-                            
+
+
                         }
                     });
         });
@@ -776,7 +777,7 @@
                             confirm: {
                                 label: 'Yes',
                                 className: 'btn-success'
-                               
+
                             },
                             cancel: {
                                 label: 'No',
@@ -785,16 +786,16 @@
                         },
                     callback: function (result) {
                     if(result == true){
-                                
+
                                 $.post('<?= site_url('nasty_v2/dashboard/updatePr_id'); ?>', {id: orid, pr_id: prid}, function(data) {
-                                    
+
                                     $(window).attr("location", "<?= site_url('nasty_v2/dashboard/page/a62'); ?>");
-                                    
+
                                 });
 
                             }
-                            
-                            
+
+
                         }
                     });
         });
@@ -804,7 +805,7 @@
             id = $(this).prop('id');
             orid = $("."+id).val();
             prid = $(".status"+id).val();
-            
+
             if(prid==11)
             {
 
@@ -812,20 +813,20 @@
                         title: "Enter Tracking Number :",
                         inputType: 'text',
                         callback: function (result) {
-                           
+
                             if(result!=null){
-                                
+
                                 $.post('<?= site_url('nasty_v2/dashboard/updatePr_id'); ?>', {id: orid, pr_id: prid , no : result}, function(data) {
-                                    
+
                                     $(window).attr("location", "<?= site_url('nasty_v2/dashboard/page/a62'); ?>");
-                                    
+
                                 });
 
                             }
                         }
                     });
-             
-                
+
+
             }
             else
             {
@@ -835,7 +836,7 @@
                             confirm: {
                                 label: 'Yes',
                                 className: 'btn-success'
-                               
+
                             },
                             cancel: {
                                 label: 'No',
@@ -844,16 +845,16 @@
                         },
                         callback: function (result) {
                      if(result == true){
-                                
+
                                 $.post('<?= site_url('nasty_v2/dashboard/updatePr_id'); ?>', {id: orid, pr_id: prid}, function(data) {
-                                    
+
                                     $(window).attr("location", "<?= site_url('nasty_v2/dashboard/page/a62'); ?>");
-                                    
+
                                 });
 
                             }
-                            
-                            
+
+
                         }
                     });
             }
@@ -864,13 +865,3 @@
 
 
 </script>
-
-
-
-
-
-
-
-
-
-

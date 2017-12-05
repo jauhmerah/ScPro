@@ -20,7 +20,7 @@
 	    }
 
 	    public function testpage()
-	    {	    	
+	    {
             $this->load->view('test');
 	    }
           public function dummyInvoice()
@@ -1570,6 +1570,12 @@ epul@nastyjuice.com
                     $data['display'] = $this->load->view($this->parent_page.'/acc/orderListAc' ,$arr , true);
                     $this->_show('display' , $data , 'k1');
                     break;
+				case 'e1':
+					// Parcel Management
+					$page = 'barcode/barcodePage';
+					$data['title'] = '<i class="fa fa-archive" aria-hidden="true"></i> Parcel Management</a>';					
+					$this->_show($page , $data , $key);
+					break;
 
     			default:
     				$this->_show();
