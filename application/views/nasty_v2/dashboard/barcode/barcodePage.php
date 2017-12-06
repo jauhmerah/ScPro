@@ -55,6 +55,9 @@
         </div>
     </div>
 </div>
+<pre>
+    <?= print_r($arr); ?>
+</pre>
 <script>
     jQuery(document).ready(function($) {
         $('.con').click(function() {

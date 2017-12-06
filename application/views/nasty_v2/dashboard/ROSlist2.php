@@ -451,7 +451,7 @@
                                         &nbsp;-&nbsp;
                                         <button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/dummyInvoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn c-btn-border-1x c-btn-blue-dark btn-circle btn-md" title="Dummy Invoice">DInv</button>
 										&nbsp;-&nbsp;
-                                        <button type="button" onclick = "window.open('<?= site_url('nasty_v2/dashboard/page/e2?id='.$this->my_func->scpro_encrypt($user->or_id)); ?>');" title = "Parcel Setting" class="btn red-mint btn-circle btn-md"><i class="fa fa-archive"></i></button>
+                                        <a type="button" href = "<?= site_url('nasty_v2/dashboard/page/e2?id='.$this->my_func->scpro_encrypt($user->or_id."|parcel")); ?>" title = "Parcel Setting" class="btn red-mint btn-circle btn-md"><i class="fa fa-archive"></i></a>
 
 
                                                             </td>

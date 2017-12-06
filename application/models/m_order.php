@@ -488,8 +488,6 @@
 
 	     public function orderCountROS($ver = -1,$st1 =null)
 	    {
-
-
 	    	$date = date("Y-m-01", strtotime("-2 months"));
 	    	$date2 = date("Y-m-d");
 	    	$this->db->like('ord.or_del', 0);

@@ -1573,10 +1573,35 @@ epul@nastyjuice.com
 				case 'e1':
 					// Parcel Management
 					$page = 'barcode/barcodePage';
-					$data['title'] = '<i class="fa fa-archive" aria-hidden="true"></i> Parcel Management</a>';					
+					$data['title'] = '<i class="fa fa-archive" aria-hidden="true"></i> Parcel Management</a>';
+					$this->load->database();
+					$this->load->model('m_order');
+
+					$data['arr'] = $this->m_order->listOrROS(2 , 3 );
 					$this->_show($page , $data , $key);
 					break;
-
+				case 'e2':
+					$page = 'barcode/barcodePage';
+					if ($this->input->get('id')) {
+						$id = $this->input->get('id');
+						$this->load->library('my_func', NULL , 'mf');
+						$id = $this->mf->scpro_decrypt($id);
+						$arr = explode('|' , $id);
+						if ($arr[1] == "parcel") {
+							$id = $arr[0];
+							unset($arr);
+							$or_id = "#".(120000+$id);
+							$data['title'] = '<i class="fa fa-book" aria-hidden="true"></i>'.$or_id.'</a>';
+							$this->_show($page , $data , $key);
+						}else {
+							$this->session->set_flashdata('error' ,  'Ops!! , wrong path');
+							redirect(site_url('nasty_v2/dashboard/page/e1'));
+						}
+					}else{
+						$this->session->set_flashdata('error' ,  'Ops!! , wrong path');
+						redirect(site_url('nasty_v2/dashboard/page/e1'));
+					}
+					break;
     			default:
     				$this->_show();
     				break;
