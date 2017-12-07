@@ -1581,7 +1581,9 @@ epul@nastyjuice.com
 					$this->_show($page , $data , $key);
 					break;
 				case 'e2':
-					$page = 'barcode/barcodePage';
+					$page = 'barcode/barcodeManage';
+					$this->_show($page , NULL , $key);
+					break;
 					if ($this->input->get('id')) {
 						$id = $this->input->get('id');
 						$this->load->library('my_func', NULL , 'mf');

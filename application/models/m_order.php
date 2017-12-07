@@ -283,10 +283,10 @@
 	    		$this->db->where('ord.or_del', $del);
 	    	}
 			// NOTE: Kena Uncommend balik
-	    	// if ($ver != -1) {
-	    	// 	$this->db->where('ord.or_ver', $ver);
-	    	// 	$this->db->where('DATE(ord.or_date) >=',$date);
-	    	// }
+	    	if ($ver != -1) {
+	    		$this->db->where('ord.or_ver', $ver);
+	    		$this->db->where('DATE(ord.or_date) >=',$date);
+	    	}
 
 	    	if ($limit !== null && $start !== null) {
 	    		$this->db->limit($limit, $start);

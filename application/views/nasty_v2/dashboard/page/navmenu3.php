@@ -107,13 +107,6 @@
                                 </li>
                             </ul>
                         </li> <?php } ?>
-                        <?php if($us_lvl != 4 && $us_lvl != 5){?>
-                        <li class="nav-item <?php if (strpos($link, 'g') !== false) { echo "active open";}else{echo "start";}?>   ">
-                            <a href="" class="nav-link ">
-                                <i class="fa fa-ship"></i>
-                                <span class="title">Shipping</span>
-                            </a>
-                        </li><?php } ?>
                         <?php if($us_lvl != 2 && $us_lvl != 3 && $us_lvl != 5){?>
                         <li class="nav-item <?php if (strpos($link, 'k1') !== false) { echo "active open";}else{echo "start";}?>   ">
                             <a href="<?= site_url('nasty_v2/dashboard/page/k1') ?>" class="nav-link ">
