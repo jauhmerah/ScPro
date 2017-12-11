@@ -1582,8 +1582,6 @@ epul@nastyjuice.com
 					break;
 				case 'e2':
 					$page = 'barcode/barcodeManage';
-					$this->_show($page , NULL , $key);
-					break;
 					if ($this->input->get('id')) {
 						$id = $this->input->get('id');
 						$this->load->library('my_func', NULL , 'mf');
@@ -1594,6 +1592,12 @@ epul@nastyjuice.com
 							unset($arr);
 							$or_id = "#".(120000+$id);
 							$data['title'] = '<i class="fa fa-book" aria-hidden="true"></i>'.$or_id.'</a>';
+							$this->load->model('m_order');
+							$this->load->model('m_category');
+		                    $this->load->model('m_nico');
+							$data['order'] = array_shift($this->m_order->getList_ext($id , 2));
+							$data['nico'] = $this->m_nico->get();
+							$data['cat'] = $this->m_category->get(null , 'asc');
 							$this->_show($page , $data , $key);
 						}else {
 							$this->session->set_flashdata('error' ,  'Ops!! , wrong path');

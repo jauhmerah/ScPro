@@ -33,7 +33,7 @@
                                 </td>
                                 <td>
                                     <div class="btn-group btn-group-md">
-                                        <button type="button" class="btn dark btn-circle-left" title="Manage Parcel" onclick="location.href='<?= site_url('nasty_v2/dashboard/page/e2');?>';">
+                                        <button type="button" class="btn dark btn-circle-left" title="Manage Parcel" onclick="location.href='<?= site_url('nasty_v2/dashboard/page/e2?id='.$this->my_func->scpro_encrypt($key->or_id."|parcel"));?>';">
                                             <i class="fa fa-wrench" aria-hidden="true"></i>
                                         </button>
                                         <button type="button" class="btn btn-info" title="View Parcel List">
