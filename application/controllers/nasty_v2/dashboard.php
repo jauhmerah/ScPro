@@ -1608,6 +1608,26 @@ epul@nastyjuice.com
 						redirect(site_url('nasty_v2/dashboard/page/e1'));
 					}
 					break;
+				case 'e3':
+					//Parcel Processing
+					if ($this->input->get('key')) {
+						$parcelProcess = $this->my_func->scpro_decrypt($this->input->get('key'));
+						if ($parcelProcess == 'parcelprocess') {
+							unset($parcelProcess);
+							$arr = $this->input->post();
+							echo "<pre>";
+							print_r($arr);
+							echo "</pre>";
+							die();
+						}else{
+							$this->session->set_flashdata('warning' , 'Ops! Wrong path.');
+							redirect(site_url('nasty_v2/dashboard/page/e1') , 'refresh');
+						}
+					}else{
+						$this->session->set_flashdata('warning' , 'Ops! Wrong path.');
+						redirect(site_url('nasty_v2/dashboard/page/e1') , 'refresh');
+					}
+					break;
     			default:
     				$this->_show();
     				break;
@@ -2387,7 +2407,7 @@ epul@nastyjuice.com
             echo $this->load->view($this->parent_page."/ajax/getAjaxType", $type , true);
         }
 
-        public function getAjaxItemList()
+        public function getAjaxItemList($parcel = 'Item')
         {
             $arr = $this->input->post();
             $this->load->database();
@@ -2398,7 +2418,11 @@ epul@nastyjuice.com
             $temp['nico'] = $this->m_nico->get($arr['nico']);
             $temp['item'] = $this->m_type2->get($arr['type']);
             $temp['num'] = $arr['num'];
-            echo $this->load->view($this->parent_page."/ajax/getAjaxItem", $temp , true);
+			if ($parcel == 'parcel') {
+				echo $this->load->view($this->parent_page."/ajax/getAjaxItemParcel", $temp , true);
+			}else{
+				echo $this->load->view($this->parent_page."/ajax/getAjaxItem", $temp , true);
+			}
         }
 
         public function getAjaxDelItem()
