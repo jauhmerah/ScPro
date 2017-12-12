@@ -179,60 +179,62 @@
                         <thead>
                             <tr>
                                 <th> Parcel Id </th>
-                                <th>Date</th>
+                                <th> Date </th>
                                 <th> Manage By </th>
                                 <th> Action </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($parcel as $key) { ?>
+                            <?php
+                            $n = 0;
+                            foreach ($parcel as $key) {
+                                $n++;
+                            ?>
                                 <tr>
-                                    <td><?= $orderId.'-'.$key->pa_id;?></td>
-                                    <td><?= $key->pa_date; ?></td>
-                                    <td> N/A </td>
+                                    <td><?= $orderId.'-'.$key['parcel']->pa_id;?></td>
+                                    <td><?= $key['parcel']->pa_date; ?></td>
+                                    <td><?= $key['parcel']->us_username; ?> </td>
                                     <td>
                                         <div class="btn-group btn-group-md">
-                                            <button type="button" class="btn btn-primary btn-circle-left">
-                                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                            <button type="button" class="btn btn-primary btn-circle-left btnV" title="view" data-view = 'tr<?= $n; ?>'>
+                                                <i class="fa fa-angle-down" aria-hidden="true"></i>
                                             </button>
-                                            <button type="button" class="btn green-dark">
+                                            <button type="button" class="btn green-dark" title="print">
                                                 <i class="fa fa-print" aria-hidden="true"></i>
                                             </button>
-                                            <button type="button" class="btn red-mint btn-circle-right con" title="Reset Parcel">
+                                            <button type="button" class="btn red-mint btn-circle-right con" title="Delete Parcel">
                                                 <i class="fa fa-trash-o" aria-hidden="true"></i>
                                             </button>
                                         </div>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td colspan="3">
+                                <tr id="tr<?= $n; ?>" style="background-color : #9f9f9f; display : none;">
+                                    <td colspan="4">
                                         <div class="row">
-                                            <div class="col-md-10 col-md-offset-1">
+                                            <div class="col-md-12">
                                                 <table class="table table-condensed table-hover">
                                                     <thead>
                                                         <tr>
-                                                            <th>#</th>
                                                             <th>Product</th>
                                                             <th>Quantity</th>
+                                                            <th>Tester</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <?php if (isset($key2['item'])) {
+                                                        <?php if (isset($key['item'])) {
                                                             $n2 = 0;
                                                             foreach ($key['item'] as $key2) {
                                                                 $n2++; ?>
                                                                 <tr>
-                                                                    <td>
-                                                                        <?= $n2; ?>
-                                                                    </td>
                                                                     <td>
                                                                         <?= $key2->ty2_desc; ?> |
                                                                         <span class="label" style="color: black;background-color: <?= $key2->ca_color; ?>; font-size: 75%;"><strong><?= $key2->ca_desc; ?></strong></span>&nbsp;
                                                                         <span class="label" style="color: black;font-size: 75%; background-color: <?= $key2->ni_color; ?>;"><strong><?= $key2->ni_mg; ?> mg</strong></span>
                                                                     </td>
                                                                     <td>
-                                                                        <?= $key2->oi_qty; ?>
+                                                                        <?= $key2->pa_qty; ?>
                                                                     </td>
+                                                                    <td><?= $key2->pa_tester; ?></td>
                                                                 </tr>
                                                                 <?php
                                                             }
@@ -270,7 +272,7 @@
         $('.con').click(function() {
             bootbox.confirm({
                 title: '<i class="fa fa-refresh" aria-hidden="true"></i> Reset',
-                message: "Do you want to reset the parcel detail? This cannot be undone.",
+                message: "Do you want to delete the parcel detail? This cannot be undone.",
                 buttons: {
                     cancel: {
                         label: '<i class="fa fa-times"></i> Cancel'
@@ -303,5 +305,13 @@
 				$("#orderList").append(data);
 			});
 		});
+        $('.btnV').click(function() {
+            row = $(this).data('view');
+            if ($('#'+row).is(':visible')) {
+                $('#'+row).slideUp('slow');
+            }else{
+                $('#'+row).slideDown('slow');
+            }
+        });
     });
 </script>

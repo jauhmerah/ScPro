@@ -16,20 +16,29 @@
                             <tr>
                                 <th> Order Code </th>
                                 <th> Parcel Qty </th>
-                                <th> Manage By </th>
+                                <th> Sales Person </th>
                                 <th> Parcel Status </th>
                                 <th> Action </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($parcel as $key) { ?>
+                            <?php foreach ($arr as $key) {
+                                $parcelNum = parcelCount($key->or_id);
+                            ?>
                             <tr>
                                 <td> <a href="#">#<?= 120000+$key->or_id; ?></a></td>
-                                <td> 0 </td>
-                                <td> N/A </td>
+                                <td> <?= $parcelNum; ?> </td>
+                                <td><?= $key->us_username; ?></td>
                                 <td>
-                                    <span class="label label-md label-danger circle"><i class="fa fa-times-circle" aria-hidden="true"></i> Un-listed </span>
+                                    <?php
+                                if (parcelCount($key->or_id)) {
+                                    ?>
                                     <span class="label label-md label-success circle"><i class="fa fa-book" aria-hidden="true"></i> Listing Done </span>
+                                    <?php
+                                }else{ ?>
+                                    <span class="label label-md label-danger circle"><i class="fa fa-times-circle" aria-hidden="true"></i> Un-listed </span>
+                                <?php }
+                                ?>
                                 </td>
                                 <td>
                                     <div class="btn-group btn-group-md">

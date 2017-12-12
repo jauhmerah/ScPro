@@ -1576,7 +1576,7 @@ epul@nastyjuice.com
 					$data['title'] = '<i class="fa fa-archive" aria-hidden="true"></i> Parcel Management</a>';
 					$this->load->database();
 					$this->load->model('m_order');
-
+					$this->load->helper('parcel');
 					$data['arr'] = $this->m_order->listOrROS(2 , 3 );
 					$this->_show($page , $data , $key);
 					break;
@@ -1650,6 +1650,40 @@ epul@nastyjuice.com
 					}else{
 						$this->session->set_flashdata('warning' , 'Ops! Wrong path.');
 						redirect(site_url('nasty_v2/dashboard/page/e1') , 'refresh');
+					}
+					break;
+				case 'e4':
+					//Delete parcel
+					/* mode : 1 - Reset all
+							  2 - delete parcel
+					*/
+					if ($this->input->get('key')) {
+						//Delete parcel;
+						$text = $this->my_func->scpro_decrypt($this->input->get('key'));
+						$arr = explode('|' , $text);
+						unset($text);
+						if ($arr[1] == 'parcelDel') {
+							$this->load->database();
+							$this->load->model('m_parcel', 'mp');
+							$this->load->model('m_parcel_ext' , 'mpe');
+							if ($arr[2] == 1) {
+								$parcel = array(
+									'or_id' => $arr[0]
+								);
+							}elseif ($arr[2] == 2) {
+								$parcel = array(
+									'pa_id' => $arr[0]
+								);
+								$this->mp->delete($parcel);
+								$this->mpe->delete($parcel);
+							}else {
+								$this->session->set_flashdata('error' , 'Parcel Mode Error');
+								redirect(site_url('nasty_v2/dashboard/page/e1'));
+							}
+						}else {
+							$this->session->set_flashdata('error' , 'Ops Wrong Path');
+							redirect(site_url('nasty_v2/dashboard/page/e1'));
+						}
 					}
 					break;
     			default:

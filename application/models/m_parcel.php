@@ -84,6 +84,14 @@ class M_parcel extends CI_Model {
         return $this->db->affected_rows();
     }
 
+    public function getPa_id($arr = NULL)
+    {
+        if ($arr == NULL || !is_array($arr)) {
+            return FALSE;
+        }
+        $this->db->select('pi_id');
+        return $this->db->get(self::TABLE_NAME)->result();
+    }
     public function get_ext($where = NULL) {
         $this->db->select('parcel.* , us.us_username');
         $this->db->from(self::TABLE_NAME);
@@ -105,15 +113,25 @@ class M_parcel extends CI_Model {
                 $this->db->select('*');
                 $this->db->from('parcel_ext pae');
                 $this->db->where('pa_id', $pa_id);
+                $this->db->join('type2 ty2', 'ty2.ty2_id = pae.ty2_id', 'left');
+                $this->db->join('nicotine ni', 'ni.ni_id = pae.ty2_id', 'left');
+                $this->db->join('category cat', 'cat.ca_id = ty2.ca_id', 'left');
                 $arr['parcel'] = $key;
                 $arr['item'] = $this->db->get()->result();
                 $result[] = $arr;
                 unset($arr);
             }
-            return $data;
+            return $result;
         } else {
             return false;
         }
+    }
+    public function countParcel($or_id = "NULL"){
+
+        $this->db->where('or_id', $or_id);
+        $this->db->from('parcel');
+        return $this->db->count_all_results();
+
     }
 }
 

@@ -269,9 +269,8 @@
 	    	$result = $this->db->get()->result();
 	    	return $result;
 	    }
-	       public function listOrROS($ver = -1 ,$st1 =null, $limit = null , $start = null , $del = 0 , $where = null)
+	    public function listOrROS($ver = -1 ,$st1 =null, $limit = null , $start = null , $del = 0 , $where = null)
 	    {
-
 	    	$date = date("Y-m-01", strtotime("-2 months"));
 	    	$date2 = date("Y-m-d");
 
@@ -308,14 +307,10 @@
 
 	    		$this->db->where('ord.pr_id', 9);
 	    	}
-
-
-
-
 	    	$this->db->order_by('ord.or_date', 'desc');
 	    	$result = $this->db->get()->result();
 	    	return $result;
-	    }
+	    }	
 
 
 	    public function listOr_ext($ver = 0 , $limit = null , $start = null , $del = 0 , $where = null)
