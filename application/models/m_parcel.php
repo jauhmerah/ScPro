@@ -83,6 +83,38 @@ class M_parcel extends CI_Model {
         $this->db->delete(self::TABLE_NAME, $where);
         return $this->db->affected_rows();
     }
+
+    public function get_ext($where = NULL) {
+        $this->db->select('parcel.* , us.us_username');
+        $this->db->from(self::TABLE_NAME);
+        if ($where !== NULL) {
+            if (is_array($where)) {
+                foreach ($where as $field=>$value) {
+                    $this->db->where($field, $value);
+                }
+            } else {
+                $this->db->where(self::PRI_INDEX, $where);
+            }
+        }
+        $this->db->join('user us', 'us.us_id = parcel.us_id', 'left');
+        $data = $this->db->get()->result();
+        if ($data) {
+            $result = array();
+            foreach ($data as $key) {
+                $pa_id = $key->pa_id;
+                $this->db->select('*');
+                $this->db->from('parcel_ext pae');
+                $this->db->where('pa_id', $pa_id);
+                $arr['parcel'] = $key;
+                $arr['item'] = $this->db->get()->result();
+                $result[] = $arr;
+                unset($arr);
+            }
+            return $data;
+        } else {
+            return false;
+        }
+    }
 }
 
 ?>

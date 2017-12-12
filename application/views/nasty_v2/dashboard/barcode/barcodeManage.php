@@ -1,3 +1,4 @@
+<?php $orderId = '#'.(120000+$order['order']->or_id); ?>
 <div class="row">
     <div class="col-md-12">
         <div class="portlet box green-haze">
@@ -20,6 +21,8 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
+                        <input type="hidden" name="or_id" value="<?= $this->my_func->scpro_encrypt($order['order']->or_id); ?>">
+                        <input type="hidden" name="us_id" value="<?= $this->session->userdata('us_id'); ?>">
                         <tbody id="orderList">
                         </tbody>
                         <tfoot>
@@ -97,7 +100,7 @@
             </div>
             <div class="panel-body">
                 <div class="form-group">
-                    <label class="control-label"><h5> Order Id : <strong><?= '#'.(120000+$order['order']->or_id); ?></strong></h5></label>
+                    <label class="control-label"><h5> Order Id : <strong><?= $orderId; ?></strong></h5></label>
                     <span class="pull-right">Sales Person : <strong><?= $order['staff']->us_username; ?></strong></span><br>
                     <label class="control-label"><h5> Client Name : <strong><?= $order['order']->cl_name; ?></strong></h5></label><br>
                     <label class="control-label"><h5> Shipping Address : <strong><?= $order['order']->cl_address; ?></strong></h5></label>
@@ -176,14 +179,16 @@
                         <thead>
                             <tr>
                                 <th> Parcel Id </th>
+                                <th>Date</th>
                                 <th> Manage By </th>
                                 <th> Action </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php //foreach ($arr as $key) { ?>
+                            <?php foreach ($parcel as $key) { ?>
                                 <tr>
-                                    <td> <a href="#">#< ?= 120000+$key->or_id; ? ></a></td>
+                                    <td><?= $orderId.'-'.$key->pa_id;?></td>
+                                    <td><?= $key->pa_date; ?></td>
                                     <td> N/A </td>
                                     <td>
                                         <div class="btn-group btn-group-md">
@@ -245,7 +250,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <?php// } ?>
+                                <?php } ?>
                             </tbody>
                         </table>
                     </div>
@@ -257,7 +262,7 @@
     </div>
 </div>
 <pre>
-    <?= print_r($order); ?>
+    <?= print_r($parcel); ?>
 </pre>
 <script type="text/javascript">
     jQuery(document).ready(function($) {

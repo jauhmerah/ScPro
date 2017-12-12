@@ -591,7 +591,7 @@ epul@nastyjuice.com
                     if ($this->input->get('mode')) {
                         $temp['mode'] = $this->input->get('mode');
                     }          */
-                     $this->load->database();
+                    $this->load->database();
                     $this->load->library('my_func');
                     $this->load->library('my_flag');
                     $this->load->model('m_order');
@@ -1595,6 +1595,8 @@ epul@nastyjuice.com
 							$this->load->model('m_order');
 							$this->load->model('m_category');
 		                    $this->load->model('m_nico');
+							$this->load->model('m_parcel', 'mp');
+							$data['parcel'] = $this->mp->get_ext(array('or_id' => $id));
 							$data['order'] = array_shift($this->m_order->getList_ext($id , 2));
 							$data['nico'] = $this->m_nico->get();
 							$data['cat'] = $this->m_category->get(null , 'asc');
@@ -1615,10 +1617,32 @@ epul@nastyjuice.com
 						if ($parcelProcess == 'parcelprocess') {
 							unset($parcelProcess);
 							$arr = $this->input->post();
-							echo "<pre>";
-							print_r($arr);
-							echo "</pre>";
-							die();
+							$or_id = $this->my_func->scpro_decrypt($arr['or_id']);
+							if (!isset($arr['qty'])) {
+								$this->session->set_flashdata('warning' , 'Please Item Detail');
+								redirect(site_url('nasty_v2/dashboard/page/e1?id='.$this->my_func->scpro_encrypt($or_id."|parcel")) , 'refresh');
+							}
+							$this->load->model('m_parcel', 'mp');
+							$pa = array(
+								'or_id' => $or_id,
+								'us_id' => $this->my_func->scpro_decrypt($arr['us_id'])
+							);
+							$pa_id = $this->mp->insert($pa);
+							unset($pa);
+							$this->load->model('m_parcel_ext', 'mpe');
+							$j = sizeof($arr['itemId']);
+							for ($i = 0; $i < $j; $i++) {
+								$pae = array(
+									'pa_id' => $pa_id,
+									'ty2_id' => $arr['itemId'][$i],
+									'ni_id' => $arr['nico'][$i],
+									'pa_tester' => $arr['tester'][$i],
+									'pa_qty' => $arr['qty'][$i]
+								);
+								$this->mpe->insert($pae);
+							}
+							$this->session->set_flashdata('success' , 'Parcel Added');
+							redirect(site_url('nasty_v2/dashboard/page/e2?id='.$this->my_func->scpro_encrypt($or_id."|parcel")) , 'refresh');
 						}else{
 							$this->session->set_flashdata('warning' , 'Ops! Wrong path.');
 							redirect(site_url('nasty_v2/dashboard/page/e1') , 'refresh');

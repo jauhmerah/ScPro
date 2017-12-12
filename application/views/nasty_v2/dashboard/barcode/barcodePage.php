@@ -22,7 +22,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($arr as $key) { ?>
+                            <?php foreach ($parcel as $key) { ?>
                             <tr>
                                 <td> <a href="#">#<?= 120000+$key->or_id; ?></a></td>
                                 <td> 0 </td>
