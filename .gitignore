@@ -29,7 +29,6 @@ application/controllers/welcome.php
 application/views/example2.php
 application/core/
 application/errors/
-application/helpers/
 application/hooks/
 application/index.html
 application/language/
