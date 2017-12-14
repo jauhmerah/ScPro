@@ -90,7 +90,7 @@ class M_parcel extends CI_Model {
         if ($arr == NULL || !is_array($arr)) {
             return FALSE;
         }
-        $this->db->select('pi_id');
+        $this->db->select('pa_id');
         $this->db->where($arr);
         $result = $this->db->get(self::TABLE_NAME)->result();
         //delete after called;

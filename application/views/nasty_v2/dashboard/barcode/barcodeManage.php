@@ -166,12 +166,14 @@
                 <div class="caption">
                     <i class="fa fa-th-large"></i>Parcel Detail
                 </div>
-                <div class="actions">
-                    <div class="btn-group btn-group-devided" data-toggle="buttons">
-                        <a><button type="button" onclick="window.location.href=''" class="btn green btn-circle btn-sm"><i class="fa fa-print"></i> Print All</button></a>
+                <?php if (is_array($parcel)) { ?>
+                    <div class="actions">
+                        <div class="btn-group btn-group-devided" data-toggle="buttons">
+                            <a><button type="button" onclick="window.location.href=''" class="btn green btn-circle btn-sm"><i class="fa fa-print"></i> Print All</button></a>
+                        </div>
+                        &nbsp;-&nbsp;
                     </div>
-                    &nbsp;-&nbsp;
-                </div>
+                <?php } ?>
             </div>
             <div class="portlet-body">
                 <div class="">
@@ -186,73 +188,81 @@
                         </thead>
                         <tbody>
                             <?php
-                            $n = 0;
-                            foreach ($parcel as $key) {
-                                $n++;
-                            ?>
-                                <tr>
-                                    <td><?= $orderId.'-'.$key['parcel']->pa_id;?></td>
-                                    <td><?= $key['parcel']->pa_date; ?></td>
-                                    <td><?= $key['parcel']->us_username; ?> </td>
-                                    <td>
-                                        <div class="btn-group btn-group-md">
-                                            <button type="button" class="btn btn-primary btn-circle-left btnV" title="view" data-view = 'tr<?= $n; ?>'>
-                                                <i class="fa fa-angle-down" aria-hidden="true"></i>
-                                            </button>
-                                            <button type="button" class="btn green-dark" title="print">
-                                                <i class="fa fa-print" aria-hidden="true"></i>
-                                            </button>
-                                            <button type="button" class="btn red-mint btn-circle-right con" title="Delete Parcel">
-                                                <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr id="tr<?= $n; ?>" style="background-color : #9f9f9f; display : none;">
-                                    <td colspan="4">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <table class="table table-condensed table-hover">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Product</th>
-                                                            <th>Quantity</th>
-                                                            <th>Tester</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <?php if (isset($key['item'])) {
-                                                            $n2 = 0;
-                                                            foreach ($key['item'] as $key2) {
-                                                                $n2++; ?>
-                                                                <tr>
-                                                                    <td>
-                                                                        <?= $key2->ty2_desc; ?> |
-                                                                        <span class="label" style="color: black;background-color: <?= $key2->ca_color; ?>; font-size: 75%;"><strong><?= $key2->ca_desc; ?></strong></span>&nbsp;
-                                                                        <span class="label" style="color: black;font-size: 75%; background-color: <?= $key2->ni_color; ?>;"><strong><?= $key2->ni_mg; ?> mg</strong></span>
-                                                                    </td>
-                                                                    <td>
-                                                                        <?= $key2->pa_qty; ?>
-                                                                    </td>
-                                                                    <td><?= $key2->pa_tester; ?></td>
-                                                                </tr>
-                                                                <?php
-                                                            }
-                                                            ?>
-                                                        <?php }else{ ?>
-                                                            <tr>
-                                                                <td align='center' colspan="4">
-                                                                    --No Data--
-                                                                </td>
-                                                            </tr>
-                                                        <?php } ?>
-                                                    </tbody>
-                                                </table>
+                            if (is_array($parcel)) {
+                                $n = 0;
+                                foreach ($parcel as $key) {
+                                    $n++;
+                                ?>
+                                    <tr>
+                                        <td><?= $orderId.'-'.$key['parcel']->pa_id;?></td>
+                                        <td><?= $key['parcel']->pa_date; ?></td>
+                                        <td><?= $key['parcel']->us_username; ?> </td>
+                                        <td>
+                                            <div class="btn-group btn-group-md">
+                                                <button type="button" class="btn btn-primary btn-circle-left btnV" title="view" data-view = 'tr<?= $n; ?>'>
+                                                    <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                                </button>
+                                                <button type="button" class="btn green-dark" title="print">
+                                                    <i class="fa fa-print" aria-hidden="true"></i>
+                                                </button>
+                                                <button type="button" class="btn red-mint btn-circle-right con" title="Delete Parcel" data-del = "<?= $this->my_func->scpro_encrypt($key['parcel']->pa_id.'|parcelDel|2'); ?>">
+                                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                                </button>
                                             </div>
-                                        </div>
+                                        </td>
+                                    </tr>
+                                    <tr id="tr<?= $n; ?>" style="background-color : #9f9f9f; display : none;">
+                                        <td colspan="4">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <table class="table table-condensed table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Product</th>
+                                                                <th>Quantity</th>
+                                                                <th>Tester</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php if (isset($key['item'])) {
+                                                                $n2 = 0;
+                                                                foreach ($key['item'] as $key2) {
+                                                                    $n2++; ?>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <?= $key2->ty2_desc; ?> |
+                                                                            <span class="label" style="color: black;background-color: <?= $key2->ca_color; ?>; font-size: 75%;"><strong><?= $key2->ca_desc; ?></strong></span>&nbsp;
+                                                                            <span class="label" style="color: black;font-size: 75%; background-color: <?= $key2->ni_color; ?>;"><strong><?= $key2->ni_mg; ?> mg</strong></span>
+                                                                        </td>
+                                                                        <td>
+                                                                            <?= $key2->pa_qty; ?>
+                                                                        </td>
+                                                                        <td><?= $key2->pa_tester; ?></td>
+                                                                    </tr>
+                                                                    <?php
+                                                                }
+                                                                ?>
+                                                            <?php }else{ ?>
+                                                                <tr>
+                                                                    <td align='center' colspan="4">
+                                                                        --No Data--
+                                                                    </td>
+                                                                </tr>
+                                                            <?php } ?>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                            <?php   }
+                            }else{ ?>
+                                <tr>
+                                    <td colspan="4" align = 'center'>
+                                        -- No Data --
                                     </td>
                                 </tr>
-                                <?php } ?>
+                            <?php } ?>
                             </tbody>
                         </table>
                     </div>
@@ -263,13 +273,11 @@
         </div>
     </div>
 </div>
-<pre>
-    <?= print_r($parcel); ?>
-</pre>
 <script type="text/javascript">
     jQuery(document).ready(function($) {
         var num = 1;
         $('.con').click(function() {
+            var k = $(this).data('del');
             bootbox.confirm({
                 title: '<i class="fa fa-refresh" aria-hidden="true"></i> Reset',
                 message: "Do you want to delete the parcel detail? This cannot be undone.",
@@ -282,7 +290,9 @@
                     }
                 },
                 callback: function(result) {
-                    console.log('This was logged in the callback: ' + result);
+                    if (result) {
+                        window.location = '<?= site_url('nasty_v2/dashboard/page/e4?key='); ?>'+k;
+                    }
                 }
             });
         });

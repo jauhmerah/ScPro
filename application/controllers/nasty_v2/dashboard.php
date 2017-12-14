@@ -1683,6 +1683,11 @@ epul@nastyjuice.com
 								$this->mp->delete($parcel);
 								$this->mpe->delete($parcel);
 								$this->session->set_flashdata('success' , 'delete parcel done.');
+								// this section will return bace to the page.
+								// if ($this->input->get('id')) {
+								// 	$id = $this->input->get('id');
+								// 	redirect(site_url('nasty_v2/dashboard/page/e2?id='.$id));
+								// }
 							}else {
 								$this->session->set_flashdata('error' , 'Parcel Mode Error');
 							}
