@@ -1670,16 +1670,23 @@ epul@nastyjuice.com
 								$parcel = array(
 									'or_id' => $arr[0]
 								);
+								$arrPa = $this->mp->getPa_id($parcel);
+								foreach ($arrPa as $pakey) {
+									$this->mpe->delete(array('pa_id' => $pakey->pa_id));
+								}
+								unset($arrPa);
+								$this->session->set_flashdata('success' , 'Reset process done.');
 							}elseif ($arr[2] == 2) {
 								$parcel = array(
 									'pa_id' => $arr[0]
 								);
 								$this->mp->delete($parcel);
 								$this->mpe->delete($parcel);
+								$this->session->set_flashdata('success' , 'delete parcel done.');
 							}else {
 								$this->session->set_flashdata('error' , 'Parcel Mode Error');
-								redirect(site_url('nasty_v2/dashboard/page/e1'));
 							}
+							redirect(site_url('nasty_v2/dashboard/page/e1'));
 						}else {
 							$this->session->set_flashdata('error' , 'Ops Wrong Path');
 							redirect(site_url('nasty_v2/dashboard/page/e1'));

@@ -4,12 +4,13 @@ if (! function_exists('set_barcode'))
     public function set_barcode($code = 'barcode')
 	{
 		//load library
-		$this->load->library('zend');
+        $ci =& get_instance();
+		$ci->load->library('zend');
 		//load in folder Zend
-		$this->zend->load('Zend/Barcode');
+		$ci->zend->load('Zend/Barcode');
 		//generate barcode
 		Zend_Barcode::render('code128', 'image', array('text'=>$code), array());
-        //helper testing
+
 	}
 }
 ?>

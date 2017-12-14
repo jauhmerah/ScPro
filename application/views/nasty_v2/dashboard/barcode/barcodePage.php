@@ -6,7 +6,6 @@
                     <i class="fa fa-picture"></i>DOC List </div>
                 <div class="tools">
                     <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
-
                 </div>
             </div>
             <div class="portlet-body">

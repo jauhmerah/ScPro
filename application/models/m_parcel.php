@@ -86,11 +86,16 @@ class M_parcel extends CI_Model {
 
     public function getPa_id($arr = NULL)
     {
+        //getPaid will auto delete when called;
         if ($arr == NULL || !is_array($arr)) {
             return FALSE;
         }
         $this->db->select('pi_id');
-        return $this->db->get(self::TABLE_NAME)->result();
+        $this->db->where($arr);
+        $result = $this->db->get(self::TABLE_NAME)->result();
+        //delete after called;
+        $this->db->delete(self::TABLE_NAME, $arr);
+        return $result;
     }
     public function get_ext($where = NULL) {
         $this->db->select('parcel.* , us.us_username');
