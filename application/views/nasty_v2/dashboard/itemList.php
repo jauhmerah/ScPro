@@ -43,8 +43,12 @@
 									<?php if($us_lvl != 8 && $us_lvl != 9 && $us_lvl != 10){ ?>
 									<td>
 								<button type="button" class="Lorder btn bg-green-jungle btn-circle btn-md" id="L<?= $n; ?>" title="Stock-in"><i class="fa fa-arrow-down"></i> STOCK-IN</button>
+								&nbsp;&nbsp;-&nbsp;&nbsp;
+								
 								<button type="button" class="Morder btn bg-yellow-crusta btn-circle btn-md" id="M<?= $n; ?>" title="Stock-out"><i class="fa fa-arrow-up"></i> STOCK-OUT</button>
+								&nbsp;&nbsp;-&nbsp;&nbsp;
 								<button type="button" class="dangerBtn btn bg-red btn-circle btn-md" id="<?= $n.'dgr' ?>" name="<?= $n.'dgr' ?>" title="Danger Zone"><i class="fa fa-exclamation-triangle"></i> DANGER ZONE</button>
+								&nbsp;&nbsp;-&nbsp;&nbsp;
 								<button type="button" class="barcodeBtn btn bg-blue-sharp btn-circle btn-md" id="<?= $n.'bar' ?>" name="<?= $n.'bar' ?>" title="Barcode"><i class="fa fa-barcode"></i></button>
 								<input type="hidden" class="form-control <?= $n.'dgr' ?>" value="<?= $this->my_func->scpro_encrypt($key->bi_id); ?>">
 
