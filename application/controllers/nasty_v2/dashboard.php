@@ -1641,6 +1641,25 @@ epul@nastyjuice.com
 								);
 								$this->mpe->insert($pae);
 							}
+                            // Generate Barcode image.
+							$this->load->helper('barcode');
+							$orderCode = (120000+$or_id);
+							$pa_hex = dechex($pa_id);
+							$temp = rand(0, 999);
+							$barcode = $orderCode.'-'.$pa_hex.'-'.$temp;
+							unset($orderCode);unset($pa_hex);unset($temp);
+							if (set_barcode($barcode) == FALSE) {
+
+							}else{
+								$this->load->model('M_parcel_barcode', 'mpb');
+								$link = base_url('assets/uploads/barcode/'.$barcode.'.jpg');
+								$arrParcel = array(
+									'pa_id' => $pa_id,
+									'pb_link' => $link,
+									'pb_code' => $barcode
+								);
+								
+							}
 							$this->session->set_flashdata('success' , 'Parcel Added');
 							redirect(site_url('nasty_v2/dashboard/page/e2?id='.$this->my_func->scpro_encrypt($or_id."|parcel")) , 'refresh');
 						}else{
