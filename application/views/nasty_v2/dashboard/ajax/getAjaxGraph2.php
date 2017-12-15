@@ -1,3 +1,6 @@
+<pre>
+    <?= print_r($arr); ?>
+</pre>
 <script type="text/javascript">
 	var chart = AmCharts.makeChart("flavdiv", {
   "type": "serial",

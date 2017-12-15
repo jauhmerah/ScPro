@@ -135,10 +135,6 @@ body .ReadOnlyExtrasStatus {
     }
 }
 </style>
-
-
-
-
 <!DOCTYPE html>
 <html>
 	<head>
@@ -146,24 +142,16 @@ body .ReadOnlyExtrasStatus {
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>OrdYs v2.2.4 Alpha</title>
-
 		<!-- Bootstrap CSS -->
-   
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 <!--     <link rel="stylesheet" href="<?= base_url(); ?>asset/css/plugins/bootstrap.min.css"> -->
-    
-    <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+   <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 	</head>
 	<body style="background-color:#EAEDED">
-	
-
    <div id="ReadOnlyControls" class="span12 no-container-margin">
-                
-
 <form method = "post" class="horizontal-form">
 <div class="readonly-payment-information_details">
-    <!--     <div class="readonly-payment-information__details__items">
-          
+    <!--<div class="readonly-payment-information__details__items">
           Invoice <?php $code = 100000 + $arr['order']->or_id; echo "#".$code; ?>-D
         &nbsp;&nbsp;&nbsp;&nbsp;
         </div>
@@ -228,7 +216,7 @@ body .ReadOnlyExtrasStatus {
         
    
           
-        <img class="contemporary-template__business-logo" src="https://d13urdz427oqex.cloudfront.net/uploads/invoices/business_logos/34ebad66-06d6-4bd2-88c7-2ed1618ed501.png" width="314" height="161"/>
+       <img class="contemporary-template__business-logo" src="<?= base_url(); ?>assets/nasty/Drizz Logo.png" width="352" height="158"/>
       
    
   	<div class="pull-right" style="text-align: right;">
@@ -237,17 +225,14 @@ body .ReadOnlyExtrasStatus {
       
         <div class="contemporary-template__header__info__address">
           
-		  Lot 139, 1st Floor, Jalan Besar Tampin,<br>
-		  Tampin,
-		  Negeri Sembilan 73000<br>
-		  Malaysia<br>
+        P.O 545235 1st Floor Building<br>
+        346 Road 1705 Block 317 Diplomatic Area,<br>
+        Manama Bahrain.<br>
+    <br>
 
-		<br>
-
- 		 Phone:  +6012 3437638<br>
-
- 		 Mobile: +6013 6777791<br>
-  			<span class="wrappable">www.nastyjuice.com<br></span>
+     Phone (Office):  +606-441 0519/443 3360<br>
+     
+        <span class="wrappable">www.nastyjuice.com<br></span>
         </div>
         </div>
       
@@ -272,6 +257,7 @@ body .ReadOnlyExtrasStatus {
         <table style="width:200px;">
         <tr>
         <td>
+        <?= $arr['order']->cl_company; ?><br>
 				 <?= $arr['order']->cl_address; ?>
          </td>
          </tr>
@@ -309,6 +295,15 @@ body .ReadOnlyExtrasStatus {
             <span><?= date_format($temp,"Y-m-d"); ?></span><br>
           </td>
         </tr>
+        <tr class="wv-table__row">
+          <td class="wv-table__cell" style="text-align: right;">
+            <strong class="wv-text--strong">Sales Person : </strong>
+          </td>
+          <td></td>
+          <td class="wv-table__cell" style="text-align: right;">          
+            <span><?= $arr['staff']->us_username; ?></span><br>
+          </td>
+        </tr>
         
 
       </table>
@@ -326,7 +321,7 @@ body .ReadOnlyExtrasStatus {
           <th style="color: #000000;">Quantity</th>
           <th style="color: #000000;">Price</th>
           <th style="color: #000000;">Tester</th>  
-          <th style="color: #000000;">Amount($)</th>
+          <th style="color: #000000;">Amount</th>
         </tr>
       </thead>
       <form action="" method="post" id="origForm">
@@ -399,6 +394,10 @@ body .ReadOnlyExtrasStatus {
        <tr>
         <td style="color: #000000;text-align: left;" style="width:1000px;"> <strong>Total :</strong></td>
           <td style="color: #000000;text-align: right;"><input type="text" id="name" name="name" class="w3-input w3-border-0" value="<?php echo number_format((float)$total_all, 2, '.', ''); ?>" ></td>
+        </tr>
+        <tr>
+        <td style="color: #000000;" style="width:1000px;"> <strong>Tax :</strong></td>
+          <td style="color: #000000;text-align: right;"><input type="text" id="name" name="name" class="w3-input w3-border-0" value="<?php $tax = number_format((float)($total_all*$arr['order']->or_tax/100), 2, '.', ''); echo $tax; ?>" ></td>
         </tr>
         <tr>
         <td style="color: #000000;text-align: left;">Shipping Cost:</td>

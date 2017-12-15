@@ -5,7 +5,7 @@
 
 	   	var $parent_page = "nasty_v2/dashboard";
 	   	var $old_page = "dashboard";
-        var $version = "OrdYs v2.3.7 Alpha";
+        var $version = "OrdYs v2.3.8 Alpha";
         var $imgUploc = "/assets/uploads/img/";
         var $flags = 'asset/flags/flags.png';
 
@@ -19,29 +19,23 @@
 	        $this->page('a1');
 	    }
 
-	    public function testpage()
-	    {
-            $this->load->view('test');
-	    }
-          public function dummyInvoice()
-        {
-
-            $html =$this->load->view($this->parent_page.'/orderDummy' , '' , true);
+        public function dummyInvoice()
+        {        
+            $html =$this->load->view($this->parent_page.'/orderDummy' , '' , true); 
             echo $html;
         }
-          public function Invoice()
-        {
-
-            $html =$this->load->view($this->parent_page.'/orderInvoice' , '' , true);
+        public function Invoice()
+        {        
+            $html =$this->load->view($this->parent_page.'/orderInvoice' , '' , true); 
             echo $html;
         }
 
 	   private function _show($page = 'display' , $data = null , $key = 'a1'){
             $link['link'] = $key;
 	    	$link['admin'] = $this->_checkLvl();
-	    	if (!$link['admin']) {
-	    		$link['link'] = 'a2';
-	    	}
+	    	// if (!$link['admin']) {
+	    	// 	$link['link'] = 'a2';
+	    	// }
 	    	if (isset($data['title'])) {
 	    		$T['title'] = $data['title'];
 	    	}else{
@@ -169,7 +163,7 @@
                         $arr['onhold'] = $this->m_order->countOrderType(7 , 2);
                         $arr['vernew'] = $this->m_order->orderCount(2);
                         $arr['verold'] = $this->m_order->orderCount(1) + $this->m_order->orderCount(0);
-                        $arr['totalProfit'] = $this->m_order->totalProfit();
+                        //$arr['totalProfit'] = $this->m_order->totalProfit();
                         $arr['client'] = $this->m_client->get(null , 'asc');
                         $arr['nation'] = $this->m_client->getNation();
                         $arr['mg'] = $this->m_nico->get();
@@ -270,6 +264,26 @@
                         $this->_show('display' , $data , $key);
                         break;
                     }
+                    case 'i111':
+                    //view new
+                    if ($lvl == 2 || $lvl == 3) {
+                        redirect(site_url('nasty_v2/dashboard/page/i21'),'refresh');
+                    }
+                    if($this->input->get('view')){
+                        $id = $this->input->get('view');
+                        //$this->load->library('my_func');
+                        $id = $this->my_func->scpro_decrypt($id);
+                        $this->load->database();
+                        $this->load->model('m_ship');
+                        $arr['arr'] = array_shift($this->m_ship->getList_ext($id , 1));
+                        if (sizeof($arr['arr']) == 0) {
+                            $arr['arr'] = array_shift($this->m_ship->getList_ext($id , 2));
+                        }
+                        $data['title'] = '<i class="fa fa-eye"></i> Inventory Detail</a>';
+                        $data['display'] = $this->load->view($this->parent_page.'/shipView' ,$arr , true);                        
+                        $this->_show('display' , $data , 'i1');
+                        break;
+                    }
                 case 'a1':
                     /*if ($lvl == 2 || $lvl == 3) {
                         redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
@@ -284,9 +298,13 @@
                 break;*/
     			case 'a1new':
                     //OrdSys 2.3.0
-    				if ($lvl == 2 || $lvl == 3) {
+    				if ($lvl == 3 || $lvl == 7) {
                         redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
                     }
+                    if ($lvl == 6) {
+                        redirect(site_url('nasty_v2/dashboard/page/i1'),'refresh');
+                    }
+
                     if ($this->input->get('page')) {
                         $p = $this->input->get('page');
                     }else{
@@ -314,7 +332,7 @@
                             case '1':
                                 //Order Code
                                 //Hanya Single
-                                if (strpos($search, "#") !== false) {
+                                 if (strpos($search, "#") !== false) {
                                     $search = str_replace("#", "", $search);
                                 }
                                 if (!is_numeric($search)) {
@@ -330,7 +348,7 @@
                                     $ver = 0;
                                 }*/
                                 $ver = 2;
-                                $id = $search - 120000;
+                                $id = $search;
                                 $where = array(
                                     "ord.or_id" => $id
                                 );
@@ -377,6 +395,113 @@
     				$data['display'] = $this->load->view($this->parent_page.'/orderList1' ,$arr , true);
     				$this->_show('display' , $data , 'a1');
     				break;
+
+                case 'i21':
+                     //OrdSys 2.3.0
+                    if ($lvl == 2 || $lvl == 3) {
+                        redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
+                    }
+                    if ($this->input->get('page')) {
+                        $p = $this->input->get('page');
+                    }else{
+                        $p = 0;
+                    }
+                    $this->load->library('my_func');
+                    $this->load->library('my_flag');
+                    $this->load->database();
+                    $this->load->model('m_ship');
+                    $this->load->model('m_log');
+                    if ($this->input->post("search") && $this->input->post("filter") || $this->input->get("search") && $this->input->get("filter")) {
+                        if ($this->input->get("search") && $this->input->get("filter")) {
+                            $search = $this->input->get("search");
+                            $filter = $this->input->get("filter");
+                        } else {
+                            $search = $this->input->post("search");
+                            $filter = $this->input->post("filter");
+                        }
+                        switch ($filter) {
+                            case '10':
+                                //Client Name
+                                 $str = (string)$search;
+                                $where = array(
+                                    "cl.cl_name" => $search
+                                );
+                             
+                                break;
+                            case '1':
+                            //item name
+                                $where = array(
+                                    "ty2.ty2_desc" => $search
+                                );
+                                break;
+                            case '2':
+                                //Username
+                                $where = array(
+                                    "us.us_username" => $search
+                                );
+                                break;
+                                 case '3':
+                                //Order Status
+                                $where = array(
+                                    "sti.date_added" => $search
+                                );
+                                break;
+                            case '4':
+                                //inventory Status
+                                if($search=="Check-In"){
+                                    $stat=0;
+
+                                }
+                                else if($search=="Check-Out"){
+                                    $stat=1;
+                                }
+
+
+                                $where = array(
+                                    "sti.log_status" => $stat
+                                );
+                                break;
+                        }
+                        // if (isset($ver)) {
+
+                            // $arr['arr1'] = $this->m_log->listOr($ver , null , null , 0 , $where);
+                            //$arr['arr2'] = $this->m_ship->getList_ext(null ,2, 1 , 1 , 0);
+                           
+                        // }else{
+
+                            $arr['arr1'] = $this->m_log->listSearch(null , null , $where);
+                            //$arr['arr2'] = $this->m_ship->getList_ext(null ,2, 1 , 1 , 0);                     
+                        // }
+                    } else {
+                        $ver = $this->m_log->logCount();
+                        $arr['arr1'] = $this->m_log->get2(null , 10 , $p);
+                        //$arr['arr2'] = $this->m_ship->getList_ext(null ,2, 1 , 1 , 0);
+                        $result1 = sizeof($arr['arr1']);
+                        // $result2 = sizeof($arr['arr2']);
+                        //$sizeA = 10 - $result1;
+                        /*if ($sizeA != 0) {
+                            $p1 = $p + 10 - $ver1;
+                            if ($p1 < 10) {
+                                $p2 = 0;
+                            } else {
+                                $p2 = $p1;
+                                $p1 = 10;
+                            }                        
+                            $arr['arr'] = $this->m_order->listOr(0 , $p1 , $p2);
+                            $result1 = $result1 + sizeof($arr['arr']);
+                        }*/
+                        $arr['page'] = $p;
+                        $arr['total'] = $ver;
+                        $arr['row'] = $result1;
+                        $arr['item'] = $result1;
+                    }
+                    $data['title'] = '<i class="fa fa-fw fa-edit"></i> Inventory</a>';
+                    $data['display'] = $this->load->view($this->parent_page.'/shipList' ,$arr , true);
+                    $this->_show('display' , $data , 'i1');
+                    break;
+
+               
+
                 case 'a1old':
                     // Ver 2.2.x
                     if ($lvl == 2 || $lvl == 3) {
@@ -561,7 +686,10 @@ epul@nastyjuice.com
                     }
     			case 'a2':
     				//$this->load->library('my_func');
-                    if ($lvl == 4) {
+                    // if ($lvl == 3) {
+                    //     redirect(site_url('nasty_v2/dashboard/page/i1'),'refresh');
+                    // }
+                    if ($lvl == 4 || $lvl == 2 ) {
                         redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
                     }
                     if ($this->input->get('mode')) {
@@ -570,12 +698,9 @@ epul@nastyjuice.com
 	    			$this->load->database();
 	    			$this->load->model('m_order');
                     $this->load->library('l_label');
-    				$temp['arr'] = $this->m_order->getList_ext(null ,1, 1 , 1 , 0);
-    				$temp['arr1'] = $this->m_order->getList_ext(null ,1, 1 , 2 , 0);
                     $temp['arrV'] = $this->m_order->getList_ext(null ,2, 1 , 1 , 0);
                     $temp['arrV1'] = $this->m_order->getList_ext(null ,2, 1 , 2 , 0);
-                    $temp['arrHold'] = $this->m_order->getList_ext(null ,2, 1 , 7 , 0);
-    				$data['title'] = '<i class="fa fa-fw fa-edit"></i>Order List</a>';
+    				$data['title'] = '<i class="fa fa-fw fa-tasks"></i>Packaging List</a>';
     				$data['display'] = $this->load->view($this->parent_page.'/productionOrder', $temp , TRUE);
     				$this->_show('display' , $data , $key);
     				break;
@@ -1094,6 +1219,50 @@ epul@nastyjuice.com
                     $this->_show('display' , $data , $key);
                     break;
 
+                case 'i1':
+                    $this->load->database();
+                    $this->load->library('l_label');
+                    $this->load->model('m_stock_inventory' , 'msi');
+                    $this->load->model('m_nico');
+                    $this->load->model('m_type2');
+                    $temp['color'] = $this->m_type2->get();
+                    $temparr = $this->msi->get2();
+                    $a2 = null;
+                    foreach ($temparr as $key1) {
+                        $a2[$key1->ty2_id]['color'] = $key1->ty2_desc;
+                        $a2[$key1->ty2_id]['series'] = $key1->ca_desc;
+                        $a2[$key1->ty2_id][$key1->ni_id] = $key1->sti_total;
+                        $a2[$key1->ty2_id]['cseries'] = $key1->ca_color;
+                    }
+                    $temp['arr'] =$a2;
+                    $data['title'] = '<i class="fa fa-fw fa-edit"></i>Inventory</a>';
+                    $data['display'] = $this->load->view($this->parent_page.'/invDashboard', $temp , TRUE);
+                    $this->_show('display' , $data , $key);
+                break;
+
+                case 'i2':
+                    $this->load->database();
+                    $this->load->model('m_barcode_item');
+                    $arr['arr'] = $this->m_barcode_item->get2();
+                    
+                    $data['title'] = '<i class="fa fa-fw fa-edit"></i>Inventory</a>';
+                    $data['display'] = $this->load->view($this->parent_page.'/itemList', $arr , TRUE);
+                    $this->_show('display' , $data , $key);
+
+                break;
+
+                case 'i3':
+                $this->load->database();
+                    $this->load->model('m_client');
+                    $this->load->model('m_category');
+                    $this->load->model('m_nico');
+                    $arr['nico'] = $this->m_nico->get();
+                    $arr['cat'] = $this->m_category->get(null , 'asc');
+                    $arr['client'] = $this->m_client->get(null , 'asc');
+                    $data['title'] = '<i class="fa fa-fw fa-cubes"></i> Shipping Log</a>';
+                    $data['display'] = $this->load->view($this->parent_page.'/shipLog', $arr , TRUE);
+                    $this->_show('display' , $data , 'i1');
+                break;
                 case 'c4':
                     //Category
                     $this->_loadCrud();
@@ -1182,7 +1351,7 @@ epul@nastyjuice.com
 		    		$this->_show('display' , $data , $key);
     				break;
     			case 'a4':
-                    if ($lvl == 2 || $lvl == 3) {
+                    if ($lvl == 3) {
                         redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
                     }
     				$data['title'] = '<i class="fa fa-fw fa-link"></i> Client Detail';
@@ -1222,15 +1391,20 @@ epul@nastyjuice.com
 		    		$this->_show('display' , $data , $key);
     				break;
                 case 'z121':
+                //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>disabled<<<<<<<<<<<<<<<<<<<<
                     //edit order
                     if ($lvl == 2 || $lvl == 3) {
                         redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
                     }
                     if ($this->input->post() && $this->input->get('key')) {
+                        $msg = '';
                         $arr = $this->input->post();
                         $or_id = $this->my_func->scpro_decrypt($this->input->get('key'));
+                        $us_id=$this->my_func->scpro_decrypt($this->session->userdata('us_id'));
                         $this->load->database();
                         $this->load->model('m_order_item');
+                        $this->load->model('m_log');
+                        $this->load->model('m_stock_inventory' , 'msi');
                         if (isset($arr['idE'])) {
                             if (sizeof($arr['idE']) != 0) {
                                 for ($i=0; $i < sizeof($arr['idE']); $i++) {
@@ -1240,7 +1414,50 @@ epul@nastyjuice.com
                                        'oi_qty' => $arr['qtyE'][$i],
                                        'oi_tester' => $arr['testerE'][$i]
                                     );
-                                    $this->m_order_item->update($temp , $oi_id);
+                                  
+                                    $arr2=$this->m_order_item->get($oi_id);
+                                   
+
+
+
+
+                                    
+
+
+                                    
+                                    if ($this->_checkStockUpdate($oi_id , $temp)) {
+
+
+
+                                        $this->m_order_item->update($temp , $oi_id);
+
+                                          $wh = array(
+                                                'ty2_id' => $arr['itemIdE'][$i],
+                                                'ni_id' => $arr['nicoE'][$i]
+                                            );
+
+                                        if($arr2->oi_qty != $arr['qtyE'][$i]){
+
+                                          $wh1 = array(
+                                                'sti.ty2_id' => $arr['itemIdE'][$i],
+                                                'sti.ni_id' => $arr['nicoE'][$i]
+                                            );
+                                           $arr1 = $this->m_log->get6($wh1);
+                                          
+                                          $res=$this->msi->updateQty2($arr['qtyE'][$i]+$arr['testerE'][$i] , $wh, $arr['orex_id'], $us_id, $arr1->fromqty);
+                                            print_r($res);
+                                       }
+                                       
+                                                                            
+
+
+                                    }else{
+                                        $msg = $msg . " Item Code Id : ".$this->my_func->en($oi_id)." insufficient Quantity.</br>";
+                                    }
+                                }
+
+                                if($msg == ''){
+                                    $this->session->set_flashdata('warning', $msg);
                                 }
                             }
                         }
@@ -1288,7 +1505,7 @@ epul@nastyjuice.com
                     break;
     			case 'z11':
                 //add order
-                    if ($lvl == 2 || $lvl == 3) {
+                    if ($lvl == 3) {
                         redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
                     }
                     $ver = 2;
@@ -1296,6 +1513,10 @@ epul@nastyjuice.com
                         $arr = $this->input->post();
                         $this->load->library('my_func');
                         $this->load->database();
+                        $us_id=$this->my_func->scpro_decrypt($this->session->userdata('us_id'));
+                        // if (!$this->checkStock($arr['itemId'] , $arr['nico'] , $arr['qty'] , $arr['tester'])) {
+                        //     redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
+                        // }
                         $this->load->model('m_order');
                         if ($arr['client'] == -1) {
                             $cl = array(
@@ -1333,6 +1554,9 @@ epul@nastyjuice.com
                         $this->load->model('m_order_ext');
                         $orex_id = $this->m_order_ext->insert($order_ext);
                         $this->load->model('m_order_item');
+                        $this->load->model('m_barcode_item');
+                        $this->load->model('m_finish_inv');
+
                         $sizeArr = sizeof($arr['itemId']);
                         for ($i=0; $i < $sizeArr ; $i++) {
                             $item = array(
@@ -1344,6 +1568,26 @@ epul@nastyjuice.com
                                 'oi_tester' => $arr['tester'][$i]
                             );
                             $this->m_order_item->insert($item);
+
+
+                            $result = $this->m_barcode_item->getExist($arr['nico'][$i],$arr['itemId'][$i]);
+                            if ($result != true) 
+                            {
+                                $bItem = array(
+                                    'ty2_id' => $arr['itemId'][$i], 
+                                    'ni_id' => $arr['nico'][$i], 
+                                );
+
+                                $bi_id = $this->m_barcode_item->insert($bItem);
+
+                                $inv = array(
+                                    'bi_id' => $bi_id, 
+                                );
+                                
+                                $this->m_finish_inv->insert($inv);
+
+                            }
+                          
                         }
                         /*$this->load->model('m_shipping_note');
                         $shipping_note = array(
@@ -1374,7 +1618,7 @@ epul@nastyjuice.com
                             $email['toEmail'] = array(' finance@nastyjuice.com , zul@nastyjuice.com ');;
                             $email['subject'] = 'New Bigtime Purchase Order #'.(120000+$or_id);
                             $email['html'] = true;
-                            //$content=$this->load->view('/mail/send_email',$arr,true);
+
                             $email['msg'] =$this->load->view('/mail/send_email',$arr,true);
                             $this->sendEmail2($email);
 
@@ -1438,17 +1682,25 @@ epul@nastyjuice.com
     					$this->load->database();
     					$this->load->model('m_user');
     					$arr['id'] = $this->input->get('edit');
-    					$arr['lvl'] = $this->m_user->getLvl();
-    					$arr['arr'] = $this->m_user->getAll($staffId);
+                        $where = null;
+                        if ($lvl == 5) {
+                            $where = array('7' , '8' , '9' , '1');
+                        }
+                        if ($lvl == 9) {
+                            $where = array('2' , '3' , '5' , '1');
+                        }
+    					$arr['lvl'] = $this->m_user->getLvl($where);
+    					$arr['arr'] = array_shift($this->m_user->getAll($staffId));
     					$data['display'] = $this->load->view($this->parent_page.'/editStaff' , $arr , true);
     					$this->_show('display' , $data , $key);
     					break;
     				}
     			case 'c1':
-                    if ($lvl != 1) {
+                    if ($lvl != 1 && $lvl != 5 && $lvl != 9) {
                         redirect(site_url('order'),'refresh');
                     }
     				$data['title'] = '<i class="fa fa-file-text"></i> User Setting';
+                    $this->load->library('my_func');
     				$this->load->database();
     				$this->load->model("m_user");
     				$this->load->library('my_func');
@@ -1467,7 +1719,14 @@ epul@nastyjuice.com
 				case 'c14':
 					$this->load->database();
     				$this->load->model('m_user');
-    				$arr['lvl'] = $this->m_user->getLvl();
+    				$where = null;
+                    if ($lvl == 5) {
+                        $where = array('7' , '8' , '9' , '1');
+                    }
+                    if ($lvl == 9) {
+                        $where = array('2' , '3' , '5' , '1', '6', '8', '4');
+                    }
+                    $arr['lvl'] = $this->m_user->getLvl($where);
     				$data['display'] = $this->load->view($this->parent_page.'/addStaff' ,$arr , true);
 		    		$this->_show('display' , $data , $key);
     				break;
@@ -1760,8 +2019,14 @@ epul@nastyjuice.com
     			foreach ($arr as $key => $value) {
     				if ($value != null) {
     					if ($key == 'pass') {
+                           if ($value == null || $value == '') {
+                              continue;
+                           }
     						$value = $this->my_func->scpro_encrypt($value);
     					}
+                        if ($key == 'lvl') {
+                            $value = $this->my_func->de($value, 1);
+                        }
     					if ($key == 'id') {
     						$id = $this->my_func->scpro_decrypt($value);
     					}else{
@@ -1775,6 +2040,105 @@ epul@nastyjuice.com
     			redirect(site_url('nasty_v2/dashboard/page/c1'),'refresh');
     		}
     	}
+
+        public function stockIn()
+        {
+            if ($this->input->post()) 
+            {
+                $this->load->database();
+                $this->load->library('my_func');
+                $this->load->model('m_finish_inv');
+                
+                $bi_id = $this->my_func->scpro_decrypt($this->input->post('id'));
+                $qty = $this->input->post('qty');
+            
+                $result = $this->m_finish_inv->stockIn($qty,$bi_id);
+
+                if ($result) {
+                    $this->session->set_flashdata('success', 'The quantity item are successfully stock-in!!');
+                    redirect(site_url('nasty_v2/dashboard/page/i2'),'refresh');
+                }
+                else {
+                    $this->session->set_flashdata('error', 'The quantity item not updated!! Please check again');
+                    redirect(site_url('nasty_v2/dashboard/page/i2'),'refresh');
+                }
+            }
+        }
+
+        public function stockOut()
+        {
+            if ($this->input->post()) 
+            {
+                $this->load->database();
+                $this->load->library('my_func');
+                $this->load->model('m_finish_inv');
+                
+                $bi_id = $this->my_func->scpro_decrypt($this->input->post('id'));
+                $qty = $this->input->post('qty');
+            
+                $result = $this->m_finish_inv->stockOut($qty,$bi_id);
+
+                if ($result) {
+                    $this->session->set_flashdata('success', 'The quantity item are successfully stock-out!!');
+                    redirect(site_url('nasty_v2/dashboard/page/i2'),'refresh');
+                }
+                else {
+                    $this->session->set_flashdata('error', 'The quantity item not updated!! Please check again');
+                    redirect(site_url('nasty_v2/dashboard/page/i2'),'refresh');
+                }
+            }
+        }
+
+        public function updateDanger()
+        {
+            if ($this->input->post()) {
+                $this->load->database();
+                
+                $this->load->model('m_finish_inv');
+                
+                $id = $this->input->post('id');
+                $danger = $this->input->post('danger');
+
+                $arr = array('fi_danger' => $danger );
+                $result = $this->m_finish_inv->update($arr , $id);
+
+                if ($result) {
+                    $this->session->set_flashdata('success', 'The danger zone item are successfully updated!!');
+                    redirect(site_url('nasty_v2/dashboard/page/i2'),'refresh');
+                }
+                else {
+                   $this->session->set_flashdata('error', 'The danger zone item not updated!! Please check again');
+                    redirect(site_url('nasty_v2/dashboard/page/i2'),'refresh');
+                }
+
+            }
+        }
+
+        public function updateQty1()
+        {
+            //redirect(site_url('nasty_v2/dashboard/page/i2'),'refresh');
+            if ($this->input->post()) {
+                
+                 $sti_id = $this->input->post('sti_id'); 
+                  $qty = $this->input->post('qty');                   
+                $this->load->database();
+                
+                $this->load->library('my_func');
+                $this->load->model('m_stock_inventory' , 'msi');
+                $us_id = $this->my_func->scpro_decrypt($this->session->userdata('us_id'));
+                $wh = array(
+                                    'sti_id' => $sti_id
+                            
+                                );
+                //$result = $this->m_user->update($arr2 , $id);
+                $this->msi->updateQty1($qty , $wh,$us_id);
+                $this->session->set_flashdata('success', 'The order status was Updated!!');
+                redirect(site_url('nasty_v2/dashboard/page/i2'),'refresh');
+            }else{
+                 $this->session->set_flashdata('error', 'The order status was not Updated!! Please check agai');
+                redirect(site_url('nasty_v2/dashboard/page/i2'),'refresh');
+            }
+        }
 
 
         public function updatePr_id()
@@ -1980,40 +2344,42 @@ epul@nastyjuice.com
          public function change_pr_id3()
         {
 
-                //if ($this->input->post('or_id')){
-                //echo "<script>alert('test');</script>";
-                //$this->load->library('my_func');
+                
                 $or_id = $this->input->post('or_id');
-                //$or_id = $this->my_func->scpro_decrypt($this->input->post('or_id'));
+                
                 $pr_id = $this->input->post('pr_id');
                 $this->load->database();
                 $this->load->model('m_order');
 
-
-/*
-                  1 - New Order
-                    2 - In Progress
-                    3 - Complete
-                    4 - Unconfirm
-                    5 - Cancel
-                    6 - Cancel In Progress
-                    7 - On Hold In Progress
-                    8 - ROS
-                    9 - DOC
-                    10 - RTS
-                    11 - Shipping
-                    12 - Arrived
-                    13 - Return */
                     $this->m_order->updateROS($pr_id, $or_id);
-
+                    $this->session->set_flashdata('success', 'The order status was Updated!!');
                     redirect(site_url('nasty_v2/dashboard/page/a1new'),'refresh');
 
-                // }
-                // else{
-                //     return false;
-                // }
+   
 
 
+        }
+
+        public function changeShip_pr_id()
+        {
+                
+                
+                $sh_id = $this->input->post('sh_id');
+                $arr_date=$this->input->post('arr_date');
+                echo "<script>alert('test');</script>";
+               
+                $pr_id = $this->input->post('pr_id');
+                $this->load->database();
+                $this->load->model('m_ship');
+
+               
+
+                    $this->m_ship->updateShipment($pr_id, $sh_id,$arr_date);
+                    $this->session->set_flashdata('success', 'The Shipment status was Updated!!');
+
+                    redirect(site_url('nasty_v2/dashboard/page/i21'),'refresh');
+
+                    
         }
 
 
@@ -2022,23 +2388,11 @@ epul@nastyjuice.com
 
         private function change_pr_id2($or_id = null)
         {
-            //utk upload image part
+           
             if ($or_id != null) {
                 $this->load->database();
                 $this->load->model('m_order');
-                /*  1 - New Order
-                    2 - In Progress
-                    3 - Complete
-                    4 - Unconfirm
-                    5 - Cancel
-                    6 - Cancel In Progress
-                    7 - On Hold In Progress
-                    8 - ROS
-                    9 - DOC
-                    10 - RTS
-                    11 - Shipping
-                    12 - Arrived
-                    13 - Return */
+           
                 $arr = $this->m_order->get($or_id , "pr_id");
                 if ($arr->pr_id == 4) {
                     $this->m_order->update(array("pr_id" => 1) , $or_id);
@@ -2047,24 +2401,6 @@ epul@nastyjuice.com
                 return false;
             }
         }
-     /*   public function updateROS()
-        {
-
-                    if ($this->input->get('id')) {
-
-                        $this->load->database();
-                        $this->load->model("m_order");
-                        $or_id = $this->my_func->scpro_decrypt($this->input->get('id'));
-
-                        $this->change_pr_id2($or_id);
-                    }
-
-        }
-*/
-
-
-
-
 
         function change_pr_id(){
             if ($this->input->post('id')) {
@@ -2177,6 +2513,26 @@ epul@nastyjuice.com
 			//$img = $obj->img_url;
 			return true;
 		}
+
+        public function getAjaxDanger(Type $var = null)
+        {
+            $this->load->database();
+            
+            $this->load->model('m_finish_inv');
+            $this->load->model('m_barcode_item');
+            $this->load->library('my_func');
+
+            $beid = $this->my_func->scpro_decrypt($this->input->post('be_id'));
+
+            $be_id = array('bi_id' => $beid );
+
+            $arr['arr'] = $this->m_finish_inv->get($be_id);
+
+			echo $this->load->view($this->parent_page. "/ajax/getAjaxDanger", $arr , true);
+            
+        }
+
+
 
 		public function getAjaxOrderBox()
 		{
@@ -2483,11 +2839,32 @@ epul@nastyjuice.com
 			}
         }
 
+        public function getAjaxInvItemList()
+        {
+            $arr = $this->input->post();
+            $this->load->database();
+            $this->load->model('m_nico');
+            $this->load->model('m_type2');
+            $this->load->model('m_category');
+            $temp['cat'] = $this->m_category->get($arr['cat']);
+            $temp['nico'] = $this->m_nico->get($arr['nico']);
+            $temp['item'] = $this->m_type2->get($arr['type']);
+            $temp['num'] = $arr['num'];
+            echo $this->load->view($this->parent_page."/ajax/getAjaxInvItem", $temp , true);
+        }
+
         public function getAjaxDelItem()
         {
             $oi_id = $this->input->post('oi_id');
             $this->load->database();
             $this->load->model('m_order_item');
+            $this->load->model('m_stock_inventory' , 'msi');
+            $item = $this->m_order_item->get($oi_id);
+            $inv = $this->msi->get(array('ty2_id' => $item->ty2_id , 'ni_id' => $item->ni_id));
+            $update = array(
+                'sti_total' => ($inv->sti_total + $item->oi_qty + $item->oi_tester)
+            );
+            $this->msi->update($update , $inv->sti_id);
             $row = $this->m_order_item->delete($oi_id);
             echo $row;
         }
@@ -2839,6 +3216,116 @@ epul@nastyjuice.com
             $this->load->model("m_picture");
             $arr['img'] = $this->m_picture->getPaid(array("ne_id" => $ne_id));
             echo $this->load->view('nasty_v2/dashboard/ajax/getAjaxImg', $arr , TRUE);
+        }
+
+        public function testqr()
+        {
+            $this->load->library('qrgen');
+            echo $this->qrgen->gen("test jauhmerh" , 'jm');            
+        }
+        public function checkStock($id , $nico , $qty , $tester)
+        {
+            $this->load->library('my_func');
+            $status = true;
+            $msg = "";
+            $this->load->model('m_stock_inventory' , 'msi');
+            $arr = $this->msi->get2();
+            for ($i=0; $i < sizeof($id); $i++) { 
+                $w = array(
+                    'sti.ty2_id' => $id[$i],
+                    'sti.ni_id' => $nico[$i]
+                );
+                $temp = array_shift($this->msi->get2($w));
+                if (sizeof($temp) != 0) {
+                    $qty1 = $qty[$i] + $tester[$i];
+                    if ($temp->sti_total - $qty1 < 0 ) {
+                        // klu qty xckup;
+                        $msg = $msg."<strong>Insufficient Quantity</strong> : ".$temp->ty2_desc." - ".$temp->ca_desc." > ".$temp->ni_mg."mg</br>";
+                        $status = false;
+                    }
+                }else{
+                    // klu xda dlm database;
+                    $msg = $msg."<strong>Item Not Registered</strong> : Item Code ".$this->my_func->en($id[$i])." Nico Id ".$nico[$i]."</br>";
+                    $status = false;
+                }
+            }
+            if ($msg != '') {
+                $this->session->set_flashdata('error', $msg);
+            }
+            return $status;
+        }
+         public function checkStock2($id , $nico , $qty , $tester)
+        {
+            $this->load->library('my_func');
+            $status = true;
+            $msg = "";
+            $this->load->model('m_stock_inventory' , 'msi');
+            $arr = $this->msi->get2();
+            for ($i=0; $i < sizeof($id); $i++) { 
+                $w = array(
+                    'sti.ty2_id' => $id,
+                    'sti.ni_id' => $nico
+                );
+                $temp = array_shift($this->msi->get2($w));
+                if (sizeof($temp) != 0) {
+                    $qty1 = $qty[$i] + $tester[$i];
+                    if ($temp->sti_total - $qty1 < 0 ) {
+                        // klu qty xckup;
+                        $msg = $msg."<strong>Insufficient Quantity</strong> : ".$temp->ty2_desc." - ".$temp->ca_desc." > ".$temp->ni_mg."mg</br>";
+                        $status = false;
+                    }
+                }else{
+                    // klu xda dlm database;
+                    $msg = $msg."<strong>Item Not Registered</strong> : Item Code ".$this->my_func->en($id[$i])." Nico Id ".$nico[$i]."</br>";
+                    $status = false;
+                }
+            }
+            if ($msg != '') {
+                $this->session->set_flashdata('error', $msg);
+            }
+            return $status;
+        }
+        private function _checkStockUpdate($oi_id = null , $change = null)
+        {
+            // 'oi_price' => $arr['priceE'][$i],
+            // 'oi_qty' => $arr['qtyE'][$i],
+            // 'oi_tester' => $arr['testerE'][$i]
+            $this->load->database();
+            $this->load->model('m_order_item' , 'moi');
+            $this->load->model('m_stock_inventory' , 'msi');
+            $data = $this->moi->get($oi_id);
+            $inv = $this->msi->get(array('ty2_id' => $data->ty2_id , 'ni_id' => $data->ni_id));
+            if ($change['oi_qty'] != $data->oi_qty || $change['oi_qty'] != $data->oi_tester) {
+                $diff = 0 ;
+                $diff += $change['oi_qty'] - $data->oi_qty; 
+                $diff += $change['oi_tester'] - $data->oi_tester; 
+                if ($diff == 0) {
+                    return true;
+                }      
+                if ($diff > 0) {
+                    $bal = $inv->sti_total - $diff;
+                    if ($bal >= 0) {
+                        if($this->msi->update(array('sti_total' => $bal) , $inv->sti_id)){
+                            return true;
+                        }else{
+                            echo "Error #a121_1";
+                            die();
+                        }                        
+                    }else{
+                        return false;
+                    }
+                }else{
+                    $bal = $inv->sti_total + (-1 * $diff);
+                    if($this->msi->update(array('sti_total' => $bal) , $inv->sti_id)){
+                        return true;
+                    }else{
+                        echo "Error #a121_2";
+                        die();
+                    }                    
+                }
+            }else{
+                return true;
+            }
         }
 	}
 

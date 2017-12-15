@@ -3,8 +3,10 @@
 		return false;
 		//confirm('Are You Sure ?');
 	}
+	function underMain(){
+		bootbox.alert("Sorry :This Function Is under development! <br>Any inquiry <a href=\"mailto:jauhmerah@nastyjuice.com\">email us</a> ");
+	}
 	$(document).ready(function() {
-
 		$("#sub").click(function() {
 			if (searchFun()) {
 				$("#formSearch").submit();
@@ -34,11 +36,11 @@
                 <div class="caption">
                     <i class="fa fa-list"></i>Order List 2017
                 </div>
-                <div class="actions">
+				<div class="actions">
                     <div class="btn-group btn-group-devided" data-toggle="buttons">
                         <a ><button type="button" onclick="window.location.href='<?= site_url('nasty_v2/dashboard/page/a1old'); ?>'" class="btn green btn-circle btn-sm">Old Order List</button></a>
                     </div>
-                </div>           
+                </div>                                
             </div>
             <div class="portlet-body flip-scroll">
 	            <div class="row tableL">
@@ -133,7 +135,7 @@
 		                            <td><?php 
 		                            if ($user->or_id) {
 		                            	$id = '#'.(120000+$user->or_id);
-		                            	echo '<span style = "color : #b706d6;"><strong>'.$id.'</strong></span>';
+		                            	echo '<span style = "color : #ff3399;"><strong>'.$id.'</strong></span>';
 		                            } else {
 		                            	echo "--Not Set--";
 		                            }
@@ -167,10 +169,6 @@
                             				</div>
                             				<input type="hidden" class="form-control gmbr<?= $n ?>" value="<?= $this->my_func->scpro_encrypt($user->or_id); ?>">
                             			<?php } ?>
-                            			
-                            			
-
-
                                     </td>
                              <?php 
 									if($user->or_shipcom == 1){
@@ -243,9 +241,6 @@
                                     			&nbsp;- &nbsp;<button title = "Print Order" onclick = "window.open('<?= site_url('order/printO1?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" type="button" class="btn btn-default btn-circle btn-info btn-xs"><i class="fa fa-print"></i></button> <?php } if($user->pr_id == 3 || $user->pr_id >= 8){ ?>&nbsp;-&nbsp;
                                     			<button type="button" title = "D.O Form" onclick = "window.open('<?= site_url('order/printDO1?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn btn-success btn-circle btn-xs"><i class="fa fa-truck"></i></button>
                                     		<?php } ?>
-                                    		
-
-
                                     		<?php if($user->pr_id == 3){ 
 
                                     			$orid = $this->my_func->scpro_encrypt($user->or_id);
@@ -256,8 +251,6 @@
                                     			<input type="hidden" class="form-control <?= $n.'ros' ?>" value="<?= $user->or_id ?>">
 	
                                     		 <?php }} ?>
-
-
                                     		<div class="clearfix">
                                     		&nbsp;
                                     		</div>
@@ -354,8 +347,8 @@
           <button type="submit" class="btn btn-danger"  id="send"><i class="fa fa-send"></i> Send</button>
         </div>        
       </div>
-    </div></form>
-  </div>
+    </div></form>    
+</div>
 <script>
 	$(document).ready(function() {
 		$(".ROSButton").click(function() {
@@ -384,14 +377,9 @@
 					            	$(window).attr("location", "<?= site_url('nasty_v2/dashboard/page/a1new'); ?>");
 					            	
 					            });
-
 					    	}
-					    	
-					        
 					    }
 					});
-
-
 		    	});
 		$(".cancelOrd").click(function() {
 			$('#myModal').show('slow');

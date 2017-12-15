@@ -3,7 +3,7 @@
 class Order extends CI_Controller {
  	
  	var $parent_page = "order";
- 	var $version = "Nasty Process System v2.3.6 Alpha";
+ 	var $version = "Nasty Process System v2.3.8 Alpha";
 	public function __construct()
 	{
 		date_default_timezone_set('Asia/Kuala_Lumpur');
@@ -41,32 +41,14 @@ class Order extends CI_Controller {
 	/*function search(){
 		if ($this->input->post('search')) {
 			$search = $this->input->post('search');
-			if (strpos($search, "#") !== false) {
-				$search = str_replace("#", "", $search);
+			if (strpos($search, "-EU2") !== false) {
+				$search = str_replace("-EU2", "", $search);
 			}
 			if (!is_numeric($search)) {
 				$this->session->set_flashdata('warning', 'Please Enter the Correct Order Code');
 				redirect(site_url(),'refresh');
-			}
-			$str = (string)$search;
-			switch ($str[1]) {
-				case '2':
-					$id = $search - 120000;
-					$this->printO1($id , 2);
-					break;
-				case '1':
-					$id = $search - 110000;
-					$this->printO1($id);
-					break;
-				case '0':
-					$id = $search - 100000;
-					$this->printO($id);
-					break;				
-				default:
-					$this->session->set_flashdata('warning', 'Ops!!! Something wrong with System Version');
-					redirect(site_url(),'refresh');
-					break;
-			}					
+			}			
+			$this->printO1($search, 2);								
 		} else {
 			$this->session->set_flashdata('warning', 'Ops!!! Wrong path pal');
 			redirect(site_url(),'refresh');
@@ -124,7 +106,7 @@ class Order extends CI_Controller {
 					$this->session->set_flashdata('warning', 'Please click "Move to process" before printing !!!');
 					redirect(site_url(),'refresh');	
 				}			
-				$data["T"] = "#".((10000*$ver)+100000+$order['arr']['order']->or_id);	
+				$data["T"] = $order['arr']['order']->or_id."-EU".$ver;	
 				$order["or_code"] = $data["T"];
 				$data['display'] = $this->load->view($this->parent_page."/printForm1" , $order , true);
 				$this->_show($data);				

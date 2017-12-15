@@ -39,7 +39,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-- END THEME GLOBAL STYLES -->
         <!-- BEGIN THEME LAYOUT STYLES -->
         <link href="<?= base_url(); ?>asset2/layouts/layout2/css/layout.min.css" rel="stylesheet" type="text/css" />
-        <link href="<?= base_url(); ?>asset2/layouts/layout2/css/themes/blue.min.css" rel="stylesheet" type="text/css" id="style_color" />
+        <link href="<?= base_url(); ?>asset2/layouts/layout2/css/themes/green.min.css" rel="stylesheet" type="text/css" id="style_color" />
         <link href="<?= base_url(); ?>asset2/layouts/layout2/css/custom.min.css" rel="stylesheet" type="text/css" />
         
         <!-- BEGIN PAGE LEVEL PLUGINS -->
