@@ -130,7 +130,49 @@ class M_finish_inv extends CI_Model {
 	    	// $this->db->insert('ship_log', $arr1);
 
 
-	}
+    }
+    
+     public function new_log($qty , $where ,$us_id, $st)
+	    {
+
+	    	$date_added = date('Y-m-d H:i:s');
+
+	    	$this->db->select('*');
+	    	$this->db->from('finish_inv');
+            $this->db->where('bi_id',$where);
+            
+	    	$arr = array_shift($this->db->get()->result());
+
+	    	if($st==1)
+            {
+            $total = $arr->fi_qty + $qty;
+            }
+            else if($st==2)
+            {
+            $total = $arr->fi_qty-$qty;
+            }
+
+            $diff = $total - $arr->fi_qty; 
+            
+            
+
+
+	    	$data = array(
+	    		'bi_id' => $arr->bi_id,
+	    		'fi_from' => $arr->fi_qty,
+	    		'fi_to' => $total,
+	    		'fi_diff' => $diff,
+	    		'us_id' => $us_id,
+	    		'ls_id' => $st
+	    	);
+
+            
+	    	 if ($this->db->insert('finish_log',$data)) {
+	            return $this->db->insert_id();
+	        } else {
+	            return false;
+	        }
+        }
 
 }
 

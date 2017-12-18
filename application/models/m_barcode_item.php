@@ -68,6 +68,63 @@ class M_barcode_item extends CI_Model {
 			}			
 	        return $this->db->get()->result();	        
     }
+
+    public function get_curr( $limit = 2, $start = 0, $filter = NULL, $like = NULL)
+    {
+        $this->db->select('*');
+        $this->db->from('barcode_item bi');
+
+        $this->db->join('finish_inv fi', 'fi.bi_id = bi.bi_id', 'left');
+
+        $this->db->join('type2 ty2', 'ty2.ty2_id = bi.ty2_id', 'left');
+            
+        $this->db->join('nicotine ni', 'ni.ni_id = bi.ni_id', 'left');
+                 
+        $this->db->join('category ca', 'ca.ca_id = ty2.ca_id', 'left');
+
+        $this->db->limit($limit, $start);
+    	If($filter != null){
+    		if(is_array($filter)){
+    			foreach ($filter as $key => $value){
+    				$this->db->where($key , $value);
+    			}
+    		}
+    	}
+    	
+    	if($like != null){
+    		if(is_array($like)){
+    			$this->db->like($like);
+    		}
+    	}
+
+    	return $this->db->get()->result();
+
+    }
+
+    public function count($filter = null, $like = null)
+    {
+        $this->db->from(self::TABLE_NAME);
+        
+        if($filter != NULL || $like != NULL)
+        {
+            if (is_array($filter) && $filter != NULL) 
+            {
+                foreach ($filter as $key => $value) 
+                {
+                    $this->db->where($key, $value);
+                }
+            }
+
+            if (is_array($like) && $like != NULL) {
+                $this->db->like($like);
+            }
+            return $this->db->count_all_results();
+        }
+        else 
+        {
+            return $this->db->count_all_results();            
+        }
+    }
         
     public function update(Array $data, $where = array()) {
             if (!is_array($where)) {

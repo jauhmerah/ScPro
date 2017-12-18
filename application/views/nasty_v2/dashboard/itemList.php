@@ -30,7 +30,7 @@
 						<?php
 						$n=0;
 						
-							foreach ($arr as $key) { 
+							foreach ($result as $key) { 
 								$n++;
 								?>		
 								<tr>
@@ -119,6 +119,27 @@
 					 <?php } ?>
 						 
 						</tbody>
+						 <tfoot>
+                        <?php
+                           $lastRow = $numPage + sizeof($result);
+							?>
+						<tr>
+						<td colspan="5">
+							<ul class="pagination">
+							<li>
+							<div class="pull-right">
+								<?= $link; ?>
+							</div>
+								
+							</li>
+								
+							</ul>
+							<div class="pull-right">
+								<span class="btn disabled">Showing <?= ($numPage+1); ?> to <?= $lastRow; ?> of <?= $total; ?> records</span>
+							</div> 
+						</td>
+						</tr>
+					</tfoot>
 					</table>
 					</div>
 				</div>

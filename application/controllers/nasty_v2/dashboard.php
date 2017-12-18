@@ -1243,8 +1243,52 @@ epul@nastyjuice.com
                 case 'i2':
                     $this->load->database();
                     $this->load->model('m_barcode_item');
-                    $arr['arr'] = $this->m_barcode_item->get2();
+
                     
+                    $this->load->library('pagination');
+
+                    $like = null;
+                    $filter = null;
+
+                    $limit_per_page = 10;
+
+                    $page = $this->uri->segment(4,1);
+                    $page--;
+
+                    $arr['numPage'] = $page*10;
+                    $arr['total'] = $this->m_barcode_item->count($filter);
+
+                    // $arr['arr'] = $this->m_barcode_item->get2();
+
+                    $arr['result'] = $this->m_barcode_item->get_curr($limit_per_page , $arr['numPage'] , $filter , $like);
+                    
+                    $config['base_url'] = site_url('Inventory/page/i2');
+                    $config['total_rows'] = $arr['total'];
+                    $config['per_page'] = $limit_per_page;
+                    $config["uri_segment"] =4;
+                     
+                    // custom paging configuration
+                    $config['num_links'] = 3;
+                    $config['use_page_numbers'] = TRUE;
+                    $config['reuse_query_string'] = TRUE;
+                     
+                    $config['cur_tag_open'] = '<li><a class="current"><strong>';
+                    $config['cur_tag_close'] = '</strong></a></li>';
+                    $config['num_tag_open'] = '&nbsp;<li>';
+                    $config['num_tag_close'] = '</li>&nbsp;';
+                    $config['prev_tag_open'] = '<li>';
+                    $config['prev_tag_close'] = '</li>';
+                    $config['last_tag_open'] = '<li>';
+                    $config['last_tag_close'] = '</li>';
+                    $config['next_tag_open'] = '<li>';
+                    $config['next_tag_close'] = '</li>';
+                    $config['first_tag_open'] = '<li>';
+                    $config['first_tag_close'] = '</li>';
+                    $config['next_link'] = 'Next';
+                    $config['prev_link'] = 'Previous';
+                    $this->pagination->initialize($config);
+                    $arr["link"] = $this->pagination->create_links();
+
                     $data['title'] = '<i class="fa fa-fw fa-edit"></i>Inventory</a>';
                     $data['display'] = $this->load->view($this->parent_page.'/itemList', $arr , TRUE);
                     $this->_show('display' , $data , $key);
@@ -2050,11 +2094,18 @@ epul@nastyjuice.com
                 $this->load->model('m_finish_inv');
                 
                 $bi_id = $this->my_func->scpro_decrypt($this->input->post('id'));
+                $us_id = $this->my_func->scpro_decrypt($this->session->userdata('us_id'));
+                
                 $qty = $this->input->post('qty');
             
+                $this->m_finish_inv->new_log($qty,$bi_id,$us_id,1);
+
                 $result = $this->m_finish_inv->stockIn($qty,$bi_id);
 
                 if ($result) {
+
+                    
+                    
                     $this->session->set_flashdata('success', 'The quantity item are successfully stock-in!!');
                     redirect(site_url('nasty_v2/dashboard/page/i2'),'refresh');
                 }
@@ -2074,11 +2125,19 @@ epul@nastyjuice.com
                 $this->load->model('m_finish_inv');
                 
                 $bi_id = $this->my_func->scpro_decrypt($this->input->post('id'));
+                $us_id = $this->my_func->scpro_decrypt($this->session->userdata('us_id'));
+                
                 $qty = $this->input->post('qty');
             
+                $this->m_finish_inv->new_log($qty,$bi_id,$us_id,2);
+                
                 $result = $this->m_finish_inv->stockOut($qty,$bi_id);
 
                 if ($result) {
+
+                    
+                    
+
                     $this->session->set_flashdata('success', 'The quantity item are successfully stock-out!!');
                     redirect(site_url('nasty_v2/dashboard/page/i2'),'refresh');
                 }
