@@ -14,10 +14,10 @@ if (! function_exists('set_barcode'))
         }
 		$barcode = Zend_Barcode::factory('code128', 'image', array('text'=>$code), array());
         if(imagejpeg($barcode->draw(), './assets/uploads/barcode/'.$name.'.jpg', 100)){
-            imagedestroy($barcode);
+            unset($barcode);
             return $name;
         }else{
-            imagedestroy($barcode);
+            unset($barcode);
             return FALSE;
         }
 	}

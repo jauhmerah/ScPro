@@ -39,6 +39,7 @@
 */
 
 $route['default_controller'] = "order";
+$route['distribution'] = 'parcel';
 $route['404_override'] = '';
 
 

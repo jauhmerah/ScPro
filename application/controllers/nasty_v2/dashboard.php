@@ -18,25 +18,19 @@
 	    function index() {
 	        $this->page('a1');
 	    }
-
-	    public function testpage()
-	    {
-            $this->load->view('test');
-	    }
-          public function dummyInvoice()
+        public function dummyInvoice()
         {
-
             $html =$this->load->view($this->parent_page.'/orderDummy' , '' , true);
             echo $html;
         }
-          public function Invoice()
+        public function Invoice()
         {
 
             $html =$this->load->view($this->parent_page.'/orderInvoice' , '' , true);
             echo $html;
         }
 
-	   private function _show($page = 'display' , $data = null , $key = 'a1'){
+	   	private function _show($page = 'display' , $data = null , $key = 'a1'){
             $link['link'] = $key;
 	    	$link['admin'] = $this->_checkLvl();
 	    	if (!$link['admin']) {
@@ -56,49 +50,6 @@
 	    	$this->load->view($this->parent_page.'/page/sidebar7', '', FALSE);
 	    	$this->load->view($this->parent_page.'/page/footer', '', FALSE);
 	    }
-
-	    function orderPDF($data = null){
-	    	$html = $this->load->view($this->parent_page.'/printPdf/head', '', true);
-	    	$html = $html . $this->load->view($this->parent_page.'/printPdf/head2', '', true);
-	    	$html = $html . $this->load->view($this->parent_page.'/printPdf/navmenu3', '', true);
-	    	$html = $html . $this->load->view($this->parent_page.'/printPdf/theme4', '', true);
-	    	$html = $html . $this->load->view($this->parent_page.'/printPdf/title5', '', true);
-	    	$html = $html . $this->load->view($this->parent_page.'/printPdf/orderForm', $data, true);
-	    	$html = $html . $this->load->view($this->parent_page.'/printPdf/sidebar7', '', true);
-	    	$html = $html . $this->load->view($this->parent_page.'/printPdf/footer', '', true);
-	    	//$this->pdfPrint($html);
-	    	echo $html;
-	    }
-
-	   function pdfPrint($html = "<h1>Hello World</h1>"){
-	    	$this->load->library("Pdf");
-			$pdf = new Pdf('P', 'mm', 'A4', true, 'UTF-8', false);
-			$pdf->SetCreator(PDF_CREATOR);
-	        // Add a page
-	        $pdf->AddPage();
-	        $pdf->writeHTML($html, true, false, true, false, '');
-	        $pdf->Output();
-	    }
-
-        public function formPrint($or_id = null)
-        {
-            //if ($or_id != null || $this->input->get('key')) {
-                $html = $this->load->view($this->parent_page.'/printPdf/printForm' , '' , true);
-                //$this->pdfPrint($html);
-                echo $html;
-            //}
-        }
-
-        public function testEmail()
-        {
-            $email['fromEmail'] = 'jauhmerah@nastyjuice.com';
-            $email['fromName'] = 'Jauhmerah';
-            $email['toEmail'] = 'jauhmerah@gmail.com';
-            $email['subject'] = 'test Email system';
-            $email['msg'] = 'Test jadi';
-            $this->sendEmail($email);
-            $this->page('a1');
-        }
 
         public function dataCount()
         {
