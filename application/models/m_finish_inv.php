@@ -71,27 +71,7 @@ class M_finish_inv extends CI_Model {
 	    	$this->update($a , $wh);
             
             return $this->db->affected_rows();
-            
-	    	// $diff=$qty-$arr->sti_total;	
-
-
-
-	    	// $arr1 = array(
-	    	// 	'ty2_id' => $arr->ty2_id,
-	    	// 	'ni_id' => $arr->ni_id,
-	    	// 	'fromqty' => $arr->sti_total,
-	    	// 	'toqty' => $qty,
-	    	// 	'diff' => $diff,
-	    	// 	'date_added' => $date_added,
-	    	// 	'log_status' => 0,
-	    	// 	'us_id' => $us_id
-	    		
-
-	    	// );
-
-	    	// $this->db->insert('ship_log', $arr1);
-
-
+ 
     }
     
     public function stockOut($qty , $wh)
@@ -109,26 +89,6 @@ class M_finish_inv extends CI_Model {
 	    	$this->update($a , $wh);
             
             return $this->db->affected_rows();
-            
-	    	// $diff=$qty-$arr->sti_total;	
-
-
-
-	    	// $arr1 = array(
-	    	// 	'ty2_id' => $arr->ty2_id,
-	    	// 	'ni_id' => $arr->ni_id,
-	    	// 	'fromqty' => $arr->sti_total,
-	    	// 	'toqty' => $qty,
-	    	// 	'diff' => $diff,
-	    	// 	'date_added' => $date_added,
-	    	// 	'log_status' => 0,
-	    	// 	'us_id' => $us_id
-	    		
-
-	    	// );
-
-	    	// $this->db->insert('ship_log', $arr1);
-
 
     }
     
@@ -175,8 +135,6 @@ class M_finish_inv extends CI_Model {
         }
 
 }
-
-/* End of file ModelName.php */
 
 
 ?>

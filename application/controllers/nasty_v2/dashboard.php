@@ -397,107 +397,89 @@
     				break;
 
                 case 'i21':
-                     //OrdSys 2.3.0
-                    if ($lvl == 2 || $lvl == 3) {
-                        redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
-                    }
-                    if ($this->input->get('page')) {
-                        $p = $this->input->get('page');
-                    }else{
-                        $p = 0;
-                    }
-                    $this->load->library('my_func');
-                    $this->load->library('my_flag');
                     $this->load->database();
-                    $this->load->model('m_ship');
-                    $this->load->model('m_log');
-                    if ($this->input->post("search") && $this->input->post("filter") || $this->input->get("search") && $this->input->get("filter")) {
+                    $this->load->model('m_finish_log');
+                    $this->load->library('pagination');
+                    
+                    $like = null;
+                    $filter = null;
+                
+                    if (($this->input->post("search") && $this->input->post("filter")) || ($this->input->get("search") && $this->input->get("filter"))) 
+                    {
                         if ($this->input->get("search") && $this->input->get("filter")) {
                             $search = $this->input->get("search");
-                            $filter = $this->input->get("filter");
+                            $filterM = $this->input->get("filter");
                         } else {
                             $search = $this->input->post("search");
-                            $filter = $this->input->post("filter");
+                            $filterM = $this->input->post("filter");
                         }
-                        switch ($filter) {
-                            case '10':
-                                //Client Name
-                                 $str = (string)$search;
-                                $where = array(
-                                    "cl.cl_name" => $search
-                                );
-                             
-                                break;
-                            case '1':
-                            //item name
-                                $where = array(
-                                    "ty2.ty2_desc" => $search
-                                );
-                                break;
+
+                        switch ($filterM) {
+                            case '1':          
+                                //item name                    
+                                $like = array('ty2.ty2_desc' => $search );
+                            break;
+
                             case '2':
-                                //Username
-                                $where = array(
-                                    "us.us_username" => $search
-                                );
-                                break;
-                                 case '3':
-                                //Order Status
-                                $where = array(
-                                    "sti.date_added" => $search
-                                );
-                                break;
+                                //username
+                                $filter = array('us.us_username' => $search );
+                            break;
+                            
+                            case '3':
+                                //date
+                                $like = array('fl.fi_date' => $search );
+                            break;
+
                             case '4':
-                                //inventory Status
-                                if($search=="Check-In"){
-                                    $stat=0;
-
-                                }
-                                else if($search=="Check-Out"){
-                                    $stat=1;
-                                }
-
-
-                                $where = array(
-                                    "sti.log_status" => $stat
-                                );
-                                break;
+                                //log status
+                                $filter = array('ls.ls_desc' => $search );
+                            break;
+                            
                         }
-                        // if (isset($ver)) {
-
-                            // $arr['arr1'] = $this->m_log->listOr($ver , null , null , 0 , $where);
-                            //$arr['arr2'] = $this->m_ship->getList_ext(null ,2, 1 , 1 , 0);
-                           
-                        // }else{
-
-                            $arr['arr1'] = $this->m_log->listSearch(null , null , $where);
-                            //$arr['arr2'] = $this->m_ship->getList_ext(null ,2, 1 , 1 , 0);                     
-                        // }
-                    } else {
-                        $ver = $this->m_log->logCount();
-                        $arr['arr1'] = $this->m_log->get2(null , 10 , $p);
-                        //$arr['arr2'] = $this->m_ship->getList_ext(null ,2, 1 , 1 , 0);
-                        $result1 = sizeof($arr['arr1']);
-                        // $result2 = sizeof($arr['arr2']);
-                        //$sizeA = 10 - $result1;
-                        /*if ($sizeA != 0) {
-                            $p1 = $p + 10 - $ver1;
-                            if ($p1 < 10) {
-                                $p2 = 0;
-                            } else {
-                                $p2 = $p1;
-                                $p1 = 10;
-                            }                        
-                            $arr['arr'] = $this->m_order->listOr(0 , $p1 , $p2);
-                            $result1 = $result1 + sizeof($arr['arr']);
-                        }*/
-                        $arr['page'] = $p;
-                        $arr['total'] = $ver;
-                        $arr['row'] = $result1;
-                        $arr['item'] = $result1;
                     }
+                    
+                   
+
+                    $limit_per_page = 10;
+
+                    $page = $this->uri->segment(5,1);
+                    $page--;
+                    $arr['numPage'] = $page*10;
+                    $arr['total'] = $this->m_finish_log->count($filter,$like);
+
+                    $arr['result'] = $this->m_finish_log->get_curr($limit_per_page , $arr['numPage'] , $filter , $like );
+
+                    $config['base_url'] = site_url('nasty_v2/dashboard/page/i21');
+                    $config['total_rows'] = $arr['total'];
+                    $config['per_page'] = $limit_per_page;
+                    $config["uri_segment"] =5;
+                           // custom paging configuration
+                    $config['num_links'] = 3;
+                    $config['use_page_numbers'] = TRUE;
+                    $config['reuse_query_string'] = TRUE;
+                     
+                    $config['cur_tag_open'] = '<li><a class="current"><strong><b>';
+                    $config['cur_tag_close'] = '</b></strong></a></li>';
+                    $config['num_tag_open'] = '&nbsp;<li>';
+                    $config['num_tag_close'] = '</li>&nbsp;';
+                    $config['prev_tag_open'] = '<li>';
+                    $config['prev_tag_close'] = '</li>';
+                    $config['last_tag_open'] = '<li>';
+                    $config['last_tag_close'] = '</li>';
+                    $config['next_tag_open'] = '<li>';
+                    $config['next_tag_close'] = '</li>';
+                    $config['first_tag_open'] = '<li>';
+                    $config['first_tag_close'] = '</li>';
+                    $config['next_link'] = 'Next';
+                    $config['prev_link'] = 'Previous';
+
+                    $this->pagination->initialize($config);
+
+                    $arr["link"] = $this->pagination->create_links();             
+
                     $data['title'] = '<i class="fa fa-fw fa-edit"></i> Inventory</a>';
                     $data['display'] = $this->load->view($this->parent_page.'/shipList' ,$arr , true);
-                    $this->_show('display' , $data , 'i1');
+                    $this->_show('display' , $data , $key);
                     break;
 
                
@@ -1252,7 +1234,7 @@ epul@nastyjuice.com
 
                     $limit_per_page = 10;
 
-                    $page = $this->uri->segment(4,1);
+                    $page = $this->uri->segment(5,1);
                     $page--;
 
                     $arr['numPage'] = $page*10;
@@ -1265,7 +1247,7 @@ epul@nastyjuice.com
                     $config['base_url'] = site_url('Inventory/page/i2');
                     $config['total_rows'] = $arr['total'];
                     $config['per_page'] = $limit_per_page;
-                    $config["uri_segment"] =4;
+                    $config["uri_segment"] =5;
                      
                     // custom paging configuration
                     $config['num_links'] = 3;
