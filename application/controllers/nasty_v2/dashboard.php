@@ -1386,17 +1386,6 @@ epul@nastyjuice.com
                     if ($lvl == 2 || $lvl == 3) {
                         redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
                     }
-
-                    // Time Freeze
-                        /*$cuTime = time();
-                        $start = strtotime('1:00am');
-                        $end = strtotime('12:00pm');
-                        if ((int)$start <= (int)$cuTime && (int)$cuTime <= (int)$end ) {
-                            $data['title'] = '<i class="fa fa-file-text"></i> Order Form';
-                            $this->_show('/downsystem/downtime' , $data , $key);
-                            break;
-                        }*/
-                    // End Time Freeze
     				$data['title'] = '<i class="fa fa-file-text"></i> Order Form';
     				$this->load->database();
     				$this->load->model('m_client');
@@ -1649,16 +1638,16 @@ epul@nastyjuice.com
 							$barcode = $orderCode.'-'.$pa_hex.'-'.$temp;
 							unset($orderCode);unset($pa_hex);unset($temp);
 							if (set_barcode($barcode) == FALSE) {
-
+								$this->session->set_flashdata('warning' , 'Ops! Someting wrong on generating barcode, contact your admin.<br /> Error Code : #e301');
 							}else{
 								$this->load->model('M_parcel_barcode', 'mpb');
-								$link = base_url('assets/uploads/barcode/'.$barcode.'.jpg');
+								$link = 'assets/uploads/barcode/'.$barcode.'.jpg';
 								$arrParcel = array(
 									'pa_id' => $pa_id,
 									'pb_link' => $link,
 									'pb_code' => $barcode
 								);
-								
+								$this->mpb->insert($arrParcel);
 							}
 							$this->session->set_flashdata('success' , 'Parcel Added');
 							redirect(site_url('nasty_v2/dashboard/page/e2?id='.$this->my_func->scpro_encrypt($or_id."|parcel")) , 'refresh');
@@ -1685,13 +1674,22 @@ epul@nastyjuice.com
 							$this->load->database();
 							$this->load->model('m_parcel', 'mp');
 							$this->load->model('m_parcel_ext' , 'mpe');
+							$this->load->model('M_parcel_barcode', 'mpb');
 							if ($arr[2] == 1) {
 								$parcel = array(
 									'or_id' => $arr[0]
 								);
 								$arrPa = $this->mp->getPa_id($parcel);
 								foreach ($arrPa as $pakey) {
-									$this->mpe->delete(array('pa_id' => $pakey->pa_id));
+									$pa_id = $pakey->pa_id;
+									$this->mpe->delete(array('pa_id' => $pa_id));
+									$paBarcode = $this->mpb->get(array('pa_id' => $pa_id));
+									if (sizeof($paBarcode) != 0) {
+										$paBarcode = array_shift($paBarcode);
+										unlink('./'.$paBarcode->pb_link);
+									}
+									unset($paBarcode);
+									$this->mpb->delete(array('pa_id' => $pa_id));
 								}
 								unset($arrPa);
 								$this->session->set_flashdata('success' , 'Reset process done.');
@@ -1701,16 +1699,22 @@ epul@nastyjuice.com
 								);
 								$this->mp->delete($parcel);
 								$this->mpe->delete($parcel);
+								$paBarcode = $this->mpb->get($parcel);
+								if (sizeof($paBarcode) != 0) {
+									$paBarcode = array_shift($paBarcode);
+									unlink('./'.$paBarcode->pb_link);
+								}
+								unset($paBarcode);
+								$this->mpb->delete($parcel);
 								$this->session->set_flashdata('success' , 'delete parcel done.');
-								// this section will return bace to the page.
-								// if ($this->input->get('id')) {
-								// 	$id = $this->input->get('id');
-								// 	redirect(site_url('nasty_v2/dashboard/page/e2?id='.$id));
-								// }
 							}else {
 								$this->session->set_flashdata('error' , 'Parcel Mode Error');
 							}
-							redirect(site_url('nasty_v2/dashboard/page/e1'));
+							if(isset($_SERVER['HTTP_REFERER']))
+								$url = $_SERVER['HTTP_REFERER'];
+							else
+								$url = site_url('nasty_v2/dashboard/page/e1');
+							redirect($url , 'refresh');
 						}else {
 							$this->session->set_flashdata('error' , 'Ops Wrong Path');
 							redirect(site_url('nasty_v2/dashboard/page/e1'));
