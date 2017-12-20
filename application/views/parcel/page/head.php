@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= $this->version; ?></title>
 
-    <link href="<?= base_url(); ?>asset2/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="icon" href="<?= base_url(); ?>assets/cover/favicon2.png">
-    <style media="screen">
-    body {
-        background-color: #6691ab;
-    }
-    </style>
+    <script src="<?= base_url(); ?>asset/js/jquery.min.js"></script>
   </head>
-  <body>
+
+  <body style="background-color: #6691ab;">
+
       <div class="container">

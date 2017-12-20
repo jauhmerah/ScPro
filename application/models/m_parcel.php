@@ -119,7 +119,7 @@ class M_parcel extends CI_Model {
                 $this->db->from('parcel_ext pae');
                 $this->db->where('pa_id', $pa_id);
                 $this->db->join('type2 ty2', 'ty2.ty2_id = pae.ty2_id', 'left');
-                $this->db->join('nicotine ni', 'ni.ni_id = pae.ty2_id', 'left');
+                $this->db->join('nicotine ni', 'ni.ni_id = pae.ni_id', 'left');
                 $this->db->join('category cat', 'cat.ca_id = ty2.ca_id', 'left');
                 $arr['parcel'] = $key;
                 $arr['item'] = $this->db->get()->result();
@@ -137,6 +137,44 @@ class M_parcel extends CI_Model {
         $this->db->from('parcel');
         return $this->db->count_all_results();
 
+    }
+
+    public function get_extFull($where = NULL) {
+        $this->db->select('pa.* , pb.pb_link , pb.pb_code , cl.* , ord.or_date');
+        $this->db->from('parcel pa');
+        if ($where !== NULL) {
+            if (is_array($where)) {
+                foreach ($where as $field=>$value) {
+                    $this->db->where($field, $value);
+                }
+            } else {
+                $this->db->where('pa.pa_id', $where);
+            }
+        }
+        $this->db->join('parcel_barcode pb', 'pb.pa_id = pa.pa_id', 'left');
+        //$this->db->join('user us', 'us.us_id = pa.us_id', 'left');
+        $this->db->join('order ord', 'ord.or_id = pa.or_id', 'left');
+        $this->db->join('client cl', 'ord.cl_id = cl.cl_id', 'left');
+        $data = $this->db->get()->result();
+        if ($data) {
+            $result = array();
+            foreach ($data as $key) {
+                $pa_id = $key->pa_id;
+                $this->db->select('*');
+                $this->db->from('parcel_ext pae');
+                $this->db->where('pa_id', $pa_id);
+                $this->db->join('type2 ty2', 'ty2.ty2_id = pae.ty2_id', 'left');
+                $this->db->join('nicotine ni', 'ni.ni_id = pae.ni_id', 'left');
+                $this->db->join('category cat', 'cat.ca_id = ty2.ca_id', 'left');
+                $arr['parcel'] = $key;
+                $arr['item'] = $this->db->get()->result();
+                $result[] = $arr;
+                unset($arr);
+            }
+            return $result;
+        } else {
+            return false;
+        }
     }
 }
 

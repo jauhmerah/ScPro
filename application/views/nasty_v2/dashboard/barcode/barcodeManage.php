@@ -18,6 +18,8 @@
                                 <th>Item Detail</th>
                                 <th>Qty</th>
                                 <th>Tester</th>
+                                <th>Batch Code</th>
+                                <th>Hologram Series</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -194,7 +196,7 @@
                                     $n++;
                                 ?>
                                     <tr>
-                                        <td><?= $orderId.'-'.$key['parcel']->pa_id;?></td>
+                                        <td><?= $orderId.'-'.dechex($key['parcel']->pa_id);?></td>
                                         <td><?= $key['parcel']->pa_date; ?></td>
                                         <td><?= $key['parcel']->us_username; ?> </td>
                                         <td>
@@ -202,7 +204,7 @@
                                                 <button type="button" class="btn btn-primary btn-circle-left btnV" title="view" data-view = 'tr<?= $n; ?>'>
                                                     <i class="fa fa-angle-down" aria-hidden="true"></i>
                                                 </button>
-                                                <button type="button" class="btn green-dark" title="print">
+                                                <button type="button" class="btn green-dark" title="print" onclick="location.href='<?= site_url('parcel/printParcel?id='.$this->my_func->scpro_encrypt($key['parcel']->pa_id."|printParcel|1"));?>';">
                                                     <i class="fa fa-print" aria-hidden="true"></i>
                                                 </button>
                                                 <button type="button" class="btn red-mint btn-circle-right con" title="Delete Parcel" data-del = "<?= $this->my_func->scpro_encrypt($key['parcel']->pa_id.'|parcelDel|2'); ?>">
@@ -250,6 +252,14 @@
                                                                 </tr>
                                                             <?php } ?>
                                                         </tbody>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <td colspan="3">Batch : <?= $key2->pa_batch; ?></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="3">Hologram : <?= $key2->pa_hologram; ?></td>
+                                                            </tr>
+                                                        </tfoot>
                                                     </table>
                                                 </div>
                                             </div>

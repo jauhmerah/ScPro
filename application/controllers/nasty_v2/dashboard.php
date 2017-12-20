@@ -1577,7 +1577,9 @@ epul@nastyjuice.com
 									'ty2_id' => $arr['itemId'][$i],
 									'ni_id' => $arr['nico'][$i],
 									'pa_tester' => $arr['tester'][$i],
-									'pa_qty' => $arr['qty'][$i]
+									'pa_qty' => $arr['qty'][$i],
+									'pa_batch' => $arr['batch'][$i],
+									'pa_hologram' => $arr['hologram'][$i]
 								);
 								$this->mpe->insert($pae);
 							}

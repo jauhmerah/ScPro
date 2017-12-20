@@ -4,24 +4,23 @@
 <div class="row">
     <div class="panel panel-default" style="border-color: #ddd;">
         <div class="panel-heading " style="color: #fff;background-color: #337ab7;border-color: #ddd; ">
-            <h2>Order # 12345</h2>
+            <?php $orderId = "#".(120000 + $parcel['parcel']->or_id); ?>
+            <h2>Order <?= $orderId ?></h2>
         </div>
         <div class="panel-body ">
             <div class="row ">
                 <div class="col-xs-6 ">
-                    <span><img alt="asdf " src="<?php echo base_url( 'assets\uploads\barcode\120002-a-354.jpg'); ?>" width="400" class="img-responsive center-block"></span>
+                    <span><img alt="asdf " src="<?php echo base_url($parcel['parcel']->pb_link); ?>" width="400" class="img-responsive center-block"></span>
                 </div>
                 <div class="col-xs-6 pull-right">
+                    <strong>Shipped To:</strong><br>
+                    <?= $parcel['parcel']->cl_name; ?>,<br>
                     <address>
-                            <strong>Shipped To:</strong><br>
-                            Muhammad Ikhmal Bin Mohd Yazid,<br>
-                            Kampung Perigi Jernih,<br>
-                            71300 Rembau, <br>
-                            Negeri Sembilan<br><br>
-
-                            <strong>Order Date:</strong><br>
-                            December 15, 2017<br><br>
-                    	</address>
+                        <?= $parcel['parcel']->cl_address;?>
+                        <?= $parcel['parcel']->cl_email; ?>
+                    </address>
+                    <strong>Order Date:</strong><br>
+                    <?= date('Y-M-d' ,strtotime($parcel['parcel']->or_date)); ?>
                 </div>
             </div>
         </div>
@@ -37,26 +36,25 @@
                 </div>
                 <div class="col-xs-6">
                     <span class="pull-right">
-                            <h2>Order # 12345</h2><br />
-                            <img alt="" src="<?php echo base_url('assets\uploads\barcode\120002-a-354.jpg'); ?>" width="250" class="img-responsive">
-                        </span>
+                        <h2 class="text-center">Order <?= $orderId; ?></h2><br />
+                        <img alt="" src="<?php echo base_url($parcel['parcel']->pb_link); ?>" width="250" class="img-responsive">
+                    </span>
                 </div>
             </div>
         </div>
         <div class="panel-body">
             <div class="row">
                 <div class="col-xs-6">
-                    <strong>Shipped To:</strong><br> Muhammad Ikhmal Bin Mohd Yazid,<br> Kampung Perigi Jernih,<br> 71300 Rembau, <br> Negeri Sembilan<br><br>
-
-                    <strong>Order Date:</strong><br> December 15, 2017<br><br>
+                    <strong>Shipped To:</strong><br>
+                    <?= $parcel['parcel']->cl_name; ?>,<br>
+                    <address>
+                        <?= $parcel['parcel']->cl_address;?>
+                    </address>
                 </div>
                 <div class="col-xs-6">
-                    <strong>Order ID : </strong># 12345<br>
-                    <strong>Sales Person : </strong>jauhmerah<br>
-                    <strong>Parcel Code : </strong>1200012-a-123<br>
-                    <strong>Distribution Person : </strong>K9
-                    <p></p>
-                    <strong>Order Date :</strong> December 15, 2017<br><br>
+                    <strong>Order ID : </strong><?= $orderId; ?><br>
+                    <strong>Parcel Code : </strong><?= $parcel['parcel']->pb_code; ?><br>
+                    <strong>Order Date :</strong> <?= date('Y-M-d' ,strtotime($parcel['parcel']->or_date));?>
                 </div>
             </div>
             <div class="row">
@@ -77,12 +75,24 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php
+                                            $subT = 0 ; $Total = 0;
+                                            foreach ($parcel['item'] as $key) {
+                                                $subT += $key->pa_qty;
+                                                $subT += $key->pa_tester;
+                                            ?>
                                         <tr>
-                                            <td>BS-200</td>
-                                            <td>3</td>
-                                            <td>1</td>
-                                            <td>4</td>
+                                            <td>
+                                                <?= $key->ty2_desc; ?> |
+                                                <span class="label" style="color: black;background-color: <?= $key->ca_color; ?>; font-size: 75%;"><strong><?= $key->ca_desc; ?></strong></span>&nbsp;
+                                                <span class="label" style="color: black;font-size: 75%; background-color: <?= $key->ni_color; ?>;"><strong><?= $key->ni_mg; ?> mg</strong></span><br />
+                                                Batch : <?= (empty($key->pa_batch)) ? 'n\a' : $key->pa_batch ; ?> | Hologram : <?= (empty($key->pa_hologram)) ? 'n\a' : $key->pa_hologram ; ?>
+                                            </td>
+                                            <td><?= $key->pa_qty; ?></td>
+                                            <td><?= $key->pa_tester; ?></td>
+                                            <td><?= $subT; ?></td>
                                         </tr>
+                                        <?php $subT = 0; } ?>
                                     </tbody>
                                     <tfoot>
                                         <tr>
