@@ -26,12 +26,15 @@ class Parcel extends CI_Controller{
         $this->load->view($this->parent_page.'page/head');
         if ($multi) {
             foreach ($data['multi'] as $key['parcel']) {
-                $this->load->view($this->parent_page.$page , $key);
+                if (isset($key['parcel']['status'])) {
+                    $this->load->view($this->parent_page.'notFound' , $key);
+                }else{
+                    $this->load->view($this->parent_page.$page , $key);
+                }
             }
         } else {
             $this->load->view($this->parent_page.$page , $data);
         }
-
         $this->load->view($this->parent_page.'page/footer' , array( 'print' => $print));
     }
 
@@ -120,7 +123,19 @@ class Parcel extends CI_Controller{
         $code = preg_replace('/\s+/', '', $code);
         $codeArr = explode(',' , $code);
         if (sizeof($codeArr) > 1) {
-
+            $multi = TRUE;
+            foreach ($codeArr as $key) {
+                $code = $key;
+                $temp = $this->mp->get_extFull(array('pb.pb_code' => $code));
+                if ($temp) {
+                    $data['multi'][] = array_shift($temp);
+                }else{
+                    $data['multi'][] = array(
+                        'code' => $code,
+                        'status' => FALSE
+                    );
+                }
+            }
         }else{
             // for single scan code
             $temp = $this->mp->get_extFull(array('pb.pb_code' => $code));
