@@ -451,7 +451,7 @@
                                         &nbsp;-&nbsp;
                                         <button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/dummyInvoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn c-btn-border-1x c-btn-blue-dark btn-circle btn-md" title="Dummy Invoice">DInv</button>
 										&nbsp;-&nbsp;
-                                        <a type="button" href = "<?= site_url('nasty_v2/dashboard/page/e2?id='.$this->my_func->scpro_encrypt($user->or_id."|parcel")); ?>" title = "Parcel Setting" class="btn red-mint btn-circle btn-md"><i class="fa fa-archive"></i></a>
+                                        <a type="button" href = "<?= site_url('nasty_v2/dashboard/page/e2?id='.$this->my_func->scpro_encrypt($user->or_id."|parcel")); ?>" title = "Parcel Setting" class="btn red-mint btn-circle btn-md"><i class="fa fa-barcode"></i></a>
 
 
                                                             </td>
@@ -628,6 +628,8 @@
                                         <button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/Invoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');"  class="btn blue-dark btn-circle btn-md" title="Invoice">Inv</button>
                                         &nbsp;-&nbsp;
                                         <button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/dummyInvoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn c-btn-border-1x c-btn-blue-dark btn-circle btn-md" title="Dummy Invoice">DInv</button>
+										&nbsp;-&nbsp;
+										<button type="button" onclick="window.open('<?= site_url('parcel/printParcel?id='.$this->my_func->scpro_encrypt($user->or_id."|printParcel|2"));?>');"  class="btn c-btn-border-1x c-btn-green-dark btn-circle btn-md" title="Print Parcel"><i class="fa fa-barcode"></i> <i class="fa fa-print"></i></button>										 
                                                             </td>
                                                     </tr>
 
