@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Parcel extends CI_Controller{
 
     var $parent_page = "parcel/";
-    var $version = "OrdYs v2.3.7 Alpha";
+    var $version = "OrdYs v2.3.9 Alpha";
     function __construct() {
         parent::__construct();
         $this->load->library('my_func' ,NULL, 'mf');

@@ -16,8 +16,9 @@
                     <strong>Shipped To:</strong><br>
                     <?= $parcel['parcel']->cl_name; ?>,<br>
                     <address>
-                        <?= $parcel['parcel']->cl_address;?>
-                        <?= $parcel['parcel']->cl_email; ?>
+                        <?= $parcel['parcel']->cl_address;?><br />
+                        <?= $parcel['parcel']->cl_email; ?><br />
+                        <?= $parcel['parcel']->cl_tel; ?><br />
                     </address>
                     <strong>Order Date:</strong><br>
                     <?= date('Y-M-d' ,strtotime($parcel['parcel']->or_date)); ?>
@@ -48,7 +49,9 @@
                     <strong>Shipped To:</strong><br>
                     <?= $parcel['parcel']->cl_name; ?>,<br>
                     <address>
-                        <?= $parcel['parcel']->cl_address;?>
+                        <?= $parcel['parcel']->cl_address;?><br />
+                        <?= $parcel['parcel']->cl_email; ?><br />
+                        <?= $parcel['parcel']->cl_tel; ?><br />
                     </address>
                 </div>
                 <div class="col-xs-6">

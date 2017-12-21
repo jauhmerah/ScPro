@@ -1,9 +1,9 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Order extends CI_Controller {
- 	
+
  	var $parent_page = "order";
- 	var $version = "Nasty Process System v2.3.6 Alpha";
+ 	var $version = "OrdYs v2.3.9 Alpha";
 	public function __construct()
 	{
 		date_default_timezone_set('Asia/Kuala_Lumpur');
@@ -61,16 +61,16 @@ class Order extends CI_Controller {
 				case '0':
 					$id = $search - 100000;
 					$this->printO($id);
-					break;				
+					break;
 				default:
 					$this->session->set_flashdata('warning', 'Ops!!! Something wrong with System Version');
 					redirect(site_url(),'refresh');
 					break;
-			}					
+			}
 		} else {
 			$this->session->set_flashdata('warning', 'Ops!!! Wrong path pal');
 			redirect(site_url(),'refresh');
-		}		
+		}
 	}*/
 
 	function printO($or_id = null){
@@ -88,22 +88,22 @@ class Order extends CI_Controller {
 				unset($arr);
 				if ($order['arr']['order']->pr_id == 1) {
 					$this->session->set_flashdata('warning', 'Please click "Move to process" before printing !!!');
-					redirect(site_url(),'refresh');	
+					redirect(site_url(),'refresh');
 				}
 				$this->load->library('l_label');
-				$data["T"] = "#".(100000+$order['arr']['order']->or_id);				
+				$data["T"] = "#".(100000+$order['arr']['order']->or_id);
 				$data['display'] = $this->load->view($this->parent_page."/printForm" , $order , true);
-				$this->_show($data);				
+				$this->_show($data);
 			}else{
 				$this->session->set_flashdata('info', 'Sorry Your Order Not Found');
-				redirect(site_url(),'refresh');	
+				redirect(site_url(),'refresh');
 			}
 		} else {
 			$this->session->set_flashdata('warning', 'Ops!!! Wrong path pal');
-			redirect(site_url(),'refresh');	
+			redirect(site_url(),'refresh');
 		}
-			
-	}	
+
+	}
 	function printO1($or_id = null , $ver = 1){
 		//production print email
 		if ($this->input->get('id') || $or_id != null) {
@@ -122,21 +122,21 @@ class Order extends CI_Controller {
 				unset($arr);
 				if ($order['arr']['order']->pr_id == 1) {
 					$this->session->set_flashdata('warning', 'Please click "Move to process" before printing !!!');
-					redirect(site_url(),'refresh');	
-				}			
-				$data["T"] = "#".((10000*$ver)+100000+$order['arr']['order']->or_id);	
+					redirect(site_url(),'refresh');
+				}
+				$data["T"] = "#".((10000*$ver)+100000+$order['arr']['order']->or_id);
 				$order["or_code"] = $data["T"];
 				$data['display'] = $this->load->view($this->parent_page."/printForm1" , $order , true);
-				$this->_show($data);				
+				$this->_show($data);
 			}else{
 				$this->session->set_flashdata('info', 'Sorry Your Order Not Found');
-				redirect(site_url(),'refresh');	
+				redirect(site_url(),'refresh');
 			}
 		} else {
 			$this->session->set_flashdata('warning', 'Ops!!! Wrong path pal');
-			redirect(site_url(),'refresh');	
+			redirect(site_url(),'refresh');
 		}
-			
+
 	}
 
 	public function printDO(){
@@ -147,11 +147,11 @@ class Order extends CI_Controller {
 			$this->load->library('l_label');
 			$arr = $this->m_order->getList_ext($or_id);
 			$arr1['arr'] = array_shift($arr);
-			unset($arr);		
+			unset($arr);
 			$data['display'] = $this->load->view($this->parent_page."/doForm" , $arr1 , true);
 			$this->_show($data);
 		}
-		
+
 	}
 	public function printDO1($ver = 1){
 		if ($this->input->get('id')) {
@@ -169,7 +169,7 @@ class Order extends CI_Controller {
 			$data['display'] = $this->load->view($this->parent_page."/doForm1" , $arr1 , true);
 			$this->_show($data);
 		}
-		
+
 	}
 
 	public function printOrder()
@@ -186,9 +186,9 @@ class Order extends CI_Controller {
 			$this->printO($or_id);
 		} else {
 			$this->session->set_flashdata('warning', 'Ops!!! Wrong Path (Ox,\"O)');
-			redirect(site_url(),'refresh');	
+			redirect(site_url(),'refresh');
 		}
-		
+
 	}
 
 	public function getfun()
@@ -210,9 +210,9 @@ class Order extends CI_Controller {
 			$this->printO1($or_id , $ver);
 		} else {
 			$this->session->set_flashdata('warning', 'Ops!!! Wrong Path (Ox,\"O)');
-			redirect(site_url(),'refresh');	
+			redirect(site_url(),'refresh');
 		}
-		
+
 	}
 
 	public function deleteOrder()
@@ -224,15 +224,15 @@ class Order extends CI_Controller {
             $arr = array(
                 'or_del' => 1
             );
-            $this->load->model('m_order');            
+            $this->load->model('m_order');
             if ($this->m_order->update($arr , $or_id)) {
             	$this->session->set_flashdata('info', 'The Order was deleted');
             } else {
             	$this->session->set_flashdata('warning', 'Someone have deleted the order');
-            }            
+            }
         }else{
         	$this->session->set_flashdata('error', 'Ops! Wrong Place, Contact jauhmerah@nastyjuice.com for any inquiry.');
-        }        
+        }
         redirect(site_url(),'refresh');
 	}
 

@@ -1,14 +1,14 @@
 <?php
 	if (!defined('BASEPATH')) exit('No direct script access allowed');
-	
+
 	class Login extends CI_Controller {
-	
-		var $version = "Nasty Process System v2.3.7 Alpha";
+
+		var $version = "OrdYs v2.3.9 Alpha";
 	    function __construct() {
 	        parent::__construct();
 	        $this->load->library('session' , 'my_func');
 	    }
-	
+
 	    function index() {
 	        $this->load->view("main/login");
 	    }
@@ -27,7 +27,7 @@
 	    			'us_id' => $this->my_func->scpro_encrypt($data->us_id),
 	    			'us_lvl' => $this->my_func->scpro_encrypt($data->us_lvl),
 	    			'us_username' => $this->my_func->scpro_encrypt($data->us_username)
-	    		);	    		
+	    		);
 	    		$this->session->set_userdata( $array );
 	    		redirect(site_url('nasty_v2/dashboard'),'refresh');
 	    	}else{
@@ -53,7 +53,7 @@
 	        $this->load->model("m_login");
 
 	        $data = array(
-	        	"us_email" => $email , 
+	        	"us_email" => $email ,
 	        	"us_pass" => $pass
 	        );
 	        if (!$this->m_login->insert($data)) {
@@ -63,5 +63,5 @@
 	        }
 	    }
 	}
-	        
+
 ?>

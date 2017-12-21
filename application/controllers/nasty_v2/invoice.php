@@ -4,7 +4,7 @@ class Invoice extends CI_Controller {
 
 		var $parent_page = "invoice";
 
-		 	var $version = "Nasty Process System v2.2.4 Alpha";
+		 	var $version = "OrdYs v2.3.9 Alpha";
 			public function __construct()
 			{
 				  parent::__construct();
@@ -12,7 +12,7 @@ class Invoice extends CI_Controller {
 	        date_default_timezone_set('Asia/Kuala_Lumpur');
 			}
 
-	
+
 		function _show($data = null)
 		{
 			$T['T'] = $this->version;
@@ -62,7 +62,7 @@ class Invoice extends CI_Controller {
 					$data['display'] = $this->load->view($this->parent_page."/orderInvoice" , $arr1 , true);
 					$this->_show($data);
 			}
-          
+
         }
         public function getAjaxRowDummy()
         {

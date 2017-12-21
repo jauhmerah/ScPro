@@ -451,7 +451,7 @@
                                         &nbsp;-&nbsp;
                                         <button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/dummyInvoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn c-btn-border-1x c-btn-blue-dark btn-circle btn-md" title="Dummy Invoice">DInv</button>
 										&nbsp;-&nbsp;
-                                        <a type="button" href = "<?= site_url('nasty_v2/dashboard/page/e2?id='.$this->my_func->scpro_encrypt($user->or_id."|parcel")); ?>" title = "Parcel Setting" class="btn red-mint btn-circle btn-md"><i class="fa fa-archive"></i></a>
+                                        <a type="button" href = "<?= site_url('nasty_v2/dashboard/page/e2?id='.$this->my_func->scpro_encrypt($user->or_id."|parcel")); ?>" title = "Parcel Setting" class="btn btn-circle blue-hoki btn-md"><i class="fa fa-barcode"></i> Parcel Management</a>
 
 
                                                             </td>
@@ -628,8 +628,11 @@
                                         <button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/Invoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');"  class="btn blue-dark btn-circle btn-md" title="Invoice">Inv</button>
                                         &nbsp;-&nbsp;
                                         <button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/dummyInvoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn c-btn-border-1x c-btn-blue-dark btn-circle btn-md" title="Dummy Invoice">DInv</button>
+										&nbsp;-&nbsp;
+										<button type="button" onclick="window.open('<?= site_url('parcel/printParcel?id='.$this->my_func->scpro_encrypt($user->or_id."|printParcel|2"));?>');"  class="btn btn-circle blue-hoki" title="Print Parcel"><i class="fa fa-barcode"></i> <i class="fa fa-print"></i></button>
                                                             </td>
                                                     </tr>
+													<?php // TODO: kena buat link print parcel on order list, bagi rts keatas ?>
 
                                                     <tr class="collapse row3<?= $n ?>">
                                                     <td colspan="7" cellspadding="10" style="background-color: #F1F1F1;">
