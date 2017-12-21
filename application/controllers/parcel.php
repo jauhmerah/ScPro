@@ -21,10 +21,17 @@ class Parcel extends CI_Controller{
         $this->_show();
     }
 
-    public function _show($page = 'search' , $data = NULL , $print = FALSE)
+    public function _show($page = 'search' , $data = NULL , $print = FALSE, $multi = FALSE)
     {
         $this->load->view($this->parent_page.'page/head');
-        $this->load->view($this->parent_page.$page , $data);
+        if ($multi) {
+            foreach ($data['multi'] as $key['parcel']) {
+                $this->load->view($this->parent_page.$page , $key);
+            }
+        } else {
+            $this->load->view($this->parent_page.$page , $data);
+        }
+
         $this->load->view($this->parent_page.'page/footer' , array( 'print' => $print));
     }
 
@@ -35,6 +42,8 @@ class Parcel extends CI_Controller{
          *           2 - Print all by order;
          */
         $page = "parcelForm";
+        $print = TRUE;
+        $multi = FALSE;
         if ($this->input->get('id')) {
             $arr = $this->input->get('id');
             $arr = $this->mf->scpro_decrypt($arr);
@@ -42,11 +51,11 @@ class Parcel extends CI_Controller{
             if (sizeof($arr) == 3) {
                 $mode = $arr[2];
                 if ($arr[1] == 'printParcel') {
+                    $pa_id = $arr[0];
+                    $this->load->database();
+                    $this->load->model('m_parcel', 'mp');
                     switch ($mode) {
                         case '1':
-                            $pa_id = $arr[0];
-                            $this->load->database();
-                            $this->load->model('m_parcel', 'mp');
                             $temp = $this->mp->get_extFull($pa_id);
                             if (!is_array($temp)) {
                                 $this->session->set_flashdata('error' , "Error Mode : #pa02");
@@ -56,18 +65,24 @@ class Parcel extends CI_Controller{
                             unset($temp);
                             break;
                         case '2':
+                            $multi = TRUE;
+                            $print = TRUE;
                             $parcel = array(
                                 'or_id' => $arr[0]
                             );
-                            $arrPa = $this->mp->getPa_id($parcel);
+                            $arrPa = $this->mp->get($parcel);
                             if (!is_array($arrPa)) {
                                 $this->session->set_flashdata('warning' , "Parcel Not found");
                                 redirect(site_url('distribution') , 'refresh');
                             }
                             foreach ($arrPa as $key) {
-                                // TODO: ni kena sambung print all parcel module.
+                                $temp = $this->mp->get_extFull($key->pa_id);
+                                if (!is_array($temp)) {
+                                    $this->session->set_flashdata('error' , "Error Mode : #pa03");
+                                    redirect(site_url('distribution') , 'refresh');
+                                }
+                                $data['multi'][] = array_shift($temp);
                             }
-
                             break;
                         default:
                             $this->session->set_flashdata('error' , "Error Mode : #pa01");
@@ -83,8 +98,40 @@ class Parcel extends CI_Controller{
             $this->session->set_flashdata('warning' , "Ops wrong path!");
             redirect(site_url('distribution') , 'refresh');
         }
-        $this->_show($page , $data);
+        $this->_show($page , $data , $print , $multi);
     }
 
+    public function scan($code = NULL)
+    {
+        if ($code == NULL) {
+            if ($this->input->post('code')) {
+                $code = $this->input->post('code');
+            }else{
+                $this->session->set_flashdata('warning' , "No Input");
+                redirect(site_url('distribution') , 'refresh');
+            }
+        }
+        $page = 'parcelForm';
+        $print = FALSE;
+        $multi = FALSE;
+        $this->load->database();
+        $this->load->model('m_parcel', 'mp');
+
+        $code = preg_replace('/\s+/', '', $code);
+        $codeArr = explode(',' , $code);
+        if (sizeof($codeArr) > 1) {
+
+        }else{
+            // for single scan code
+            $temp = $this->mp->get_extFull(array('pb.pb_code' => $code));
+            if ($temp == FALSE) {
+                $this->session->set_flashdata('warning' , "Parcel Detail Not Found");
+                redirect(site_url('distribution') , 'refresh');
+            }
+            $data['parcel'] = array_shift($temp);
+            unset($temp);
+        }
+        $this->_show($page , $data , $print , $multi);
+    }
 }
 ?>

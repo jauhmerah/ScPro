@@ -48,7 +48,7 @@
                                         <button type="button" class="btn btn-info" title="View Parcel List" onclick="window.open('<?= site_url('nasty_v2/dashboard/page/a111?v=2&view=').$this->my_func->scpro_encrypt($key->or_id); ?>');">
                                             <i class="fa fa-eye" aria-hidden="true"></i>
                                         </button>
-                                        <button type="button" class="btn green-dark" <?php if(!$parcelCount){ echo "disabled"; }?>>
+                                        <button type="button" class="btn green-dark" onclick="window.open('<?= site_url('parcel/printParcel?id='.$this->my_func->scpro_encrypt($key->or_id."|printParcel|2"));?>');" <?php if(!$parcelCount){ echo "disabled"; }?>>
                                             <i class="fa fa-print" aria-hidden="true"></i>
                                         </button>
                                         <button type="button" class="btn red-mint btn-circle-right <?php if($parcelCount){ ?> con<?php } ?>" title="Reset Parcel" <?php if($parcelCount){ ?> data-del = "<?= $this->my_func->scpro_encrypt($key->or_id.'|parcelDel|1'); ?>" <?php }else{ echo "disabled"; } ?> >

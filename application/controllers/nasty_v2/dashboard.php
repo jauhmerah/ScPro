@@ -1632,7 +1632,7 @@ epul@nastyjuice.com
 								$parcel = array(
 									'or_id' => $arr[0]
 								);
-								$arrPa = $this->mp->getPa_id($parcel);
+								$arrPa = $this->mp->getPa_idDel($parcel);
 								foreach ($arrPa as $pakey) {
 									$pa_id = $pakey->pa_id;
 									$this->mpe->delete(array('pa_id' => $pa_id));

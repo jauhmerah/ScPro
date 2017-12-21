@@ -171,7 +171,7 @@
                 <?php if (is_array($parcel)) { ?>
                     <div class="actions">
                         <div class="btn-group btn-group-devided" data-toggle="buttons">
-                            <a><button type="button" onclick="window.location.href=''" class="btn green btn-circle btn-sm"><i class="fa fa-print"></i> Print All</button></a>
+                            <a><button type="button" onclick="window.open('<?= site_url('parcel/printParcel?id='.$this->my_func->scpro_encrypt($order['order']->or_id."|printParcel|2"));?>');" class="btn green btn-circle btn-sm"><i class="fa fa-print"></i> Print All</button></a>
                         </div>
                         &nbsp;-&nbsp;
                     </div>
@@ -204,7 +204,7 @@
                                                 <button type="button" class="btn btn-primary btn-circle-left btnV" title="view" data-view = 'tr<?= $n; ?>'>
                                                     <i class="fa fa-angle-down" aria-hidden="true"></i>
                                                 </button>
-                                                <button type="button" class="btn green-dark" title="print" onclick="location.href='<?= site_url('parcel/printParcel?id='.$this->my_func->scpro_encrypt($key['parcel']->pa_id."|printParcel|1"));?>';">
+                                                <button type="button" class="btn green-dark" title="print" onclick="window.open('<?= site_url('parcel/printParcel?id='.$this->my_func->scpro_encrypt($key['parcel']->pa_id."|printParcel|1"));?>');">
                                                     <i class="fa fa-print" aria-hidden="true"></i>
                                                 </button>
                                                 <button type="button" class="btn red-mint btn-circle-right con" title="Delete Parcel" data-del = "<?= $this->my_func->scpro_encrypt($key['parcel']->pa_id.'|parcelDel|2'); ?>">
@@ -241,25 +241,22 @@
                                                                         </td>
                                                                         <td><?= $key2->pa_tester; ?></td>
                                                                     </tr>
+                                                                    <tr>
+                                                                        <td colspan="3">Batch : <?= $key2->pa_batch; ?><br />
+                                                                            Hologram : <?= $key2->pa_hologram; ?>
+                                                                        </td>
+                                                                    </tr>
                                                                     <?php
                                                                 }
                                                                 ?>
                                                             <?php }else{ ?>
                                                                 <tr>
-                                                                    <td align='center' colspan="4">
+                                                                    <td align='center' colspan="3">
                                                                         --No Data--
                                                                     </td>
                                                                 </tr>
                                                             <?php } ?>
                                                         </tbody>
-                                                        <tfoot>
-                                                            <tr>
-                                                                <td colspan="3">Batch : <?= $key2->pa_batch; ?></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td colspan="3">Hologram : <?= $key2->pa_hologram; ?></td>
-                                                            </tr>
-                                                        </tfoot>
                                                     </table>
                                                 </div>
                                             </div>
@@ -276,9 +273,6 @@
                             </tbody>
                         </table>
                     </div>
-            </div>
-            <div class="portlet-footer">
-
             </div>
         </div>
     </div>

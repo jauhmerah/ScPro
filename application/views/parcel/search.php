@@ -76,11 +76,11 @@
 		<div class="col-md-8 col-md-offset-2">
 			<div class="panel panel-default">
 			  <div class="panel-body">
-				  <form method="post" action="<?= site_url('parcel');?>" target="_blank">
+				  <form method="post" action="<?= site_url('parcel/scan');?>" target="_blank">
 					  <div class="form-group">
 						  <div class="input-group">
 							  <span class="input-group-addon"> <i class="fa fa-barcode"></i> Barcode Input</span>
-							  <input type="text" class="form-control" placeholder="Scan the barcode">
+							  <input name="code" type="text" class="form-control" placeholder="Scan the barcode" required>
 						  </div>
 						  <p class="help-block">Note : Split multi-barcode with <strong>','</strong></p>
 					  </div>

@@ -84,7 +84,7 @@ class M_parcel extends CI_Model {
         return $this->db->affected_rows();
     }
 
-    public function getPa_id($arr = NULL)
+    public function getPa_idDel($arr = NULL)
     {
         //getPaid will auto delete when called;
         if ($arr == NULL || !is_array($arr)) {
