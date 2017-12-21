@@ -109,13 +109,10 @@ class M_finish_log extends CI_Model {
 		
 		public function count($filter = null, $like = null)
 		{
-			$this->db->from(self::TABLE_NAME);
+			$this->db->from('finish_log fl');
 			
 			if($filter != NULL || $like != NULL)
 			{
-				
-
-				$this->db->from('finish_log fl');
 
 				$this->db->join('user us','us.us_id = fl.us_id','left');
 
@@ -141,10 +138,13 @@ class M_finish_log extends CI_Model {
 					$this->db->like($like);
 				}
 
+				
+
 				return $this->db->count_all_results();
 			}
 			else 
 			{
+				
 				return $this->db->count_all_results();            
 			}
 		}
@@ -181,11 +181,46 @@ class M_finish_log extends CI_Model {
 					$this->db->like($like);
 				}
 			}
-
+		$this->db->order_by('fl.fl_id', 'desc');
     	return $this->db->get()->result();
 
 
 		}
+
+		public function get4($where = null,$year = null,$month = null){
+
+	   		$this->db->select('ty2.ty2_desc as color , ca.ca_desc as series, ni.ni_mg as mg, fl.fi_to as total');
+            
+            $this->db->from('finish_log fl');
+               
+			$this->db->join('barcode_item bi', 'bi.bi_id = fl.bi_id', 'left');
+			   
+	   		$this->db->join('finish_inv fi', 'fi.bi_id = bi.bi_id', 'left');
+
+            $this->db->join('type2 ty2', 'ty2.ty2_id = bi.ty2_id', 'left');
+            
+            $this->db->join('nicotine ni', 'ni.ni_id = bi.ni_id', 'left');
+                 
+            $this->db->join('category ca', 'ca.ca_id = ty2.ca_id', 'left');
+			 if ($year != null) {
+            $this->db->where('YEAR(fl.fi_date)', $year);
+            if ($month != -1) {
+                $this->db->where('MONTH(fl.fi_date)', $month);
+            }
+		}
+            if (is_array($where) && $where != NULL) 
+            {
+                foreach ($where as $key => $value) 
+                {
+                    $this->db->where($key, $value);
+                }
+            }
+           
+			$this->db->order_by('fl.fi_date', 'desc');
+			$this->db->limit(1);	
+	   		
+	   		return $this->db->get()->result();
+	   	}
 
 	    	
 

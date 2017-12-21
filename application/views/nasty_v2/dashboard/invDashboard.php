@@ -11,7 +11,8 @@
 
 .thead-inverse th {
     color: #fff;
-    background-color: #292b2c;                       
+    background-color: #292b2c;
+}                       
 </style>
 <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
 <script src="https://www.amcharts.com/lib/3/serial.js"></script>
@@ -25,14 +26,37 @@
             <div class="portlet-title">
                 <div class="caption">
                     <i class="icon-bar-chart font-dark hide"></i>
-                    <span class="caption-subject font-dark bold uppercase">Total By Flavor</span>
-                  <span class="caption-helper">Total Statistic</span>
+                    <span class="caption-subject font-dark bold uppercase">Total Current Finish Item</span>
+                  <span class="caption-helper">By Series</span>
                 </div>
                 <div class="actions">
                 </div>
             </div>
             <div class="clear" style="height:40px;"></div>
             <div class="portlet-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                    <div class="col-lg-10">
+                        <select id="series" class="form-control">
+                            <option value="-1">-- All Series --</option>
+                            <?php 
+                            foreach ($series as $key) {
+                            ?>
+                                <option value="<?= $key->ca_id; ?>"><?= $key->ca_desc; ?></option>
+                            <?php }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="col-lg-2">
+                        <button type="button" id="seriesBtn" name="seriesBtn" class="btn btn-circle blue">Generate</button>
+                    </div>                                            
+                    </div>
+                </div>
+                <div class="clearfix">
+                    &nbsp;
+                </div>
+            </div>
                 <div id="g1_loading" align="center">
                     <img src="<?= base_url(); ?>/asset2/global/img/loading.gif" alt="loading" /> </div>
                     <!-- #graph -->                                      
@@ -49,8 +73,8 @@
             <div class="portlet-title">
                 <div class="caption">
                     <i class="icon-bar-chart font-dark hide"></i>
-                    <span class="caption-subject font-dark bold uppercase">Total Flavored By Nicotine</span>
-                  <span class="caption-helper">Nicotine Statistic</span>
+                    <span class="caption-subject font-dark bold uppercase">Total finish item</span>
+                  <span class="caption-helper">According to Item Logs</span>
                 </div>
                 <div class="actions">
                 </div>
@@ -60,7 +84,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
-                    <div class="col-lg-10">
+                    <div class="col-lg-4">
                         <select id="color" class="form-control">
                             <option value="-1">-- All Flavor --</option>
                             <?php 
@@ -68,6 +92,28 @@
                                 <option value="<?= $color[$i]->ty2_id; ?>"><?= $color[$i]->ty2_desc; ?></option>
                             <?php }
                             ?>
+                        </select>
+                    </div>
+                    <div class="col-lg-2">
+                        <input type="number" class="form-control" min="2017" name="year" id="year">
+                    </div>
+                    
+                    <div class="col-lg-3">
+                        <select id="month" class="form-control" name="month">
+                            <option value="-1">-- All Month --</option>
+                            <option value="1">January</option>
+                            <option value="2">February</option>
+                            <option value="3">March</option>
+                            <option value="4">April</option>
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7">July</option>
+                            <option value="8">August</option>
+                            <option value="9">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                           
                         </select>
                     </div>
                     <div class="col-lg-2">
@@ -115,13 +161,15 @@
                        <thead class="thead-inverse">
                            <tr>
                                <th rowspan="2">Flavor</th>
-                               <th colspan="3">Quantity</th>
+                               <th colspan="5">Quantity</th>
                                <th rowspan="2">Total</th>
                            </tr>
                            <tr>
                                <th>0 Mg</th>
                                <th>3 Mg</th>
                                <th>6 Mg</th>
+                               <th>12 Mg</th>
+                               <th>No Mg</th>
                            </tr>
                        </thead>
                        <tbody>
@@ -155,7 +203,7 @@
                            </tr> 
                         <?php  } }else{ ?>
                             <tr>
-                                <td colspan="5" align="center"><strong>No Record Data</strong></td>
+                                <td colspan="7" align="center"><strong>No Record Data</strong></td>
                             </tr>
                         <?php }
                         ?>                           
@@ -169,22 +217,40 @@
 </div>
 
 <script>
-    $.post('<?= site_url('graph/getAjaxGraph1') ?>', {}, function(data) {
+$(document).ready(function() {
+
+    $.post('<?= site_url('graph/getAjaxGraph3') ?>', {}, function(data) {
         $.when($('#g1code').html(data)).then(function(){
             $("#g1div").removeClass('display-none');
             $("#g1_loading").addClass('display-none');
         });
     });
     $('#flavBtn').click(function() {
+       
+        
         id = $("#color").val();
-        $.post('<?= site_url('graph/getAjaxGraph2') ?>', {id: id}, function(data) {
+        year2 = $("#year").val();
+        month2 = $("#month").val();
+
+       
+        $.post('<?= site_url('graph/getAjaxGraph4') ?>', {color : id , year : year2 , month : month2}, function(data) {
             $.when($('#g2code').html(data)).then(function(){
                 $("#g2div").removeClass('display-none');
                 $("#g2_loading").addClass('display-none');
             });
         });
     });
-    $('#flavBtn').click();
+    $('#seriesBtn').click(function() {
+        id = $("#series").val();
+        
+        $.post('<?= site_url('graph/getAjaxGraph3') ?>', {series : id}, function(data) {
+            $.when($('#g1code').html(data)).then(function(){
+                $("#g1div").removeClass('display-none');
+                $("#g1_loading").addClass('display-none');
+            });
+        });
+    });
+});
 </script>
 
 

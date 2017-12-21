@@ -7,12 +7,14 @@ var chart = AmCharts.makeChart( "g1div", {
   for ($i=0; $i < sizeof($arr); $i++) { 
     $text = explode("|", $arr[$i]->color);
     $rep = array('<p>','<strong>','</strong>' , '</p>' , ' ', '"');
+    $rep2 = array('<p>','<strong>','</strong>' , '</p>' , '"');
     $text2 = str_replace($rep, '', $text[1]);
     $text2 = preg_replace( "/\r|\n/", "", $text2 );
-    $text1 = preg_replace( "/\r|\n/", "", $arr[$i]->series );
+    $text3 = str_replace($rep2, '', $arr[$i]->series );    
+    $text1 = preg_replace( "/\r|\n/", "", $text3 );
   ?>
   {
-    "color": "<?= $text2."-".$text1 ; ?>",
+    "color": "<?= $text2."-".$text1."-".$arr[$i]->mg."mg" ; ?>",
     "total": <?= $arr[$i]->total; ?>
   } 
   <?php 

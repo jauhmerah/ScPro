@@ -21,7 +21,25 @@ class M_barcode_item extends CI_Model {
             return false;
         }
     }
-
+    public function get($where = NULL) {
+	        $this->db->select('*');
+	        $this->db->from(self::TABLE_NAME);
+	        if ($where !== NULL) {
+	            if (is_array($where)) {
+	                foreach ($where as $field=>$value) {
+	                    $this->db->where($field, $value);
+	                }
+	            } else {
+	                $this->db->where(self::PRI_INDEX, $where);
+	            }
+	        }
+	        $result = $this->db->get()->result();
+	        if ($result) {
+	            	return $result;	            
+	        } else {
+	            return false;
+	        }
+	    }
     public function getExist($nico = array() ,$id = array())
     {
 	    	$this->db->select('*');
@@ -96,6 +114,7 @@ class M_barcode_item extends CI_Model {
     			$this->db->like($like);
     		}
     	}
+        $this->db->order_by('bi.ty2_id , bi.ni_id', 'asc');
 
     	return $this->db->get()->result();
 
@@ -103,10 +122,17 @@ class M_barcode_item extends CI_Model {
 
     public function count($filter = null, $like = null)
     {
-        $this->db->from(self::TABLE_NAME);
+        $this->db->from('barcode_item bi');
         
         if($filter != NULL || $like != NULL)
         {
+            $this->db->join('finish_inv fi', 'fi.bi_id = bi.bi_id', 'left');
+
+            $this->db->join('type2 ty2', 'ty2.ty2_id = bi.ty2_id', 'left');
+            
+            $this->db->join('nicotine ni', 'ni.ni_id = bi.ni_id', 'left');
+                 
+            $this->db->join('category ca', 'ca.ca_id = ty2.ca_id', 'left');
             if (is_array($filter) && $filter != NULL) 
             {
                 foreach ($filter as $key => $value) 
@@ -141,6 +167,63 @@ class M_barcode_item extends CI_Model {
         $this->db->delete(self::TABLE_NAME, $where);
         return $this->db->affected_rows();
     }
+
+    public function get3( $where = null){
+	   		$this->db->select('ty2.ty2_desc as color , ca.ca_desc as series, ni.ni_mg as mg, fi.fi_qty as total');
+            
+            $this->db->from('barcode_item bi');
+               
+	   		$this->db->join('finish_inv fi', 'fi.bi_id = bi.bi_id', 'left');
+
+            $this->db->join('type2 ty2', 'ty2.ty2_id = bi.ty2_id', 'left');
+            
+            $this->db->join('nicotine ni', 'ni.ni_id = bi.ni_id', 'left');
+                 
+            $this->db->join('category ca', 'ca.ca_id = ty2.ca_id', 'left');
+
+            if (is_array($where) && $where != NULL) 
+            {
+                foreach ($where as $key => $value) 
+                {
+                    $this->db->where($key, $value);
+                }
+            }
+
+	   		// $this->db->order_by('ty2.ty2_id', 'asc');
+	   		return $this->db->get()->result();
+           }
+           
+           public function get4($where = null,$year = null,$month = null){
+
+	   		$this->db->select('ty2.ty2_desc as color , ca.ca_desc as series, ni.ni_mg as mg, fi.fi_qty as total');
+            
+            $this->db->from('barcode_item bi');
+               
+	   		$this->db->join('finish_inv fi', 'fi.bi_id = bi.bi_id', 'left');
+
+            $this->db->join('type2 ty2', 'ty2.ty2_id = bi.ty2_id', 'left');
+            
+            $this->db->join('nicotine ni', 'ni.ni_id = bi.ni_id', 'left');
+                 
+            $this->db->join('category ca', 'ca.ca_id = ty2.ca_id', 'left');
+
+            if (is_array($where) && $where != NULL) 
+            {
+                foreach ($where as $key => $value) 
+                {
+                    $this->db->where($key, $value);
+                }
+            }
+            if ($year != null) {
+            $this->db->where('YEAR(lg.fi_date)', $year);
+            if ($month != -1) {
+                $this->db->where('MONTH(lg.fi_date)', $month);
+            }
+        }
+
+	   		// $this->db->order_by('ty2.ty2_id', 'asc');
+	   		return $this->db->get()->result();
+	   	}
     
 
 }

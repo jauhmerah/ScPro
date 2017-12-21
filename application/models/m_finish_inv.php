@@ -73,6 +73,15 @@ class M_finish_inv extends CI_Model {
             return $this->db->affected_rows();
  
     }
+
+    public function countDanger(Type $var = null)
+    {
+	    $this->db->from(self::TABLE_NAME);
+        $this->db->where('fi_qty < fi_danger');
+
+        return $this->db->count_all_results();
+
+    }
     
     public function stockOut($qty , $wh)
 	{

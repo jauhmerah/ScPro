@@ -5,9 +5,16 @@ var chart = AmCharts.makeChart( "g2div", {
   "dataProvider": [
 <?php if(sizeof($arr) != 0){ 
   for ($i=0; $i < sizeof($arr); $i++) { 
+    $text = explode("|", $arr[$i]->color);
+    $rep = array('<p>','<strong>','</strong>' , '</p>' , ' ', '"');
+    $rep2 = array('<p>','<strong>','</strong>' , '</p>' , '"');
+    $text2 = str_replace($rep, '', $text[1]);
+    $text2 = preg_replace( "/\r|\n/", "", $text2 );
+    $text3 = str_replace($rep2, '', $arr[$i]->series );    
+    $text1 = preg_replace( "/\r|\n/", "", $text3 );
   ?>
   {
-    "color": "<?= $arr[$i]->nico." Mg" ; ?>",
+    "color": "<?= $text2."-".$text1."-".$arr[$i]->mg."mg" ; ?>",
     "total": <?= $arr[$i]->total; ?>
   } 
   <?php 
@@ -52,5 +59,4 @@ var chart = AmCharts.makeChart( "g2div", {
   }
 
 } );
-
 </script>

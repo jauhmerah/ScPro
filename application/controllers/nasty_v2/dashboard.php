@@ -427,6 +427,7 @@
                             
                             case '3':
                                 //date
+                                $search = date_format(date_create($search) , 'Y-m-d' ) ;
                                 $like = array('fl.fi_date' => $search );
                             break;
 
@@ -454,7 +455,7 @@
                     $config['per_page'] = $limit_per_page;
                     $config["uri_segment"] =5;
                            // custom paging configuration
-                    $config['num_links'] = 3;
+                    $config['num_links'] = 4;
                     $config['use_page_numbers'] = TRUE;
                     $config['reuse_query_string'] = TRUE;
                      
@@ -1205,12 +1206,15 @@ epul@nastyjuice.com
                     $this->load->database();
                     $this->load->library('l_label');
                     $this->load->model('m_stock_inventory' , 'msi');
+                    $this->load->model('m_category');
                     $this->load->model('m_nico');
                     $this->load->model('m_type2');
                     $temp['color'] = $this->m_type2->get();
+                    $temp['series'] = $this->m_category->get();
                     $temparr = $this->msi->get2();
                     $a2 = null;
-                    foreach ($temparr as $key1) {
+                    foreach ($temparr as $key1) 
+                    {
                         $a2[$key1->ty2_id]['color'] = $key1->ty2_desc;
                         $a2[$key1->ty2_id]['series'] = $key1->ca_desc;
                         $a2[$key1->ty2_id][$key1->ni_id] = $key1->sti_total;
@@ -1225,12 +1229,41 @@ epul@nastyjuice.com
                 case 'i2':
                     $this->load->database();
                     $this->load->model('m_barcode_item');
-
-                    
                     $this->load->library('pagination');
 
                     $like = null;
                     $filter = null;
+
+                    if (($this->input->post("search") && $this->input->post("filter")) || ($this->input->get("search") && $this->input->get("filter"))) 
+                    {
+                        if ($this->input->get("search") && $this->input->get("filter")) {
+                            $search = $this->input->get("search");
+                            $filterM = $this->input->get("filter");
+                        } else {
+                            $search = $this->input->post("search");
+                            $filterM = $this->input->post("filter");
+                        }
+
+                        switch ($filterM) {
+                            case '1':          
+                                //item name                    
+                                $like = array('ty2.ty2_desc' => $search );
+                            break;
+
+                            case '2':
+                                //category
+                                $like = array('ca.ca_desc' => $search );
+                            break;
+                            
+                            case '3':
+                                //barcode
+                                $filter = array('bi.bi_code' => $search );
+                            break;
+
+                           
+                            
+                        }
+                    }
 
                     $limit_per_page = 10;
 
@@ -1238,13 +1271,13 @@ epul@nastyjuice.com
                     $page--;
 
                     $arr['numPage'] = $page*10;
-                    $arr['total'] = $this->m_barcode_item->count($filter);
+                    $arr['total'] = $this->m_barcode_item->count($filter,$like);
 
-                    // $arr['arr'] = $this->m_barcode_item->get2();
+                    
 
                     $arr['result'] = $this->m_barcode_item->get_curr($limit_per_page , $arr['numPage'] , $filter , $like);
                     
-                    $config['base_url'] = site_url('Inventory/page/i2');
+                    $config['base_url'] = site_url('nasty_v2/dashboard/page/i2');
                     $config['total_rows'] = $arr['total'];
                     $config['per_page'] = $limit_per_page;
                     $config["uri_segment"] =5;
@@ -2921,6 +2954,19 @@ epul@nastyjuice.com
             );
             $arr['img'] = $this->m_picture->getPaid($temp);
             echo $this->load->view('nasty_v2/dashboard/ajax/getAjaxUpload', $arr , TRUE);
+        }
+
+        public function getAjaxBarcode()
+        {
+            $this->load->library("my_func");
+            $arr = $this->input->post();
+            $this->load->database();
+            $this->load->model('m_barcode_item');
+            $temp = array(
+                "bi_id" => $this->my_func->scpro_decrypt($this->input->post('id'))
+            );
+            $arr['img'] = $this->m_barcode_item->get($temp);            
+            echo $this->load->view('nasty_v2/dashboard/ajax/getAjaxBarcode',$arr,TRUE);
         }
 
         private function emailSendNew($arr = null , $ver = 1)
