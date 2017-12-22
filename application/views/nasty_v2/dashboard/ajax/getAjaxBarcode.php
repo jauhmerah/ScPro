@@ -6,7 +6,7 @@
 	            		<div class="portlet box blue-madison">
 					        <div class="portlet-title">
 					            <div class="caption">
-					                <i class="fa fa-image"></i>Barcode Information 
+					                <i class="fa fa-image"></i>Barcode Info
 					            </div>                
 					        </div>
 					        <div class="portlet-body flip-scroll">
