@@ -702,7 +702,8 @@
       <form class="form" role="form">
         <div class="form-group">
           <label for="tracking">Tracking Number</label>
-          <input class="form-control tracking" id="tracking" name="tracking" placeholder="Enter tracking Number" required="">
+          <input class="form-control tracking" id="tracking" name="tracking" placeholder="Enter tracking Number" required>
+		  <p class="help-block" >Place ',' to add multiple tracking number</p>
         </div>
       </form>
     </div>
@@ -813,7 +814,7 @@
             {
 
                     bootbox.prompt({
-                        title: "Enter Tracking Number :",
+                        title: "Enter Tracking Number :<br /><h5>Place {<strong>,</strong>} for multiple tracking number</h5>",
                         inputType: 'text',
                         callback: function (result) {
 
