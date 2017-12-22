@@ -95,13 +95,8 @@
 
 
 											?>
-											<?php if($key->fi_qty < $key->fi_danger){
-												$danger = "style='background-color :#FFBDBD;'";
 												
-												}else {
-													$danger = "";
-												} ?>		
-												<tr <?php echo $danger; ?>>
+												<tr>
 													<td><?= $n; ?></td>
 													
 													<td><?= $key->ty2_desc; ?> | <strong><?= $key->ni_mg; ?> mg</strong></td>
@@ -111,78 +106,16 @@
 													<?php if($us_lvl != 8 && $us_lvl != 9 && $us_lvl != 10){ ?>
 													<td>
 													<center>
-												<button type="button" class="Lorder btn bg-green-jungle btn-circle btn-md" id="L<?= $n; ?>" title="Stock-in"><i class="fa fa-arrow-down"></i> STOCK-IN</button>
-												&nbsp;&nbsp;-&nbsp;&nbsp;
 												
-												<button type="button" class="Morder btn bg-yellow-crusta btn-circle btn-md" id="M<?= $n; ?>" title="Stock-out"><i class="fa fa-arrow-up"></i> STOCK-OUT</button>
-												&nbsp;&nbsp;-&nbsp;&nbsp;
-												<button type="button" class="dangerBtn btn bg-red btn-circle btn-md" id="<?= $n.'dgr' ?>" name="<?= $n.'dgr' ?>" title="Danger Zone"><i class="fa fa-exclamation-triangle"></i> DANGER ZONE</button>
-												<input type="hidden" class="form-control <?= $n.'dgr' ?>" value="<?= $this->my_func->scpro_encrypt($key->bi_id); ?>">
-												&nbsp;&nbsp;-&nbsp;&nbsp;
-												
+												<button type="button" class="barcodeBtn btn bg-blue-sharp btn-circle btn-md" id="<?= $n.'bar' ?>" name="<?= $n.'bar' ?>" title="Barcode"><i class="fa fa-barcode"></i></button>
+												<input type="hidden" class="form-control <?= $n.'bar' ?>" value="<?= $this->my_func->scpro_encrypt($key->bi_id); ?>">
 													</center>
 													</td>
 													<?php } ?>
 												</tr>
-												<tr class="L<?= $n; ?>" style="display : none;">
-													<td colspan="5" >
-														<div class="row">
-															<div class="col-md-10 col-md-offset-1">
-															<div class="col-md-6">
+												
 
-
-
-															<label class="control-label pull-right">Quantity :</label>
-															</div>
-																<div class="col-md-5">
-
-																		<div class="form-group">
-																			<form action="<?= site_url('nasty_v2/dashboard/stockIn'); ?>" method="POST">
-																			<input type="number" id="qty" name="qty" class="form-control input-circle">
-																			<div class="clearfix" style="height: 10px"></div>
-																			<input type="hidden" class="form-control" value ="<?= $this->my_func->scpro_encrypt($key->bi_id); ?>" name="id">
-																			<button type="submit" class="btn blue pull-right">
-
-																				<i class="fa fa-save"></i> Stock-In
-																			</button>
-																			</form>
-																		</div>
-																	</div>											
-															</div>										
-														</div>
-														
-													</td>
-												</tr>
-
-												<tr class="M<?= $n; ?>" style="display : none;">
-													<td colspan="5" >
-														<div class="row">
-															<div class="col-md-10 col-md-offset-1">
-															<div class="col-md-6">
-
-														
-
-															<label class="control-label pull-right">Quantity :</label>
-															</div>
-																<div class="col-md-5">
-
-																		<div class="form-group">
-																			<form action="<?= site_url('nasty_v2/dashboard/stockOut'); ?>" method="POST">
-																			<input type="number" id="qty" name="qty" class="form-control input-circle">
-																			<div class="clearfix" style="height: 10px"></div>
-																			<input type="hidden" class="form-control" value ="<?= $this->my_func->scpro_encrypt($key->bi_id); ?>" name="id">
-																			<button type="submit" class="btn blue pull-right">
-
-																				<i class="fa fa-save"></i> Stock-Out
-																			</button>
-																			</form>
-																		</div>
-																	</div>											
-															</div>										
-														</div>
-														
-													</td>
-												</tr>
+												
 												<div name="divDanger" id="divDanger">		
 												</div>
 					 							<?php } ?>
@@ -230,52 +163,6 @@
 
 
 	$(document).ready(function() {
-
-
-		$(".Lorder").click(function() {
-			temp = $(this).prop('id');
-
-			temp2 = temp.substring(1, 2);
-
-            temp3="M"+temp2;
-
-			if ($("."+temp).is(':visible')) {
-				$("."+temp).hide('slow');
-			}else{
-				$("."+temp).show('slow');
-				$("."+temp3).hide('slow');
-
-			}			
-	
-		});
-		$(".Morder").click(function() {
-			temp = $(this).prop('id');
-
-			temp2 = temp.substring(1, 2);
-
-            temp3="L"+temp2;
-
-			if ($("."+temp).is(':visible')) {
-				$("."+temp).hide('slow');
-			}else{
-				$("."+temp).show('slow');
-				$("."+temp3).hide('slow');
-
-			}			
-	
-		});
-
-		$(".dangerBtn").click(function(){
-
-			id = $(this).prop('id');
-               
-            be = $("."+id).val();
-			$.post('<?= site_url('nasty_v2/dashboard/getAjaxDanger'); ?>', {be_id : be}, function(data) {
-               
-                $("#divDanger").html(data);
-            });
-			
-		});
 
 		$(".barcodeBtn").click(function(){
 			id = $(this).prop('id');

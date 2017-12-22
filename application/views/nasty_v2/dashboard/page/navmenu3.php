@@ -139,6 +139,13 @@
                                         
                                     </a>
                                 </li>
+                                <li class="nav-item start">
+                                    <a href="<?= site_url('nasty_v2/dashboard/page/i4') ?>" class="nav-link ">
+                                        <i class="fa fa-wrench"></i>
+                                        <span class="title">Barcode Setting</span>
+                                        
+                                    </a>
+                                </li>
                              
                              
                            
