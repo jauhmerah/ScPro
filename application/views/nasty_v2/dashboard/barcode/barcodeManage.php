@@ -64,9 +64,13 @@
                                                     <select id="inputNico" class="form-control input-circle">
                                                         <option value="-1" selected>-- Select One --</option>
                                                         <?php
-                                                            foreach ($nico as $mg) {?>
+                                                            foreach ($nico as $mg) {
+                                                                if ($mg->ni_mg == -1) { ?>
+                                                                <option style = "background-color: <?= $mg->ni_color; ?> ;" value="<?= $mg->ni_id; ?>">-- No Mg --</option>
+                                                            <?php	}else{
+                                                            ?>
                                                                 <option style = "background-color: <?= $mg->ni_color; ?> ;" value="<?= $mg->ni_id; ?>"><?= $mg->ni_mg; ?> Mg</option>
-                                                            <?php }
+                                                            <?php }}
                                                         ?>
                                                     </select>
                                                 </div>
