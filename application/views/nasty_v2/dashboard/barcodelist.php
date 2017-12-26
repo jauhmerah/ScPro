@@ -17,7 +17,9 @@
 		}
 	});	
 </script>
-
+<?php
+	$(function(){$('#filtering_form').hide();});
+?>
 <link href="<?= base_url(); ?>asset2/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css" rel="stylesheet" type="text/css">
 					<script src="<?= base_url(); ?>asset2/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js" type="text/javascript"></script>
 <div class="row">

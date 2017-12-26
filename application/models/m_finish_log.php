@@ -189,7 +189,7 @@ class M_finish_log extends CI_Model {
 
 		public function get4($where = null,$year = null,$month = null){
 
-	   		$this->db->select('ty2.ty2_desc as color , ca.ca_desc as series, ni.ni_mg as mg, fl.fi_to as total');
+	   		$this->db->select('ty2.ty2_desc as color , ca.ca_desc as series, ni.ni_mg as mg, sum(fl.fi_diff) as total');
             
             $this->db->from('finish_log fl');
                
@@ -215,9 +215,10 @@ class M_finish_log extends CI_Model {
                     $this->db->where($key, $value);
                 }
             }
-           
+			$this->db->group_by('it.it_id');  
+
 			$this->db->order_by('fl.fi_date', 'desc');
-			$this->db->limit(1);	
+			// $this->db->limit(1);	
 	   		
 	   		return $this->db->get()->result();
 	   	}

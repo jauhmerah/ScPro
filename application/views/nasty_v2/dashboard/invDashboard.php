@@ -84,17 +84,24 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
-                    <div class="col-lg-4">
-                        <select id="color" class="form-control">
-                            <option value="-1">-- All Flavor --</option>
+                    <div class="col-lg-3">
+                        <select id="series2" class="form-control">
+                            <option value="-1">-- All Series --</option>
                             <?php 
-                            for ($i=0; $i < sizeof($color); $i++) { ?>
-                                <option value="<?= $color[$i]->ty2_id; ?>"><?= $color[$i]->ty2_desc; ?></option>
+                            foreach ($series as $key) {
+                            ?>
+                                <option value="<?= $key->ca_id; ?>"><?= $key->ca_desc; ?></option>
                             <?php }
                             ?>
                         </select>
                     </div>
-                    <div class="col-lg-2">
+                    <div class="col-lg-3" id="divColor" name="divColor">
+                        <select id="color" class="form-control" disabled>
+                            <option value="-1">-- All Flavor --</option>
+                            
+                        </select>
+                    </div>
+                    <div class="col-lg-1">
                         <input type="number" class="form-control" min="2017" name="year" id="year">
                     </div>
                     
@@ -224,6 +231,13 @@ $(document).ready(function() {
             $("#g1div").removeClass('display-none');
             $("#g1_loading").addClass('display-none');
         });
+    });
+    $('#series2').change(function () {
+        id = $("#series2").val();
+         $.post('<?= site_url('nasty_v2/dashboard/getAjaxColor'); ?>', {ca : id}, function(data) {
+               
+                $("#divColor").html(data);
+            });
     });
     $('#flavBtn').click(function() {
        

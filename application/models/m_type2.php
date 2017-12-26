@@ -40,6 +40,30 @@ class M_type2 extends CI_Model {
             return false;
         }
     }
+    public function get2($where = NULL) {
+        $this->db->select('*');
+        $this->db->from(self::TABLE_NAME);
+        if ($where !== NULL) {
+            if (is_array($where)) {
+                foreach ($where as $field=>$value) {
+                    $this->db->where($field, $value);
+                }
+            } else {
+                $this->db->where(self::PRI_INDEX, $where);
+            }
+        }
+        
+        $result = $this->db->get()->result();
+        if ($result) {
+            if ($where !== NULL) {
+                return array_shift($result);
+            } else {
+                return $result;
+            }
+        } else {
+            return false;
+        }
+    }
 
     /**
      * Inserts new data into database

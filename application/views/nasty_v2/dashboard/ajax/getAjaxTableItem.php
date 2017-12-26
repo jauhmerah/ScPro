@@ -1,47 +1,5 @@
 
-
-<link href="<?= base_url(); ?>asset2/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css" rel="stylesheet" type="text/css">
-					<script src="<?= base_url(); ?>asset2/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js" type="text/javascript"></script>
-<div class="row">
-	<div class="col-md-12">
-           <div class="tab-pane active" id="tab_1">
-                        <div class="portlet box red-soft ribbon mt-element-ribbon" >
-                            <div class="portlet-title">
-                                <div class="caption">
-                                    <img src="<?= base_url(); ?>/assets/cover/favicon2.png"> Finish Item List                                   
-                                </div>
-                            
-                            </div>
-							
-                           <div class="portlet-body form">
-							<div class="clearfix">
-								&nbsp;
-							</div>
-							 <div class="row tableC">
-								<!-- <form id="formSearch" action="<?= site_url('nasty_v2/dashboard/page/i2'); ?>" method="POST" role="form"> -->
-									<div class="col-md-12">
-										<div class="col-md-7">
-										</div> 
-										<div class="col-md-5">
-											<div class="form-group">
-												<label for="input" class="col-sm-2 control-label">Barcode </label>
-												<div class="col-sm-10">
-													<input type="search" name="search" id="search" class="form-control input-circle" placeholder="Barcode No." onmouseover="this.focus();" required>
-												</div>
-											</div>
-										</div>
-								
-									</div>
-								<!-- </form> -->
-							</div>
-							<div class="clearfix">
-								&nbsp;
-							</div>
-							 <div class="row tableC">
-                           		<div class="table-responsive">
-                           			<div class="col-md-12" id="divTableItem" name="divTableItem">
-                           				
-											<table class="table table-bordered">
+<table class="table table-bordered">
 											<thead>
 												<tr>
 													<th>#</th>
@@ -49,9 +7,9 @@
 													<th>Item</th>
 													<th>Category</th>
 													<th>Current Quantity</th>
-												
+													
 													<th>Action</th>
-												
+													
 												</tr>
 											</thead>
 											<tbody>
@@ -178,95 +136,3 @@
 											</tr>
 										</tfoot>
 										</table>
-					</div>
-				</div>
-				</div>
-				<div id="fileUp" style="display:none;">
-	            	
-	            </div>
-
-
-                            </div> 
-                        </div>                       
-                    </div>
-        </div>
-</div>
-<script>
-
-
-		
-
-
-	$(document).ready(function() {
-
-
-		$(".Lorder").click(function() {
-			temp = $(this).prop('id');
-
-			temp2 = temp.substring(1, 2);
-
-            temp3="M"+temp2;
-
-			if ($("."+temp).is(':visible')) {
-				$("."+temp).hide('slow');
-			}else{
-				$("."+temp).show('slow');
-				$("."+temp3).hide('slow');
-
-			}			
-	
-		});
-		$(".Morder").click(function() {
-			temp = $(this).prop('id');
-
-			temp2 = temp.substring(1, 2);
-
-            temp3="L"+temp2;
-
-			if ($("."+temp).is(':visible')) {
-				$("."+temp).hide('slow');
-			}else{
-				$("."+temp).show('slow');
-				$("."+temp3).hide('slow');
-
-			}			
-	
-		});
-		$("#search").keyup(function(){
-            search = $("#search").val();
-			
-			$.post('<?= site_url('nasty_v2/dashboard/getAjaxTableItem'); ?>', {search : search}, function(data) {
-               
-                $("#divTableItem").html(data);
-            });
-						
-		});
-		$(".dangerBtn").click(function(){
-
-			id = $(this).prop('id');
-               
-            be = $("."+id).val();
-			$.post('<?= site_url('nasty_v2/dashboard/getAjaxDanger'); ?>', {be_id : be}, function(data) {
-               
-                $("#divDanger").html(data);
-            });
-			
-		});
-
-		$(".barcodeBtn").click(function(){
-			id = $(this).prop('id');
-               
-            be = $("."+id).val();
-			
-			$.post('<?= site_url('nasty_v2/dashboard/getAjaxBarcode'); ?>', {id:be}, function(data) {
-				$.when($(".tableC").fadeOut("slow")).then(function(){
-					$.when($("#fileUp").html(data)).then(function(){$("#fileUp").fadeIn("fast");});
-				});				
-			});
-		});
-
-
-		
-	});
-
-</script>

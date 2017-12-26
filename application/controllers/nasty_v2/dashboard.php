@@ -1230,39 +1230,35 @@ epul@nastyjuice.com
                     $this->load->database();
                     $this->load->model('m_barcode_item');
                     $this->load->library('pagination');
+                    $this->load->helper('array');
 
                     $like = null;
                     $filter = null;
 
-                    if (($this->input->post("search") && $this->input->post("filter")) || ($this->input->get("search") && $this->input->get("filter"))) 
+                    if ($this->input->post("search") ) 
                     {
-                        if ($this->input->get("search") && $this->input->get("filter")) {
-                            $search = $this->input->get("search");
-                            $filterM = $this->input->get("filter");
-                        } else {
                             $search = $this->input->post("search");
-                            $filterM = $this->input->post("filter");
-                        }
 
-                        switch ($filterM) {
-                            case '1':          
-                                //item name                    
-                                $like = array('ty2.ty2_desc' => $search );
-                            break;
+                            if(strpos($search, ',') !== false)
+                            {
+                                $search = explode(',', $search);
+                                
+                               
+                                
+                                $sizeArr = sizeof($search);
 
-                            case '2':
-                                //category
-                                $like = array('ca.ca_desc' => $search );
-                            break;
-                            
-                            case '3':
-                                //barcode
+                                foreach ($search as $key => $value){
+                                    $filter[] = $value;
+                                }
+                               
+                                // print_r ($filter[0]);
+                               
+                            }
+                            else
+                            {
                                 $filter = array('bi.bi_code' => $search );
-                            break;
-
-                           
+                            }             
                             
-                        }
                     }
 
                     $limit_per_page = 10;
@@ -1318,127 +1314,31 @@ epul@nastyjuice.com
                     $crud = new grocery_CRUD();
                     $crud->set_model('m_barcode_item_crud');
                     $crud->set_table('barcode_item');
-                    $crud->set_subject('barcode item');
-                    $crud->callback_column('ty2_id',array($this,'callback_col_item2'));
-                                       
+                   
+                    $crud->required_fields('bi_code', 'bi_img_url');                                 
                     $crud->set_relation('ni_id','nicotine','ni_mg');
-                    $crud->columns('bi_id','bi_code','bi_img_url','ty2_id','ca_id','ni_id');
+                    
+                    $crud->columns('bi_code','bi_img_url','ty2_id','ni_id');
                     $crud->display_as('bi_code','Barcode Number')
                          ->display_as('bi_img_url','Barcode Image')
                          ->display_as('ty2_id','Item Description')
-                         ->display_as('ca_id','Series')
                          ->display_as('ni_id','Nicotine');
+                    $crud->callback_column('ty2_id',array($this,'callback_col_item2'));
+                         
+                    $crud->set_field_upload('bi_img_url','assets/uploads/barcode_item');
                     $crud->unset_print();
 		    		$crud->unset_export();
 		    		$crud->unset_add();
 		    		$crud->unset_delete();
-                    // $crud->callback_column('ca_id',array($this,'callback_col_item'));
-                    // $crud->callback_add_field('ca_id', function () {
-                    //         $this->load->database();
-                    //         $this->load->model('m_category');
-                    //         $cat = $this->m_category->get();
-                    //         $text2 = "";
-                    //         foreach ($cat as $key) {
-                    //             $text2 = $text2 . '<option style="background-color:'.$key->ca_color.'" value="'.$key->ca_id .'">'. $key->ca_desc.' </option>';
-                    //         }
-                    //         $text = '
-                    //         <div class="form-group">
-                    //             <div class="col-sm-8">
-                    //                 <select id="cat" name= "ca_id" class="form-control input-circle">
-                    //                     <option value="-1">-- Select Category --</option>
-                    //                     '.$text2.'
-                    //                 </select>
-                    //             </div>
-                    //         </div>
-                    //         ';
-                    //         return $text;
-                    //     });
-                    // $crud->callback_before_insert(array($this,'callback_before_insert_item'));
+		    		$crud->unset_search();
+		    		
+                   
 					$output = $crud->render();
 		    		$data['display'] = $this->load->view('crud' , $output , true);
 		    		$this->_show('display' , $data , $key);
     				break;
 
-                    // $this->load->database();
-                    // $this->load->model('m_barcode_item');
-                    // $this->load->library('pagination');
-
-                    // $like = null;
-                    // $filter = null;
-
-                    // if (($this->input->post("search") && $this->input->post("filter")) || ($this->input->get("search") && $this->input->get("filter"))) 
-                    // {
-                    //     if ($this->input->get("search") && $this->input->get("filter")) {
-                    //         $search = $this->input->get("search");
-                    //         $filterM = $this->input->get("filter");
-                    //     } else {
-                    //         $search = $this->input->post("search");
-                    //         $filterM = $this->input->post("filter");
-                    //     }
-
-                    //     switch ($filterM) {
-                    //         case '1':          
-                    //             //item name                    
-                    //             $like = array('ty2.ty2_desc' => $search );
-                    //         break;
-
-                    //         case '2':
-                    //             //category
-                    //             $like = array('ca.ca_desc' => $search );
-                    //         break;
-                            
-                    //         case '3':
-                    //             //barcode
-                    //             $filter = array('bi.bi_code' => $search );
-                    //         break;
-
-                           
-                            
-                    //     }
-                    // }
-
-                    // $limit_per_page = 10;
-
-                    // $page = $this->uri->segment(5,1);
-                    // $page--;
-
-                    // $arr['numPage'] = $page*10;
-                    // $arr['total'] = $this->m_barcode_item->count($filter,$like);
-
                     
-
-                    // $arr['result'] = $this->m_barcode_item->get_curr($limit_per_page , $arr['numPage'] , $filter , $like);
-                    
-                    // $config['base_url'] = site_url('nasty_v2/dashboard/page/i4');
-                    // $config['total_rows'] = $arr['total'];
-                    // $config['per_page'] = $limit_per_page;
-                    // $config["uri_segment"] =5;
-                     
-                    // // custom paging configuration
-                    // $config['num_links'] = 3;
-                    // $config['use_page_numbers'] = TRUE;
-                    // $config['reuse_query_string'] = TRUE;
-                     
-                    // $config['cur_tag_open'] = '<li><a class="current"><strong>';
-                    // $config['cur_tag_close'] = '</strong></a></li>';
-                    // $config['num_tag_open'] = '&nbsp;<li>';
-                    // $config['num_tag_close'] = '</li>&nbsp;';
-                    // $config['prev_tag_open'] = '<li>';
-                    // $config['prev_tag_close'] = '</li>';
-                    // $config['last_tag_open'] = '<li>';
-                    // $config['last_tag_close'] = '</li>';
-                    // $config['next_tag_open'] = '<li>';
-                    // $config['next_tag_close'] = '</li>';
-                    // $config['first_tag_open'] = '<li>';
-                    // $config['first_tag_close'] = '</li>';
-                    // $config['next_link'] = 'Next';
-                    // $config['prev_link'] = 'Previous';
-                    // $this->pagination->initialize($config);
-                    // $arr["link"] = $this->pagination->create_links();
-
-                    // $data['title'] = '<i class="fa fa-fw fa-edit"></i>Inventory</a>';
-                    // $data['display'] = $this->load->view($this->parent_page.'/barcodelist', $arr , TRUE);
-                    // $this->_show('display' , $data , $key);
 
                 break;
 
@@ -2178,9 +2078,10 @@ epul@nastyjuice.com
             $this->load->database();
             $this->load->model('m_type2');            
             $this->load->model('m_category');
-            $ty2 = $this->m_type2->get($value);
-            $cat = $this->m_category->getAll($ty2->ca_id);
-            $text = $ty2->ty2_desc.'<span class="label" style="background-color: '.$cat->ca_color.';" ><strong>'.$cat->ca_desc.'</strong></span>';
+            $ty2 = $this->m_type2->get2($value);
+            $arr = array('ca_id' => $ty2->ca_id );
+            $cat = $this->m_category->get($arr);
+            $text = $ty2->ty2_desc.'          <span class="label" style="background-color: '.$cat->ca_color.';" ><strong>'.$cat->ca_desc.'</strong></span>';
             return $text ;
         }
     	private function _loadCrud()
@@ -3111,6 +3012,86 @@ epul@nastyjuice.com
             echo $this->load->view('nasty_v2/dashboard/ajax/getAjaxBarcode',$arr,TRUE);
         }
 
+        public function getAjaxTableItem()
+        {
+            $this->load->database();
+                    $this->load->model('m_barcode_item');
+                    $this->load->library("my_func");
+                    $this->load->library('pagination');
+                    $this->load->helper('array');
+
+                    $like = null;
+                    $filter = null;
+
+                    if ($this->input->post("search") ) 
+                    {
+                            $search = $this->input->post("search");
+
+                            if(strpos($search, ',') !== false)
+                            {
+                                $search = explode(',', $search);
+                                
+                               
+                                
+                                $sizeArr = sizeof($search);
+
+                                foreach ($search as $key => $value){
+                                    $filter[] = $value;
+                                }
+                               
+                               
+                            }
+                            else
+                            {
+                                $filter = array('bi.bi_code' => $search );
+                            }             
+                            
+                    }
+
+                    $limit_per_page = 10;
+
+                    $page = $this->uri->segment(5,1);
+                    $page--;
+
+                    $arr['numPage'] = $page*10;
+                    $arr['total'] = $this->m_barcode_item->count($filter,$like);
+
+                    
+
+                    $arr['result'] = $this->m_barcode_item->get_curr($limit_per_page , $arr['numPage'] , $filter , $like);
+                    
+                    $config['base_url'] = site_url('nasty_v2/dashboard/page/i2');
+                    $config['total_rows'] = $arr['total'];
+                    $config['per_page'] = $limit_per_page;
+                    $config["uri_segment"] =5;
+                     
+                    // custom paging configuration
+                    $config['num_links'] = 3;
+                    $config['use_page_numbers'] = TRUE;
+                    $config['reuse_query_string'] = TRUE;
+                     
+                    $config['cur_tag_open'] = '<li><a class="current"><strong>';
+                    $config['cur_tag_close'] = '</strong></a></li>';
+                    $config['num_tag_open'] = '&nbsp;<li>';
+                    $config['num_tag_close'] = '</li>&nbsp;';
+                    $config['prev_tag_open'] = '<li>';
+                    $config['prev_tag_close'] = '</li>';
+                    $config['last_tag_open'] = '<li>';
+                    $config['last_tag_close'] = '</li>';
+                    $config['next_tag_open'] = '<li>';
+                    $config['next_tag_close'] = '</li>';
+                    $config['first_tag_open'] = '<li>';
+                    $config['first_tag_close'] = '</li>';
+                    $config['next_link'] = 'Next';
+                    $config['prev_link'] = 'Previous';
+                    $this->pagination->initialize($config);
+                    $arr["link"] = $this->pagination->create_links();
+
+                    $data['title'] = '<i class="fa fa-fw fa-edit"></i>Inventory</a>';
+                    // $data['display'] = $this->load->view($this->parent_page.'/itemList', $arr , TRUE);
+                    echo $this->load->view('nasty_v2/dashboard/ajax/getAjaxTableItem',$arr,TRUE);
+        }
+
         private function emailSendNew($arr = null , $ver = 1)
         {
             //unconfirm to new order;
@@ -3447,6 +3428,17 @@ epul@nastyjuice.com
             echo $this->load->view('nasty_v2/dashboard/ajax/getAjaxImg', $arr , TRUE);
         }
 
+        public function getAjaxColor()
+        {
+            $ca_id = $this->input->post("ca");
+            
+            $this->load->database();
+            $this->load->model("m_type2");
+    
+            $arr['color'] = $this->m_type2->get(array("ca_id" => $ca_id));
+            echo $this->load->view('nasty_v2/dashboard/ajax/getAjaxColor', $arr , TRUE);
+            
+        }
         public function testqr()
         {
             $this->load->library('qrgen');

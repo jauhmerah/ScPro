@@ -87,7 +87,7 @@ class M_barcode_item extends CI_Model {
 	        return $this->db->get()->result();	        
     }
 
-    public function get_curr( $limit = 2, $start = 0, $filter = NULL, $like = NULL)
+    public function get_curr( $limit = 2, $start = 0, $filter = array(), $like = NULL)
     {
         $this->db->select('*');
         $this->db->from('barcode_item bi');
@@ -100,12 +100,16 @@ class M_barcode_item extends CI_Model {
                  
         $this->db->join('category ca', 'ca.ca_id = ty2.ca_id', 'left');
 
+        
         $this->db->limit($limit, $start);
-    	If($filter != null){
+    	If($filter != NULL){
     		if(is_array($filter)){
-    			foreach ($filter as $key => $value){
-    				$this->db->where($key , $value);
-    			}
+             
+    			foreach ($filter as $key => $value) {
+                     $this->db->or_where('bi.bi_code', $value);
+                }
+    				
+    			
     		}
     	}
     	
@@ -120,7 +124,7 @@ class M_barcode_item extends CI_Model {
 
     }
 
-    public function count($filter = null, $like = null)
+    public function count($filter = NULL, $like = null)
     {
         $this->db->from('barcode_item bi');
         
@@ -133,11 +137,12 @@ class M_barcode_item extends CI_Model {
             $this->db->join('nicotine ni', 'ni.ni_id = bi.ni_id', 'left');
                  
             $this->db->join('category ca', 'ca.ca_id = ty2.ca_id', 'left');
+
+     
             if (is_array($filter) && $filter != NULL) 
             {
-                foreach ($filter as $key => $value) 
-                {
-                    $this->db->where($key, $value);
+                foreach ($filter as $key => $value) {
+                     $this->db->or_where('bi.bi_code', $value);
                 }
             }
 
