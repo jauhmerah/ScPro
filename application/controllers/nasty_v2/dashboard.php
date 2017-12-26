@@ -467,7 +467,7 @@
                             $this->session->set_flashdata('success', 'The order are completed. Please print the D.O. form before shipping.');
                             $email['fromName'] = "Ai System";
                             $email['fromEmail'] = "nstylabc@sirius.sfdns.net";
-                            $email['toEmail'] = array('0' => "faeiz@nastyjuice.com", '1' => "account@nastyjuice.com" , '2' => 'hairi@nastyjuice.com');
+                            $email['toEmail'] = array("zul@nastyjuice.com", "account@nastyjuice.com");
                             $email['subject'] = "Order #".((10000*$ver)+100000+$or_id)." Completed";
                             $email['msg'] = "
 Order Detail
@@ -1322,12 +1322,12 @@ epul@nastyjuice.com
 
                             $email['fromName'] = "Bigtime OrdYs System";
                             $email['fromEmail'] = "noreply@nastyjuice.com";
-                            $email['toEmail'] = array(' finance@nastyjuice.com , zul@nastyjuice.com ');;
+                            $email['toEmail'] = ' finance@nastyjuice.com , zul@nastyjuice.com ';
                             $email['subject'] = 'New Bigtime Purchase Order #'.(120000+$or_id);
                             $email['html'] = true;
                             //$content=$this->load->view('/mail/send_email',$arr,true);
                             $email['msg'] =$this->load->view('/mail/send_email',$arr,true);
-                            $this->sendEmail2($email);
+                            $this->sendEmail($email);
 
                         $this->session->set_flashdata('success', 'New Order successfully added');
                         redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
@@ -1933,14 +1933,14 @@ epul@nastyjuice.com
 
                             $email['fromName'] = "Nasty OrdYs System";
                             $email['fromEmail'] = "noreply@nastyjuice.com";
-                            $email['toEmail'] = array(' finance@nastyjuice.com , zul@nastyjuice.com ');;
+                            $email['toEmail'] = ' finance@nastyjuice.com , zul@nastyjuice.com ';
                             $email['subject'] = 'Payment are already uploaded for Purchase Order #'.(120000+$or_id);
                             $email['html'] = true;
                             $content=$this->load->view('/mail/payment_email',$arr,true);
                             $email['msg'] =$content;
 
 
-                            $result=$this->sendEmail2($email);
+                            $result=$this->sendEmail($email);
 
                     }elseif ($i == 0) {
                         $code = "<ul>";
@@ -2183,10 +2183,6 @@ epul@nastyjuice.com
 			$arr['icon'] = base_url()."assets/uploads/item/".$arr['imgIcon'];
 			echo $this->load->view($this->old_page. "/ajax/getAjaxOrderBox2", $arr , true);
 		}
-		public function testAjax()
-		{
-			echo $this->load->view($this->old_page."/ajax/testajax","", TRUE);
-		}
 
 		public function deleteOrder($or_id = null)
 		{
@@ -2339,89 +2335,6 @@ epul@nastyjuice.com
             return false;
         }
 
-        public function sendEmail2($email = null){
-            if ($email != null && is_array($email)) {
-                $this->load->library('email');
-
-                $this->email->from($email['fromEmail'], $email['fromName']);
-                if(isset($email['toEmail'])){
-                    if (is_array($email['toEmail'])) {
-                        foreach ($email['toEmail'] as $key => $toEmail) {
-
-                            $this->email->to($toEmail);
-                            if (isset($email['toCc'])) {
-                                    if (is_array($email['toCc'])) {
-                                                foreach ($email['toCc'] as $key)         {
-                                                    $this->email->cc($key);
-                                                }
-                                    }else{
-                                        $this->email->cc($email['toCc']);
-                                    }
-                                }
-                                if (isset($email['toBcc'])) {
-                                    if (is_array($email['toBcc'])) {
-                                        foreach ($email['toBcc'] as $key)
-                                        {
-                                            $this->email->bcc($key);
-                                        }
-                                    }else{
-                                        $this->email->bcc($email['toBcc']);
-                                    }
-                                }
-                                $this->email->subject($email['subject']);
-                                $this->email->message($email['msg']);
-                                if (isset($email['html'])) {
-                                $this->email->set_mailtype('html');
-                                }
-                                $this->email->send();
-
-                                return true;
-
-                        }
-                    }else{
-                                $this->email->to($email['toEmail']);
-
-                                if (isset($email['toCc'])) {
-                                    if (is_array($email['toCc'])) {
-                                                foreach ($email['toCc'] as $key)         {
-                                                    $this->email->cc($key);
-                                                }
-                                    }else{
-                                        $this->email->cc($email['toCc']);
-                                    }
-                                }
-                                if (isset($email['toBcc'])) {
-                                    if (is_array($email['toBcc'])) {
-                                        foreach ($email['toBcc'] as $key)
-                                        {
-                                            $this->email->bcc($key);
-                                        }
-                                    }else{
-                                        $this->email->bcc($email['toBcc']);
-                                    }
-                                }
-                                $this->email->subject($email['subject']);
-                                $this->email->message($email['msg']);
-                                if (isset($email['html'])) {
-                                $this->email->set_mailtype('html');
-                                }
-                                $this->email->send();
-
-                                return true;
-                    }
-                }else{
-
-                    $this->session->set_flashdata('error', 'Please set to->email');
-                    return false;
-                }
-
-
-
-            }
-            return false;
-        }
-
-
         public function getAjaxcrud()
         {
             $this->load->library('encrypt');
@@ -2504,7 +2417,7 @@ epul@nastyjuice.com
                 $saleman = $this->m_user->getName($arr['us_id']);
                 $email['fromName'] = "Ai System";
                 $email['fromEmail'] = "nstylabc@sirius.sfdns.net";
-                $email['toEmail'] = array("faeiz@nastyjuice.com", "account@nastyjuice.com" , 'hairi@nastyjuice.com' , 'abun@nastyjuice.com');
+                $email['toEmail'] = array("faeiz@nastyjuice.com", "account@nastyjuice.com" , 'abun@nastyjuice.com');
                 $email['subject'] = "New Order #".((10000*$ver)+100000+$or_id);
                 $email['msg'] = "
 Order Detail
@@ -2545,7 +2458,7 @@ epul@nastyjuice.com
                 $saleman = $this->m_user->getName($arr->us_id);
                 $email['fromName'] = "Ai System";
                 $email['fromEmail'] = "nstylabc@sirius.sfdns.net";
-                $email['toEmail'] = array("faeiz@nastyjuice.com", "account@nastyjuice.com" ,'hairi@nastyjuice.com' ,'abun@nastyjuice.com');
+                $email['toEmail'] = array("zul@nastyjuice.com", "account@nastyjuice.com" ,'abun@nastyjuice.com');
                 $email['subject'] = "Unconfirm #".((10000*$ver)+100000+$or_id);
                 $email['msg'] = "
 Order Detail
@@ -2584,7 +2497,7 @@ epul@nastyjuice.com
                 $saleman = $this->m_user->getName($arr->us_id);
                 $email['fromName'] = "Ai System";
                 $email['fromEmail'] = "nstylabc@sirius.sfdns.net";
-                $email['toEmail'] = array("faeiz@nastyjuice.com","account@nastyjuice.com" ,'hairi@nastyjuice.com' , 'abun@nastyjuice.com');
+                $email['toEmail'] = array("zul@nastyjuice.com","account@nastyjuice.com" , 'abun@nastyjuice.com');
                 $email['subject'] = "On Hold Order #".((10000*$ver)+100000+$or_id);
                 $email['msg'] = "
 Order Detail
@@ -2624,7 +2537,7 @@ epul@nastyjuice.com
                 $saleman = $this->m_user->getName($arr->us_id);
                 $email['fromName'] = "Ai System";
                 $email['fromEmail'] = "nstylabc@sirius.sfdns.net";
-                $email['toEmail'] = array("faeiz@nastyjuice.com","account@nastyjuice.com" , 'hairi@nastyjuice.com' ,'abun@nastyjuice.com');
+                $email['toEmail'] = array("faeiz@nastyjuice.com","account@nastyjuice.com" ,'abun@nastyjuice.com');
                 $email['subject'] = "In Progress Order #".((10000*$ver)+100000+$or_id);
                 $email['msg'] = "
 Order Detail
@@ -2773,7 +2686,7 @@ Epul
 epul@nastyjuice.com
 
                 ";
-                $this->sendEmail2($email);
+                $this->sendEmail($email);
                 }
             }
             $this->session->set_flashdata('success', 'Success Send the Request');
