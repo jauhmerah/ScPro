@@ -1674,6 +1674,12 @@ epul@nastyjuice.com
 						}
 					}
 					break;
+					case 'f1':
+						// timeline
+						$page = 'timeline/tl';
+						$data = NULL;
+						$this->_show($page , $data , $key);
+						break;
     			default:
     				$this->_show();
     				break;
