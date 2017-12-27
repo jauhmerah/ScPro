@@ -18,17 +18,6 @@
 	    function index() {
 	        $this->page('a1');
 	    }
-        public function dummyInvoice()
-        {
-            $html =$this->load->view($this->parent_page.'/orderDummy' , '' , true);
-            echo $html;
-        }
-        public function Invoice()
-        {
-
-            $html =$this->load->view($this->parent_page.'/orderInvoice' , '' , true);
-            echo $html;
-        }
 
 	   	private function _show($page = 'display' , $data = null , $key = 'a1'){
             $link['link'] = $key;
@@ -51,55 +40,11 @@
 	    	$this->load->view($this->parent_page.'/page/footer', '', FALSE);
 	    }
 
-        public function dataCount()
-        {
-            $this->load->database();
-            $this->load->model('m_order');
-            $arr['net'] = $this->m_order->getIncome(1);
-            $arr['acc'] = $this->m_order->getIncome(1,1);
-            $sizeNet = sizeof($arr['net']);
-            if ($sizeNet != 0) {
-                for ($i = 0 ; $i < $sizeNet ; $i++) {
-                    $data[$i]['date'] = $arr['net'][$i]->month."|".$arr['net'][$i]->year;
-                    $data[$i]['net'] = $arr['net'][$i]->sales;
-                    if ($arr['net'][$i]->month == $arr['acc'][0]->month && $arr['net'][$i]->year == $arr['acc'][0]->year) {
-                        $data[$i]['acc'] = $arr['acc'][0]->sales;
-                        array_shift($arr['acc']);
-                    } else {
-                        $data[$i]['acc'] = 0;
-                    }
-                }
-            }else{
-                $data = null;
-            }
-            echo "<pre>";
-            print_r($data);
-            echo "</pre>";
-        }
-        public function getAjaxGraph()
-        {
-            $this->load->database();
-            $this->load->model('m_item');
-            $arr['arr'] = $this->m_item->totalByOrder();
-            echo $this->load->view($this->parent_page.'/ajax/getAjaxGraph', $arr, false);
-        }
-        public function getAjaxGraph2()
-        {
-            $arr1 = $this->input->post();
-            $this->load->database();
-            $this->load->model('m_item');
-            $this->load->model('m_nico');
-            $arr['arr'] = $this->m_item->totalByFlavor($arr1['year1'] , $arr1['month1'] , $arr1['client'] , $arr1['mg'], $arr1['country']);
-            /*echo "<pre>";
-            print_r($arr);
-            echo "</pre>";*/
-            //die();
-            echo $this->load->view($this->parent_page.'/ajax/getAjaxGraph2', $arr , false);
-        }
 	    public function page($key)
     	{
     		//$arr = $this->input->get();
     		$this->_checkSession();
+			$this->load->helper('timeline');
             $lvl =$this->my_func->scpro_decrypt($this->session->userdata('us_lvl'));
     		switch ($key) {
                 case 'test':
@@ -140,6 +85,7 @@
                         );
                         $this->load->model('m_order');
                         $this->m_order->update($arr , $or_id);
+						recordLog($or_id , 5);
                     }
                     $this->session->set_flashdata('info', 'Order Deleted');
                     redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
@@ -222,17 +168,6 @@
                         break;
                     }
                 case 'a1':
-                    /*if ($lvl == 2 || $lvl == 3) {
-                        redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
-                    }
-                    $this->load->database();
-                    $this->load->model('m_order');
-                    $arr['vernew'] = $this->m_order->orderCount(2);
-                    $arr['verold'] = $this->m_order->orderCount(1) + $this->m_order->orderCount(0);
-                    $data['title'] = '<i class="fa fa-fw fa-edit">Switchover</i> </a>';
-                    $data['display'] = $this->load->view($this->parent_page.'/switch_ver' ,$arr, true);
-                    $this->_show('display' , $data , $key);
-                break;*/
     			case 'a1new':
                     //OrdSys 2.3.0
     				if ($lvl == 2 || $lvl == 3) {
@@ -455,7 +390,7 @@
                         $this->load->model('m_order');
                         $this->load->model('m_order_ext');
                         $finish = date("Y-m-d",time());
-                        $ver = 1;
+                        $ver = 2;
                         if ($this->input->get('ver')) {
                             $ver = $this->input->get('ver');
                         }
@@ -464,11 +399,12 @@
                         if ($row == 0) {
                             $this->session->set_flashdata('warning', 'Ops!! Unable to update the order status...');
                         } else {
+							recordLog($or_id , 3);
                             $this->session->set_flashdata('success', 'The order are completed. Please print the D.O. form before shipping.');
                             $email['fromName'] = "Ai System";
                             $email['fromEmail'] = "nstylabc@sirius.sfdns.net";
-                            $email['toEmail'] = array("zul@nastyjuice.com", "account@nastyjuice.com");
-                            $email['subject'] = "Order #".((10000*$ver)+100000+$or_id)." Completed";
+                            $email['toEmail'] = "zul@nastyjuice.com, account@nastyjuice.com";
+                            $email['subject'] = $this->version." #".((10000*$ver)+100000+$or_id)." Completed";
                             $email['msg'] = "
 Order Detail
 
@@ -501,7 +437,8 @@ epul@nastyjuice.com
                         $this->load->database();
                         $this->load->model('m_order');
                         $result = $this->m_order->update(array('pr_id' => 2) , $or_id);
-                        $orCode = "#".(100000+$or_id);
+						recordLog($or_id , 2);
+                        $orCode = "#".(120000+$or_id);
                         if ($result == 0) {
                             $this->session->set_flashdata('warning', 'Something wrong with your order <strong>'.$orCode.'</strong>, please contact your IT Team');
                         } else {
@@ -640,9 +577,7 @@ epul@nastyjuice.com
                     $this->_show('display' , $data , $key);
                     break;
 
-
-
-                    case 'a62':
+                case 'a62':
 
                     if ($this->input->get('page')) {
                         $p = $this->input->get('page');
@@ -708,13 +643,6 @@ epul@nastyjuice.com
                                     redirect(site_url("nasty_v2/dashboard/page/a1"),'refresh');
                                 }
                                 $str = (string)$search;
-                                /*if ($str[1] == '1') {
-                                    $id = $search - 110000;
-                                    $ver = 1;
-                                } else {
-                                    $id = $search - 100000;
-                                    $ver = 0;
-                                }*/
                                 $ver = 2;
                                 $id = $search - 120000;
                                 $where = array(
@@ -779,124 +707,6 @@ epul@nastyjuice.com
                     $data['display'] = $this->load->view($this->parent_page.'/ROSlist2', $arr , TRUE);
                     $this->_show('display' , $data , $key);
                     break;
-
-
-
-                    //  case 'a62':
-
-                    // $this->load->database();
-                    // $this->load->library('my_func');
-                    // $this->load->library('my_flag');
-                    // $this->load->model('m_order');
-                    // $this->load->model('m_order_process');
-                    // if ($this->input->get('page')) {
-                    //     $p = $this->input->get('page');
-                    // }else{
-                    //     $p = 0;
-                    // }
-                    //  if ($this->input->get('e')) {
-                    //     $e = $this->input->get('e');
-                    // }else{
-                    //     $e = 0;
-                    // }
-                    // if ($this->input->post("search") && $this->input->post("filter") || $this->input->get("search") && $this->input->get("filter")) {
-                    //     if ($this->input->get("search") && $this->input->get("filter")) {
-                    //         $search = $this->input->get("search");
-                    //         $filter = $this->input->get("filter");
-                    //     } else {
-                    //         $search = $this->input->post("search");
-                    //         $filter = $this->input->post("filter");
-                    //     }
-                    //     switch ($filter) {
-                    //         case '10':
-                    //             //Client Name
-                    //             $where = array(
-                    //                 "cl.cl_name" => $search
-                    //             );
-                    //             break;
-                    //         case '1':
-                    //             //Order Code
-                    //             //Hanya Single
-                    //             if (strpos($search, "#") !== false) {
-                    //                 $search = str_replace("#", "", $search);
-                    //             }
-                    //             if (!is_numeric($search)) {
-                    //                 $this->session->set_flashdata('warning', 'Please Enter the Correct Order Code');
-                    //                 redirect(site_url("nasty_v2/dashboard/page/a1"),'refresh');
-                    //             }
-                    //             $str = (string)$search;
-                    //             /*if ($str[1] == '1') {
-                    //                 $id = $search - 110000;
-                    //                 $ver = 1;
-                    //             } else {
-                    //                 $id = $search - 100000;
-                    //                 $ver = 0;
-                    //             }*/
-                    //             $ver = 2;
-                    //             $id = $search - 120000;
-                    //             $where = array(
-                    //                 "ord.or_id" => $id
-                    //             );
-                    //             break;
-                    //         case '2':
-                    //             //Sales Person
-                    //             $where = array(
-                    //                 "us1.us_username" => $search
-                    //             );
-                    //             break;
-                    //         case '3':
-                    //             //Order Status
-                    //             $where = array(
-                    //                 "pr.pr_desc" => $search
-                    //             );
-                    //             break;
-                    //     }
-                    //     if (isset($ver)) {
-                    //         $arr['arr1'] = $this->m_order->listOrROS($ver , 1 , null , null , 0 , $where);
-                    //          $arr['arr2'] = $this->m_order->listOrROS($ver , 2 , null , null , 0 , $where);
-
-                    //     }else{
-                    //         $arr['arr1'] = $this->m_order->listSearch(2 , null , null , 0 , $where);
-                    //     }
-                    // } else {
-                    //     //$ver = $this->m_order->orderCount(2);
-                    //     $ver = $this->m_order->orderCountROS(2, 1);
-                    //     $ver2 = $this->m_order->orderCountROS(2, 2 );
-                    //     $arr['arr1'] = $this->m_order->listOrROS(2 , 1 , 10 , $p);
-                    //     $arr['arr2'] = $this->m_order->listOrROS(2 , 2 , 10 , $p);
-                    //     $result1 = sizeof($arr['arr1']);
-                    //     $result2 = sizeof($arr['arr2']);
-
-                    //     //$sizeA = 10 - $result1;
-                    //     /*if ($sizeA != 0) {
-                    //         $p1 = $p + 10 - $ver1;
-                    //         if ($p1 < 10) {
-                    //             $p2 = 0;
-                    //         } else {
-                    //             $p2 = $p1;
-                    //             $p1 = 10;
-                    //         }
-                    //         $arr['arr'] = $this->m_order->listOr(0 , $p1 , $p2);
-                    //         $result1 = $result1 + sizeof($arr['arr']);
-                    //     }*/
-                    //     $arr['page'] = $p;
-                    //     $arr['e'] = $e;
-                    //     $arr['total'] = $ver;
-                    //     $arr['total2'] = $ver2;
-                    //     $arr['row'] = $result1;
-                    //     $arr['row2'] = $result2;
-
-                    //     $arr['lvl'] = $this->m_order_process->getLvl(1);
-                    //     $arr['lvl2'] = $this->m_order_process->getLvl(2);
-                    // }
-                    // //$arr['arr'] = $this->m_order->getAll();
-                    // $data['title'] = '<i class="fa fa-fw fa-edit"></i>Distributor</a>';
-                    // $data['display'] = $this->load->view($this->parent_page.'/ROSlist2', $arr , TRUE);
-                    // $this->_show('display' , $data , $key);
-                    // break;
-
-
-
                     case 'a7':
                     //$this->load->library('my_func');
                    /* if ($lvl == 4) {
@@ -905,7 +715,7 @@ epul@nastyjuice.com
                     if ($this->input->get('mode')) {
                         $temp['mode'] = $this->input->get('mode');
                     }          */
-                     $this->load->database();
+                    $this->load->database();
                     $this->load->library('my_func');
                     $this->load->library('my_flag');
                     $this->load->model('m_order');
@@ -1232,6 +1042,7 @@ epul@nastyjuice.com
                         }
                         $this->load->model('m_order_ext');
                         $orex_id = $this->m_order_ext->update($order_ext , array('or_id' => $or_id));
+						recordLog($or_id , 15);
                         //echo "<br>Update => ".$orex_id;
                     }
                     $this->session->set_flashdata('success', 'Update Success');
@@ -1260,7 +1071,6 @@ epul@nastyjuice.com
                             $this->load->model('m_client');
                             $arr['client'] = $this->m_client->insert($cl);
                         }
-
                         $order = array(
                             "cl_id" => $arr['client'],
                             "us_id" => $this->my_func->scpro_decrypt($this->session->userdata('us_id')),
@@ -1320,15 +1130,15 @@ epul@nastyjuice.com
                              "username" => $this->my_func->scpro_decrypt($this->session->userdata('us_username')),
                         );
 
-                            $email['fromName'] = "Bigtime OrdYs System";
-                            $email['fromEmail'] = "noreply@nastyjuice.com";
-                            $email['toEmail'] = ' finance@nastyjuice.com , zul@nastyjuice.com ';
-                            $email['subject'] = 'New Bigtime Purchase Order #'.(120000+$or_id);
-                            $email['html'] = true;
-                            //$content=$this->load->view('/mail/send_email',$arr,true);
-                            $email['msg'] =$this->load->view('/mail/send_email',$arr,true);
-                            $this->sendEmail($email);
-
+                        $email['fromName'] = "Ai System";
+                        $email['fromEmail'] = "noreply@nastyjuice.com";
+                        $email['toEmail'] = ' finance@nastyjuice.com , zul@nastyjuice.com ';
+                        $email['subject'] = 'New Purchase Order #'.(120000+$or_id);
+                        $email['html'] = true;
+                        //$content=$this->load->view('/mail/send_email',$arr,true);
+                        $email['msg'] =$this->load->view('/mail/send_email',$arr,true);
+                        $this->sendEmail2($email);
+						recordLog($or_id , 1);
                         $this->session->set_flashdata('success', 'New Order successfully added');
                         redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
     					break;
@@ -1937,10 +1747,10 @@ epul@nastyjuice.com
 
                             }
 
-                            $email['fromName'] = "Nasty OrdYs System";
+                            $email['fromName'] = "Ai System";
                             $email['fromEmail'] = "noreply@nastyjuice.com";
                             $email['toEmail'] = ' finance@nastyjuice.com , zul@nastyjuice.com ';
-                            $email['subject'] = 'Payment are already uploaded for Purchase Order #'.(120000+$or_id);
+                            $email['subject'] =  $this->version.', Payment are already uploaded for Purchase Order #'.(120000+$or_id);
                             $email['html'] = true;
                             $content=$this->load->view('/mail/payment_email',$arr,true);
                             $email['msg'] =$content;
@@ -1973,41 +1783,29 @@ epul@nastyjuice.com
 
          public function change_pr_id3()
         {
-
-                //if ($this->input->post('or_id')){
-                //echo "<script>alert('test');</script>";
-                //$this->load->library('my_func');
-                $or_id = $this->input->post('or_id');
-                //$or_id = $this->my_func->scpro_decrypt($this->input->post('or_id'));
-                $pr_id = $this->input->post('pr_id');
-                $this->load->database();
-                $this->load->model('m_order');
-
-
-/*
-                  1 - New Order
-                    2 - In Progress
-                    3 - Complete
-                    4 - Unconfirm
-                    5 - Cancel
-                    6 - Cancel In Progress
-                    7 - On Hold In Progress
-                    8 - ROS
-                    9 - DOC
-                    10 - RTS
-                    11 - Shipping
-                    12 - Arrived
-                    13 - Return */
-                    $this->m_order->updateROS($pr_id, $or_id);
-
-                    redirect(site_url('nasty_v2/dashboard/page/a1new'),'refresh');
-
-                // }
-                // else{
-                //     return false;
-                // }
-
-
+            $or_id = $this->input->post('or_id');
+            $pr_id = $this->input->post('pr_id');
+            $this->load->database();
+            $this->load->model('m_order');
+			echo $or_id . " " . $pr_id;die();
+			// TODO: kat sini ada error xleh proceed recordLog;
+			recordLog($or_id , $pr_id);
+			/*
+          	1 - New Order
+            2 - In Progress
+            3 - Complete
+            4 - Unconfirm
+            5 - Cancel
+            6 - Cancel In Progress
+            7 - On Hold In Progress
+            8 - ROS
+            9 - DOC
+            10 - RTS
+            11 - Shipping
+            12 - Arrived
+            13 - Return */
+            $this->m_order->updateROS($pr_id, $or_id);
+            redirect(site_url('nasty_v2/dashboard/page/a1new'),'refresh');
         }
 
 
@@ -2328,7 +2126,7 @@ epul@nastyjuice.com
                 }
                 $this->email->subject($email['subject']);
                 $this->email->message($email['msg']);
-
+				$this->email->set_mailtype("html");
                 if($this->email->send()){
                     $this->session->set_flashdata('info', "Successfully Send the Notification");
                 }else{
@@ -2340,6 +2138,89 @@ epul@nastyjuice.com
             }
             return false;
         }
+
+        public function sendEmail2($email = null){
+            if ($email != null && is_array($email)) {
+                $this->load->library('email');
+
+                $this->email->from($email['fromEmail'], $email['fromName']);
+                if(isset($email['toEmail'])){
+                    if (is_array($email['toEmail'])) {
+                        foreach ($email['toEmail'] as $key => $toEmail) {
+
+                            $this->email->to($toEmail);
+                            if (isset($email['toCc'])) {
+                                    if (is_array($email['toCc'])) {
+                                                foreach ($email['toCc'] as $key)         {
+                                                    $this->email->cc($key);
+                                                }
+                                    }else{
+                                        $this->email->cc($email['toCc']);
+                                    }
+                                }
+                                if (isset($email['toBcc'])) {
+                                    if (is_array($email['toBcc'])) {
+                                        foreach ($email['toBcc'] as $key)
+                                        {
+                                            $this->email->bcc($key);
+                                        }
+                                    }else{
+                                        $this->email->bcc($email['toBcc']);
+                                    }
+                                }
+                                $this->email->subject($email['subject']);
+                                $this->email->message($email['msg']);
+                                if (isset($email['html'])) {
+                                $this->email->set_mailtype('html');
+                                }
+                                $this->email->send();
+
+                                return true;
+
+                        }
+                    }else{
+                                $this->email->to($email['toEmail']);
+
+                                if (isset($email['toCc'])) {
+                                    if (is_array($email['toCc'])) {
+                                                foreach ($email['toCc'] as $key)         {
+                                                    $this->email->cc($key);
+                                                }
+                                    }else{
+                                        $this->email->cc($email['toCc']);
+                                    }
+                                }
+                                if (isset($email['toBcc'])) {
+                                    if (is_array($email['toBcc'])) {
+                                        foreach ($email['toBcc'] as $key)
+                                        {
+                                            $this->email->bcc($key);
+                                        }
+                                    }else{
+                                        $this->email->bcc($email['toBcc']);
+                                    }
+                                }
+                                $this->email->subject($email['subject']);
+                                $this->email->message($email['msg']);
+                                if (isset($email['html'])) {
+                                $this->email->set_mailtype('html');
+                                }
+                                $this->email->send();
+
+                                return true;
+                    }
+                }else{
+
+                    $this->session->set_flashdata('error', 'Please set to->email');
+                    return false;
+                }
+
+
+
+            }
+            return false;
+        }
+
 
         public function getAjaxcrud()
         {
@@ -2412,7 +2293,7 @@ epul@nastyjuice.com
             echo $this->load->view('nasty_v2/dashboard/ajax/getAjaxUpload', $arr , TRUE);
         }
 
-        private function emailSendNew($arr = null , $ver = 1)
+        private function emailSendNew($arr = null , $ver = 2)
         {
             //unconfirm to new order;
             //#email1
@@ -2423,8 +2304,8 @@ epul@nastyjuice.com
                 $saleman = $this->m_user->getName($arr['us_id']);
                 $email['fromName'] = "Ai System";
                 $email['fromEmail'] = "nstylabc@sirius.sfdns.net";
-                $email['toEmail'] = array("faeiz@nastyjuice.com", "account@nastyjuice.com" , 'abun@nastyjuice.com');
-                $email['subject'] = "New Order #".((10000*$ver)+100000+$or_id);
+                $email['toEmail'] = "zul@nastyjuice.com, account@nastyjuice.com , production@nastyjuice.com.my";
+                $email['subject'] =  $this->version." New Order #".((10000*$ver)+100000+$or_id);
                 $email['msg'] = "
 Order Detail
 
@@ -2453,7 +2334,7 @@ epul@nastyjuice.com
             }
         }
 
-        private function emailSendUnconfirm($arr = null , $ver = 1)
+        private function emailSendUnconfirm($arr = null , $ver = 2)
         {
             //Confirm to Unconfirm;
             //#email2
@@ -2464,8 +2345,8 @@ epul@nastyjuice.com
                 $saleman = $this->m_user->getName($arr->us_id);
                 $email['fromName'] = "Ai System";
                 $email['fromEmail'] = "nstylabc@sirius.sfdns.net";
-                $email['toEmail'] = array("zul@nastyjuice.com", "account@nastyjuice.com" ,'abun@nastyjuice.com');
-                $email['subject'] = "Unconfirm #".((10000*$ver)+100000+$or_id);
+                $email['toEmail'] = "zul@nastyjuice.com, account@nastyjuice.com , production@nastyjuice.com";
+                $email['subject'] =  $this->version." Unconfirm #".((10000*$ver)+100000+$or_id);
                 $email['msg'] = "
 Order Detail
 
@@ -2492,7 +2373,7 @@ epul@nastyjuice.com
                 $this->sendEmail($email);
             }
         }
-        private function emailSendOnhold($arr = null , $ver = 1)
+        private function emailSendOnhold($arr = null , $ver = 2)
         {
             //inProgress to On hold;
             //#email3
@@ -2503,8 +2384,8 @@ epul@nastyjuice.com
                 $saleman = $this->m_user->getName($arr->us_id);
                 $email['fromName'] = "Ai System";
                 $email['fromEmail'] = "nstylabc@sirius.sfdns.net";
-                $email['toEmail'] = array("zul@nastyjuice.com","account@nastyjuice.com" , 'abun@nastyjuice.com');
-                $email['subject'] = "On Hold Order #".((10000*$ver)+100000+$or_id);
+                $email['toEmail'] = "zul@nastyjuice.com,account@nastyjuice.com , production@nastyjuice.com";
+                $email['subject'] =  $this->version." On Hold Order #".((10000*$ver)+100000+$or_id);
                 $email['msg'] = "
 Order Detail
 
@@ -2532,7 +2413,7 @@ epul@nastyjuice.com
             }
         }
 
-        private function emailSendInProgress($arr = null , $ver = 1)
+        private function emailSendInProgress($arr = null , $ver = 2)
         {
             //On hold to inProgress;
             //#email1
@@ -2543,8 +2424,8 @@ epul@nastyjuice.com
                 $saleman = $this->m_user->getName($arr->us_id);
                 $email['fromName'] = "Ai System";
                 $email['fromEmail'] = "nstylabc@sirius.sfdns.net";
-                $email['toEmail'] = array("faeiz@nastyjuice.com","account@nastyjuice.com" ,'abun@nastyjuice.com');
-                $email['subject'] = "In Progress Order #".((10000*$ver)+100000+$or_id);
+                $email['toEmail'] = "zul@nastyjuice.com,account@nastyjuice.com , production@nastyjuice.com";
+                $email['subject'] =  $this->version." In Progress Order #".((10000*$ver)+100000+$or_id);
                 $email['msg'] = "
 Order Detail
 
@@ -2663,8 +2544,8 @@ epul@nastyjuice.com
                 $saleman = $this->m_user->get($this->input->post('us_id'));
                 $email['fromName'] = "Ai System";
                 $email['fromEmail'] = $saleman->us_email;
-                $email['toEmail'] = array('it@nastyjuice.com', 'zul@nastyjuice.com' , 'finance@nastyjuice.com');
-                $email['subject'] = "Request for Cancel #".((10000*$ver)+100000+$or_id);
+                $email['toEmail'] = 'it@nastyjuice.com, zul@nastyjuice.com , finance@nastyjuice.com';
+                $email['subject'] =  $this->version." Request for Cancel #".((10000*$ver)+100000+$or_id);
                 $email['msg'] = "
 Order Detail
 
@@ -2746,6 +2627,23 @@ epul@nastyjuice.com
             $this->load->model("m_picture");
             $arr['img'] = $this->m_picture->getPaid(array("ne_id" => $ne_id));
             echo $this->load->view('nasty_v2/dashboard/ajax/getAjaxImg', $arr , TRUE);
+        }
+
+		public function getAjaxGraph()
+        {
+            $this->load->database();
+            $this->load->model('m_item');
+            $arr['arr'] = $this->m_item->totalByOrder();
+            echo $this->load->view($this->parent_page.'/ajax/getAjaxGraph', $arr, false);
+        }
+        public function getAjaxGraph2()
+        {
+            $arr1 = $this->input->post();
+            $this->load->database();
+            $this->load->model('m_item');
+            $this->load->model('m_nico');
+            $arr['arr'] = $this->m_item->totalByFlavor($arr1['year1'] , $arr1['month1'] , $arr1['client'] , $arr1['mg'], $arr1['country']);
+            echo $this->load->view($this->parent_page.'/ajax/getAjaxGraph2', $arr , false);
         }
 	}
 
