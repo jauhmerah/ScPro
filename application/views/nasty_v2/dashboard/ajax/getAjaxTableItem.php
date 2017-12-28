@@ -33,7 +33,7 @@
 													<td><?= $key->ty2_desc; ?> | <strong><?= $key->ni_mg; ?> mg</strong></td>
 													<td><?= $key->ca_desc; ?></td>
 												
-													<td><strong><big><?= $key->fi_qty; ?> Bottles</big></strong></td>
+													<td id="auto<?= $n.'id' ?>" name="auto<?= $n.'id' ?>"><strong><big><?= $key->fi_qty; ?> Bottles</big></strong></td>
 													
 													<td>
 													<center>
@@ -63,15 +63,15 @@
 																<div class="col-md-5">
 
 																		<div class="form-group">
-																			<form action="<?= site_url('nasty_v2/dashboard/stockIn'); ?>" method="POST">
-																			<input type="number" id="qty" name="qty" class="form-control input-circle">
+																			
+																			<input type="number" id="qty<?= $n.'id' ?>" name="qty<?= $n.'id' ?>" class="form-control input-circle">
 																			<div class="clearfix" style="height: 10px"></div>
-																			<input type="hidden" class="form-control" value ="<?= $this->my_func->scpro_encrypt($key->bi_id); ?>" name="id">
-																			<button type="submit" class="btn blue pull-right">
+																			<input type="hidden" class="form-control <?= $n.'id' ?>" value ="<?= $this->my_func->scpro_encrypt($key->bi_id); ?>" name="id">
+																			<button type="submit" class="submitIn btn blue pull-right" id="<?= $n.'id' ?>" name="<?= $n.'id' ?>">
 
 																				<i class="fa fa-save"></i> Stock-In
 																			</button>
-																			</form>
+																			
 																		</div>
 																	</div>											
 															</div>										
@@ -93,15 +93,15 @@
 																<div class="col-md-5">
 
 																		<div class="form-group">
-																			<form action="<?= site_url('nasty_v2/dashboard/stockOut'); ?>" method="POST">
-																			<input type="number" id="qty" name="qty" class="form-control input-circle">
+																			
+																			<input type="number" id="qtyO<?= $n.'id' ?>" name="qtyO<?= $n.'id' ?>" class="form-control input-circle">
 																			<div class="clearfix" style="height: 10px"></div>
-																			<input type="hidden" class="form-control" value ="<?= $this->my_func->scpro_encrypt($key->bi_id); ?>" name="id">
-																			<button type="submit" class="btn blue pull-right">
+																			<input type="hidden" class="form-control <?= $n.'id' ?>" value ="<?= $this->my_func->scpro_encrypt($key->bi_id); ?>" name="id">
+																			<button type="button" class="submitOut btn blue pull-right" id="<?= $n.'id' ?>" name="<?= $n.'id' ?>">
 
 																				<i class="fa fa-save"></i> Stock-Out
 																			</button>
-																			</form>
+																			
 																		</div>
 																	</div>											
 															</div>										
@@ -136,3 +136,136 @@
 											</tr>
 										</tfoot>
 										</table>
+	
+<script>
+	$(document).ready(function() {
+
+
+		$(".Lorder").click(function() {
+			temp = $(this).prop('id');
+
+			temp2 = temp.substring(1, 2);
+
+            temp3="M"+temp2;
+
+			if ($("."+temp).is(':visible')) {
+				$("."+temp).hide('slow');
+			}else{
+				$("."+temp).show('slow');
+				$("."+temp3).hide('slow');
+
+			}			
+	
+		});
+		$(".Morder").click(function() {
+			temp = $(this).prop('id');
+
+			temp2 = temp.substring(1, 2);
+
+            temp3="L"+temp2;
+
+			if ($("."+temp).is(':visible')) {
+				$("."+temp).hide('slow');
+			}else{
+				$("."+temp).show('slow');
+				$("."+temp3).hide('slow');
+
+			}			
+	
+		});
+		
+		$(".dangerBtn").click(function(){
+
+			id = $(this).prop('id');
+               
+            be = $("."+id).val();
+			$.post('<?= site_url('nasty_v2/dashboard/getAjaxDanger'); ?>', {be_id : be}, function(data) {
+               
+                $("#divDanger").html(data);
+            });
+			
+		});
+
+		$(".barcodeBtn").click(function(){
+			id = $(this).prop('id');
+               
+            be = $("."+id).val();
+			
+			$.post('<?= site_url('nasty_v2/dashboard/getAjaxBarcode'); ?>', {id:be}, function(data) {
+				$.when($(".tableC").fadeOut("slow")).then(function(){
+					$.when($("#fileUp").html(data)).then(function(){$("#fileUp").fadeIn("fast");});
+				});				
+			});
+		});
+
+		$(".submitIn").click(function(){
+			id = $(this).prop('id');
+			temp2 = id.substring(0, 1);
+            
+            be = $("."+id).val();
+            qty2 = $("#qty"+id).val();
+			
+			$.ajax({
+				type: 'post',
+				url: '<?= site_url('nasty_v2/dashboard/stockIn'); ?>',
+				dataType: 'json',
+				cache: false,
+				data: {id:be,qty:qty2},
+				success : function(result) {
+					
+					alert("Item Updated");
+					
+					$(".L"+temp2).hide('slow');
+					
+					 $.post('<?= site_url('nasty_v2/dashboard/getAjaxQtyColumn'); ?>', {id : be}, function(data) {
+               
+                              $("#auto"+id).html(data);
+                    });
+					
+				},
+				error: function (result) {
+
+                    alert('Error!');
+                }
+			});
+			
+		});
+
+		$(".submitOut").click(function(){
+			id = $(this).prop('id');
+			temp2 = id.substring(0, 1);
+            
+            be = $("."+id).val();
+            qty2 = $("#qtyO"+id).val();
+			
+			$.ajax({
+				type: 'post',
+				url: '<?= site_url('nasty_v2/dashboard/stockOut'); ?>',
+				dataType: 'json',
+				cache: false,
+				data: {id:be,qty:qty2},
+				success : function(result) {
+					
+					alert("Item Updated");
+					
+					$(".M"+temp2).hide('slow');
+					
+					 $.post('<?= site_url('nasty_v2/dashboard/getAjaxQtyColumn'); ?>', {id : be}, function(data) {
+               
+                              $("#auto"+id).html(data);
+                    });
+					
+				},
+				error: function (result) {
+
+                    alert('Error!');
+                }
+			});
+			
+		});
+
+
+		
+	});
+
+</script>

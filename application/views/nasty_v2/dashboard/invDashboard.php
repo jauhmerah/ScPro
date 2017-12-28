@@ -84,8 +84,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
-                    <div class="col-lg-3">
-                        <select id="series2" class="form-control">
+                    <div class="col-lg-2">
+                        <select id="series2" class="form-control" required>
                             <option value="-1">-- All Series --</option>
                             <?php 
                             foreach ($series as $key) {
@@ -101,11 +101,28 @@
                             
                         </select>
                     </div>
-                    <div class="col-lg-1">
+                    <div class="col-md-2" id="divColor" name="divColor">
+                        <select id="nico" class="form-control" required id="nico" >
+                            <option value="-1">-- All mg --</option>
+                            <?php 
+                            foreach ($nico as $key) {
+                            ?>
+                                
+                                <?php if($key->ni_mg == -1){ ?>
+                                <option value="<?= $key->ni_id; ?>">No mg</option>
+                                <?php }else{ ?>
+                                <option value="<?= $key->ni_id; ?>"><?= $key->ni_mg; ?> mg</option>
+                                <?php } ?>
+                            <?php }
+                            ?>
+                        </select>
+                    </div>
+                   
+                    <div class="col-lg-2">
                         <input type="number" class="form-control" min="2017" name="year" id="year">
                     </div>
                     
-                    <div class="col-lg-3">
+                    <div class="col-lg-2">
                         <select id="month" class="form-control" name="month">
                             <option value="-1">-- All Month --</option>
                             <option value="1">January</option>
@@ -123,7 +140,8 @@
                            
                         </select>
                     </div>
-                    <div class="col-lg-2">
+                    
+                    <div class="col-lg-1">
                         <button type="button" id="flavBtn" class="btn btn-circle purple">Generate</button>
                     </div>                                            
                     </div>
@@ -148,9 +166,8 @@
         </div>
     </div>
 </div>
-<div class="row">
+<!-- <div class="row">
     <div class="col-md-12 col-sm-12">
-        <!-- BEGIN PORTLET-->
         <div class="portlet light ">
             <div class="portlet-title">
                 <div class="caption">
@@ -219,9 +236,8 @@
                </div>                           
             </div>                                
         </div>
-        <!-- END PORTLET-->
     </div>
-</div>
+</div> -->
 
 <script>
 $(document).ready(function() {
@@ -243,11 +259,12 @@ $(document).ready(function() {
        
         
         id = $("#color").val();
+        nico2 = $("#nico").val();
         year2 = $("#year").val();
+        status2 = $("#status").val();
         month2 = $("#month").val();
 
-       
-        $.post('<?= site_url('graph/getAjaxGraph4') ?>', {color : id , year : year2 , month : month2}, function(data) {
+        $.post('<?= site_url('graph/getAjaxGraph4') ?>', {color : id , nico : nico2 , year : year2 , status : status2 , month : month2}, function(data) {
             $.when($('#g2code').html(data)).then(function(){
                 $("#g2div").removeClass('display-none');
                 $("#g2_loading").addClass('display-none');

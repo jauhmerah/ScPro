@@ -403,7 +403,8 @@
                     
                     $like = null;
                     $filter = null;
-                
+                    $limit_per_page = 10;
+
                     if (($this->input->post("search") && $this->input->post("filter")) || ($this->input->get("search") && $this->input->get("filter"))) 
                     {
                         if ($this->input->get("search") && $this->input->get("filter")) {
@@ -437,16 +438,21 @@
                             break;
                             
                         }
+                        $arr['total'] = $this->m_finish_log->count($filter,$like);
+                        $limit_per_page = $arr['total'];
+                    }
+                    else {
+                        $arr['total'] = $this->m_finish_log->count($filter,$like);     
                     }
                     
                    
 
-                    $limit_per_page = 10;
+                    
 
                     $page = $this->uri->segment(5,1);
                     $page--;
                     $arr['numPage'] = $page*10;
-                    $arr['total'] = $this->m_finish_log->count($filter,$like);
+                    
 
                     $arr['result'] = $this->m_finish_log->get_curr($limit_per_page , $arr['numPage'] , $filter , $like );
 
@@ -1211,6 +1217,7 @@ epul@nastyjuice.com
                     $this->load->model('m_type2');
                     $temp['color'] = $this->m_type2->get();
                     $temp['series'] = $this->m_category->get();
+                    $temp['nico'] = $this->m_nico->get();
                     $temparr = $this->msi->get2();
                     $a2 = null;
                     foreach ($temparr as $key1) 
@@ -2161,16 +2168,12 @@ epul@nastyjuice.com
                 $result = $this->m_finish_inv->stockIn($qty,$bi_id);
 
                 if ($result) {
-
-                    
-                    
-                    $this->session->set_flashdata('success', 'The quantity item are successfully stock-in!!');
-                    redirect(site_url('nasty_v2/dashboard/page/i2'),'refresh');
+                    echo true;
                 }
                 else {
-                    $this->session->set_flashdata('error', 'The quantity item not updated!! Please check again');
-                    redirect(site_url('nasty_v2/dashboard/page/i2'),'refresh');
+                    echo false;
                 }
+               
             }
         }
 
@@ -2192,16 +2195,10 @@ epul@nastyjuice.com
                 $result = $this->m_finish_inv->stockOut($qty,$bi_id);
 
                 if ($result) {
-
-                    
-                    
-
-                    $this->session->set_flashdata('success', 'The quantity item are successfully stock-out!!');
-                    redirect(site_url('nasty_v2/dashboard/page/i2'),'refresh');
+                    echo true;
                 }
                 else {
-                    $this->session->set_flashdata('error', 'The quantity item not updated!! Please check again');
-                    redirect(site_url('nasty_v2/dashboard/page/i2'),'refresh');
+                    echo false;
                 }
             }
         }
@@ -3391,6 +3388,7 @@ epul@nastyjuice.com
                 $this->m_order->update($arr, $or_id);
             }
         }
+
         public function getAjaxCancel()
         {
             if ($this->input->post('or_id')) {
@@ -3404,6 +3402,7 @@ epul@nastyjuice.com
                 $this->m_order->update($arr, $or_id);
             }
         }
+
         public function getAjaxDelImg()
         {
             $pi_id = $this->input->post("pi_id");
@@ -3439,6 +3438,22 @@ epul@nastyjuice.com
             echo $this->load->view('nasty_v2/dashboard/ajax/getAjaxColor', $arr , TRUE);
             
         }
+
+        public function getAjaxQtyColumn()
+        {
+            $this->load->library("my_func");
+            $this->load->database();
+            $this->load->model("m_barcode_item");
+            
+            $bi_id = $this->my_func->scpro_decrypt($this->input->post("id"));
+            $arr['arr'] = $this->m_barcode_item->getQty($bi_id);
+
+            echo $this->load->view('nasty_v2/dashboard/ajax/getAjaxQtyColumn', $arr , TRUE);
+            
+            
+        }
+
+
         public function testqr()
         {
             $this->load->library('qrgen');

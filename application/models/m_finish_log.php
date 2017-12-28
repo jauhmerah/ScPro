@@ -187,36 +187,50 @@ class M_finish_log extends CI_Model {
 
 		}
 
-		public function get4($where = null,$year = null,$month = null){
+		public function get4($where = null,$year = null,$month = null,$status = null,$nico = null){
 
-	   		$this->db->select('ty2.ty2_desc as color , ca.ca_desc as series, ni.ni_mg as mg, sum(fl.fi_diff) as total');
+	   		$this->db->select('ty2.ty2_desc as color , ca.ca_desc as series, ni.ni_mg as mg,, ls.ls_desc as status, sum(fl.fi_diff) as total');
             
             $this->db->from('finish_log fl');
                
 			$this->db->join('barcode_item bi', 'bi.bi_id = fl.bi_id', 'left');
 			   
-	   		$this->db->join('finish_inv fi', 'fi.bi_id = bi.bi_id', 'left');
+			$this->db->join('finish_inv fi', 'fi.bi_id = bi.bi_id', 'left');
+			   
+	   		$this->db->join('log_status ls', 'ls.ls_id = fl.ls_id', 'left');
 
             $this->db->join('type2 ty2', 'ty2.ty2_id = bi.ty2_id', 'left');
             
             $this->db->join('nicotine ni', 'ni.ni_id = bi.ni_id', 'left');
                  
-            $this->db->join('category ca', 'ca.ca_id = ty2.ca_id', 'left');
-			 if ($year != null) {
-            $this->db->where('YEAR(fl.fi_date)', $year);
-            if ($month != -1) {
-                $this->db->where('MONTH(fl.fi_date)', $month);
-            }
-		}
-            if (is_array($where) && $where != NULL) 
+			$this->db->join('category ca', 'ca.ca_id = ty2.ca_id', 'left');
+
+			if ($year != null) 
+			{
+            	$this->db->where('YEAR(fl.fi_date)', $year);
+					if ($month != -1) 
+					{
+						$this->db->where('MONTH(fl.fi_date)', $month);
+					}
+			}
+
+			
+			
+			if (is_array($where) && $where != NULL) 
             {
                 foreach ($where as $key => $value) 
                 {
                     $this->db->where($key, $value);
                 }
-            }
-			$this->db->group_by('it.it_id');  
+			}
+				
+			if ($nico != -1) 
+			{
+				$this->db->where('ni.ni_id',$nico);
+			}
 
+			$this->db->group_by('fl.ls_id');
+			
 			$this->db->order_by('fl.fi_date', 'desc');
 			// $this->db->limit(1);	
 	   		

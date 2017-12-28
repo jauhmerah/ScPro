@@ -220,15 +220,39 @@ class M_barcode_item extends CI_Model {
                 }
             }
             if ($year != null) {
-            $this->db->where('YEAR(lg.fi_date)', $year);
-            if ($month != -1) {
-                $this->db->where('MONTH(lg.fi_date)', $month);
-            }
-        }
+                    $this->db->where('YEAR(lg.fi_date)', $year);
+                    if ($month != -1) {
+                        $this->db->where('MONTH(lg.fi_date)', $month);
+                    }
+                }
 
 	   		// $this->db->order_by('ty2.ty2_id', 'asc');
 	   		return $this->db->get()->result();
-	   	}
+        }
+        
+        public function getQty($where = null)
+        {
+            $this->db->select('fi.fi_qty');
+               
+            $this->db->from('barcode_item bi');
+
+            $this->db->join('finish_inv fi', 'fi.bi_id = bi.bi_id', 'left');
+               
+
+            if ($where !== NULL) {
+	            if (is_array($where)) {
+	                foreach ($where as $field=>$value) {
+	                    $this->db->where($field, $value);
+	                }
+	            } else {
+	                $this->db->where('bi.bi_id', $where);
+	            }
+            }
+            
+	   		return $this->db->get()->result();
+            
+        }
+
     
 
 }

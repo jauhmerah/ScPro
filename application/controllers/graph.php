@@ -40,6 +40,8 @@ class Graph extends CI_Controller {
         $where = null;
         $year = null;
         $month = null;
+        $status = null;
+        $nico = null;
 
         if ($this->input->post("color") || $this->input->get("color")) 
         {
@@ -53,18 +55,26 @@ class Graph extends CI_Controller {
             $where = array('ty2.ty2_id' => $search );
         }
        
-            if ($this->input->post("year") && $this->input->post("month")) {
+        if ($this->input->post("year") && $this->input->post("month")) {
                 
-                $year = $this->input->post("year");
-                $month = $this->input->post("month");
-            }
-
+            $year = $this->input->post("year");
+            $month = $this->input->post("month");
+        }
+         $nico = $this->input->post("nico");
+        // if ($this->input->post("status")) {
+                
+        //     $status = $this->input->post("status");
             
-        
+        // } 
 
+        
+        
+        
     	$this->load->database();
     	$this->load->model('m_finish_log' , 'mfl');
-    	$arr['arr'] = $this->mfl->get4($where,$year,$month);
+        $arr['arr'] = $this->mfl->get4($where,$year,$month,$status,$nico);
+    	// $arr['nico'] =$nico;
+        
     	echo $this->load->view($this->parent_page. "/graph2", $arr, false);
     }
 

@@ -3,7 +3,10 @@ var chart = AmCharts.makeChart( "g2div", {
   "type": "serial",
   "theme": "light",
   "dataProvider": [
-<?php if(sizeof($arr) != 0){ 
+<?php 
+$col = "#BDECFF";
+
+if(sizeof($arr) != 0){ 
   for ($i=0; $i < sizeof($arr); $i++) { 
     $text = explode("|", $arr[$i]->color);
     $rep = array('<p>','<strong>','</strong>' , '</p>' , ' ', '"');
@@ -12,10 +15,19 @@ var chart = AmCharts.makeChart( "g2div", {
     $text2 = preg_replace( "/\r|\n/", "", $text2 );
     $text3 = str_replace($rep2, '', $arr[$i]->series );    
     $text1 = preg_replace( "/\r|\n/", "", $text3 );
+    
+    if($arr[$i]->status == "Stock-In")
+    {
+      $col = "#66CA7B";
+    }
+    elseif ($arr[$i]->status == "Stock-Out") {
+      $col = "#CA6686";
+    }
   ?>
   {
-    "color": "<?= $text2."-".$text1."-".$arr[$i]->mg."mg" ; ?>",
-    "total": <?= $arr[$i]->total; ?>
+    "item": "<?= $arr[$i]->status; ?>",
+    "total": <?= $arr[$i]->total; ?>,
+    "color": "<?= $col; ?>"
   } 
   <?php 
   if ($i + 1 != sizeof($arr)) {
@@ -23,11 +35,16 @@ var chart = AmCharts.makeChart( "g2div", {
   }
   } }else{ ?>
   {
-    "color": "No Data",
+    "item": "No Data",
     "total": 0
   }
 <?php  } ?>]
   ,
+  "titles": [ {
+  "text":"<?= $text2."-".$text1."-".$arr[0]->mg."mg" ; ?>",
+    "size": 15
+    
+  } ],
   "valueAxes": [ {
     "gridColor": "#FFFFFF",
     "gridAlpha": 0.2,
@@ -37,6 +54,7 @@ var chart = AmCharts.makeChart( "g2div", {
   "startDuration": 1,
   "graphs": [ {
     "balloonText": "[[category]]: <b>[[value]]</b>",
+    "fillColorsField": "color",
     "fillAlphas": 0.8,
     "lineAlpha": 0.2,
     "type": "column",
@@ -47,7 +65,7 @@ var chart = AmCharts.makeChart( "g2div", {
     "cursorAlpha": 0,
     "zoomable": false
   },
-  "categoryField": "color",
+  "categoryField": "item",
   "categoryAxis": {
     "gridPosition": "start",
     "gridAlpha": 0,
