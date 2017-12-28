@@ -230,7 +230,7 @@ class M_barcode_item extends CI_Model {
 	   		return $this->db->get()->result();
         }
         
-        public function getQty($where = null)
+        public function get5($where = null)
         {
             $this->db->select('fi.fi_qty');
                
@@ -238,6 +238,11 @@ class M_barcode_item extends CI_Model {
 
             $this->db->join('finish_inv fi', 'fi.bi_id = bi.bi_id', 'left');
                
+            $this->db->join('type2 ty2', 'ty2.ty2_id = bi.ty2_id', 'left');
+            
+            $this->db->join('nicotine ni', 'ni.ni_id = bi.ni_id', 'left');
+                 
+            $this->db->join('category ca', 'ca.ca_id = ty2.ca_id', 'left');
 
             if ($where !== NULL) {
 	            if (is_array($where)) {
@@ -249,7 +254,17 @@ class M_barcode_item extends CI_Model {
 	            }
             }
             
-	   		return $this->db->get()->result();
+               $result = $this->db->get()->result();
+               
+                if ($result) {
+                if ($where !== NULL) {
+                    return array_shift($result);
+                } else {
+                    return $result;
+                }
+            } else {
+                return false;
+            }
             
         }
 

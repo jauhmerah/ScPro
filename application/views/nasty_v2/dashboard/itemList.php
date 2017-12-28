@@ -1,4 +1,6 @@
-
+<?php 
+$url = $this->uri->segment(5,1);
+?>
 
 <link href="<?= base_url(); ?>asset2/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css" rel="stylesheet" type="text/css">
 					<script src="<?= base_url(); ?>asset2/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js" type="text/javascript"></script>
@@ -14,20 +16,31 @@
                             </div>
 							
                            <div class="portlet-body form">
+
+							<div class="notification">
+								
+							</div>
 							<div class="clearfix">
 								&nbsp;
 							</div>
 							 <div class="row tableC">
 								<!-- <form id="formSearch" action="<?= site_url('nasty_v2/dashboard/page/i2'); ?>" method="POST" role="form"> -->
 									<div class="col-md-12">
-										<div class="col-md-7">
-										</div> 
 										<div class="col-md-5">
+										</div> 
+										<div class="col-md-7">
 											<div class="form-group">
-												<label for="input" class="col-sm-2 control-label">Barcode </label>
-												<div class="col-sm-10">
+											<div class="col-sm-4">
+												<label for="input" class="control-label">Barcode </label>
+											</div>
+												
+												<div class="col-sm-5">
 													<input type="search" name="search" id="search" class="form-control input-circle" placeholder="Barcode No." onmouseover="this.focus();" required>
 												</div>
+												<div class="col-sm-2">
+													<button type="button" class="clearBtn btn bg-green-sharp btn-circle btn-md" title="Clear Field"><i class="fa fa-eraser" aria-hidden="true"></i> Clear Field</button>													
+												</div>
+												
 											</div>
 										</div>
 								
@@ -63,13 +76,16 @@
 
 
 											?>
+											
+												
 											<?php if($key->fi_qty < $key->fi_danger){
 												$danger = "style='background-color :#FFBDBD;'";
 												
 												}else {
 													$danger = "";
-												} ?>		
-												<tr <?php echo $danger; ?>>
+												} ?>
+												
+												<tr <?php echo $danger; ?> >
 													<td><?= $n; ?></td>
 													<td><?= $key->bi_code; ?></td>
 													<td><?= $key->ty2_desc; ?> | <strong><?= $key->ni_mg; ?> mg</strong></td>
@@ -88,7 +104,7 @@
 												&nbsp;&nbsp;-&nbsp;&nbsp;
 												<button type="button" class="dangerBtn btn bg-red btn-circle btn-md" id="<?= $n.'dgr' ?>" name="<?= $n.'dgr' ?>" title="Danger Zone"><i class="fa fa-exclamation-triangle"></i> DANGER ZONE</button>
 												<input type="hidden" class="form-control <?= $n.'dgr' ?>" value="<?= $this->my_func->scpro_encrypt($key->bi_id); ?>">
-												&nbsp;&nbsp;-&nbsp;&nbsp;
+												
 												
 													</center>
 													</td>
@@ -110,8 +126,8 @@
 																			
 																			<input type="number" id="qty<?= $n.'id' ?>" name="qty<?= $n.'id' ?>" class="form-control input-circle">
 																			<div class="clearfix" style="height: 10px"></div>
-																			<input type="hidden" class="form-control <?= $n.'id' ?>" value ="<?= $this->my_func->scpro_encrypt($key->bi_id); ?>" >
-																			<button type="button" class="submitIn btn blue pull-right" id="<?= $n.'id' ?>" name="<?= $n.'id' ?>">
+																			<input type="hidden" class="form-control <?= $n.'id' ?>" value ="<?= $this->my_func->scpro_encrypt($key->bi_id); ?>" name="id">
+																			<button type="submit" class="submitIn btn blue pull-right" id="<?= $n.'id' ?>" name="<?= $n.'id' ?>">
 
 																				<i class="fa fa-save"></i> Stock-In
 																			</button>
@@ -153,6 +169,7 @@
 														
 													</td>
 												</tr>
+											
 												<div name="divDanger" id="divDanger">		
 												</div>
 					 							<?php } ?>
@@ -243,6 +260,7 @@
             });
 
 			$("#search").val($("#search").val().replace(' ', ','));
+			
 			 
 		});
 		$(".dangerBtn").click(function(){
@@ -250,7 +268,10 @@
 			id = $(this).prop('id');
                
             be = $("."+id).val();
-			$.post('<?= site_url('nasty_v2/dashboard/getAjaxDanger'); ?>', {be_id : be}, function(data) {
+
+			url = "<?= $url; ?>";
+
+			$.post('<?= site_url('nasty_v2/dashboard/getAjaxDanger'); ?>', {be_id : be , page : url}, function(data) {
                
                 $("#divDanger").html(data);
             });
@@ -272,7 +293,6 @@
 		$(".submitIn").click(function(){
 			id = $(this).prop('id');
 			temp2 = id.substring(0, 1);
-            
             be = $("."+id).val();
             qty2 = $("#qty"+id).val();
 			
@@ -284,11 +304,11 @@
 				data: {id:be,qty:qty2},
 				success : function(result) {
 					
-					alert("Item Updated");
+					bootbox.alert("This Item Already Stock-In!");
 					
 					$(".L"+temp2).hide('slow');
 					
-					 $.post('<?= site_url('nasty_v2/dashboard/getAjaxQtyColumn'); ?>', {id : be}, function(data) {
+					 $.post('<?= site_url('nasty_v2/dashboard/getAjaxQtyColumn'); ?>', {id : be,n : temp2}, function(data) {
                
                               $("#auto"+id).html(data);
                     });
@@ -296,7 +316,7 @@
 				},
 				error: function (result) {
 
-                    alert('Error!');
+                    bootbox.alert("Error! Please Contact IT Department About This Bugs");
                 }
 			});
 			
@@ -317,7 +337,7 @@
 				data: {id:be,qty:qty2},
 				success : function(result) {
 					
-					alert("Item Updated");
+					bootbox.alert("This Item Already Stock-Out!");
 					
 					$(".M"+temp2).hide('slow');
 					
@@ -329,14 +349,21 @@
 				},
 				error: function (result) {
 
-                    alert('Error!');
+                    bootbox.alert("Error! Please Contact IT Department About This Bugs");
+
                 }
 			});
 			
 		});
 			
-		
-		
+		$(".clearBtn").click(function(){
+			$("#search").val('');
+			$.post('<?= site_url('nasty_v2/dashboard/getAjaxTableItem'); ?>', {}, function(data) {
+               
+                $("#divTableItem").html(data);
+            });
+		});
+	
 	});
 
 </script>

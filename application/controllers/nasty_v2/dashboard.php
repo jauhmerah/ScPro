@@ -1241,7 +1241,7 @@ epul@nastyjuice.com
 
                     $like = null;
                     $filter = null;
-
+                    $limit_per_page = 10;
                     if ($this->input->post("search") ) 
                     {
                             $search = $this->input->post("search");
@@ -1258,23 +1258,27 @@ epul@nastyjuice.com
                                     $filter[] = $value;
                                 }
                                
-                                // print_r ($filter[0]);
                                
                             }
                             else
                             {
                                 $filter = array('bi.bi_code' => $search );
                             }             
-                            
+                        
+                        $arr['total'] = $this->m_barcode_item->count($filter,$like);
+                        $limit_per_page = $arr['total'];
                     }
-
-                    $limit_per_page = 10;
+                    else
+                    {
+                        $arr['total'] = $this->m_barcode_item->count($filter,$like);   
+                    }
+                    
 
                     $page = $this->uri->segment(5,1);
                     $page--;
 
                     $arr['numPage'] = $page*10;
-                    $arr['total'] = $this->m_barcode_item->count($filter,$like);
+                    
 
                     
 
@@ -2638,6 +2642,10 @@ epul@nastyjuice.com
 
             $beid = $this->my_func->scpro_decrypt($this->input->post('be_id'));
 
+            $page = $this->input->post('page');
+            
+            $arr['page'] = $page;
+
             $be_id = array('bi_id' => $beid );
 
             $arr['arr'] = $this->m_finish_inv->get($be_id);
@@ -3446,7 +3454,8 @@ epul@nastyjuice.com
             $this->load->model("m_barcode_item");
             
             $bi_id = $this->my_func->scpro_decrypt($this->input->post("id"));
-            $arr['arr'] = $this->m_barcode_item->getQty($bi_id);
+            $arr['key'] = $this->m_barcode_item->get5($bi_id);
+            $arr['n'] = $this->input->post("n");
 
             echo $this->load->view('nasty_v2/dashboard/ajax/getAjaxQtyColumn', $arr , TRUE);
             

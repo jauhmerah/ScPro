@@ -1,2 +1,4 @@
 
-<strong><big><?= $arr[0]->fi_qty; ?> Bottles</big></strong>
+<strong><big><?= $key->fi_qty; ?> Bottles</big></strong>
+
+                                           

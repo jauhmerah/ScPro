@@ -27,13 +27,13 @@
 												}else {
 													$danger = "";
 												} ?>		
-												<tr <?php echo $danger; ?>>
+												<tr <?php echo $danger; ?> id="auto<?= $n.'id' ?>" name="auto<?= $n.'id' ?>">
 													<td><?= $n; ?></td>
 													<td><?= $key->bi_code; ?></td>
 													<td><?= $key->ty2_desc; ?> | <strong><?= $key->ni_mg; ?> mg</strong></td>
 													<td><?= $key->ca_desc; ?></td>
 												
-													<td id="auto<?= $n.'id' ?>" name="auto<?= $n.'id' ?>"><strong><big><?= $key->fi_qty; ?> Bottles</big></strong></td>
+													<td><strong><big><?= $key->fi_qty; ?> Bottles</big></strong></td>
 													
 													<td>
 													<center>
@@ -44,7 +44,7 @@
 												&nbsp;&nbsp;-&nbsp;&nbsp;
 												<button type="button" class="dangerBtn btn bg-red btn-circle btn-md" id="<?= $n.'dgr' ?>" name="<?= $n.'dgr' ?>" title="Danger Zone"><i class="fa fa-exclamation-triangle"></i> DANGER ZONE</button>
 												<input type="hidden" class="form-control <?= $n.'dgr' ?>" value="<?= $this->my_func->scpro_encrypt($key->bi_id); ?>">
-												&nbsp;&nbsp;-&nbsp;&nbsp;
+												
 												
 													</center>
 													</td>
