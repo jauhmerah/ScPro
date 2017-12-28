@@ -1,7 +1,7 @@
 <?php
     if (! function_exists('recordLog'))
     {
-        function recordLog($or_id = NULL , $pr_id = NULL)
+        function recordLog($or_id = NULL , $pr_id = NULL , $us_id = NULL)
         {
             /**
              * array('pr_id' => , 'or_id' => , 'us_id' => )
@@ -12,10 +12,13 @@
                 $ci->load->model('timeline/M_timeline' , 'tl');
                 $ci->load->library('my_func', NULL , 'mf');
                 $ci->load->library('session');
-                $us_id = $ci->my_func->scpro_decrypt($ci->session->userdata('us_id'));
+                if ($us_id == NULL) {
+                    $us_id = $ci->my_func->scpro_decrypt($ci->session->userdata('us_id'));
+                }
                 $array = array(
                     'or_id' => $or_id,
-                    'pr_id' => $pr_id
+                    'pr_id' => $pr_id,
+                    'us_id' => $us_id
                 );
                 return $ci->tl->insert($array);
             }else{

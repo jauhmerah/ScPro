@@ -362,43 +362,36 @@
       </div>
     </div></form>
   </div>
+  <input type="hidden" id="usKey" value="<?= $this->session->userdata('us_id'); ?>">
 <script>
 	$(document).ready(function() {
+		var usid = $('#usKey').val();
 		$(".ROSButton").click(function() {
+			id = $(this).prop('id');
+			orid = $("."+id).val();
 
-					id = $(this).prop('id');
-					orid = $("."+id).val();
+			bootbox.confirm({
+			    message: "Are You Sure?",
+			    buttons: {
+			        confirm: {
+			            label: 'Yes',
+			            className: 'btn-success'
 
-					bootbox.confirm({
-					    message: "Are You Sure?",
-					    buttons: {
-					        confirm: {
-					            label: 'Yes',
-					            className: 'btn-success'
-
-					        },
-					        cancel: {
-					            label: 'No',
-					            className: 'btn-danger'
-					        }
-					    },
-					    callback: function (result) {
-					    	if(result == true){
-
-					    		$.post('<?= site_url('nasty_v2/dashboard/change_pr_id3'); ?>', {or_id: orid,pr_id: 8}, function(data) {
-
-					            	$(window).attr("location", "<?= site_url('nasty_v2/dashboard/page/a1new'); ?>");
-
-					            });
-
-					    	}
-
-
-					    }
-					});
-
-
-		    	});
+			        },
+			        cancel: {
+			            label: 'No',
+			            className: 'btn-danger'
+			        }
+			    },
+			    callback: function (result) {
+			    	if(result == true){
+			    		$.post('<?= site_url('nasty_v2/dashboard/change_pr_id3'); ?>', {us_id : usid , or_id: orid,pr_id: 8}, function(data) {
+			            	$(window).attr("location", "<?= site_url('nasty_v2/dashboard/page/a1new'); ?>");
+			            });
+			    	}
+			    }
+			});
+    	});
 		$(".cancelOrd").click(function() {
 			$('#myModal').show('slow');
 			key = $(this).prop('id');

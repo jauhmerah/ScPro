@@ -707,10 +707,10 @@
         </div>
       </form>
     </div>
-
+<input type="hidden" id="us2Key" value="<?= $this->session->userdata('us_id'); ?>">
 <script>
     $(document).ready(function() {
-
+		var usid2 = $('#us2Key').val();
         $('#proO').click(function() {
             $("#newOrder").hide('slow');
             $("#oldOrder").hide('slow');
@@ -751,7 +751,7 @@
                         callback: function (result) {
                      if(result == true){
 
-                                $.post('<?= site_url('nasty_v2/dashboard/updatePr_id'); ?>', {id: orid, pr_id: prid}, function(data) {
+                                $.post('<?= site_url('nasty_v2/dashboard/updatePr_id'); ?>', {id: orid, pr_id: prid , us_id : usid2}, function(data) {
 
                                     $(window).attr("location", "<?= site_url('nasty_v2/dashboard/page/a62'); ?>");
 
@@ -791,7 +791,7 @@
                     callback: function (result) {
                     if(result == true){
 
-                                $.post('<?= site_url('nasty_v2/dashboard/updatePr_id'); ?>', {id: orid, pr_id: prid}, function(data) {
+                                $.post('<?= site_url('nasty_v2/dashboard/updatePr_id'); ?>', {id: orid, pr_id: prid , us_id : usid2}, function(data) {
 
                                     $(window).attr("location", "<?= site_url('nasty_v2/dashboard/page/a62'); ?>");
 
@@ -820,7 +820,7 @@
 
                             if(result!=null){
 
-                                $.post('<?= site_url('nasty_v2/dashboard/updatePr_id'); ?>', {id: orid, pr_id: prid , no : result}, function(data) {
+                                $.post('<?= site_url('nasty_v2/dashboard/updatePr_id'); ?>', {id: orid, pr_id: prid , no : result , us_id : usid2}, function(data) {
 
                                     $(window).attr("location", "<?= site_url('nasty_v2/dashboard/page/a62'); ?>");
 
@@ -850,7 +850,7 @@
                         callback: function (result) {
                      if(result == true){
 
-                                $.post('<?= site_url('nasty_v2/dashboard/updatePr_id'); ?>', {id: orid, pr_id: prid}, function(data) {
+                                $.post('<?= site_url('nasty_v2/dashboard/updatePr_id'); ?>', {id: orid, pr_id: prid , us_id : usid2}, function(data) {
 
                                     $(window).attr("location", "<?= site_url('nasty_v2/dashboard/page/a62'); ?>");
 

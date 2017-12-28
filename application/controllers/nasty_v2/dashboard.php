@@ -47,11 +47,6 @@
 			$this->load->helper('timeline');
             $lvl =$this->my_func->scpro_decrypt($this->session->userdata('us_lvl'));
     		switch ($key) {
-                case 'test':
-
-                $data['display'] = $this->load->view($this->parent_page."/testgraft" ,'', true);
-                        $this->_show('display' , $data, $key);
-                    break;
                 case "x1" :// dashboard
                         //start added
                         $this->load->database();
@@ -1586,36 +1581,35 @@ epul@nastyjuice.com
              if ($this->input->post()) {
                 $arr = $this->input->post();
                 $this->load->database();
+				$us_id = $arr['us_id'];
+				$this->load->library('my_func', NULL , 'mf');
+				$us_id = $this->mf->scpro_decrypt($us_id);
                 $this->load->model('m_order');
                 $this->load->model('m_order_ext');
-
                 $id=$arr['id'];
-
                 $arr2 = array(
-
                     "pr_id" => $arr['pr_id']
-
                 );
-
                 if(isset($arr['no']))
                 {
                     $arr3 = array(
-
                     "or_trackno" => $arr['no']
-
                     );
-
                     $result1 = $this->m_order_ext->update($arr3 , $id);
                 }
-
-                $result = $this->m_order->update($arr2 , $id);
-
-
+                if($this->m_order->update($arr2 , $id)){
+					$this->load->model('timeline/M_timeline', 'mt');
+					$array = array(
+						'or_id' => $id,
+						'pr_id' => $arr['pr_id'],
+						'us_id' => $us_id
+					);
+					$this->mt->insert($array);
+				}
                 $this->session->set_flashdata('success', 'Order are successfully updated');
                 redirect(site_url('nasty_v2/dashboard/page/a62'),'refresh');
             }else{
                 $this->session->set_flashdata('error', 'Order are not updated');
-
                 redirect(site_url('nasty_v2/dashboard/page/a62'),'refresh');
             }
         }
@@ -1785,11 +1779,11 @@ epul@nastyjuice.com
         {
             $or_id = $this->input->post('or_id');
             $pr_id = $this->input->post('pr_id');
+			$us_id = $this->input->post('us_id');
+			$this->load->library('my_func', NULL , 'mf');
+			$us_id = $this->mf->scpro_decrypt($us_id);
             $this->load->database();
             $this->load->model('m_order');
-			echo $or_id . " " . $pr_id;die();
-			// TODO: kat sini ada error xleh proceed recordLog;
-			recordLog($or_id , $pr_id);
 			/*
           	1 - New Order
             2 - In Progress
@@ -1804,14 +1798,18 @@ epul@nastyjuice.com
             11 - Shipping
             12 - Arrived
             13 - Return */
-            $this->m_order->updateROS($pr_id, $or_id);
-            redirect(site_url('nasty_v2/dashboard/page/a1new'),'refresh');
+            if($this->m_order->updateROS($pr_id, $or_id)){
+                // NOTE: This section cant use by timeline_helpers. because it is get ajax.
+				$this->load->model('timeline/M_timeline', 'mt');
+				$array = array(
+					'or_id' => $or_id,
+					'pr_id' => $pr_id,
+					'us_id' => $us_id
+				);
+				$this->mt->insert($array);
+			}
+            //redirect(site_url('nasty_v2/dashboard/page/a1new'),'refresh');
         }
-
-
-
-
-
         private function change_pr_id2($or_id = null)
         {
             //utk upload image part
