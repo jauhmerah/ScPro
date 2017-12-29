@@ -1,5 +1,5 @@
 <?php
-	if ($arr['order']->pr_id == 3) {
+	if ($arr['order']->pr_id >= 3) {
 		$mode = "readonly";
 		$radio = "disabled";
 	} else {

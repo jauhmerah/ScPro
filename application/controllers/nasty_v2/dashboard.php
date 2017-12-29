@@ -398,7 +398,7 @@
                             $this->session->set_flashdata('success', 'The order are completed. Please print the D.O. form before shipping.');
                             $email['fromName'] = "Ai System";
                             $email['fromEmail'] = "nstylabc@sirius.sfdns.net";
-                            $email['toEmail'] = "zul@nastyjuice.com, account@nastyjuice.com";
+                            $email['toEmail'] = "zul@nastyjuice.com, finance@nastyjuice.com";
                             $email['subject'] = $this->version." #".((10000*$ver)+100000+$or_id)." Completed";
                             $email['msg'] = "
 Order Detail
@@ -453,127 +453,32 @@ epul@nastyjuice.com
 	    			$this->load->database();
 	    			$this->load->model('m_order');
                     $this->load->library('l_label');
-    				$temp['arr'] = $this->m_order->getList_ext(null ,1, 1 , 1 , 0);
-    				$temp['arr1'] = $this->m_order->getList_ext(null ,1, 1 , 2 , 0);
+    				// $temp['arr'] = $this->m_order->getList_ext(null ,1, 1 , 1 , 0);
+    				// $temp['arr1'] = $this->m_order->getList_ext(null ,1, 1 , 2 , 0);
                     $temp['arrV'] = $this->m_order->getList_ext(null ,2, 1 , 1 , 0);
                     $temp['arrV1'] = $this->m_order->getList_ext(null ,2, 1 , 2 , 0);
+					$temp['arrV2'] = $this->m_order->getList_ext(null ,2, 1 , 3 , 0);
                     $temp['arrHold'] = $this->m_order->getList_ext(null ,2, 1 , 7 , 0);
     				$data['title'] = '<i class="fa fa-fw fa-edit"></i>Order List</a>';
     				$data['display'] = $this->load->view($this->parent_page.'/productionOrder', $temp , TRUE);
+					$data['display'] .= $this->productionXdistribution();
     				$this->_show('display' , $data , $key);
     				break;
-
-
-                    case 'a6':
-
-
-                      //$this->load->library('my_func');
-                   /* if ($lvl == 4) {
-                        redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
-                    }
-                    if ($this->input->get('mode')) {
-                        $temp['mode'] = $this->input->get('mode');
-                    }          */
+                case 'a6':
                     $this->load->database();
                     $this->load->library('my_func');
                     $this->load->library('my_flag');
                     $this->load->model('m_order');
-                    $this->load->model('m_order_process');
 
-                    if ($this->input->post("search") && $this->input->post("filter") || $this->input->get("search") && $this->input->get("filter")) {
-                        if ($this->input->get("search") && $this->input->get("filter")) {
-                            $search = $this->input->get("search");
-                            $filter = $this->input->get("filter");
-                        } else {
-                            $search = $this->input->post("search");
-                            $filter = $this->input->post("filter");
-                        }
-                        switch ($filter) {
-                            case '10':
-                                //Client Name
-                                $where = array(
-                                    "cl.cl_name" => $search
-                                );
-                                break;
-                            case '1':
-                                //Order Code
-                                //Hanya Single
-                                if (strpos($search, "#") !== false) {
-                                    $search = str_replace("#", "", $search);
-                                }
-                                if (!is_numeric($search)) {
-                                    $this->session->set_flashdata('warning', 'Please Enter the Correct Order Code');
-                                    redirect(site_url("nasty_v2/dashboard/page/a1"),'refresh');
-                                }
-                                $str = (string)$search;
-                                /*if ($str[1] == '1') {
-                                    $id = $search - 110000;
-                                    $ver = 1;
-                                } else {
-                                    $id = $search - 100000;
-                                    $ver = 0;
-                                }*/
-                                $ver = 2;
-                                $id = $search - 120000;
-                                $where = array(
-                                    "ord.or_id" => $id
-                                );
-                                break;
-                            case '2':
-                                //Sales Person
-                                $where = array(
-                                    "us1.us_username" => $search
-                                );
-                                break;
-                            case '3':
-                                //Order Status
-                                $where = array(
-                                    "pr.pr_desc" => $search
-                                );
-                                break;
-                        }
-                        if (isset($ver)) {
-                            $arr['arr1'] = $this->m_order->listOr($ver , null , null , 0 , $where);
-                        }else{
-                            $arr['arr1'] = $this->m_order->listSearch(2 , null , null , 0 , $where);
-                        }
-                    } else {
-                        $ver = $this->m_order->orderCount(2);
-                        $arr['arr1'] = $this->m_order->listOr(2 , 10);
+                    $arr['arr1'] = $this->m_order->listOr(2 , 10);
 
-
-
-                    $arr['arr'] = $this->m_order->getList_ext(null ,1, 1 , 1 , 0);
-                    //$arr['arr1'] = $this->m_order->getList_ext(null ,1, 1 , 2 , 0);
-                    $arr['arrV'] = $this->m_order->getList_ext(null ,2, 1 , 1 , 0);
-                    $arr['arrV1'] = $this->m_order->getList_ext(null ,2, 1 , 2 , 0);
-                    $arr['arrHold'] = $this->m_order->getList_ext(null ,2, 1 , 7 , 0);
-                        $result1 = sizeof($arr['arr1']);
-                        //$sizeA = 10 - $result1;
-                        /*if ($sizeA != 0) {
-                            $p1 = $p + 10 - $ver1;
-                            if ($p1 < 10) {
-                                $p2 = 0;
-                            } else {
-                                $p2 = $p1;
-                                $p1 = 10;
-                            }
-                            $arr['arr'] = $this->m_order->listOr(0 , $p1 , $p2);
-                            $result1 = $result1 + sizeof($arr['arr']);
-                        }*/
-                        //$arr['page'] = $p;
-                        $arr['total'] = $ver;
-                        $arr['row'] = $result1;
-                        $arr['lvl'] = $this->m_order_process->getLvl();
-                    }
-                    //$arr['arr'] = $this->m_order->getAll();
                     $data['title'] = '<i class="fa fa-fw fa-edit"></i>Distributor</a>';
                     $data['display'] = $this->load->view($this->parent_page.'/ROSlist', $arr , TRUE);
                     $this->_show('display' , $data , $key);
                     break;
 
                 case 'a62':
-
+					// NOTE : This section will not use any more. Integrate with production. (function productionXdistribution)
                     if ($this->input->get('page')) {
                         $p = $this->input->get('page');
                     }else{
@@ -1336,7 +1241,7 @@ epul@nastyjuice.com
 							$id = $arr[0];
 							unset($arr);
 							$or_id = "#".(120000+$id);
-							$data['title'] = '<i class="fa fa-book" aria-hidden="true"></i>'.$or_id.'</a>';
+							$data['title'] = '<i class="fa fa-book" aria-hidden="true"></i> '.$or_id.'</a>';
 							$this->load->model('m_order');
 							$this->load->model('m_category');
 		                    $this->load->model('m_nico');
@@ -1352,7 +1257,7 @@ epul@nastyjuice.com
 						}
 					}else{
 						$this->session->set_flashdata('error' ,  'Ops!! , wrong path');
-						redirect(site_url('nasty_v2/dashboard/page/e1'));
+						redirect(site_url('nasty_v2/dashboard/page/a2'));
 					}
 					break;
 				case 'e3':
@@ -1607,10 +1512,10 @@ epul@nastyjuice.com
 					$this->mt->insert($array);
 				}
                 $this->session->set_flashdata('success', 'Order are successfully updated');
-                redirect(site_url('nasty_v2/dashboard/page/a62'),'refresh');
+                redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
             }else{
                 $this->session->set_flashdata('error', 'Order are not updated');
-                redirect(site_url('nasty_v2/dashboard/page/a62'),'refresh');
+                redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
             }
         }
 
@@ -2302,7 +2207,7 @@ epul@nastyjuice.com
                 $saleman = $this->m_user->getName($arr['us_id']);
                 $email['fromName'] = "Ai System";
                 $email['fromEmail'] = "nstylabc@sirius.sfdns.net";
-                $email['toEmail'] = "zul@nastyjuice.com, account@nastyjuice.com , production@nastyjuice.com.my";
+                $email['toEmail'] = "zul@nastyjuice.com, finance@nastyjuice.com , distribution@nastyjuice.com.my";
                 $email['subject'] =  $this->version." New Order #".((10000*$ver)+100000+$or_id);
                 $email['msg'] = "
 Order Detail
@@ -2343,7 +2248,7 @@ epul@nastyjuice.com
                 $saleman = $this->m_user->getName($arr->us_id);
                 $email['fromName'] = "Ai System";
                 $email['fromEmail'] = "nstylabc@sirius.sfdns.net";
-                $email['toEmail'] = "zul@nastyjuice.com, account@nastyjuice.com , production@nastyjuice.com";
+                $email['toEmail'] = "zul@nastyjuice.com, finance@nastyjuice.com , distribution@nastyjuice.com.my";
                 $email['subject'] =  $this->version." Unconfirm #".((10000*$ver)+100000+$or_id);
                 $email['msg'] = "
 Order Detail
@@ -2382,7 +2287,7 @@ epul@nastyjuice.com
                 $saleman = $this->m_user->getName($arr->us_id);
                 $email['fromName'] = "Ai System";
                 $email['fromEmail'] = "nstylabc@sirius.sfdns.net";
-                $email['toEmail'] = "zul@nastyjuice.com,account@nastyjuice.com , production@nastyjuice.com";
+                $email['toEmail'] = "zul@nastyjuice.com,finance@nastyjuice.com , distribution@nastyjuice.com";
                 $email['subject'] =  $this->version." On Hold Order #".((10000*$ver)+100000+$or_id);
                 $email['msg'] = "
 Order Detail
@@ -2422,7 +2327,7 @@ epul@nastyjuice.com
                 $saleman = $this->m_user->getName($arr->us_id);
                 $email['fromName'] = "Ai System";
                 $email['fromEmail'] = "nstylabc@sirius.sfdns.net";
-                $email['toEmail'] = "zul@nastyjuice.com,account@nastyjuice.com , production@nastyjuice.com";
+                $email['toEmail'] = "zul@nastyjuice.com,finance@nastyjuice.com , distribution@nastyjuice.com.my";
                 $email['subject'] =  $this->version." In Progress Order #".((10000*$ver)+100000+$or_id);
                 $email['msg'] = "
 Order Detail
@@ -2579,9 +2484,11 @@ epul@nastyjuice.com
         }
         public function getAjaxDone()
         {
+			// TODO: kena bubuh timeline helper kt sini:p
             if ($this->input->post('or_id')) {
                 $this->load->library('my_func');
                 $this->load->database();
+				$this->load->helper('time');
                 $or_id = $this->my_func->scpro_decrypt($this->input->post('or_id'));
                 $this->load->model('m_order');
                 $arr = array(
@@ -2643,6 +2550,131 @@ epul@nastyjuice.com
             $arr['arr'] = $this->m_item->totalByFlavor($arr1['year1'] , $arr1['month1'] , $arr1['client'] , $arr1['mg'], $arr1['country']);
             echo $this->load->view($this->parent_page.'/ajax/getAjaxGraph2', $arr , false);
         }
-	}
+		public function productionXdistribution()
+		{
+			if ($this->input->get('page')) {
+				$p = $this->input->get('page');
+			}else{
+				$p = 0;
+			}
+			 if ($this->input->get('e')) {
+				$e = $this->input->get('e');
+			}else{
+				$e = 0;
+			}
 
+			if ($this->input->get('page2')) {
+				$p2 = $this->input->get('page2');
+			}else{
+				$p2 = 0;
+			}
+			 if ($this->input->get('e2')) {
+				$e2 = $this->input->get('e2');
+			}else{
+				$e2 = 0;
+			}
+
+			if ($this->input->get('page3')) {
+				$p3 = $this->input->get('page3');
+			}else{
+				$p3 = 0;
+			}
+			 if ($this->input->get('e3')) {
+				$e3 = $this->input->get('e3');
+			}else{
+				$e3 = 0;
+			}
+			$this->load->database();
+			$this->load->library('my_func');
+			$this->load->library('my_flag');
+			$this->load->model('m_order');
+			$this->load->model('m_order_process');
+
+			if ($this->input->post("search") && $this->input->post("filter") || $this->input->get("search") && $this->input->get("filter")) {
+				if ($this->input->get("search") && $this->input->get("filter")) {
+					$search = $this->input->get("search");
+					$filter = $this->input->get("filter");
+				} else {
+					$search = $this->input->post("search");
+					$filter = $this->input->post("filter");
+				}
+				switch ($filter) {
+					case '10':
+						//Client Name
+						$where = array(
+							"cl.cl_name" => $search
+						);
+						break;
+					case '1':
+						//Order Code
+						//Hanya Single
+						if (strpos($search, "#") !== false) {
+							$search = str_replace("#", "", $search);
+						}
+						if (!is_numeric($search)) {
+							$this->session->set_flashdata('warning', 'Please Enter the Correct Order Code');
+							redirect(site_url("nasty_v2/dashboard/page/a1"),'refresh');
+						}
+						$str = (string)$search;
+						$ver = 2;
+						$id = $search - 120000;
+						$where = array(
+							"ord.or_id" => $id
+						);
+						break;
+					case '2':
+						//Sales Person
+						$where = array(
+							"us1.us_username" => $search
+						);
+						break;
+					case '3':
+						//Order Status
+						$where = array(
+							"pr.pr_desc" => $search
+						);
+						break;
+				}
+				if (isset($ver)) {
+					$arr['arr1'] = $this->m_order->listOrROS($ver , 1 , null , null , 0 , $where);
+					 $arr['arr2'] = $this->m_order->listOrROS($ver , 2 , null , null , 0 , $where);
+					 $arr['arr3'] = $this->m_order->listOrROS($ver , 3 , null , null , 0 , $where);
+
+				}else{
+					$arr['arr1'] = $this->m_order->listSearch(2 , null , null , 0 , $where);
+					//$arr['arr2'] = $this->m_order->listOr($ver , null , null , 0 , $where);
+				}
+			} else {
+				$ver = $this->m_order->orderCountROS(2, 1);
+				$ver2 = $this->m_order->orderCountROS(2, 2);
+				$ver3 = $this->m_order->orderCountROS(2, 3);
+
+				$arr['arr1'] = $this->m_order->listOrROS(2 , 1 , 10 , $p);
+				$arr['arr2'] = $this->m_order->listOrROS(2 , 2 , 10 , $p2);
+				$arr['arr3'] = $this->m_order->listOrROS(2 , 3 , 10 , $p3);
+				$result1 = sizeof($arr['arr1']);
+				$result2 = sizeof($arr['arr2']);
+				$result3 = sizeof($arr['arr3']);
+
+				$arr['page'] = $p;
+				$arr['e'] = $e;
+				$arr['page2'] = $p2;
+				$arr['e2'] = $e2;
+				$arr['page3'] = $p3;
+				$arr['e3'] = $e3;
+
+				$arr['total'] = $ver;
+				$arr['total2'] = $ver2;
+				$arr['total3'] = $ver3;
+
+				$arr['row'] = $result1;
+				$arr['row2'] = $result2;
+				$arr['row3'] = $result3;
+				$arr['lvl'] = $this->m_order_process->getLvl(1);
+				$arr['lvl2'] = $this->m_order_process->getLvl(3);
+				$arr['lvl3'] = $this->m_order_process->getLvl(2);
+			}
+			return $this->load->view($this->parent_page.'/ROSlist2', $arr , TRUE);
+		}
+	}
 ?>

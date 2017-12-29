@@ -12,13 +12,6 @@
             <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
             <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
             <div class="page-sidebar navbar-collapse collapse">
-                <!-- BEGIN SIDEBAR MENU -->
-                <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
-                <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
-                <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
-                <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
-                <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
-                <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
                 <ul class="page-sidebar-menu  page-header-fixed page-sidebar-menu-hover-submenu page-sidebar-menu-closed " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
                     <li class="nav-item <?php if (strpos($link, 'x') !== false) { echo " active open ";}else{echo "start ";}?>   ">
                         <a href="<?= site_url('nasty_v2/dashboard/page/x1') ?>" class="nav-link ">
@@ -59,58 +52,38 @@
                         </ul>
                     </li>
                     <?php } ?>
-                    <?php if($us_lvl != 4 && $us_lvl != 5){?>
+                    <?php if(($us_lvl != 2) ||  ($us_lvl != 3)){?>
                     <li class="nav-item <?php if (strpos($link, 'a2') !== false) { echo " active open ";}else{echo "start ";}?>  ">
                         <a href="javascript:;" class="nav-link nav-toggle">
-                                <i class="fa fa-industry"></i>
-                                <span class="title">Production Team</span>
+                                <i class="fa fa-cog fa-spin"></i>
+                                <span class="title">Distribution Team</span>
                                 <span class="arrow"></span>
+                                <span class="badge badge-danger"><i class="fa fa-arrow-circle-o-up"></i></span>
                             </a>
                         <ul class="sub-menu">
-                            <li class="nav-item start" title="Request Of Shipping">
-                                <a href="<?= site_url('nasty_v2/dashboard/page/a2') ?>" class="nav-link ">
-                                        <i class="fa fa-cog fa-spin"></i>
-                                        <span class="title">Order List</span>
-                                    </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <?php } ?>
-                    <?php if(($us_lvl != 2) ||  ($us_lvl != 3)  ){?>
-                    <li class="nav-item <?php if (strpos($link, 'y') !== false) { echo " active open ";}else{echo "start ";}?>  ">
-                        <a href="javascript:;" class="nav-link nav-toggle">
-                                <i class="fa fa-cogs"></i>
-                                <span class="title">Distributor</span>
-                                <span class="arrow"></span>
-                                <span class="badge badge-danger">Upgrade</span>
-                            </a>
-                        <ul class="sub-menu">
-                            <?php  if(($us_lvl == 5)||($us_lvl == 1)){  ?>
                             <li class="nav-item start" title="Distributor Action">
-                                <a href="<?= site_url('nasty_v2/dashboard/page/a62') ?>" class="nav-link ">
+                                <a href="<?= site_url('nasty_v2/dashboard/page/a2') ?>" class="nav-link ">
                                         <i class="fa fa-flag-checkered"></i>
                                         <span class="title">Distributor Action</span>
                                         <span class="badge badge-danger"><i class="fa fa-arrow-circle-o-up" aria-hidden="true"></i></span>
                                 </a>
                             </li>
-                            <?php }?>
-                            <li class="nav-item start" title="Ready To Shipping">
+                            <li class="nav-item start" title="Parcel Manangement">
+                                <a href="<?= site_url('nasty_v2/dashboard/page/e1') ?>" class="nav-link ">
+                                    <i class="fa fa-archive" aria-hidden="true"></i>
+                                    <span class="title">Parcel Management</span>
+                                </a>
+                            </li>
+                            <li class="nav-item start" title="Dashboard">
                                 <a href="<?= site_url('nasty_v2/dashboard/page/a6') ?>" class="nav-link ">
                                         <i class="fa fa-flag"></i>
                                         <span class="title">Dashboard</span>
                                         <!--<span class="badge badge-success">1</span>-->
                                     </a>
                             </li>
-                            <li class="nav-item start" title="Ready To Shipping">
-                                <a href="<?= site_url('nasty_v2/dashboard/page/e1') ?>" class="nav-link ">
-                                        <i class="fa fa-archive" aria-hidden="true"></i>
-                                        <span class="title">Parcel<br />Management</span>
-                                        <span class="badge badge-danger"><i class="fa fa-star"></i></span>
-                                    </a>
-                            </li>
                         </ul>
                     </li>
-                    <?php } ?>
+                    <?php } ?>                    
                     <?php if($us_lvl != 2 && $us_lvl != 3 && $us_lvl != 5){?>
                     <li class="nav-item <?php if (strpos($link, 'k1') !== false) { echo " active open ";}else{echo "start ";}?>   ">
                         <a href="<?= site_url('nasty_v2/dashboard/page/k1') ?>" class="nav-link ">
