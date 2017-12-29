@@ -33,13 +33,50 @@ class M_barcode_item extends CI_Model {
 	                $this->db->where(self::PRI_INDEX, $where);
 	            }
 	        }
-	        $result = $this->db->get()->result();
-	        if ($result) {
-	            	return $result;	            
-	        } else {
-	            return false;
+	         $result = $this->db->get()->result();
+        if ($result) {
+            if ($where !== NULL) {
+                return array_shift($result);
+            } else {
+                return $result;
+            }
+        } else {
+            return false;
+        }
+    }
+    public function getAll($where = NULL) {
+	        $this->db->select('*');
+            $this->db->from('barcode_item bi');
+            
+            $this->db->join('finish_inv fi', 'fi.bi_id = bi.bi_id', 'left');
+
+            $this->db->join('type2 ty2', 'ty2.ty2_id = bi.ty2_id', 'left');
+            
+            $this->db->join('nicotine ni', 'ni.ni_id = bi.ni_id', 'left');
+                 
+            $this->db->join('category ca', 'ca.ca_id = ty2.ca_id', 'left');
+            
+
+	        if ($where !== NULL) {
+	            if (is_array($where)) {
+	                foreach ($where as $field=>$value) {
+	                    $this->db->where($field, $value);
+	                }
+	            } else {
+	                $this->db->where('bi.bi_id', $where);
+	            }
 	        }
-	    }
+	         $result = $this->db->get()->result();
+        if ($result) {
+            if ($where !== NULL) {
+                return array_shift($result);
+            } else {
+                return $result;
+            }
+        } else {
+            return false;
+        }
+	}
     public function getExist($nico = array() ,$id = array())
     {
 	    	$this->db->select('*');

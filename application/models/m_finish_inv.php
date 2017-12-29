@@ -49,8 +49,14 @@ class M_finish_inv extends CI_Model {
     }
 
     public function delete($where = array()) {
-        if (!is_array()) {
-            $where = array(self::PRI_INDEX => $where);
+        if ($where !== NULL) {
+            if (is_array($where)) {
+                foreach ($where as $field=>$value) {
+                    $this->db->where($field, $value);
+                }
+            } else {
+                $this->db->where(self::PRI_INDEX, $where);
+            }
         }
         $this->db->delete(self::TABLE_NAME, $where);
         return $this->db->affected_rows();

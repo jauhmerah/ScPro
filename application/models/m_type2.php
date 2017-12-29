@@ -65,6 +65,17 @@ class M_type2 extends CI_Model {
         }
     }
 
+    public function getList($where = NULL) {
+       
+
+        $this->db->select("*");
+        $this->db->from(self::TABLE_NAME);
+        $this->db->where('ca_id', $where);
+        $result = $this->db->get()->result();
+
+        return $result;
+
+    }
     /**
      * Inserts new data into database
      *

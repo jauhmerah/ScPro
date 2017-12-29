@@ -27,7 +27,12 @@ var chart = AmCharts.makeChart( "g1div", {
     "total": 0
   }
 <?php  } ?>]
-  ,
+  ,  
+  "titles": [ {
+  "text":"<?= $text2."-".$text1."-".$arr[0]->mg."mg" ; ?>",
+    "size": 15
+    
+  } ],
   "valueAxes": [ {
     "gridColor": "#FFFFFF",
     "gridAlpha": 0.2,

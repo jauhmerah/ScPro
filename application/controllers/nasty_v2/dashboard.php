@@ -1319,40 +1319,185 @@ epul@nastyjuice.com
 
                 case 'i4':
                     
-                    $data['title'] = '<i class="fa fa-fw fa-link"></i> Barcode Item List';
-
-                    $this->_loadCrud();
-                    $crud = new grocery_CRUD();
-                    $crud->set_model('m_barcode_item_crud');
-                    $crud->set_table('barcode_item');
                    
-                    $crud->required_fields('bi_code', 'bi_img_url');                                 
-                    $crud->set_relation('ni_id','nicotine','ni_mg');
+
+                    $this->load->database();
+                    $this->load->model('m_barcode_item');
+                    $this->load->library('pagination');
+                    $this->load->helper('array');
+
+                    $like = null;
+                    $filter = null;
+                    $limit_per_page = 10;
+                    if ($this->input->post("search") ) 
+                    {
+                            $search = $this->input->post("search");
+
+                            if(strpos($search, ',') !== false)
+                            {
+                                $search = explode(',', $search);
+                                
+                               
+                                
+                                $sizeArr = sizeof($search);
+
+                                foreach ($search as $key => $value){
+                                    $filter[] = $value;
+                                }
+                               
+                               
+                            }
+                            else
+                            {
+                                $filter = array('bi.bi_code' => $search );
+                            }             
+                        
+                        $arr['total'] = $this->m_barcode_item->count($filter,$like);
+                        $limit_per_page = $arr['total'];
+                    }
+                    else
+                    {
+                        $arr['total'] = $this->m_barcode_item->count($filter,$like);   
+                    }
                     
-                    $crud->columns('bi_code','bi_img_url','ty2_id','ni_id');
-                    $crud->display_as('bi_code','Barcode Number')
-                         ->display_as('bi_img_url','Barcode Image')
-                         ->display_as('ty2_id','Item Description')
-                         ->display_as('ni_id','Nicotine');
-                    $crud->callback_column('ty2_id',array($this,'callback_col_item2'));
-                         
-                    $crud->set_field_upload('bi_img_url','assets/uploads/barcode_item');
-                    $crud->unset_print();
-		    		$crud->unset_export();
-		    		$crud->unset_add();
-		    		$crud->unset_delete();
-		    		$crud->unset_search();
+
+                    $page = $this->uri->segment(5,1);
+                    $page--;
+
+                    $arr['numPage'] = $page*10;
+                    
+
+                    
+
+                    $arr['result'] = $this->m_barcode_item->get_curr($limit_per_page , $arr['numPage'] , $filter , $like);
+                    
+                    $config['base_url'] = site_url('nasty_v2/dashboard/page/i4');
+                    $config['total_rows'] = $arr['total'];
+                    $config['per_page'] = $limit_per_page;
+                    $config["uri_segment"] =5;
+                     
+                    // custom paging configuration
+                    $config['num_links'] = 3;
+                    $config['use_page_numbers'] = TRUE;
+                    $config['reuse_query_string'] = TRUE;
+                     
+                    $config['cur_tag_open'] = '<li><a class="current"><strong>';
+                    $config['cur_tag_close'] = '</strong></a></li>';
+                    $config['num_tag_open'] = '&nbsp;<li>';
+                    $config['num_tag_close'] = '</li>&nbsp;';
+                    $config['prev_tag_open'] = '<li>';
+                    $config['prev_tag_close'] = '</li>';
+                    $config['last_tag_open'] = '<li>';
+                    $config['last_tag_close'] = '</li>';
+                    $config['next_tag_open'] = '<li>';
+                    $config['next_tag_close'] = '</li>';
+                    $config['first_tag_open'] = '<li>';
+                    $config['first_tag_close'] = '</li>';
+                    $config['next_link'] = 'Next';
+                    $config['prev_link'] = 'Previous';
+                    $this->pagination->initialize($config);
+                    $arr["link"] = $this->pagination->create_links();
+
+                    $data['title'] = '<i class="fa fa-fw fa-gear"></i>Barcode Setting</a>';
+                    $data['display'] = $this->load->view($this->parent_page.'/barcodeSetting', $arr , TRUE);
+                    $this->_show('display' , $data , $key);
+
+                    // $this->_loadCrud();
+                    // $crud = new grocery_CRUD();
+                    // $crud->set_model('m_barcode_item_crud');
+                    // $crud->set_table('barcode_item');
+                    // $crud->set_subject('Finish Item');
+                    // $crud->required_fields('ca_id','ty2_id');                                 
+                    // $crud->set_relation('ni_id','nicotine','ni_mg');
+                    
+                    // $crud->columns('bi_code','ty2_id','ni_id');
+                    // $crud->display_as('bi_code','Barcode Number')
+                    //     ->display_as('ca_id','Series')
+                    //      ->display_as('ty2_id','Item Description')
+                    //      ->display_as('ni_id','Nicotine');
+                    // $crud->callback_column('ty2_id',array($this,'callback_col_item2'));
+                    // $crud->callback_add_field('ca_id', function () {
+                    //         $this->load->database();
+                    //         $this->load->model('m_category');
+                    //         $cat = $this->m_category->get();
+                    //         $text2 = "";
+                    //         foreach ($cat as $key) {
+                    //             $text2 = $text2 . '<option style="background-color:'.$key->ca_color.'" value="'.$key->ca_id .'">'. $key->ca_desc.' </option>';
+                    //         }
+                    //         $text = '
+                    //         <div class="form-group">
+                    //             <div class="col-sm-8">
+                    //                 <select id="item" name= "ty2_id">
+                    //                     <option value="-1">-- Select Category --</option>
+                    //                     '.$text2.'
+                    //                 </select>
+                    //             </div>
+                    //         </div>
+                    //         ';
+                    //         return $text;
+                    //     });  
+                    // $crud->callback_add_field('ty2_id', function () {
+                    //         $this->load->database();
+                    //         $this->load->model('m_type2');
+                    //         $item = $this->m_type2->get();
+                    //         $text2 = "";
+                    //         foreach ($item as $key) {
+                    //             $text2 = $text2 . '<option value="'.$key->ty2_id .'">'. $key->ty2_desc.' </option>';
+                    //         }
+                    //         $text = '
+                    //         <div class="form-group">
+                    //             <div class="col-sm-8">
+                    //                 <select id="item" name= "ty2_id">
+                    //                     <option value="-1">-- Select Item --</option>
+                    //                     '.$text2.'
+                    //                 </select>
+                    //             </div>
+                    //         </div>
+                    //         ';
+                    //         return $text;
+                    //     });
+                  
+                    // $crud->unset_print();
+		    		// $crud->unset_export();
+		    		
+		    		
 		    		
                    
-					$output = $crud->render();
-		    		$data['display'] = $this->load->view('crud' , $output , true);
-		    		$this->_show('display' , $data , $key);
-    				break;
-
-                    
-
+					// $output = $crud->render();
+		    		// $data['display'] = $this->load->view('crud' , $output , true);
+		    		// $this->_show('display' , $data , $key);
+    				// break;
                 break;
-
+                case 'i41':
+                    if ($this->input->get('view')) {
+    					$data['title'] = '<i class="fa fa-file-eye"></i> Finish Item Detail';
+    					$id = $this->my_func->scpro_decrypt($this->input->get('view'));
+    					$this->load->database();
+    					$this->load->model('m_barcode_item');
+    					$arr['arr'] = $this->m_barcode_item->getAll($id);
+    					$data['display'] = $this->load->view($this->parent_page.'/barcode_item_view' , $arr , true);
+		    			$this->_show('display' , $data , $key);
+    					break;
+    				}
+                break;
+                 case 'i42':
+                    if ($this->input->get('edit')) {
+    					$data['title'] = '<i class="fa fa-file-eye"></i> Finish Item Detail';
+    					$id = $this->my_func->scpro_decrypt($this->input->get('edit'));
+    					$this->load->database();
+    					$this->load->model('m_barcode_item');
+    					$this->load->model('m_type2');
+    					$this->load->model('m_category');
+    					$this->load->model('m_nico');
+    					$arr['arr'] = $this->m_barcode_item->getAll($id);
+    					$arr['cat'] = $this->m_category->get();
+    					$arr['nico'] = $this->m_nico->get();
+    					$arr['type2'] = $this->m_type2->get();
+    					$data['display'] = $this->load->view($this->parent_page.'/barcode_item_edit' , $arr , true);
+		    			$this->_show('display' , $data , $key);
+    					break;
+    				}
+                break;
                 case 'i3':
                 $this->load->database();
                     $this->load->model('m_client');
@@ -2154,6 +2299,68 @@ epul@nastyjuice.com
     		}
     	}
 
+        public function updateFinish()
+        {
+    		if ($this->input->post()) {
+                $this->load->database();
+    			$this->load->model('m_barcode_item');
+                $this->load->library('my_func');
+    			$arr = $this->input->post();
+                
+                $id = $this->my_func->scpro_decrypt($arr['id']);
+
+                $arr2 = array(
+                    'bi_code' => $arr['barcode'], 
+                    'ty2_id' => $arr['type2'], 
+                    'ni_id' => $arr['nico']
+                );
+                
+                $this->m_barcode_item->update($arr2 , $id);
+                
+                $this->session->set_flashdata('success', 'Item are successfully updated');
+    			redirect(site_url('nasty_v2/dashboard/page/i4'),'refresh');
+                
+            }
+            else {
+                $this->session->set_flashdata('error', 'Item are not updated');
+    			redirect(site_url('nasty_v2/dashboard/page/i4'),'refresh');
+            }
+        }
+
+        public function del_item()
+        {
+    		if ($this->input->post()) {
+            
+
+            $this->load->library('my_func');
+                  
+            $id = $this->my_func->scpro_decrypt($this->input->post('id'));
+
+            $this->load->database();
+
+            $this->load->model('m_barcode_item');
+            $this->load->model('m_finish_inv');
+
+            $this->m_barcode_item->delete($id);
+
+            $arr = array('bi_id' => $id);    
+
+            $this->m_finish_inv->delete($arr);
+            
+            $this->session->set_flashdata('success', 'Item are successfully deleted');
+
+                redirect(site_url('nasty_v2/dashboard/page/i4'),'refresh');
+             }
+            else {
+
+            $this->session->set_flashdata('error', 'Item are not deleted');
+
+    			redirect(site_url('nasty_v2/dashboard/page/i4'),'refresh');
+            }
+            
+        }
+
+
         public function stockIn()
         {
             if ($this->input->post()) 
@@ -2231,6 +2438,31 @@ epul@nastyjuice.com
 
             }
         }
+        public function updateBarcode()
+        {
+            if ($this->input->post()) {
+                $this->load->database();
+                
+                $this->load->model('m_barcode_item');
+                
+                $id = $this->input->post('id');
+                $barcode = $this->input->post('barcode');
+
+                $arr = array('bi_code' => $barcode );
+                $result = $this->m_barcode_item->update($arr , $id);
+
+                if ($result) {
+                    $this->session->set_flashdata('success', 'The barcode item are successfully updated!!');
+                    redirect(site_url('nasty_v2/dashboard/page/i4'),'refresh');
+                }
+                else {
+                   $this->session->set_flashdata('error', 'The barcode item not updated!! Please check again');
+                    redirect(site_url('nasty_v2/dashboard/page/i4'),'refresh');
+                }
+
+            }
+        }
+
 
         public function updateQty1()
         {
@@ -2630,8 +2862,31 @@ epul@nastyjuice.com
 			}
 			//$img = $obj->img_url;
 			return true;
-		}
+        }
+        
+        public function getAjaxSeries()
+        {
+            if ($this->input->post('ca')) {
+                $ca_id = $this->input->post('ca');
+                $this->load->database();
 
+                $this->load->model('m_type2');
+
+                if ($ca_id == -1) {
+                      $type['cat'] = $ca_id;
+                  } else {
+
+                      $type['type2'] = $this->m_type2->getList($ca_id);
+                      
+
+                      $type['cat'] = $ca_id;
+                  }  
+                  
+                $this->load->view($this->parent_page."/ajax/getAjaxType2",$type );
+
+            }
+
+        }
         public function getAjaxDanger(Type $var = null)
         {
             $this->load->database();
@@ -3006,15 +3261,23 @@ epul@nastyjuice.com
 
         public function getAjaxBarcode()
         {
-            $this->load->library("my_func");
-            $arr = $this->input->post();
             $this->load->database();
+            
+            // $this->load->model('m_finish_inv');
             $this->load->model('m_barcode_item');
-            $temp = array(
-                "bi_id" => $this->my_func->scpro_decrypt($this->input->post('id'))
-            );
-            $arr['img'] = $this->m_barcode_item->get($temp);            
-            echo $this->load->view('nasty_v2/dashboard/ajax/getAjaxBarcode',$arr,TRUE);
+            $this->load->library('my_func');
+
+            $beid = $this->my_func->scpro_decrypt($this->input->post('be_id'));
+
+            $page = $this->input->post('page');
+            
+            $arr['page'] = $page;
+
+            $be_id = array('bi_id' => $beid );
+
+            $arr['arr'] = $this->m_barcode_item->get($beid);
+
+			echo $this->load->view($this->parent_page. "/ajax/getAjaxBarcode", $arr , true);
         }
 
         public function getAjaxTableItem()

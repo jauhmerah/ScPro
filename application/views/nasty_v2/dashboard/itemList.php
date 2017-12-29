@@ -9,10 +9,35 @@ $url = $this->uri->segment(5,1);
            <div class="tab-pane active" id="tab_1">
                         <div class="portlet box red-soft ribbon mt-element-ribbon" >
                             <div class="portlet-title">
-                                <div class="caption">
-                                    <img src="<?= base_url(); ?>/assets/cover/favicon2.png"> Finish Item List                                   
-                                </div>
-                            
+								<div class="cleafix" style="height :4px">
+									
+								</div>
+                                <div class="row">
+                                                                     
+                                
+                            		<div class="col-md-12">
+										<div class="col-md-5">
+											<div class="caption">
+												<img src="<?= base_url(); ?>/assets/cover/favicon2.png"> Finish Item List  
+											</div>
+											
+										</div> 
+										<div class="col-md-7">
+											<div class="form-group">
+												
+												
+												<div class="col-sm-10">
+													<input type="search" name="search" id="search" class="form-control input-circle" placeholder="Barcode Number" required autofocus>
+												</div>
+												<div class="col-sm-2">
+													<button type="button" class="clearBtn btn bg-green-sharp btn-circle btn-md" title="Clear Field"><i class="fa fa-eraser" aria-hidden="true"></i> Clear Field</button>													
+												</div>
+												
+											</div>
+										</div>
+								
+									</div>
+								</div>
                             </div>
 							
                            <div class="portlet-body form">
@@ -23,29 +48,36 @@ $url = $this->uri->segment(5,1);
 							<div class="clearfix">
 								&nbsp;
 							</div>
-							 <div class="row tableC">
-								<!-- <form id="formSearch" action="<?= site_url('nasty_v2/dashboard/page/i2'); ?>" method="POST" role="form"> -->
-									<div class="col-md-12">
-										<div class="col-md-5">
-										</div> 
-										<div class="col-md-7">
+							 <div class="row">
+								<form id="formSearch" action="<?= site_url('nasty_v2/dashboard/page/i21'); ?>" method="POST" role="form">
+									<div class="col-md-10 col-md-offset-1">
+									
+										<div class="col-md-4">
 											<div class="form-group">
-											<div class="col-sm-4">
-												<label for="input" class="control-label">Barcode </label>
-											</div>
-												
-												<div class="col-sm-5">
-													<input type="search" name="search" id="search" class="form-control input-circle" placeholder="Barcode No." onmouseover="this.focus();" required>
+												<label for="input" class="col-sm-2 control-label">Search</label>
+												<div class="col-sm-10">
+													<input type="search" name="search" id="search" class="form-control input-circle" placeholder="Search" required>
 												</div>
-												<div class="col-sm-2">
-													<button type="button" class="clearBtn btn bg-green-sharp btn-circle btn-md" title="Clear Field"><i class="fa fa-eraser" aria-hidden="true"></i> Clear Field</button>													
-												</div>
-												
 											</div>
 										</div>
-								
+										<div class="col-md-4">
+											<div class="form-group">
+												<label for="inputFilter" class="col-sm-2 control-label">Filter</label>
+												<div class="col-sm-10">
+													<select name="filter" id="inputFilter" class="form-control input-circle">
+														<option value="-1">-- Select Filter --</option>
+														<option value="1">Item Name</option>
+														<option value="2">Category</option>
+														
+													</select>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-2">
+											<button type="button" class="btn btn-default " id="sub"><i class="fa fa-search"></i> Search</button><!--  -->
+										</div>
 									</div>
-								<!-- </form> -->
+								</form>
 							</div>
 							<div class="clearfix">
 								&nbsp;
