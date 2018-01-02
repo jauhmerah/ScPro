@@ -46,6 +46,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <link href="<?= base_url(); ?>asset2/global/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css">
         <link href="<?= base_url(); ?>asset2/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css">
         <!-- END THEME LAYOUT STYLES -->
+
         <!-- Flag Css -->
         <link href="<?= base_url(); ?>asset/flags/flags.css" rel="stylesheet" type="text/css">
         <!-- End Flag Css -->

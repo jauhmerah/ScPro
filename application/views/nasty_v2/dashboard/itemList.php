@@ -49,14 +49,14 @@ $url = $this->uri->segment(5,1);
 								&nbsp;
 							</div>
 							 <div class="row">
-								<form id="formSearch" action="<?= site_url('nasty_v2/dashboard/page/i21'); ?>" method="POST" role="form">
+								<form id="formSearch" action="<?= site_url('nasty_v2/dashboard/page/i2'); ?>" method="POST" role="form">
 									<div class="col-md-10 col-md-offset-1">
 									
-										<div class="col-md-4">
+										<div class="col-md-6">
 											<div class="form-group">
 												<label for="input" class="col-sm-2 control-label">Search</label>
 												<div class="col-sm-10">
-													<input type="search" name="search" id="search" class="form-control input-circle" placeholder="Search" required>
+													<input type="search" name="search2" id="search2" class="form-control input-circle" placeholder="Search" required>
 												</div>
 											</div>
 										</div>
@@ -68,6 +68,7 @@ $url = $this->uri->segment(5,1);
 														<option value="-1">-- Select Filter --</option>
 														<option value="1">Item Name</option>
 														<option value="2">Category</option>
+														<option value="3">Nicotine</option>
 														
 													</select>
 												</div>
@@ -395,6 +396,20 @@ $url = $this->uri->segment(5,1);
                 $("#divTableItem").html(data);
             });
 		});
+
+		$("#sub").click(function() {
+			if (searchFun()) {
+				$("#formSearch").submit();
+			} else {
+				$("#inputFilter").focus();
+			}
+		});
+		function searchFun() {
+			filter = $("#inputFilter").val();
+			if (filter == -1) {
+				bootbox.alert("Please select Filter");
+				return false;} else {return true;}
+		}
 	
 	});
 

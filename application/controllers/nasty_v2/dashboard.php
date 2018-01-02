@@ -1268,6 +1268,33 @@ epul@nastyjuice.com
                         $arr['total'] = $this->m_barcode_item->count($filter,$like);
                         $limit_per_page = $arr['total'];
                     }
+                    elseif ($this->input->post("search2") &&  $this->input->post("filter")) {
+                      
+                            $search = $this->input->post("search2");
+                            $filterM = $this->input->post("filter");
+                        
+
+                        switch ($filterM) {
+                            case '1':          
+                                //item name                    
+                                $like = array('ty2.ty2_desc' => $search );
+                            break;
+
+                            case '2':
+                                //category
+                                $like = array('ca.ca_desc' => $search );
+                            break;
+                            
+                            case '3':
+                                //nicotine  
+                                $like = array('ni.ni_mg' => $search );
+                            break;
+
+                            
+                        }
+                        $arr['total'] = $this->m_barcode_item->count($filter,$like);
+                        $limit_per_page = $arr['total']; 
+                    }
                     else
                     {
                         $arr['total'] = $this->m_barcode_item->count($filter,$like);   
@@ -1761,9 +1788,9 @@ epul@nastyjuice.com
                         $this->load->library('my_func');
                         $this->load->database();
                         $us_id=$this->my_func->scpro_decrypt($this->session->userdata('us_id'));
-                        // if (!$this->checkStock($arr['itemId'] , $arr['nico'] , $arr['qty'] , $arr['tester'])) {
-                        //     redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
-                        // }
+                        if (!$this->checkStock($arr['itemId'] , $arr['nico'] , $arr['qty'] , $arr['tester'])) {
+                            redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
+                        }
                         $this->load->model('m_order');
                         if ($arr['client'] == -1) {
                             $cl = array(
@@ -1815,25 +1842,6 @@ epul@nastyjuice.com
                                 'oi_tester' => $arr['tester'][$i]
                             );
                             $this->m_order_item->insert($item);
-
-
-                            $result = $this->m_barcode_item->getExist($arr['nico'][$i],$arr['itemId'][$i]);
-                            if ($result != true) 
-                            {
-                                $bItem = array(
-                                    'ty2_id' => $arr['itemId'][$i], 
-                                    'ni_id' => $arr['nico'][$i], 
-                                );
-
-                                $bi_id = $this->m_barcode_item->insert($bItem);
-
-                                $inv = array(
-                                    'bi_id' => $bi_id, 
-                                );
-                                
-                                $this->m_finish_inv->insert($inv);
-
-                            }
                           
                         }
                         /*$this->load->model('m_shipping_note');
@@ -3724,7 +3732,28 @@ epul@nastyjuice.com
             
             
         }
+         public function getAjaxNoti()
+        {
+            $arr = $this->input->post();
+            $this->load->database();
+           
+            $this->load->model('m_barcode_item');
 
+            $ty2_id = $this->input->post("type");
+            $nico = $this->input->post("nico");
+            
+            
+            $w = array(
+                    'ty2.ty2_id' => $ty2_id,
+                    'ni.ni_id' => $nico
+            );
+
+           
+           
+            $arr1['arr'] = $this->m_barcode_item->get2($w) ;
+            
+            echo $this->load->view($this->parent_page."/ajax/getAjaxNoti",$arr1, true);
+        }
 
         public function testqr()
         {
@@ -3736,17 +3765,17 @@ epul@nastyjuice.com
             $this->load->library('my_func');
             $status = true;
             $msg = "";
-            $this->load->model('m_stock_inventory' , 'msi');
-            $arr = $this->msi->get2();
+            $this->load->model('m_barcode_item' , 'mbi');
+            $arr = $this->mbi->get2();
             for ($i=0; $i < sizeof($id); $i++) { 
                 $w = array(
-                    'sti.ty2_id' => $id[$i],
-                    'sti.ni_id' => $nico[$i]
+                    'ty2.ty2_id' => $id[$i],
+                    'ni.ni_id' => $nico[$i]
                 );
-                $temp = array_shift($this->msi->get2($w));
+                $temp = array_shift($this->mbi->get2($w));
                 if (sizeof($temp) != 0) {
                     $qty1 = $qty[$i] + $tester[$i];
-                    if ($temp->sti_total - $qty1 < 0 ) {
+                    if ($temp->fi_qty - $qty1 < 0 ) {
                         // klu qty xckup;
                         $msg = $msg."<strong>Insufficient Quantity</strong> : ".$temp->ty2_desc." - ".$temp->ca_desc." > ".$temp->ni_mg."mg</br>";
                         $status = false;

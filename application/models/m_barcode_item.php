@@ -117,11 +117,26 @@ class M_barcode_item extends CI_Model {
             $this->db->join('category ca', 'ca.ca_id = ty2.ca_id', 'left');
             
             $this->db->order_by('bi.ty2_id , bi.ni_id', 'asc');
-            
-			if ($where != null) {
-				$this->db->where($where);
-			}			
-	        return $this->db->get()->result();	        
+            if ($where !== NULL) {
+	            if (is_array($where)) {
+	                foreach ($where as $field=>$value) {
+	                    $this->db->where($field, $value);
+	                }
+	            } else {
+	                $this->db->where($where);
+	            }
+            }
+            $result = $this->db->get()->result();	 
+			 if ($result) {
+                    if ($where !== NULL) {
+                        return array_shift($result);
+                    } else {
+                        return $result;
+                    }
+                } else {
+                    return false;
+                }
+	               
     }
 
     public function get_curr( $limit = 2, $start = 0, $filter = array(), $like = NULL)

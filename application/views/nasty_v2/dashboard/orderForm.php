@@ -228,22 +228,13 @@
 				                                    					<div class="clearfix">
 				                                    						&nbsp;
 				                                    					</div>
-				                                    					<div class="clearfix">
-				                                    						&nbsp;
+				                                    					<div id="notification">
+				                                    							
 				                                    					</div>
 				                                    				</div>
 				                                    			</td>
 				                                    		</tr>
-				                                    		<tr class="thead-inverse">
-				                                    			<th>Item Detail</th>
-				                                    			<th>Price</th>
-				                                    			<th>Qty</th>
-				                                    			<th>Tester</th>
-				                                    			<th>Action</th>
-				                                    		</tr>
-				                                    	</thead>
-				                                    	<tbody id="orderList">				                               
-				                                    	</tbody>				                                    		
+				                                    			                                    		
 				                                    	<tfoot>
 				                                    		<tr>
 				                                    			<td colspan="5">
@@ -476,6 +467,13 @@
 						$('#loadingItem').hide();
 					});
 				});
+
+				$.post('<?= site_url("nasty_v2/dashboard/getAjaxNoti") ?>', {type : type , nico : nic}, function(data) {
+					
+					$("#notification").append(data);
+					
+
+				});
 			});
 		});
 		$(".inputText").keyup(function() {
@@ -483,23 +481,14 @@
 			v = $(this).val();
 			$("."+rad).val(v);
 		});
-		/*$('.confirm').click(function() {
-			pr_id = $('#pr_id').val();
-			if (pr_id == 1) {
-				$(this).removeClass('btn-success').addClass('btn-warning');
-				$(this).text("Unconfirm");
-				$('.riben').show('slow');
-				$('#pr_id').val('4');
-			}else{
-				$(this).removeClass('btn-warning').addClass('btn-success');
-				$(this).text("Confirm");
-				$('.riben').hide('slow');
-				$('#pr_id').val('1');
-			}
-		});*/
+		
 		// $('#orderList').on('click', '#inputPrice', function() {
 		// 	alert($(this).val());
 		// });
+
+		
+
+        	
 	});
 
 </script>

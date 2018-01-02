@@ -21,7 +21,8 @@
             <script src="<?= base_url(); ?>asset2/global/plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
 
             <!-- END CORE PLUGINS -->
-            
+            <script src="<?= base_url(); ?>asset/js/bootstrap-notify.js"></script>
+
 
             <!-- BEGIN THEME GLOBAL SCRIPTS -->
             <script src="<?= base_url(); ?>asset2/global/scripts/app.min.js" type="text/javascript"></script>
