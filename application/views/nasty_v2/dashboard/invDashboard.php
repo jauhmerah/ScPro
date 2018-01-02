@@ -37,7 +37,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
-                    <div class="col-lg-10">
+                    <div class="col-lg-5">
                         <select id="series" class="form-control">
                             <option value="-1">-- All Series --</option>
                             <?php 
@@ -46,6 +46,12 @@
                                 <option value="<?= $key->ca_id; ?>"><?= $key->ca_desc; ?></option>
                             <?php }
                             ?>
+                        </select>
+                    </div>
+                    <div class="col-lg-5" id="divColor2" name="divColor2">
+                        <select id="color2" class="form-control" disabled > 
+                            <option value="-1">-- All Flavor --</option>
+                           
                         </select>
                     </div>
                     <div class="col-lg-2">
@@ -101,7 +107,7 @@
                             
                         </select>
                     </div>
-                    <div class="col-md-2" id="divColor" name="divColor">
+                    <div class="col-md-2">
                         <select id="nico" class="form-control" required id="nico" >
                             <option value="-1">-- All mg --</option>
                             <?php 
@@ -255,6 +261,13 @@ $(document).ready(function() {
                 $("#divColor").html(data);
             });
     });
+    $('#series').change(function () {
+        id = $("#series").val();
+         $.post('<?= site_url('nasty_v2/dashboard/getAjaxColor2'); ?>', {ca : id}, function(data) {
+               
+                $("#divColor2").html(data);
+            });
+    });
     $('#flavBtn').click(function() {
        
         
@@ -273,8 +286,9 @@ $(document).ready(function() {
     });
     $('#seriesBtn').click(function() {
         id = $("#series").val();
+        color = $("#color2").val();
         
-        $.post('<?= site_url('graph/getAjaxGraph3') ?>', {series : id}, function(data) {
+        $.post('<?= site_url('graph/getAjaxGraph3') ?>', {series : id,col : color}, function(data) {
             $.when($('#g1code').html(data)).then(function(){
                 $("#g1div").removeClass('display-none');
                 $("#g1_loading").addClass('display-none');

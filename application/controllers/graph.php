@@ -15,23 +15,19 @@ class Graph extends CI_Controller {
 
     public function getAjaxGraph3()
     {
-        $where = null;
-
-        if ($this->input->post("series") || $this->input->get("series")) 
+        $series = null;
+        $color = null;
+        if ($this->input->post("series") || $this->input->post("color")) 
         {
-            if ($this->input->get("series")) {
-                $search = $this->input->get("series");
-            }
-            else {
-                $search = $this->input->post("series");
-            }
+            
+            $series = $this->input->post("series");
+            $color = $this->input->post("col");
 
-            $where = array('ca.ca_id' => $search );
         }
 
     	$this->load->database();
     	$this->load->model('m_barcode_item' , 'mbi');
-    	$arr['arr'] = $this->mbi->get3($where);
+    	$arr['arr'] = $this->mbi->getSeries($series,$color);
     	echo $this->load->view($this->parent_page. "/graph1", $arr, false);
     }
 

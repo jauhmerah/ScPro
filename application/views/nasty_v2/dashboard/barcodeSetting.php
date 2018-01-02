@@ -26,23 +26,43 @@ $url = $this->uri->segment(5,1);
 							 <div class="row tableC">
 								<!-- <form id="formSearch" action="<?= site_url('nasty_v2/dashboard/page/i2'); ?>" method="POST" role="form"> -->
 									<div class="col-md-12">
-										<div class="col-md-5">
+										<div class="col-md-2">
+											<a href="<?= site_url('nasty_v2/dashboard/page/i43'); ?>"  title="Add Finish Item">
+												<button type="button" class="btn bg-grey-salsa btn-circle" ><i class="fa fa-plus"></i> Add Item</button>
+											</a>
 										</div> 
-										<div class="col-md-7">
-											<div class="form-group">
-											<div class="col-sm-4">
-												<label for="input" class="control-label">Barcode </label>
-											</div>
-												
-												<div class="col-sm-5">
-													<input type="search" name="search" id="search" class="form-control input-circle" placeholder="Barcode No." onmouseover="this.focus();" required>
+										
+										<form id="formSearch" action="<?= site_url('nasty_v2/dashboard/page/i4'); ?>" method="POST" role="form">
+											
+											
+												<div class="col-md-4">
+													<div class="form-group">
+														<label for="input" class="col-sm-2 control-label">Search</label>
+														<div class="col-sm-10">
+															<input type="search" name="search2" id="search2" class="form-control input-circle" placeholder="Search" required>
+														</div>
+													</div>
 												</div>
-												<div class="col-sm-2">
-													<button type="button" class="clearBtn btn bg-green-sharp btn-circle btn-md" title="Clear Field"><i class="fa fa-eraser" aria-hidden="true"></i> Clear Field</button>													
+												<div class="col-md-4">
+													<div class="form-group">
+														<label for="inputFilter" class="col-sm-2 control-label">Filter</label>
+														<div class="col-sm-10">
+															<select name="filter" id="inputFilter" class="form-control input-circle">
+																<option value="-1">-- Select Filter --</option>
+																<option value="1">Item Name</option>
+																<option value="2">Category</option>
+																<option value="3">Nicotine</option>
+																
+															</select>
+														</div>
+													</div>
 												</div>
-												
-											</div>
-										</div>
+												<div class="col-md-2">
+													<button type="button" class="btn btn-default " id="sub"><i class="fa fa-search"></i> Search</button><!--  -->
+												</div>
+											
+										</form>
+							
 								
 									</div>
 								<!-- </form> -->
@@ -221,6 +241,20 @@ $url = $this->uri->segment(5,1);
                         }
                     });
 		});
+
+		$("#sub").click(function() {
+			if (searchFun()) {
+				$("#formSearch").submit();
+			} else {
+				$("#inputFilter").focus();
+			}
+		});
+		function searchFun() {
+			filter = $("#inputFilter").val();
+			if (filter == -1) {
+				bootbox.alert("Please select Filter");
+				return false;} else {return true;}
+		}
             
 	});
 

@@ -29,7 +29,7 @@ var chart = AmCharts.makeChart( "g1div", {
 <?php  } ?>]
   ,  
   "titles": [ {
-  "text":"<?= $text2."-".$text1."-".$arr[0]->mg."mg" ; ?>",
+  "text":"Flavour Current Quantity",
     "size": 15
     
   } ],

@@ -57,6 +57,7 @@
 	            <form id="formSearch" action="<?= site_url('nasty_v2/dashboard/page/i21'); ?>" method="POST" role="form">
 	            	<div class="col-md-12">
 	            		 <div class="col-md-2">
+						 
 	            		</div> 
 	            		<div class="col-md-4">
 	            			<div class="form-group">

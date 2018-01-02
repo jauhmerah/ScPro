@@ -1356,31 +1356,33 @@ epul@nastyjuice.com
                     $like = null;
                     $filter = null;
                     $limit_per_page = 10;
-                    if ($this->input->post("search") ) 
-                    {
-                            $search = $this->input->post("search");
-
-                            if(strpos($search, ',') !== false)
-                            {
-                                $search = explode(',', $search);
-                                
-                               
-                                
-                                $sizeArr = sizeof($search);
-
-                                foreach ($search as $key => $value){
-                                    $filter[] = $value;
-                                }
-                               
-                               
-                            }
-                            else
-                            {
-                                $filter = array('bi.bi_code' => $search );
-                            }             
+                   
+                    if ($this->input->post("search2") &&  $this->input->post("filter")) {
+                      
+                            $search = $this->input->post("search2");
+                            $filterM = $this->input->post("filter");
                         
+
+                        switch ($filterM) {
+                            case '1':          
+                                //item name                    
+                                $like = array('ty2.ty2_desc' => $search );
+                            break;
+
+                            case '2':
+                                //category
+                                $like = array('ca.ca_desc' => $search );
+                            break;
+                            
+                            case '3':
+                                //nicotine  
+                                $like = array('ni.ni_mg' => $search );
+                            break;
+
+                            
+                        }
                         $arr['total'] = $this->m_barcode_item->count($filter,$like);
-                        $limit_per_page = $arr['total'];
+                        $limit_per_page = $arr['total']; 
                     }
                     else
                     {
@@ -1524,6 +1526,23 @@ epul@nastyjuice.com
 		    			$this->_show('display' , $data , $key);
     					break;
     				}
+                break;
+                 case 'i43':
+                  
+    					$data['title'] = '<i class="fa fa-file-eye"></i> Finish Item Detail';
+    					
+    					$this->load->database();
+    					$this->load->model('m_barcode_item');
+    					$this->load->model('m_type2');
+    					$this->load->model('m_category');
+    					$this->load->model('m_nico');
+    					$arr['cat'] = $this->m_category->get();
+    					$arr['nico'] = $this->m_nico->get();
+    					$arr['type2'] = $this->m_type2->get();
+    					$data['display'] = $this->load->view($this->parent_page.'/barcode_item_add' , $arr , true);
+		    			$this->_show('display' , $data , $key);
+    					break;
+    			
                 break;
                 case 'i3':
                 $this->load->database();
@@ -2331,6 +2350,38 @@ epul@nastyjuice.com
             }
             else {
                 $this->session->set_flashdata('error', 'Item are not updated');
+    			redirect(site_url('nasty_v2/dashboard/page/i4'),'refresh');
+            }
+        }
+
+        public function addFinish()
+        {
+    		if ($this->input->post()) {
+                $this->load->database();
+    			$this->load->model('m_barcode_item');
+    			$this->load->model('m_finish_inv');
+                $this->load->library('my_func');
+    			$arr = $this->input->post();
+
+                $arr2 = array(
+                    'bi_code' => $arr['barcode'], 
+                    'ty2_id' => $arr['type2'], 
+                    'ni_id' => $arr['nico']
+                );
+                
+                $bi_id = $this->m_barcode_item->insert($arr2);
+                $inv = array(
+                    'bi_id' => $bi_id, 
+                );
+                                
+                $this->m_finish_inv->insert($inv);
+
+                $this->session->set_flashdata('success', 'Item are successfully added');
+    			redirect(site_url('nasty_v2/dashboard/page/i4'),'refresh');
+                
+            }
+            else {
+                $this->session->set_flashdata('error', 'Item are not added');
     			redirect(site_url('nasty_v2/dashboard/page/i4'),'refresh');
             }
         }
@@ -3718,6 +3769,18 @@ epul@nastyjuice.com
             
         }
 
+        public function getAjaxColor2()
+        {
+            $ca_id = $this->input->post("ca");
+            
+            $this->load->database();
+            $this->load->model("m_type2");
+    
+            $arr['color'] = $this->m_type2->get(array("ca_id" => $ca_id));
+            echo $this->load->view('nasty_v2/dashboard/ajax/getAjaxColor2', $arr , TRUE);
+            
+        }
+
         public function getAjaxQtyColumn()
         {
             $this->load->library("my_func");
@@ -3772,7 +3835,7 @@ epul@nastyjuice.com
                     'ty2.ty2_id' => $id[$i],
                     'ni.ni_id' => $nico[$i]
                 );
-                $temp = array_shift($this->mbi->get2($w));
+                $temp = array_shift($this->mbi->get1($w));
                 if (sizeof($temp) != 0) {
                     $qty1 = $qty[$i] + $tester[$i];
                     if ($temp->fi_qty - $qty1 < 0 ) {

@@ -102,7 +102,33 @@ class M_barcode_item extends CI_Model {
            
 	    	
     }
+    public function get1($where = null)
+	{
+	    	$this->db->select('*');
+            $this->db->from('barcode_item bi');
+            
+            $this->db->join('finish_inv fi', 'fi.bi_id = bi.bi_id', 'left');
 
+            $this->db->join('type2 ty2', 'ty2.ty2_id = bi.ty2_id', 'left');
+            
+            $this->db->join('nicotine ni', 'ni.ni_id = bi.ni_id', 'left');
+                 
+            $this->db->join('category ca', 'ca.ca_id = ty2.ca_id', 'left');
+            
+            $this->db->order_by('bi.ty2_id , bi.ni_id', 'asc');
+            if ($where !== NULL) {
+	            if (is_array($where)) {
+	                foreach ($where as $field=>$value) {
+	                    $this->db->where($field, $value);
+	                }
+	            } else {
+	                $this->db->where($where);
+	            }
+            }
+            return $this->db->get()->result();	 
+			 
+	               
+    }
     public function get2($where = null)
 	{
 	    	$this->db->select('*');
@@ -238,18 +264,49 @@ class M_barcode_item extends CI_Model {
                  
             $this->db->join('category ca', 'ca.ca_id = ty2.ca_id', 'left');
 
-            if (is_array($where) && $where != NULL) 
+            if ($where != NULL) 
             {
-                foreach ($where as $key => $value) 
-                {
-                    $this->db->where($key, $value);
+                if (is_array($where)) {
+                   foreach ($where as $key => $value) 
+                    {
+                        $this->db->where($key, $value);
+                    }
                 }
+                else {
+                        $this->db->where($where);
+                }
+                
             }
 
 	   		// $this->db->order_by('ty2.ty2_id', 'asc');
 	   		return $this->db->get()->result();
-           }
-           
+    }
+
+        public function getSeries( $series = null , $flavor = null){
+	   		$this->db->select('ty2.ty2_desc as color , ca.ca_desc as series, ni.ni_mg as mg, fi.fi_qty as total');
+            
+            $this->db->from('barcode_item bi');
+               
+	   		$this->db->join('finish_inv fi', 'fi.bi_id = bi.bi_id', 'left');
+
+            $this->db->join('type2 ty2', 'ty2.ty2_id = bi.ty2_id', 'left');
+            
+            $this->db->join('nicotine ni', 'ni.ni_id = bi.ni_id', 'left');
+                 
+            $this->db->join('category ca', 'ca.ca_id = ty2.ca_id', 'left');
+
+            if ($series != NULL) 
+            {
+                $this->db->where('ca.ca_id',$series);    
+            }
+            if ($flavor != NULL) 
+            {
+                $this->db->where('ty2.ty2_id',$flavor);    
+            }
+
+	   		// $this->db->order_by('ty2.ty2_id', 'asc');
+	   		return $this->db->get()->result();
+           }   
            public function get4($where = null,$year = null,$month = null){
 
 	   		$this->db->select('ty2.ty2_desc as color , ca.ca_desc as series, ni.ni_mg as mg, fi.fi_qty as total');
