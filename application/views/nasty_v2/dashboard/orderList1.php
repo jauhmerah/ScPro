@@ -32,7 +32,7 @@
 		<div class="portlet box purple">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-list"></i>Order List 2017
+                    <i class="fa fa-list"></i>Order List 2018
                 </div>
                 <div class="actions">
                     <div class="btn-group btn-group-devided" data-toggle="buttons">
@@ -98,7 +98,7 @@
 		                    	$n = 0;
 		                    	if (sizeof($arr1) != 0) {
 		                    		foreach ($arr1 as $user) {
-		                    			$n++;
+		                    			$n++;$orid = $this->my_func->scpro_encrypt($user->or_id);
 		                    			?>
 		                    	<tr>
 		                            <td><?= $n; ?></td>
@@ -130,14 +130,15 @@
                                     	<?php
                                     }
                                     ?></span></td>
-		                            <td><?php
+		                            <td><button type="button" onclick="window.open('<?= site_url('nasty_v2/dashboard/page/f1?time='.$orid); ?>');" class="btn btn-default btn-sm blue-ebonyclay"><i class="fa fa-clock-o"></i> - <?php
 		                            if ($user->or_id) {
 		                            	$id = '#'.(120000+$user->or_id);
-		                            	echo '<span style = "color : #b706d6;"><strong>'.$id.'</strong></span>';
+		                            	echo '<strong>'.$id.'</strong>';
 		                            } else {
 		                            	echo "--Not Set--";
 		                            }
                                     ?></td>
+                                    </button>
 		                            <td><?php
                                     $view = ( $user->or_date == null) ? "--Not Set--" :  date_format(date_create($user->or_date) , 'd-M-Y' ) ;
                                     echo $view ;
@@ -230,8 +231,6 @@
                                     <?php } ?></td>
 		                            <td align="center">
                                     <?php
-                                        $orid = $this->my_func->scpro_encrypt($user->or_id);
-
                                         if ($us_id == $user->us_id) {
                                         	$conf = "jari";
                                         }else{

@@ -4,7 +4,7 @@ class Invoice extends CI_Controller {
 
 		var $parent_page = "invoice";
 
-		 	var $version = "OrdYs v2.3.9 Alpha";
+		 	var $version = "OrdYs v2.4.0 Alpha";
 			public function __construct()
 			{
 				  parent::__construct();

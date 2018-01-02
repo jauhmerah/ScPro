@@ -18,7 +18,7 @@
 				bootbox.alert("Please select Filter");
 				return false;} else {return true;}
 		}
-	});	
+	});
 </script>
 <?php
 	$us_id = $this->my_func->scpro_decrypt($this->session->userdata('us_id'));
@@ -27,19 +27,19 @@
 <link href="<?= base_url(); ?>asset2/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css" rel="stylesheet" type="text/css">
 					<script src="<?= base_url(); ?>asset2/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js" type="text/javascript"></script>
 <div class="row">
-	<div class="col-md-12">	
+	<div class="col-md-12">
 		<div class="portlet box yellow-casablanca">
             <div class="portlet-title">
                 <div class="caption">
                     <i class="fa fa-bank"></i>Order List 2017
-                </div>                      
+                </div>
             </div>
             <div class="portlet-body flip-scroll">
 	            <div class="row tableL">
 	            <form id="formSearch" action="<?= site_url('nasty_v2/dashboard/page/k1'); ?>" method="POST" role="form">
 	            	<div class="col-md-12">
 	            		<div class="col-md-2">
-	            			
+
 	            		</div>
 	            		<div class="col-md-4">
 	            			<div class="form-group">
@@ -88,15 +88,15 @@
 		                    </thead>
 		                    <tbody>
 		                    <?php
-		                    	$n = 0; 
-		                    	if (sizeof($arr1) != 0) { 
+		                    	$n = 0;
+		                    	if (sizeof($arr1) != 0) {
 		                    		foreach ($arr1 as $user) {
 		                    			$n++;
 		                    			$green = ($user->or_acc == 0) ? "" : "bg-green-meadow bg-font-green-meadow" ;
 		                    			?>
 		                    	<tr class="<?= $green; ?>">
 		                            <td><?= $n; ?></td>
-		                            <td><?php 
+		                            <td><?php
                                     $view = ($user->cl_name == null) ? "--Not Set--" : $user->cl_name ;
                                     echo $view;
                                     ?><span class="pull-right">
@@ -109,7 +109,7 @@
                                     	<?php
                                     }
                                     ?></span></td>
-		                            <td><?php 
+		                            <td><?php
 		                            if ($user->or_id) {
 		                            	$id = '#'.(120000+$user->or_id);
 		                            	echo '<span style = "color : #b706d6;"><strong>'.$id.'</strong></span>';
@@ -117,11 +117,11 @@
 		                            	echo "--Not Set--";
 		                            }
                                     ?></td>
-		                            <td><?php 
+		                            <td><?php
                                     $view = ( $user->or_date == null) ? "--Not Set--" :  date_format(date_create($user->or_date) , 'd-M-Y' ) ;
                                     echo $view ;
                                     ?></td>
-		                            <td><?php 
+		                            <td><?php
                                     $view = ( $user->us_username == null) ? "--Not Set--" :  $user->us_username ;
                                     echo $view;
                                     ?></td>
@@ -135,7 +135,7 @@
                             			<?php } ?>
                                     </td>
 		                            <td align="center">
-                                    <?php 
+                                    <?php
                                         $orid = $this->my_func->scpro_encrypt($user->or_id);
                                         if ($us_id == $user->us_id) {
                                         	$conf = "jari";
@@ -143,27 +143,27 @@
                                         	$conf = "xleh";
                                         }
                                     ?>
-		                            	<a href="<?= site_url('nasty_v2/dashboard/page/a111?v=2&view=').$orid."&mode=acc"; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-info btn-circle btn-xs"><i class="fa fa-eye"></i></button></a>&nbsp;-&nbsp;                            											
+		                            	<a href="<?= site_url('nasty_v2/dashboard/page/a111?v=2&view=').$orid."&mode=acc"; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-info btn-circle btn-xs"><i class="fa fa-eye"></i></button></a>&nbsp;-&nbsp;
 										<input type="hidden" class="form-control <?= $n.'check' ?>" value="<?= $orid; ?>">
-										
-										<button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/Invoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');"  class="btn blue-dark btn-circle btn-xs" title="Invoice">Inv</button></a>&nbsp;-&nbsp;    
-										<button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/dummyInvoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn c-btn-border-1x c-btn-blue-dark btn-circle btn-xs" title="Dummy Invoice">DInv</button></a>&nbsp;-&nbsp;										
-										<?php 
+
+										<button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/Invoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');"  class="btn blue-dark btn-circle btn-xs" title="Invoice">Inv</button></a>&nbsp;-&nbsp;
+										<button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/dummyInvoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn c-btn-border-1x c-btn-blue-dark btn-circle btn-xs" title="Dummy Invoice">DInv</button></a>&nbsp;-&nbsp;
+										<?php
 										if ($user->or_acc == 0) {
 											?>
-											<button type="button" class="btn green-jungle btn-circle btn-xs doneC" title="Checked" id="<?= $n.'check' ?>"><i class="fa fa-check"></i></button></a> 
+											<button type="button" class="btn green-jungle btn-circle btn-xs doneC" title="Checked" id="<?= $n.'check' ?>"><i class="fa fa-check"></i></button></a>
 											<?php
 										} else {
 											?>
-											<button type="button" class="btn red-pink btn-circle btn-xs cancelC" title="Unchecked" id="<?= $n.'check' ?>"><i class="fa fa-close"></i></button></a> 
+											<button type="button" class="btn red-pink btn-circle btn-xs cancelC" title="Unchecked" id="<?= $n.'check' ?>"><i class="fa fa-close"></i></button></a>
 											<?php
-										}										
-										?>										
-		                            </td>	                            
-		                        </tr>		
+										}
+										?>
+		                            </td>
+		                        </tr>
 		                    			<?php
 		                    		}
-		                    	}		                    ?>		                                               
+		                    	}		                    ?>
 		                    </tbody>
 		                    <?php if (isset($page)) {?>
 		                    <tfoot>
@@ -184,20 +184,20 @@
 			                					$next = "disabled";
 			                				}
 			                			?>
-			                				<li class="prev <?= $prev; ?>"><a <?php if($prev!="disabled"){ ?>href="<?= site_url('nasty_v2/dashboard/page/k1?page='.($page-10)); ?>"<?php } ?> title="Prev" ><i class="fa fa-angle-left"></i></a></li>			                				
+			                				<li class="prev <?= $prev; ?>"><a <?php if($prev!="disabled"){ ?>href="<?= site_url('nasty_v2/dashboard/page/k1?page='.($page-10)); ?>"<?php } ?> title="Prev" ><i class="fa fa-angle-left"></i></a></li>
 			                				<li class="next <?= $next; ?>"><a <?php if($next!="disabled"){ ?>href="<?= site_url('nasty_v2/dashboard/page/k1?page='.($page+10)); ?>"<?php } ?> title="Next"><i class="fa fa-angle-right"></i></a></li>
 			                			</ul>
 			                		</div>
 			                	</div>
 				                </td>
-		                    </tfoot> <?php 
+		                    </tfoot> <?php
 		                    } ?>
 		                </table>
 
 	            	</div>
 	            </div>
 	            <div id="fileUp" style="display:none;">
-	            	
+
 	            </div>
             </div>
         </div>
@@ -215,19 +215,21 @@
 		$get = "?search=".$this->input->post('search')."&filter=".$this->input->post('filter');
 	}
 ?>
+<input type="hidden" id="uskey" value="<?= $this->session->userdata('us_id'); ?>">
 <script>
-	$(document).ready(function() {		
+	$(document).ready(function() {
+		var uskey = $('#uskey').val();
 		$(".doneC").click(function() {
 			key = $(this).prop('id');
 			or_id = $('.'+key).val();
-			$.post('<?= site_url()."nasty_v2/dashboard/getAjaxDone" ?>', {or_id: or_id}, function(data, textStatus, xhr) {
+			$.post('<?= site_url()."nasty_v2/dashboard/getAjaxDone" ?>', {or_id: or_id , us_id : uskey}, function(data, textStatus, xhr) {
 				window.location = "<?= current_url().$get; ?>";
 			});
 		});
 		$(".cancelC").click(function() {
 			key = $(this).prop('id');
 			or_id = $('.'+key).val();
-			$.post('<?= site_url()."nasty_v2/dashboard/getAjaxCancel" ?>', {or_id: or_id}, function(data, textStatus, xhr) {
+			$.post('<?= site_url()."nasty_v2/dashboard/getAjaxCancel" ?>', {or_id: or_id , us_id : uskey}, function(data, textStatus, xhr) {
 				window.location = "<?= current_url().$get; ?>";
 			});
 		});
@@ -236,7 +238,7 @@
 			or_id = $("."+gbr).val();
 			$.post('<?= site_url('nasty_v2/dashboard/getAjaxImg'); ?>', {or_id: or_id}, function(data) {
 				bootbox.dialog({message : data});
-			});			
+			});
 		});
 	});
 

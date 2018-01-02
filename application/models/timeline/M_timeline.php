@@ -47,7 +47,7 @@
 
         public function getAll($where = NULL)
         {
-            $this->db->select('tl.* , ts.ts_desc , ts.ts_color');
+            $this->db->select('tl.* , pr.* , us.us_username');
 	        $this->db->from('time_line tl');
 	        if ($where !== NULL) {
 	            if (is_array($where)) {
@@ -58,14 +58,12 @@
 	                $this->db->where(self::PRI_INDEX, $where);
 	            }
 	        }
-            $this->db->join('time_status ts', 'tl.ts_id = ts.ts_id', 'left');
+            $this->db->join('process pr', 'tl.pr_id = pr.pr_id', 'left');
+			$this->db->join('user us', 'us.us_id = tl.us_id', 'left');
+			$this->db->order_by('tl.tl_date', 'desc');
 	        $result = $this->db->get()->result();
 	        if ($result) {
-	            if ($where !== NULL) {
-	                return array_shift($result);
-	            } else {
-	                return $result;
-	            }
+	            return $result;
 	        } else {
 	            return false;
 	        }

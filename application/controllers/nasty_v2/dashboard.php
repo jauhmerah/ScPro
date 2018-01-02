@@ -5,7 +5,7 @@
 
 	   	var $parent_page = "nasty_v2/dashboard";
 	   	var $old_page = "dashboard";
-        var $version = "OrdYs v2.3.9 Alpha";
+        var $version = "OrdYs v2.4.0 Alpha";
         var $imgUploc = "/assets/uploads/img/";
         var $flags = 'asset/flags/flags.png';
 
@@ -1388,6 +1388,18 @@ epul@nastyjuice.com
 						// timeline
 						$page = 'timeline/tl';
 						$data = NULL;
+						if ($this->input->get('time')) {
+							$this->load->library('my_func', NULL , 'mf');
+							$or_id = $this->input->get('time');
+							$or_id = $this->mf->scpro_decrypt($or_id);
+							$this->load->database();
+							$this->load->model('timeline/M_timeline', 'mtl');
+							$data['tl'] = $this->mtl->getAll(array('tl.or_id' => $or_id));
+							$data['or_id'] = $or_id;
+						}else{
+							$this->session->set_flashdata('warning' , 'Ops! wrong Path');
+							redirect(site_url('nasty_v2/dashboard/page/a1'));
+						}
 						$this->_show($page , $data , $key);
 						break;
     			default:
@@ -2484,17 +2496,26 @@ epul@nastyjuice.com
         }
         public function getAjaxDone()
         {
-			// TODO: kena bubuh timeline helper kt sini:p
             if ($this->input->post('or_id')) {
                 $this->load->library('my_func');
                 $this->load->database();
-				$this->load->helper('time');
+				//$this->load->helper('time');
                 $or_id = $this->my_func->scpro_decrypt($this->input->post('or_id'));
+				$us_id = $this->input->post('us_id');
+				$us_id = $this->my_func->scpro_decrypt($us_id);
                 $this->load->model('m_order');
                 $arr = array(
                     "or_acc" => 1
                 );
-                $this->m_order->update($arr, $or_id);
+				if ($this->m_order->update($arr, $or_id)) {
+					$this->load->model('timeline/M_timeline', 'mt');
+					$array = array(
+						'or_id' => $or_id,
+						'pr_id' => 16,
+						'us_id' => $us_id
+					);
+					$this->mt->insert($array);
+				}
             }
         }
         public function getAjaxCancel()
@@ -2503,11 +2524,21 @@ epul@nastyjuice.com
                 $this->load->library('my_func');
                 $this->load->database();
                 $or_id = $this->my_func->scpro_decrypt($this->input->post('or_id'));
+				$us_id = $this->input->post('us_id');
+				$us_id = $this->my_func->scpro_decrypt($us_id);
                 $this->load->model('m_order');
                 $arr = array(
                     "or_acc" => 0
                 );
-                $this->m_order->update($arr, $or_id);
+				if ($this->m_order->update($arr, $or_id)) {
+					$this->load->model('timeline/M_timeline', 'mt');
+					$array = array(
+						'or_id' => $or_id,
+						'pr_id' => 17,
+						'us_id' => $us_id
+					);
+					$this->mt->insert($array);
+				}
             }
         }
         public function getAjaxDelImg()

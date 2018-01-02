@@ -3,7 +3,7 @@
 
 	class Login extends CI_Controller {
 
-		var $version = "OrdYs v2.3.9 Alpha";
+		var $version = "OrdYs v2.4.0 Alpha";
 	    function __construct() {
 	        parent::__construct();
 	        $this->load->library('session' , 'my_func');
