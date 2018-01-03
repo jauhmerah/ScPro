@@ -107,7 +107,7 @@ class M_finish_log extends CI_Model {
 	        }
 		}
 		
-		public function count($filter = null, $like = null)
+		public function count($filter = null, $like = null,$month = null,$year = null)
 		{
 			$this->db->from('finish_log fl');
 			
@@ -138,6 +138,13 @@ class M_finish_log extends CI_Model {
 					$this->db->like($like);
 				}
 
+				if ($year != NULL) {
+            		$this->db->where('YEAR(fl.fi_date)', $year);
+
+					if ($month != NULL) {
+            			$this->db->where('MONTH(fl.fi_date)', $month);
+					}
+				}
 				
 
 				return $this->db->count_all_results();
@@ -149,7 +156,7 @@ class M_finish_log extends CI_Model {
 			}
 		}
 
-		public function get_curr( $limit = 2, $start = 0, $filter = NULL, $like = NULL)
+		public function get_curr( $limit = 2, $start = 0, $filter = NULL, $like = NULL,$month = NULL,$year = NULL)
 		{
 			$this->db->select('*');
 
@@ -181,6 +188,15 @@ class M_finish_log extends CI_Model {
 					$this->db->like($like);
 				}
 			}
+
+			if ($year != NULL) {
+            		$this->db->where('YEAR(fl.fi_date)', $year);
+
+					if ($month != NULL) {
+            			$this->db->where('MONTH(fl.fi_date)', $month);
+					}
+				}
+				
 		$this->db->order_by('fl.fl_id', 'desc');
     	return $this->db->get()->result();
 
@@ -235,7 +251,31 @@ class M_finish_log extends CI_Model {
 			// $this->db->limit(1);	
 	   		
 	   		return $this->db->get()->result();
-	   	}
+		   }
+		   
+		   public function countStock($status,$date)
+		   {
+			   $timestamp = strtotime($date);
+			   	$year = date('Y',$timestamp);
+			   	$month = date('m',$timestamp);
+			    $this->db->from(self::TABLE_NAME);
+				$this->db->where('ls_id',$status);
+				
+				if ($year != null) 
+			{
+            	$this->db->where('YEAR(fi_date)', $year);
+					if ($month != -1) 
+					{
+						$this->db->where('MONTH(fi_date)', $month);
+					}
+			}
+        
+            	$result = $this->db->count_all_results();
+            
+            	return $result;
+		   }
+
+		  
 
 	    	
 

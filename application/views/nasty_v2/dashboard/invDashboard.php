@@ -19,6 +19,47 @@
 <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
 <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
 <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>  
+
+<div class="row">
+    <div class="col-xs-12">                    
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li class="caption-subject font-dark bold uppercase">
+                    Total Stock-In and Stock-out for <?php echo date("F"); ?> <?php echo date("Y"); ?>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+        <div class="col-xs-6 ">
+            <a class="dashboard-stat dashboard-stat-v2 green-seagreen" href="<?= site_url(); ?>nasty_v2/dashboard/page/i21?search=stock-in&amp;filter=4&amp;month=<?= date("m"); ?>&amp;year=<?= date("Y"); ?>">
+                <div class="visual">
+                    <i>StockIn</i>
+                </div>
+                <div class="details">
+                        <div class="number">
+                            <span data-counter="counterup" data-value=""><?= $stockIn ?></span>
+                        </div>
+                            <div class="desc"> Total Stock-In </div>
+                </div>
+                </a>
+        </div>
+            <div class="col-xs-6 ">
+            <a class="dashboard-stat dashboard-stat-v2 red-intense" href="<?= site_url(); ?>nasty_v2/dashboard/page/i21?search=stock-out&amp;filter=4&amp;month=<?= date("m"); ?>&amp;year=<?= date("Y"); ?>">
+                <div class="visual">
+                    <i>StockOut</i>
+                </div>
+                <div class="details">
+                        <div class="number">
+                            <span data-counter="counterup" data-value=""><?= $stockOut ?></span>
+                        </div>
+                            <div class="desc"> Total Stock-Out </div>
+                </div>
+                </a>
+            </div>
+</div>
 <div class="row">
 	<div class="col-md-12 col-sm-12">
         <!-- BEGIN PORTLET-->
@@ -295,6 +336,37 @@ $(document).ready(function() {
             });
         });
     });
+        <?php if (isset($countWrn) && !empty($countWrn)) { ?>
+            $.notify({
+            	icon: 'fa fa-exclamation-triangle',
+            	message: "<big><b>Warning!</b></big> <b>"+<?= $countWrn; ?>+" item</b> nearly hit danger zone!"
+
+                },{
+                type: 'warning',
+                timer: 4000,
+                placement: {
+                from: "bottom",
+                align: "right"
+                }
+            });
+        <?php }?>
+        <?php if (isset($countDgr) && !empty($countDgr)) { ?>
+        
+            $.notify({
+            	icon: 'fa fa-exclamation-triangle',
+            	message: "<big><b>Danger!</b></big> <b>"+<?= $countDgr; ?>+" item</b> needs to be update! Please hurry!"
+
+                },{
+                type: 'danger',
+                timer: 4000,
+                placement: {
+                from: "bottom",
+                align: "right"
+                }
+            });
+        <?php }?>
+        
+           
 });
 </script>
 

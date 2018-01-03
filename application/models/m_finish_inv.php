@@ -80,6 +80,29 @@ class M_finish_inv extends CI_Model {
  
     }
 
+    public function countDgr()
+    {
+      
+     
+            $this->db->from(self::TABLE_NAME);
+            $this->db->where('fi_qty < fi_danger');
+        
+            $result = $this->db->count_all_results();
+            
+            return $result;
+    }
+    public function countWrn()
+    {
+      
+     
+            $this->db->from(self::TABLE_NAME);
+            $this->db->where('fi_qty = fi_danger');
+        
+            $result = $this->db->count_all_results();
+            
+            return $result;
+    }
+
     public function countDanger(Type $var = null)
     {
 	    $this->db->from(self::TABLE_NAME);

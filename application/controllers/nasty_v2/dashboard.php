@@ -403,6 +403,9 @@
                     
                     $like = null;
                     $filter = null;
+                    $month = null;
+                    $year = null;
+                    
                     $limit_per_page = 10;
 
                     if (($this->input->post("search") && $this->input->post("filter")) || ($this->input->get("search") && $this->input->get("filter"))) 
@@ -413,6 +416,17 @@
                         } else {
                             $search = $this->input->post("search");
                             $filterM = $this->input->post("filter");
+                        }
+
+                        if (($this->input->post("month") && $this->input->post("year")) || ($this->input->get("month") && $this->input->get("year"))) {
+                            
+                            if ($this->input->get("month") && $this->input->get("year")) {
+                                $month = $this->input->get("month");
+                                $year = $this->input->get("year");
+                            } else {
+                                $month = $this->input->post("month");
+                                $year = $this->input->post("year");
+                            }
                         }
 
                         switch ($filterM) {
@@ -438,7 +452,7 @@
                             break;
                             
                         }
-                        $arr['total'] = $this->m_finish_log->count($filter,$like);
+                        $arr['total'] = $this->m_finish_log->count($filter,$like,$month,$year);
                         $limit_per_page = $arr['total'];
                     }
                     else {
@@ -454,7 +468,7 @@
                     $arr['numPage'] = $page*10;
                     
 
-                    $arr['result'] = $this->m_finish_log->get_curr($limit_per_page , $arr['numPage'] , $filter , $like );
+                    $arr['result'] = $this->m_finish_log->get_curr($limit_per_page , $arr['numPage'] , $filter , $like , $month , $year );
 
                     $config['base_url'] = site_url('nasty_v2/dashboard/page/i21');
                     $config['total_rows'] = $arr['total'];
@@ -1211,23 +1225,22 @@ epul@nastyjuice.com
                 case 'i1':
                     $this->load->database();
                     $this->load->library('l_label');
-                    $this->load->model('m_stock_inventory' , 'msi');
+                    $this->load->model('m_finish_inv' , 'mfi');
+                    $this->load->model('m_finish_log' , 'mfl');
                     $this->load->model('m_category');
                     $this->load->model('m_nico');
                     $this->load->model('m_type2');
+
+                    $date = date('Y-m-d');
+
+
                     $temp['color'] = $this->m_type2->get();
                     $temp['series'] = $this->m_category->get();
                     $temp['nico'] = $this->m_nico->get();
-                    $temparr = $this->msi->get2();
-                    $a2 = null;
-                    foreach ($temparr as $key1) 
-                    {
-                        $a2[$key1->ty2_id]['color'] = $key1->ty2_desc;
-                        $a2[$key1->ty2_id]['series'] = $key1->ca_desc;
-                        $a2[$key1->ty2_id][$key1->ni_id] = $key1->sti_total;
-                        $a2[$key1->ty2_id]['cseries'] = $key1->ca_color;
-                    }
-                    $temp['arr'] =$a2;
+                    $temp['countDgr'] = $this->mfi->countDgr();
+                    $temp['countWrn'] = $this->mfi->countWrn();
+                    $temp['stockIn'] = $this->mfl->countStock(1,$date);
+                    $temp['stockOut'] = $this->mfl->countStock(2,$date);
                     $data['title'] = '<i class="fa fa-fw fa-edit"></i>Inventory</a>';
                     $data['display'] = $this->load->view($this->parent_page.'/invDashboard', $temp , TRUE);
                     $this->_show('display' , $data , $key);
@@ -1236,9 +1249,14 @@ epul@nastyjuice.com
                 case 'i2':
                     $this->load->database();
                     $this->load->model('m_barcode_item');
+                    $this->load->model('m_finish_inv' , 'mfi');
+                    
                     $this->load->library('pagination');
                     $this->load->helper('array');
 
+                    $arr['countDgr'] = $this->mfi->countDgr();
+                    $arr['countWrn'] = $this->mfi->countWrn();
+                    
                     $like = null;
                     $filter = null;
                     $limit_per_page = 10;
