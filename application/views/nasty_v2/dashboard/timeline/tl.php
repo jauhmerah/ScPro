@@ -25,7 +25,7 @@
                                         <h3><?= $tl2->pr_icon; ?></h3>
                                 </div>
                                 <div class="mt-timeline-content">
-                                    <div class="mt-content-container border-left-before-dark border-dark" style="background-color: <?= $tl2->pr_color; ?>; color : #ccc;">
+                                    <div class="mt-content-container border-left-before-dark border-dark" style="background-color: <?= $tl2->pr_color; ?>; color : #fff;">
                                         <div class="mt-title">
                                             <h2 class="mt-content-title"><?= $tl2->pr_desc ?></h2>
                                         </div>
@@ -34,10 +34,21 @@
                                                 <h4 ><i class="fa fa-user" aria-hidden="true"></i></h4>
                                             </div>
                                             <div class="mt-author-name">
-                                                <span class="font-white text-uppercase"><?= $tl2->us_username; ?></span>
+                                                <span class="font-white text-uppercase"><?php if($tl2->us_username != NULL ){echo $tl2->us_username;}else{echo "&nbsp;";} ?></span>
                                             </div>
                                             <div class="mt-author-notes font-white"><?= date("D - d F Y : g:i A",time($tl2->tl_date)); ?></div>
                                         </div>
+                                        <?php
+                                            if ($tl2->cr_msg != NULL) {
+                                        ?>
+                                        <div class="mt-content border-white">
+                                            <p>
+                                                <strong>Reason</strong> : <?= $tl2->cr_msg; ?>
+                                            </p>
+                                        </div>
+                                        <?php
+                                            }
+                                        ?>
                                     </div>
                                 </div>
                             </li>
@@ -49,7 +60,7 @@
                                     <h3><?= $tl2->pr_icon; ?></h3>
                                 </div>
                                 <div class="mt-timeline-content">
-                                    <div class="mt-content-container border-right-before-dark border-dark" style="background-color: <?= $tl2->pr_color; ?>; color : #ccc;">
+                                    <div class="mt-content-container border-right-before-dark border-dark" style="background-color: <?= $tl2->pr_color; ?>; color : #fff;">
                                         <div class="mt-title">
                                             <h2 class="mt-content-title"><?= $tl2->pr_desc ?></h2>
                                         </div>
@@ -58,10 +69,21 @@
                                                 <h4 ><i class="fa fa-user" aria-hidden="true"></i></h4>
                                             </div>
                                             <div class="mt-author-name">
-                                                <span class="font-white text-uppercase"><?= $tl2->us_username; ?></span>
+                                                <span class="font-white text-uppercase"><?php if($tl2->us_username != NULL ){echo $tl2->us_username;}else{echo "&nbsp;";} ?></span>
                                             </div>
                                             <div class="mt-author-notes font-white"><?= date("D - d F Y : g:i A",time($tl2->tl_date)); ?></div>
                                         </div>
+                                        <?php
+                                            if ($tl2->cr_msg != NULL) {
+                                        ?>
+                                        <div class="mt-content border-white">
+                                            <p>
+                                                <strong>Reason</strong> : <?= $tl2->cr_msg; ?>
+                                            </p>
+                                        </div>
+                                        <?php
+                                            }
+                                        ?>
                                     </div>
                                 </div>
                             </li>

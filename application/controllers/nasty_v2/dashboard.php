@@ -253,6 +253,10 @@
                         $arr['page'] = $p;
                         $arr['total'] = $ver;
                         $arr['row'] = $result1;
+						// echo "<pre>";
+						// print_r($arr);
+						// echo "</pre>";
+						// die();
                     }
     				$data['title'] = '<i class="fa fa-fw fa-edit"></i> Production</a>';
     				$data['display'] = $this->load->view($this->parent_page.'/orderList1' ,$arr , true);
@@ -1015,14 +1019,14 @@ epul@nastyjuice.com
                             'cl_id' => $arr['client']
                         );
                         $this->m_shipping_note->insert($shipping_note);*/
-                        if ($arr['pr_id'] != 4) {
+                        // if ($arr['pr_id'] != 4) {
                         //#email1
                             //$this->load->model('m_user');
-                            $sendToMail['us_id'] = $this->my_func->scpro_decrypt($this->session->userdata('us_id'));
-                            $sendToMail['ver'] = $ver;
-                            $sendToMail['or_id'] = $or_id;
-                            $this->emailSendNew($sendToMail , $ver);
-                        }
+                            // $sendToMail['us_id'] = $this->my_func->scpro_decrypt($this->session->userdata('us_id'));
+                            // $sendToMail['ver'] = $ver;
+                            // $sendToMail['or_id'] = $or_id;
+                            // $this->emailSendNew($sendToMail , $ver);
+                        // }
 
                           $arr['arr'] = array(
 
@@ -1402,6 +1406,15 @@ epul@nastyjuice.com
 						}
 						$this->_show($page , $data , $key);
 						break;
+					case 'g1':
+                        // Display Deleted Log;
+						// TODO: kena sambung buat pagination.
+						$page = 'cancellog/cancel';
+						$data = NULL;
+
+
+						$this->_show($page , $data , $key);
+						break;
     			default:
     				$this->_show();
     				break;
@@ -1774,6 +1787,7 @@ epul@nastyjuice.com
 
 
         function change_pr_id(){
+			// NOTE: Ni unconfirm function is disable because ada error. and no recordLog
             if ($this->input->post('id')) {
                 $this->load->library('my_func' , 'session');
                 $id = $this->my_func->scpro_decrypt($this->input->post('id'));
@@ -2452,7 +2466,10 @@ epul@nastyjuice.com
                 if ($this->my_func->scpro_decrypt($this->input->get("cancel")) == "cancel") {
                 $this->load->library('my_func');
                 $or_id = $this->my_func->scpro_decrypt($this->input->post('or_id'));
+				$this->load->helper('timeline');
+				$tl_id = recordLog($or_id , 14);
                 $msg = $this->input->post('msg');
+				cancelRequest($tl_id , $msg );
                 $this->load->model('m_user');
                 //$or_id = $arr->or_id;
                 $ver = $this->input->post('ver');

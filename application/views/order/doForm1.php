@@ -3,11 +3,11 @@
 		<table class="table ">
 			<tr>
 				<td colspan="2">
-					<img src="<?= base_url("assets/cover/formlogo.jpg"); ?>"  class="img-responsive" width = "400px" alt="Image">					
+					<img src="<?= base_url("assets/cover/formlogo.jpg"); ?>"  class="img-responsive" width = "400px" alt="Image">
 				</td>
 				<td colspan="5">
-					<div align="center"><h4><label><strong>Delivery Order</strong></label></h4></div>	
-					<table class="table table-condensed" border="1">	
+					<div align="center"><h4><label><strong>Delivery Order</strong></label></h4></div>
+					<table class="table table-condensed" border="1">
 						<tbody>
 							<tr>
 								<th>D.O No.</th>
@@ -21,10 +21,10 @@
 								<th>Issue Date</th>
 								<td><?php if($arr['order']->or_finishdate != '0000-00-00 00:00:00') { echo date_format(date_create($arr['order']->or_finishdate) , 'd-M-Y' ); }else{echo '--Not Set--';} ?></td>
 							</tr>
-							<tr>
+							<tr><?php // TODO: Tukar to courier name ?>
 								<th>Payment Status</th>
 								<td><?php if($arr['order']->or_bank != null){echo $arr['order']->or_bank;}else{echo "--Not Set--";} ?></td>
-							</tr>							
+							</tr>
 						</tbody>
 					</table>
 				</td>
@@ -38,19 +38,19 @@
 					<strong>Company</strong> : <?= $arr['order']->cl_company; ?><br>
 					<strong>Country</strong> : <?= $arr['order']->cl_country; ?><br>
 				</td>
-				<td colspan="3"><div><label><strong><u>Delivery</u></strong></label></div>	
+				<td colspan="3"><div><label><strong><u>Delivery</u></strong></label></div>
 					<strong>Address</strong> : <?= $arr['order']->cl_address; ?>
 				</td>
 			</tr>
 			<tr>
-				<?php 
+				<?php
         		if (!isset($arr)) {
         			?>
                     <table class="table table-condensed table-bordered table-hover">
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>Product</th>                        
+                        <th>Product</th>
                         <th>Quantity</th>
                         <th>Tester</th>
                     </tr>
@@ -59,7 +59,7 @@
         				<tr>
         					<td colspan="6" align="center">-- No Data--</td>
         				</tr>
-                    </tbody> 
+                    </tbody>
                     </tbody>
                 </table>
         			<?php
@@ -71,10 +71,10 @@
         			$allT = 0;
         			$allTV = 0;
         			$cat = $arr['item'][0]->ca_id;
-        			foreach ($arr['item'] as $key) { 
+        			foreach ($arr['item'] as $key) {
                     if ($t == null || $t != $key->ca_id) {
                         if ($t != null) {
-                            if ($cat != $key->ca_id) { 
+                            if ($cat != $key->ca_id) {
                             $cat = $key->ca_id;
                                 ?>
                                 <tr>
@@ -82,7 +82,7 @@
                                     <td><strong>Total Qty : </strong><?= $total; ?></td>
                                     <td><strong>Total Tester : </strong><?= $totalTester; ?></td>
                                 </tr>
-                            <?php 
+                            <?php
                             $allT += $total;
                             $allTV += $totalTester;
                             $total = 0;
@@ -99,13 +99,13 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th><strong><?= $key->ca_desc; ?></strong></th>                        
+                                <th><strong><?= $key->ca_desc; ?></strong></th>
                                 <th>Quantity</th>
                                 <th>Tester</th>
                             </tr>
                             </thead>
                             <tbody>
-                        <?php      }   				        				
+                        <?php      }
         				$n++;
         				$total += $key->oi_qty;
         				$totalTester += $key->oi_tester;
@@ -121,9 +121,9 @@
 								<td><?= $key->oi_tester; ?></td>
 							</tr>
         				</tr>
-        				<?php        				      				
-        			}        		        		
-        	?>        	
+        				<?php
+        			}
+        	?>
         	<tr>
         		<td colspan="2"></td>
         		<td><strong>Total Qty : </strong><?= $total; ?></td>
@@ -131,8 +131,8 @@
         	</tr>
         	<?php
             $allT += $total;
-            $allTV += $totalTester;        	
-        	?>  
+            $allTV += $totalTester;
+        	?>
 				</tbody>
 			</table> <?php } ?>
             <table class="table table-condensed table-bordered">
@@ -143,14 +143,14 @@
                 <td colspan="4">
                     <div class="well well-sm">
                         <?= $arr['order']->or_note; ?>
-                    </div>                 
-                </td> <?php 
+                    </div>
+                </td> <?php
                     $hasNote = $arr['order']->or_note;
                 ?>
             </tr>
             <?php
             }
-            ?>  
+            ?>
                     <tr>
                         <td align="right" colspan="4"><strong>Total All Qty : </strong> <?= $allT; ?>&nbsp;&nbsp;<strong>Total All Tester : </strong> <?= $allTV; ?></td>
                     </tr>
@@ -164,7 +164,7 @@
 						</td>
 						<td colspan = "4">
 						Production Team : <br><br>
-						Sales Staff : <br><br>						
+						Sales Staff : <br><br>
 						</td>
 					</tr>
 				</tfoot>
@@ -197,13 +197,13 @@
 			</td>
 		</tr>
 		</table>
-	</div>	
+	</div>
 </div>
 <script>
-	$(document).ready(function() {        
-        popUp();    
+	$(document).ready(function() {
+        popUp();
         function popUp() {
-            <?php 
+            <?php
             if (isset($hasNote)) {
                 $hasNote = preg_replace("~[\r\n]~", " ",$hasNote);
                 ?>
@@ -211,15 +211,15 @@
                     title : "Delivery Order Note",
                     message : '<?= $hasNote; ?>',
                     callback : function(){
-                    setTimeout(function() {window.print();}, 500);                    
+                    setTimeout(function() {window.print();}, 500);
                 }
-                });             
+                });
                 <?php
             } else { ?>
                 window.print();
                 <?php
-            }            
+            }
             ?>
         }
-    });	
+    });
 </script>

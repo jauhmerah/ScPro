@@ -4,7 +4,6 @@
 		//confirm('Are You Sure ?');
 	}
 	$(document).ready(function() {
-
 		$("#sub").click(function() {
 			if (searchFun()) {
 				$("#formSearch").submit();
@@ -85,7 +84,7 @@
 		                        <tr>
 		                            <th>#</th>
 		                            <th>Client Name</th>
-		                            <th>Order Code</th>
+		                            <th>Order Code - <span class="font font-red">LOG</span></th>
 		                            <th>Order Date</th>
 		                            <th>Sales Person</th>
 		                            <th>Status</th>
@@ -130,7 +129,7 @@
                                     	<?php
                                     }
                                     ?></span></td>
-		                            <td><button type="button" onclick="window.open('<?= site_url('nasty_v2/dashboard/page/f1?time='.$orid); ?>');" class="btn btn-default btn-sm blue-ebonyclay"><i class="fa fa-clock-o"></i> - <?php
+		                            <td><button type="button" onclick="window.open('<?= site_url('nasty_v2/dashboard/page/f1?time='.$orid); ?>');" class="btn btn-default btn-sm blue-ebonyclay" title="TimeLine Log"><i class="fa fa-clock-o"></i> - <?php
 		                            if ($user->or_id) {
 		                            	$id = '#'.(120000+$user->or_id);
 		                            	echo '<strong>'.$id.'</strong>';
@@ -267,9 +266,10 @@
                                     		&nbsp;
                                     		</div>
 										<button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/Invoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');"  class="btn blue-dark btn-circle btn-xs" title="Purchase Order">P.O</button></a>&nbsp;-&nbsp;
-										<button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/dummyInvoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn c-btn-border-1x c-btn-blue-dark btn-circle btn-xs" title="Dummy Invoice">DInv</button></a>&nbsp;-&nbsp;
+										<button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/dummyInvoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn c-btn-border-1x c-btn-blue-dark btn-circle btn-xs" title="Dummy Invoice">DInv</button></a>
+										<!-- &nbsp;-&nbsp; -->
 										<?php if($user->pr_id == 4 || $user->pr_id == 8 ){ ?><button type="button" class="btn bg-green-jungle btn-circle btn-xs <?= $conf ?>" id="<?= $n.'con' ?>" title="Confirm"><i class="fa fa-thumbs-up"></i></button> <?php }else{  ?>
-										<button type="button" class="btn bg-red-pink btn-circle btn-xs <?= $conf ?>" title="Un Confirm" id="<?= $n.'con' ?>"><i class="fa fa-thumbs-down"></i></button></a><?php } ?>
+										<!-- <button type="button" class="btn bg-red-pink btn-circle btn-xs <?= $conf ?>" title="Un Confirm" id="<?= $n.'con' ?>"><i class="fa fa-thumbs-down"></i></button></a>--><?php } ?>
 										<input type="hidden" class="form-control <?= $n.'con' ?>" value ="<?= $orid ?>">
 										<input type="hidden" class="form-control <?= $n.'con1' ?>" value ="<?= $user->pr_id ?>">
 										<input type="hidden" class="form-control <?= $n.'cocode' ?>" value ="<?= $id; ?>">
@@ -395,7 +395,6 @@
 			$('#myModal').show('slow');
 			key = $(this).prop('id');
 			codeOr = $("."+key+"code").val();
-			//alert(key);
 			codeOrId = $("."+key+"n").val();
 			$("#inputOrid").val(codeOrId);
 			$("#inputUs_id").val(<?= $us_id; ?>);

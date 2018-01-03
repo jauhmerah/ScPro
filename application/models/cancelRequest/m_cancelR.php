@@ -1,17 +1,17 @@
 <?php
 	if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-	class M_timeline extends CI_Model {
+	class M_cancelR extends CI_Model {
 
 	    /**
 	     * @name string TABLE_NAME Holds the name of the table in use by this model
 	     */
-	    const TABLE_NAME = 'time_line';
+	    const TABLE_NAME = 'cancel_request';
 
 	    /**
 	     * @name string PRI_INDEX Holds the name of the tables' primary index used in this model
 	     */
-	    const PRI_INDEX = 'tl_id';
+	    const PRI_INDEX = 'cr_id';
 
 	    /**
 	     * Retrieves record(s) from the database
@@ -44,31 +44,6 @@
 	            return false;
 	        }
 	    }
-
-        public function getAll($where = NULL)
-        {
-            $this->db->select('tl.* , pr.* , us.us_username , cr.cr_msg');
-	        $this->db->from('time_line tl');
-	        if ($where !== NULL) {
-	            if (is_array($where)) {
-	                foreach ($where as $field=>$value) {
-	                    $this->db->where($field, $value);
-	                }
-	            } else {
-	                $this->db->where(self::PRI_INDEX, $where);
-	            }
-	        }
-            $this->db->join('process pr', 'tl.pr_id = pr.pr_id', 'left');
-			$this->db->join('user us', 'us.us_id = tl.us_id', 'left');
-			$this->db->join('cancel_request cr', 'cr.tl_id = tl.tl_id', 'left');
-			$this->db->order_by('tl.tl_date', 'desc');
-	        $result = $this->db->get()->result();
-	        if ($result) {
-	            return $result;
-	        } else {
-	            return false;
-	        }
-        }
 
 	    /**
 	     * Inserts new data into database

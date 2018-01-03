@@ -226,6 +226,14 @@ class Order extends CI_Controller {
             );
             $this->load->model('m_order');
             if ($this->m_order->update($arr , $or_id)) {
+                $this->load->helper('timeline');
+                $this->load->library('session');
+                $us_id = NULL;
+                if ($this->session->userdata('us_id')) {
+                    $this->load->library('my_func', NULL, 'mf');
+                    $us_id = $this->mf->scpro_decrypt($this->session->userdata('us_id'));
+                }
+                recordLog($or_id , 5 , $us_id);
             	$this->session->set_flashdata('info', 'The Order was deleted');
             } else {
             	$this->session->set_flashdata('warning', 'Someone have deleted the order');
