@@ -2412,6 +2412,7 @@ epul@nastyjuice.com
             $this->load->library('my_func');
                   
             $id = $this->my_func->scpro_decrypt($this->input->post('id'));
+            $us_id = $this->my_func->scpro_decrypt($this->session->userdata('us_id'));
 
             $this->load->database();
 
@@ -2420,9 +2421,10 @@ epul@nastyjuice.com
 
             $this->m_barcode_item->delete($id);
 
-            $arr = array('bi_id' => $id);    
+            $this->m_finish_inv->new_log(null,$id,$us_id,3);
 
-            $this->m_finish_inv->delete($arr);
+
+            $this->m_finish_inv->delete($id);
             
             $this->session->set_flashdata('success', 'Item are successfully deleted');
 

@@ -49,16 +49,12 @@ class M_finish_inv extends CI_Model {
     }
 
     public function delete($where = array()) {
-        if ($where !== NULL) {
-            if (is_array($where)) {
-                foreach ($where as $field=>$value) {
-                    $this->db->where($field, $value);
-                }
-            } else {
-                $this->db->where(self::PRI_INDEX, $where);
-            }
+         if (!is_array()) {
+            $where = array('bi_id' => $where);
+            $del =array('del_id' => 1);
+
         }
-        $this->db->delete(self::TABLE_NAME, $where);
+        $this->db->update(self::TABLE_NAME, $del , $where);
         return $this->db->affected_rows();
     }
 
@@ -141,28 +137,38 @@ class M_finish_inv extends CI_Model {
             
 	    	$arr = array_shift($this->db->get()->result());
 
-	    	if($st==1)
-            {
-            $total = $arr->fi_qty + $qty;
-            }
-            else if($st==2)
-            {
-            $total = $arr->fi_qty-$qty;
-            }
+            if ($st !== 3) {
+                if($st==1)
+                {
+                    $total = $arr->fi_qty + $qty;
+                }
+                else if($st==2)
+                {
+                    $total = $arr->fi_qty-$qty;
+                }
+                $diff = $total - $arr->fi_qty; 
 
-            $diff = $total - $arr->fi_qty; 
-            
-            
-
-
-	    	$data = array(
+                $data = array(
 	    		'bi_id' => $arr->bi_id,
 	    		'fi_from' => $arr->fi_qty,
 	    		'fi_to' => $total,
 	    		'fi_diff' => $diff,
 	    		'us_id' => $us_id,
 	    		'ls_id' => $st
-	    	);
+	    	    );
+            }
+            else{
+                $data = array(
+	    		'bi_id' => $arr->bi_id,
+	    		'fi_from' => "-",
+	    		'fi_to' => "-",
+	    		'fi_diff' => "-",
+	    		'us_id' => $us_id,
+	    		'ls_id' => $st
+	    	    );
+            }
+	    	
+            
 
             
 	    	 if ($this->db->insert('finish_log',$data)) {

@@ -33,7 +33,7 @@
 </div>
 
 <div class="row">
-        <div class="col-xs-6 ">
+        <div class="col-xs-4 ">
             <a class="dashboard-stat dashboard-stat-v2 green-seagreen" href="<?= site_url(); ?>nasty_v2/dashboard/page/i21?search=stock-in&amp;filter=4&amp;month=<?= date("m"); ?>&amp;year=<?= date("Y"); ?>">
                 <div class="visual">
                     <i>StockIn</i>
@@ -46,7 +46,7 @@
                 </div>
                 </a>
         </div>
-            <div class="col-xs-6 ">
+            <div class="col-xs-4 ">
             <a class="dashboard-stat dashboard-stat-v2 red-intense" href="<?= site_url(); ?>nasty_v2/dashboard/page/i21?search=stock-out&amp;filter=4&amp;month=<?= date("m"); ?>&amp;year=<?= date("Y"); ?>">
                 <div class="visual">
                     <i>StockOut</i>
@@ -56,6 +56,20 @@
                             <span data-counter="counterup" data-value=""><?= $stockOut ?></span>
                         </div>
                             <div class="desc"> Total Stock-Out </div>
+                </div>
+                </a>
+            </div>
+
+         <div class="col-xs-4 ">
+            <a class="dashboard-stat dashboard-stat-v2 purple-medium" href="<?= site_url(); ?>nasty_v2/dashboard/page/i21?search=delete&amp;filter=4">
+                <div class="visual">
+                    <i>Delete</i>
+                </div>
+                <div class="details">
+                        <div class="number">
+                            <span data-counter="counterup" data-value=""><?= $stockOut ?></span>
+                        </div>
+                            <div class="desc"> Total Delete </div>
                 </div>
                 </a>
             </div>

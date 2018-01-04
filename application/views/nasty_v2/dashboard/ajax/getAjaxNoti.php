@@ -1,32 +1,25 @@
+<?php if (isset($arr) && !empty($arr)) { ?>
 
-<!-- <script>
-$(document).ready(function() {
+	<div class="row">                   
+		<div class="col-md-12">
+			<div class="alert alert-success alert-dismissable">
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+			
+			<?= $arr->ty2_desc; ?>&nbsp;&nbsp;<?= $arr->ca_desc; ?>&nbsp;&nbsp;<?= $arr->ni_mg; ?> mg
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+			<?= $arr->fi_qty; ?> bottles
+		</div>						                                    					
+		</div>
+	</div>	
 
-            cat = "<?= $arr->ca_desc; ?>"
-    $.notify({
-            	icon: 'ti-gift',
-            	message: cat
-
-            },{
-                type: 'success',
-                timer: 4000,
-				placement: {
-				from: "bottom",
-				align: "left"
-				}
-            });
-});
-</script> -->
-
-
-<div class="row">                   
-	<div class="col-md-12">
-		<div class="alert alert-success alert-dismissable">
-	<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
-		
-		<?= $arr->ty2_desc; ?>&nbsp;&nbsp;<?= $arr->ca_desc; ?>&nbsp;&nbsp;<?= $arr->ni_mg; ?> mg
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		<?= $arr->fi_qty; ?> bottles
-</div>						                                    					
+<?php }else{ ?>
+	<div class="row">                   
+		<div class="col-md-12">
+			<div class="alert alert-danger alert-dismissable">
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+			
+			<strong>Item Not Registered</strong> : Item not exist in Finishing Inventory, please register this item into Finishing Module first
+		</div>						                                    					
+		</div>
 	</div>
-</div>	
+<?php } ?>

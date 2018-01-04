@@ -178,6 +178,7 @@ class M_barcode_item extends CI_Model {
                  
         $this->db->join('category ca', 'ca.ca_id = ty2.ca_id', 'left');
 
+        $this->db->where('bi.del_id', 0);
         
         $this->db->limit($limit, $start);
     	If($filter != NULL){
@@ -216,6 +217,8 @@ class M_barcode_item extends CI_Model {
                  
             $this->db->join('category ca', 'ca.ca_id = ty2.ca_id', 'left');
 
+            $this->db->where('bi.del_id', 0);
+
      
             if (is_array($filter) && $filter != NULL) 
             {
@@ -246,8 +249,10 @@ class M_barcode_item extends CI_Model {
     public function delete($where = array()) {
         if (!is_array()) {
             $where = array(self::PRI_INDEX => $where);
+            $del =array('del_id' => 1);
+
         }
-        $this->db->delete(self::TABLE_NAME, $where);
+        $this->db->update(self::TABLE_NAME, $del , $where);
         return $this->db->affected_rows();
     }
 

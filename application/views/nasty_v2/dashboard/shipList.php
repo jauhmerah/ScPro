@@ -138,7 +138,7 @@
 		                            <td><?php 
                                     $view = ($key->fi_diff == null) ? "--Not Set--" : $key->fi_diff ;
 
-                                    if($view>=0){
+                                    if($view>0){
                                     	echo '+'.$view;
                                     }
                                     else{
