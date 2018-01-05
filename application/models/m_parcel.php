@@ -84,13 +84,18 @@ class M_parcel extends CI_Model {
         return $this->db->affected_rows();
     }
 
-    public function getPa_id($arr = NULL)
+    public function getPa_idDel($arr = NULL)
     {
+        //getPaid will auto delete when called;
         if ($arr == NULL || !is_array($arr)) {
             return FALSE;
         }
-        $this->db->select('pi_id');
-        return $this->db->get(self::TABLE_NAME)->result();
+        $this->db->select('pa_id');
+        $this->db->where($arr);
+        $result = $this->db->get(self::TABLE_NAME)->result();
+        //delete after called;
+        $this->db->delete(self::TABLE_NAME, $arr);
+        return $result;
     }
     public function get_ext($where = NULL) {
         $this->db->select('parcel.* , us.us_username');
@@ -114,7 +119,7 @@ class M_parcel extends CI_Model {
                 $this->db->from('parcel_ext pae');
                 $this->db->where('pa_id', $pa_id);
                 $this->db->join('type2 ty2', 'ty2.ty2_id = pae.ty2_id', 'left');
-                $this->db->join('nicotine ni', 'ni.ni_id = pae.ty2_id', 'left');
+                $this->db->join('nicotine ni', 'ni.ni_id = pae.ni_id', 'left');
                 $this->db->join('category cat', 'cat.ca_id = ty2.ca_id', 'left');
                 $arr['parcel'] = $key;
                 $arr['item'] = $this->db->get()->result();
@@ -132,6 +137,44 @@ class M_parcel extends CI_Model {
         $this->db->from('parcel');
         return $this->db->count_all_results();
 
+    }
+
+    public function get_extFull($where = NULL) {
+        $this->db->select('pa.* , pb.pb_link , pb.pb_code , cl.* , ord.or_date');
+        $this->db->from('parcel pa');
+        if ($where !== NULL) {
+            if (is_array($where)) {
+                foreach ($where as $field=>$value) {
+                    $this->db->where($field, $value);
+                }
+            } else {
+                $this->db->where('pa.pa_id', $where);
+            }
+        }
+        $this->db->join('parcel_barcode pb', 'pb.pa_id = pa.pa_id', 'left');
+        //$this->db->join('user us', 'us.us_id = pa.us_id', 'left');
+        $this->db->join('order ord', 'ord.or_id = pa.or_id', 'left');
+        $this->db->join('client cl', 'ord.cl_id = cl.cl_id', 'left');
+        $data = $this->db->get()->result();
+        if ($data) {
+            $result = array();
+            foreach ($data as $key) {
+                $pa_id = $key->pa_id;
+                $this->db->select('*');
+                $this->db->from('parcel_ext pae');
+                $this->db->where('pa_id', $pa_id);
+                $this->db->join('type2 ty2', 'ty2.ty2_id = pae.ty2_id', 'left');
+                $this->db->join('nicotine ni', 'ni.ni_id = pae.ni_id', 'left');
+                $this->db->join('category cat', 'cat.ca_id = ty2.ca_id', 'left');
+                $arr['parcel'] = $key;
+                $arr['item'] = $this->db->get()->result();
+                $result[] = $arr;
+                unset($arr);
+            }
+            return $result;
+        } else {
+            return false;
+        }
     }
 }
 

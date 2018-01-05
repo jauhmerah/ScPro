@@ -1,15 +1,25 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 if (! function_exists('set_barcode'))
 {
-    public function set_barcode($code = 'barcode')
+    function set_barcode($code = 'barcode' , $name = NULL)
 	{
 		//load library
-		$this->load->library('zend');
+        $ci =& get_instance();
+		$ci->load->library('zend');
 		//load in folder Zend
-		$this->zend->load('Zend/Barcode');
+		$ci->zend->load('Zend/Barcode');
 		//generate barcode
-		Zend_Barcode::render('code128', 'image', array('text'=>$code), array());
-        //helper testing
+        if ($name == NULL) {
+            $name = $code;
+        }
+		$barcode = Zend_Barcode::factory('code128', 'image', array('text'=>$code), array());
+        if(imagejpeg($barcode->draw(), './assets/uploads/barcode/'.$name.'.jpg', 100)){
+            unset($barcode);
+            return $name;
+        }else{
+            unset($barcode);
+            return FALSE;
+        }
 	}
 }
 ?>

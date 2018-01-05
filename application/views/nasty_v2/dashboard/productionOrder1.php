@@ -1,7 +1,7 @@
-<?php 
+<?php
 	if (!isset($mode)) {
 		$mode = 0;
-	}	
+	}
 ?>
 <script>
 	function moveTo() {
@@ -35,8 +35,8 @@
                         <div class="desc"> In Progress </div>
                     </div>
                 </a>
-            </div>            
-        </div>		
+            </div>
+        </div>
 	</div>
 </div>
 <div class="row" >
@@ -60,15 +60,15 @@
 						<?php
 						$n=0;
 						// vvvvvvvvvvvvvvv OrdYs 2.3.0 vvvvvvvvvvvvvvv
-							foreach ($arrV as $key) { 
+							foreach ($arrV as $key) {
 								$n++;
-								?>						
+								?>
 								<tr class="Lorder" id="L<?= $n; ?>">
 									<td><span style = "color:#b706d6;" >#<?= 120000 + $key['order']->or_id; ?></span></td>
 									<td><?= $key['order']->cl_name; ?></td>
-									
+
 									<td><?= $key['order']->cl_country; ?></td>
-									<?php if($key['order']->or_dateline != '0000-00-00 00:00:00'){ 
+									<?php if($key['order']->or_dateline != '0000-00-00 00:00:00'){
 	                                	$date = date_format(date_create($key['order']->or_dateline) , 'd-m-Y' );
 	                                	}else{
 	                                		$date = '--Not Set--';
@@ -96,15 +96,15 @@
 													<tbody>
 													<?php if (sizeof($key['item'] != 0)) {
 															$n2 = 0;
-															foreach ($key['item'] as $key2) { 
+															foreach ($key['item'] as $key2) {
 																$n2++; ?>
 																<tr>
 																	<td>
 																		<?= $n2; ?>
 																	</td>
-																	<td><?= $key2->ty2_desc; ?> | 
+																	<td><?= $key2->ty2_desc; ?> |
 																	<span class="label" style="color: black;background-color: <?= $key2->ca_color; ?>; font-size: 75%;" ><strong><?= $key2->ca_desc; ?></strong></span>&nbsp;
-																	<span class="label" style="color: black;font-size: 75%; background-color: <?= $key2->ni_color; ?>;" ><strong><?= $key2->ni_mg; ?> mg</strong></span> 
+																	<span class="label" style="color: black;font-size: 75%; background-color: <?= $key2->ni_color; ?>;" ><strong><?= $key2->ni_mg; ?> mg</strong></span>
 																	</td>
 																	<td>
 																		<?= $key2->oi_qty; ?>
@@ -116,7 +116,7 @@
 															<?php
 															}
 														?>
-														
+
 													<?php }else{ ?>
 														<tr>
 															<td align = 'center'>
@@ -125,8 +125,8 @@
 														</tr>
 													<?php } ?>
 													</tbody>
-												</table>												
-											</div>										
+												</table>
+											</div>
 										</div>
 										<div class="row">
 											<div class="col-md-12">
@@ -140,7 +140,7 @@
 													</div>
 												</div>
 											</div>
-										</div>		
+										</div>
 									</td>
 								</tr>
 							<?php }
@@ -152,15 +152,15 @@
                 			</td>
                 		</tr>
 						<?php
-							foreach ($arr as $key) { 
+							foreach ($arr as $key) {
 								$n++;
-								?>						
+								?>
 								<tr class="Lorder" id="L<?= $n; ?>">
 									<td><span style = "color:blue;" >#<?= 110000 + $key['order']->or_id; ?></span></td>
 									<td><?= $key['order']->cl_name; ?></td>
-									
+
 									<td><?= $key['order']->cl_country; ?></td>
-									<?php if($key['order']->or_dateline != '0000-00-00 00:00:00'){ 
+									<?php if($key['order']->or_dateline != '0000-00-00 00:00:00'){
 	                                	$date = date_format(date_create($key['order']->or_dateline) , 'd-m-Y' );
 	                                	}else{
 	                                		$date = '--Not Set--';
@@ -188,15 +188,15 @@
 													<tbody>
 													<?php if (sizeof($key['item'] != 0)) {
 															$n2 = 0;
-															foreach ($key['item'] as $key2) { 
+															foreach ($key['item'] as $key2) {
 																$n2++; ?>
 																<tr>
 																	<td>
 																		<?= $n2; ?>
 																	</td>
-																	<td><?= $key2->ty2_desc; ?> | 
+																	<td><?= $key2->ty2_desc; ?> |
 																	<span class="label" style="color: black;background-color: <?= $key2->ca_color; ?>; font-size: 75%;" ><strong><?= $key2->ca_desc; ?></strong></span>&nbsp;
-																	<span class="label" style="color: black;font-size: 75%; background-color: <?= $key2->ni_color; ?>;" ><strong><?= $key2->ni_mg; ?> mg</strong></span> 
+																	<span class="label" style="color: black;font-size: 75%; background-color: <?= $key2->ni_color; ?>;" ><strong><?= $key2->ni_mg; ?> mg</strong></span>
 																	</td>
 																	<td>
 																		<?= $key2->oi_qty; ?>
@@ -208,7 +208,7 @@
 															<?php
 															}
 														?>
-														
+
 													<?php }else{ ?>
 														<tr>
 															<td align = 'center'>
@@ -217,8 +217,8 @@
 														</tr>
 													<?php } ?>
 													</tbody>
-												</table>												
-											</div>										
+												</table>
+											</div>
 										</div>
 										<div class="row">
 											<div class="col-md-12">
@@ -232,7 +232,7 @@
 													</div>
 												</div>
 											</div>
-										</div>		
+										</div>
 									</td>
 								</tr>
 							<?php }
@@ -258,19 +258,19 @@
 								<th>Due Date</th>
 								<th>Action</th>
 							</tr>
-						</thead>						
+						</thead>
 						<tbody>
 						<?php
 						$n=0;
-						foreach ($arrV1 as $key) { 
+						foreach ($arrV1 as $key) {
 							$n++;
-							?>						
+							?>
 							<tr class="Lorder" id="L<?= $n; ?>">
 								<td><span style = "color:#b706d6;" >#<?= 120000 + $key['order']->or_id; ?></span></td>
 								<td><?= $key['order']->cl_name; ?></td>
-								
+
 								<td><?= $key['order']->cl_country; ?></td>
-								<?php if($key['order']->or_dateline != '0000-00-00 00:00:00'){ 
+								<?php if($key['order']->or_dateline != '0000-00-00 00:00:00'){
                                 	$date = date_format(date_create($key['order']->or_dateline) , 'd-m-Y' );
                                 	}else{
                                 		$date = '--Not Set--';
@@ -298,15 +298,15 @@
 												<tbody>
 												<?php if (sizeof($key['item'] != 0)) {
 														$n2 = 0;
-														foreach ($key['item'] as $key2) {  
+														foreach ($key['item'] as $key2) {
 															$n2++; ?>
 															<tr>
 																<td>
 																	<?= $n2; ?>
 																</td>
-																<td><?= $key2->ty2_desc; ?> | 
+																<td><?= $key2->ty2_desc; ?> |
 																<span class="label" style="color: black;background-color: <?= $key2->ca_color; ?>; font-size: 75%;" ><strong><?= $key2->ca_desc; ?></strong></span>&nbsp;
-																<span class="label" style="color: black;font-size: 75%; background-color: <?= $key2->ni_color; ?>;" ><strong><?= $key2->ni_mg; ?> mg</strong></span> 
+																<span class="label" style="color: black;font-size: 75%; background-color: <?= $key2->ni_color; ?>;" ><strong><?= $key2->ni_mg; ?> mg</strong></span>
 																</td>
 																<td>
 																	<?= $key2->oi_qty; ?>
@@ -314,9 +314,9 @@
 																<td>
 																	<?= $key2->oi_tester; ?>
 																</td>
-															</tr>	
+															</tr>
 														<?php }
-													?>													
+													?>
 												<?php }else{ ?>
 													<tr>
 														<td align = 'center'>
@@ -325,8 +325,8 @@
 													</tr>
 												<?php } ?>
 												</tbody>
-											</table>												
-										</div>										
+											</table>
+										</div>
 									</div>
 									<div class="row">
 										<div class="col-md-12">
@@ -340,27 +340,27 @@
 												</div>
 											</div>
 										</div>
-									</div>		
+									</div>
 								</td>
 							</tr>
-						<?php } 
+						<?php }
 						if (sizeof($arrHold) != 0) {
-						?>	
-						
+						?>
+
 						<tr>
                 			<td colspan = "5">
                 				<div align = "center"><strong>On Hold List</strong></div>
                 			</td>
-                		</tr> <?php						
-						foreach ($arrHold as $key) { 
+                		</tr> <?php
+						foreach ($arrHold as $key) {
 							$n++;
-							?>						
+							?>
 							<tr class="Lorder" id="L<?= $n; ?>" style = "background-color: grey; color: white;">
 								<td><strike><span  >#<?= 120000 + $key['order']->or_id; ?></span></td>
 								<td><strike><?= $key['order']->cl_name; ?></strike></td>
-								
+
 								<td><strike><?= $key['order']->cl_country; ?></strike></td>
-								<?php if($key['order']->or_dateline != '0000-00-00 00:00:00'){ 
+								<?php if($key['order']->or_dateline != '0000-00-00 00:00:00'){
                                 	$date = date_format(date_create($key['order']->or_dateline) , 'd-m-Y' );
                                 	}else{
                                 		$date = '--Not Set--';
@@ -388,15 +388,15 @@
 												<tbody>
 												<?php if (sizeof($key['item'] != 0)) {
 														$n2 = 0;
-														foreach ($key['item'] as $key2) {  
+														foreach ($key['item'] as $key2) {
 															$n2++; ?>
 															<tr>
 																<td>
 																	<?= $n2; ?>
 																</td>
-																<td><?= $key2->ty2_desc; ?> | 
+																<td><?= $key2->ty2_desc; ?> |
 																<span class="label" style="color: black;background-color: <?= $key2->ca_color; ?>; font-size: 75%;" ><strong><?= $key2->ca_desc; ?></strong></span>&nbsp;
-																<span class="label" style="color: black;font-size: 75%; background-color: <?= $key2->ni_color; ?>;" ><strong><?= $key2->ni_mg; ?> mg</strong></span> 
+																<span class="label" style="color: black;font-size: 75%; background-color: <?= $key2->ni_color; ?>;" ><strong><?= $key2->ni_mg; ?> mg</strong></span>
 																</td>
 																<td>
 																	<?= $key2->oi_qty; ?>
@@ -404,9 +404,9 @@
 																<td>
 																	<?= $key2->oi_tester; ?>
 																</td>
-															</tr>	
+															</tr>
 														<?php }
-													?>													
+													?>
 												<?php }else{ ?>
 													<tr>
 														<td align = 'center'>
@@ -415,8 +415,8 @@
 													</tr>
 												<?php } ?>
 												</tbody>
-											</table>												
-										</div>										
+											</table>
+										</div>
 									</div>
 									<div class="row">
 										<div class="col-md-12">
@@ -430,7 +430,7 @@
 												</div>
 											</div>
 										</div>
-									</div>		
+									</div>
 								</td>
 							</tr>
 						<?php }
@@ -440,17 +440,17 @@
                 			<td colspan = "5">
                 				<div align = "center">vvvvvvv Old Version 2.2 Alpha vvvvvvv</div>
                 			</td>
-                		</tr> 
+                		</tr>
                 		<?php }
-						foreach ($arr1 as $key) { 
+						foreach ($arr1 as $key) {
 							$n++;
-							?>						
+							?>
 							<tr class="Lorder" id="L<?= $n; ?>">
 								<td><span style = "color:blue;" >#<?= 110000 + $key['order']->or_id; ?></span></td>
 								<td><?= $key['order']->cl_name; ?></td>
-								
+
 								<td><?= $key['order']->cl_country; ?></td>
-								<?php if($key['order']->or_dateline != '0000-00-00 00:00:00'){ 
+								<?php if($key['order']->or_dateline != '0000-00-00 00:00:00'){
                                 	$date = date_format(date_create($key['order']->or_dateline) , 'd-m-Y' );
                                 	}else{
                                 		$date = '--Not Set--';
@@ -478,15 +478,15 @@
 												<tbody>
 												<?php if (sizeof($key['item'] != 0)) {
 														$n2 = 0;
-														foreach ($key['item'] as $key2) {  
+														foreach ($key['item'] as $key2) {
 															$n2++; ?>
 															<tr>
 																<td>
 																	<?= $n2; ?>
 																</td>
-																<td><?= $key2->ty2_desc; ?> | 
+																<td><?= $key2->ty2_desc; ?> |
 																<span class="label" style="color: black;background-color: <?= $key2->ca_color; ?>; font-size: 75%;" ><strong><?= $key2->ca_desc; ?></strong></span>&nbsp;
-																<span class="label" style="color: black;font-size: 75%; background-color: <?= $key2->ni_color; ?>;" ><strong><?= $key2->ni_mg; ?> mg</strong></span> 
+																<span class="label" style="color: black;font-size: 75%; background-color: <?= $key2->ni_color; ?>;" ><strong><?= $key2->ni_mg; ?> mg</strong></span>
 																</td>
 																<td>
 																	<?= $key2->oi_qty; ?>
@@ -494,9 +494,9 @@
 																<td>
 																	<?= $key2->oi_tester; ?>
 																</td>
-															</tr>	
+															</tr>
 														<?php }
-													?>													
+													?>
 												<?php }else{ ?>
 													<tr>
 														<td align = 'center'>
@@ -505,8 +505,8 @@
 													</tr>
 												<?php } ?>
 												</tbody>
-											</table>												
-										</div>										
+											</table>
+										</div>
 									</div>
 									<div class="row">
 										<div class="col-md-12">
@@ -520,12 +520,12 @@
 												</div>
 											</div>
 										</div>
-									</div>		
+									</div>
 								</td>
 							</tr>
 						<?php }
-						?>							
-						</tbody>						
+						?>
+						</tbody>
 					</table>
 				</div>
 			</div>
@@ -540,17 +540,23 @@
 				$("."+temp).hide('slow');
 			}else{
 				$("."+temp).show('slow');
-			}			
+			}
 			//alert("jadi");
 		});
 
 		$('#proO').click(function() {
 			$("#newOrder").hide('slow');
 			$("#proOrder").show('slow');
+			$("#ROS1rder").hide('slow');
+            $("#DOCOrder").hide('slow');
+            $("#RTSOrder").hide('slow');
 		});
 		$('#newO').click(function() {
 			$("#newOrder").show('slow');
 			$("#proOrder").hide('slow');
+			$("#ROS1rder").hide('slow');
+            $("#DOCOrder").hide('slow');
+            $("#RTSOrder").hide('slow');
 		});
 
 		$(".tekan").click(function() {
@@ -563,11 +569,10 @@
 						$("."+tdRow).html('<span class="label label-success">Done</span>');
 					} else {
 						$("."+tdRow).html('<span class="label label-warning">Something wrong!!!</span>');
-					}					
+					}
 				});
 			});
 		});
 
 	});
 </script>
-

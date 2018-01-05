@@ -1,17 +1,17 @@
 <?php
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class M_type extends CI_Model {
+class M_parcel_barcode extends CI_Model {
 
     /**
      * @name string TABLE_NAME Holds the name of the table in use by this model
      */
-    const TABLE_NAME = 'type';
+    const TABLE_NAME = 'parcel_barcode';
 
     /**
      * @name string PRI_INDEX Holds the name of the tables' primary index used in this model
      */
-    const PRI_INDEX = 'ty_id';
+    const PRI_INDEX = 'pb_id';
 
     /**
      * Retrieves record(s) from the database
@@ -35,11 +35,7 @@ class M_type extends CI_Model {
         }
         $result = $this->db->get()->result();
         if ($result) {
-            if ($where !== NULL) {
-                return array_shift($result);
-            } else {
-                return $result;
-            }
+            return $result;
         } else {
             return false;
         }

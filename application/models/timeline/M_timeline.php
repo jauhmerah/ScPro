@@ -1,17 +1,17 @@
 <?php
 	if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-	class M_user extends CI_Model {
+	class M_timeline extends CI_Model {
 
 	    /**
 	     * @name string TABLE_NAME Holds the name of the table in use by this model
 	     */
-	    const TABLE_NAME = 'user';
+	    const TABLE_NAME = 'time_line';
 
 	    /**
 	     * @name string PRI_INDEX Holds the name of the tables' primary index used in this model
 	     */
-	    const PRI_INDEX = 'us_id';
+	    const PRI_INDEX = 'tl_id';
 
 	    /**
 	     * Retrieves record(s) from the database
@@ -44,30 +44,11 @@
 	            return false;
 	        }
 	    }
-	    public function getName($id = null)
-	    {
-	    	$this->db->select('us_username');
-	    	$this->db->from('user');
-	    	$this->db->where('us_id', $id);
-	    	$result = $this->db->get()->result();
-	    	$result = array_shift($result);
-	    	return $result->us_username;
-	    }
 
-	    public function getLvl($where = null){
-	    	$this->db->select("*");
-	    	$this->db->from('user_level ul');
-	    	if ($where != null) {
-	    		$this->db->where_not_in('ul.ul_id', $where);
-	    	}
-	    	$result = $this->db->get()->result();
-	    	return $result;
-	    }
-
-	    public function getAll($where = null)
-	    {
-	    	$this->db->select('*');
-	        $this->db->from(self::TABLE_NAME);
+        public function getAll($where = NULL)
+        {
+            $this->db->select('tl.* , ts.ts_desc , ts.ts_color');
+	        $this->db->from('time_line tl');
 	        if ($where !== NULL) {
 	            if (is_array($where)) {
 	                foreach ($where as $field=>$value) {
@@ -77,14 +58,18 @@
 	                $this->db->where(self::PRI_INDEX, $where);
 	            }
 	        }
-	        $this->db->join('user_level ul', 'user.us_lvl = ul.ul_id', 'left');
+            $this->db->join('time_status ts', 'tl.ts_id = ts.ts_id', 'left');
 	        $result = $this->db->get()->result();
 	        if ($result) {
-	            return $result;
+	            if ($where !== NULL) {
+	                return array_shift($result);
+	            } else {
+	                return $result;
+	            }
 	        } else {
 	            return false;
 	        }
-	    }
+        }
 
 	    /**
 	     * Inserts new data into database

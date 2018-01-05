@@ -39,6 +39,8 @@
 */
 
 $route['default_controller'] = "order";
+$route['distribution'] = 'parcel';
+$route['logout'] = 'nasty_v2/dashboard/logout';
 $route['404_override'] = '';
 
 

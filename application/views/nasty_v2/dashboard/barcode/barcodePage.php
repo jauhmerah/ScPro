@@ -6,7 +6,6 @@
                     <i class="fa fa-picture"></i>DOC List </div>
                 <div class="tools">
                     <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
-
                 </div>
             </div>
             <div class="portlet-body">
@@ -31,7 +30,8 @@
                                 <td><?= $key->us_username; ?></td>
                                 <td>
                                     <?php
-                                if (parcelCount($key->or_id)) {
+                                    $parcelCount = parcelCount($key->or_id);
+                                if ($parcelCount) {
                                     ?>
                                     <span class="label label-md label-success circle"><i class="fa fa-book" aria-hidden="true"></i> Listing Done </span>
                                     <?php
@@ -45,14 +45,14 @@
                                         <button type="button" class="btn dark btn-circle-left" title="Manage Parcel" onclick="location.href='<?= site_url('nasty_v2/dashboard/page/e2?id='.$this->my_func->scpro_encrypt($key->or_id."|parcel"));?>';">
                                             <i class="fa fa-wrench" aria-hidden="true"></i>
                                         </button>
-                                        <button type="button" class="btn btn-info" title="View Parcel List">
+                                        <button type="button" class="btn btn-info" title="View Parcel List" onclick="window.open('<?= site_url('nasty_v2/dashboard/page/a111?v=2&view=').$this->my_func->scpro_encrypt($key->or_id); ?>');">
                                             <i class="fa fa-eye" aria-hidden="true"></i>
                                         </button>
-                                        <button type="button" class="btn green-dark">
+                                        <button type="button" class="btn green-dark" onclick="window.open('<?= site_url('parcel/printParcel?id='.$this->my_func->scpro_encrypt($key->or_id."|printParcel|2"));?>');" <?php if(!$parcelCount){ echo "disabled"; }?>>
                                             <i class="fa fa-print" aria-hidden="true"></i>
                                         </button>
-                                        <button type="button" class="btn red-mint btn-circle-right con" title="Reset Parcel">
-                                            <i class="fa fa-rebel" aria-hidden="true"></i>
+                                        <button type="button" class="btn red-mint btn-circle-right <?php if($parcelCount){ ?> con<?php } ?>" title="Reset Parcel" <?php if($parcelCount){ ?> data-del = "<?= $this->my_func->scpro_encrypt($key->or_id.'|parcelDel|1'); ?>" <?php }else{ echo "disabled"; } ?> >
+                                            <i class="fa fa-refresh" aria-hidden="true"></i>
                                         </button>
                                     </div>
                                 </td>
@@ -65,12 +65,10 @@
         </div>
     </div>
 </div>
-<pre>
-    <?= print_r($arr); ?>
-</pre>
 <script>
-    jQuery(document).ready(function($) {
+    jQuery(document).ready(function() {
         $('.con').click(function() {
+            var k = $(this).data('del');
             bootbox.confirm({
                 title: '<i class="fa fa-refresh" aria-hidden="true"></i> Reset',
                 message: "Do you want to reset the parcel detail? This cannot be undone.",
@@ -83,7 +81,9 @@
                     }
                 },
                 callback: function(result) {
-                    console.log('This was logged in the callback: ' + result);
+                    if (result) {
+                        window.location = '<?= site_url('nasty_v2/dashboard/page/e4?key=') ?>'+k;
+                    }
                 }
             });
         });

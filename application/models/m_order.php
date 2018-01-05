@@ -305,12 +305,12 @@
 	    		$this->db->where('ord.pr_id >=', 10);
 	    	}else if($st1 == 3){
 
-	    		$this->db->where('ord.pr_id', 9);
+	    		$this->db->where('ord.pr_id', 2);
 	    	}
 	    	$this->db->order_by('ord.or_date', 'desc');
 	    	$result = $this->db->get()->result();
 	    	return $result;
-	    }	
+	    }
 
 
 	    public function listOr_ext($ver = 0 , $limit = null , $start = null , $del = 0 , $where = null)

@@ -5,7 +5,7 @@
 
 	   	var $parent_page = "nasty_v2/dashboard";
 	   	var $old_page = "dashboard";
-        var $version = "OrdYs v2.3.8 Alpha";
+        var $version = "OrdYs v2.3.9 Alpha";
         var $imgUploc = "/assets/uploads/img/";
         var $flags = 'asset/flags/flags.png';
 
@@ -19,18 +19,7 @@
 	        $this->page('a1');
 	    }
 
-        public function dummyInvoice()
-        {        
-            $html =$this->load->view($this->parent_page.'/orderDummy' , '' , true); 
-            echo $html;
-        }
-        public function Invoice()
-        {        
-            $html =$this->load->view($this->parent_page.'/orderInvoice' , '' , true); 
-            echo $html;
-        }
-
-	   private function _show($page = 'display' , $data = null , $key = 'a1'){
+	   	private function _show($page = 'display' , $data = null , $key = 'a1'){
             $link['link'] = $key;
 	    	$link['admin'] = $this->_checkLvl();
 	    	// if (!$link['admin']) {
@@ -51,105 +40,13 @@
 	    	$this->load->view($this->parent_page.'/page/footer', '', FALSE);
 	    }
 
-	    function orderPDF($data = null){
-	    	$html = $this->load->view($this->parent_page.'/printPdf/head', '', true);
-	    	$html = $html . $this->load->view($this->parent_page.'/printPdf/head2', '', true);
-	    	$html = $html . $this->load->view($this->parent_page.'/printPdf/navmenu3', '', true);
-	    	$html = $html . $this->load->view($this->parent_page.'/printPdf/theme4', '', true);
-	    	$html = $html . $this->load->view($this->parent_page.'/printPdf/title5', '', true);
-	    	$html = $html . $this->load->view($this->parent_page.'/printPdf/orderForm', $data, true);
-	    	$html = $html . $this->load->view($this->parent_page.'/printPdf/sidebar7', '', true);
-	    	$html = $html . $this->load->view($this->parent_page.'/printPdf/footer', '', true);
-	    	//$this->pdfPrint($html);
-	    	echo $html;
-	    }
-
-	   function pdfPrint($html = "<h1>Hello World</h1>"){
-	    	$this->load->library("Pdf");
-			$pdf = new Pdf('P', 'mm', 'A4', true, 'UTF-8', false);
-			$pdf->SetCreator(PDF_CREATOR);
-	        // Add a page
-	        $pdf->AddPage();
-	        $pdf->writeHTML($html, true, false, true, false, '');
-	        $pdf->Output();
-	    }
-
-        public function formPrint($or_id = null)
-        {
-            //if ($or_id != null || $this->input->get('key')) {
-                $html = $this->load->view($this->parent_page.'/printPdf/printForm' , '' , true);
-                //$this->pdfPrint($html);
-                echo $html;
-            //}
-        }
-
-        public function testEmail()
-        {
-            $email['fromEmail'] = 'jauhmerah@nastyjuice.com';
-            $email['fromName'] = 'Jauhmerah';
-            $email['toEmail'] = 'jauhmerah@gmail.com';
-            $email['subject'] = 'test Email system';
-            $email['msg'] = 'Test jadi';
-            $this->sendEmail($email);
-            $this->page('a1');
-        }
-
-        public function dataCount()
-        {
-            $this->load->database();
-            $this->load->model('m_order');
-            $arr['net'] = $this->m_order->getIncome(1);
-            $arr['acc'] = $this->m_order->getIncome(1,1);
-            $sizeNet = sizeof($arr['net']);
-            if ($sizeNet != 0) {
-                for ($i = 0 ; $i < $sizeNet ; $i++) {
-                    $data[$i]['date'] = $arr['net'][$i]->month."|".$arr['net'][$i]->year;
-                    $data[$i]['net'] = $arr['net'][$i]->sales;
-                    if ($arr['net'][$i]->month == $arr['acc'][0]->month && $arr['net'][$i]->year == $arr['acc'][0]->year) {
-                        $data[$i]['acc'] = $arr['acc'][0]->sales;
-                        array_shift($arr['acc']);
-                    } else {
-                        $data[$i]['acc'] = 0;
-                    }
-                }
-            }else{
-                $data = null;
-            }
-            echo "<pre>";
-            print_r($data);
-            echo "</pre>";
-        }
-        public function getAjaxGraph()
-        {
-            $this->load->database();
-            $this->load->model('m_item');
-            $arr['arr'] = $this->m_item->totalByOrder();
-            echo $this->load->view($this->parent_page.'/ajax/getAjaxGraph', $arr, false);
-        }
-        public function getAjaxGraph2()
-        {
-            $arr1 = $this->input->post();
-            $this->load->database();
-            $this->load->model('m_item');
-            $this->load->model('m_nico');
-            $arr['arr'] = $this->m_item->totalByFlavor($arr1['year1'] , $arr1['month1'] , $arr1['client'] , $arr1['mg'], $arr1['country']);
-            /*echo "<pre>";
-            print_r($arr);
-            echo "</pre>";*/
-            //die();
-            echo $this->load->view($this->parent_page.'/ajax/getAjaxGraph2', $arr , false);
-        }
 	    public function page($key)
     	{
     		//$arr = $this->input->get();
     		$this->_checkSession();
+			$this->load->helper('timeline');
             $lvl =$this->my_func->scpro_decrypt($this->session->userdata('us_lvl'));
     		switch ($key) {
-                case 'test':
-
-                $data['display'] = $this->load->view($this->parent_page."/testgraft" ,'', true);
-                        $this->_show('display' , $data, $key);
-                    break;
                 case "x1" :// dashboard
                         //start added
                         $this->load->database();
@@ -183,6 +80,7 @@
                         );
                         $this->load->model('m_order');
                         $this->m_order->update($arr , $or_id);
+						recordLog($or_id , 5);
                     }
                     $this->session->set_flashdata('info', 'Order Deleted');
                     redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
@@ -285,17 +183,6 @@
                         break;
                     }
                 case 'a1':
-                    /*if ($lvl == 2 || $lvl == 3) {
-                        redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
-                    }
-                    $this->load->database();
-                    $this->load->model('m_order');
-                    $arr['vernew'] = $this->m_order->orderCount(2);
-                    $arr['verold'] = $this->m_order->orderCount(1) + $this->m_order->orderCount(0);
-                    $data['title'] = '<i class="fa fa-fw fa-edit">Switchover</i> </a>';
-                    $data['display'] = $this->load->view($this->parent_page.'/switch_ver' ,$arr, true);
-                    $this->_show('display' , $data , $key);
-                break;*/
     			case 'a1new':
                     //OrdSys 2.3.0
     				if ($lvl == 3 || $lvl == 7) {
@@ -632,7 +519,7 @@
                         $this->load->model('m_order');
                         $this->load->model('m_order_ext');
                         $finish = date("Y-m-d",time());
-                        $ver = 1;
+                        $ver = 2;
                         if ($this->input->get('ver')) {
                             $ver = $this->input->get('ver');
                         }
@@ -641,11 +528,12 @@
                         if ($row == 0) {
                             $this->session->set_flashdata('warning', 'Ops!! Unable to update the order status...');
                         } else {
+							recordLog($or_id , 3);
                             $this->session->set_flashdata('success', 'The order are completed. Please print the D.O. form before shipping.');
                             $email['fromName'] = "Ai System";
                             $email['fromEmail'] = "nstylabc@sirius.sfdns.net";
-                            $email['toEmail'] = array('0' => "faeiz@nastyjuice.com", '1' => "account@nastyjuice.com" , '2' => 'hairi@nastyjuice.com');
-                            $email['subject'] = "Order #".((10000*$ver)+100000+$or_id)." Completed";
+                            $email['toEmail'] = "zul@nastyjuice.com, finance@nastyjuice.com";
+                            $email['subject'] = $this->version." #".((10000*$ver)+100000+$or_id)." Completed";
                             $email['msg'] = "
 Order Detail
 
@@ -678,7 +566,8 @@ epul@nastyjuice.com
                         $this->load->database();
                         $this->load->model('m_order');
                         $result = $this->m_order->update(array('pr_id' => 2) , $or_id);
-                        $orCode = "#".(100000+$or_id);
+						recordLog($or_id , 2);
+                        $orCode = "#".(120000+$or_id);
                         if ($result == 0) {
                             $this->session->set_flashdata('warning', 'Something wrong with your order <strong>'.$orCode.'</strong>, please contact your IT Team');
                         } else {
@@ -701,126 +590,32 @@ epul@nastyjuice.com
 	    			$this->load->database();
 	    			$this->load->model('m_order');
                     $this->load->library('l_label');
+    				// $temp['arr'] = $this->m_order->getList_ext(null ,1, 1 , 1 , 0);
+    				// $temp['arr1'] = $this->m_order->getList_ext(null ,1, 1 , 2 , 0);
                     $temp['arrV'] = $this->m_order->getList_ext(null ,2, 1 , 1 , 0);
                     $temp['arrV1'] = $this->m_order->getList_ext(null ,2, 1 , 2 , 0);
-    				$data['title'] = '<i class="fa fa-fw fa-tasks"></i>Packaging List</a>';
+					$temp['arrV2'] = $this->m_order->getList_ext(null ,2, 1 , 3 , 0);
+                    $temp['arrHold'] = $this->m_order->getList_ext(null ,2, 1 , 7 , 0);
+    				$data['title'] = '<i class="fa fa-fw fa-edit"></i>Order List</a>';
     				$data['display'] = $this->load->view($this->parent_page.'/productionOrder', $temp , TRUE);
+					$data['display'] .= $this->productionXdistribution();
     				$this->_show('display' , $data , $key);
     				break;
-
-
-                    case 'a6':
-
-
-                      //$this->load->library('my_func');
-                   /* if ($lvl == 4) {
-                        redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
-                    }
-                    if ($this->input->get('mode')) {
-                        $temp['mode'] = $this->input->get('mode');
-                    }          */
+                case 'a6':
                     $this->load->database();
                     $this->load->library('my_func');
                     $this->load->library('my_flag');
                     $this->load->model('m_order');
-                    $this->load->model('m_order_process');
 
-                    if ($this->input->post("search") && $this->input->post("filter") || $this->input->get("search") && $this->input->get("filter")) {
-                        if ($this->input->get("search") && $this->input->get("filter")) {
-                            $search = $this->input->get("search");
-                            $filter = $this->input->get("filter");
-                        } else {
-                            $search = $this->input->post("search");
-                            $filter = $this->input->post("filter");
-                        }
-                        switch ($filter) {
-                            case '10':
-                                //Client Name
-                                $where = array(
-                                    "cl.cl_name" => $search
-                                );
-                                break;
-                            case '1':
-                                //Order Code
-                                //Hanya Single
-                                if (strpos($search, "#") !== false) {
-                                    $search = str_replace("#", "", $search);
-                                }
-                                if (!is_numeric($search)) {
-                                    $this->session->set_flashdata('warning', 'Please Enter the Correct Order Code');
-                                    redirect(site_url("nasty_v2/dashboard/page/a1"),'refresh');
-                                }
-                                $str = (string)$search;
-                                /*if ($str[1] == '1') {
-                                    $id = $search - 110000;
-                                    $ver = 1;
-                                } else {
-                                    $id = $search - 100000;
-                                    $ver = 0;
-                                }*/
-                                $ver = 2;
-                                $id = $search - 120000;
-                                $where = array(
-                                    "ord.or_id" => $id
-                                );
-                                break;
-                            case '2':
-                                //Sales Person
-                                $where = array(
-                                    "us1.us_username" => $search
-                                );
-                                break;
-                            case '3':
-                                //Order Status
-                                $where = array(
-                                    "pr.pr_desc" => $search
-                                );
-                                break;
-                        }
-                        if (isset($ver)) {
-                            $arr['arr1'] = $this->m_order->listOr($ver , null , null , 0 , $where);
-                        }else{
-                            $arr['arr1'] = $this->m_order->listSearch(2 , null , null , 0 , $where);
-                        }
-                    } else {
-                        $ver = $this->m_order->orderCount(2);
-                        $arr['arr1'] = $this->m_order->listOr(2 , 10);
+                    $arr['arr1'] = $this->m_order->listOr(2 , 10);
 
-
-
-                    $arr['arr'] = $this->m_order->getList_ext(null ,1, 1 , 1 , 0);
-                    //$arr['arr1'] = $this->m_order->getList_ext(null ,1, 1 , 2 , 0);
-                    $arr['arrV'] = $this->m_order->getList_ext(null ,2, 1 , 1 , 0);
-                    $arr['arrV1'] = $this->m_order->getList_ext(null ,2, 1 , 2 , 0);
-                    $arr['arrHold'] = $this->m_order->getList_ext(null ,2, 1 , 7 , 0);
-                        $result1 = sizeof($arr['arr1']);
-                        //$sizeA = 10 - $result1;
-                        /*if ($sizeA != 0) {
-                            $p1 = $p + 10 - $ver1;
-                            if ($p1 < 10) {
-                                $p2 = 0;
-                            } else {
-                                $p2 = $p1;
-                                $p1 = 10;
-                            }
-                            $arr['arr'] = $this->m_order->listOr(0 , $p1 , $p2);
-                            $result1 = $result1 + sizeof($arr['arr']);
-                        }*/
-                        //$arr['page'] = $p;
-                        $arr['total'] = $ver;
-                        $arr['row'] = $result1;
-                        $arr['lvl'] = $this->m_order_process->getLvl();
-                    }
-                    //$arr['arr'] = $this->m_order->getAll();
                     $data['title'] = '<i class="fa fa-fw fa-edit"></i>Distributor</a>';
                     $data['display'] = $this->load->view($this->parent_page.'/ROSlist', $arr , TRUE);
                     $this->_show('display' , $data , $key);
                     break;
 
-
-
-                    case 'a62':
-
+                case 'a62':
+					// NOTE : This section will not use any more. Integrate with production. (function productionXdistribution)
                     if ($this->input->get('page')) {
                         $p = $this->input->get('page');
                     }else{
@@ -885,13 +680,6 @@ epul@nastyjuice.com
                                     redirect(site_url("nasty_v2/dashboard/page/a1"),'refresh');
                                 }
                                 $str = (string)$search;
-                                /*if ($str[1] == '1') {
-                                    $id = $search - 110000;
-                                    $ver = 1;
-                                } else {
-                                    $id = $search - 100000;
-                                    $ver = 0;
-                                }*/
                                 $ver = 2;
                                 $id = $search - 120000;
                                 $where = array(
@@ -956,124 +744,6 @@ epul@nastyjuice.com
                     $data['display'] = $this->load->view($this->parent_page.'/ROSlist2', $arr , TRUE);
                     $this->_show('display' , $data , $key);
                     break;
-
-
-
-                    //  case 'a62':
-
-                    // $this->load->database();
-                    // $this->load->library('my_func');
-                    // $this->load->library('my_flag');
-                    // $this->load->model('m_order');
-                    // $this->load->model('m_order_process');
-                    // if ($this->input->get('page')) {
-                    //     $p = $this->input->get('page');
-                    // }else{
-                    //     $p = 0;
-                    // }
-                    //  if ($this->input->get('e')) {
-                    //     $e = $this->input->get('e');
-                    // }else{
-                    //     $e = 0;
-                    // }
-                    // if ($this->input->post("search") && $this->input->post("filter") || $this->input->get("search") && $this->input->get("filter")) {
-                    //     if ($this->input->get("search") && $this->input->get("filter")) {
-                    //         $search = $this->input->get("search");
-                    //         $filter = $this->input->get("filter");
-                    //     } else {
-                    //         $search = $this->input->post("search");
-                    //         $filter = $this->input->post("filter");
-                    //     }
-                    //     switch ($filter) {
-                    //         case '10':
-                    //             //Client Name
-                    //             $where = array(
-                    //                 "cl.cl_name" => $search
-                    //             );
-                    //             break;
-                    //         case '1':
-                    //             //Order Code
-                    //             //Hanya Single
-                    //             if (strpos($search, "#") !== false) {
-                    //                 $search = str_replace("#", "", $search);
-                    //             }
-                    //             if (!is_numeric($search)) {
-                    //                 $this->session->set_flashdata('warning', 'Please Enter the Correct Order Code');
-                    //                 redirect(site_url("nasty_v2/dashboard/page/a1"),'refresh');
-                    //             }
-                    //             $str = (string)$search;
-                    //             /*if ($str[1] == '1') {
-                    //                 $id = $search - 110000;
-                    //                 $ver = 1;
-                    //             } else {
-                    //                 $id = $search - 100000;
-                    //                 $ver = 0;
-                    //             }*/
-                    //             $ver = 2;
-                    //             $id = $search - 120000;
-                    //             $where = array(
-                    //                 "ord.or_id" => $id
-                    //             );
-                    //             break;
-                    //         case '2':
-                    //             //Sales Person
-                    //             $where = array(
-                    //                 "us1.us_username" => $search
-                    //             );
-                    //             break;
-                    //         case '3':
-                    //             //Order Status
-                    //             $where = array(
-                    //                 "pr.pr_desc" => $search
-                    //             );
-                    //             break;
-                    //     }
-                    //     if (isset($ver)) {
-                    //         $arr['arr1'] = $this->m_order->listOrROS($ver , 1 , null , null , 0 , $where);
-                    //          $arr['arr2'] = $this->m_order->listOrROS($ver , 2 , null , null , 0 , $where);
-
-                    //     }else{
-                    //         $arr['arr1'] = $this->m_order->listSearch(2 , null , null , 0 , $where);
-                    //     }
-                    // } else {
-                    //     //$ver = $this->m_order->orderCount(2);
-                    //     $ver = $this->m_order->orderCountROS(2, 1);
-                    //     $ver2 = $this->m_order->orderCountROS(2, 2 );
-                    //     $arr['arr1'] = $this->m_order->listOrROS(2 , 1 , 10 , $p);
-                    //     $arr['arr2'] = $this->m_order->listOrROS(2 , 2 , 10 , $p);
-                    //     $result1 = sizeof($arr['arr1']);
-                    //     $result2 = sizeof($arr['arr2']);
-
-                    //     //$sizeA = 10 - $result1;
-                    //     /*if ($sizeA != 0) {
-                    //         $p1 = $p + 10 - $ver1;
-                    //         if ($p1 < 10) {
-                    //             $p2 = 0;
-                    //         } else {
-                    //             $p2 = $p1;
-                    //             $p1 = 10;
-                    //         }
-                    //         $arr['arr'] = $this->m_order->listOr(0 , $p1 , $p2);
-                    //         $result1 = $result1 + sizeof($arr['arr']);
-                    //     }*/
-                    //     $arr['page'] = $p;
-                    //     $arr['e'] = $e;
-                    //     $arr['total'] = $ver;
-                    //     $arr['total2'] = $ver2;
-                    //     $arr['row'] = $result1;
-                    //     $arr['row2'] = $result2;
-
-                    //     $arr['lvl'] = $this->m_order_process->getLvl(1);
-                    //     $arr['lvl2'] = $this->m_order_process->getLvl(2);
-                    // }
-                    // //$arr['arr'] = $this->m_order->getAll();
-                    // $data['title'] = '<i class="fa fa-fw fa-edit"></i>Distributor</a>';
-                    // $data['display'] = $this->load->view($this->parent_page.'/ROSlist2', $arr , TRUE);
-                    // $this->_show('display' , $data , $key);
-                    // break;
-
-
-
                     case 'a7':
                     //$this->load->library('my_func');
                    /* if ($lvl == 4) {
@@ -1082,7 +752,7 @@ epul@nastyjuice.com
                     if ($this->input->get('mode')) {
                         $temp['mode'] = $this->input->get('mode');
                     }          */
-                     $this->load->database();
+                    $this->load->database();
                     $this->load->library('my_func');
                     $this->load->library('my_flag');
                     $this->load->model('m_order');
@@ -1809,6 +1479,7 @@ epul@nastyjuice.com
                         }
                         $this->load->model('m_order_ext');
                         $orex_id = $this->m_order_ext->update($order_ext , array('or_id' => $or_id));
+						recordLog($or_id , 15);
                         //echo "<br>Update => ".$orex_id;
                     }
                     $this->session->set_flashdata('success', 'Update Success');
@@ -1841,7 +1512,6 @@ epul@nastyjuice.com
                             $this->load->model('m_client');
                             $arr['client'] = $this->m_client->insert($cl);
                         }
-
                         $order = array(
                             "cl_id" => $arr['client'],
                             "us_id" => $this->my_func->scpro_decrypt($this->session->userdata('us_id')),
@@ -1886,7 +1556,7 @@ epul@nastyjuice.com
                             'sn_company' => $arr['sh_company'],
                             'sn_opt' => $arr['sh_opt'],
                             'sn_declare' => $arr['sh_declare'],
-                            'sn_wide' => $arr['wide'],
+                            'sn_wide' => $arr['wide'], 
                             'cl_id' => $arr['client']
                         );
                         $this->m_shipping_note->insert($shipping_note);*/
@@ -1905,15 +1575,15 @@ epul@nastyjuice.com
                              "username" => $this->my_func->scpro_decrypt($this->session->userdata('us_username')),
                         );
 
-                            $email['fromName'] = "Bigtime OrdYs System";
-                            $email['fromEmail'] = "noreply@nastyjuice.com";
-                            $email['toEmail'] = array(' finance@nastyjuice.com , zul@nastyjuice.com ');;
-                            $email['subject'] = 'New Bigtime Purchase Order #'.(120000+$or_id);
-                            $email['html'] = true;
-
-                            $email['msg'] =$this->load->view('/mail/send_email',$arr,true);
-                            $this->sendEmail2($email);
-
+                        $email['fromName'] = "Ai System";
+                        $email['fromEmail'] = "noreply@nastyjuice.com";
+                        $email['toEmail'] = ' finance@nastyjuice.com , zul@nastyjuice.com ';
+                        $email['subject'] = 'New Purchase Order #'.(120000+$or_id);
+                        $email['html'] = true;
+                        //$content=$this->load->view('/mail/send_email',$arr,true);
+                        $email['msg'] =$this->load->view('/mail/send_email',$arr,true);
+                        $this->sendEmail2($email);
+						recordLog($or_id , 1);
                         $this->session->set_flashdata('success', 'New Order successfully added');
                         redirect(site_url('nasty_v2/dashboard/page/a1'),'refresh');
     					break;
@@ -1922,17 +1592,6 @@ epul@nastyjuice.com
                     if ($lvl == 2 || $lvl == 3) {
                         redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
                     }
-
-                    // Time Freeze
-                        /*$cuTime = time();
-                        $start = strtotime('1:00am');
-                        $end = strtotime('12:00pm');
-                        if ((int)$start <= (int)$cuTime && (int)$cuTime <= (int)$end ) {
-                            $data['title'] = '<i class="fa fa-file-text"></i> Order Form';
-                            $this->_show('/downsystem/downtime' , $data , $key);
-                            break;
-                        }*/
-                    // End Time Freeze
     				$data['title'] = '<i class="fa fa-file-text"></i> Order Form';
     				$this->load->database();
     				$this->load->model('m_client');
@@ -2142,7 +1801,7 @@ epul@nastyjuice.com
 							$id = $arr[0];
 							unset($arr);
 							$or_id = "#".(120000+$id);
-							$data['title'] = '<i class="fa fa-book" aria-hidden="true"></i>'.$or_id.'</a>';
+							$data['title'] = '<i class="fa fa-book" aria-hidden="true"></i> '.$or_id.'</a>';
 							$this->load->model('m_order');
 							$this->load->model('m_category');
 		                    $this->load->model('m_nico');
@@ -2158,7 +1817,7 @@ epul@nastyjuice.com
 						}
 					}else{
 						$this->session->set_flashdata('error' ,  'Ops!! , wrong path');
-						redirect(site_url('nasty_v2/dashboard/page/e1'));
+						redirect(site_url('nasty_v2/dashboard/page/a2'));
 					}
 					break;
 				case 'e3':
@@ -2188,9 +1847,30 @@ epul@nastyjuice.com
 									'ty2_id' => $arr['itemId'][$i],
 									'ni_id' => $arr['nico'][$i],
 									'pa_tester' => $arr['tester'][$i],
-									'pa_qty' => $arr['qty'][$i]
+									'pa_qty' => $arr['qty'][$i],
+									'pa_batch' => $arr['batch'][$i],
+									'pa_hologram' => $arr['hologram'][$i]
 								);
 								$this->mpe->insert($pae);
+							}
+                            // Generate Barcode image.
+							$this->load->helper('barcode');
+							$orderCode = (120000+$or_id);
+							$pa_hex = dechex($pa_id);
+							$temp = rand(0, 999);
+							$barcode = $orderCode.'-'.$pa_hex.'-'.$temp;
+							unset($orderCode);unset($pa_hex);unset($temp);
+							if (set_barcode($barcode) == FALSE) {
+								$this->session->set_flashdata('warning' , 'Ops! Someting wrong on generating barcode, contact your admin.<br /> Error Code : #e301');
+							}else{
+								$this->load->model('M_parcel_barcode', 'mpb');
+								$link = 'assets/uploads/barcode/'.$barcode.'.jpg';
+								$arrParcel = array(
+									'pa_id' => $pa_id,
+									'pb_link' => $link,
+									'pb_code' => $barcode
+								);
+								$this->mpb->insert($arrParcel);
 							}
 							$this->session->set_flashdata('success' , 'Parcel Added');
 							redirect(site_url('nasty_v2/dashboard/page/e2?id='.$this->my_func->scpro_encrypt($or_id."|parcel")) , 'refresh');
@@ -2217,26 +1897,59 @@ epul@nastyjuice.com
 							$this->load->database();
 							$this->load->model('m_parcel', 'mp');
 							$this->load->model('m_parcel_ext' , 'mpe');
+							$this->load->model('M_parcel_barcode', 'mpb');
 							if ($arr[2] == 1) {
 								$parcel = array(
 									'or_id' => $arr[0]
 								);
+								$arrPa = $this->mp->getPa_idDel($parcel);
+								foreach ($arrPa as $pakey) {
+									$pa_id = $pakey->pa_id;
+									$this->mpe->delete(array('pa_id' => $pa_id));
+									$paBarcode = $this->mpb->get(array('pa_id' => $pa_id));
+									if (sizeof($paBarcode) != 0) {
+										$paBarcode = array_shift($paBarcode);
+										unlink('./'.$paBarcode->pb_link);
+									}
+									unset($paBarcode);
+									$this->mpb->delete(array('pa_id' => $pa_id));
+								}
+								unset($arrPa);
+								$this->session->set_flashdata('success' , 'Reset process done.');
 							}elseif ($arr[2] == 2) {
 								$parcel = array(
 									'pa_id' => $arr[0]
 								);
 								$this->mp->delete($parcel);
 								$this->mpe->delete($parcel);
+								$paBarcode = $this->mpb->get($parcel);
+								if (sizeof($paBarcode) != 0) {
+									$paBarcode = array_shift($paBarcode);
+									unlink('./'.$paBarcode->pb_link);
+								}
+								unset($paBarcode);
+								$this->mpb->delete($parcel);
+								$this->session->set_flashdata('success' , 'delete parcel done.');
 							}else {
 								$this->session->set_flashdata('error' , 'Parcel Mode Error');
-								redirect(site_url('nasty_v2/dashboard/page/e1'));
 							}
+							if(isset($_SERVER['HTTP_REFERER']))
+								$url = $_SERVER['HTTP_REFERER'];
+							else
+								$url = site_url('nasty_v2/dashboard/page/e1');
+							redirect($url , 'refresh');
 						}else {
 							$this->session->set_flashdata('error' , 'Ops Wrong Path');
 							redirect(site_url('nasty_v2/dashboard/page/e1'));
 						}
 					}
 					break;
+					case 'f1':
+						// timeline
+						$page = 'timeline/tl';
+						$data = NULL;
+						$this->_show($page , $data , $key);
+						break;
     			default:
     				$this->_show();
     				break;
@@ -2575,37 +2288,36 @@ epul@nastyjuice.com
              if ($this->input->post()) {
                 $arr = $this->input->post();
                 $this->load->database();
+				$us_id = $arr['us_id'];
+				$this->load->library('my_func', NULL , 'mf');
+				$us_id = $this->mf->scpro_decrypt($us_id);
                 $this->load->model('m_order');
                 $this->load->model('m_order_ext');
-
                 $id=$arr['id'];
-
                 $arr2 = array(
-
                     "pr_id" => $arr['pr_id']
-
                 );
-
                 if(isset($arr['no']))
                 {
                     $arr3 = array(
-
                     "or_trackno" => $arr['no']
-
                     );
-
                     $result1 = $this->m_order_ext->update($arr3 , $id);
                 }
-
-                $result = $this->m_order->update($arr2 , $id);
-
-
+                if($this->m_order->update($arr2 , $id)){
+					$this->load->model('timeline/M_timeline', 'mt');
+					$array = array(
+						'or_id' => $id,
+						'pr_id' => $arr['pr_id'],
+						'us_id' => $us_id
+					);
+					$this->mt->insert($array);
+				}
                 $this->session->set_flashdata('success', 'Order are successfully updated');
-                redirect(site_url('nasty_v2/dashboard/page/a62'),'refresh');
+                redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
             }else{
                 $this->session->set_flashdata('error', 'Order are not updated');
-
-                redirect(site_url('nasty_v2/dashboard/page/a62'),'refresh');
+                redirect(site_url('nasty_v2/dashboard/page/a2'),'refresh');
             }
         }
 
@@ -2736,16 +2448,16 @@ epul@nastyjuice.com
 
                             }
 
-                            $email['fromName'] = "Nasty OrdYs System";
+                            $email['fromName'] = "Ai System";
                             $email['fromEmail'] = "noreply@nastyjuice.com";
-                            $email['toEmail'] = array(' finance@nastyjuice.com , zul@nastyjuice.com ');;
-                            $email['subject'] = 'Payment are already uploaded for Purchase Order #'.(120000+$or_id);
+                            $email['toEmail'] = ' finance@nastyjuice.com , zul@nastyjuice.com ';
+                            $email['subject'] =  $this->version.', Payment are already uploaded for Purchase Order #'.(120000+$or_id);
                             $email['html'] = true;
                             $content=$this->load->view('/mail/payment_email',$arr,true);
                             $email['msg'] =$content;
 
 
-                            $result=$this->sendEmail2($email);
+                            $result=$this->sendEmail($email);
 
                     }elseif ($i == 0) {
                         $code = "<ul>";
@@ -2772,49 +2484,39 @@ epul@nastyjuice.com
 
          public function change_pr_id3()
         {
-
-                
-                $or_id = $this->input->post('or_id');
-                
-                $pr_id = $this->input->post('pr_id');
-                $this->load->database();
-                $this->load->model('m_order');
-
-                    $this->m_order->updateROS($pr_id, $or_id);
-                    $this->session->set_flashdata('success', 'The order status was Updated!!');
-                    redirect(site_url('nasty_v2/dashboard/page/a1new'),'refresh');
-
-   
-
-
+            $or_id = $this->input->post('or_id');
+            $pr_id = $this->input->post('pr_id');
+			$us_id = $this->input->post('us_id');
+			$this->load->library('my_func', NULL , 'mf');
+			$us_id = $this->mf->scpro_decrypt($us_id);
+            $this->load->database();
+            $this->load->model('m_order');
+			/*
+          	1 - New Order
+            2 - In Progress
+            3 - Complete
+            4 - Unconfirm
+            5 - Cancel
+            6 - Cancel In Progress
+            7 - On Hold In Progress
+            8 - ROS
+            9 - DOC
+            10 - RTS
+            11 - Shipping
+            12 - Arrived
+            13 - Return */
+            if($this->m_order->updateROS($pr_id, $or_id)){
+                // NOTE: This section cant use by timeline_helpers. because it is get ajax.
+				$this->load->model('timeline/M_timeline', 'mt');
+				$array = array(
+					'or_id' => $or_id,
+					'pr_id' => $pr_id,
+					'us_id' => $us_id
+				);
+				$this->mt->insert($array);
+			}
+            //redirect(site_url('nasty_v2/dashboard/page/a1new'),'refresh');
         }
-
-        public function changeShip_pr_id()
-        {
-                
-                
-                $sh_id = $this->input->post('sh_id');
-                $arr_date=$this->input->post('arr_date');
-                echo "<script>alert('test');</script>";
-               
-                $pr_id = $this->input->post('pr_id');
-                $this->load->database();
-                $this->load->model('m_ship');
-
-               
-
-                    $this->m_ship->updateShipment($pr_id, $sh_id,$arr_date);
-                    $this->session->set_flashdata('success', 'The Shipment status was Updated!!');
-
-                    redirect(site_url('nasty_v2/dashboard/page/i21'),'refresh');
-
-                    
-        }
-
-
-
-
-
         private function change_pr_id2($or_id = null)
         {
            
@@ -3007,10 +2709,6 @@ epul@nastyjuice.com
 			$arr['icon'] = base_url()."assets/uploads/item/".$arr['imgIcon'];
 			echo $this->load->view($this->old_page. "/ajax/getAjaxOrderBox2", $arr , true);
 		}
-		public function testAjax()
-		{
-			echo $this->load->view($this->old_page."/ajax/testajax","", TRUE);
-		}
 
 		public function deleteOrder($or_id = null)
 		{
@@ -3150,7 +2848,7 @@ epul@nastyjuice.com
                 }
                 $this->email->subject($email['subject']);
                 $this->email->message($email['msg']);
-
+				$this->email->set_mailtype("html");
                 if($this->email->send()){
                     $this->session->set_flashdata('info', "Successfully Send the Notification");
                 }else{
@@ -3450,8 +3148,8 @@ epul@nastyjuice.com
                 $saleman = $this->m_user->getName($arr['us_id']);
                 $email['fromName'] = "Ai System";
                 $email['fromEmail'] = "nstylabc@sirius.sfdns.net";
-                $email['toEmail'] = array("faeiz@nastyjuice.com", "account@nastyjuice.com" , 'hairi@nastyjuice.com' , 'abun@nastyjuice.com');
-                $email['subject'] = "New Order #".((10000*$ver)+100000+$or_id);
+                $email['toEmail'] = "zul@nastyjuice.com, finance@nastyjuice.com , distribution@nastyjuice.com.my";
+                $email['subject'] =  $this->version." New Order #".((10000*$ver)+100000+$or_id);
                 $email['msg'] = "
 Order Detail
 
@@ -3480,7 +3178,7 @@ epul@nastyjuice.com
             }
         }
 
-        private function emailSendUnconfirm($arr = null , $ver = 1)
+        private function emailSendUnconfirm($arr = null , $ver = 2)
         {
             //Confirm to Unconfirm;
             //#email2
@@ -3491,8 +3189,8 @@ epul@nastyjuice.com
                 $saleman = $this->m_user->getName($arr->us_id);
                 $email['fromName'] = "Ai System";
                 $email['fromEmail'] = "nstylabc@sirius.sfdns.net";
-                $email['toEmail'] = array("faeiz@nastyjuice.com", "account@nastyjuice.com" ,'hairi@nastyjuice.com' ,'abun@nastyjuice.com');
-                $email['subject'] = "Unconfirm #".((10000*$ver)+100000+$or_id);
+                $email['toEmail'] = "zul@nastyjuice.com, finance@nastyjuice.com , distribution@nastyjuice.com.my";
+                $email['subject'] =  $this->version." Unconfirm #".((10000*$ver)+100000+$or_id);
                 $email['msg'] = "
 Order Detail
 
@@ -3519,7 +3217,7 @@ epul@nastyjuice.com
                 $this->sendEmail($email);
             }
         }
-        private function emailSendOnhold($arr = null , $ver = 1)
+        private function emailSendOnhold($arr = null , $ver = 2)
         {
             //inProgress to On hold;
             //#email3
@@ -3530,8 +3228,8 @@ epul@nastyjuice.com
                 $saleman = $this->m_user->getName($arr->us_id);
                 $email['fromName'] = "Ai System";
                 $email['fromEmail'] = "nstylabc@sirius.sfdns.net";
-                $email['toEmail'] = array("faeiz@nastyjuice.com","account@nastyjuice.com" ,'hairi@nastyjuice.com' , 'abun@nastyjuice.com');
-                $email['subject'] = "On Hold Order #".((10000*$ver)+100000+$or_id);
+                $email['toEmail'] = "zul@nastyjuice.com,finance@nastyjuice.com , distribution@nastyjuice.com";
+                $email['subject'] =  $this->version." On Hold Order #".((10000*$ver)+100000+$or_id);
                 $email['msg'] = "
 Order Detail
 
@@ -3559,7 +3257,7 @@ epul@nastyjuice.com
             }
         }
 
-        private function emailSendInProgress($arr = null , $ver = 1)
+        private function emailSendInProgress($arr = null , $ver = 2)
         {
             //On hold to inProgress;
             //#email1
@@ -3570,8 +3268,8 @@ epul@nastyjuice.com
                 $saleman = $this->m_user->getName($arr->us_id);
                 $email['fromName'] = "Ai System";
                 $email['fromEmail'] = "nstylabc@sirius.sfdns.net";
-                $email['toEmail'] = array("faeiz@nastyjuice.com","account@nastyjuice.com" , 'hairi@nastyjuice.com' ,'abun@nastyjuice.com');
-                $email['subject'] = "In Progress Order #".((10000*$ver)+100000+$or_id);
+                $email['toEmail'] = "zul@nastyjuice.com,finance@nastyjuice.com , distribution@nastyjuice.com.my";
+                $email['subject'] =  $this->version." In Progress Order #".((10000*$ver)+100000+$or_id);
                 $email['msg'] = "
 Order Detail
 
@@ -3690,8 +3388,8 @@ epul@nastyjuice.com
                 $saleman = $this->m_user->get($this->input->post('us_id'));
                 $email['fromName'] = "Ai System";
                 $email['fromEmail'] = $saleman->us_email;
-                $email['toEmail'] = array('it@nastyjuice.com', 'zul@nastyjuice.com' , 'finance@nastyjuice.com');
-                $email['subject'] = "Request for Cancel #".((10000*$ver)+100000+$or_id);
+                $email['toEmail'] = 'it@nastyjuice.com, zul@nastyjuice.com , finance@nastyjuice.com';
+                $email['subject'] =  $this->version." Request for Cancel #".((10000*$ver)+100000+$or_id);
                 $email['msg'] = "
 Order Detail
 
@@ -3719,7 +3417,7 @@ Epul
 epul@nastyjuice.com
 
                 ";
-                $this->sendEmail2($email);
+                $this->sendEmail($email);
                 }
             }
             $this->session->set_flashdata('success', 'Success Send the Request');
@@ -3727,9 +3425,11 @@ epul@nastyjuice.com
         }
         public function getAjaxDone()
         {
+			// TODO: kena bubuh timeline helper kt sini:p
             if ($this->input->post('or_id')) {
                 $this->load->library('my_func');
                 $this->load->database();
+				$this->load->helper('time');
                 $or_id = $this->my_func->scpro_decrypt($this->input->post('or_id'));
                 $this->load->model('m_order');
                 $arr = array(
@@ -3949,4 +3649,147 @@ epul@nastyjuice.com
         }
 	}
 
+		public function getAjaxGraph()
+        {
+            $this->load->database();
+            $this->load->model('m_item');
+            $arr['arr'] = $this->m_item->totalByOrder();
+            echo $this->load->view($this->parent_page.'/ajax/getAjaxGraph', $arr, false);
+        }
+        public function getAjaxGraph2()
+        {
+            $arr1 = $this->input->post();
+            $this->load->database();
+            $this->load->model('m_item');
+            $this->load->model('m_nico');
+            $arr['arr'] = $this->m_item->totalByFlavor($arr1['year1'] , $arr1['month1'] , $arr1['client'] , $arr1['mg'], $arr1['country']);
+            echo $this->load->view($this->parent_page.'/ajax/getAjaxGraph2', $arr , false);
+        }
+		public function productionXdistribution()
+		{
+			if ($this->input->get('page')) {
+				$p = $this->input->get('page');
+			}else{
+				$p = 0;
+			}
+			 if ($this->input->get('e')) {
+				$e = $this->input->get('e');
+			}else{
+				$e = 0;
+			}
+
+			if ($this->input->get('page2')) {
+				$p2 = $this->input->get('page2');
+			}else{
+				$p2 = 0;
+			}
+			 if ($this->input->get('e2')) {
+				$e2 = $this->input->get('e2');
+			}else{
+				$e2 = 0;
+			}
+
+			if ($this->input->get('page3')) {
+				$p3 = $this->input->get('page3');
+			}else{
+				$p3 = 0;
+			}
+			 if ($this->input->get('e3')) {
+				$e3 = $this->input->get('e3');
+			}else{
+				$e3 = 0;
+			}
+			$this->load->database();
+			$this->load->library('my_func');
+			$this->load->library('my_flag');
+			$this->load->model('m_order');
+			$this->load->model('m_order_process');
+
+			if ($this->input->post("search") && $this->input->post("filter") || $this->input->get("search") && $this->input->get("filter")) {
+				if ($this->input->get("search") && $this->input->get("filter")) {
+					$search = $this->input->get("search");
+					$filter = $this->input->get("filter");
+				} else {
+					$search = $this->input->post("search");
+					$filter = $this->input->post("filter");
+				}
+				switch ($filter) {
+					case '10':
+						//Client Name
+						$where = array(
+							"cl.cl_name" => $search
+						);
+						break;
+					case '1':
+						//Order Code
+						//Hanya Single
+						if (strpos($search, "#") !== false) {
+							$search = str_replace("#", "", $search);
+						}
+						if (!is_numeric($search)) {
+							$this->session->set_flashdata('warning', 'Please Enter the Correct Order Code');
+							redirect(site_url("nasty_v2/dashboard/page/a1"),'refresh');
+						}
+						$str = (string)$search;
+						$ver = 2;
+						$id = $search - 120000;
+						$where = array(
+							"ord.or_id" => $id
+						);
+						break;
+					case '2':
+						//Sales Person
+						$where = array(
+							"us1.us_username" => $search
+						);
+						break;
+					case '3':
+						//Order Status
+						$where = array(
+							"pr.pr_desc" => $search
+						);
+						break;
+				}
+				if (isset($ver)) {
+					$arr['arr1'] = $this->m_order->listOrROS($ver , 1 , null , null , 0 , $where);
+					 $arr['arr2'] = $this->m_order->listOrROS($ver , 2 , null , null , 0 , $where);
+					 $arr['arr3'] = $this->m_order->listOrROS($ver , 3 , null , null , 0 , $where);
+
+				}else{
+					$arr['arr1'] = $this->m_order->listSearch(2 , null , null , 0 , $where);
+					//$arr['arr2'] = $this->m_order->listOr($ver , null , null , 0 , $where);
+				}
+			} else {
+				$ver = $this->m_order->orderCountROS(2, 1);
+				$ver2 = $this->m_order->orderCountROS(2, 2);
+				$ver3 = $this->m_order->orderCountROS(2, 3);
+
+				$arr['arr1'] = $this->m_order->listOrROS(2 , 1 , 10 , $p);
+				$arr['arr2'] = $this->m_order->listOrROS(2 , 2 , 10 , $p2);
+				$arr['arr3'] = $this->m_order->listOrROS(2 , 3 , 10 , $p3);
+				$result1 = sizeof($arr['arr1']);
+				$result2 = sizeof($arr['arr2']);
+				$result3 = sizeof($arr['arr3']);
+
+				$arr['page'] = $p;
+				$arr['e'] = $e;
+				$arr['page2'] = $p2;
+				$arr['e2'] = $e2;
+				$arr['page3'] = $p3;
+				$arr['e3'] = $e3;
+
+				$arr['total'] = $ver;
+				$arr['total2'] = $ver2;
+				$arr['total3'] = $ver3;
+
+				$arr['row'] = $result1;
+				$arr['row2'] = $result2;
+				$arr['row3'] = $result3;
+				$arr['lvl'] = $this->m_order_process->getLvl(1);
+				$arr['lvl2'] = $this->m_order_process->getLvl(3);
+				$arr['lvl3'] = $this->m_order_process->getLvl(2);
+			}
+			return $this->load->view($this->parent_page.'/ROSlist2', $arr , TRUE);
+		}
+	}
 ?>

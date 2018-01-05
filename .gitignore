@@ -8,9 +8,7 @@ assets/grocery_crud/themes/bootstrap
 application/.htaccess
 application/cache/
 application/config/migration.php
-application/config/autoload.php
 application/config/config.php
-application/config/constants.php
 application/config/memcached.php
 application/config/database.php
 application/config/doctypes.php
@@ -19,7 +17,6 @@ application/config/hooks.php
 application/config/index.html
 application/config/mimes.php
 application/config/profiler.php
-application/config/routes.php
 application/config/smileys.php
 application/config/user_agents.php
 application/controllers/index.html
@@ -37,6 +34,7 @@ application/libraries/grocery_crud_extended.php
 application/logs/
 assets/uploads/images/
 assets/uploads/img/
+assets/uploads/barcode/
 application/models/index.html
 application/third_party/
 application/views/index.html
