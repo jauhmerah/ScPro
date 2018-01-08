@@ -1408,10 +1408,42 @@ epul@nastyjuice.com
 						break;
 					case 'g1':
                         // Display Deleted Log;
-						// TODO: kena sambung buat pagination.
+						// TODO: kena sambung buat pagination. add recordLog on upload payment.
 						$page = 'cancellog/cancel';
 						$data = NULL;
+						$this->load->database();
+						$this->load->model('m_order', 'mor');
+						$data['list'] = $this->mor->listOr();
+						$numPage = $this->uri->segment(5 , 1);
+						$numPage --;
+						$data['indexNum'] = $numPage * 10;
+						$data['list'] = $this->mor->listOr(2 , 10 , $data['indexNum'] , 1);
+						$data['tCount'] = $this->mor->orderCount(2 , 1);
+						$this->load->library('pagination');
+						$config['base_url'] = site_url('nasty_v2/dashboard/page/g1');
+						$config['total_rows'] = $data['tCount'];
+						$config['per_page'] = 10;
+						$config['uri_segment'] = 5;
+						$config['num_links'] = 3;
+						$config['use_page_numbers'] = TRUE;
+		    			$config['cur_tag_open'] = '<li><a class="current"><strong>';
+						$config['cur_tag_close'] = '</strong></a></li>';
+						$config['num_tag_open'] = '<li>';
+						$config['num_tag_close'] = '</li>';
+						$config['prev_tag_open'] = '<li>';
+						$config['prev_tag_close'] = '</li>';
+						$config['last_tag_open'] = '<li>';
+						$config['last_tag_close'] = '</li>';
+						$config['next_tag_open'] = '<li>';
+						$config['next_tag_close'] = '</li>';
+						$config['first_tag_open'] = '<li>';
+						$config['first_tag_close'] = '</li>';
+						$config['next_link'] = 'Next';
+						$config['prev_link'] = 'Previous';;
 
+						$this->pagination->initialize($config);
+
+						$data['link'] = $this->pagination->create_links();
 
 						$this->_show($page , $data , $key);
 						break;
@@ -1631,6 +1663,8 @@ epul@nastyjuice.com
                     $pi_id = null;
                     $success = array();
                     if (sizeof($result['success']) != 0) {
+						$this->load->helper('timeline');
+						recordLog($or_id , 18);
                         $m_pic = array();
                         foreach ($result['success'] as $filename => $detail) {
                                 $m_pic = array(
@@ -1642,6 +1676,7 @@ epul@nastyjuice.com
                         }
                         $this->m_order->update(array('or_paid' => 1),$or_id);
                         $this->change_pr_id2($or_id);
+
                         // this part for replace image if already uploaded.
                         /*if ($this->m_picture->getbyne_id($or_id)) {
                             $this->load->library('file');
@@ -2561,6 +2596,10 @@ epul@nastyjuice.com
         public function getAjaxDelImg()
         {
             $pi_id = $this->input->post("pi_id");
+			$or_id = $this->input->post('or_id');
+			$this->load->library('my_func', NULL , 'mf');
+			$or_id = $this->mf->scpro_decrypt($or_id);
+			recordLog($or_id , 19);
             $this->load->database();
             $this->load->model("m_picture");
             $img = $this->m_picture->get($pi_id);

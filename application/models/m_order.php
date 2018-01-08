@@ -471,11 +471,15 @@
 	    	}
 	    }
 
-	    public function orderCount($ver = -1)
+	    public function orderCount($ver = -1 , $del = 0)
 	    {
-	    	$this->db->like('ord.or_del', 0);
+			if ($del == 0) {
+				$this->db->where('ord.or_del', 0);
+			}else{
+				$this->db->where('ord.or_del', 1);
+			}
 	    	if ($ver != -1) {
-	    		$this->db->like('ord.or_ver', $ver);
+	    		$this->db->where('ord.or_ver', $ver);
 	    	}
 			$this->db->from('order ord');
 			return $this->db->count_all_results();
