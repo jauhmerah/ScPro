@@ -4,7 +4,7 @@
             <!-- BEGIN HEADER INNER -->
             <div class="page-header-inner ">
                 <!-- BEGIN LOGO -->
-                <div class="page-logo">
+                <div class="page-logo bg-green-haze">
                     <a href="<?php site_url('nasty_v2/dashboard'); ?>">
                         <img src="<?= base_url(); ?>asset2/layouts/layout2/img/logo-default.png" alt="logo" class="logo-default" /> </a>
                         <!--<span style="color:white;">Ordering System v2.0</span>-->

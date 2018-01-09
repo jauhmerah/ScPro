@@ -1,8 +1,7 @@
 <!-- BEGIN FOOTER -->
         <div class="page-footer">
-            <div class="page-footer-inner"> 2016 &copy; Metronic Theme By
-                <a target="_blank" href="http://keenthemes.com">Keenthemes</a> &nbsp;|&nbsp;
-                <a href="http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes" title="Purchase Metronic just for 27$ and get lifetime updates for free" target="_blank">Purchase Metronic!</a>
+            <div class="page-footer-inner"> 2017 &copy; Nsty Worldwide, By
+                Jauhmerah</a> 
                 <div class="scroll-to-top">
                     <i class="icon-arrow-up"></i>
                 </div>
@@ -22,7 +21,8 @@
             <script src="<?= base_url(); ?>asset2/global/plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
 
             <!-- END CORE PLUGINS -->
-            
+            <script src="<?= base_url(); ?>asset/js/bootstrap-notify.js"></script>
+
 
             <!-- BEGIN THEME GLOBAL SCRIPTS -->
             <script src="<?= base_url(); ?>asset2/global/scripts/app.min.js" type="text/javascript"></script>

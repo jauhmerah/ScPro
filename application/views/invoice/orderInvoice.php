@@ -135,7 +135,7 @@ body .ReadOnlyExtrasStatus {
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>OrdYs v2.3.0 Alpha</title>
+		<title>OrdYs v2.3.8 Alpha</title>
 
 		<!-- Bootstrap CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -144,8 +144,10 @@ body .ReadOnlyExtrasStatus {
 
 
 
-
-
+<!-- <pre>
+  <?php print_r($arr); ?>
+</pre>
+ -->
 <div class="readonly-payment-information__nav-actions">
 
   <?php
@@ -189,12 +191,20 @@ body .ReadOnlyExtrasStatus {
 		  Negeri Sembilan  73000<br>
 		  Malaysia<br>
 
-		<br>
+    <!--   Lot 139, 1st Floor, Jalan Besar Tampin,<br>
+      Tampin,
+      Negeri Sembilan  73000<br>
+      Malaysia<br>
+ -->
 
- 		 Phone:  +6012 3437638<br>
+    <br>
 
- 		 Mobile: +6013 6777791<br>
-  			<span class="wrappable">www.nastyjuice.com<br></span>
+     Phone (Office):  +606-441 0519/443 3360<br>
+
+    
+
+     
+        <span class="wrappable">www.nastyjuice.com<br></span>
         </div>
         </div>
 
@@ -232,7 +242,8 @@ body .ReadOnlyExtrasStatus {
 				  <table style="width:200px;">
         <tr>
         <td>
-         <?= $arr['order']->cl_address; ?>
+        <?= $arr['order']->cl_company; ?><br>
+        <?= $arr['order']->cl_address; ?>
          </td>
          </tr>
          </table>
@@ -313,7 +324,6 @@ body .ReadOnlyExtrasStatus {
               $n++;
 
             ?>
-
          <tr>
           <td colspan="8" style="color: #000000;">
           	<strong><?= $key->ty2_desc; ?></strong>
@@ -321,7 +331,7 @@ body .ReadOnlyExtrasStatus {
 			     <?= $key->ca_desc; if($key->ni_mg != -1){echo "| ".$key->ni_mg."mg";}; ?>
           </td>
           <td colspan="1" style="color: #000000;" style="width:60px;"><?= $key->oi_qty; ?></td>
-          <td colspan="1" style="color: #000000;" style="width:60px;"><?= $key->oi_price; ?></td>
+          <td colspan="1" style="color: #000000;" style="width:60px;"><?= $duit; ?> <?= number_format((float)$key->oi_price, 2, '.', ''); ?></td>
           <td colspan="1" style="color: #000000;" style="width:60px;"><?= $key->oi_tester; ?></td>
           <td colspan="1" style="color: #000000;" style="width:60px;"><?= $duit; ?> <?= number_format((float)$total=$key->oi_qty * $key->oi_price, 2, '.', '');?></td>
 
@@ -333,6 +343,16 @@ body .ReadOnlyExtrasStatus {
 
            $total_all=$total_all+$total;
           }
+        ?>
+        <tr>
+        <td style="color: #000000;text-align: right;" colspan="11"><strong>Total :</strong></td>
+          <td style="color: #000000;"><?= $duit; ?> <?php echo number_format((float)$total_all, 2, '.', ''); ?></td>
+        </tr>
+       <!--  <tr>
+        <td style="color: #000000;text-align: right;" colspan="11"><strong>Tax <?= $arr['order']->or_tax; ?>&#37; :</strong></td>
+          <td style="color: #000000;"><?= $duit; ?> <?php $tax = number_format((float)($total_all * $arr['order']->or_tax / 100), 2, '.', ''); echo $tax; ?></td>
+        </tr>
+ -->        <?php
           if ($arr['order']->or_traking == null || $arr['order']->or_traking == '0000-00-00 00:00:00') {
             $arr['order']->or_traking = 0;
           }

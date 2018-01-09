@@ -38,7 +38,7 @@ class Invoice extends CI_Controller {
 					}
 					$arr = $this->m_order->getList_ext($or_id , $ver);
 					$arr1['arr'] = array_shift($arr);
-					$arr1['or_code'] = ((10000*$ver)+100000+$or_id);
+					$arr1['or_code'] = $or_id.'-EU'.$ver;
 					unset($arr);
 					$data['display'] = $this->load->view($this->parent_page."/orderDummy" , $arr1 , true);
 					$this->_show($data);
@@ -57,12 +57,52 @@ class Invoice extends CI_Controller {
 					}
 					$arr = $this->m_order->getList_ext($or_id , $ver);
 					$arr1['arr'] = array_shift($arr);
-					$arr1['or_code'] = ((10000*$ver)+100000+$or_id);
+					$arr1['or_code'] = $or_id.'-EU'.$ver;
 					unset($arr);
 					$data['display'] = $this->load->view($this->parent_page."/orderInvoice" , $arr1 , true);
 					$this->_show($data);
 			}
 
+        }
+
+        public function ShipdummyInvoice($ver = 1)
+        {
+             if ($this->input->get('id')) {
+					$sh_id = $this->input->get('id');
+					$this->load->library('my_func');
+                   $sh_id = $this->my_func->scpro_decrypt($sh_id);
+					$this->load->database();
+					$this->load->model('m_ship');
+					if ($this->input->get('ver')) {
+						$ver = $this->input->get('ver');
+					}
+					$arr = $this->m_ship->getList_ext($sh_id , $ver);
+					$arr1['arr'] = array_shift($arr);
+					$arr1['sh_code'] = ((10000*$ver)+100000+$sh_id);
+					unset($arr);
+					$data['display'] = $this->load->view($this->parent_page."/shipDummy" , $arr1 , true);
+					$this->_show($data);
+			}
+        }
+          public function ShipInvoice($ver = 1)
+        {
+        	 if ($this->input->get('id')) {
+					$sh_id = $this->input->get('id');
+					$this->load->library('my_func');
+                   $sh_id = $this->my_func->scpro_decrypt($sh_id);
+					$this->load->database();
+					$this->load->model('m_ship');
+					if ($this->input->get('ver')) {
+						$ver = $this->input->get('ver');
+					}
+					$arr = $this->m_ship->getList_ext($sh_id , $ver);
+					$arr1['arr'] = array_shift($arr);
+					$arr1['sh_code'] = ((10000*$ver)+100000+$sh_id);
+					unset($arr);
+					$data['display'] = $this->load->view($this->parent_page."/shipInvoice" , $arr1 , true);
+					$this->_show($data);
+			}
+          
         }
         public function getAjaxRowDummy()
         {

@@ -41,8 +41,8 @@ class Order extends CI_Controller {
 	/*function search(){
 		if ($this->input->post('search')) {
 			$search = $this->input->post('search');
-			if (strpos($search, "#") !== false) {
-				$search = str_replace("#", "", $search);
+			if (strpos($search, "-EU2") !== false) {
+				$search = str_replace("-EU2", "", $search);
 			}
 			if (!is_numeric($search)) {
 				$this->session->set_flashdata('warning', 'Please Enter the Correct Order Code');

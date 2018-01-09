@@ -62,6 +62,13 @@
 	        	echo "success";
 	        }
 	    }
+	    public function logout()
+	    {
+	      $this->session->unset_userdata('us_id');
+	      $this->session->unset_userdata('us_lvl');
+	      $this->session->sess_destroy();
+	      redirect(site_url('login'),'refresh');
+	    }
 	}
 
 ?>

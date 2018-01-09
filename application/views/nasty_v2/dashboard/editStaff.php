@@ -43,9 +43,9 @@
                             <label class="col-md-3 control-label">Membership :</label>
                             <div class="col-md-4">
                                 <select name="lvl" id="input" class="form-control input-circle">
-                        	<?php foreach ($lvl as $key) {
+                        	<?php foreach ($lvl as $key) {                                
                         		?>
-								<option value="<?= $key->ul_id; ?>" <?php if($key->ul_id == $arr->us_lvl){echo " selected ";} ?> > <?= $key->ul_desc; ?></option>
+								<option value="<?= $this->my_func->en($key->ul_id , 1); ?>" <?php if($key->ul_id == $arr->us_lvl){echo " selected ";} ?> > <?= $key->ul_desc; ?></option>
                         		<?php
                         	} ?>
                         </select>

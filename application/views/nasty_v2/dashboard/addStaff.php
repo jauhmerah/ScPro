@@ -45,7 +45,7 @@
                                 
                         	<?php foreach ($lvl as $key) {
                         		?>
-								<option value="<?= $key->ul_id; ?>" > <?= $key->ul_desc; ?></option>
+								<option value="<?= $this->my_func->en($key->ul_id , 1); ?>" > <?= $key->ul_desc; ?></option>
                         		<?php
                         	} ?>
                         </select>
