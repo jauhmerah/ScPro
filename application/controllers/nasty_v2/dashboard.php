@@ -3647,7 +3647,7 @@ epul@nastyjuice.com
                 return true;
             }
         }
-	}
+	
 
 		public function getAjaxGraph()
         {
@@ -3656,6 +3656,7 @@ epul@nastyjuice.com
             $arr['arr'] = $this->m_item->totalByOrder();
             echo $this->load->view($this->parent_page.'/ajax/getAjaxGraph', $arr, false);
         }
+
         public function getAjaxGraph2()
         {
             $arr1 = $this->input->post();
@@ -3665,6 +3666,7 @@ epul@nastyjuice.com
             $arr['arr'] = $this->m_item->totalByFlavor($arr1['year1'] , $arr1['month1'] , $arr1['client'] , $arr1['mg'], $arr1['country']);
             echo $this->load->view($this->parent_page.'/ajax/getAjaxGraph2', $arr , false);
         }
+
 		public function productionXdistribution()
 		{
 			if ($this->input->get('page')) {

@@ -85,7 +85,8 @@
                                 </li>
 
                             </ul>
-                        </li> <?php } ?> 
+                        </li>
+                       
                         <?php if($us_lvl != 3 && $us_lvl != 4){?> 
                         <li class="nav-item <?php if (strpos($link, 'i1') !== false || strpos($link, 'i2') !== false) { echo "active open";}else{echo "start";}?>   ">
                             <a href="" class="nav-link ">
