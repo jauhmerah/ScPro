@@ -1413,6 +1413,7 @@ epul@nastyjuice.com
 						$data = NULL;
 						$this->load->database();
 						$this->load->model('m_order', 'mor');
+						$this->load->library('my_func', NULL , 'mf');
 						$data['list'] = $this->mor->listOr();
 						$numPage = $this->uri->segment(5 , 1);
 						$numPage --;
@@ -2762,6 +2763,6 @@ epul@nastyjuice.com
 				$arr['lvl3'] = $this->m_order_process->getLvl(2);
 			}
 			return $this->load->view($this->parent_page.'/ROSlist2', $arr , TRUE);
-		}
+		}		
 	}
 ?>

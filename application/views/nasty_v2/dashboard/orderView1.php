@@ -4,7 +4,7 @@
                         <div class="portlet box purple ribbon mt-element-ribbon">
                             <div class="portlet-title">
                                 <div class="caption">
-                                    <img src="<?= base_url(); ?>/assets/cover/favicon2.png"> Order Detail                                     
+                                    <img src="<?= base_url(); ?>/assets/cover/favicon2.png"> Order Detail
                                 </div>
                                 <div class="tools">
                                     <span class="pull-right" style="color:white;"><h3><?php $code = (10000*$arr['order']->or_ver) + 100000 + $arr['order']->or_id; echo "#".$code; ?></h3></span>
@@ -17,7 +17,7 @@
                                     <div class="ribbon-sub ribbon-clip ribbon-right"></div><i class="fa fa-warning" ></i> Unconfirm Order </div>
                                 <?php } ?>
                                 <form method = "post" class="horizontal-form">
-                                    <div class="form-body">  
+                                    <div class="form-body">
                                         <h3 class="form-section">Client Info</h3>
                                         <div class="row" id = "clientInfo">
                                         	<div class="col-md-8">
@@ -70,30 +70,30 @@
 													    <div class="form-group">
 													        <label class="control-label">Address : <strong> <?= $arr['order']->cl_address; ?></strong></label>
 													    </div>
-													</div> 
+													</div>
 													<!--/span-->
 												</div>
                                         	</div>
                                         	<div class="col-md-4">
-                                        		<div class="row">                           
+                                        		<div class="row">
 	                                                <div class="form-group col-md-12">
 	                                                    <label class="control-label">Date Line : <strong> <?php if($arr['order']->or_dateline != '0000-00-00 00:00:00'){ echo date_format(date_create($arr['order']->or_dateline) , 'd-M-Y' );}else{echo '--Not Set--';} ?></strong></label>
 	                                                </div>
 		                                            <!--/span-->
 	                                            </div>
-	                                            <div class="row">	
+	                                            <div class="row">
 	                                                <div class="form-group col-md-12">
 	                                                    <label class="control-label">Order Date : <strong> <?php if($arr['order']->or_date != '0000-00-00 00:00:00') { echo date_format(date_create($arr['order']->or_date) , 'd-M-Y' ); }else{echo '--Not Set--';} ?></strong></label>
-	                                                </div>		                                            
+	                                                </div>
 		                                            <!--/span-->
 		                                        </div>
-		                                        <div class="row">	
+		                                        <div class="row">
 	                                                <div class="form-group col-md-12">
 	                                                    <label class="control-label">Finish Date : <strong> <?php if($arr['order']->or_finishdate != '0000-00-00 00:00:00') { echo date_format(date_create($arr['order']->or_finishdate) , 'd-M-Y' ); }else{echo '--Not Set--';} ?></strong></label>
-	                                                </div>		                                            
+	                                                </div>
 		                                            <!--/span-->
 		                                        </div>
-		                                        <div class="row">	
+		                                        <div class="row">
 	                                                <div class="form-group col-md-12">
 	                                                <?php switch ($arr['order']->cu_id) {
 	                                                	case 1:
@@ -109,7 +109,7 @@
 	                                                		$cu = "Currency Error!!!";
 	                                                } ?>
 	                                                    <label class="control-label">Currency : <strong> <?= $cu; ?></strong></label>
-	                                                </div>		                                            
+	                                                </div>
 		                                            <!--/span-->
 		                                        </div>
                                         	</div>
@@ -125,7 +125,7 @@
 				                                <div class="portlet-title" style="background-color: #3246d2;">
 				                                    <div class="caption">
 				                                        <i class="fa fa-cogs"></i>Order Note
-				                                    </div>				                                    
+				                                    </div>
 				                                </div>
 				                                <div class="portlet-body">
 				                                    <div class="table-responsive">
@@ -140,7 +140,7 @@
 					                                    		</tr>
 						                                    </thead>
 						                                    <tbody>
-						                                    	<?php 
+						                                    	<?php
 						                                    		if (!isset($arr)) {
 						                                    			?>
 						                                    				<tr>
@@ -162,14 +162,14 @@
 																					<td><?= $key->oi_price; ?></td>
 																					<td><?= $key->oi_qty; ?></td>
 																					<td><?= $key->oi_tester; ?></td>
-																					
+
 																					</td>
 																				</tr>
 						                                    				</tr>
 						                                    				<?php
 						                                    			}
 						                                    		}
-						                                    		
+
 						                                    	?>
 						                                    	<td colspan="5">
 					                                            		<textarea name="note" id="input" class="form-control input-circle input-lg" rows="2" placeholder="#Note" readonly><?= $arr['order']->or_note; ?></textarea>
@@ -184,30 +184,30 @@
                                         <!-- End Order Note -->
                                         <!-- Ship Form -->
                                         <div class="row">
-						                <div class="col-md-12">              
+						                <div class="col-md-12">
 						                	<div class="portlet box purple">
 						                        <div class="portlet-title">
 						                            <div class="caption">
-						                                <i class="fa fa-ship"></i>Shipping Note 
+						                                <i class="fa fa-ship"></i>Shipping Note
 						                            </div>
 						                            <span class="pull-right">
-						                            	                            	
+
 						                            <div class="mt-radio-inline">
-					                                    <strong><?php  
+					                                    <strong><?php
 						                            	if ($arr['order']->or_wide == 0) {
 						                            		echo "Worldwide";
 						                            	} else {
 						                            		echo "Nationwide";
 						                            	}
-						                            	
-						                            	?></strong>	
+
+						                            	?></strong>
 					                                </div>
 						                            </span>
-						                            
+
 						                        </div>
 						                        <div class="portlet-body">
 						                            <div class="table-responsive">
-						                                <table class="table table-striped table-condensed table-bordered">	                                    
+						                                <table class="table table-striped table-condensed table-bordered">
 						                                    <tbody>
 						                                       	<tr>
 					                                            	<th>
@@ -215,7 +215,7 @@
 					                                            	</th>
 					                                            	<td  >
 					                                            		<strong>
-					                                            			<?php 
+					                                            			<?php
 					                                            			switch ($arr['order']->or_shipcom) {
 					                                            				case 1:
 					                                            					echo "DHL";
@@ -231,8 +231,8 @@
 					                                            					break;
 					                                            			}
 					                                            			?>
-					                                            		</strong>					                                            		
-					                                            	</td>                                            	
+					                                            		</strong>
+					                                            	</td>
 					                                            	<th>
 					                                            		Shipping Price
 					                                            	</th>
@@ -246,7 +246,7 @@
 					                                            	</th>
 					                                            	<td  >
 					                                            	<strong>
-					                                            	<?php 
+					                                            	<?php
 					                                            		switch ($arr['order']->or_shipopt) {
 					                                            			case 1:
 					                                            				echo "Shop & Ship";
@@ -261,7 +261,7 @@
 					                                            				echo $arr['order']->or_shipopt;
 					                                            				break;
 					                                            		}
-					                                            	?></strong>					                                            		
+					                                            	?></strong>
 					                                            	</td>
 					                                            	<td colspan="2" align="right"><?php if($arr['order']->or_ver >= 2){?>
 					                 <a href="<?= site_url('nasty_v2/invoice/Invoice?id='.$this->my_func->scpro_encrypt($arr['order']->or_id).'&ver=2'); ?>" target="_blank"> <button type="button" class="btn green" ><i class="fa fa-print"></i>&nbsp;&nbsp;Invoice</button></a><?php } ?>
@@ -272,7 +272,7 @@
 					                                            		Declare Item
 					                                            	</th>
 					                                            	<td ><strong>
-					                                            	<?php 
+					                                            	<?php
 					                                            	switch ($arr['order']->dec_id) {
 					                                            		case 1:
 					                                            			echo "Aromatherapy";
@@ -286,35 +286,35 @@
 					                                            		case 4:
 					                                            			echo "E-Juice";
 					                                            			break;
-					                                            		
+
 					                                            		default:
 					                                            			echo $arr['order']->dec_id;
 					                                            			break;
 					                                            	}
-					                                            	?>	</strong>				                                            		
+					                                            	?>	</strong>
 					                                            	</td>
-					                                            	<td colspan="2" align="right"><?php if($arr['order']->or_ver >= 2){?>	
+					                                            	<td colspan="2" align="right"><?php if($arr['order']->or_ver >= 2){?>
 					       <a href="<?= site_url('nasty_v2/invoice/dummyInvoice?id='.$this->my_func->scpro_encrypt($arr['order']->or_id).'&ver=2'); ?>" target="_blank"> <button type="button" class="btn blue" ><i class="fa fa-print"></i>&nbsp;&nbsp;Dummy Invoice</button></a> <?php } ?>
-					                                            		
+
 					                                            	</td>
-						                                        </tr>	                                        
+						                                        </tr>
 						                                    </tbody>
 						                                </table>
 						                            </div>
 						                        </div>
 						                    </div>
 						                </div>
-					                </div>						                
+					                </div>
                                     <div class="form-actions right">
                                     <?php if($arr['order']->or_ver >= 2){?>
                                      <div style="<?php if($arr['order']->pr_id != 4){?>display: none;<?php } ?>" class="riben ribbon ribbon-shadow ribbon-color-warning uppercase"><h2><i class="fa fa-warning" ></i> Unconfirm Order</h2></div>
                                         <?php } ?>
-                                        <a href="<?= site_url('nasty_v2/dashboard/page/a1'); ?>"><button type="button" class="btn default">Back</button></a>                                        
+                                        <a href="<?= isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : site_url('nasty_v2/dashboard/page/a1'); ?>"><button type="button" class="btn default">Back</button></a>
                                     </div>
                                 </form>
                                 <!-- END FORM-->
                             </div>
-                        </div>                       
+                        </div>
                     </div>
         </div>
 </div>

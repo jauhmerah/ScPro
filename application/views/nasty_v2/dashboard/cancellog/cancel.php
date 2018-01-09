@@ -28,7 +28,12 @@
                                     <td><?= (120000 + $key->or_id);?></td>
                                     <td><?= date('Y-m-d' , time($key->or_date)); ?></td>
                                     <td><?= $key->us_username; ?></td>
-                                    <td><?= anchor('url', '<i class="fa fa-eye"></i>', 'type="button" class="btn btn-primary btn-circle"'); ?></td>
+                                    <td>
+                                        <?= anchor(site_url('nasty_v2/dashboard/page/a111?v=2&view=').$this->mf->scpro_encrypt($key->or_id), '<i class="fa fa-eye"></i>', 'type="button" class="btn btn-primary btn-circle"'); ?>
+                                        <button onclick="window.open('<?= site_url('nasty_v2/dashboard/page/f1?time='.$this->mf->scpro_encrypt($key->or_id)); ?> ?>');" type="button" class="btn btn-danger btn-circle delComment">
+                                            <i class="fa fa-clock-o"></i>
+                                        </button>
+                                    </td>
                                 </tr>
                                 <?php
                             }
@@ -39,12 +44,11 @@
             <div class="panel-footer">
                 <ul class="pagination">
                     <?= $link; ?>
+                    <li>
+                        <div class="dataTables_info" id="sample_1_info" role="status" aria-live="polite">Showing <?= ($indexNum+1); ?> to <?= ($num); ?> of <?= $tCount; ?> records</div>
+                    </li>
                 </ul>
             </div>
         </div>
     </div>
 </div>
-<pre>
-    <?= print_r($list); ?>
-    <?= $tCount; ?>
-</pre>

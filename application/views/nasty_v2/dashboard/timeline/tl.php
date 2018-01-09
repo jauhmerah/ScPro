@@ -14,7 +14,8 @@
             <div class="mt-timeline-line border-grey-steel"></div>
             <ul class="mt-container">
                 <?php
-                if ($size = sizeof($tl) != 0) {
+                $size = sizeof($tl);
+                if (is_array($tl)) {
                     $i = 0;
                     foreach ($tl as $tl2) {
                         $i++;
