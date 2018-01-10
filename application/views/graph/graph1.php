@@ -5,10 +5,29 @@ var chart = AmCharts.makeChart( "g1div", {
   "dataProvider": [
 <?php if(sizeof($arr) != 0){ 
   for ($i=0; $i < sizeof($arr); $i++) { 
-    $text = explode("|", $arr[$i]->color);
     $rep = array('<p>','<strong>','</strong>' , '</p>' , ' ', '"');
     $rep2 = array('<p>','<strong>','</strong>' , '</p>' , '"');
-    $text2 = str_replace($rep, '', $text[1]);
+    if (strpos($arr[$i]->color, '<strong>') !== false)
+    {
+        if (strpos($arr[$i]->color, '<p>') !== false)
+        {
+            $text = explode("|", $arr[$i]->color);
+            
+            $text2 = str_replace($rep, ' ', $text[1]);
+        }
+        else {
+            $text = $arr[$i]->color;
+            $text2 = str_replace($rep, ' ', $text);
+        }
+    }
+    else {
+            $text = $arr[$i]->color;
+            $text2 = str_replace($rep, ' ', $text);
+    } 
+    
+
+   
+    
     $text2 = preg_replace( "/\r|\n/", "", $text2 );
     $text3 = str_replace($rep2, '', $arr[$i]->series );    
     $text1 = preg_replace( "/\r|\n/", "", $text3 );
@@ -57,6 +76,7 @@ var chart = AmCharts.makeChart( "g1div", {
     "gridPosition": "start",
     "gridAlpha": 0,
     "tickPosition": "start",
+    "labelRotation": 45,
     "tickLength": 20
   },
   "export": {
