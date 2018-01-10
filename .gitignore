@@ -40,5 +40,6 @@ application/third_party/
 application/views/index.html
 application/views/welcome_message.php
 application/views/errors/*
+.vscode/
 index.php
 license.txt
