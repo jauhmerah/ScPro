@@ -3194,7 +3194,7 @@ epul@nastyjuice.com
                     $this->pagination->initialize($config);
                     $arr["link"] = $this->pagination->create_links();
 
-                    $data['title'] = '<i class="fa fa-fw fa-edit"></i>Inventory</a>';
+                    // $data['title'] = '<i class="fa fa-fw fa-edit"></i>Inventory</a>';
                     // $data['display'] = $this->load->view($this->parent_page.'/itemList', $arr , TRUE);
                     echo $this->load->view('nasty_v2/dashboard/ajax/getAjaxTableItem',$arr,TRUE);
         }

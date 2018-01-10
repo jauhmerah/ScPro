@@ -27,7 +27,7 @@ $url = $this->uri->segment(5,1);
 												
 												
 												<div class="col-sm-10">
-													<input type="search" name="search" id="search" class="form-control input-circle" placeholder="Barcode Number" required autofocus onmouseover="this.focus();">
+													<input type="search" name="search" id="search" class="form-control input-circle" placeholder="Barcode Number" required autofocus>
 												</div>
 												<div class="col-sm-2">
 													<button type="button" class="clearBtn btn bg-green-sharp btn-circle btn-md" title="Clear Field"><i class="fa fa-eraser" aria-hidden="true"></i> Clear Field</button>													
@@ -287,8 +287,9 @@ $url = $this->uri->segment(5,1);
 					
             search = $("#search").val();
 			
+			
 			$.post('<?= site_url('nasty_v2/dashboard/getAjaxTableItem'); ?>', {search : search}, function(data) {
-               
+
                 $("#divTableItem").html(data);
             });
 
@@ -410,37 +411,7 @@ $url = $this->uri->segment(5,1);
 				bootbox.alert("Please select Filter");
 				return false;} else {return true;}
 		}
-        <?php if (isset($countWrn) && !empty($countWrn)) { ?>
-
-		$.notify({
-            	icon: 'fa fa-exclamation-triangle',
-            	message: "<big><b>Warning!</b></big> <b>"+<?= $countWrn; ?>+" item</b> nearly hit danger zone!"
-
-                },{
-                type: 'warning',
-                timer: 4000,
-                placement: {
-                from: "bottom",
-                align: "right"
-                }
-            });
-		<?php } ?>
-
-        <?php if (isset($countDgr) && !empty($countDgr)) { ?>
-		
-		$.notify({
-            	icon: 'fa fa-exclamation-triangle',
-            	message: "<big><b>Danger!</b></big> <b>"+<?= $countDgr; ?>+" item</b> needs to be update! Please hurry!"
-
-                },{
-                type: 'danger',
-                timer: 4000,
-                placement: {
-                from: "bottom",
-                align: "right"
-                }
-            });
-		<?php } ?>
+        
 		
 	});
 
