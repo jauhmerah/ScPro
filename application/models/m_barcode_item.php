@@ -178,7 +178,7 @@ class M_barcode_item extends CI_Model {
                  
         $this->db->join('category ca', 'ca.ca_id = ty2.ca_id', 'left');
 
-        $this->db->where('bi.del_id', 0);
+        
         
         $this->db->limit($limit, $start);
     	If($filter != NULL){
@@ -196,7 +196,8 @@ class M_barcode_item extends CI_Model {
     		if(is_array($like)){
     			$this->db->like($like);
     		}
-    	}
+        }
+        $this->db->where('bi.del_id', 0);
         $this->db->order_by('bi.ty2_id , bi.ni_id', 'asc');
 
     	return $this->db->get()->result();
