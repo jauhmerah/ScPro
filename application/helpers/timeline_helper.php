@@ -32,7 +32,7 @@
         {
             $ci =& get_instance();
             $ci->load->database();
-            $ci->load->model('cancelRequest/M_cancelR' , 'cr');
+            $ci->load->model('cancelRequest/m_cancelR' , 'cr');
             $array = array(
                 'tl_id' => $tl_id,
                 'cr_msg' => $msg

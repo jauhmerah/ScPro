@@ -37,6 +37,7 @@
                                             <div class="mt-author-name">
                                                 <span class="font-white text-uppercase"><?php if($tl2->us_username != NULL ){echo $tl2->us_username;}else{echo "&nbsp;";} ?></span>
                                             </div>
+                                            <?php // FIXME: Date nie kene tukar la . ada problem. ?>
                                             <div class="mt-author-notes font-white"><?= date("D - d F Y : g:i A",time($tl2->tl_date)); ?></div>
                                         </div>
                                         <?php
@@ -72,6 +73,7 @@
                                             <div class="mt-author-name">
                                                 <span class="font-white text-uppercase"><?php if($tl2->us_username != NULL ){echo $tl2->us_username;}else{echo "&nbsp;";} ?></span>
                                             </div>
+                                            <?php // FIXME: Date nie kene tukar la . ada problem. ?>
                                             <div class="mt-author-notes font-white"><?= date("D - d F Y : g:i A",time($tl2->tl_date)); ?></div>
                                         </div>
                                         <?php

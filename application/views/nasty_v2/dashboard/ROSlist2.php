@@ -266,7 +266,10 @@
 
 					                                                         <select class="form-control status<?= $n.'ros' ?>" name="pr_id" id="pr_id">
 					                                                            <?php foreach ($lvl as $key) {
-					                                                                ?>
+																					if ($key->pr_id == 9) {
+																						continue;
+																					}
+																					?>
 					                                                                <option value="<?= $key->pr_id; ?>" <?php if($key->pr_id == $user->pr_id){echo " selected ";} ?>> <?= $key->pr_desc; ?></option>
 					                                                                <?php
 					                                                            } ?>

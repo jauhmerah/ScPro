@@ -13,7 +13,8 @@
 <style>
 .thead-inverse th {
     color: #fff;
-    background-color: #292b2c;                       
+    background-color: #292b2c;
+}
 </style>
 <div class="row">
 	<div class="col-md-12">
@@ -144,9 +145,9 @@
 	                                                <div class="form-group col-md-12">
 	                                                    <label class="control-label">Currency :</label>
 	                                                    <select <?php if($arr['order']->pr_id == 3){echo "disabled";} ?> class="form-control input-circle" name="currency">
-	                                                        <option value="3" <?php if($arr['order']->cu_id == 3){echo "selected";} ?>>GBP</option>	                                                        
+	                                                        <option value="3" <?php if($arr['order']->cu_id == 3){echo "selected";} ?>>GBP</option>
 	                                                        <option value="2" <?php if($arr['order']->cu_id == 2){echo "selected";} ?>>USD</option>
-	                                                        <option value="1" <?php if($arr['order']->cu_id == 1){echo "selected";} ?>>MYR</option>	                                                        
+	                                                        <option value="1" <?php if($arr['order']->cu_id == 1){echo "selected";} ?>>MYR</option>
 	                                                    </select>
 	                                                </div>
 		                                            <!--/span-->
@@ -289,7 +290,7 @@
 					                                    		</tr>
 						                                    </thead>
 						                                    <tbody id="orderList">
-						                                    	<?php 
+						                                    	<?php
 						                                    		if (!isset($arr)) {
 						                                    			?>
 						                                    				<tr>
@@ -299,7 +300,7 @@
 						                                    		} else {
 						                                    			foreach ($arr['item'] as $key) {
 						                                    				?>
-						                                    				<tr id="delEdit_<?= $key->oi_id;?>">						                                    					
+						                                    				<tr id="delEdit_<?= $key->oi_id;?>">
 						                                    					<td><?= $key->ty2_desc; ?><br>
 																					<span class="label" style="color: black;background-color: <?= $key->ca_color; ?>; font-size: 75%;" ><strong><?= $key->ca_desc; ?></strong></span>&nbsp;
 																					<span class="label" style="color: black;font-size: 75%; background-color: <?= $key->ni_color; ?>;" ><strong><?= $key->ni_mg; ?> mg</strong></span></td>
@@ -310,10 +311,10 @@
 																					<input type="hidden" name="idE[]" id="inputIdE" class="form-control" value="<?= $key->oi_id;?>">
 																					<input type="hidden" name="itemIdE[]" id="inputitemIdE[]" class="form-control" value="<?= $key->ty2_id; ?>">
 																					<input type="hidden" name="nicoE[]" id="inputnicoE[]" class="form-control" value="<?= $key->ni_id; ?>">
-																					
-																				</td>	
+
+																				</td>
 																				<?php if($arr['order']->pr_id != 3){?>
-																				<td>																					
+																				<td>
 																					<span>
 
 																					<button type="button" id="<?= $key->oi_id;?>" class="btn btn-danger btn-xs delEdit"><i class="fa fa-trash" ></i></button></span>
@@ -321,16 +322,16 @@
 						                                    				</tr>
 						                                    				<?php
 						                                    			}
-						                                    		}						                                    		
-						                                    	?>						                                    	                                        
+						                                    		}
+						                                    	?>
 						                                    </tbody>
 						                                    <tfoot>
 						                                    <tr>
 						                                    	<td colspan="5">
 						                                    		<input type="hidden" name="orex_id" id="inputOrex_id" class="form-control" value="<?= $arr['order']->orex_id; ?>">
-					                                            	<textarea name="note" id="input" class="form-control input-circle input-lg" rows="2" placeholder="#Note" <?= $mode; ?>><?= $arr['order']->or_note; ?></textarea>                                            		
+					                                            	<textarea name="note" id="input" class="form-control input-circle input-lg" rows="2" placeholder="#Note" <?= $mode; ?>><?= $arr['order']->or_note; ?></textarea>
 					                                            </td>
-					                                        </tr>					                                        
+					                                        </tr>
 						                                    </tfoot>
 						                                </table>
 				                                    </div>

@@ -44,9 +44,9 @@
             </div>
             <div class="portlet-body flip-scroll">
 	            <div class="row tableL">
-	            <form id="formSearch" action="<?= site_url('nasty_v2/dashboard/page/a1new'); ?>" method="POST" role="form">
+	            <form id="formSearch" action="<?= site_url('nasty_v2/dashboard/page/a1new'); ?>" method="get" role="form">
 	            	<div class="col-md-12">
-	            		<div class="col-md-2">
+	            		<div class="col-md-1">
 	            			<a href="<?= site_url('nasty_v2/dashboard/page/z1'); ?>"><button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Add Order</button></a>
 	            		</div>
 	            		<div class="col-md-4">
@@ -71,8 +71,9 @@
 	            				</div>
 	            			</div>
 	            		</div>
-	            		<div class="col-md-2">
-	            			<button type="button" class="btn btn-default " id="sub"><i class="fa fa-search"></i> Search</button><!--  -->
+	            		<div class="col-md-3">
+	            			<button type="button" class="btn btn-info " id="sub"><i class="fa fa-search"></i> Search</button>
+							<button type="button" class="btn btn-warning " onclick="window.location.href='<?= site_url('nasty_v2/dashboard/page/a1'); ?>'"><i class="fa fa-eraser"></i> Clear Filter</button><!--  -->
 	            		</div>
 	            	</div>
 	            </form>
@@ -132,15 +133,16 @@
                                     	<?php
                                     }
                                     ?></span></td>
-		                            <td><button type="button" onclick="window.open('<?= site_url('nasty_v2/dashboard/page/f1?time='.$orid); ?>');" class="btn btn-default btn-sm blue-ebonyclay" title="TimeLine Log"><i class="fa fa-clock-o"></i> - <?php
+		                            <td><?php
 		                            if ($user->or_id) {
 		                            	$id = '#'.(120000+$user->or_id);
-		                            	echo '<span style = "color : #ff3399;"><strong>'.$id.'</strong></span>';
+		                            	echo '<span style = "color : #ff3399;"><strong>'.$id.'</strong></span> - ';
 		                            } else {
 		                            	echo "--Not Set--";
 		                            }
-                                    ?></td>
-                                    </button>
+                                    ?>
+									<button type="button" onclick="window.open('<?= site_url('nasty_v2/dashboard/page/f1?time='.$orid); ?>');" class="btn btn-default btn-sm blue-ebonyclay" title="TimeLine Log"><i class="fa fa-clock-o"></i></button>
+									</td>
 		                            <td><?php
                                     $view = ( $user->or_date == null) ? "--Not Set--" :  date_format(date_create($user->or_date) , 'd-M-Y' ) ;
                                     echo $view ;
@@ -239,46 +241,37 @@
                                         	$conf = "xleh";
                                         }
                                     ?>
-		                            	<a href="<?= site_url('nasty_v2/dashboard/page/a111?v=2&view=').$orid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-info btn-circle btn-xs"><i class="fa fa-eye"></i></button></a>&nbsp;-&nbsp;
-										<?php if(($us_lvl == 1) || ($us_lvl == 6)){ ?>
-										<a href="<?= site_url('nasty_v2/dashboard/page/a121?v=2&edit=').$orid; ?>" name="c3" title="Edit Order"><button type="button" class="btn btn-warning btn-circle btn-xs"><i class="fa fa-pencil"></i></button></a>
-										&nbsp;-&nbsp;
-										<?php } ?>
-										<button type="button" class="btn btn-circle purple-seance btn-xs upPic" id="up<?= $n; ?>"><i class="fa fa-upload"></i></button></a>
+									<div class="btn-xs">
+		                            	<a type="button" class="btn btn-xs btn-info" href="<?= site_url('nasty_v2/dashboard/page/a111?v=2&view=').$orid; ?>" name="c4" title="Order Detail"><i class="fa fa-eye"></i></a>
+										<a type="button" class="btn btn-xs btn-warning" href="<?= site_url('nasty_v2/dashboard/page/a121?v=2&edit=').$orid; ?>" name="c3" title="Edit Order"><i class="fa fa-pencil"></i></a>
+										<button type="button" class="btn btn-xs purple-seance upPic" id="up<?= $n; ?>"><i class="fa fa-upload"></i></button>
 										<input type="hidden" class="form-control up<?= $n; ?>" value="<?= $orid; ?>">
 										<?php if($user->pr_id == 3 || $user->pr_id >= 8 || $user->pr_id == 2){ ?>
-                                    			&nbsp;- &nbsp;<button title = "Print Order" onclick = "window.open('<?= site_url('order/printO1?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" type="button" class="btn btn-default btn-circle btn-info btn-xs"><i class="fa fa-print"></i></button> <?php } if($user->pr_id == 3 || $user->pr_id >= 8){ ?>&nbsp;-&nbsp;
-                                    			<button type="button" title = "D.O Form" onclick = "window.open('<?= site_url('order/printDO1?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn btn-success btn-circle btn-xs"><i class="fa fa-truck"></i></button>
+                                    			<button title = "Print Order" onclick = "window.open('<?= site_url('order/printO1?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" type="button" class="btn btn-xs btn-default btn-info"><i class="fa fa-print"></i></button> <?php } if($user->pr_id == 3 || $user->pr_id >= 8){ ?>
+                                    			<button type="button" title = "D.O Form" onclick = "window.open('<?= site_url('order/printDO1?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn btn-xs btn-success"><i class="fa fa-truck"></i></button>
                                     		<?php } ?>
                                     		<?php if($user->pr_id == 3){
-
                                     			$orid = $this->my_func->scpro_encrypt($user->or_id);
                                     			if($user->pr_id != 8){
                                     			?>
-                                    			&nbsp;-&nbsp;
-                                    			<button type="button" title = "ROS" class="ROSButton btn btn-primary btn-circle btn-xs" id="<?= $n.'ros' ?>" name="<?= $n.'ros' ?>"><i class="fa fa-flag-checkered"></i></button>
+                                    			<button type="button" title = "ROS" class="ROSButton btn btn-xs btn-primary " id="<?= $n.'ros' ?>" name="<?= $n.'ros' ?>"><i class="fa fa-flag-checkered"></i></button>
                                     			<input type="hidden" class="form-control <?= $n.'ros' ?>" value="<?= $user->or_id ?>">
 
                                     		 <?php }} ?>
+										</div>
                                     		<div class="clearfix">
                                     		&nbsp;
                                     		</div>
-										<button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/Invoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');"  class="btn blue-dark btn-circle btn-xs" title="Purchase Order">P.O</button></a>&nbsp;-&nbsp;
-										<button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/dummyInvoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn c-btn-border-1x c-btn-blue-dark btn-circle btn-xs" title="Dummy Invoice">DInv</button></a>
-										<!-- &nbsp;-&nbsp; -->
-										<?php if($user->pr_id == 4 || $user->pr_id == 8 ){ ?><button type="button" class="btn bg-green-jungle btn-circle btn-xs <?= $conf ?>" id="<?= $n.'con' ?>" title="Confirm"><i class="fa fa-thumbs-up"></i></button> <?php }else{  ?>
+										<div class="btn btn-group-xs">
+										<button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/Invoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');"  class="btn btn-xs blue-dark" title="Purchase Order">P.O</button></a>
+										<button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/dummyInvoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn btn-xs c-btn-border-1x c-btn-blue-dark " title="Dummy Invoice">DInv</button></a>
+										<?php if($user->pr_id == 4 || $user->pr_id == 8 ){ ?><button type="button" class="btn btn-xs bg-green-jungle  <?= $conf ?>" id="<?= $n.'con' ?>" title="Confirm"><i class="fa fa-thumbs-up"></i></button> <?php }else{  ?>
 										<!-- <button type="button" class="btn bg-red-pink btn-circle btn-xs <?= $conf ?>" title="Un Confirm" id="<?= $n.'con' ?>"><i class="fa fa-thumbs-down"></i></button></a>--><?php } ?>
 										<input type="hidden" class="form-control <?= $n.'con' ?>" value ="<?= $orid ?>">
 										<input type="hidden" class="form-control <?= $n.'con1' ?>" value ="<?= $user->pr_id ?>">
 										<input type="hidden" class="form-control <?= $n.'cocode' ?>" value ="<?= $id; ?>">
-										<?php if($user->pr_id != 5 && $user->pr_id != 7 && $user->pr_id != 3 ){
-										if(($us_lvl == 1) || ($us_lvl == 6)){
-										?>
-										&nbsp;-&nbsp;
-										<button type="button" class="btn btn-default btn-circle btn-xs cancelOrd" id="<?= $n.'co' ?>" title="Cancel Order"><i class="fa fa-close"></i></button>
-										<?php }}else{if(($us_lvl == 1) || ($us_lvl == 6)){  ?>
-										&nbsp;-&nbsp;
-										<button type="button" class="btn btn-danger btn-circle btn-xs cancelOrd" id="<?= $n.'co' ?>"><i class="fa fa-trash"></i></button><?php }} ?>
+										<button type="button" class="btn btn-xs btn-danger cancelOrd" id="<?= $n.'co' ?>" title="Cancel Order"><i class="fa fa-close"></i></button>
+									</div>
 		                            </td>
 		                        </tr>
 		                    			<?php
@@ -361,6 +354,10 @@
   </div>
   <input type="hidden" id="usKey" value="<?= $this->session->userdata('us_id'); ?>">
 <script>
+<?php
+$url = current_url();
+$url = $_SERVER['QUERY_STRING'] ? $url.'?'.$_SERVER['QUERY_STRING'] : $url;
+?>
 	$(document).ready(function() {
 		var usid = $('#usKey').val();
 		$(".ROSButton").click(function() {
@@ -383,7 +380,7 @@
 			    callback: function (result) {
 			    	if(result == true){
 			    		$.post('<?= site_url('nasty_v2/dashboard/change_pr_id3'); ?>', {us_id : usid , or_id: orid,pr_id: 8}, function(data) {
-			            	$(window).attr("location", "<?= site_url('nasty_v2/dashboard/page/a1new'); ?>");
+							$(window).attr("location", "<?= $url; ?>");
 			            });
 			    	}
 			    }
@@ -401,7 +398,7 @@
 			id = $(this).prop('id');pr_id = $("."+id+"1").val();
 			id = $("."+id).val();
 			$.post('<?= site_url('nasty_v2/dashboard/change_pr_id'); ?>', {id: id , pr_id : pr_id}, function(data) {
-				$(window).attr("location", "<?= site_url('nasty_v2/dashboard/page/a1new'); ?>");
+				$(window).attr("location", "<?= $url; ?>");
 			});
 		});
 		$('.xleh').click(function() {

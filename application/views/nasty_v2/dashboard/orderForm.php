@@ -1,7 +1,7 @@
 <style>
 .thead-inverse th {
     color: #fff;
-    background-color: #292b2c;                       
+    background-color: #292b2c;
 </style>
 <div class="row">
 	<div class="col-md-12">
@@ -130,7 +130,7 @@
 	                                                    <select class="form-control input-circle" name="currency">
 	                                                        <!-- <option value="3">GBP</option> -->
 											                <option value="2">USD</option>
-											                <option value="1">MYR</option>                                                         
+											                <option value="1">MYR</option>
 	                                                    </select>
 	                                                </div>
 		                                            <!--/span-->
@@ -229,21 +229,14 @@
 				                                    						&nbsp;
 				                                    					</div>
 				                                    					<div id="notification">
-				                                    							
+
 				                                    					</div>
 				                                    				</div>
 				                                    			</td>
-				                                    		</tr>
-				                                    			                                    		
-				                                    	<tfoot>
-				                                    		<tr>
-				                                    			<td colspan="5">
-				                                    				<textarea name="note" id="input" class="form-control input-circle input-lg" rows="4" placeholder="#Note"></textarea>
-				                                    			</td>
-				                                    		</tr>				                                    		
+				                                    		</tr>                                   		
 				                                    	</tfoot>
 				                                    </table>
-				                                </div>				                                
+				                                </div>
 				                            </div>
                                         </div>
                                         </div>
@@ -469,9 +462,9 @@
 				});
 
 				$.post('<?= site_url("nasty_v2/dashboard/getAjaxNoti") ?>', {type : type , nico : nic}, function(data) {
-					
+
 					$("#notification").append(data);
-					
+
 
 				});
 			});
@@ -481,14 +474,14 @@
 			v = $(this).val();
 			$("."+rad).val(v);
 		});
-		
+
 		// $('#orderList').on('click', '#inputPrice', function() {
 		// 	alert($(this).val());
 		// });
 
-		
 
-        	
+
+
 	});
 
 </script>
