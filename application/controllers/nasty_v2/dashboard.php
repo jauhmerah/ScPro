@@ -1412,50 +1412,8 @@ epul@nastyjuice.com
                                        'oi_qty' => $arr['qtyE'][$i],
                                        'oi_tester' => $arr['testerE'][$i]
                                     );
-
                                     $arr2=$this->m_order_item->get($oi_id);
-
-
-
-
-
-
-
-
-
-                                    if ($this->_checkStockUpdate($oi_id , $temp)) {
-
-
-
-                                        $this->m_order_item->update($temp , $oi_id);
-
-                                          $wh = array(
-                                                'ty2_id' => $arr['itemIdE'][$i],
-                                                'ni_id' => $arr['nicoE'][$i]
-                                            );
-
-                                        if($arr2->oi_qty != $arr['qtyE'][$i]){
-
-                                          $wh1 = array(
-                                                'sti.ty2_id' => $arr['itemIdE'][$i],
-                                                'sti.ni_id' => $arr['nicoE'][$i]
-                                            );
-                                           $arr1 = $this->m_log->get6($wh1);
-
-                                          $res=$this->msi->updateQty2($arr['qtyE'][$i]+$arr['testerE'][$i] , $wh, $arr['orex_id'], $us_id, $arr1->fromqty);
-                                            print_r($res);
-                                       }
-
-
-
-
-                                    }else{
-                                        $msg = $msg . " Item Code Id : ".$this->my_func->en($oi_id)." insufficient Quantity.</br>";
-                                    }
-                                }
-
-                                if($msg == ''){
-                                    $this->session->set_flashdata('warning', $msg);
+									$this->m_order_item->update($temp , $oi_id);
                                 }
                             }
                         }
@@ -1474,7 +1432,6 @@ epul@nastyjuice.com
                                 }
                             }
                         }
-
                         $this->load->model('m_order');
                         $order = array(
                             "or_note" => $arr['note'],
@@ -1496,7 +1453,7 @@ epul@nastyjuice.com
                         }
                         $this->load->model('m_order_ext');
                         $orex_id = $this->m_order_ext->update($order_ext , array('or_id' => $or_id));
-						recordLog($or_id , 15);
+						//recordLog($or_id , 15);
                         //echo "<br>Update => ".$orex_id;
                     }
                     $this->session->set_flashdata('success', 'Update Success');

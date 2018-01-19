@@ -10,16 +10,10 @@
 
 
 ?>
-<style>
-.thead-inverse th {
-    color: #fff;
-    background-color: #292b2c;
-}
-</style>
 <div class="row">
 	<div class="col-md-12">
            <div class="tab-pane active" id="tab_1">
-                        <div class="portlet box purple-sharp ribbon mt-element-ribbon">
+                        <div class="portlet box purple ribbon mt-element-ribbon">
                             <div class="portlet-title" >
                                 <div class="caption">
                                     <h2><i class="fa fa-pencil"></i>
@@ -145,9 +139,9 @@
 	                                                <div class="form-group col-md-12">
 	                                                    <label class="control-label">Currency :</label>
 	                                                    <select <?php if($arr['order']->pr_id == 3){echo "disabled";} ?> class="form-control input-circle" name="currency">
-	                                                        <option value="3" <?php if($arr['order']->cu_id == 3){echo "selected";} ?>>GBP</option>
-	                                                        <option value="2" <?php if($arr['order']->cu_id == 2){echo "selected";} ?>>USD</option>
 	                                                        <option value="1" <?php if($arr['order']->cu_id == 1){echo "selected";} ?>>MYR</option>
+	                                                        <option value="2" <?php if($arr['order']->cu_id == 2){echo "selected";} ?>>USD</option>
+	                                                        <option value="3" <?php if($arr['order']->cu_id == 3){echo "selected";} ?>>GBP</option>
 	                                                    </select>
 	                                                </div>
 		                                            <!--/span-->
@@ -169,7 +163,7 @@
 				                                </div>
 				                                <div class="portlet-body">
 				                                    <div class="table-responsive">
-				                                        <table class="table table-striped table-hover table-condensed">
+				                                        <table class="table table-striped table-bordered table-hover">
 						                                    <thead>
 						                                        <tr>
 					                                    			<th>Item Detail</th>
@@ -280,58 +274,6 @@
 				                                    			</td>
 				                                    		</tr>
 				                                    		<?php } ?>
-						                                        <tr class="thead-inverse">
-					                                    			<th>Item Detail</th>
-					                                    			<th>Price</th>
-					                                    			<th>Qty</th>
-					                                    			<th>Tester</th>
-					                                    			<?php if($arr['order']->pr_id != 3){?>
-					                                    			<th>Action</th><?php } ?>
-					                                    		</tr>
-						                                    </thead>
-						                                    <tbody id="orderList">
-						                                    	<?php
-						                                    		if (!isset($arr)) {
-						                                    			?>
-						                                    				<tr>
-						                                    					<td colspan="6" align="center">-- No Data--</td>
-						                                    				</tr>
-						                                    			<?php
-						                                    		} else {
-						                                    			foreach ($arr['item'] as $key) {
-						                                    				?>
-						                                    				<tr id="delEdit_<?= $key->oi_id;?>">
-						                                    					<td><?= $key->ty2_desc; ?><br>
-																					<span class="label" style="color: black;background-color: <?= $key->ca_color; ?>; font-size: 75%;" ><strong><?= $key->ca_desc; ?></strong></span>&nbsp;
-																					<span class="label" style="color: black;font-size: 75%; background-color: <?= $key->ni_color; ?>;" ><strong><?= $key->ni_mg; ?> mg</strong></span></td>
-																				<td><input type="number" name="priceE[]" id="inputPrice" min="0" step="any" class="form-control" value="<?= $key->oi_price; ?>" required="required" <?= $mode; ?>></td>
-																				<td><input type="number" name="qtyE[]" id="inputQty" min="0" class="form-control" value="<?= $key->oi_qty; ?>" required="required" <?= $mode; ?>></td>
-																				<td>
-																					<input type="number" name="testerE[]" id="inputTester" min="0" value="<?= $key->oi_tester; ?>" class="form-control" <?= $mode; ?>>
-																					<input type="hidden" name="idE[]" id="inputIdE" class="form-control" value="<?= $key->oi_id;?>">
-																					<input type="hidden" name="itemIdE[]" id="inputitemIdE[]" class="form-control" value="<?= $key->ty2_id; ?>">
-																					<input type="hidden" name="nicoE[]" id="inputnicoE[]" class="form-control" value="<?= $key->ni_id; ?>">
-
-																				</td>
-																				<?php if($arr['order']->pr_id != 3){?>
-																				<td>
-																					<span>
-
-																					<button type="button" id="<?= $key->oi_id;?>" class="btn btn-danger btn-xs delEdit"><i class="fa fa-trash" ></i></button></span>
-																				</td><?php } ?>
-						                                    				</tr>
-						                                    				<?php
-						                                    			}
-						                                    		}
-						                                    	?>
-						                                    </tbody>
-						                                    <tfoot>
-						                                    <tr>
-						                                    	<td colspan="5">
-						                                    		<input type="hidden" name="orex_id" id="inputOrex_id" class="form-control" value="<?= $arr['order']->orex_id; ?>">
-					                                            	<textarea name="note" id="input" class="form-control input-circle input-lg" rows="2" placeholder="#Note" <?= $mode; ?>><?= $arr['order']->or_note; ?></textarea>
-					                                            </td>
-					                                        </tr>
 						                                    </tfoot>
 						                                </table>
 				                                    </div>
@@ -419,7 +361,7 @@
 					                                            		Shiping Price
 					                                            	</th>
 					                                            	<td>
-					                                            		<input required <?= $mode; ?> type = "text" min="0" step="any"  name="traking" class="form-control input-circle" value="<?php if($arr['order']->or_traking != null) { echo $arr['order']->or_traking; }else{echo '0';} ?>">
+					                                            		<input required <?= $mode; ?> type = "number" min="0" step="any"  name="traking" class="form-control input-circle" value="<?php if($arr['order']->or_traking != null) { echo $arr['order']->or_traking; }else{echo '0';} ?>">
 					                                            	</td>
 						                                        </tr>
 						                                        <tr>
@@ -491,7 +433,8 @@
                                     <div class="form-actions right">
                                     <?php if($arr['order']->or_ver >= 2){?>
                                      <div style="<?php if($arr['order']->pr_id != 4){?>display: none;<?php } ?>" class="riben ribbon ribbon-shadow ribbon-color-warning uppercase"><h2><i class="fa fa-warning" ></i> Unconfirm Order</h2></div>
-                                        <?php }?>
+                                        <?php } if ($arr['order']->or_ver >= 2) {
+                                         if($arr['order']->pr_id != 4){ ?><button type="button" class="btn btn-success confirm btn-circle">Confirm</button> <?php }else{ ?> <button type="button" class="btn btn-warning confirm btn-circle">Unconfirm</button> <?php }} ?>
                                         <a href="<?= site_url('nasty_v2/dashboard/page/a1'); ?>"><button type="button" class="btn default"><?php if($arr['order']->pr_id != 3){?>Cancel<?php }else{echo "Back";}?></button></a>
                                         <?php if($arr['order']->pr_id != 3){?>
                                         <button type="submit" class="btn blue">
