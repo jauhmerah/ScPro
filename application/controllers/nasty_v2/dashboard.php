@@ -3513,7 +3513,8 @@ epul@nastyjuice.com
 			$or_id = $this->input->post('or_id');
 			$this->load->library('my_func', NULL , 'mf');
 			$or_id = $this->mf->scpro_decrypt($or_id);
-			recordLog($or_id , 19);
+			// FIXME: Record log ada problem. kena fix. klu enable. gmbar xleh delete.
+			//$log = recordLog($or_id , 19);
             $this->load->database();
             $this->load->model("m_picture");
             $img = $this->m_picture->get($pi_id);

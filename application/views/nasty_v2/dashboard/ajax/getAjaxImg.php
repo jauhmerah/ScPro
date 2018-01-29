@@ -3,24 +3,27 @@
 		<div class="portlet box yellow-gold">
 	        <div class="portlet-title">
 	            <div class="caption">
-	                <i class="fa fa-image"></i>Image List 
-	            </div>	                         
+	                <i class="fa fa-image"></i>Image List
+	            </div>
 	        </div>
-	        <div class="portlet-body flip-scroll">	
-	        <div class="row">				        
-		        <?php 	        
+	        <div class="portlet-body flip-scroll">
+	        <div class="row">
+		        <?php
+				 	if (is_array($img)) {
 		        	foreach ($img as $key) {
 		        		?>
 		        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 t<?= $key->pi_id; ?>" align="center">
 		        	<a class="thumbnail" >
-		        		<img src="<?= base_url($this->imgUploc.$key->img_url); ?>" class = "img">		        		
+		        		<img src="<?= base_url($this->imgUploc.$key->img_url); ?>" class = "img">
 		        	</a>
 		        </div>
 		        <?php
-		        	}
+			}}else{
+				echo "--Data Empty--";
+			}
 		         ?>
 			</div>
-			</div>	            			
+			</div>
 		</div>
 	</div>
 	<script>
