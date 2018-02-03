@@ -3,11 +3,6 @@
 		$mode = 0;
 	}
 ?>
-<script>
-	function moveTo() {
-		return confirm('Are you sure?');
-	}
-</script>
 <div class="row">
 	<div class="col-xs-12">
 		<div class="row">
@@ -575,4 +570,9 @@
 		});
 
 	});
+	function moveTo() {
+		//return confirm('Are you sure?');
+		bootbox.alert('huhu');
+		return FALSE;
+	}
 </script>
