@@ -582,7 +582,13 @@ epul@nastyjuice.com
                         $or_id = $this->my_func->scpro_decrypt($this->input->get('move'));
                         $this->load->database();
                         $this->load->model('m_order');
-                        $result = $this->m_order->update(array('pr_id' => 2) , $or_id);
+						if ($this->input->get('ets')) {
+							$or_sendDate = $this->input->get('ets');
+						}else{
+							$this->session->set_flashdata('warning' , 'Please insert ETS to proceed the order!');
+							redirect(site_url('nasty_v2/dashboard/page/a2?mode=1'),'refresh');
+						}
+                        $result = $this->m_order->update(array('pr_id' => 2 , 'or_sendDate' => $or_sendDate) , $or_id);
 						recordLog($or_id , 2);
                         $orCode = "#".(120000+$or_id);
                         if ($result == 0) {
@@ -3851,6 +3857,17 @@ epul@nastyjuice.com
 				$arr['lvl3'] = $this->m_order_process->getLvl(2);
 			}
 			return $this->load->view($this->parent_page.'/ROSlist2', $arr , TRUE);
+		}
+		public function uploadFileAttach()
+		{
+			if ($this->input->post('key')) {
+				$key = $this->input->post('key');
+				$this->load->library('My_func', NULL , 'mf');
+				$key = $this->mf->scpro_decrypt($key);
+				if ($key == 'attachment') {
+					
+				}
+			}
 		}
 	}
 ?>

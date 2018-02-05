@@ -110,7 +110,7 @@
 										</td>
 										<td>
 											<?php $usid = $this->my_func->scpro_encrypt($key['order']->or_id); ?>
-											<a onclick="return moveTo();" href="<?= site_url('nasty_v2/dashboard/page/a21?move=').$usid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-info"><i class="fa fa-share-square-o"></i> Move To Process</button></a>
+											<button class="btn btn-info moveTo" data-link="<?= site_url('nasty_v2/dashboard/page/a21?move=').$usid; ?>" name="c4" title="Order Detail"><i class="fa fa-share-square-o"></i> Move To Process</button>
 										</td>
 									</tr>
 									<tr class="L<?= $n; ?>" style="display : none;">
@@ -655,12 +655,24 @@
 						});
 				});
 			});
+			$('.moveTo').click(function() {
+				var linkUrl = $(this).data('link');
+				bootbox.prompt(
+					{
+						title : "Please Insert ETS",
+						inputType : 'date',
+						callback : function(result) {
+							if(result != null){
+								linkUrl = linkUrl+"&ets="+result;
+								window.location.href = linkUrl;
+							}
+						}
+					}
+				);
 
+			});
 		});
-
 		function moveTo() {
-			//return confirm('Are you sure?');
-			bootbox.alert('huhuuhu');
-			return FALSE;
+			return confirm('Are you sure?');
 		}
 	</script>

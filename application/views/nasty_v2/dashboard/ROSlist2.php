@@ -3,11 +3,6 @@
 		$mode = 0;
 	}
 ?>
-<script>
-	function moveTo() {
-		return confirm('Are you sure?');
-	}
-</script>
 
  <style type="text/css">
             .task-contain{

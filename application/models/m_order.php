@@ -246,7 +246,7 @@
 	    }
 	    public function listOr($ver = 0 , $limit = null , $start = null , $del = 0 , $where = null)
 	    {
-	    	$this->db->select('ord.or_id , ord.us_id , us1.us_username , cl.cl_id , cl.cl_name, ord.or_acc , cl.cl_country , ord.or_date ,ord.pr_id, pr.pr_desc , pr.pr_color, ord.or_paid , orex.or_trackno , orex.or_shipcom');
+	    	$this->db->select('ord.or_id , ord.us_id , ord.or_sendDate , us1.us_username , cl.cl_id , cl.cl_name, ord.or_acc , cl.cl_country , ord.or_date ,ord.pr_id, pr.pr_desc , pr.pr_color, ord.or_paid , orex.or_trackno , orex.or_shipcom');
 	    	//, pic.img_url , pic.pi_title
 	    	$this->db->from('order ord');
 	    	if($del != 3){
