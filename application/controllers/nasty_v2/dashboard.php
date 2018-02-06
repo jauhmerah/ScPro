@@ -2416,19 +2416,6 @@ epul@nastyjuice.com
 				return false;
 			}
 		}
-
-		public function test()
-		{
-			$this->load->database();
-			$this->load->model('m_banner');
-			$obj = $this->m_banner->get(1);
-			$img = $obj->img_url;
-			echo "<pre>";
-			echo base_url('assets/uploads/banner').'/'.$img;
-			print_r($obj);
-			echo "</pre>";
-
-		}
         public function uploadPaid()
         {
             if ($this->input->get('key')) {
@@ -2815,8 +2802,8 @@ epul@nastyjuice.com
 		}
 		function _checkLvl($page = null)
 		{
-			//$this->load->library('my_func');
-			$lvl =$this->my_func->scpro_decrypt($this->session->userdata('us_lvl'));
+			$this->load->library('my_func');
+			$lvl = $this->my_func->scpro_decrypt($this->session->userdata('us_lvl'));
             if ($lvl == 1) {
                 return true;
             }else{
@@ -3865,9 +3852,24 @@ epul@nastyjuice.com
 				$this->load->library('My_func', NULL , 'mf');
 				$key = $this->mf->scpro_decrypt($key);
 				if ($key == 'attachment') {
-					
+
 				}
 			}
+		}
+		public function test()
+		{
+			$this->_show('ajax/getAjaxUploadFile');
+		}
+
+		public function getAjaxUploadFile()
+		{
+			$this->load->library('my_func',NULL, 'mf');
+			$data['id'] = $this->input->post('id');
+			$or_id = $this->mf->scpro_decrypt($data['id']);
+			$this->load->database();
+			$this->load->model('M_attachment', 'ma');
+			$data['file'] = $this->ma->get(array('or_id' => $or_id));
+			echo $this->load->view($this->parent_page.'/ajax/getAjaxUploadFile', $data , TRUE);
 		}
 	}
 ?>

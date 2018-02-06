@@ -230,6 +230,9 @@
 											<a onclick="return moveTo();" href="<?= site_url('nasty_v2/dashboard/page/a221?done=').$usid; ?>" name="c4" title="Order Detail"><button type="button" class="btn btn-success"><i class="fa fa-check"></i> Done All</button></a>&nbsp;- &nbsp;
 											<button type="button" onclick="window.open('<?= site_url('order/printO1?id='.$this->my_func->scpro_encrypt($key['order']->or_id)); ?>&ver=2');" class="btn btn-info"><i class="fa fa-print"></i></button> &nbsp;-&nbsp;
 											<a type="button" href="<?= site_url('nasty_v2/dashboard/page/e2?id='.$this->my_func->scpro_encrypt($key['order']->or_id." |parcel ")); ?>" title="Parcel Setting" class="btn btn-circle blue-hoki btn-md"><i class="fa fa-barcode"></i> Parcel Management</a>
+											<button type="button" class="btn btn-circle upld" data-id = "<?=$this->my_func->scpro_encrypt($key['order']->or_id); ?>">
+												<i class="fa fa-upload" aria-hidden="true"></i>
+											</button>
 										</td>
 									</tr>
 									<tr class="L<?= $n; ?>" style="display : none;">
@@ -670,6 +673,14 @@
 					}
 				);
 
+			});
+			$('.upld').click(function() {
+				var id = $(this).data('id');
+				$.post('<?= site_url('nasty_v2/dashboard/getAjaxUploadFile'); ?>', {id: id}, function(data) {
+					bootbox.dialog({
+					message : data
+					});
+				});
 			});
 		});
 		function moveTo() {
