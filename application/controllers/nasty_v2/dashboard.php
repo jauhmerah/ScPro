@@ -5,7 +5,7 @@
 
 	   	var $parent_page = "nasty_v2/dashboard";
 	   	var $old_page = "dashboard";
-        var $version = "OrdYs v2.4.0 Alpha";
+        var $version = "OrdYs v2.4.1 Alpha";
         var $imgUploc = "/assets/uploads/img/";
         var $flags = 'asset/flags/flags.png';
 
@@ -3844,32 +3844,6 @@ epul@nastyjuice.com
 				$arr['lvl3'] = $this->m_order_process->getLvl(2);
 			}
 			return $this->load->view($this->parent_page.'/ROSlist2', $arr , TRUE);
-		}
-		public function uploadFileAttach()
-		{
-			if ($this->input->post('key')) {
-				$key = $this->input->post('key');
-				$this->load->library('My_func', NULL , 'mf');
-				$key = $this->mf->scpro_decrypt($key);
-				if ($key == 'attachment') {
-
-				}
-			}
-		}
-		public function test()
-		{
-			$this->_show('ajax/getAjaxUploadFile');
-		}
-
-		public function getAjaxUploadFile()
-		{
-			$this->load->library('my_func',NULL, 'mf');
-			$data['id'] = $this->input->post('id');
-			$or_id = $this->mf->scpro_decrypt($data['id']);
-			$this->load->database();
-			$this->load->model('M_attachment', 'ma');
-			$data['file'] = $this->ma->get(array('or_id' => $or_id));
-			echo $this->load->view($this->parent_page.'/ajax/getAjaxUploadFile', $data , TRUE);
 		}
 	}
 ?>

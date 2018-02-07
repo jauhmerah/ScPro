@@ -16,3 +16,4 @@ TRUNCATE `picture`;
 TRUNCATE `shipping_note`;
 TRUNCATE `stock`;
 TRUNCATE `time_line`;
+TRUNCATE `attachment`;

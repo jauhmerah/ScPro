@@ -248,7 +248,7 @@
 		                            	<a type="button" class="btn btn-xs btn-info" href="<?= site_url('nasty_v2/dashboard/page/a111?v=2&view=').$orid; ?>" name="c4" title="Order Detail"><i class="fa fa-eye"></i></a>
 										<a type="button" class="btn btn-xs btn-warning" href="<?= site_url('nasty_v2/dashboard/page/a121?v=2&edit=').$orid; ?>" name="c3" title="Edit Order"><i class="fa fa-pencil"></i></a>
 										<button type="button" class="btn btn-xs purple-seance upPic" id="up<?= $n; ?>"><i class="fa fa-upload"></i></button>
-										<button type="button" class="btn btn-xs purple-sharp upPic" id="up<?= $n; ?>"><i class="fa fa-paperclip"></i></button>
+										<button type="button" class="btn btn-xs purple-sharp viewFile" data-id = "<?= $orid; ?>"><i class="fa fa-paperclip"></i></button>
 										<input type="hidden" class="form-control up<?= $n; ?>" value="<?= $orid; ?>">
 										<?php if($user->pr_id == 3 || $user->pr_id >= 8 || $user->pr_id == 2){ ?>
                                     			<button title = "Print Order" onclick = "window.open('<?= site_url('order/printO1?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" type="button" class="btn btn-xs btn-default btn-info"><i class="fa fa-print"></i></button> <?php } if($user->pr_id == 3 || $user->pr_id >= 8){ ?>
@@ -438,6 +438,14 @@ $url = $_SERVER['QUERY_STRING'] ? $url.'?'.$_SERVER['QUERY_STRING'] : $url;
 			id = $(this).prop('id');
 			or_id = $('.'+id+'n').val();
 			us_id = $('.'+id+'n1').val();
+		});
+		$('.viewFile').click(function(event) {
+			var id = $(this).data('id');
+			$.post('<?= site_url('nasty_v2/upload/getAjaxUploadFile'); ?>', {id: id}, function(data) {
+				bootbox.dialog({
+				message : data
+				});
+			});
 		});
 	});
 

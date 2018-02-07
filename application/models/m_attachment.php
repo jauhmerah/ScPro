@@ -1,18 +1,18 @@
 <?php
 	if (!defined('BASEPATH')) exit('No direct script access allowed');
-	
+
 	class M_attachment extends CI_Model {
-	
+
 	    /**
 	     * @name string TABLE_NAME Holds the name of the table in use by this model
 	     */
 	    const TABLE_NAME = 'attachment';
-	
+
 	    /**
 	     * @name string PRI_INDEX Holds the name of the tables' primary index used in this model
 	     */
 	    const PRI_INDEX = 'at_id';
-	
+
 	    /**
 	     * Retrieves record(s) from the database
 	     *
@@ -35,16 +35,12 @@
 	        }
 	        $result = $this->db->get()->result();
 	        if ($result) {
-	            if ($where !== NULL) {
-	                return array_shift($result);
-	            } else {
-	                return $result;
-	            }
+	            return $result;	            
 	        } else {
 	            return false;
 	        }
 	    }
-	
+
 	    /**
 	     * Inserts new data into database
 	     *
@@ -58,7 +54,7 @@
 	            return false;
 	        }
 	    }
-	
+
 	    /**
 	     * Updates selected record in the database
 	     *
@@ -73,7 +69,7 @@
 	        $this->db->update(self::TABLE_NAME, $data, $where);
 	        return $this->db->affected_rows();
 	    }
-	
+
 	    /**
 	     * Deletes specified record from the database
 	     *
@@ -88,5 +84,5 @@
 	        return $this->db->affected_rows();
 	    }
 	}
-	        
+
 ?>

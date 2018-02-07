@@ -250,7 +250,10 @@
 					                                        <button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/Invoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');"  class="btn blue-dark btn-circle btn-md" title="Invoice">Inv</button>
 					                                        &nbsp;-&nbsp;
 					                                        <button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/dummyInvoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn c-btn-border-1x c-btn-blue-dark btn-circle btn-md" title="Dummy Invoice">DInv</button>
-
+															&nbsp;-&nbsp;
+															<button type="button" class="btn btn-circle upld" data-id = "<?=$this->my_func->scpro_encrypt($user->or_id); ?>">
+																<i class="fa fa-upload" aria-hidden="true"></i>
+															</button>
 
 					                                                            </td>
 					                                                    </tr>
@@ -419,6 +422,10 @@
 					                                        <button type="button" onclick = "window.open('<?= site_url('nasty_v2/invoice/dummyInvoice?id='.$this->my_func->scpro_encrypt($user->or_id).'&ver=2'); ?>');" class="btn c-btn-border-1x c-btn-blue-dark btn-circle btn-md" title="Dummy Invoice">DInv</button>
 															&nbsp;-&nbsp;
 															<button type="button" onclick="window.open('<?= site_url('parcel/printParcel?id='.$this->my_func->scpro_encrypt($user->or_id."|printParcel|2"));?>');"  class="btn btn-circle blue-hoki" title="Print Parcel"><i class="fa fa-barcode"></i> <i class="fa fa-print"></i></button>
+															&nbsp;-&nbsp;
+															<button type="button" class="btn btn-circle upld" data-id = "<?=$this->my_func->scpro_encrypt($user->or_id); ?>">
+																<i class="fa fa-upload" aria-hidden="true"></i>
+															</button>
 					                                                            </td>
 					                                                    </tr>
 

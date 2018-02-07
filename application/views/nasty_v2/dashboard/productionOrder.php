@@ -676,7 +676,7 @@
 			});
 			$('.upld').click(function() {
 				var id = $(this).data('id');
-				$.post('<?= site_url('nasty_v2/dashboard/getAjaxUploadFile'); ?>', {id: id}, function(data) {
+				$.post('<?= site_url('nasty_v2/upload/getAjaxUploadFile'); ?>', {id: id}, function(data) {
 					bootbox.dialog({
 					message : data
 					});

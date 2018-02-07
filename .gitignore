@@ -35,6 +35,7 @@ application/logs/
 assets/uploads/images/
 assets/uploads/img/
 assets/uploads/barcode/
+assets/uploads/attachment/
 application/models/index.html
 application/third_party/
 application/views/index.html

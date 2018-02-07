@@ -1,16 +1,16 @@
 <?php
 	defined('BASEPATH') OR exit('No direct script access allowed');
-	
+
 	class My_func
 	{
-		
+
 		public function __construct()
 		{
 	        $this->obj =& get_instance();
 		}
 
 		public function staffName($userId = null , $crypt = false){
-			
+
 			if ($userId == null) {
 				return false;
 			}
@@ -23,7 +23,7 @@
 			$data = $ci->m_user->get($userId);
 			return $data;
 		}
-	
+
 		public function scpro_encrypt($text){
 			$ci = $this->obj;
 			$ci->load->library("encrypt");
@@ -46,10 +46,10 @@
 
 		public function scpro_decrypt($text){
 			$ci = $this->obj;
-			$ci->load->library("encrypt");	
+			$ci->load->library("encrypt");
 			//$key2 = "6a214fde6c1f8c84902a5576bbe98834623913cc";
-			//$text = $ci->encrypt->decode($text, $key2);	
-			//return $text;	
+			//$text = $ci->encrypt->decode($text, $key2);
+			//return $text;
 			$text = strtr($text,array('.' => '+','-' => '=','~' => '/'));
 			$length = strlen($text);
 			//$this->load->library("encrypt");
@@ -60,7 +60,7 @@
 				$arr = explode('{_}', $text);
 				$val1 = $arr[1].$arr[0];
 			}
-			
+
 			$ci = $this->obj;
 			$val2 = $ci->encrypt->decode($val1);
 			return $val2;
@@ -80,20 +80,20 @@
 		{
 			if ($mode === 0) {
 				return pack("H*" , $text);
-			}			
+			}
 			$ci = $this->obj;
 			$ci->load->library("encrypt");
 			$defaultKey = "jauhmerahAini";
 			return $ci->encrypt->decode($text , $defaultKey);
-			
+
 		}
 
 		function do_upload($path = './assets/uploads/files/', $config = null , $type = 'gif|jpg|png|jpeg')
-		{	
-			$ci = $this->obj;	
+		{
+			$ci = $this->obj;
 			$config['upload_path'] = $path;
 			$config['allowed_types'] = $type;
-			$config['max_size']	= '2000';
+			$config['max_size']	= '10000';
 			$config['max_width']  = '0';
 			$config['max_height']  = '0';
 			$config['remove_spaces'] = true;
@@ -152,16 +152,16 @@
 				case 12:
 					$text = '<span class="label label-warning '.$objmedia.'">'.$mg.' Mg</span>';
 					break;
-				
+
 				default:
 					$text = "error";
-					break;					
+					break;
 			}
 			return $text;
-		}		
+		}
 	}
-	
+
 	/* End of file my_func.php */
 	/* Location: ./application/libraries/my_func.php */
-	
+
 ?>
