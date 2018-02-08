@@ -665,10 +665,12 @@
 						title : "Please Insert ETS",
 						inputType : 'date',
 						callback : function(result) {
-							if(result != null){
+							if(result){
 								linkUrl = linkUrl+"&ets="+result;
 								window.location.href = linkUrl;
-							}
+							}else{
+								bootbox.alert('Please insert <strong>E</strong>stimate <strong>T</strong>ime <strong>S</strong>hipment');
+							}							
 						}
 					}
 				);

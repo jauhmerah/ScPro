@@ -582,13 +582,15 @@ epul@nastyjuice.com
                         $or_id = $this->my_func->scpro_decrypt($this->input->get('move'));
                         $this->load->database();
                         $this->load->model('m_order');
+						$this->load->model('m_order_ext' , 'moe');
 						if ($this->input->get('ets')) {
 							$or_sendDate = $this->input->get('ets');
 						}else{
 							$this->session->set_flashdata('warning' , 'Please insert ETS to proceed the order!');
 							redirect(site_url('nasty_v2/dashboard/page/a2?mode=1'),'refresh');
 						}
-                        $result = $this->m_order->update(array('pr_id' => 2 , 'or_sendDate' => $or_sendDate) , $or_id);
+                        $result = $this->m_order->update(array('pr_id' => 2 ) , $or_id);
+						$result = $this->moe->update(array('or_dateline' => $or_sendDate ) , array( 'or_id' => $or_id));
 						recordLog($or_id , 2);
                         $orCode = "#".(120000+$or_id);
                         if ($result == 0) {

@@ -85,7 +85,12 @@ class Upload extends CI_Controller{
                     $this->session->set_flashdata('warning', $msg);
                 }
             }
-            redirect($_SERVER['HTTP_REFERER'] , 'refresh');
+            if ($_SERVER['HTTP_REFERER']) {
+                $url = $_SERVER['HTTP_REFERER'];
+            }else{
+                $url = site_url('nasty_v2/dashboard');
+            }
+            redirect($url , 'refresh');
         }
     }
 }

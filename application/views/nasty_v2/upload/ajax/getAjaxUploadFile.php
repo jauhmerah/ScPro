@@ -24,7 +24,7 @@
                     </form>
                 </div>
                 <div class="help-block">
-                    Note : File size must not larger than 2mb. File allowed jpg|png|jpeg|doc|docx|pdf.
+                    Note : File size must not larger than 10mb. File allowed jpg|png|jpeg|doc|docx|pdf.
                 </div>
                 <hr>
                 <div class="row">
