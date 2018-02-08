@@ -1,18 +1,18 @@
-<?php 
+<?php
 	if (!defined('BASEPATH')) exit('No direct script access allowed');
-	
+
 	class M_stat extends CI_Model {
-	
+
 	    /**
 	     * @name string TABLE_NAME Holds the name of the table in use by this model
 	     */
-	    const TABLE_NAME = 'order';
-	
+	    const TABLE_NAME = 'order_item';
+
 	    /**
 	     * @name string PRI_INDEX Holds the name of the tables' primary index used in this model
 	     */
-	    const PRI_INDEX = 'or_id';
-	
+	    const PRI_INDEX = 'oi_id';
+
 	    /**
 	     * Retrieves record(s) from the database
 	     *
@@ -44,7 +44,7 @@
 	            return false;
 	        }
 	    }
-	
+
 	    /**
 	     * Inserts new data into database
 	     *
@@ -58,7 +58,7 @@
 	            return false;
 	        }
 	    }
-	
+
 	    /**
 	     * Updates selected record in the database
 	     *
@@ -73,7 +73,7 @@
 	        $this->db->update(self::TABLE_NAME, $data, $where);
 	        return $this->db->affected_rows();
 	    }
-	
+
 	    /**
 	     * Deletes specified record from the database
 	     *
@@ -81,12 +81,42 @@
 	     * @return int Number of rows affected by the delete query
 	     */
 	    public function delete($where = array()) {
-	        if (!is_array()) {
+	        if (!is_array($where)) {
 	            $where = array(self::PRI_INDEX => $where);
 	        }
 	        $this->db->delete(self::TABLE_NAME, $where);
 	        return $this->db->affected_rows();
 	    }
+
+		public function listStat($ca_id , $fromDate , $toDate , $del = 0)
+		{
+			$this->db->select('*');
+			$this->db->from('type2');
+			$this->db->where('ca_id', $ca_id);
+			$item = $this->db->get()->result();
+			$list = array();
+			if ($item) {
+				foreach ($item as $key) {
+					$this->db->select('*');
+					$this->db->from('order_item oi');
+					$this->db->join('order_ext orex', 'orex.orex_id = oi.orex_id', 'left');
+					$this->db->join('order ord', 'ord.or_id = orex.or_id', 'left');
+					$where = array(
+						'oi.ty2_id' => $key->ty2_id,
+						'ord.or_date >=' => $fromDate,
+						'ord.or_date <=' => $toDate,
+						'ord.or_del' => $del
+					);
+					$this->db->where($where);
+					$item2['data'] = $this->db->get()->result();
+					$item2['item'] = $key;
+					$list[] = $item2;
+					unset($item2);
+				}
+				return $list;
+			}
+
+		}
 	}
-	        
+
 ?>
