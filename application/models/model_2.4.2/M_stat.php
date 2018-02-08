@@ -88,25 +88,30 @@
 	        return $this->db->affected_rows();
 	    }
 
-		public function listStat($ca_id , $fromDate , $toDate , $del = 0)
+		public function listStat($ca_id , $fromDate = NULL , $toDate = NULL , $del = 0)
 		{
-			$this->db->select('*');
-			$this->db->from('type2');
-			$this->db->where('ca_id', $ca_id);
+			$this->db->select('ty2.* , cat.ca_desc');
+			$this->db->from('type2 ty2');
+			$this->db->where('ty2.ca_id', $ca_id);
+			$this->db->join('category cat', 'cat.ca_id = ty2.ca_id', 'left');
 			$item = $this->db->get()->result();
 			$list = array();
 			if ($item) {
 				foreach ($item as $key) {
-					$this->db->select('*');
+					$this->db->select('oi.* , ord.or_date');
 					$this->db->from('order_item oi');
 					$this->db->join('order_ext orex', 'orex.orex_id = oi.orex_id', 'left');
 					$this->db->join('order ord', 'ord.or_id = orex.or_id', 'left');
 					$where = array(
 						'oi.ty2_id' => $key->ty2_id,
-						'ord.or_date >=' => $fromDate,
-						'ord.or_date <=' => $toDate,
 						'ord.or_del' => $del
 					);
+					if ($fromDate == NULL) {
+						$where['ord.or_date >='] = $fromDate;
+					}
+					if ($toDate == NULL) {
+						$where['ord.or_date <='] = $toDate;
+					}
 					$this->db->where($where);
 					$item2['data'] = $this->db->get()->result();
 					$item2['item'] = $key;

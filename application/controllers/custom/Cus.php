@@ -10,6 +10,7 @@ class Cus extends CI_Controller{
         parent::__construct();
         $this->load->database();
         $this->load->library('session');
+        $this->load->library('my_func');
     }
 
     public function index()
@@ -18,7 +19,7 @@ class Cus extends CI_Controller{
     }
 
     private function _show($page = 'display' , $data = null , $key = 'a1'){
-        $this->load->library('my_func');
+
         $link['link'] = $key;
         // if (!$link['admin']) {
         // 	$link['link'] = 'a2';
@@ -40,8 +41,25 @@ class Cus extends CI_Controller{
 
     public function stat()
     {
-        $this->load->model('model_2.4.2/M_stat' , 'ms');
-        $this->_show('display');
+        $data = NULL;
+        if ($this->input->post('cat')) {
+            $this->load->model('model_2.4.2/M_stat' , 'ms');
+            $cat = $this->input->post('cat');
+            $cat = $this->my_func->scpro_decrypt($cat);
+            // TODO: convert date to $fromDate = date_create($fromDate);
+            //$fromDate = $fromDate->format('Y-m-d H:i:s');
+            $from = $this->input->post('from');
+            $to = $this->input->post('to');
+            echo $from . '-' . $to;
+            return;
+            $data['list'] = $this->ms->listStat($cat , $from , $to);
+        }else{
+            $this->load->model('m_category', 'mc');
+            $this->load->model('m_type2', 'mt2');
+            $data['item'] = $this->mt2->get();
+            $data['cat'] = $this->mc->get();
+        }
+        $this->_show('display' , $data);
     }
 }
 ?>
