@@ -65,8 +65,8 @@
                         $arr['nation'] = $this->m_client->getNation();
                         $arr['mg'] = $this->m_nico->get();
                         //end added                        $data['title'] = '<i class="fa fa-pencil"></i>Main Page</a>';
-                        $data['display'] = $this->load->view($this->parent_page.'/dashboard' ,$arr, true);
-                        $this->_show('display' , $data, $key);
+                        //$data['display'] = $this->load->view($this->parent_page.'/dashboard' ,$arr, true);
+                        $this->_show('dashboard' , $arr, $key);
                    break;
                 case 'a13':
                     //delete
@@ -1308,6 +1308,7 @@ epul@nastyjuice.com
                     $crud->required_fields('ty2_desc', 'ca_id');
 		    		$crud->unset_print();
 		    		$crud->unset_export();
+					$crud->unset_texteditor('ty2_desc');
                     $crud->callback_column('ca_id',array($this,'callback_col_item'));
                     $crud->callback_add_field('ca_id', function () {
                             $this->load->database();
@@ -3718,7 +3719,10 @@ epul@nastyjuice.com
             $this->load->model('m_item');
             $this->load->model('m_nico');
             $arr['arr'] = $this->m_item->totalByFlavor($arr1['year1'] , $arr1['month1'] , $arr1['client'] , $arr1['mg'], $arr1['country']);
-            echo $this->load->view($this->parent_page.'/ajax/getAjaxGraph2', $arr , false);
+            //echo $this->load->view($this->parent_page.'/ajax/getAjaxGraph2', $arr , false);
+			echo "<pre>";
+			print_r($arr);
+			echo "</pre>";
         }
 
 		public function productionXdistribution()

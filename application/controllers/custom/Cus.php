@@ -42,22 +42,21 @@ class Cus extends CI_Controller{
     public function stat()
     {
         $data = NULL;
+        $this->load->model('m_category', 'mc');
+        $data['cat'] = $this->mc->get();
         if ($this->input->post('cat')) {
             $this->load->model('model_2.4.2/M_stat' , 'ms');
             $cat = $this->input->post('cat');
             $cat = $this->my_func->scpro_decrypt($cat);
-            // TODO: convert date to $fromDate = date_create($fromDate);
-            //$fromDate = $fromDate->format('Y-m-d H:i:s');
             $from = $this->input->post('from');
+            $from = date_create($from);
+            $from = $from->format('Y-m-d H:i:s');
             $to = $this->input->post('to');
-            echo $from . '-' . $to;
-            return;
+            $to = date_create($to);
+            $to = $to->format('Y-m-d H:i:s');
             $data['list'] = $this->ms->listStat($cat , $from , $to);
-        }else{
-            $this->load->model('m_category', 'mc');
-            $this->load->model('m_type2', 'mt2');
-            $data['item'] = $this->mt2->get();
-            $data['cat'] = $this->mc->get();
+            $data['from'] = $from;
+            $data['to'] = $to;
         }
         $this->_show('display' , $data);
     }

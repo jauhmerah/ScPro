@@ -1,17 +1,17 @@
 <?php
 	if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-	class M_stat extends CI_Model {
+	class M_holoxordys extends CI_Model {
 
 	    /**
 	     * @name string TABLE_NAME Holds the name of the table in use by this model
 	     */
-	    const TABLE_NAME = 'order_item';
+	    const TABLE_NAME = 'order';
 
 	    /**
 	     * @name string PRI_INDEX Holds the name of the tables' primary index used in this model
 	     */
-	    const PRI_INDEX = 'oi_id';
+	    const PRI_INDEX = 'or_id';
 
 	    /**
 	     * Retrieves record(s) from the database
@@ -81,49 +81,26 @@
 	     * @return int Number of rows affected by the delete query
 	     */
 	    public function delete($where = array()) {
-	        if (!is_array($where)) {
+	        if (!is_array()) {
 	            $where = array(self::PRI_INDEX => $where);
 	        }
 	        $this->db->delete(self::TABLE_NAME, $where);
 	        return $this->db->affected_rows();
 	    }
 
-		public function listStat($ca_id , $fromDate = NULL , $toDate = NULL , $del = 0)
-		{
-			$this->db->select('ty2.* , cat.ca_desc');
-			$this->db->from('type2 ty2');
-			$this->db->where('ty2.ca_id', $ca_id);
-			$this->db->join('category cat', 'cat.ca_id = ty2.ca_id', 'left');
-			$item = $this->db->get()->result();
-			$list = array();
-			if ($item) {
-				foreach ($item as $key) {
-					$this->db->select('oi.* , ord.or_date , nic.ni_mg');
-					$this->db->from('order_item oi');
-					$this->db->join('order_ext orex', 'orex.orex_id = oi.orex_id', 'left');
-					$this->db->join('order ord', 'ord.or_id = orex.or_id', 'left');
-					$this->db->join('nicotine nic', 'nic.ni_id = oi.ni_id', 'left');
-					$where = array(
-						'oi.ty2_id' => $key->ty2_id,
-						'ord.or_del' => $del
-					);
-					if ($fromDate != NULL) {
-						$where['ord.or_date >='] = $fromDate;
-					}
-					if ($toDate != NULL) {
-						$where['ord.or_date <='] = $toDate;
-					}
-					$this->db->where($where);
-					$this->db->order_by('ord.or_date', 'asc');
-					$item2['data'] = $this->db->get()->result();
-					$item2['item'] = $key;
-					$list[] = $item2;
-					unset($item2);
-				}
-				return $list;
-			}
-
-		}
+        public function getClientDetail($or_id = NULL)
+        {
+            $this->db->select('ord.or_id , cl.cl_id , cl.cl_country , cl.cl_name , cl.cl_email , cl.cl_country');
+            $this->db->from('order ord');
+            $this->db->join('client cl', 'ord.cl_id = cl.cl_id', 'left');
+            $this->db->where('ord.or_id', $or_id);
+            $result = $this->db->get()->result();
+            if ($result) {
+                return array_shift($result);
+            }else{
+                return FALSE;
+            }
+        }
 	}
 
 ?>
