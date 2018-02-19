@@ -27,14 +27,12 @@
                                 <i class="fa fa-cart-plus"></i>
                                 <span class="title"><i class="fa fa-money"></i> Sales Section</span>
                                 <span class="arrow"></span>
-                                <span class="badge badge-danger"><i class="fa fa-arrow-circle-o-up"></i></span>
                             </a>
                         <ul class="sub-menu">
                             <li class="nav-item start">
                                 <a href="<?= site_url('nasty_v2/dashboard/page/a1') ?>" class="nav-link ">
                                     <i class="fa fa-outdent"></i>
                                     <span class="title">View Order</span>
-                                    <span class="badge badge-danger"><i class="fa fa-arrow-circle-o-up"></i></span>
                                 </a>
                             </li>
                             <li class="nav-item start">
@@ -46,10 +44,9 @@
                             </li>
                             <li class="nav-item start">
                                 <a href="<?= site_url('nasty_v2/dashboard/page/g1') ?>" class="nav-link ">
-                                        <i class="fa fa-ban"></i>
-                                        <span class="title">Cancel Log</span>
-                                        <span class="badge badge-danger"><i class="fa fa-star"></i></span>
-                                    </a>
+                                    <i class="fa fa-ban"></i>
+                                    <span class="title">Cancel Log</span>
+                                </a>
                             </li>
                         </ul>
                     </li>
@@ -60,7 +57,6 @@
                                 <i class="fa fa-cog fa-spin"></i>
                                 <span class="title">Distribution Team</span>
                                 <span class="arrow"></span>
-                                <span class="badge badge-danger"><i class="fa fa-arrow-circle-o-up"></i></span>
                             </a>
                         <ul class="sub-menu">
                             <li class="nav-item start" title="Distributor Action">
@@ -70,24 +66,42 @@
                                     </a>
                                 </li>
                             <?php }?>
-
-                                <!-- <li class="nav-item start">
-                                    <a href="<?= site_url('nasty_v2/dashboard/page/i1') ?>" class="nav-link ">
-                                        <i class="fa fa-bar-chart"></i>
-                                        <span class="title">Dashboard</span>
-                                    </a>
-                                </li> -->
-
-                                <li class="nav-item start" title="Ready To Shipping">
-                                    <a href="<?= site_url('nasty_v2/dashboard/page/e1') ?>" class="nav-link ">
-                                        <i class="fa fa-archive" aria-hidden="true"></i>
-                                        <span class="title">Parcel Management</span>
-                                        <!--<span class="badge badge-success">1</span>-->
-                                    </a>
-                                </li>
-
-                            </ul>
-                        </li>
+                            <li class="nav-item start" title="Ready To Shipping">
+                                <a href="<?= site_url('nasty_v2/dashboard/page/e1') ?>" class="nav-link ">
+                                    <i class="fa fa-archive" aria-hidden="true"></i>
+                                    <span class="title">Parcel Management</span>
+                                    <!--<span class="badge badge-success">1</span>-->
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item ">
+                        <a href="" class="nav-link ">
+                            <i class="fa fa-qrcode" aria-hidden="true"></i>
+                            <span class="title">Hologram Number</span>
+                            <span class="badge badge-danger">New</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item start">
+                                <a href="<?= site_url('holoxordys/page/b1'); ?>" class="nav-link ">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                    <span class="title">Search Holo Num</span>
+                                </a>
+                            </li>
+                            <li class="nav-item start">
+                                <a href="<?= site_url('holoxordys/page/b2'); ?>" class="nav-link ">
+                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                    <span class="title">Add Holo Number</span>
+                                </a>
+                            </li>
+                            <li class="nav-item start">
+                                <a href="<?= site_url('holoxordys/page/b3'); ?>" class="nav-link ">
+                                    <i class="fa fa-list" aria-hidden="true"></i>
+                                    <span class="title">Holo List</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
 
                         <?php if($us_lvl != 3 && $us_lvl != 4){?>
                         <li class="nav-item <?php if (strpos($link, 'i1') !== false || strpos($link, 'i2') !== false) { echo "active open";}else{echo "start";}?>   ">
@@ -107,7 +121,6 @@
                                     <a href="<?= site_url('nasty_v2/dashboard/page/i2') ?>" class="nav-link ">
                                         <i class="fa fa-plus-square-o"></i>
                                         <span class="title">Finish Item</span>
-
                                     </a>
                                 </li>
 
@@ -116,19 +129,14 @@
                                     <a href="<?= site_url('nasty_v2/dashboard/page/i21') ?>" class="nav-link ">
                                         <i class="fa fa-th-list"></i>
                                         <span class="title">Logs</span>
-
                                     </a>
                                 </li>
                                 <li class="nav-item start">
                                     <a href="<?= site_url('nasty_v2/dashboard/page/i4') ?>" class="nav-link ">
                                         <i class="fa fa-wrench"></i>
                                         <span class="title">Barcode Setting</span>
-
                                     </a>
                                 </li>
-
-
-
                             </ul>
                         </li><?php } ?>
                         <?php if($us_lvl != 2 && $us_lvl != 3 && $us_lvl != 5){?>
