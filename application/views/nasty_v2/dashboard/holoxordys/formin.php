@@ -4,15 +4,12 @@
             color: transparent
         }
     }
-
     .loader__dot {
         animation: 1s blink infinite
     }
-
     .loader__dot:nth-child(2) {
         animation-delay: 250ms
     }
-
     .loader__dot:nth-child(3) {
         animation-delay: 500ms
     }
@@ -28,8 +25,9 @@
                     <div class="col-md-8">
                         <div class="input-group">
                             <span class="input-group-addon input-circle-left"><i class="fa fa-slack"></i> Order Code</span>
-                            <input type="text" class="form-control input-circle-right" placeholder="NS......" autofocus id="input">
+                            <input type="text" class="form-control input-circle-right" placeholder="NS......" autofocus id="input" value="#121148">
                         </div>
+                        <input type="hidden" id="key" value="<?= $this->my_func->scpro_encrypt('holoxordys'); ?>">
                     </div>
                     <div class="col-md-4">
                         <div class="btn-group btn-group-md btn-block">
@@ -55,7 +53,7 @@
         <div class="text-center" id="loading" style="display : none;">
             <h1><i class="fa fa-refresh fa-spin" aria-hidden="true"></i> Searching<span class="loader__dot">.</span><span class="loader__dot">.</span><span class="loader__dot">.</span></h1>
         </div>
-        <div class="orderDetail">
+        <div id="orderDetail">
 
         </div>
     </div>
@@ -65,7 +63,12 @@
         $('#search').click(function(event) {
             var or_id = $('#input').val();
             if (or_id) {
-                alert(or_id);
+                var key = $('#key').val();
+                $.post('<?= site_url('Holoxordys/getAjaxOr_id') ?>',{key: key , or_id : or_id}, function(data, textStatus, xhr) {
+                    $('#orderDetail').html(data);
+                }).fail(function() {
+                    alert('Searching Error');
+                });
             }else{
                 bootbox.alert('Order Must not empty');
                 $('#input').focus();

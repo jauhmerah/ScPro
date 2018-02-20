@@ -13,6 +13,7 @@
 	        parent::__construct();
             $this->load->library('encrypt');
 			$this->load->library('session');
+			$this->load->library('my_func');
             $this->load->database();
 	    }
 
@@ -66,19 +67,16 @@
 		}
         public function getAjaxOr_id()
         {
-            $kunci = 'JauhMerahAini';
             if ($this->input->post('key')) {
                 $key = $this->input->post('key');
-                $key = $this->encrypt->encode($key , $kunci);
+				$key = $this->my_func->scpro_decrypt($key);
                 if ($key == 'holoxordys') {
                     $or_id = $this->input->post('or_id');
+					$or_id = str_replace('#1' , '' , $or_id);
+					$or_id = $or_id - 20000;
                     $this->load->model('holo/M_holoxordys', 'mhxo');
-                    $result = $this->mhxo->getClientDetail($or_id);
-                    if($result){
-						return $result;
-					}else{
-						return FALSE;
-					}
+                    $data['result'] = $this->mhxo->getClientDetail($or_id);
+					echo $this->load->view($this->parent_page.'/holoxordys/getAjax/getAjaxHoloForm', $data , TRUE);					
                 }
             }
         }
@@ -108,7 +106,6 @@
             }else{
                 return false;
             }
-
 		}
 	}
 

@@ -1,3 +1,9 @@
+<?php
+    $mode = NULL;
+    if ($result) {
+        $mode = "readonly";
+    }
+?>
 <div class="panel border-purple-wisteria">
     <div class="panel-heading bg-purple-wisteria bg-font-purple-wisteria">
         <h3 class="panel-title">Order Details</h3>
@@ -6,10 +12,13 @@
         <div class="form-group">
             <div class="input-group">
                 <span class="input-group-addon">Order Code : </span>
-                <input type="text" class="form-control" placeholder="">
+                <input type="text" class="form-control" name="or_id" <?= $mode; ?> <?php if ($mode) { ?>
+                value = "<?= $this->my_func->scpro_encrypt($result->or_id); ?>"
+                <?php } ?>>
             </div>
             <p class="help-block">Help text here.</p>
         </div>
+        <input type="hidden" name="or_type" value="">
         <div class="form-group">
             <div class="input-group">
                 <span class="input-group-addon">Client Name : </span>
@@ -277,3 +286,6 @@
 
     </div>
 </div>
+<pre>
+    <?= print_r($result); ?>
+</pre>
