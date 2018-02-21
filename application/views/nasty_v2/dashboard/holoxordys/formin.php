@@ -32,11 +32,11 @@
                     <div class="col-md-4">
                         <div class="btn-group btn-group-md btn-block">
                             <button type="button" class="btn btn-primary btn-circle-left" id="search">
-                              <i class="fa fa-search" aria-hidden="true"></i> Search
+                                <i class="fa fa-search" aria-hidden="true"></i> Search
                             </button>
-                            <button type="button" class="btn dark btn-circle-right" id="reset">
-                              <i class="fa fa-refresh" aria-hidden="true"></i> Reset
-                            </button>
+                            <a href="<?= site_url('holoxordys/page/b2'); ?>" type="button" class="btn dark btn-circle-right" id="reset">
+                                <i class="fa fa-refresh" aria-hidden="true"></i> Reset
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -47,13 +47,13 @@
         </div>
     </div>
     <div class="col-md-6">
-        <div id="img">
+        <div id="imglogo">
             <img src="<?= base_url('assets/nasty/nastylogo.png'); ?>" alt="" class="img-rounded center-block">
         </div>
         <div class="text-center" id="loading" style="display : none;">
             <h1><i class="fa fa-refresh fa-spin" aria-hidden="true"></i> Searching<span class="loader__dot">.</span><span class="loader__dot">.</span><span class="loader__dot">.</span></h1>
         </div>
-        <div id="orderDetail">
+        <div id="orderDetail" style="display : none;">
 
         </div>
     </div>
@@ -64,15 +64,24 @@
             var or_id = $('#input').val();
             if (or_id) {
                 var key = $('#key').val();
-                $.post('<?= site_url('Holoxordys/getAjaxOr_id') ?>',{key: key , or_id : or_id}, function(data, textStatus, xhr) {
-                    $('#orderDetail').html(data);
-                }).fail(function() {
-                    alert('Searching Error');
+                $.when(hideLogo()).then( function () {
+                    $.post('<?= site_url('Holoxordys/getAjaxOr_id') ?>',{key: key , or_id : or_id}, function(data, textStatus, xhr) {
+                        $.when($('#loading').slideUp('fast')).then(function () {
+                            $('#orderDetail').html(data).slideDown('fast');
+                        });
+                    }).fail(function() {
+                        alert('Searching Error');
+                    });
                 });
+
             }else{
                 bootbox.alert('Order Must not empty');
                 $('#input').focus();
             }
-        });
+        });        
     });
+    function hideLogo () {
+        $('#imglogo').slideUp('fast');
+        $('#loading').slideDown('fast');
+    }
 </script>

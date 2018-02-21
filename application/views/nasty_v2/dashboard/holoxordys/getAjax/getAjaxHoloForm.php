@@ -4,39 +4,40 @@
         $mode = "readonly";
     }
 ?>
+<form method="post" action="<?= site_url('holoxordys/page/b21'); ?>">
+    <input type="hidden" name="key" value="<?= $this->my_func->scpro_encrypt('addHolo'); ?>">
 <div class="panel border-purple-wisteria">
     <div class="panel-heading bg-purple-wisteria bg-font-purple-wisteria">
         <h3 class="panel-title">Order Details</h3>
     </div>
     <div class="panel-body">
+        <?php if($mode == NULL){ ?><div class="alert alert-warning">Order Details Not Found</div><?php } ?>
         <div class="form-group">
             <div class="input-group">
                 <span class="input-group-addon">Order Code : </span>
-                <input type="text" class="form-control" name="or_id" <?= $mode; ?> <?php if ($mode) { ?>
-                value = "<?= $this->my_func->scpro_encrypt($result->or_id); ?>"
-                <?php } ?>>
+                <input type="text" class="form-control" name="ho_orcode" <?= $mode; ?> value ="<?= ($mode)? '#'.(120000+$result->or_id) : $ordercode; ?>" readonly>
             </div>
-            <p class="help-block">Help text here.</p>
+            <?php
+            if ($mode) { ?>
+                <input type="hidden" name="or_id" value="<?= $this->my_func->scpro_encrypt($result->or_id); ?>">
+            <?php }
+            ?>
         </div>
-        <input type="hidden" name="or_type" value="">
         <div class="form-group">
             <div class="input-group">
                 <span class="input-group-addon">Client Name : </span>
-                <input type="text" class="form-control" placeholder="">
+                <input type="text" class="form-control" placeholder="" <?= ($mode) ? 'value = "'.$result->cl_name.'" readonly' : 'name = "ho_name" required' ; ?>>
             </div>
-            <p class="help-block">Help text here.</p>
         </div>
         <div class="form-group">
             <div class="input-group">
                 <span class="input-group-addon">Country : </span>
-                <input type="text" class="form-control" placeholder="">
-            </div>
-            <p class="help-block">Help text here.</p>
-        </div>
-        <div class="form-group">
-            <div class="input-group">
-                <span class="input-group-addon">Country : </span>
-                <select name="client" id="client" class="input-circle form-control input-sm select2-multiple select2-hidden-accessible" tabindex="-1" aria-hidden="true" required>
+                <?php
+                if ($mode) { ?>
+                    <input type="text" class="form-control" value="<?= $result->cl_country; ?>" readonly>
+                <?php }else{ ?>
+                <select name="country" id="country" class="form-control" required>
+                    <option value="">--Select Country--</option>
                     <option value="United States">United States</option>
                     <option value="United Kingdom">United Kingdom</option>
                     <option value="Afghanistan">Afghanistan</option>
@@ -279,13 +280,17 @@
                     <option value="Zambia">Zambia</option>
                     <option value="Zimbabwe">Zimbabwe</option>
                 </select>
+                <?php }
+                ?>
             </div>
         </div>
     </div>
     <div class="panel-footer">
-
+        <div class="form-group text-right">
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-chevron-right" aria-hidden="true"></i> Proceed
+            </button>
+        </div>
     </div>
 </div>
-<pre>
-    <?= print_r($result); ?>
-</pre>
+</form>

@@ -58,6 +58,27 @@
 					$page = 'formin';
 					$data['title'] = 'Insert Hologram detail';
 					break;
+				case 'b21':
+					$page = 'formin2';
+					$data['title'] = 'Insert Hologram Detail 2';
+					if ($this->input->post('key')) {
+						$temp = $this->input->post('key');
+						$temp = $this->my_func->scpro_decrypt($temp);
+						if ($temp == 'addHolo') {
+							unset($temp);
+							$data['arr'] = $this->input->post();
+							unset($data['arr']['key']);
+							$this->load->model('holo/M_holoxordys', 'mhxo');
+							if ($this->input->post('or_id')) {
+								$or_id = $this->my_func->scpro_decrypt($this->input->post('or_id'));
+								$data['client'] = $this->mhxo->getClientDetail($or_id);
+							}
+						}else {
+							$this->session->set_flashdata('warning' , 'Opss wrong path!!!');
+							redTo();
+						}
+					}
+					break;
 				default:
     				$this->_show();
 					return;
@@ -75,8 +96,15 @@
 					$or_id = str_replace('#1' , '' , $or_id);
 					$or_id = $or_id - 20000;
                     $this->load->model('holo/M_holoxordys', 'mhxo');
-                    $data['result'] = $this->mhxo->getClientDetail($or_id);
-					echo $this->load->view($this->parent_page.'/holoxordys/getAjax/getAjaxHoloForm', $data , TRUE);					
+					if ($or_id <= 0) {
+						$data['result'] = FALSE;
+					}else{
+                		$data['result'] = $this->mhxo->getClientDetail($or_id);
+					}
+					if ($data['result'] == FALSE) {
+						$data['ordercode'] = $this->input->post('or_id');
+					}
+					echo $this->load->view($this->parent_page.'/holoxordys/getAjax/getAjaxHoloForm', $data , TRUE);
                 }
             }
         }
@@ -106,6 +134,14 @@
             }else{
                 return false;
             }
+		}
+
+		public function redTo($url = NULL)
+		{
+			if ($url == NULL) {
+				$url = site_url('holoxordys/page/b1');
+			}
+			redirect($url , 'refresh');
 		}
 	}
 

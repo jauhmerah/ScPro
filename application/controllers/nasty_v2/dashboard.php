@@ -3035,18 +3035,11 @@ epul@nastyjuice.com
             echo $this->load->view($this->parent_page."/ajax/getAjaxInvItem", $temp , true);
         }
 
-        public function getAjaxDelItem()
+		public function getAjaxDelItem()
         {
             $oi_id = $this->input->post('oi_id');
             $this->load->database();
             $this->load->model('m_order_item');
-            $this->load->model('m_stock_inventory' , 'msi');
-            $item = $this->m_order_item->get($oi_id);
-            $inv = $this->msi->get(array('ty2_id' => $item->ty2_id , 'ni_id' => $item->ni_id));
-            $update = array(
-                'sti_total' => ($inv->sti_total + $item->oi_qty + $item->oi_tester)
-            );
-            $this->msi->update($update , $inv->sti_id);
             $row = $this->m_order_item->delete($oi_id);
             echo $row;
         }
