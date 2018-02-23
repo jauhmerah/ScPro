@@ -61,6 +61,10 @@
 				case 'b21':
 					$page = 'formin2';
 					$data['title'] = 'Insert Hologram Detail 2';
+					$this->load->model('m_category');
+                    $this->load->model('m_nico');
+                    $data['nico'] = $this->m_nico->get();
+                    $data['cat'] = $this->m_category->get(null , 'asc');
 					if ($this->input->post('key')) {
 						$temp = $this->input->post('key');
 						$temp = $this->my_func->scpro_decrypt($temp);
@@ -75,9 +79,69 @@
 							}
 						}else {
 							$this->session->set_flashdata('warning' , 'Opss wrong path!!!');
-							redTo();
+							$this->redTo();
 						}
+					}else {
+						$this->session->set_flashdata('warning' , 'Opss wrong path!!!');
+						$this->redTo();
 					}
+					break;
+				case 'b22':
+					$arr = $this->input->post();
+					echo "<pre>";
+					print_r($arr);
+					echo "</pre>";
+					return;
+					$temp['ho_orcode'] = $arr['ho_orcode'];
+					if (isset($arr['or_id'])) {
+						$temp['or_id'] = $arr['or_id'];
+					}
+					$this->load->model('holo/M_hologram', 'mh');
+					$ho_id = $this->mh->insert($temp);
+
+					if (isset($arr['or_id'])) {
+						$hoex = array(
+							'ho_id' => $ho_id,
+							'ho_name' => $arr['ho_name'],
+							'ho_country' => $arr['ho_country']
+						);
+
+					}
+					$size = sizeof($arr['box']);
+					$temp2 = array();
+					for ($i=0; $i < $size; $i++) {
+						if (strpos($arr['post'][$i] , 'NS') === FALSE || strpos($arr['pre'][$i] , 'NS') === FALSE) {
+							$this->session->set_flashdata('warning' , 'System Detect that some Hologram Number Dont Have NS code. Please insert again.');
+							$this->mh->delete($ho_id);
+							$this->redTo('holoxordys/page/b11');
+							return;
+						}
+						$pre = $arr['pre'][$i];
+						$post = $arr['post'][$i];
+						$itemid = $arr['itemId'][$i];
+						$nico = $arr['nico'][$i];
+						$pre = str_replace('NS' , '' , $pre);
+						$post = str_replace('NS' , '' , $post);
+						$temp2[] = array(
+							'ho_id' => $ho_id,
+							'ty2_id' => $itemid,
+							'ni_id' => $nico,
+							'tih_pre' => $pre,
+							'tih_post' => $post
+						);
+					}
+					$this->load->model('holo/M_type_item_holo', 'mih');
+					if (!$this->mih->insertBatch($temp2)) {
+						$this->session->set_flashdata('error' , 'Insert Data Error');
+						$this->mh->delete($ho_id);
+						$this->redTo('holoxordys/page/b11');
+						return;
+					}else{
+						$this->session->set_flashdata('success' , 'Adding Hologram Sequence Data Completed');
+						$this->redTo('holoxordys/page/b2');
+						return;
+					}
+					return;
 					break;
 				default:
     				$this->_show();
@@ -135,6 +199,20 @@
                 return false;
             }
 		}
+
+		public function getAjaxItemList()
+        {
+            $arr = $this->input->post();
+            $this->load->database();
+            $this->load->model('m_nico');
+            $this->load->model('m_type2');
+            $this->load->model('m_category');
+            $temp['cat'] = $this->m_category->get($arr['cat']);
+            $temp['nico'] = $this->m_nico->get($arr['nico']);
+            $temp['item'] = $this->m_type2->get($arr['type']);
+            $temp['num'] = $arr['num'];
+			echo $this->load->view("nasty_v2/dashboard/holoxordys/getAjax/getAjaxItem", $temp , true);
+        }
 
 		public function redTo($url = NULL)
 		{
